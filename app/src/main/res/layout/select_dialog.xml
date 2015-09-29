@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#efeff4">
+
+    <LinearLayout
+        android:id="@+id/asdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/okOrclose"
+        android:layout_marginBottom="5dp">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#0000"
+            android:dividerHeight="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/okOrclose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/select_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/select_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/ok"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>

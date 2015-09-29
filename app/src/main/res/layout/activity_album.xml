@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/album_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00838f"
+        android:titleTextAppearance="@color/white">
+
+        <Button
+            android:id="@+id/album_activity_toolbar_confirm_button"
+            style="@style/TitleBarText"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:text="OK" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <GridView
+        android:id="@+id/album_activity_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:verticalSpacing="8dp" />
+
+
+</LinearLayout>

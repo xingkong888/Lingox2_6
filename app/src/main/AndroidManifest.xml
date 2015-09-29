@@ -1,0 +1,388 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cn.lingox.android">
+
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:name=".app.LingoXApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/LingoXTheme">
+
+        <service android:name=".service.NotificationService" />
+
+        <activity
+            android:name="cn.lingox.android.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <!--<activity-->
+        <!--android:name="com.umeng.fb.ContactActivity"-->
+        <!--android:theme="@android:style/Theme.NoTitleBar" />-->
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="54718961fd98c56dcf000851" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${CHANNEL_NAME}" />
+
+
+        <activity
+            android:name="cn.lingox.android.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 分享页面-->
+        <!--<activity-->
+        <!--android:name="cn.lingox.android.activity.ShareActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/horizontal_slide"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+
+        <!-- 自动更新页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.AppUpdateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+        <activity
+            android:name=".activity.ContactsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 引导页面 -->
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".activity.GroupDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".helper.CreateIndentDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.ShowMoreIndentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+
+        <!-- 语伴通讯录 -->
+        <activity
+            android:name="cn.lingox.android.activity.ContactListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.lingox.android.activity.MainActivity" />
+        </activity>
+        <!-- 详细信息页 -->
+        <activity
+            android:name="cn.lingox.android.activity.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan">
+
+            <!--<meta-data-->
+            <!--android:name="android.support.PARENT_ACTIVITY"-->
+            <!--android:value="cn.lingox.android.activity.MainActivity" />-->
+        </activity>
+        <activity
+            android:name="cn.lingox.android.activity.select_area.SelectCountry"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="cn.lingox.android.activity.AddTravelActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 详细信息页 -->
+        <!-- 修改详细信息页 -->
+        <activity
+            android:name="cn.lingox.android.activity.EditInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 我的详细信息页 -->
+        <!-- 设置页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- Path Activity -->
+        <!-- PathView Activity -->
+        <activity
+            android:name=".activity.PathViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <!--<meta-data-->
+            <!--android:name="android.support.PARENT_ACTIVITY"-->
+            <!--android:value="cn.lingox.android.activity.MainActivity" />-->
+        </activity>
+
+        <activity
+            android:name=".activity.PathEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <activity
+            android:name=".helper.CancelDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+
+        <activity
+            android:name=".activity.ShowTravelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+
+        <!-- Add Picture Activity -->
+        <activity
+            android:name=".activity.imagechooser.AddPhotosActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.imagechooser.AlbumListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.imagechooser.AlbumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- Photo Activity -->
+        <activity
+            android:name="cn.lingox.android.activity.PhotoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- Photo Dialog -->
+        <activity
+            android:name=".activity.imagechooser.PhotoDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+        <!-- Photo Path Card Img -->
+        <activity
+            android:name=".activity.PathCardImgDialog"
+            android:screenOrientation="portrait" />
+        <!-- ViewPhoto Activity -->
+        <activity
+            android:name="cn.lingox.android.activity.PhotoViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 搜索页面 -->
+        <!-- 显示头像页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.UserAvatarDialog"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait" />
+        <!-- 注册 -->
+        <activity
+            android:name="cn.lingox.android.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 注册下一步 -->
+        <activity
+            android:name="cn.lingox.android.activity.RegisterActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden" />
+        <!-- Reference Activity -->
+        <activity
+            android:name="cn.lingox.android.activity.ReferenceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- User Following Activity -->
+        <activity
+            android:name="cn.lingox.android.activity.UserListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 聊天页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.ChatActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 地图 -->
+        <activity
+            android:name="cn.lingox.android.activity.BaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <!-- 转发消息用户列表页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.ForwardMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 自定义的contextmenu -->
+        <activity
+            android:name="cn.lingox.android.activity.ContextMenu"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+        <!-- 自定义的alertdialog -->
+        <activity
+            android:name=".activity.AlertDialog1"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+        <!-- 自定义的alertdialog -->
+        <activity
+            android:name="cn.lingox.android.activity.ReferenceDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle" />
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name="cn.lingox.android.activity.ShowBigImage"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <!-- 下载文件 -->
+        <activity
+            android:name="cn.lingox.android.activity.ShowNormalFileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <activity
+            android:name="cn.lingox.android.activity.VoiceCallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.lingox.android.activity.ShowVideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- choose video -->
+        <activity
+            android:name="cn.lingox.android.activity.ImageGridActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="cn.lingox.android.activity.RecorderVideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- upload error log -->
+        <activity
+            android:name="cn.lingox.android.activity.DiagnoseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- 开机自启动服务 -->
+        <receiver android:name="com.easemob.chat.StartServiceReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 设置环信应用的appkey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="manyingyu#lingox" />
+
+        <!--百度地图appkey-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="u7NGONV78Do5PtSoQPkpk976" />
+        <!-- 声明sdk所需的service -->
+        <service android:name="com.easemob.chat.EMChatService" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!--add for shareSdk-->
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--微信分享回调 -->
+        <activity
+            android:name="cn.lingox.android.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--Umeng update -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" />
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+
+</manifest>

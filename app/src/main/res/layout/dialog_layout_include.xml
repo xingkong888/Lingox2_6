@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="255dp"
+    android:layout_height="302dp"
+    android:background="#00838f">
+
+    <ImageView
+        android:id="@+id/img_title"
+        android:layout_width="135dp"
+        android:layout_height="28dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/window_logo_135dp28dp" />
+
+    <TextView
+        android:id="@+id/text_abc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Travel.Share.Experience."
+        android:textColor="#b7d3d7" />
+
+    <Button
+        android:id="@+id/dialog_register"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_abc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:text="@string/register"
+        android:textColor="#00838f"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text_abcd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="30dp"
+        android:text="Already have a LinogX account?"
+        android:textColor="#b7d3d7"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/dialog_login"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_abcd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_border"
+        android:text="@string/login"
+        android:textColor="#b7d3d7"
+        android:textSize="20sp" />
+</RelativeLayout>

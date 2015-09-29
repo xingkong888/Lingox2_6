@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+
+    productFlavors {
+        yingyongbao {
+            manifestPlaceholders = [CHANNEL_NAME: "yingyongbao"]
+        }
+        umeng {
+            manifestPlaceholders = [CHANNEL_NAME: "umeng"]
+        }
+        wandoujia {
+            manifestPlaceholders = [CHANNEL_NAME: "Wandoujia"]
+        }
+        meizu {
+            manifestPlaceholders = [CHANNEL_NAME: "meizu"]
+        }
+        anzhi {
+            manifestPlaceholders = [CHANNEL_NAME: "anzhi"]
+        }
+        xiaomi {
+            manifestPlaceholders = [CHANNEL_NAME: "xiaomi"]
+        }
+        google {
+            manifestPlaceholders = [CHANNEL_NAME: "google"]
+        }
+        fir {
+            manifestPlaceholders = [CHANNEL_NAME: "fir"]
+        }
+        qihu {
+            manifestPlaceholders = [CHANNEL_NAME: "qihu"]
+        }
+    }
+    // 你的其他配置代码
+    defaultConfig {
+        applicationId "cn.lingox.android"
+        minSdkVersion 12
+        targetSdkVersion 21
+        versionCode 37
+        versionName 'Beta Ver. 2.6'
+    }
+    buildTypes {
+        release {
+//            minifyEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        relealse {
+            storeFile file("E:/公司项目/key.jks")
+            storePassword "LingoXKeyStore"
+            keyAlias "lingox key"
+            keyPassword "LingoXKey"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
+//    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.edmodo:cropper:1.0.1'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile files('build/intermediates/exploded-aar/com.edmodo/cropper/1.0.1/classes.jar')
+    compile project(':libraries')
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/com.umeng.fb.5.3.0.jar')
+    compile files('libs/commons-io-2.2.jar')
+    compile files('libs/easemobchat_2.1.6.jar')
+    compile files('libs/httpclient-4.4-beta1.jar')
+    compile files('libs/httpclient-cache-4.4-beta1.jar')
+    compile files('libs/httpclient-win-4.4-beta1.jar')
+    compile files('libs/httpcore-4.4-beta1.jar')
+    compile files('libs/httpmime-4.4-beta1.jar')
+    compile files('libs/mframework.jar')
+    compile files('libs/ShareSDK-Core-2.5.8.jar')
+    compile files('libs/ShareSDK-Facebook-2.5.8.jar')
+    compile files('libs/ShareSDK-Instagram-2.5.8.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.5.8.jar')
+    compile files('libs/ShareSDK-Twitter-2.5.8.jar')
+    compile files('libs/ShareSDK-Wechat-2.5.8.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.5.8.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.5.8.jar')
+    compile files('libs/SMSSDK-1.1.0.jar')
+    compile files('libs/umeng-analytics-v5.5.3.jar')
+    compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile files('libs/volley.jar')
+    compile files('libs/ShareSDK-QQ-2.5.8.jar')
+    compile files('libs/ShareSDK-QZone-2.5.8.jar')
+}
+task copyNativeLibs(type: Copy) {
+    from(new File(getProjectDir(), 'src/main/native-libs')) { include '**/*.so' }
+    into new File(buildDir, 'native-libs')
+}
+tasks.withType(org.gradle.api.tasks.compile.JavaCompile) {
+    compileTask -> compileTask.dependsOn copyNativeLibs
+}
+
+clean.dependsOn 'cleanCopyNativeLibs'
+
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) {
+    pkgTask ->
+        pkgTask.jniFolders = new HashSet()
+        pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}

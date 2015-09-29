@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_page_6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0000">
+
+    <TextView
+        android:id="@+id/you_are"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:shadowColor="#4b000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+    <!--<Button-->
+    <!--android:id="@+id/city"-->
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:text="@string/end_time"-->
+    <!--android:background="@drawable/button_border_orange"-->
+    <!--android:textColor="#fff"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:layout_below="@+id/country"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:layout_centerHorizontal="true"-->
+
+    <!--/>-->
+    <!-- 后期使用地图-->
+</RelativeLayout>

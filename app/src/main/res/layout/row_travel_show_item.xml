@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notification_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#efeff4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/travel_toolbar"
+        android:background="@drawable/travel_add"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                android:id="@+id/location_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/travel_location_right_18dp" />
+
+            <TextView
+                android:id="@+id/show_travel_location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/location_img"
+                android:gravity="center_vertical"
+                android:hint="Location"
+                android:textColor="#00838f" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/personal_keyboard_right_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:background="#c7c7c7" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp">
+
+            <TextView
+                android:id="@+id/start_time"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Start Time"
+                android:textColor="#ababab" />
+
+            <TextView
+                android:id="@+id/show_start_time_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_toRightOf="@+id/start_time"
+                android:gravity="center_vertical"
+                android:hint="Start Time"
+                android:textColor="#00838f" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/personal_keyboard_right_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:background="#c7c7c7" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp">
+
+            <TextView
+                android:id="@+id/end_time"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="End Time"
+                android:textColor="#ababab" />
+
+            <TextView
+                android:id="@+id/show_end_time_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_toRightOf="@+id/end_time"
+                android:gravity="center_vertical"
+                android:hint="End Time"
+                android:textColor="#00838f" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/personal_keyboard_right_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:background="#c7c7c7" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/travel_editanddel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/show_travel_delete"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:src="@drawable/comments_delete_9dp" />
+
+            <ImageView
+                android:id="@+id/show_travel_edit"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/show_travel_delete"
+                android:padding="10dp"
+                android:src="@drawable/personal_edit_18dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/bac_left_drawer2">
+
+        <cn.lingox.android.utils.CircularImageView
+            android:id="@+id/avatar_info"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/nearby_nopic_137dp" />
+
+        <ImageView
+            android:id="@+id/iv_flag"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignBottom="@+id/avatar_info"
+            android:layout_alignRight="@+id/avatar_info" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="24dp"
+            android:text="@string/nickname"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/complete_profile_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:layout_toRightOf="@id/avatar_info"
+            android:drawableLeft="@drawable/ic_arrow_back_black_36dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Click here to complete your profile!"
+            android:textColor="@color/left_drawer_text_color"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_contact_list"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/left_drawer_click_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_people_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="@string/friends"
+            android:textColor="@color/left_drawer_text_color"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- <LinearLayout
+         android:id="@+id/layout_collection"
+         android:layout_width="fill_parent"
+         android:layout_height="64dp"
+         android:background="@drawable/left_drawer_click_selector"
+         android:gravity="center_vertical"
+         android:orientation="horizontal" >
+
+         <ImageView
+             android:layout_width="24dp"
+             android:layout_height="24dp"
+             android:layout_marginLeft="24dp"
+             android:src="@drawable/ic_bookmark_black_24dp" />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="24dp"
+             android:text="Favorites"
+             android:textColor="@color/left_drawer_text_color"
+             android:textSize="16sp" />
+     </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/layout_set"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/left_drawer_click_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_settings_applications_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="@string/setting"
+            android:textColor="@color/left_drawer_text_color"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_feedback"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/left_drawer_click_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_question_answer_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="@string/feedback"
+            android:textColor="@color/left_drawer_text_color"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_info"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/left_drawer_click_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_info_outline_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="@string/about_us"
+            android:textColor="@color/left_drawer_text_color"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

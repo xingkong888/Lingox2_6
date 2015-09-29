@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/photo_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/photo_bt_back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_arrow_back_white_48dp" />
+
+        <Button
+            android:id="@+id/photo_bt_edit"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_create_white_24dp" />
+
+        <Button
+            android:id="@+id/photo_bt_delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/photo_bt_edit"
+            android:background="@drawable/top_delete_18dp" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/photo_relativeLayout" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/photoScroll"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/photo_tag_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/photo_tag"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="China,Beijing"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/photo_tag_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/photo_tag"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="China,Beijing"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/photo_tag_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/photo_tag"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="China,Beijing"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/photo_loction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/photo_tag"
+            android:drawableLeft="@drawable/discover_location_white_18dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <!--android:visibility="gone"-->
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/photoScroll"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="#59000000">
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+    </ScrollView>
+</RelativeLayout>

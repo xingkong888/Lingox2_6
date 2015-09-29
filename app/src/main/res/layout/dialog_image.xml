@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0000"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#00838f"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/take_photo"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#00838f"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/choose_photo"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/photo_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#00838f"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Use our photo"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/photo_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#00838f"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Cancel"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

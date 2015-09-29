@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/add_photos_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00838f"
+        android:titleTextAppearance="@color/white">
+
+        <Button
+            android:id="@+id/add_photo_cancel"
+            style="@style/TitleBarText"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="#0000"
+            android:paddingRight="15dp"
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:layout_below="@+id/add_photos_activity_toolbar"
+        android:layout_marginTop="10dp"
+        android:background="#fafafa"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/add_photo"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="10dp"
+                android:background="#efeff4"
+                android:scaleType="centerInside"
+                android:src="@drawable/share_pic1_62dp" />
+
+            <EditText
+                android:id="@+id/photo_describe"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/add_photo"
+                android:background="@null"
+                android:hint="Describe this experience..."
+                android:textColor="#000"
+                android:textColorHint="#ababab" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+    </LinearLayout>
+    <!-- 分隔线-->
+    <LinearLayout
+        android:id="@+id/photo_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fafafa"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+
+            <TextView
+                android:id="@+id/photo_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:hint="Location"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="#00838f" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/personal_keyboard_right_24dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/photo_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fafafa"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/photo_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/asdf321"
+            android:gravity="center_horizontal"
+            android:minHeight="55dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/photo_no_tag"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="Please choose the type(s) of the experience"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/asdf321"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/personal_keyboard_right_24dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="#fafafa"-->
+    <!--android:orientation="vertical">-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#c7c7c7" />-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingLeft="20dp"-->
+    <!--android:paddingRight="20dp"-->
+    <!--android:textColor="#00838f"-->
+    <!--android:text="adsddd地地道无呜呜地地道道的f" />-->
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+
+    <!--android:layout_centerVertical="true"-->
+    <!--android:src="@drawable/personal_keyboard_right_24dp"-->
+    <!--/>-->
+
+    <!--</RelativeLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#c7c7c7" />-->
+    <!--</LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/photo_post"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="#00838f"
+            android:text="Post"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/shade" />
+    </LinearLayout>
+</LinearLayout>

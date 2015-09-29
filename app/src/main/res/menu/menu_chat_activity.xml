@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/container_remove"
+        android:icon="@drawable/mm_title_remove"
+        android:title="Remove"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/container_to_group"
+        android:icon="@drawable/to_group_details_normal"
+        android:title="Group info"
+        app:showAsAction="always" />
+</menu>

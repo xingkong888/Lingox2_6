@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE">
+
+    <include
+        android:id="@+id/layout_title_bar"
+        layout="@layout/title_bar" />
+
+    <RelativeLayout
+        android:id="@+id/register_2_bottom_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:contentDescription="separator"
+            android:src="@drawable/line1" />
+
+        <TextView
+            android:id="@+id/continue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/ic_chevron_right_grey600_18dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/cont"
+            android:textAllCaps="true"
+            android:textColor="@color/main_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/register_2_bottom_bar"
+        android:layout_below="@id/layout_title_bar">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/register_2_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:text="@string/register_2_tell_us_more"
+                android:textColor="@color/main_color"
+                android:textSize="20sp"
+                android:typeface="serif" />
+
+            <EditText
+                android:id="@+id/register_2_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_2_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:hint="@string/register_2_nickname"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/register_2_avatar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_2_nickname"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/register_2_avatar"
+                android:textSize="22sp" />
+
+            <cn.lingox.android.utils.CircularImageView
+                android:id="@+id/register_2_avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_below="@id/register_2_avatar_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:contentDescription="User Avatar"
+                android:src="@drawable/avatar" />
+
+            <Button
+                android:id="@+id/location_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/register_2_avatar"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="40dp"
+                android:background="@null"
+                android:drawableLeft="@drawable/ic_location_on_black_18dp"
+                android:text="@string/registration_2_choose_a_location"
+                android:textAllCaps="false" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

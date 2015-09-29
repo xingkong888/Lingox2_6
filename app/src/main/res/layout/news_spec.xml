@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal">
+
+    <cn.lingox.android.utils.CircularImageView
+        android:id="@+id/chat_user_avatar"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/app_icon" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/chat_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="18.5sp" />
+
+        <TextView
+            android:id="@+id/chat_message_num"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/chat_user_name"
+            android:background="@drawable/message_point_28dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/chat_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:text="15/6/15"
+            android:textColor="#ababab" />
+
+        <TextView
+            android:id="@+id/msg_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_user_name"
+            android:padding="2dp"
+            android:textColor="#cc8c0c"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/chat_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/msg_state"
+            android:layout_marginTop="3dp"
+            android:layout_toLeftOf="@id/chat_date"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#cc8c0c" />
+    </RelativeLayout>
+
+</LinearLayout>

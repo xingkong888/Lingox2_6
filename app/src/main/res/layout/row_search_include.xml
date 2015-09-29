@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nearby_view"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="#efeff4">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/asdfasdfasdf"
+        card_view:cardBackgroundColor="#99cccccc"
+        card_view:cardElevation="5dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/nearby_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/nearby_nopic_294dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/nearby_colorgradient_360dp95dp"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:id="@+id/abcdefg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/nearby_countryImg"
+                            android:layout_width="30dp"
+                            android:layout_height="22dp"
+                            android:layout_alignParentTop="true" />
+
+                        <TextView
+                            android:id="@+id/nearby_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="12dp"
+                            android:shadowColor="#4b000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="1"
+                            android:text="Diana"
+                            android:textColor="#fff"
+                            android:textSize="23sp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/nearby_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:shadowColor="#4b000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
+                        android:text="@string/from"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/nearby_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="2.5dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="2.5dp"
+                        android:background="#fff"
+                        android:shadowColor="#4b000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1" />
+
+                    <LinearLayout
+                        android:id="@+id/nearby_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="center_vertical"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/nearby_comment_"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="#4b000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="1"
+                            android:text="@string/nearby_comment"
+                            android:textColor="#fff"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/nearby_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:shadowColor="#4b000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="1"
+                            android:text="000"
+                            android:textColor="#00838f"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/nearby_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:src="@drawable/nearby_point_8dp" />
+
+                        <TextView
+                            android:id="@+id/nearby_speak_"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="#4b000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="1"
+                            android:text="@string/nearby_sheak"
+                            android:textColor="#fff"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/nearby_speak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:shadowColor="#4b000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="1"
+                            android:textColor="#00838f"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mnbvcxz"
+                    android:layout_width="95dp"
+                    android:layout_height="90dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/nearby_tag2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/nearby_label"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/local"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/nearby_tag1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/nearby_label"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/meal"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/nearby_tag3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/nearby_label"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/stay"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/asdfasdfasdf"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="#efeff4" />
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/et_description"
+        android:scaleType="fitCenter" />
+
+    <EditText
+        android:id="@+id/et_description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/photo_relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/enter_description"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="22sp" />
+
+    <RelativeLayout
+        android:id="@+id/photo_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/photo_bt_exit"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_arrow_back_white_48dp" />
+
+        <Button
+            android:id="@+id/photo_bt_del"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bt_shanchu" />
+
+        <Button
+            android:id="@+id/photo_bt_enter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bt_queding" />
+    </RelativeLayout>
+</RelativeLayout>

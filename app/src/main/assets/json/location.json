@@ -1,0 +1,1535 @@
+{
+  "IM": {
+    "name": "Isle of Man",
+    "provinces": {}
+  },
+  "HR": {
+    "name": "Croatia",
+    "provinces": {}
+  },
+  "GW": {
+    "name": "Guinea-Bissau",
+    "provinces": {}
+  },
+  "IN": {
+    "name": "India",
+    "provinces": {}
+  },
+  "KE": {
+    "name": "Kenya",
+    "provinces": {}
+  },
+  "LA": {
+    "name": "Laos",
+    "provinces": {}
+  },
+  "IO": {
+    "name": "British Indian Ocean Territory",
+    "provinces": {}
+  },
+  "HT": {
+    "name": "Haiti",
+    "provinces": {}
+  },
+  "LB": {
+    "name": "Lebanon",
+    "provinces": {}
+  },
+  "GY": {
+    "name": "Guyana",
+    "provinces": {}
+  },
+  "KG": {
+    "name": "Kyrgyzstan",
+    "provinces": {}
+  },
+  "HU": {
+    "name": "Hungary",
+    "provinces": {}
+  },
+  "LC": {
+    "name": "Saint Lucia",
+    "provinces": {}
+  },
+  "IQ": {
+    "name": "Iraq",
+    "provinces": {}
+  },
+  "KH": {
+    "name": "Cambodia",
+    "provinces": {}
+  },
+  "JM": {
+    "name": "Jamaica",
+    "provinces": {}
+  },
+  "IR": {
+    "name": "Iran",
+    "provinces": {}
+  },
+  "KI": {
+    "name": "Kiribati",
+    "provinces": {}
+  },
+  "IS": {
+    "name": "Iceland",
+    "provinces": {}
+  },
+  "MA": {
+    "name": "Morocco",
+    "provinces": {}
+  },
+  "JO": {
+    "name": "Jordan",
+    "provinces": {}
+  },
+  "IT": {
+    "name": "Italy",
+    "provinces": {}
+  },
+  "JP": {
+    "name": "Japan",
+    "provinces": {}
+  },
+  "MC": {
+    "name": "Monaco",
+    "provinces": {}
+  },
+  "KM": {
+    "name": "Comoros",
+    "provinces": {}
+  },
+  "MD": {
+    "name": "Moldova",
+    "provinces": {}
+  },
+  "LI": {
+    "name": "Liechtenstein",
+    "provinces": {}
+  },
+  "KN": {
+    "name": "Saint Kitts & Nevis",
+    "provinces": {}
+  },
+  "ME": {
+    "name": "Montenegro",
+    "provinces": {}
+  },
+  "NA": {
+    "name": "Namibia",
+    "provinces": {}
+  },
+  "MF": {
+    "name": "Saint Martin (French)",
+    "provinces": {}
+  },
+  "LK": {
+    "name": "Sri Lanka",
+    "provinces": {}
+  },
+  "KP": {
+    "name": "North Korea",
+    "provinces": {}
+  },
+  "MG": {
+    "name": "Madagascar",
+    "provinces": {}
+  },
+  "NC": {
+    "name": "New Caledonia",
+    "provinces": {}
+  },
+  "MH": {
+    "name": "Marshall Islands",
+    "provinces": {}
+  },
+  "KR": {
+    "name": "South Korea",
+    "provinces": {}
+  },
+  "NE": {
+    "name": "Niger",
+    "provinces": {}
+  },
+  "NF": {
+    "name": "Norfolk Island",
+    "provinces": {}
+  },
+  "MK": {
+    "name": "Macedonia",
+    "provinces": {}
+  },
+  "NG": {
+    "name": "Nigeria",
+    "provinces": {}
+  },
+  "ML": {
+    "name": "Mali",
+    "provinces": {}
+  },
+  "MM": {
+    "name": "Myanmar (Burma)",
+    "provinces": {}
+  },
+  "LR": {
+    "name": "Liberia",
+    "provinces": {}
+  },
+  "NI": {
+    "name": "Nicaragua",
+    "provinces": {}
+  },
+  "KW": {
+    "name": "Kuwait",
+    "provinces": {}
+  },
+  "MN": {
+    "name": "Mongolia",
+    "provinces": {}
+  },
+  "LS": {
+    "name": "Lesotho",
+    "provinces": {}
+  },
+  "PA": {
+    "name": "Panama",
+    "provinces": {}
+  },
+  "MO": {
+    "name": "Macau",
+    "provinces": {}
+  },
+  "LT": {
+    "name": "Lithuania",
+    "provinces": {}
+  },
+  "KY": {
+    "name": "Cayman Islands",
+    "provinces": {}
+  },
+  "MP": {
+    "name": "Northern Mariana Islands",
+    "provinces": {}
+  },
+  "LU": {
+    "name": "Luxembourg",
+    "provinces": {}
+  },
+  "NL": {
+    "name": "Netherlands",
+    "provinces": {}
+  },
+  "KZ": {
+    "name": "Kazakhstan",
+    "provinces": {}
+  },
+  "MQ": {
+    "name": "Martinique",
+    "provinces": {}
+  },
+  "LV": {
+    "name": "Latvia",
+    "provinces": {}
+  },
+  "MR": {
+    "name": "Mauritania",
+    "provinces": {}
+  },
+  "PE": {
+    "name": "Peru",
+    "provinces": {}
+  },
+  "MS": {
+    "name": "Montserrat",
+    "provinces": {}
+  },
+  "QA": {
+    "name": "Qatar",
+    "provinces": {}
+  },
+  "NO": {
+    "name": "Norway",
+    "provinces": {}
+  },
+  "PF": {
+    "name": "Tahiti (French Polinesia)",
+    "provinces": {}
+  },
+  "MT": {
+    "name": "Malta",
+    "provinces": {}
+  },
+  "LY": {
+    "name": "Libya",
+    "provinces": {}
+  },
+  "NP": {
+    "name": "Nepal",
+    "provinces": {}
+  },
+  "PG": {
+    "name": "Papua New Guinea",
+    "provinces": {}
+  },
+  "MU": {
+    "name": "Mauritius",
+    "provinces": {}
+  },
+  "PH": {
+    "name": "Philippines",
+    "provinces": {}
+  },
+  "MV": {
+    "name": "Maldives",
+    "provinces": {}
+  },
+  "OM": {
+    "name": "Oman",
+    "provinces": {}
+  },
+  "NR": {
+    "name": "Nauru",
+    "provinces": {}
+  },
+  "MW": {
+    "name": "Malawi",
+    "provinces": {}
+  },
+  "MX": {
+    "name": "Mexico",
+    "provinces": {}
+  },
+  "PK": {
+    "name": "Pakistan",
+    "provinces": {}
+  },
+  "MY": {
+    "name": "Malaysia",
+    "provinces": {}
+  },
+  "NU": {
+    "name": "Niue",
+    "provinces": {}
+  },
+  "PL": {
+    "name": "Poland",
+    "provinces": {}
+  },
+  "MZ": {
+    "name": "Mozambique",
+    "provinces": {}
+  },
+  "PM": {
+    "name": "Saint Pierre and Miquelon",
+    "provinces": {}
+  },
+  "PN": {
+    "name": "Pitcairn",
+    "provinces": {}
+  },
+  "RE": {
+    "name": "Reunion",
+    "provinces": {}
+  },
+  "SA": {
+    "name": "Saudi Arabia",
+    "provinces": {}
+  },
+  "SB": {
+    "name": "Solomon Islands",
+    "provinces": {}
+  },
+  "NZ": {
+    "name": "New Zealand",
+    "provinces": {}
+  },
+  "SC": {
+    "name": "Seychelles",
+    "provinces": {}
+  },
+  "SD": {
+    "name": "Sudan",
+    "provinces": {}
+  },
+  "PR": {
+    "name": "Puerto Rico",
+    "provinces": {}
+  },
+  "SE": {
+    "name": "Sweden",
+    "provinces": {}
+  },
+  "PS": {
+    "name": "Palestinian Territory, Occupied",
+    "provinces": {}
+  },
+  "PT": {
+    "name": "Portugal",
+    "provinces": {}
+  },
+  "SG": {
+    "name": "Singapore",
+    "provinces": {}
+  },
+  "TC": {
+    "name": "Turks and Caicos Islands",
+    "provinces": {}
+  },
+  "SH": {
+    "name": "Saint Helena",
+    "provinces": {}
+  },
+  "TD": {
+    "name": "Chad",
+    "provinces": {}
+  },
+  "SI": {
+    "name": "Slovenia",
+    "provinces": {}
+  },
+  "PW": {
+    "name": "Palau",
+    "provinces": {}
+  },
+  "SJ": {
+    "name": "Svalbard and Jan Mayen Islands",
+    "provinces": {}
+  },
+  "UA": {
+    "name": "Ukraine",
+    "provinces": {}
+  },
+  "RO": {
+    "name": "Romania",
+    "provinces": {}
+  },
+  "TF": {
+    "name": "French Southern Territories",
+    "provinces": {}
+  },
+  "SK": {
+    "name": "Slovak Republic",
+    "provinces": {}
+  },
+  "PY": {
+    "name": "Paraguay",
+    "provinces": {}
+  },
+  "TG": {
+    "name": "Togo",
+    "provinces": {}
+  },
+  "SL": {
+    "name": "Sierra Leone",
+    "provinces": {}
+  },
+  "TH": {
+    "name": "Thailand",
+    "provinces": {}
+  },
+  "SM": {
+    "name": "San Marino",
+    "provinces": {}
+  },
+  "SN": {
+    "name": "Senegal",
+    "provinces": {}
+  },
+  "RS": {
+    "name": "Serbia (Yugoslavia)",
+    "provinces": {}
+  },
+  "TJ": {
+    "name": "Tajikistan",
+    "provinces": {}
+  },
+  "VA": {
+    "name": "Vatican City",
+    "provinces": {}
+  },
+  "SO": {
+    "name": "Somalia",
+    "provinces": {}
+  },
+  "TK": {
+    "name": "Tokelau",
+    "provinces": {}
+  },
+  "UG": {
+    "name": "Uganda",
+    "provinces": {}
+  },
+  "RU": {
+    "name": "Russian Federation",
+    "provinces": {}
+  },
+  "TL": {
+    "name": "East Timor",
+    "provinces": {}
+  },
+  "VC": {
+    "name": "Saint Vincent & the Grenadines",
+    "provinces": {}
+  },
+  "TM": {
+    "name": "Turkmenistan",
+    "provinces": {}
+  },
+  "SR": {
+    "name": "Suriname",
+    "provinces": {}
+  },
+  "RW": {
+    "name": "Rwanda",
+    "provinces": {}
+  },
+  "TN": {
+    "name": "Tunisia",
+    "provinces": {}
+  },
+  "VE": {
+    "name": "Venezuela",
+    "provinces": {}
+  },
+  "TO": {
+    "name": "Tonga",
+    "provinces": {}
+  },
+  "ST": {
+    "name": "Sao Tome & Principe",
+    "provinces": {}
+  },
+  "VG": {
+    "name": "British Virgin Islands",
+    "provinces": {}
+  },
+  "SV": {
+    "name": "El Salvador",
+    "provinces": {}
+  },
+  "UM": {
+    "name": "United States Minor Outlying Islands",
+    "provinces": {}
+  },
+  "TR": {
+    "name": "Turkey",
+    "provinces": {}
+  },
+  "VI": {
+    "name": "Virgin Islands (US)",
+    "provinces": {}
+  },
+  "WF": {
+    "name": "Wallis and Futuna",
+    "provinces": {}
+  },
+  "TT": {
+    "name": "Trinidad & Tobago",
+    "provinces": {}
+  },
+  "SY": {
+    "name": "Syria",
+    "provinces": {}
+  },
+  "SZ": {
+    "name": "Swaziland",
+    "provinces": {}
+  },
+  "TV": {
+    "name": "Tuvalu",
+    "provinces": {}
+  },
+  "TW": {
+    "name": "Taiwan",
+    "provinces": {}
+  },
+  "VN": {
+    "name": "Viet Nam",
+    "provinces": {}
+  },
+  "US": {
+    "name": "United States",
+    "provinces": {
+      "Alabama": [],
+      "Alaska": [],
+      "Arizona": [],
+      "Arkansas": [],
+      "California": [],
+      "Colorado": [],
+      "Connecticut": [],
+      "Delaware": [],
+      "Florida": [],
+      "Georgia": [],
+      "Hawaii": [],
+      "Idaho": [],
+      "Illinois": [],
+      "Indiana": [],
+      "Iowa": [],
+      "Kansas": [],
+      "Kentucky": [],
+      "Louisiana": [],
+      "Maine": [],
+      "Maryland": [],
+      "Massachusetts": [],
+      "Michigan": [],
+      "Minnesota": [],
+      "Mississippi": [],
+      "Missour": [],
+      "Montana": [],
+      "Nebraska": [],
+      "Nevada": [],
+      "New hampshire": [],
+      "New jersey": [],
+      "New mexico": [],
+      "New york": [],
+      "North carolina": [],
+      "North dakota": [],
+      "Ohio": [],
+      "Oklahoma": [],
+      "Oregon": [],
+      "Pennsylvania": [],
+      "Rhode island": [],
+      "South carolina": [],
+      "South dakota": [],
+      "Tennessee": [],
+      "Texas": [],
+      "Utah": [],
+      "Vermont": [],
+      "Virginia": [],
+      "Washington": [],
+      "West virginia": [],
+      "Wisconsin": [],
+      "Wyoming": []
+    }
+  },
+  "TZ": {
+    "name": "Tanzania",
+    "provinces": {}
+  },
+  "YE": {
+    "name": "Yemen",
+    "provinces": {}
+  },
+  "ZA": {
+    "name": "South Africa",
+    "provinces": {}
+  },
+  "XK": {
+    "name": "Kosovo",
+    "provinces": {}
+  },
+  "UY": {
+    "name": "Uruguay",
+    "provinces": {}
+  },
+  "VU": {
+    "name": "Vanuatu",
+    "provinces": {}
+  },
+  "UZ": {
+    "name": "Uzbekistan",
+    "provinces": {}
+  },
+  "WS": {
+    "name": "Samoa",
+    "provinces": {}
+  },
+  "ZM": {
+    "name": "Zambia",
+    "provinces": {}
+  },
+  "AC": {
+    "name": "Ascension Island",
+    "provinces": {}
+  },
+  "AD": {
+    "name": "Andorra",
+    "provinces": {}
+  },
+  "YT": {
+    "name": "Mayotte",
+    "provinces": {}
+  },
+  "AE": {
+    "name": "United Arab Emirates",
+    "provinces": {}
+  },
+  "YU": {
+    "name": "Serbia and Montenegro",
+    "provinces": {}
+  },
+  "BA": {
+    "name": "Bosnia & Herzegovina",
+    "provinces": {}
+  },
+  "AF": {
+    "name": "Afghanistan",
+    "provinces": {}
+  },
+  "BB": {
+    "name": "Barbados",
+    "provinces": {}
+  },
+  "AG": {
+    "name": "Antigua & Barbuda",
+    "provinces": {}
+  },
+  "BD": {
+    "name": "Bangladesh",
+    "provinces": {}
+  },
+  "AI": {
+    "name": "Anguilla",
+    "provinces": {}
+  },
+  "BE": {
+    "name": "Belgium",
+    "provinces": {}
+  },
+  "CA": {
+    "name": "Canada",
+    "provinces": {}
+  },
+  "BF": {
+    "name": "Burkina Faso",
+    "provinces": {}
+  },
+  "BG": {
+    "name": "Bulgaria",
+    "provinces": {}
+  },
+  "ZW": {
+    "name": "Zimbabwe",
+    "provinces": {}
+  },
+  "AL": {
+    "name": "Albania",
+    "provinces": {}
+  },
+  "CC": {
+    "name": "Cocos (Keeling) Islands",
+    "provinces": {}
+  },
+  "BH": {
+    "name": "Bahrain",
+    "provinces": {}
+  },
+  "AM": {
+    "name": "Armenia",
+    "provinces": {}
+  },
+  "CD": {
+    "name": "Congo, Democratic Republic",
+    "provinces": {}
+  },
+  "BI": {
+    "name": "Burundi",
+    "provinces": {}
+  },
+  "AN": {
+    "name": "Netherlands Antilles",
+    "provinces": {}
+  },
+  "BJ": {
+    "name": "Benin",
+    "provinces": {}
+  },
+  "AO": {
+    "name": "Angola",
+    "provinces": {}
+  },
+  "CF": {
+    "name": "Central African Republic",
+    "provinces": {}
+  },
+  "CG": {
+    "name": "Congo",
+    "provinces": {}
+  },
+  "AQ": {
+    "name": "Antarctica",
+    "provinces": {}
+  },
+  "CH": {
+    "name": "Switzerland",
+    "provinces": {}
+  },
+  "BM": {
+    "name": "Bermuda",
+    "provinces": {}
+  },
+  "AR": {
+    "name": "Argentina",
+    "provinces": {}
+  },
+  "CI": {
+    "name": "Cote D'Ivoire (Ivory Coast)",
+    "provinces": {}
+  },
+  "BN": {
+    "name": "Brunei Darussalam",
+    "provinces": {}
+  },
+  "DE": {
+    "name": "Germany",
+    "provinces": {}
+  },
+  "AS": {
+    "name": "American Samoa",
+    "provinces": {}
+  },
+  "BO": {
+    "name": "Bolivia",
+    "provinces": {}
+  },
+  "AT": {
+    "name": "Austria",
+    "provinces": {}
+  },
+  "CK": {
+    "name": "Cook Islands",
+    "provinces": {}
+  },
+  "AU": {
+    "name": "Australia",
+    "provinces": {}
+  },
+  "CL": {
+    "name": "Chile",
+    "provinces": {}
+  },
+  "EC": {
+    "name": "Ecuador",
+    "provinces": {}
+  },
+  "CM": {
+    "name": "Cameroon",
+    "provinces": {}
+  },
+  "BR": {
+    "name": "Brazil",
+    "provinces": {}
+  },
+  "AW": {
+    "name": "Aruba",
+    "provinces": {}
+  },
+  "CN": {
+    "name": "China",
+    "provinces": {
+      "Anhui": [
+        "Anqing",
+        "Bengbu",
+        "Bozhou",
+        "Chaohu",
+        "Chizhou",
+        "Chuzhou",
+        "Fuyang",
+        "Hefei",
+        "Huaibei",
+        "Huainan",
+        "Huangshan",
+        "Lu'an",
+        "Ma'anshan",
+        "Suzhou",
+        "Tongling",
+        "Wuhu",
+        "Xuancheng"
+      ],
+      "Beijing": [
+        "Changping",
+        "Chaoyang",
+        "Daxing",
+        "East",
+        "Fangshan",
+        "Fengtai",
+        "Haidian",
+        "Huairou",
+        "Mentougou",
+        "Miyun",
+        "Pinggu",
+        "Shijingshan",
+        "Shunyi",
+        "Tongzhou",
+        "West",
+        "Yanqing"
+      ],
+      "Fujian": [
+        "Fuzhou",
+        "Xiamen",
+        "Putian",
+        "Sanming",
+        "Quanzhou",
+        "Zhangzhou",
+        "Nanping",
+        "Longyan",
+        "Ningde"
+      ],
+      "Tianjin": [
+        "Peace",
+        "Hedong",
+        "Hexi",
+        "Nankai",
+        "Hebei",
+        "Red Bridge",
+        "Toray",
+        "West Green",
+        "Jinnan",
+        "Beichen",
+        "Wuqing",
+        "Baodi",
+        "Binhai New Area"
+      ],
+      "Hebei": [
+        "Shijiazhuang",
+        "Tangshan",
+        "Qinhuangdao",
+        "Handan",
+        "Xingtai",
+        "Baoding",
+        "Zhangjiakou",
+        "Chengde",
+        "Cangzhou",
+        "Langfang",
+        "Hengshui"
+      ],
+      "Shanxi": [
+        "Taiyuan",
+        "Datong",
+        "Yangquan",
+        "Changzhi",
+        "Jincheng",
+        "Shouzhou",
+        "Jinzhong",
+        "Yuncheng",
+        "Xinzhou",
+        "Linfen",
+        "Luliang"
+      ],
+      "Inner Mongolia": [
+        "Alxa",
+        "Baotou",
+        "Bayannur",
+        "Bu",
+        "Chifeng",
+        "Erdos",
+        "Gol",
+        "Hohhot",
+        "Hulunbeier",
+        "Tongliao",
+        "Wuhai",
+        "Xing"
+      ],
+      "Liaoning": [
+        "Shenyang",
+        "Dalian",
+        "Anshan",
+        "Fushun",
+        "Benxi",
+        "Dandong",
+        "Jinzhou",
+        "Yingkou",
+        "Fuxin",
+        "Liaoyang",
+        "Panjin",
+        "Tieling",
+        "Chaoyang",
+        "Huludao"
+      ],
+      "Jilin": [
+        "Changchun",
+        "Jilin",
+        "Siping",
+        "Liaoyuan",
+        "Tonghua",
+        "White Mountains",
+        "Matsubara",
+        "White City",
+        "Yanbian"
+      ],
+      "Heilongjiang": [
+        "Harbin",
+        "Qiqihar",
+        "Qitaihe",
+        "Jixi",
+        "Hegang",
+        "Shuangyashan",
+        "Suihua",
+        "Yichun",
+        "Daqing",
+        "Yichun",
+        "Jiamusi",
+        "Mudanjiang",
+        "Heihe",
+        "Mountains"
+      ],
+      "Shanghai": [
+        "Huangpu",
+        "Xuhui",
+        "Changning",
+        "Chongming",
+        "Putuo",
+        "Zhabei",
+        "Hongkou",
+        "Yangpu",
+        "Minhang",
+        "Baoshan",
+        "Jiading",
+        "Jing",
+        "Pudong New District",
+        "Jinshan",
+        "Luwan",
+        "Songjiang",
+        "Qingpu",
+        "Fengxian"
+      ],
+      "Jiangsu": [
+        "Nanjing",
+        "Nantong",
+        "Wuxi",
+        "Xuzhou",
+        "Changzhou",
+        "Suzhou",
+        "Nantong",
+        "Lianyungang",
+        "Huaian",
+        "Yancheng",
+        "Yangzhou",
+        "Zhenjiang",
+        "Taizhou",
+        "Suqian"
+      ],
+      "Zhejiang": [
+        "Hangzhou",
+        "Ningbo",
+        "Wenzhou",
+        "Jiaxing",
+        "Huzhou",
+        "Shaoxing",
+        "Jinhua",
+        "Quzhou",
+        "Zhoushan",
+        "Taizhou",
+        "Lishui"
+      ],
+      "Jiangxi": [
+        "Nanchang",
+        "Jingdezhen",
+        "Pingxiang",
+        "Jiujiang",
+        "Xinyu",
+        "Yingtan",
+        "Ganzhou",
+        "Ji'an",
+        "Yichun",
+        "Fuzhou",
+        "Shangrao"
+      ],
+      "Shandong": [
+        "Jinan",
+        "Qingdao",
+        "Zibo",
+        "Zaozhuang",
+        "Dongying",
+        "Dezhou",
+        "Yantai",
+        "Weifang",
+        "Jining",
+        "Jinan",
+        "Taian",
+        "Weihai",
+        "Rizhao",
+        "Laiwu",
+        "Linyi",
+        "Liaocheng",
+        "Binzhou",
+        "Heze"
+      ],
+      "Henan": [
+        "Zhengzhou",
+        "Kaifeng",
+        "Luoyang",
+        "Pingdingshan",
+        "Anyang",
+        "Hebi",
+        "Xinxiang",
+        "Jiaozuo",
+        "Puyang",
+        "Xuchang",
+        "Luohe",
+        "Jiyuan",
+        "Sanmenxia",
+        "Nanyang",
+        "Shangqiu",
+        "Xinyang",
+        "Zhoukou",
+        "Zhumadian"
+      ],
+      "Hubei": [
+        "Wuhan",
+        "Qianjiang",
+        "Shennongjia",
+        "Tianmen",
+        "Yangyang",
+        "Yellowstone",
+        "Shiyan",
+        "Yichang",
+        "Xiangyang",
+        "Ezhou",
+        "Jingmen",
+        "Xiaogan",
+        "Jingzhou",
+        "Huanggang",
+        "Xianning",
+        "Suizhou",
+        "Enshi"
+      ],
+      "Hunan": [
+        "Changsha",
+        "Huaihua",
+        "Zhuzhou",
+        "Xiangtan",
+        "Xiangxi",
+        "Hengyang",
+        "Shaoyang",
+        "Yueyang",
+        "Changde",
+        "Zhangjiajie",
+        "Yiyang",
+        "Chenzhou",
+        "Yongzhou",
+        "Loudi"
+      ],
+      "Guangdong": [
+        "Guangzhou",
+        "Shaoguan",
+        "Shenzhen",
+        "Zhuhai",
+        "Shantou",
+        "Foshan",
+        "Jiangmen",
+        "Zhanjiang",
+        "Maoming",
+        "Zhaoqing",
+        "Huizhou",
+        "Meizhou",
+        "Shanwei",
+        "Heyuan",
+        "Yangjiang",
+        "Qingyuan",
+        "Dongguan",
+        "Zhongshan",
+        "Chaozhou",
+        "Jieyang",
+        "Yunfu"
+      ],
+      "Guangxi": [
+        "Baise",
+        "Beihai",
+        "Chongzou",
+        "Chow",
+        "Fangchenggang",
+        "Guilin",
+        "Hechi",
+        "Hezhou",
+        "Liuzhou",
+        "Nanning",
+        "Wuzhou",
+        "Yulin",
+        "Laibin"
+      ],
+      "Hainan": [
+        "Baoting",
+        "Changjiang",
+        "Chengmai",
+        "Danzhou",
+        "East",
+        "Fingers",
+        "Haikou",
+        "Honour",
+        "Lingshui",
+        "Manning",
+        "Music East",
+        "Pro High",
+        "Qionghai",
+        "Qiongzhong",
+        "Sansha",
+        "Sanya",
+        "Tunchang",
+        "Wenchang",
+        "White Sands"
+      ],
+      "Chongqing": [
+        "Aikawa",
+        "Banan",
+        "Beibei",
+        "Bishan",
+        "Chengkou",
+        "Dadukou",
+        "Dazu",
+        "Dianjiang",
+        "Fengdu",
+        "Fengjie",
+        "Fuling",
+        "Jiangbei",
+        "Jiangjin",
+        "Jiulongpo",
+        "Kaixian",
+        "Liangping",
+        "Nanchuan",
+        "Pengshui",
+        "Pine Valley",
+        "Qianjiang",
+        "Qijiang",
+        "Rongchang",
+        "Shapingba",
+        "Shuangqiao",
+        "South Bank",
+        "Tongliang",
+        "Tongnan",
+        "Two Rivers",
+        "Wanzhou",
+        "Wulong",
+        "Wushan",
+        "Wuxi",
+        "Xiushan",
+        "Yongchuan",
+        "Youyang",
+        "Yubei",
+        "Yunyang",
+        "Zhongxian"
+      ],
+      "Sichuang": [
+        "Aba",
+        "Chengdu",
+        "Deyang",
+        "Dazhou",
+        "Zigong",
+        "Panzhihua",
+        "Luzhou",
+        "Mianyang",
+        "Guangyuan",
+        "Suining",
+        "Neijiang",
+        "Leshan",
+        "Nanchong",
+        "Meishan",
+        "Yibin",
+        "Ganzi",
+        "Liangshan"
+      ],
+      "Guizhou": [
+        "Guiyang",
+        "Liupanshui",
+        "Zunyi",
+        "Anshun",
+        "Bijie",
+        "Tongren",
+        "South Guizhou",
+        "Southeast",
+        "Southwest Guizhou"
+      ],
+      "Yunnan": [
+        "Kunming",
+        "Qujing",
+        "Yuxi",
+        "Baoshan",
+        "Zhaotong",
+        "Lijiang",
+        "Pu'er",
+        "Lincang",
+        "Chuxiong",
+        "Red",
+        "Wenshan",
+        "Xishuangbanna",
+        "Dali",
+        "Dehong",
+        "Nu",
+        "Diqing"
+      ],
+      "Tibet": [
+        "Ali",
+        "Lhasa",
+        "Nagqu",
+        "Nyingchi",
+        "Qamdo",
+        "Shannan",
+        "Shigatse"
+      ],
+      "Shaanxi": [
+        //陕西
+        "Xi'an",
+        "Changzhi",
+        "Tongchuan",
+        "Baoji",
+        "Xianyang",
+        "Weinan",
+        "Yanan",
+        "Hanzhong",
+        "Yulin",
+        "Ankang",
+        "Shangluo"
+      ],
+      "Gansu": [
+        "Lanzhou",
+        "Pingliang",
+        "Silver",
+        "Tianshui",
+        "Wuwei",
+        "Zhangye",
+        "Jiuquan",
+        "Jiayuguan",
+        "Jinchang",
+        "Qingyang",
+        "Dingxi",
+        "Longnan",
+        "Linxia",
+        "Gannan"
+      ],
+      "Qinghai": [
+        "Guoluo",
+        "Haidong",
+        "Hainan",
+        "Hercynian",
+        "Huangnan",
+        "Xining",
+        "Yushu"
+      ],
+      "Ningxia": [
+        "Guyuan",
+        "Shizuishan",
+        "Wuzhong",
+        "Yinchuan",
+        "Zhongwei"
+      ]
+    }
+  },
+  "EE": {
+    "name": "Estonia",
+    "provinces": {}
+  },
+  "BS": {
+    "name": "Bahamas",
+    "provinces": {}
+  },
+  "DJ": {
+    "name": "Djibouti",
+    "provinces": {}
+  },
+  "AX": {
+    "name": "Aland Islands",
+    "provinces": {}
+  },
+  "CO": {
+    "name": "Colombia",
+    "provinces": {}
+  },
+  "BT": {
+    "name": "Bhutan",
+    "provinces": {}
+  },
+  "DK": {
+    "name": "Denmark",
+    "provinces": {}
+  },
+  "EG": {
+    "name": "Egypt",
+    "provinces": {}
+  },
+  "AZ": {
+    "name": "Azerbaijan",
+    "provinces": {}
+  },
+  "EH": {
+    "name": "Western Sahara",
+    "provinces": {}
+  },
+  "BV": {
+    "name": "Bouvet Island",
+    "provinces": {}
+  },
+  "DM": {
+    "name": "Dominica",
+    "provinces": {}
+  },
+  "CR": {
+    "name": "Costa Rica",
+    "provinces": {}
+  },
+  "BW": {
+    "name": "Botswana",
+    "provinces": {}
+  },
+  "GA": {
+    "name": "Gabon",
+    "provinces": {}
+  },
+  "DO": {
+    "name": "Dominican Republic",
+    "provinces": {}
+  },
+  "BY": {
+    "name": "Belarus",
+    "provinces": {}
+  },
+  "GB": {
+    "name": "United Kingdom",
+    "provinces": {}
+  },
+  "CU": {
+    "name": "Cuba",
+    "provinces": {}
+  },
+  "BZ": {
+    "name": "Belize",
+    "provinces": {}
+  },
+  "CV": {
+    "name": "Cape Verde",
+    "provinces": {}
+  },
+  "GD": {
+    "name": "Grenada",
+    "provinces": {}
+  },
+  "FI": {
+    "name": "Finland",
+    "provinces": {}
+  },
+  "GE": {
+    "name": "Georgia",
+    "provinces": {}
+  },
+  "FJ": {
+    "name": "Fiji",
+    "provinces": {}
+  },
+  "CX": {
+    "name": "Christmas Island",
+    "provinces": {}
+  },
+  "GF": {
+    "name": "French Guiana",
+    "provinces": {}
+  },
+  "FK": {
+    "name": "Falkland Islands (Malvinas)",
+    "provinces": {}
+  },
+  "CY": {
+    "name": "Cyprus",
+    "provinces": {}
+  },
+  "GG": {
+    "name": "Guernsey",
+    "provinces": {}
+  },
+  "CZ": {
+    "name": "Czech Republic",
+    "provinces": {}
+  },
+  "GH": {
+    "name": "Ghana",
+    "provinces": {}
+  },
+  "FM": {
+    "name": "Micronesia",
+    "provinces": {}
+  },
+  "ER": {
+    "name": "Eritrea",
+    "provinces": {}
+  },
+  "GI": {
+    "name": "Gibraltar",
+    "provinces": {}
+  },
+  "ES": {
+    "name": "Spain",
+    "provinces": {}
+  },
+  "FO": {
+    "name": "Faroe Islands",
+    "provinces": {}
+  },
+  "ET": {
+    "name": "Ethiopia",
+    "provinces": {}
+  },
+  "GL": {
+    "name": "Greenland",
+    "provinces": {}
+  },
+  "DZ": {
+    "name": "Algeria",
+    "provinces": {}
+  },
+  "GM": {
+    "name": "Gambia",
+    "provinces": {}
+  },
+  "ID": {
+    "name": "Indonesia",
+    "provinces": {}
+  },
+  "FR": {
+    "name": "France",
+    "provinces": {}
+  },
+  "GN": {
+    "name": "Guinea",
+    "provinces": {}
+  },
+  "IE": {
+    "name": "Ireland",
+    "provinces": {}
+  },
+  "HK": {
+    "name": "Hong Kong",
+    "provinces": {}
+  },
+  "GP": {
+    "name": "Guadeloupe",
+    "provinces": {}
+  },
+  "GQ": {
+    "name": "Equatorial Guinea",
+    "provinces": {}
+  },
+  "HM": {
+    "name": "Heard and McDonald Islands",
+    "provinces": {}
+  },
+  "GR": {
+    "name": "Greece",
+    "provinces": {}
+  },
+  "HN": {
+    "name": "Honduras",
+    "provinces": {}
+  },
+  "JE": {
+    "name": "Jersey",
+    "provinces": {}
+  },
+  "GS": {
+    "name": "South Georgia and South Sandwich",
+    "provinces": {}
+  },
+  "FX": {
+    "name": "France, Metropolitan",
+    "provinces": {}
+  },
+  "GT": {
+    "name": "Guatemala",
+    "provinces": {}
+  },
+  "GU": {
+    "name": "Guam",
+    "provinces": {}
+  },
+  "IL": {
+    "name": "Israel",
+    "provinces": {}
+  }
+}

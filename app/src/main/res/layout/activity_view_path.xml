@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/view_path_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00838f"
+        android:titleTextAppearance="@color/white">
+
+        <ImageView
+            android:id="@+id/group_chat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:scaleType="center"
+            android:src="@drawable/active_groupchat_24dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/path_del_and_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:scaleType="center"
+                android:src="@drawable/top_delete_18dp" />
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="15dp"
+                android:scaleType="center"
+                android:src="@drawable/top_edit_18dp" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <cn.lingox.android.widget.MyScrollView
+        android:id="@+id/path_view_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/path_view_comment_bar"
+        android:layout_below="@+id/view_path_activity_toolbar">
+
+        <LinearLayout
+            android:id="@+id/path_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fafafa">
+
+                <ImageView
+                    android:id="@+id/path_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:src="@drawable/discover_default" />
+
+                <LinearLayout
+                    android:id="@+id/lalala"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/path_background"
+                    android:background="#efeff4"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <cn.lingox.android.utils.CircularImageView
+                        android:id="@+id/path_user_avatar"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginRight="14dp"
+                        android:src="@drawable/app_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/path_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:lines="2"
+                            android:paddingBottom="2dp"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/path_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/path_title"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="#868686"
+                            android:textSize="18sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/path_title"
+                            android:layout_marginLeft="12dp"
+                            android:layout_toRightOf="@+id/path_user_name"
+                            android:gravity="right">
+
+                            <TextView
+                                android:id="@+id/path_traveler"
+                                android:layout_width="80dp"
+                                android:layout_height="20dp"
+                                android:layout_marginBottom="4dp"
+                                android:background="@drawable/path_travel_bg"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="@string/path_traveler"
+                                android:textColor="#fff"
+                                android:textSize="15sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/path_local"
+                                android:layout_width="80dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/path_local_bg"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="@string/path_local"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/lalala"
+                    android:background="#c7c7c7" />
+            </RelativeLayout>
+
+            <include
+                layout="@layout/path_include"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:background="#fafafa"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:background="#00838f"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/path_accept_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:scaleType="center"
+                        android:src="@drawable/active_dislike_24dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_chat"
+                        style="@style/TitleBarText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        android:src="@drawable/chat_color_24dp" />
+
+                    <ImageView
+                        android:id="@+id/path_share_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:scaleType="center"
+                        android:src="@drawable/active_share_24dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#fafafa"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+
+                <RelativeLayout
+                    android:id="@+id/path_view_social_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/wula"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text="Like"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/path_particpants_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/wula"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#c7c7c7" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#efeff4"
+                    android:visibility="gone" />
+
+                <view
+                    android:id="@+id/path_view_joined_user_list"
+                    class="it.sephiroth.android.library.widget.HListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#fafafa"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/lawu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/path_comments"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/path_comments_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/lawu"
+                        android:focusable="false"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#c7c7c7" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/path_view_comments_list"
+                    style="@style/path_view_comments_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="#efeff4" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </cn.lingox.android.widget.MyScrollView>
+
+    <LinearLayout
+        android:id="@+id/path_view_comment_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#4cc7c7c7"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!--android:id="@+id/btn_set_mode_keyboard"-->
+
+            <Button
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/chatting_setmode_keyboard_btn"
+                android:onClick="setModeKeyboard" />
+
+            <RelativeLayout
+                android:id="@+id/edittext_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1">
+
+                <cn.lingox.android.widget.PasteEditText
+                    android:id="@+id/comment_text_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:maxLines="3"
+                    android:minHeight="30dp"
+                    android:textSize="18sp" />
+                <!--android:onClick="commentEditTextClicked"-->
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_normal"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/chatting_biaoqing_btn_normal"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_checked"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/chatting_biaoqing_btn_enable"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/comment_btn_selector"
+                android:maxLines="1"
+                android:text="@string/button_reply"
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="false" />
+
+    <RelativeLayout
+        android:id="@+id/path_view_yindao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8c000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/plmnbvcddddd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="65dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/hint_33dp_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/plmnbvcddddd"
+            android:background="@drawable/textview_rounded"
+            android:padding="5dp"
+            android:text="Great!\nYou can use the group chat now!"
+            android:textColor="#00838f"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

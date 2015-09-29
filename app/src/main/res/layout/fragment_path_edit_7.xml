@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_page_7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0000"
+
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/you_are"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="40dp"
+        android:shadowColor="#4b000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+
+        android:shadowRadius="1"
+        android:text="Group Size &amp; Budget"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/path_edit_group_size"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/you_are"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_border"
+        android:gravity="center"
+        android:hint="@string/group_size"
+        android:inputType="number"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textColorHint="@color/white"
+
+        />
+
+    <EditText
+        android:id="@+id/path_edit_budget"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/path_edit_group_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_border"
+        android:gravity="center"
+        android:hint="@string/budget"
+        android:inputType="number"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textColorHint="@color/white" />
+</RelativeLayout>

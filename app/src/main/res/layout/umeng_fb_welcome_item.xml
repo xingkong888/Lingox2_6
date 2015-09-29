@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="6dp"
+        android:layout_height="match_parent"
+        android:background="@color/umeng_fb_lightblue" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/umeng_fb_item_height">
+
+        <TextView
+            android:id="@+id/umeng_fb_welcome_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:background="#fafafa"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Have any questions, comments or concerns? You can message us directly here or contact our staff at support@lingox.cn and we'll get back to you promptly. You can also write us on Facebook - LingoX Travel, and chat with us via Wechat by adding lingox1. Thank you from the LingoX team."
+            android:textColor="#000"
+            android:textSize="16sp" />
+        <!--Dear LingoXer, if you have any questions, you can give us a message here, or contact our staff directly oh, WeChat: lingox1, QQ: 259613554-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/umeng_fb_item_line_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/umeng_fb_line" />
+
+    </RelativeLayout>
+
+</LinearLayout>

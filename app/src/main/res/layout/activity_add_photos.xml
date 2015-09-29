@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/add_photos_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:titleTextAppearance="@color/white">
+
+        <Button
+            android:id="@+id/add_photos_activity_toolbar_confirm_button"
+            style="@style/TitleBarText"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:background="#0000"
+            android:text="@string/ok" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/add_photos_activity_photo_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/add_photos_activity_toolbar"
+        android:divider="@null"
+        android:listSelector="#00000000"
+        android:scrollbarStyle="outsideOverlay"
+        android:transcriptMode="normal" />
+
+    <ImageView
+        android:id="@+id/add_photos_activity_add_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:src="@drawable/follow" />
+</RelativeLayout>

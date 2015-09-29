@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/indent_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Activities start time"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/indent_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indent_start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Activities end time"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/indent_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indent_end"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="The number of fill in to participate in"
+        android:numeric="integer"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/indent_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indent_num"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Send the message"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indent_describe"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/indent_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="Cancel"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/indent_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="Ok"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>

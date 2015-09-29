@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE">
+
+    <TextView
+        android:id="@+id/dialog_delete"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#fafafa"
+        android:gravity="center"
+        android:text="确定删除吗？"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_delete">
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fafafa"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/cacle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fafafa"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#efeff4"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/rl_error_item"
+            layout="@layout/chat_neterror_item"
+            android:visibility="gone" />
+
+        <!--<include-->
+        <!--android:id="@+id/notice_item"-->
+        <!--layout="@layout/no_cheat_notice_item"-->
+        <!--android:visibility="gone" />-->
+
+        <ListView
+            android:id="@+id/chat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#000"
+            android:divider="@drawable/line1"
+            android:dividerHeight="1dp"
+            android:transcriptMode="normal" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@anim/anim_chat"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

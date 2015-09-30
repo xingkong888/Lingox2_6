@@ -60,33 +60,33 @@
         android:layout_width="match_parent"
         android:layout_height="345dp"
         android:layout_below="@+id/xingqi">
-
+        <!--local or traveler-->
         <include
             layout="@layout/fragment_path_edit_0"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <!--选择地点-->
         <include
             layout="@layout/fragment_path_edit_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <!--标题-->
         <include
             layout="@layout/fragment_path_edit_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <!--标签-->
         <include
             layout="@layout/fragment_path_edit_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <!--选择图片-->
         <include
             layout="@layout/fragment_path_edit_4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
-
+        <!--选择时间-->
         <include
             layout="@layout/fragment_path_edit_5"
             android:layout_width="match_parent"
@@ -116,6 +116,4 @@
         android:text="@string/path_edit_next"
         android:textColor="@color/white"
         android:textSize="22sp" />
-    <!--</RelativeLayout>-->
-    <!--</ScrollView>-->
 </RelativeLayout>

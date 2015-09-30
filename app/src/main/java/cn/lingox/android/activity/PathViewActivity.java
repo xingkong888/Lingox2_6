@@ -140,13 +140,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private int[] endLocations = new int[2];
 
     private ArrayList<PathTags> datas;
-
     private String[] tags;
-
     private ViewGroup tagsView = null;
-
     private UIHelper uiHelper = UIHelper.getInstance();
     private HashMap<String, String> map = new HashMap<>();
+    private TextView availableTime;
 
     //TODO Change all of the AsyncTasks (ie. getPathInfo getUserInfo getCommentUserInfo etc etc) into a better solution (maybe 1 big asynctask that loads them all in one go)
 
@@ -215,6 +213,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         pathUserAvatar.setOnClickListener(this);
 
         pathUserNickname = (TextView) findViewById(R.id.path_user_name);
+        availableTime = (TextView) findViewById(R.id.available_time);
 
         pathActivity = (TextView) findViewById(R.id.path_activity);
         pathTitle = (TextView) findViewById(R.id.path_title);
@@ -304,22 +303,39 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case 1:
 //                Log.d("天气","本地人");
                 pathLocal.setVisibility(View.VISIBLE);
+//                pathTime.setVisibility(View.GONE);
+//                availableTime.setVisibility(View.VISIBLE);
+//                availableTime.setText(path.getAvailableTime());
                 break;
             case 2:
 //            Log.d("天气","旅行者");
                 pathTraveler.setVisibility(View.VISIBLE);
+//                pathTime.setVisibility(View.VISIBLE);
+//                if (path.getDateTime() != 0) {
+//                    uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(
+//                            path.getDateTime()));
+//                }
+//                if (path.getEndDateTime() != 0) {
+//                    uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
+//                            JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+//                }
                 break;
         }
+        if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
+            pathTime.setVisibility(View.VISIBLE);
+            if (path.getDateTime() != 0) {
+                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(
+                        path.getDateTime()));
+            }
+            if (path.getEndDateTime() != 0) {
+                uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
+                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+            }
+        } else if (!path.getAvailableTime().isEmpty()) {
+            availableTime.setText(path.getAvailableTime());
+        }
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
-        pathTime.setVisibility(View.VISIBLE);
-        if (path.getDateTime() != 0) {
-            uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(
-                    path.getDateTime()));
-        }
-        if (path.getEndDateTime() != 0) {
-            uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-                    JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
-        }
+
         uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
         uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost(), 0);
         if (TextUtils.isEmpty(path.getHxGroupId())) {

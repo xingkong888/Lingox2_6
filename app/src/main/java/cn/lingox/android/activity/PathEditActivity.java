@@ -151,7 +151,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         }
     };
     //第七页面
-    private EditText address;
+    private EditText address, availableTime;
     //第八页面
     private EditText groupSize, budget;
     private Path newPath;
@@ -160,7 +160,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_path_edit);
-//        setTheme(android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         initView();
         setData();
     }
@@ -214,7 +213,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         countryBtn = (Button) findViewById(R.id.path_edit_country);
         cityBtn = (Button) findViewById(R.id.path_edit_city);
         countryBtn.setOnClickListener(this);
-//        cityBtn.setOnClickListener(this);
         //三
         title = (EditText) findViewById(R.id.path_edit_title);
         description = (EditText) findViewById(R.id.path_edit_description);
@@ -284,8 +282,25 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         //六
         startTime = (Button) findViewById(R.id.path_edit_start_time);
         endTime = (Button) findViewById(R.id.path_edit_end_time);
+        availableTime = (EditText) findViewById(R.id.availavle_time);
         startTime.setOnClickListener(this);
         endTime.setOnClickListener(this);
+        availableTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                path.setAvailableTime(s.toString());
+            }
+        });
         //七
         address = (EditText) findViewById(R.id.path_edit_address);
         address.addTextChangedListener(new TextWatcher() {
@@ -363,7 +378,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 path.setType(CachePath.getInstance().getLocalOrTraveler());
                 layout.setVisibility(View.VISIBLE);
                 if (path.getType() == 1) {
-//                background.setBackgroundResource(R.drawable.active_background_01_320dp520dp);
                     local.setBackgroundResource(R.drawable.button_border_orange);
                     traveler.setBackgroundResource(R.drawable.button_border_blue);
                     text1.setText(getString(R.string.path_edit_0_local_1));
@@ -598,7 +612,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             twoTitle.setText("What local experience do you want to share with travelers?");
                             threeTitle.setText("Please choose the type(s) of your local experience");
                             fourTitle.setText("Is there a cover photo?");
-                            fiveTitle.setText("Your Available time for this");
+                            fiveTitle.setText("When are you usually available for this local experience? ");
                         } else {
                             oneTitle.setText("Where are you going?");
                             twoTitle.setText("What do you want to experience with locals?");
@@ -624,6 +638,18 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     if (path.getChosenCountry().isEmpty()) {
                         page--;
                     } else {
+                        if (path.getType() == 1) {
+                            availableTime.setVisibility(View.VISIBLE);
+                            startTime.setVisibility(View.GONE);
+                            endTime.setVisibility(View.GONE);
+                            path.setEndDateTime(0);
+                            path.setDateTime(0);
+                        } else {
+                            availableTime.setVisibility(View.GONE);
+                            startTime.setVisibility(View.VISIBLE);
+                            endTime.setVisibility(View.VISIBLE);
+                            path.setAvailableTime("");
+                        }
                         pageNum.setText("2/5");
                         background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
                         page5.setVisibility(View.VISIBLE);
@@ -634,11 +660,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         page0.setVisibility(View.INVISIBLE);
                         page6.setVisibility(View.INVISIBLE);
                         page7.setVisibility(View.INVISIBLE);
-//                        }
                     }
                     break;
                 case 3://title text
-                    if (path.getDateTime() == 0 || path.getEndDateTime() == 0) {
+                    if (path.getType() == 2 && path.getDateTime() == 0 || path.getEndDateTime() == 0) {
+                        page--;
+                    } else if (path.getType() == 1 && path.getAvailableTime().isEmpty()) {
                         page--;
                     } else {
                         pageNum.setText("3/5");

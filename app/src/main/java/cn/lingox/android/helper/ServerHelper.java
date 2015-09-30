@@ -689,6 +689,7 @@ public class ServerHelper {
         params.put(StringConstant.pathDateTime, String.valueOf(path.getDateTime()));
         params.put(StringConstant.pathEndDateTime, String.valueOf(path.getEndDateTime()));
         params.put(StringConstant.pathCreatedTime, String.valueOf(path.getCreatedTime()));
+        params.put(StringConstant.pathAvailableTime, path.getAvailableTime());
         params.put(StringConstant.pathCapacity, String.valueOf(path.getCapacity()));
         params.put(StringConstant.pathImage, path.getImage());
         params.put(StringConstant.pathChosenCountry, path.getChosenCountry());
@@ -733,6 +734,7 @@ public class ServerHelper {
         params.put(StringConstant.pathDateTime, String.valueOf(path.getDateTime()));
         params.put(StringConstant.pathEndDateTime, String.valueOf(path.getEndDateTime()));
         params.put(StringConstant.pathCreatedTime, String.valueOf(path.getCreatedTime()));
+        params.put(StringConstant.pathAvailableTime, path.getAvailableTime());
         params.put(StringConstant.pathCapacity, String.valueOf(path.getCapacity()));
         params.put(StringConstant.pathImage, path.getImage());
         params.put(StringConstant.pathChosenCountry, path.getChosenCountry());

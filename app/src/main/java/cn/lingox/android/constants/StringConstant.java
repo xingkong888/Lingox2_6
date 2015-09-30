@@ -49,6 +49,7 @@ public class StringConstant {
     public static final String pathDateTime = "pathDateTime";
     public static final String pathEndDateTime = "pathEndDateTime";
     public static final String pathCreatedTime = "pathCreatedTime";
+    public static final String pathAvailableTime = "availableTime";
     public static final String pathCapacity = "pathCapacity";
     public static final String pathImage = "pathImage";
     public static final String pathChosenCountry = "pathChosenCountry";

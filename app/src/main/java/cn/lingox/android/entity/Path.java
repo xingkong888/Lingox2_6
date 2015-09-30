@@ -30,8 +30,9 @@ public class Path implements Parcelable {
     private String cost;
     private String title;
     private long dateTime;
-    private long endDateTime;
     private long createdTime;
+    private String availableTime;
+    private long endDateTime;
     private int capacity;
     private String image;    // ArrayList of image URLs
     private String chosenCountry;
@@ -59,6 +60,7 @@ public class Path implements Parcelable {
         this.dateTime = 0;
         this.endDateTime = 0;
         this.createdTime = 0;
+        this.availableTime = "";
         this.capacity = 0;
         this.image = "";
         this.chosenCountry = "";
@@ -83,6 +85,7 @@ public class Path implements Parcelable {
                 String image,
                 long dateTime,
                 long createdTime,
+                String availableTime,
                 int capacity,
                 String chosenCountry,
                 String province,
@@ -103,6 +106,7 @@ public class Path implements Parcelable {
         this.image = image;
         this.dateTime = dateTime;
         this.createdTime = createdTime;
+        this.availableTime = availableTime;
         this.capacity = capacity;
         this.chosenCountry = chosenCountry;
         this.province = province;
@@ -128,6 +132,7 @@ public class Path implements Parcelable {
         this.dateTime = in.readLong();
         this.endDateTime = in.readLong();
         this.createdTime = in.readLong();
+        this.availableTime = in.readString();
         this.capacity = in.readInt();
         this.image = in.readString();
         this.chosenCountry = in.readString();
@@ -323,6 +328,14 @@ public class Path implements Parcelable {
         this.createdTime = createdTime;
     }
 
+    public String getAvailableTime() {
+        return availableTime;
+    }
+
+    public void setAvailableTime(String availableTime) {
+        this.availableTime = availableTime;
+    }
+
     @Override
     public String toString() {
         return "Path ["
@@ -334,6 +347,7 @@ public class Path implements Parcelable {
                 + ", dateTime=" + dateTime
                 + ", endDateTime=" + endDateTime
                 + ", createdTime=" + createdTime
+                + ", availableTime=" + availableTime
                 + ", capacity=" + capacity
                 + ", image=" + image
                 + ", chosenCountry=" + chosenCountry
@@ -457,6 +471,7 @@ public class Path implements Parcelable {
         dest.writeLong(this.dateTime);
         dest.writeLong(this.endDateTime);
         dest.writeLong(this.createdTime);
+        dest.writeString(this.availableTime);
         dest.writeInt(this.capacity);
         dest.writeString(this.image);
         dest.writeString(this.chosenCountry);

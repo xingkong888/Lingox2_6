@@ -1383,6 +1383,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
     private class GetMessage extends AsyncTask<String, Void, Boolean> {
         HashMap<String, String> map = new HashMap<>();
+        ArrayList<Indent> tempData = new ArrayList<>();
         private String userId;
 
         @Override
@@ -1398,7 +1399,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             map.put("tarId", CacheHelper.getInstance().getSelfInfo().getId());
             map.put("userId", userId);
             try {
-                indentDatas.addAll(ServerHelper.getInstance().getApplication(map));
+                tempData.addAll(ServerHelper.getInstance().getApplication(map));
+                for (Indent indent : tempData) {
+                    if (indent.getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                        indentDatas.add(indent);
+                    } else {
+                        if (indent.getState() != 2) {
+                            indentDatas.add(indent);
+                        }
+                    }
+                }
                 Collections.reverse(indentDatas);
                 return true;
             } catch (Exception e1) {

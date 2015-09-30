@@ -339,6 +339,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         HashMap<String, String> map = new HashMap<>();
         private String userId;
         private TextView view;
+        private ArrayList<Indent> tempData = new ArrayList<>();
 
         public GetMessage(TextView view) {
             this.view = view;
@@ -358,7 +359,16 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             map.put("tarId", CacheHelper.getInstance().getSelfInfo().getId());
             map.put("userId", userId);
             try {
-                indentDatas.addAll(ServerHelper.getInstance().getApplication(map));
+                tempData.addAll(ServerHelper.getInstance().getApplication(map));
+                for (Indent indent : tempData) {
+                    if (indent.getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                        indentDatas.add(indent);
+                    } else {
+                        if (indent.getState() != 2) {
+                            indentDatas.add(indent);
+                        }
+                    }
+                }
                 return true;
             } catch (Exception e1) {
                 e1.getMessage();

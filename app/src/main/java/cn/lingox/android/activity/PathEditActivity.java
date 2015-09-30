@@ -293,12 +293,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                path.setAvailableTime(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                path.setAvailableTime(s.toString());
             }
         });
         //七
@@ -663,7 +662,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     }
                     break;
                 case 3://title text
-                    if (path.getType() == 2 && path.getDateTime() == 0 || path.getEndDateTime() == 0) {
+                    if (path.getType() == 2 && (path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
                         page--;
                     } else if (path.getType() == 1 && path.getAvailableTime().isEmpty()) {
                         page--;

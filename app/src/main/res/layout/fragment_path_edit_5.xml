@@ -29,8 +29,9 @@
         android:layout_below="@+id/path_edit_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:background="#ababab"
+        android:background="#efeff4"
         android:gravity="center"
+        android:minHeight="50dp"
         android:visibility="gone" />
 
     <Button

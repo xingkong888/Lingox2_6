@@ -332,6 +332,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                         JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
             }
         } else if (!path.getAvailableTime().isEmpty()) {
+            availableTime.setVisibility(View.VISIBLE);
+            pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());

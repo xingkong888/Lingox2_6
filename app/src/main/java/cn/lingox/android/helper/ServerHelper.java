@@ -1312,6 +1312,7 @@ public class ServerHelper {
     }
 
     public boolean existApplication(HashMap<String, String> params) throws Exception {
+//        Log.d("星期",params.toString());
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXIST_APPLICATION, params);
         Log.d(LOG_TAG, "existApplication " + jsonStr);
 

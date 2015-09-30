@@ -1449,8 +1449,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 indent = ServerHelper.getInstance().editApplication(params[0]);
                 indent.setPathTitle(title);
                 return true;
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setMessage("Failure" + e.getMessage());
+                    }
+                });
                 e.printStackTrace();
                 return false;
             }

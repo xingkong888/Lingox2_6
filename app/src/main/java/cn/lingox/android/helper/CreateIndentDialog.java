@@ -1,13 +1,15 @@
 package cn.lingox.android.helper;
 
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,7 +25,7 @@ import cn.lingox.android.activity.PathEditActivity;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Indent;
 
-public class CreateIndentDialog extends ActionBarActivity implements View.OnClickListener {
+public class CreateIndentDialog extends DialogFragment implements View.OnClickListener {
     private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
     private Calendar calendar = Calendar.getInstance();
 
@@ -63,34 +65,38 @@ public class CreateIndentDialog extends ActionBarActivity implements View.OnClic
     private HashMap<String, String> map;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_create_indent);
-        initView();
-        if (getIntent().hasExtra("pathId")) {
-            pathId = getIntent().getStringExtra("pathId");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_create_indent, null);
+
+        Bundle bundle = getArguments();
+        if (!bundle.isEmpty()) {
+            if (!bundle.getString("pathId").isEmpty()) {
+                pathId = bundle.getString("pathId");
+            }
+            if (!bundle.getString("tarId").isEmpty()) {
+                tarId = bundle.getString("tarId");
+            }
+            if (!bundle.getString("username").isEmpty()) {
+                username = bundle.getString("username");
+            }
+            if (!bundle.getString(StringConstant.nicknameStr).isEmpty()) {
+                nickname = bundle.getString(StringConstant.nicknameStr);
+            }
         }
-        if (getIntent().hasExtra("tarId")) {
-            tarId = getIntent().getStringExtra("tarId");
-        }
-        if (getIntent().hasExtra("username")) {
-            username = getIntent().getStringExtra("username");
-        }
-        if (getIntent().hasExtra(StringConstant.nicknameStr)) {
-            nickname = getIntent().getStringExtra(StringConstant.nicknameStr);
-        }
+        initView(view);
+        return view;
     }
 
-    private void initView() {
-        startTime = (TextView) findViewById(R.id.indent_start);
+    private void initView(View view) {
+        startTime = (TextView) view.findViewById(R.id.indent_start);
         startTime.setOnClickListener(this);
-        endTime = (TextView) findViewById(R.id.indent_end);
+        endTime = (TextView) view.findViewById(R.id.indent_end);
         endTime.setOnClickListener(this);
-        num = (EditText) findViewById(R.id.indent_num);
-        describe = (EditText) findViewById(R.id.indent_describe);
-        send = (Button) findViewById(R.id.indent_send);
+        num = (EditText) view.findViewById(R.id.indent_num);
+        describe = (EditText) view.findViewById(R.id.indent_describe);
+        send = (Button) view.findViewById(R.id.indent_send);
         send.setOnClickListener(this);
-        cancel = (Button) findViewById(R.id.indent_cancel);
+        cancel = (Button) view.findViewById(R.id.indent_cancel);
         cancel.setOnClickListener(this);
     }
 
@@ -115,11 +121,12 @@ public class CreateIndentDialog extends ActionBarActivity implements View.OnClic
                     map.put("state", "1");
                     new CreateIndent().execute();
                 } else {
-                    Toast.makeText(this, "Please complete the information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please complete the information", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.indent_cancel:
-                finish();
+//                finish();
+                dismiss();
                 break;
         }
     }
@@ -144,7 +151,7 @@ public class CreateIndentDialog extends ActionBarActivity implements View.OnClic
 
         @Override
         protected void onPreExecute() {
-            bar = new ProgressDialog(CreateIndentDialog.this);
+            bar = new ProgressDialog(getActivity());
             bar.setMessage("In the submission");
             bar.show();
         }
@@ -165,14 +172,15 @@ public class CreateIndentDialog extends ActionBarActivity implements View.OnClic
         protected void onPostExecute(Boolean success) {
             bar.dismiss();
             if (success) {
-                Intent chatIntent = new Intent(CreateIndentDialog.this, ChatActivity.class);
+                dismiss();
+                Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
                 chatIntent.putExtra("username", username);
                 chatIntent.putExtra(StringConstant.nicknameStr, nickname);
                 chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
                 chatIntent.putExtra("describe", describe.getText().toString());
                 chatIntent.putExtra("Indent", indent);
                 startActivity(chatIntent);
-                overridePendingTransition(R.anim.zoom_exit, R.anim.zoom_enter);
+                getActivity().overridePendingTransition(R.anim.zoom_exit, R.anim.zoom_enter);
             }
         }
     }

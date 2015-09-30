@@ -1181,10 +1181,12 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     private class GetExist extends AsyncTask<HashMap<String, String>, Void, Boolean> {
+
         @Override
         protected Boolean doInBackground(HashMap<String, String>... params) {
             try {
                 isApply = ServerHelper.getInstance().existApplication(params[0]);
+//                Log.d("星期",params[0].toString()+">>>>"+isApply);
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
@@ -1203,13 +1205,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                     chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
                     startActivity(chatIntent);
                 } else {
-                    Intent intent = new Intent(PathViewActivity.this, CreateIndentDialog.class);
-                    intent.putExtra("pathId", path.getId());
-                    intent.putExtra("tarId", path.getUserId());
-                    intent.putExtra("username", user.getUsername());
-                    intent.putExtra(StringConstant.nicknameStr, user.getNickname());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pathId", path.getId());
+                    bundle.putString("tarId", path.getUserId());
+                    bundle.putString("username", user.getUsername());
+                    bundle.putString(StringConstant.nicknameStr, user.getNickname());
+                    CreateIndentDialog dialog = new CreateIndentDialog();
+                    dialog.setArguments(bundle);
+                    dialog.show(getFragmentManager(), "");
                 }
             }
         }

@@ -45,10 +45,12 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     private ArrayList<ChatAndNotify> datas;
     private ArrayList<Indent> indentDatas;
 
+    //   private ExecutorService pool = Executors. newFixedThreadPool(5);
     public ChatAllHistoryAdapter(Activity context, ArrayList<ChatAndNotify> cList) {
         this.context = context;
         this.datas = cList;
         activity = (MainActivity) context;
+        indentDatas = new ArrayList<>();
     }
 
     @Override
@@ -346,18 +348,14 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         }
 
         @Override
-        protected void onPreExecute() {
-            indentDatas = new ArrayList<>();
-            super.onPreExecute();
-        }
-
-        @Override
         protected Boolean doInBackground(String... params) {
             //将集合中的数据转换成聊天数据
             userId = params[0];
             //通过username获取每个用户的订单数据
             map.put("tarId", CacheHelper.getInstance().getSelfInfo().getId());
             map.put("userId", userId);
+            indentDatas.clear();
+            tempData.clear();
             try {
                 tempData.addAll(ServerHelper.getInstance().getApplication(map));
                 for (Indent indent : tempData) {
@@ -369,6 +367,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         }
                     }
                 }
+//              Log.d("星期",indentDatas.size()+">>>"+tempData.size());
                 return true;
             } catch (Exception e1) {
                 e1.getMessage();
@@ -380,10 +379,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         protected void onPostExecute(Boolean success) {
             if (success) {
                 Indent indent;
-                if (indentDatas.size() != 0) {
+                if (tempData.size() != 0) {
                     view.setVisibility(View.VISIBLE);
-                    if (indentDatas.size() == 1) {
-                        indent = indentDatas.get(0);
+                    if (tempData.size() == 1) {
+                        indent = tempData.get(0);
                         view.getPaint().setFlags(0);
                         switch (indent.getState()) {
                             case 1:
@@ -414,10 +413,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                                 view.setText("Time out");//时间过
                         }
                     } else {
-                        if (indentDatas.get(0).getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-                            view.setText(indentDatas.size() + " applications");//申请者
+                        if (tempData.get(0).getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                            view.setText(tempData.size() + " applications");//申请者
                         } else {
-                            view.setText(indentDatas.size() + " applications");//接收者
+                            view.setText(tempData.size() + " applications");//接收者
                         }
                     }
                 }

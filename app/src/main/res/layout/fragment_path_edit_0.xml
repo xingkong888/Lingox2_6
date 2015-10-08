@@ -14,7 +14,6 @@
         android:shadowColor="#4b000000"
         android:shadowDx="2"
         android:shadowDy="2"
-
         android:shadowRadius="1"
         android:text="@string/i_am_a"
         android:textColor="@color/white"

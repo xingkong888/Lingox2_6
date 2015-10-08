@@ -21,74 +21,76 @@
             android:paddingRight="20dp"
             android:paddingTop="5dp"
             android:textSize="20sp" />
-    <LinearLayout
-        android:id="@+id/dududu"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/dududu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="50dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c7c7c7" />
+
+                <TextView
+                    android:id="@+id/path_datetime"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:text="Arriving"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/path_datetime_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/path_datetime"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c7c7c7" />
+                android:layout_height="0.5dp"
+                android:background="#c7c7c7c7" />
 
-            <TextView
-                android:id="@+id/path_datetime"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_vertical"
-                android:text="Arriving"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/path_datetime_info"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/path_datetime"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:textColor="#000"
-                android:textSize="15sp" />
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#c7c7c7c7" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <TextView
+                    android:id="@+id/path_endtime"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="top"
+                    android:text="Departure"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/path_endtime"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:gravity="top"
-                android:text="Departure"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/path_endtime_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/path_endtime"
+                    android:focusable="false"
+                    android:gravity="top"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/path_endtime_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/path_endtime"
-                android:focusable="false"
-                android:gravity="top"
-                android:textColor="#000"
-                android:textSize="15sp" />
-        </RelativeLayout>
-
-    </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout

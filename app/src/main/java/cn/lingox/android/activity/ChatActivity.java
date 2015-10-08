@@ -1420,7 +1420,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         @Override
         protected void onPostExecute(Boolean success) {
             adapter.notifyDataSetChanged();
-//            Log.d("星期",indentDatas.size()+">>>>");
             if (success) {
                 switch (indentDatas.size()) {
                     case 0:

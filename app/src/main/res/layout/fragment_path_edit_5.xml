@@ -29,9 +29,12 @@
         android:layout_below="@+id/path_edit_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:background="#efeff4"
+        android:background="@drawable/edit_border"
         android:gravity="center"
         android:minHeight="50dp"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textColorHint="@color/white"
         android:visibility="gone" />
 
     <Button

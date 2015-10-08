@@ -69,7 +69,8 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
-                android:textColor="#00838f" />
+                android:textColor="#00838f"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/userinfo_line"
@@ -137,7 +138,7 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="@string/nearby_sheak" />
 
@@ -206,7 +207,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/userinfo_age"
                 android:gravity="center_vertical"
-                android:text="0"
                 android:textColor="#000" />
         </RelativeLayout>
 
@@ -267,7 +267,6 @@
         android:layout_height="wrap_content"
         android:background="#fafafa"
         android:orientation="vertical">
-        <!--android:id="@+id/layout_interest"-->
 
         <TextView
             android:layout_width="match_parent"
@@ -286,7 +285,7 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="@string/interests" />
 
@@ -345,7 +344,7 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="Places Visited" />
 

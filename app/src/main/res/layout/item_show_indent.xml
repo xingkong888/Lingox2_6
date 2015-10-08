@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 只有一条时显示-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_show_one"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"

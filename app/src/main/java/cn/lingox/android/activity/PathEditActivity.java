@@ -188,14 +188,14 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
         pageNum = (TextView) findViewById(R.id.path_edit_num);
 
-        page0 = (RelativeLayout) findViewById(R.id.edit_page_0);
-        page1 = (RelativeLayout) findViewById(R.id.edit_page_1);
-        page2 = (RelativeLayout) findViewById(R.id.edit_page_2);
-        page3 = (RelativeLayout) findViewById(R.id.edit_page_3);
-        page4 = (RelativeLayout) findViewById(R.id.edit_page_4);
-        page5 = (RelativeLayout) findViewById(R.id.edit_page_5);
-        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);
-        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);
+        page0 = (RelativeLayout) findViewById(R.id.edit_page_0);//选择local or traveler
+        page1 = (RelativeLayout) findViewById(R.id.edit_page_1);// 选择国家
+        page2 = (RelativeLayout) findViewById(R.id.edit_page_2);//标题、简介
+        page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
+        page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
+        page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
+        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//暂无
+        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);//暂无
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);
@@ -593,6 +593,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     /**
      * 0��ʾnext
      * 1��ʾback
+     * page0-->page1-->page5-->page2-->page3-->page4
      *
      * @param nextOrBack
      */
@@ -620,15 +621,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             fiveTitle.setText("Set a time frame for your travel");
                         }
                         pageNum.setText("1/5");
+                        //page0  -->page1-->page5-->page2-->page3-->page4
                         background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);
                         page1.setVisibility(View.VISIBLE);
                         page0.setVisibility(View.INVISIBLE);
-                        page2.setVisibility(View.INVISIBLE);
-                        page3.setVisibility(View.INVISIBLE);
-                        page4.setVisibility(View.INVISIBLE);
                         page5.setVisibility(View.INVISIBLE);
-                        page6.setVisibility(View.INVISIBLE);
-                        page7.setVisibility(View.INVISIBLE);
+                        page2.setVisibility(View.INVISIBLE);
                     } else {
                         page--;
                     }
@@ -638,81 +636,92 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         page--;
                     } else {
                         if (path.getType() == 1) {
-                            availableTime.setVisibility(View.VISIBLE);
-                            startTime.setVisibility(View.GONE);
-                            endTime.setVisibility(View.GONE);
-                            path.setEndDateTime(0);
-                            path.setDateTime(0);
+                            //page0-->page1-->  page2  -->page5-->page3-->page4
+                            background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
+                            page2.setVisibility(View.VISIBLE);
+                            page1.setVisibility(View.INVISIBLE);
+                            page5.setVisibility(View.INVISIBLE);
+
+                            address.setVisibility(View.VISIBLE);
                         } else {
                             availableTime.setVisibility(View.GONE);
                             startTime.setVisibility(View.VISIBLE);
                             endTime.setVisibility(View.VISIBLE);
                             path.setAvailableTime("");
+                            //page0-->page1-->  page5  -->page2-->page3-->page4
+                            background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
+                            page5.setVisibility(View.VISIBLE);
+                            page1.setVisibility(View.INVISIBLE);
+                            page2.setVisibility(View.INVISIBLE);
                         }
                         pageNum.setText("2/5");
-                        background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
-                        page5.setVisibility(View.VISIBLE);
-                        page1.setVisibility(View.INVISIBLE);
-                        page2.setVisibility(View.INVISIBLE);
-                        page3.setVisibility(View.INVISIBLE);
-                        page4.setVisibility(View.INVISIBLE);
-                        page0.setVisibility(View.INVISIBLE);
-                        page6.setVisibility(View.INVISIBLE);
-                        page7.setVisibility(View.INVISIBLE);
                     }
                     break;
                 case 3://title text
-                    if (path.getType() == 2 && (path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
-                        page--;
-                    } else if (path.getType() == 1 && path.getAvailableTime().isEmpty()) {
-                        page--;
-                    } else {
-                        pageNum.setText("3/5");
-                        if (path.getType() == 1) {
-                            address.setVisibility(View.VISIBLE);
+                    if (path.getType() == 2) {
+                        if ((path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
+                            page--;
                         } else {
-                            address.setVisibility(View.GONE);
+                            pageNum.setText("3/5");
+                            //page0-->page1-->page5-->  page2  -->page3-->page4
+                            background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
+                            page2.setVisibility(View.VISIBLE);
+                            page3.setVisibility(View.INVISIBLE);
+                            page5.setVisibility(View.INVISIBLE);
                         }
-                        background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
-                        page2.setVisibility(View.VISIBLE);
-                        page1.setVisibility(View.INVISIBLE);
-                        page0.setVisibility(View.INVISIBLE);
-                        page3.setVisibility(View.INVISIBLE);
-                        page4.setVisibility(View.INVISIBLE);
-                        page5.setVisibility(View.INVISIBLE);
-                        page6.setVisibility(View.INVISIBLE);
-                        page7.setVisibility(View.INVISIBLE);
+                    } else if (path.getType() == 1) {
+                        if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
+                            page--;
+                        } else {
+                            pageNum.setText("3/5");
+                            availableTime.setVisibility(View.VISIBLE);
+                            startTime.setVisibility(View.GONE);
+                            endTime.setVisibility(View.GONE);
+                            path.setEndDateTime(0);
+                            path.setDateTime(0);
+                            //page0-->page1-->  page5  -->page2-->page3-->page4
+                            background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
+                            page5.setVisibility(View.VISIBLE);
+                            page1.setVisibility(View.INVISIBLE);
+                            page2.setVisibility(View.INVISIBLE);
+                            page3.setVisibility(View.INVISIBLE);
+                        }
                     }
                     break;
                 case 4://tag
-                    if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
-                        page--;
+                    if (path.getType() == 2) {
+                        if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
+                            page--;
+                        } else {
+                            pageNum.setText("4/5");
+                            background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
+                            page3.setVisibility(View.VISIBLE);
+                            page2.setVisibility(View.INVISIBLE);
+                            page4.setVisibility(View.INVISIBLE);
+                            page5.setVisibility(View.INVISIBLE);
+                        }
                     } else {
-                        pageNum.setText("4/5");
-                        background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
-                        page3.setVisibility(View.VISIBLE);
-                        page1.setVisibility(View.INVISIBLE);
-                        page2.setVisibility(View.INVISIBLE);
-                        page0.setVisibility(View.INVISIBLE);
-                        page4.setVisibility(View.INVISIBLE);
-                        page5.setVisibility(View.INVISIBLE);
-                        page6.setVisibility(View.INVISIBLE);
-                        page7.setVisibility(View.INVISIBLE);
+                        if (path.getAvailableTime().isEmpty()) {
+                            page--;
+                        } else {
+                            pageNum.setText("4/5");
+                            background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
+                            page3.setVisibility(View.VISIBLE);
+                            page2.setVisibility(View.INVISIBLE);
+                            page4.setVisibility(View.INVISIBLE);
+                            page5.setVisibility(View.INVISIBLE);
+                        }
                     }
-//                    }
+                    //page0-->page1-->page5-->page2-->  page3  -->page4
+
                     break;
                 case 5://photo
                     saveTags();
                     pageNum.setText("5/5");
+                    //page0-->page1-->page5-->page2-->page3-->  page4
                     background.setBackgroundResource(R.drawable.active_map_04_320dp520dp);
                     page4.setVisibility(View.VISIBLE);
-                    page1.setVisibility(View.INVISIBLE);
-                    page2.setVisibility(View.INVISIBLE);
                     page3.setVisibility(View.INVISIBLE);
-                    page0.setVisibility(View.INVISIBLE);
-                    page5.setVisibility(View.INVISIBLE);
-                    page6.setVisibility(View.INVISIBLE);
-                    page7.setVisibility(View.INVISIBLE);
                     break;
                 case 6:
                     if (addingNewPath) {

@@ -519,7 +519,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                     layout_tag.setVisibility(View.GONE);
                     tagsView.setEnabled(true);
                     line.setVisibility(View.VISIBLE);
-//                    tagsView.setTextColor(Color.rgb(0, 131, 143));
                     editOrOk = true;
                 }
                 break;

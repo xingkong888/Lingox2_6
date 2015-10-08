@@ -42,7 +42,6 @@ public class JsonHelper {
 
     private static final String COUNTRIES_AND_CITIES_JSON = "json/countries_and_cities.json";
     private static final String LANGUAGES_JSON = "json/languages.json";
-
     private static final String PATHTAGS_JSON = "json/pathTags.json";
 
     private static JsonHelper instance = null;
@@ -196,9 +195,8 @@ public class JsonHelper {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm E");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale);
 
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return (format.format(c.getTime()));
     }
 
@@ -214,7 +212,7 @@ public class JsonHelper {
 
         try {
             // Locale is the servers location (ie China)
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale);
             df.setTimeZone(TimeZone.getTimeZone("Zulu"));
             Date parsedDate;
 
@@ -223,7 +221,7 @@ public class JsonHelper {
             Calendar c = Calendar.getInstance();
             c.setTime(parsedDate);
 
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm", locale);
 
             return (format.format(c.getTime()));
         } catch (ParseException e) {
@@ -240,14 +238,13 @@ public class JsonHelper {
             Configuration conf = context.getResources().getConfiguration();
             locale = conf.locale;
         }
-
     }
 
     public String parseSailsJSDate(String date, int type) {
         getLocal();
         try {
             // Locale is the servers location (ie China)
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale);
             df.setTimeZone(TimeZone.getTimeZone("Zulu"));
             Date parsedDate;
             parsedDate = df.parse(date);

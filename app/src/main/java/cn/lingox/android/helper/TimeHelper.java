@@ -42,8 +42,8 @@ public class TimeHelper {
     public String parseTimestampToDate(String time) {
         Calendar c = Calendar.getInstance();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
-            SimpleDateFormat output = new SimpleDateFormat("yyyy/MM", Locale.CHINA);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale);
+            SimpleDateFormat output = new SimpleDateFormat("yyyy/MM", locale);
             Date d = sdf.parse(time);
             c.setTimeInMillis(d.getTime());
             c.add(Calendar.HOUR, 8);
@@ -78,7 +78,7 @@ public class TimeHelper {
     public String parseTimestampToDate(long timestamp) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
-        SimpleDateFormat format = new SimpleDateFormat("MMM-dd E", locale);
+        SimpleDateFormat format = new SimpleDateFormat("MMM-dd EEE", locale);
         return (format.format(c.getTime()));
     }
 

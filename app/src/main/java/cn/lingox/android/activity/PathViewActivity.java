@@ -310,22 +310,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case 2:
 //            Log.d("天气","旅行者");
                 pathTraveler.setVisibility(View.VISIBLE);
-//                pathTime.setVisibility(View.VISIBLE);
-//                if (path.getDateTime() != 0) {
-//                    uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(
-//                            path.getDateTime()));
-//                }
-//                if (path.getEndDateTime() != 0) {
-//                    uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-//                            JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
-//                }
                 break;
         }
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
             pathTime.setVisibility(View.VISIBLE);
             if (path.getDateTime() != 0) {
-                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(
-                        path.getDateTime()));
+                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
+                        JsonHelper.getInstance().parseTimestamp(
+                                path.getDateTime()));
             }
             if (path.getEndDateTime() != 0) {
                 uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
@@ -445,13 +437,13 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
-        uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
+        uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
+                JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
         if (path.getType() == 2) {
             uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
         } else {
             uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString() + "," + path.getDetailAddress());
         }
-// }
         uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost(), 0);
         uiHelper.textViewSetPossiblyNullString(pathGroudSizeInfo, String.valueOf(path.getCapacity()));
     }
@@ -678,7 +670,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         TextView replyTarName = (TextView) rowView.findViewById(R.id.reply_tar_name);
 
         uiHelper.textViewSetPossiblyNullString(commentText, comment.getText());
-        uiHelper.textViewSetPossiblyNullString(commentDateTime, JsonHelper.getInstance().parseSailsJSDate(comment.getCreatedAt()));
+        uiHelper.textViewSetPossiblyNullString(commentDateTime,
+                JsonHelper.getInstance().parseSailsJSDate(comment.getCreatedAt()));
         new LoadCommentUser(userNickname, userAvatar, comment.getUserId()).execute();
         new LoadReplyUser(comment.getUser_tar(), replyTarName).execute();
         if (!LingoXApplication.getInstance().getSkip()) {
@@ -1204,7 +1197,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected Boolean doInBackground(HashMap<String, String>... params) {
             try {
                 isApply = ServerHelper.getInstance().existApplication(params[0]);
-//                Log.d("星期",params[0].toString()+">>>>"+isApply);
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
@@ -1227,6 +1219,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                     bundle.putString("pathId", path.getId());
                     bundle.putString("tarId", path.getUserId());
                     bundle.putString("username", user.getUsername());
+                    bundle.putInt("type", path.getType());
                     bundle.putString(StringConstant.nicknameStr, user.getNickname());
                     CreateIndentDialog dialog = new CreateIndentDialog();
                     dialog.setArguments(bundle);

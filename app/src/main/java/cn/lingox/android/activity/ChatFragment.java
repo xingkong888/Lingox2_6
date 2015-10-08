@@ -40,6 +40,8 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.NetUtils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class ChatFragment extends Fragment {
 
     // UI Elements
     private InputMethodManager inputMethodManager;
-    private ListView listView;
+    private PullToRefreshListView listView;
     private ChatAllHistoryAdapter adapter;
     private RelativeLayout errorItem;
     private TextView errorText;
@@ -206,7 +208,7 @@ public class ChatFragment extends Fragment {
         loading = (ProgressBar) view.findViewById(R.id.progress);
         loading.setVisibility(View.VISIBLE);
 
-        listView = (ListView) view.findViewById(R.id.chat_list);
+        listView = (PullToRefreshListView) view.findViewById(R.id.chat_list);
         anim = (ImageView) view.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
         datas = new ArrayList<>();
@@ -215,6 +217,8 @@ public class ChatFragment extends Fragment {
             new LoadNotifications().execute();
             adapter = new ChatAllHistoryAdapter(getActivity(), datas);
             listView.setAdapter(adapter);
+            listView.setRefreshing(true);
+            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -269,6 +273,13 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                new LoadNotifications().execute();
+            }
+        });
+
         registerForContextMenu(listView);
 
         //  there's a better way to do this most likely using manifest or something
@@ -806,6 +817,7 @@ public class ChatFragment extends Fragment {
                     }
                 // 通知适配器，数据发生改变
                 notifyChange();
+                listView.onRefreshComplete();
             }
         }
     }

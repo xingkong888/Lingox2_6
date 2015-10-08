@@ -378,12 +378,12 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean success) {
             if (success) {
+                view.getPaint().setFlags(0);
                 Indent indent;
-                if (tempData.size() != 0) {
+                if (indentDatas.size() != 0) {
                     view.setVisibility(View.VISIBLE);
-                    if (tempData.size() == 1) {
-                        indent = tempData.get(0);
-                        view.getPaint().setFlags(0);
+                    if (indentDatas.size() == 1) {
+                        indent = indentDatas.get(0);
                         switch (indent.getState()) {
                             case 1:
                                 if (indent.getUserId().contentEquals(

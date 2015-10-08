@@ -67,7 +67,6 @@ public class UIHelper {
 
     public void imageViewSetPossiblyEmptyUrl(final ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
-//            Picasso.with(context).load(url).into(iv);
             new ImageTask(new ImageTask.Callback1() {
                 @Override
                 public void response(String url, Bitmap result) {
@@ -80,7 +79,7 @@ public class UIHelper {
                 }
             }).executeOnExecutor(pool, url);
         } else {
-            iv.setImageResource(R.drawable.discover_default);
+            iv.setImageResource(R.drawable.nearby_nopic_294dp);
         }
     }
 

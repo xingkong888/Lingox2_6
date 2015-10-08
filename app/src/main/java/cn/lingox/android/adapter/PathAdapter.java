@@ -168,8 +168,8 @@ public class PathAdapter extends BaseAdapter {
             holder.traveler.setVisibility(View.GONE);
             holder.local.setVisibility(View.GONE);
             holder.name.setText("");
-            holder.pathImg.setImageResource(R.drawable.discover_default);
-            holder.avatar.setImageResource(R.drawable.discover_default);
+            holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);
+            holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
             holder.type1.setVisibility(View.GONE);
             holder.type2.setVisibility(View.GONE);
             holder.type3.setVisibility(View.GONE);

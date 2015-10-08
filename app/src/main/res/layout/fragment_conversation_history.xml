@@ -14,12 +14,7 @@
             layout="@layout/chat_neterror_item"
             android:visibility="gone" />
 
-        <!--<include-->
-        <!--android:id="@+id/notice_item"-->
-        <!--layout="@layout/no_cheat_notice_item"-->
-        <!--android:visibility="gone" />-->
-
-        <ListView
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/chat_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

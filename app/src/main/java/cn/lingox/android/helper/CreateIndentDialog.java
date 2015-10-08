@@ -1,6 +1,7 @@
 package cn.lingox.android.helper;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
 
     private Indent indent = new Indent();
     private TextView startTime, endTime;
+    private LinearLayout local,traveler;
 
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -58,8 +61,9 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
             }
         }
     };
-    private EditText num, describe;
+    private EditText num, travelerDescribe,time,localDescribe;
     private String pathId, tarId;
+    private int type;
     private Button send, cancel;
     private String username, nickname;
     private HashMap<String, String> map;
@@ -67,7 +71,6 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_create_indent, null);
-
         Bundle bundle = getArguments();
         if (!bundle.isEmpty()) {
             if (!bundle.getString("pathId").isEmpty()) {
@@ -82,31 +85,53 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
             if (!bundle.getString(StringConstant.nicknameStr).isEmpty()) {
                 nickname = bundle.getString(StringConstant.nicknameStr);
             }
+            if (bundle.getInt("type")!=0) {
+                type=bundle.getInt("type");
+            }
         }
+
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        startTime = (TextView) view.findViewById(R.id.indent_start);
+        startTime = (TextView) view.findViewById(R.id.indent_traveler_start);
         startTime.setOnClickListener(this);
-        endTime = (TextView) view.findViewById(R.id.indent_end);
+        endTime = (TextView) view.findViewById(R.id.indent_traveler_end);
         endTime.setOnClickListener(this);
-        num = (EditText) view.findViewById(R.id.indent_num);
-        describe = (EditText) view.findViewById(R.id.indent_describe);
+        num = (EditText) view.findViewById(R.id.indent_traveler_num);
+        travelerDescribe = (EditText) view.findViewById(R.id.indent_traveler_describe);
+        localDescribe = (EditText)view.findViewById(R.id.indent_local_describe);
+        time = (EditText)view.findViewById(R.id.indent_local_time);
+
         send = (Button) view.findViewById(R.id.indent_send);
         send.setOnClickListener(this);
         cancel = (Button) view.findViewById(R.id.indent_cancel);
         cancel.setOnClickListener(this);
+
+        local=(LinearLayout)view.findViewById(R.id.local);
+        traveler=(LinearLayout)view.findViewById(R.id.traveler);
+
+        local.setVisibility(View.VISIBLE);
+
+        switch (type){
+            case 1://local
+                getDialog().setTitle("Application");
+                break;
+            case 2://traveler
+                getDialog().setTitle("Acceptance");
+                localDescribe.setHint("Help "+username+" know you better.");
+                break;
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.indent_start:
+            case R.id.indent_traveler_start:
                 startDatePickerDialog();
                 break;
-            case R.id.indent_end:
+            case R.id.indent_traveler_end:
                 endDatePickerDialog();
                 break;
             case R.id.indent_send:
@@ -177,7 +202,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
                 chatIntent.putExtra("username", username);
                 chatIntent.putExtra(StringConstant.nicknameStr, nickname);
                 chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
-                chatIntent.putExtra("describe", describe.getText().toString());
+                chatIntent.putExtra("describe", travelerDescribe.getText().toString());
                 chatIntent.putExtra("Indent", indent);
                 startActivity(chatIntent);
                 getActivity().overridePendingTransition(R.anim.zoom_exit, R.anim.zoom_enter);

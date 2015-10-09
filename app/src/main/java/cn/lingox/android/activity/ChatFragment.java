@@ -215,8 +215,6 @@ public class ChatFragment extends Fragment {
             new LoadNotifications().execute();
             adapter = new ChatAllHistoryAdapter(getActivity(), datas);
             listView.setAdapter(adapter);
-//            listView.setRefreshing(true);
-//            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -271,12 +269,6 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
-//        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-//            @Override
-//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-//                new LoadNotifications().execute();
-//            }
-//        });
 
         registerForContextMenu(listView);
 

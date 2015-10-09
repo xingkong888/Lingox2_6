@@ -5,11 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -25,7 +23,6 @@ import cn.lingox.android.R;
 import cn.lingox.android.activity.PathViewActivity;
 import cn.lingox.android.activity.ReferenceActivity;
 import cn.lingox.android.activity.UserInfoActivity;
-import cn.lingox.android.activity.UserInfoFragment;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.LingoNotification;
@@ -165,25 +162,19 @@ public class NotificationService extends Service {
                 Intent intent5 = new Intent(this, ReferenceActivity.class);
                 intent5.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, user.getId());
                 intent5.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME, user.getNickname());
-                startActivity(intent5);
-//                new LoadUserReferences(intent5, mBuilder).execute(user.getId());
+                PendingIntent pendIntent5 = PendingIntent.getActivity(
+                        getApplicationContext(), type, intent5, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pendIntent5);
                 break;
-//            case 6://到期通知
-//                Log.d("星期","1>>>>>"+notification.toString());
-//                Intent intent6 = new Intent(this, ReferenceActivity.class);
-//                Log.d("星期","2>>>>>"+notification.toString());
-//
-//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, notification.getUser_id());
-//                Log.d("星期", "3>>>>>"+notification.toString());
-//
-//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME,
-//                        CacheHelper.getInstance().getSelfInfo().getNickname());
-//                Log.d("星期", "4>>>>>"+notification.toString());
-//
-//                new LoadUserReferences(intent6, mBuilder).execute(notification.getUser_id());
-//                Log.d("星期", "5>>>>>"+notification.toString());
-
-//                break;
+            case 6://到期通知
+                Intent intent6 = new Intent(this, ReferenceActivity.class);
+                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, notification.getUser_id());
+                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME,
+                        CacheHelper.getInstance().getSelfInfo().getNickname());
+                PendingIntent pendIntent6 = PendingIntent.getActivity(
+                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pendIntent6);
+                break;
         }
         type++;
         Notification noti = mBuilder.build();
@@ -227,55 +218,6 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
-    }
-
-    private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
-        private Intent intent;
-        private NotificationCompat.Builder buidler;
-
-        public LoadUserReferences(Intent mIntent, NotificationCompat.Builder buidler1) {
-            intent = mIntent;
-            buidler = buidler1;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            referenceList.clear();
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
-            try {
-                referenceList.addAll(ServerHelper.getInstance().getUsersReferences(params[0]));
-                success = true;
-                for (int i = 0; i < referenceList.size(); i++) {
-                    try {
-                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
-                        CacheHelper.getInstance().addUserInfo(user);
-                    } catch (Exception e2) {
-                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception caught: " + e.toString());
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success) {
-                intent.putParcelableArrayListExtra(UserInfoFragment.REFERENCES, referenceList);
-                PendingIntent pendIntent5 = PendingIntent.getActivity(
-                        getApplicationContext(), type, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                buidler.setContentIntent(pendIntent5);
-            } else {
-                Toast.makeText(getApplicationContext(), "Failed to get User's References", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     private class MyBDLocationListener implements BDLocationListener {

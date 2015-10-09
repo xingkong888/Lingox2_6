@@ -2,7 +2,9 @@ package cn.lingox.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -10,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -20,7 +23,9 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.ReferenceAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Reference;
+import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.ServerHelper;
 
 public class ReferenceActivity extends Activity implements OnClickListener {
     public static final String INTENT_USER_REFERENCE = LingoXApplication.PACKAGE_NAME + ".USER_REFERENCE";
@@ -33,7 +38,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     static final int ADD_REFERENCE = 1;
     static final int EDIT_REFERENCE = 2;
     static final int VIEW_REFERENCE = 3;
-
+    private static final String LOG_TAG = "ReferenceActivity";
     // Data Elements
     private boolean ownReferencesPage;
     private ArrayList<Reference> referenceList;
@@ -46,24 +51,39 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private ListView listView;
     private ReferenceAdapter arrayAdapter;
 
+    private ProgressBar pb;
+
     private int addRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reference);
+
+        initView();
+
         Intent intent = getIntent();
         addRef = intent.getIntExtra("addReference", 0);
-
         userId = intent.getStringExtra(UserInfoFragment.TARGET_USER_ID);
         userName = intent.getStringExtra(UserInfoFragment.TARGET_USER_NAME);
-        referenceList = intent.getParcelableArrayListExtra(UserInfoFragment.REFERENCES);
+        if (intent.hasExtra(UserInfoFragment.REFERENCES)) {
+            referenceList = intent.getParcelableArrayListExtra(UserInfoFragment.REFERENCES);
+            initData();
+        } else {
+            referenceList = new ArrayList<>();
+            pb.setVisibility(View.VISIBLE);
+            new LoadUserReferences().execute(userId);
+        }
+
         ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
-        initView();
-        initData();
+
+
     }
 
     private void initView() {
+
+        pb = (ProgressBar) findViewById(R.id.progress);
+
         addReference = (ImageView) findViewById(R.id.iv_add_reference);
 
         // If we are viewing our own references
@@ -198,5 +218,45 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     protected void onPause() {
         MobclickAgent.onPause(this);
         super.onPause();
+    }
+
+    private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            referenceList.clear();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean success = false;
+            try {
+                referenceList.addAll(ServerHelper.getInstance().getUsersReferences(params[0]));
+                success = true;
+                for (int i = 0; i < referenceList.size(); i++) {
+                    try {
+                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
+                        CacheHelper.getInstance().addUserInfo(user);
+                    } catch (Exception e2) {
+                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Exception caught: " + e.toString());
+            }
+            return success;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            pb.setVisibility(View.INVISIBLE);
+            if (success) {
+                initData();
+            } else {
+                Toast.makeText(getApplicationContext(), "Failed to get User's References", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

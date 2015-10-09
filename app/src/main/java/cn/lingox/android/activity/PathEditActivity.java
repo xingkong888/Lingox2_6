@@ -627,7 +627,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         page0.setVisibility(View.INVISIBLE);
                         page5.setVisibility(View.INVISIBLE);
                         page2.setVisibility(View.INVISIBLE);
-                        address.setVisibility(View.VISIBLE);
+                        if (path.getType() == 1) {
+                            address.setVisibility(View.VISIBLE);
+                        } else {
+                            address.setVisibility(View.INVISIBLE);
+                        }
                     } else {
                         page--;
                     }

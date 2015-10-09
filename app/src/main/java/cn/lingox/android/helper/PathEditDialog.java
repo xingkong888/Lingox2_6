@@ -62,6 +62,9 @@ public class PathEditDialog {
                 if (newPath.getEndDateTime() != 0) {
                     CachePath.getInstance().setEndTime(newPath.getEndDateTime());
                 }
+                if (!newPath.getAvailableTime().isEmpty()) {
+                    CachePath.getInstance().setAvabilableTime(newPath.getAvailableTime());
+                }
                 if (newPath.getCapacity() != 0) {
                     CachePath.getInstance().setGroupSize(newPath.getCapacity());
                 }

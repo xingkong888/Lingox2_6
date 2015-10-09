@@ -14,6 +14,7 @@ public class CachePath {
     private String image = "";
     private long startTime = 0;
     private long endTime = 0;
+    private String avabilableTime = "";
     private String address = "";
     private int groupSize = 0;
     private String budget = "";
@@ -34,6 +35,7 @@ public class CachePath {
         photo = false;
         startTime = 0;
         endTime = 0;
+        avabilableTime = "";
         address = "";
         groupSize = 0;
         budget = "";
@@ -62,6 +64,14 @@ public class CachePath {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    public String getAvabilableTime() {
+        return avabilableTime;
+    }
+
+    public void setAvabilableTime(String avabilableTime) {
+        this.avabilableTime = avabilableTime;
     }
 
     public long getStartTime() {

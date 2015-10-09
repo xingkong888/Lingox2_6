@@ -435,8 +435,24 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
-        uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
-                JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
+        if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
+            pathTime.setVisibility(View.VISIBLE);
+            if (path.getDateTime() != 0 && path.getDateTime() != -1) {
+                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
+                        JsonHelper.getInstance().parseTimestamp(
+                                path.getDateTime()));
+            }
+            if (path.getEndDateTime() != 0) {
+                uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
+                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+            }
+        } else if (!path.getAvailableTime().isEmpty()) {
+            availableTime.setVisibility(View.VISIBLE);
+            pathTime.setVisibility(View.GONE);
+            availableTime.setText(path.getAvailableTime());
+        }
+//        uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
+//                JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
         if (path.getType() == 2) {
             uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
         } else {

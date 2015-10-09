@@ -417,15 +417,20 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
                             JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
                 }
-                if (CachePath.getInstance().getGroupSize() != 0) {
-                    path.setCapacity(CachePath.getInstance().getGroupSize());
-                    groupSize.setText("" + path.getCapacity());
-                }
-                if (!CachePath.getInstance().getBudget().isEmpty()) {
-                    path.setCost(CachePath.getInstance().getBudget());
-                    budget.setText(path.getCost());
+                if (CachePath.getInstance().getAvabilableTime().isEmpty()) {
+                    path.setAvailableTime(CachePath.getInstance().getAvabilableTime());
+                    UIHelper.getInstance().textViewSetPossiblyNullString(availableTime,
+                            path.getAvailableTime());
                 }
 
+//                if (CachePath.getInstance().getGroupSize() != 0) {
+//                    path.setCapacity(CachePath.getInstance().getGroupSize());
+//                    groupSize.setText("" + path.getCapacity());
+//                }
+//                if (!CachePath.getInstance().getBudget().isEmpty()) {
+//                    path.setCost(CachePath.getInstance().getBudget());
+//                    budget.setText(path.getCost());
+//                }
                 if (CachePath.getInstance().getTags() != null) {
                     for (int i = 0; i < CachePath.getInstance().getTags().size(); i++) {
                         activityTags.put(Integer.valueOf(CachePath.getInstance().getTags().get(i)), 1);
@@ -489,11 +494,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
             UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
                     JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+            UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
             //七
             address.setText(path.getDetailAddress());
             //八
-            groupSize.setText("" + path.getCapacity());
-            budget.setText(path.getCost());
+//            groupSize.setText("" + path.getCapacity());
+//            budget.setText(path.getCost());
         }
     }
 
@@ -717,7 +723,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         }
                     }
                     //page0-->page1-->page5-->page2-->  page3  -->page4
-
                     break;
                 case 5://photo
                     saveTags();
@@ -964,6 +969,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         protected Boolean doInBackground(Void... params) {
             try {
                 //TODO 环信群————创建
+
                 if (TextUtils.isEmpty(path.getHxGroupId())) {
                     EMGroup emGroup = EMGroupManager.getInstance().
                             createPublicGroup(path.getTitle(), path.getText(), null, false);

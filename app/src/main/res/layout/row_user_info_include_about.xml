@@ -195,7 +195,7 @@
                 android:id="@+id/userinfo_age"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="@string/age" />
 
@@ -240,7 +240,7 @@
                 android:id="@+id/userinfo_gender"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:text="@string/gender" />
 

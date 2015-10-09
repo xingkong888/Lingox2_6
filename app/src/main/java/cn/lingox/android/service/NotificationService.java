@@ -118,7 +118,6 @@ public class NotificationService extends Service {
                 } else
                     Log.d(LOG_TAG, notificationUser.toString());
                 notificationList.add(generaNotification(notificationUser, makeNotifiText(notificationUser, lingoNotification), lingoNotification));
-
             }
         }
         NotificationManager mNotificationManager =
@@ -166,7 +165,8 @@ public class NotificationService extends Service {
                 Intent intent5 = new Intent(this, ReferenceActivity.class);
                 intent5.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, user.getId());
                 intent5.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME, user.getNickname());
-                new LoadUserReferences(intent5, mBuilder).execute(user.getId());
+                startActivity(intent5);
+//                new LoadUserReferences(intent5, mBuilder).execute(user.getId());
                 break;
 //            case 6://到期通知
 //                Log.d("星期","1>>>>>"+notification.toString());

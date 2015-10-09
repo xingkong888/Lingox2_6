@@ -319,6 +319,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             );
         }
 
+//        Log.d("星期",user.toString());
+
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values
         if (user.hasProperlyFormedBirthDate()) {
@@ -411,21 +413,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         } else if (requestingOthersData && !user.getInterests().isEmpty()) {
             userInsterest.setTextColor(Color.rgb(25, 143, 153));
             str2 = user.getInterests().toString().substring(1, user.getInterests().toString().length() - 1);
-            if (str2.split(",")[0].isEmpty()) {
-                userInsterest.setText(str2.substring(1, str2.length()));
-            } else {
-                userInsterest.setText(str2);
-            }
+            userInsterest.setText(str2);
         } else if (user.getInterests().size() > 0) {
             if (!user.getInterests().get(0).isEmpty()) {
                 userInsterest.setHint("");
                 userInsterest.setEnabled(false);
                 str2 = user.getInterests().toString().substring(1, user.getInterests().toString().length() - 1);
-                if (str2.split(",")[0].isEmpty()) {
-                    userInsterest.setText(str2.substring(1, str2.length()));
-                } else {
-                    userInsterest.setText(str2);
-                }
+                userInsterest.setText(str2);
             } else {
                 userInsterest.setHint("");
                 userInsterest.setEnabled(false);

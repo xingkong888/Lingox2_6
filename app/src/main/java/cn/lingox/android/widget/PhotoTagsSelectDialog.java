@@ -57,6 +57,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         }
         handler = handler1;
         tags = new ArrayList<>();
+        tags.clear();
 
         PhotoTagsSelectDialog editer = new PhotoTagsSelectDialog();
         Bundle bundle = new Bundle();
@@ -82,7 +83,6 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                 if (title.contentEquals("photo")) {
                     photo.setTags("");
                     if (tags.size() > 0) {
-
                         String tag = tags.toString().replace("[", "").replace("]", "");
                         photo.setTags(tag);
                         Message msg = new Message();
@@ -98,6 +98,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                 } else {
                     user.setInterests(null);
                     user.setInterests(tags);
+
                     Message msg = new Message();
                     msg.what = 1;
                     msg.obj = user.getInterests().toString().replace("[", "").replace("]", "");
@@ -129,9 +130,10 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                 }
             }
         } else {
-            if (user.getInterests() != null) {
+            if (user.getInterests().size() > 0) {
                 for (int i = 0; i < user.getInterests().size(); i++) {
-                    tags.add(user.getInterests().get(i));
+                    if (!user.getInterests().get(i).isEmpty())
+                        tags.add(user.getInterests().get(i));
                 }
             }
         }

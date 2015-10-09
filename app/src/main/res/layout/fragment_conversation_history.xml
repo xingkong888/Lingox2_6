@@ -7,40 +7,41 @@
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#efeff4"
-        android:orientation="vertical">
 
-        <include
-            android:id="@+id/rl_error_item"
-            layout="@layout/chat_neterror_item"
-            android:visibility="gone" />
-
-        <ListView
-            android:id="@+id/chat_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="#000"
-            android:divider="@drawable/line1"
-            android:dividerHeight="1dp"
-            android:transcriptMode="normal" />
-    </LinearLayout>
+            android:background="#efeff4"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@anim/anim_chat"
-        android:visibility="gone" />
+            <include
+                android:id="@+id/rl_error_item"
+                layout="@layout/chat_neterror_item"
+                android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+            <ListView
+                android:id="@+id/chat_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#000"
+                android:divider="@drawable/line1"
+                android:dividerHeight="1dp"
+                android:transcriptMode="normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@anim/anim_chat"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

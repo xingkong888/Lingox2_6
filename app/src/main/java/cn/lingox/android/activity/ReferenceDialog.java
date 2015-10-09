@@ -1,13 +1,16 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
@@ -41,6 +44,8 @@ public class ReferenceDialog extends Activity implements OnClickListener {
     private int requestCode;
     private Reference reference;
 
+    private InputMethodManager imm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,7 @@ public class ReferenceDialog extends Activity implements OnClickListener {
         if (intent.hasExtra(ReferenceActivity.INTENT_REFERENCE))
             reference = intent
                     .getParcelableExtra(ReferenceActivity.INTENT_REFERENCE);
-
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         initView();
     }
 
@@ -81,6 +86,7 @@ public class ReferenceDialog extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        closeKeyboard(v);
         switch (v.getId()) {
             case R.id.tv_ok:
                 final String content = evContent.getText().toString();
@@ -90,57 +96,63 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                         setResult(SUCCESS);
                         finish();
                         break;
-
                     case ReferenceActivity.ADD_REFERENCE:
-                        new Thread() {
-                            public void run() {
-                                try {
-                                    Reference returnReference = ServerHelper.getInstance()
-                                            .createReference(
-                                                    CacheHelper.getInstance().getSelfInfo().getId(),
-                                                    userId, title, content);
-                                    Intent returnIntent = new Intent();
-                                    returnIntent.putExtra(ADDED_REFERENCE,
-                                            returnReference);
-                                    setResult(SUCCESS_ADD, returnIntent);
-                                    finish();
-                                } catch (Exception e) {
-                                    Intent returnIntent = new Intent();
-                                    returnIntent.putExtra("remark", e.getMessage());
-                                    setResult(FAILURE, returnIntent);
-                                    finish();
+                        if (!content.isEmpty()) {
+                            new Thread() {
+                                public void run() {
+                                    try {
+                                        Reference returnReference = ServerHelper.getInstance()
+                                                .createReference(
+                                                        CacheHelper.getInstance().getSelfInfo().getId(),
+                                                        userId, title, content);
+                                        Intent returnIntent = new Intent();
+                                        returnIntent.putExtra(ADDED_REFERENCE,
+                                                returnReference);
+                                        setResult(SUCCESS_ADD, returnIntent);
+                                        finish();
+                                    } catch (Exception e) {
+                                        Intent returnIntent = new Intent();
+                                        returnIntent.putExtra("remark", e.getMessage());
+                                        setResult(FAILURE, returnIntent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        }.start();
+                            }.start();
+                        } else {
+                            Toast.makeText(this, "Please write something", Toast.LENGTH_SHORT).show();
+                        }
                         break;
 
                     case ReferenceActivity.EDIT_REFERENCE:
-                        new Thread() {
-                            public void run() {
-                                try {
-                                    Reference editedReference = ServerHelper.getInstance()
-                                            .editReference(reference.getId(), title,
-                                                    content);
+                        if (!content.isEmpty()) {
+                            new Thread() {
+                                public void run() {
+                                    try {
+                                        Reference editedReference = ServerHelper.getInstance()
+                                                .editReference(reference.getId(), title,
+                                                        content);
 
-                                    Intent returnIntent = new Intent();
-                                    // TODO we dont need both of these
-                                    returnIntent.putExtra(REFERENCE_BEFORE_EDIT,
-                                            reference);
-                                    returnIntent.putExtra(REFERENCE_AFTER_EDIT,
-                                            editedReference);
-                                    setResult(SUCCESS_EDIT, returnIntent);
-                                    finish();
-                                } catch (Exception e) {
-                                    Intent returnIntent = new Intent();
-                                    returnIntent.putExtra("remark", e.getMessage());
-                                    setResult(FAILURE, returnIntent);
-                                    finish();
+                                        Intent returnIntent = new Intent();
+                                        // TODO we dont need both of these
+                                        returnIntent.putExtra(REFERENCE_BEFORE_EDIT,
+                                                reference);
+                                        returnIntent.putExtra(REFERENCE_AFTER_EDIT,
+                                                editedReference);
+                                        setResult(SUCCESS_EDIT, returnIntent);
+                                        finish();
+                                    } catch (Exception e) {
+                                        Intent returnIntent = new Intent();
+                                        returnIntent.putExtra("remark", e.getMessage());
+                                        setResult(FAILURE, returnIntent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        }.start();
+                            }.start();
+                        } else {
+                            Toast.makeText(this, "Please write something", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
-
                 break;
             case R.id.tv_cancel:
                 setResult(0);
@@ -170,5 +182,9 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                 }.start();
                 break;
         }
+    }
+
+    private void closeKeyboard(View view) {
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

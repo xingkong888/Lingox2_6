@@ -92,9 +92,9 @@ public class ShowIndentAdapter extends BaseAdapter {
             public void onClick(View v) {
                 final EditText edit = new EditText(context);
                 new AlertDialog.Builder(context)
-                        .setMessage("Please fill out the reason")
+                        .setMessage("Do you really want to cancel your request? ")
                         .setView(edit)
-                        .setPositiveButton("COMMIT", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 HashMap<String, String> map = new HashMap<>();
@@ -176,7 +176,6 @@ public class ShowIndentAdapter extends BaseAdapter {
             } catch (Exception e) {
                 Log.e("ShowIndentAdapter", e.getMessage());
                 e.printStackTrace();
-                pd.setMessage("EditIndent： " + e.getMessage());
                 return false;
             }
         }

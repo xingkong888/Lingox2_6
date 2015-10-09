@@ -10,6 +10,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -72,6 +73,8 @@ public class ChatFragment extends Fragment {
     private int unreadMSG = 0;
     private int unreadNotify = 0;
     private ProgressBar loading;
+
+    private SwipeRefreshLayout refresh;
 
     // UI Elements
     private InputMethodManager inputMethodManager;
@@ -205,6 +208,14 @@ public class ChatFragment extends Fragment {
 
         loading = (ProgressBar) view.findViewById(R.id.progress);
         loading.setVisibility(View.VISIBLE);
+
+        refresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new LoadNotifications().execute();
+            }
+        });
 
         listView = (ListView) view.findViewById(R.id.chat_list);
         anim = (ImageView) view.findViewById(R.id.anim);
@@ -807,6 +818,7 @@ public class ChatFragment extends Fragment {
                     }
                 // 通知适配器，数据发生改变
                 notifyChange();
+                refresh.setRefreshing(false);
             }
         }
     }

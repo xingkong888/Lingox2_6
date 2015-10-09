@@ -220,7 +220,7 @@ public class ChatFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // ListView的点击事件
                     listView.setClickable(false);
-                    ChatAndNotify can = (ChatAndNotify) adapter.getItem(position - 1);
+                    ChatAndNotify can = (ChatAndNotify) adapter.getItem(position);
                     switch (can.getType()) {
                         case 0://聊天
                             EMConversation conversation = (EMConversation) can.getObj();

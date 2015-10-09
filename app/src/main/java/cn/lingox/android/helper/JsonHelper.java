@@ -192,6 +192,9 @@ public class JsonHelper {
     }
 
     public String parseTimestamp(long timestamp) {
+        if (locale == null) {
+            getLocal();
+        }
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
 

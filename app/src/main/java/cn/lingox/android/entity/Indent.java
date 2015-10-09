@@ -22,6 +22,7 @@ public class Indent implements Parcelable {
     private long startTime = 0;//申请的开始时间
     private long endTime = 0;//申请的结束时间
     private int participants = 0;//参与人数
+    private String freeTime = "";//local参加traveler的活动
     private String reason = "";//申请人取消申请的理由
     private boolean notified = false;//活动结束 true已发通知 false未发通知
 
@@ -39,6 +40,7 @@ public class Indent implements Parcelable {
         this.startTime = in.readLong();
         this.endTime = in.readLong();
         this.participants = in.readInt();
+        this.freeTime = in.readString();
         this.reason = in.readString();
         this.notified = in.readByte() != 0;
 
@@ -66,6 +68,14 @@ public class Indent implements Parcelable {
 
     public void setParticipants(int participants) {
         this.participants = participants;
+    }
+
+    public String getFreeTime() {
+        return freeTime;
+    }
+
+    public void setFreeTime(String freeTime) {
+        this.freeTime = freeTime;
     }
 
     public String getPathId() {
@@ -143,6 +153,7 @@ public class Indent implements Parcelable {
                 + ",startTime=" + startTime
                 + ",endTime=" + endTime
                 + ",participants=" + participants
+                + ",freeTime=" + freeTime
                 + ",reason=" + reason
                 + ",notified=" + notified
                 ;
@@ -159,6 +170,7 @@ public class Indent implements Parcelable {
         dest.writeLong(startTime);
         dest.writeLong(endTime);
         dest.writeInt(participants);
+        dest.writeString(freeTime);
         dest.writeString(reason);
         dest.writeByte((byte) (notified ? 1 : 0));
     }

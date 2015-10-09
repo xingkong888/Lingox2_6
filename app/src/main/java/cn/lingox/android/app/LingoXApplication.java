@@ -251,10 +251,15 @@ public class LingoXApplication extends Application {
                 state.setText("Time out");//超过结束时间
                 break;
         }
-        timeAndNum.setText(TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime())
-                        + "—" + TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " + indent.getParticipants()
-                        + " people"
-        );
+        if (indent.getFreeTime().isEmpty()) {
+            timeAndNum.setText(TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime())
+                            + "—" + TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " + indent.getParticipants()
+                            + " people"
+            );
+        } else {
+            timeAndNum.setText(indent.getFreeTime()
+            );
+        }
         pathTitle.setText(indent.getPathTitle());
     }
 

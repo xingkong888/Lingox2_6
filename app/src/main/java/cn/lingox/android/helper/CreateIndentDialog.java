@@ -1,7 +1,6 @@
 package cn.lingox.android.helper;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -112,15 +111,15 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
         local=(LinearLayout)view.findViewById(R.id.local);
         traveler=(LinearLayout)view.findViewById(R.id.traveler);
 
-        local.setVisibility(View.VISIBLE);
-
         switch (type){
-            case 1://local
+            case 1://traveler参加local发布的活动
                 getDialog().setTitle("Application");
+                traveler.setVisibility(View.VISIBLE);
                 break;
-            case 2://traveler
+            case 2://local参加traveler发布的活动
+                local.setVisibility(View.VISIBLE);
                 getDialog().setTitle("Acceptance");
-                localDescribe.setHint("Help "+username+" know you better.");
+                localDescribe.setHint("Help " + nickname + " know you better.");
                 break;
         }
     }
@@ -139,18 +138,35 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
                 map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
                 map.put("tarId", tarId);
                 map.put("pathId", pathId);
-                if (start > 0 && end > 0 && !num.getText().toString().isEmpty()) {
-                    map.put("startTime", String.valueOf(start));
-                    map.put("endTime", String.valueOf(end));
-                    map.put("participants", num.getText().toString().trim());
-                    map.put("state", "1");
-                    new CreateIndent().execute();
-                } else {
-                    Toast.makeText(getActivity(), "Please complete the information", Toast.LENGTH_SHORT).show();
+                map.put("state", "1");
+                switch (type) {
+                    case 1://local发布的活动
+                        if (start > 0 && end > 0 && !num.getText().toString().isEmpty()) {
+                            map.put("startTime", String.valueOf(start));
+                            map.put("endTime", String.valueOf(end));
+                            map.put("participants", num.getText().toString().trim());
+                            map.put("freeTime", "");
+                            new CreateIndent().execute();
+                        } else {
+                            Toast.makeText(getActivity(), "Please complete the information", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 2://traveler发布的活动
+                        if (!time.getText().toString().isEmpty()
+                                && !localDescribe.getText().toString().isEmpty()) {
+                            map.put("startTime", "0");
+                            map.put("endTime", "0");
+                            map.put("freeTime", time.getText().toString());
+                            map.put("participants", localDescribe.getText().toString().trim());
+                            new CreateIndent().execute();
+                        } else {
+                            Toast.makeText(getActivity(), "Please complete the information", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                 }
+
                 break;
             case R.id.indent_cancel:
-//                finish();
                 dismiss();
                 break;
         }

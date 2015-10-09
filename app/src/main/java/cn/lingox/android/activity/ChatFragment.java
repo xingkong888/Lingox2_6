@@ -24,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,7 +72,7 @@ public class ChatFragment extends Fragment {
 
     private int unreadMSG = 0;
     private int unreadNotify = 0;
-    private ProgressBar loading;
+//    private ProgressBar loading;
 
     // UI Elements
     private InputMethodManager inputMethodManager;
@@ -205,8 +204,8 @@ public class ChatFragment extends Fragment {
         errorItem = (RelativeLayout) view.findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
 
-        loading = (ProgressBar) view.findViewById(R.id.progress);
-        loading.setVisibility(View.VISIBLE);
+//        loading = (ProgressBar) view.findViewById(R.id.progress);
+//        loading.setVisibility(View.VISIBLE);
 
         listView = (PullToRefreshListView) view.findViewById(R.id.chat_list);
         anim = (ImageView) view.findViewById(R.id.anim);
@@ -224,7 +223,7 @@ public class ChatFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // ListView的点击事件
                     listView.setClickable(false);
-                    ChatAndNotify can = (ChatAndNotify) adapter.getItem(position);
+                    ChatAndNotify can = (ChatAndNotify) adapter.getItem(position - 1);
                     switch (can.getType()) {
                         case 0://聊天
                             EMConversation conversation = (EMConversation) can.getObj();
@@ -383,7 +382,7 @@ public class ChatFragment extends Fragment {
                     }
                     //TODO 向activity传递数据
                     show.showMessageNum(unreadMSG + unreadNotify);
-                    loading.setVisibility(View.GONE);
+//                    loading.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                     return true;
                 case 1://通知
@@ -495,7 +494,7 @@ public class ChatFragment extends Fragment {
         }
         //TODO 向activity传递数据
         show.showMessageNum(unreadMSG + unreadNotify);
-        loading.setVisibility(View.GONE);
+//        loading.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
 

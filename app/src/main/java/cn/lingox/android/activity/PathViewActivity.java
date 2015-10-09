@@ -303,9 +303,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case 1:
 //                Log.d("天气","本地人");
                 pathLocal.setVisibility(View.VISIBLE);
-//                pathTime.setVisibility(View.GONE);
-//                availableTime.setVisibility(View.VISIBLE);
-//                availableTime.setText(path.getAvailableTime());
                 break;
             case 2:
 //            Log.d("天气","旅行者");
@@ -314,7 +311,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
             pathTime.setVisibility(View.VISIBLE);
-            if (path.getDateTime() != 0) {
+            if (path.getDateTime() != 0 && path.getDateTime() != -1) {
                 uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(
                                 path.getDateTime()));

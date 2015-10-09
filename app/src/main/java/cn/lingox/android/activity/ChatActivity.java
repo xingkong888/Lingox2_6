@@ -1225,7 +1225,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     if (!CommonUtils.isExitsSdcard()) {
-                        Toast.makeText(ChatActivity.this, "����������Ҫsdcard֧�֣�",
+                        Toast.makeText(ChatActivity.this, "",
                                 Toast.LENGTH_SHORT).show();
                         return false;
                     }

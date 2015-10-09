@@ -18,7 +18,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:hint=""
-        android:numeric="integer"
         android:padding="5dp"
         android:paddingLeft="10dp"
         android:textSize="20sp" />

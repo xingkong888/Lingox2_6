@@ -51,7 +51,6 @@ public class SplashActivity extends Activity {
         AnalyticsConfig.enableEncrypt(true);
         checkFile();
         if (CacheHelper.getInstance().isLoggedIn()) {
-
             new Thread(
                     new Runnable() {
                         @Override

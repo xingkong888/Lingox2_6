@@ -253,7 +253,7 @@ public class MainActivity extends ActionBarActivity implements
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-            case R.id.update_app:
+            case R.id.update_app://TODO 更新应用
                 Uri updateUri = Uri.parse(URLConstant.APK_URL);
                 Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
                 startActivity(updateAppIntent);
@@ -444,8 +444,26 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected void onPostExecute(Boolean requireUpdate) {
             super.onPostExecute(requireUpdate);
+//            if (true) {
             if (requireUpdate) {
                 update.setVisibility(View.VISIBLE);
+//                new AlertDialog.Builder(MainActivity.this)
+//                        .setMessage("Please upgrade!")
+//                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                System.exit(0);
+//                            }
+//                        })
+//                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Uri updateUri = Uri.parse(URLConstant.APK_URL);
+//                                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
+//                                startActivity(updateAppIntent);
+//                            }
+//                        })
+//                        .create().show();
                 Log.d(LOG_TAG, "Update Found");
             } else {
                 update.setVisibility(View.GONE);

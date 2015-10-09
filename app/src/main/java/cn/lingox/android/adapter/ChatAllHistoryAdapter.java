@@ -21,6 +21,7 @@ import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -367,6 +368,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         }
                     }
                 }
+                Collections.reverse(indentDatas);
 //              Log.d("星期",indentDatas.size()+">>>"+tempData.size());
                 return true;
             } catch (Exception e1) {

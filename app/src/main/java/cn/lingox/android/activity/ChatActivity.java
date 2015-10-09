@@ -673,9 +673,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 final Indent indent = indentDatas.get(0);
                 final EditText edit = new EditText(this);
                 new AlertDialog.Builder(this)
-                        .setMessage("Please fill out the reason")
+                        .setMessage("Do you really want to cancel your request? ")
                         .setView(edit)
-                        .setPositiveButton("COMMIT", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 HashMap<String, String> map = new HashMap<>();

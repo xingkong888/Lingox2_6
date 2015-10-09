@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +40,6 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.NetUtils;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -72,11 +71,11 @@ public class ChatFragment extends Fragment {
 
     private int unreadMSG = 0;
     private int unreadNotify = 0;
-//    private ProgressBar loading;
+    private ProgressBar loading;
 
     // UI Elements
     private InputMethodManager inputMethodManager;
-    private PullToRefreshListView listView;
+    private ListView listView;
     private ChatAllHistoryAdapter adapter;
     private RelativeLayout errorItem;
     private TextView errorText;
@@ -204,10 +203,10 @@ public class ChatFragment extends Fragment {
         errorItem = (RelativeLayout) view.findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
 
-//        loading = (ProgressBar) view.findViewById(R.id.progress);
-//        loading.setVisibility(View.VISIBLE);
+        loading = (ProgressBar) view.findViewById(R.id.progress);
+        loading.setVisibility(View.VISIBLE);
 
-        listView = (PullToRefreshListView) view.findViewById(R.id.chat_list);
+        listView = (ListView) view.findViewById(R.id.chat_list);
         anim = (ImageView) view.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
         datas = new ArrayList<>();
@@ -216,8 +215,8 @@ public class ChatFragment extends Fragment {
             new LoadNotifications().execute();
             adapter = new ChatAllHistoryAdapter(getActivity(), datas);
             listView.setAdapter(adapter);
-            listView.setRefreshing(true);
-            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+//            listView.setRefreshing(true);
+//            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -272,12 +271,12 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
-        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                new LoadNotifications().execute();
-            }
-        });
+//        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//            @Override
+//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//                new LoadNotifications().execute();
+//            }
+//        });
 
         registerForContextMenu(listView);
 
@@ -382,7 +381,7 @@ public class ChatFragment extends Fragment {
                     }
                     //TODO 向activity传递数据
                     show.showMessageNum(unreadMSG + unreadNotify);
-//                    loading.setVisibility(View.GONE);
+                    loading.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                     return true;
                 case 1://通知
@@ -494,7 +493,7 @@ public class ChatFragment extends Fragment {
         }
         //TODO 向activity传递数据
         show.showMessageNum(unreadMSG + unreadNotify);
-//        loading.setVisibility(View.GONE);
+        loading.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
 
@@ -816,7 +815,6 @@ public class ChatFragment extends Fragment {
                     }
                 // 通知适配器，数据发生改变
                 notifyChange();
-                listView.onRefreshComplete();
             }
         }
     }

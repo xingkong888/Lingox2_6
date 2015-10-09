@@ -53,4 +53,18 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <EditText
+        android:id="@+id/path_edit_address"
+        android:layout_width="240dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/poiu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/edit_border"
+        android:gravity="center"
+        android:hint="@string/enter_detail_address"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textColorHint="@color/white"
+        android:visibility="gone" />
 </RelativeLayout>

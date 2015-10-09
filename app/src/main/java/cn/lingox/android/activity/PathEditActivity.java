@@ -608,7 +608,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 1://country city address
                     if (path.getType() != 0) {
                         if (path.getType() == 1) {
-                            oneTitle.setText("You are in...");
+                            oneTitle.setText("Where is this experience?");
                             twoTitle.setText("What local experience do you want to share with travelers?");
                             threeTitle.setText("Please choose the type(s) of your local experience");
                             fourTitle.setText("Is there a cover photo?");
@@ -627,6 +627,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         page0.setVisibility(View.INVISIBLE);
                         page5.setVisibility(View.INVISIBLE);
                         page2.setVisibility(View.INVISIBLE);
+                        address.setVisibility(View.VISIBLE);
                     } else {
                         page--;
                     }
@@ -642,7 +643,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             page1.setVisibility(View.INVISIBLE);
                             page5.setVisibility(View.INVISIBLE);
 
-                            address.setVisibility(View.VISIBLE);
                         } else {
                             availableTime.setVisibility(View.GONE);
                             startTime.setVisibility(View.VISIBLE);

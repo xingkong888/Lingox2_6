@@ -75,7 +75,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:gravity="top"
-                    android:text="Departure"
+                    android:text="Departing"
                     android:textSize="15sp" />
 
                 <TextView

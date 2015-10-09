@@ -1250,6 +1250,8 @@ public class ServerHelper {
     //订单信息
     public Indent createApplication(HashMap<String, String> params) throws Exception {
 
+        Log.d("星期", params.toString());
+
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_APPLICATION, params);
         Log.d(LOG_TAG, "createApplication " + jsonStr);
 

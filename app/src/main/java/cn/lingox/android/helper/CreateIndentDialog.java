@@ -36,7 +36,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
 
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
+            calendar.set(year, month, day, 0, 0, 0);
             start = calendar.getTimeInMillis() / 1000L;
             if (end == 0 ? true : end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
@@ -49,8 +49,8 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
     };
     private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
-            end = calendar.getTimeInMillis() / 1000L + 100;
+            calendar.set(year, month, day, 23, 59, 59);
+            end = calendar.getTimeInMillis() / 1000L;
             if (end - now >= 0 && (start == 0 ? true : end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
                         endTime, TimeHelper.getInstance().parseTimestampToDate(end));

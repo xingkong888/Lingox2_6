@@ -27,6 +27,7 @@
 -dontwarn com.umeng.**
 -dontwarn com.tencent.weibo.sdk.**
 -dontwarn com.facebook.**
+-dontwarn com.easemob.**
 #忽略警告
 -ignorewarnings
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法

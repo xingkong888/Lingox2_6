@@ -78,4 +78,12 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@anim/anim_chat"
+        android:visibility="gone" />
+
 </RelativeLayout>

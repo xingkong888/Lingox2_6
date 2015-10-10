@@ -2,11 +2,13 @@ package cn.lingox.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +34,9 @@ public class UserListActivity extends Activity implements OnClickListener {
     private ListView listView;
     private ContactAdapter adapter;
     private LinearLayout backButton;
+
+    private ImageView anim;
+    private AnimationDrawable animationDrawable;
 
     // Data Elements
     private String pageTitle;
@@ -62,25 +67,34 @@ public class UserListActivity extends Activity implements OnClickListener {
         backButton = (LinearLayout) findViewById(R.id.layout_back);
         backButton.setOnClickListener(this);
         listView = (ListView) findViewById(R.id.list);
+
+        anim = (ImageView) findViewById(R.id.anim);
+        animationDrawable = (AnimationDrawable) anim.getBackground();
     }
 
     private void initData() {
-        adapter = new ContactAdapter(UserListActivity.this,
-                R.layout.row_contact, userList, null);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                Intent intent = new Intent(UserListActivity.this,
-                        UserInfoActivity.class);
-                intent.putExtra(UserInfoActivity.INTENT_USER_ID,
-                        adapter.getItem(position).getId());
-                startActivity(intent);
-            }
-        });
-        adapter.notifyDataSetChanged();
+        if (userList.size() == 0) {
+            startAnim();
+            listView.setVisibility(View.GONE);
+        } else {
+            listView.setVisibility(View.VISIBLE);
+            stopAnim();
+            adapter = new ContactAdapter(UserListActivity.this,
+                    R.layout.row_contact, userList, null);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    Intent intent = new Intent(UserListActivity.this,
+                            UserInfoActivity.class);
+                    intent.putExtra(UserInfoActivity.INTENT_USER_ID,
+                            adapter.getItem(position).getId());
+                    startActivity(intent);
+                }
+            });
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -103,5 +117,19 @@ public class UserListActivity extends Activity implements OnClickListener {
     protected void onPause() {
         MobclickAgent.onPause(this);
         super.onPause();
+    }
+
+    private void startAnim() {
+        if (!animationDrawable.isRunning()) {
+            anim.setVisibility(View.VISIBLE);
+            animationDrawable.start();
+        }
+    }
+
+    private void stopAnim() {
+        if (animationDrawable.isRunning()) {
+            anim.setVisibility(View.GONE);
+            animationDrawable.stop();
+        }
     }
 }

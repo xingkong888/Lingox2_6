@@ -118,7 +118,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
                 break;
             case 2://local参加traveler发布的活动
                 local.setVisibility(View.VISIBLE);
-                getDialog().setTitle("Acceptance");
+                getDialog().setTitle("Sort them out");
                 localDescribe.setHint("Help " + nickname + " know you better.");
                 break;
         }

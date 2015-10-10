@@ -63,7 +63,7 @@ public abstract class HXSDKHelper {
         }
 
         EMChat.getInstance().init(context);
-        EMChat.getInstance().setDebugMode(true);
+        EMChat.getInstance().setDebugMode(false);
 
         Log.d(TAG, "initialize EMChat SDK");
 

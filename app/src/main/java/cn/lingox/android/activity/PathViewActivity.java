@@ -144,7 +144,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private ViewGroup tagsView = null;
     private UIHelper uiHelper = UIHelper.getInstance();
     private HashMap<String, String> map = new HashMap<>();
-    private TextView availableTime;
+    private TextView availableTime, available;
 
     //TODO Change all of the AsyncTasks (ie. getPathInfo getUserInfo getCommentUserInfo etc etc) into a better solution (maybe 1 big asynctask that loads them all in one go)
 
@@ -156,7 +156,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (intent.hasExtra(PATH_TO_VIEW)) {
             path = intent.getParcelableExtra(PATH_TO_VIEW);
         }
-        Log.d("星期", path.toString());
+//        Log.d("星期", path.toString());
         map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
         initView();
         if (path == null && intent.getStringExtra(PATH_TO_VIEW_ID).isEmpty()) {
@@ -215,6 +215,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
 
         pathUserNickname = (TextView) findViewById(R.id.path_user_name);
         availableTime = (TextView) findViewById(R.id.available_time);
+        available = (TextView) findViewById(R.id.ddd);
 
         pathActivity = (TextView) findViewById(R.id.path_activity);
         pathTitle = (TextView) findViewById(R.id.path_title);
@@ -312,6 +313,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
         if (path.getDateTime() > 0 || path.getEndDateTime() > 0) {
             pathTime.setVisibility(View.VISIBLE);
+            availableTime.setVisibility(View.GONE);
+            available.setVisibility(View.GONE);
             if (path.getDateTime() != 0 && path.getDateTime() != -1) {
                 uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(
@@ -321,8 +324,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
             }
-        } else if (!path.getAvailableTime().isEmpty()) {
+        } else
+//        if (!path.getAvailableTime().isEmpty())
+        {
             availableTime.setVisibility(View.VISIBLE);
+            available.setVisibility(View.VISIBLE);
             pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }

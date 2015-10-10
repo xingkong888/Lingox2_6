@@ -39,7 +39,6 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
 
@@ -367,9 +366,10 @@ public class MainActivity extends ActionBarActivity implements
                     Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {
-            FileUtil.deleteDir();
+//            FileUtil.deleteDir();
             this.finish();
-            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+//            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
 

@@ -46,7 +46,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     private ArrayList<ChatAndNotify> datas;
     private ArrayList<Indent> indentDatas;
 
-    //   private ExecutorService pool = Executors. newFixedThreadPool(5);
     public ChatAllHistoryAdapter(Activity context, ArrayList<ChatAndNotify> cList) {
         this.context = context;
         this.datas = cList;
@@ -369,7 +368,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                     }
                 }
                 Collections.reverse(indentDatas);
-//              Log.d("星期",indentDatas.size()+">>>"+tempData.size());
                 return true;
             } catch (Exception e1) {
                 e1.getMessage();

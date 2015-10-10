@@ -168,6 +168,7 @@ public class LingoXApplication extends Application {
         JsonHelper.getInstance().setContext(getApplicationContext());
         TimeHelper.getInstance().setContext(getApplicationContext());
         hxSDKHelper.onInit(getApplicationContext());
+
         Intent servceIntent = new Intent(getApplicationContext(), NotificationService.class);
         startService(servceIntent);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -266,6 +267,5 @@ public class LingoXApplication extends Application {
     public void logout(final EMCallBack emCallBack) {
         hxSDKHelper.logout(emCallBack);
     }
-
 }
 

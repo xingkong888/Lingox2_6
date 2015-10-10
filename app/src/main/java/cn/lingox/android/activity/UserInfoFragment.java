@@ -290,7 +290,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (requestingOthersData) {
             editOrChat.setVisibility(View.INVISIBLE);
             userEdit.setVisibility(View.VISIBLE);
-            about.setText(getString(R.string.user_about) + " Me");
+            about.setText(getString(R.string.user_about) + "Me");
         } else {
             userSexAndAge.setVisibility(View.INVISIBLE);
             photoAdd.setVisibility(View.INVISIBLE);
@@ -301,7 +301,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             jiantou3.setVisibility(View.INVISIBLE);
             line.setVisibility(View.GONE);
             tagsView.setTextColor(Color.BLACK);
-            about.setText(getString(R.string.user_about) + " " + user.getNickname());
+            about.setText(getString(R.string.user_about) + user.getNickname());
         }
         local = user.getLocalGuidey();
         meal = user.getHomeMeal();

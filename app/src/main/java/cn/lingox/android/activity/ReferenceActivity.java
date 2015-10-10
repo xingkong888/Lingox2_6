@@ -2,6 +2,7 @@ package cn.lingox.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,9 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private ListView listView;
     private ReferenceAdapter arrayAdapter;
 
+    private ImageView anim;
+    private AnimationDrawable animationDrawable;
+
     private ProgressBar pb;
 
     private int addRef;
@@ -81,6 +85,9 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     }
 
     private void initView() {
+
+        anim = (ImageView) findViewById(R.id.anim);
+        animationDrawable = (AnimationDrawable) anim.getBackground();
 
         pb = (ProgressBar) findViewById(R.id.progress);
 
@@ -132,9 +139,16 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     }
 
     private void initData() {
-        arrayAdapter = new ReferenceAdapter(this, referenceList);
-        listView.setAdapter(arrayAdapter);
-        updateList();
+        if (referenceList.size() == 0) {
+            startAnim();
+            listView.setVisibility(View.GONE);
+        } else {
+            stopAnim();
+            listView.setVisibility(View.VISIBLE);
+            arrayAdapter = new ReferenceAdapter(this, referenceList);
+            listView.setAdapter(arrayAdapter);
+            updateList();
+        }
     }
 
     private void updateList() {
@@ -218,6 +232,20 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     protected void onPause() {
         MobclickAgent.onPause(this);
         super.onPause();
+    }
+
+    private void startAnim() {
+        if (!animationDrawable.isRunning()) {
+            anim.setVisibility(View.VISIBLE);
+            animationDrawable.start();
+        }
+    }
+
+    private void stopAnim() {
+        if (animationDrawable.isRunning()) {
+            anim.setVisibility(View.GONE);
+            animationDrawable.stop();
+        }
     }
 
     private class LoadUserReferences extends AsyncTask<String, String, Boolean> {

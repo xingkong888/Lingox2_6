@@ -19,4 +19,9 @@ public class PathTags {
     public void setType(int type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "tag=" + tag;
+    }
 }

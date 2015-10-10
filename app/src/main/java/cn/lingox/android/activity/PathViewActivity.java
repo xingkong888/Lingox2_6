@@ -156,7 +156,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (intent.hasExtra(PATH_TO_VIEW)) {
             path = intent.getParcelableExtra(PATH_TO_VIEW);
         }
-//        Log.d("星期",path.toString());
+        Log.d("星期", path.toString());
         map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
         initView();
         if (path == null && intent.getStringExtra(PATH_TO_VIEW_ID).isEmpty()) {
@@ -310,7 +310,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 pathTraveler.setVisibility(View.VISIBLE);
                 break;
         }
-        if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
+        if (path.getDateTime() > 0 || path.getEndDateTime() > 0) {
             pathTime.setVisibility(View.VISIBLE);
             if (path.getDateTime() != 0 && path.getDateTime() != -1) {
                 uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,

@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:text="How long will you be in town?"
+        android:textColor="@color/black_deep"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="From:"
+            android:textColor="@color/black_deep"
             android:textSize="20sp" />
 
         <TextView
@@ -46,9 +48,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:gravity="center"
+            android:gravity="left"
             android:padding="5dp"
             android:text="To:"
+            android:textColor="@color/black_deep"
             android:textSize="20sp" />
 
         <TextView
@@ -69,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:hint="# of travelers"
+        android:hint=" # of travelers"
         android:numeric="integer"
         android:padding="5dp"
         android:paddingLeft="10dp"
@@ -81,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:hint="Why are you joining"
+        android:hint=" Why are you joining?"
         android:padding="5dp"
         android:paddingLeft="10dp"
         android:textSize="20sp" />

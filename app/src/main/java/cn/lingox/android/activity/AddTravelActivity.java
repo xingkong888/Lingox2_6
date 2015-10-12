@@ -56,6 +56,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
             }
         }
     };
+
     private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 23, 59, 59);

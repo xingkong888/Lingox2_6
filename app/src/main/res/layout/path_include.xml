@@ -20,6 +20,7 @@
             android:textSize="15sp"
 
             />
+
         <TextView
             android:id="@+id/available_time"
             android:layout_width="match_parent"

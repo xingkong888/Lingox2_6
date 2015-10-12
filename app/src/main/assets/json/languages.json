@@ -1,17 +1,32 @@
 {
   "languages": [
     "English",
-    "中文",
-    "日本語",
-    "한국어",
-    "Français",
-    "Deutsch",
-    "Italiano",
+    "Chinese",
+    "Japanese",
+    "Korean",
+    "French",
+    "German",
+    "Italian",
     "Indonesia",
-    "Español",
-    "Português",
-    "ภาษาไทย",
-    "Türkçe",
+    "Spanish",
+    "Portuguese",
+    "Thai",
+    "Turkish",
     "Afghanistan"
   ]
+  //  [
+  //    "English",
+  //    "中文",
+  //    "日本語",
+  //    "한국어",
+  //    "Français",
+  //    "Deutsch",
+  //    "Italiano",
+  //    "Indonesia",
+  //    "Español",
+  //    "Português",
+  //    "ภาษาไทย",
+  //    "Türkçe",
+  //    "Afghanistan"
+  //  ]
 }

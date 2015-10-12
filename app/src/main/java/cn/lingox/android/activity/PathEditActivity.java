@@ -569,8 +569,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (!str.isEmpty()) {
                     path.setLocation(str);
                     CachePath.getInstance().setLocation(str);
-                    cityBtn.setVisibility(View.VISIBLE);
-                    cityBtn.setText(str);
+//                    countryBtn.setVisibility(View.VISIBLE);
+                    countryBtn.setText(str);
+//                    cityBtn.setVisibility(View.VISIBLE);
+//                    cityBtn.setText(str);
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:

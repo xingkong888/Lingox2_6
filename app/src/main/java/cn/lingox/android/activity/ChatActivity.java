@@ -178,6 +178,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
     private String title;//由于编辑后后台无返回数据
 
+    private String nickName = "";
+
     private Handler micImageHandler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
@@ -415,7 +417,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         if (chatType == CHATTYPE_SINGLE) {
             toChatUsername = getIntent().getStringExtra("username");
             User toChatUser = CacheHelper.getInstance().getUserInfoFromUsername(toChatUsername);
-            getSupportActionBar().setTitle(toChatUser.getNickname());
+            nickName = toChatUser.getNickname();
+            getSupportActionBar().setTitle(nickName);
             tarId = toChatUser.getId();
         } else {
             toChatUsername = getIntent().getStringExtra("groupId");
@@ -1454,7 +1457,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         @Override
         protected Boolean doInBackground(HashMap<String, String>... params) {
             try {
-
                 indent = ServerHelper.getInstance().editApplication(params[0]);
                 indent.setPathTitle(title);
                 return true;
@@ -1475,6 +1477,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         protected void onPostExecute(Boolean aBoolean) {
             pd.dismiss();
             if (aBoolean) {
+//                sendText(nickName+"Canceled the application");
+                switch (indent.getState()) {
+                    case 2://取消
+                        sendText("Canceled the application");
+                        break;
+                    case 3://同意
+                        sendText("Agreed to the application");
+                        break;
+                    case 4://拒绝
+                        sendText("Rejected  the application");
+                        break;
+                }
                 setIndent(indent);
             }
         }

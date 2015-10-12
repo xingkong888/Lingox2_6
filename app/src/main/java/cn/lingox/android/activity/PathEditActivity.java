@@ -251,7 +251,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         listView = (ListView) findViewById(R.id.path_edit_listview);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
-        adapter = new MyAdapter(this, datas);
+        adapter = new MyAdapter(this, datas, 0);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

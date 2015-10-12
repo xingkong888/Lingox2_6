@@ -596,7 +596,8 @@ public class ServerHelper {
         return pathArray;
     }
 
-    public ArrayList<Path> getPathsByLocation(String country, String province, String city, int localOrTravel, int page) throws Exception {
+    public ArrayList<Path> getPathsByLocation(String country, String province,
+                                              String city, int localOrTravel, int page, ArrayList<String> postJson) throws Exception {
         Map<String, String> params = new HashMap<>();
         if (!country.isEmpty())
             params.put(StringConstant.pathChosenCountry, country);
@@ -616,8 +617,13 @@ public class ServerHelper {
 //            Log.d(LOG_TAG, "getPathsByLocation: type was null");
 
         params.put("page", String.valueOf(page));
+        if (postJson.size() > 0) {
+            params.put("tags", postJson.toString());
+        }
+
         params.put(StringConstant.verStr, APPVERSION);
 
+//Log.d("星期",params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);
 

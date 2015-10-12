@@ -73,8 +73,6 @@ public class ChatFragment extends Fragment {
     private int unreadNotify = 0;
     private ProgressBar loading;
 
-//    private SwipeRefreshLayout refresh;
-
     // UI Elements
     private InputMethodManager inputMethodManager;
     private ListView listView;
@@ -809,7 +807,6 @@ public class ChatFragment extends Fragment {
                     }
                 // 通知适配器，数据发生改变
                 notifyChange();
-//                refresh.setRefreshing(false);
             }
         }
     }

@@ -28,16 +28,19 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
+import cn.lingox.android.adapter.MyAdapter;
 import cn.lingox.android.adapter.NearbyAdapter;
 import cn.lingox.android.adapter.PathAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Path;
+import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
@@ -77,6 +80,13 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
     private int page = 1;
 
+    private ListView listView1;
+    private MyAdapter adapter;
+    private ArrayList<PathTags> datas = new ArrayList<>();
+    private int checkedNum = 0;
+
+    private HashMap<Integer, Integer> activityTags = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +104,33 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         cancel.setOnClickListener(this);
         done = (TextView) findViewById(R.id.search_done);
         done.setOnClickListener(this);
+
+
+        listView1 = (ListView) findViewById(R.id.search_tage);
+        datas = new ArrayList<>();
+        datas = LingoXApplication.getInstance().getDatas();
+        adapter = new MyAdapter(this, datas, 1);
+        listView1.setAdapter(adapter);
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (datas.get(position).getType() == 0) {
+                    if (checkedNum < 3) {
+                        activityTags.put(position, 1);
+                        checkedNum++;
+                        datas.get(position).setType(1);
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    checkedNum--;
+                    activityTags.remove(position);
+                    datas.get(position).setType(0);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         listView = (PullToRefreshListView) findViewById(R.id.search_show_list);
         switch (which) {
@@ -125,15 +162,15 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                     case 1://活动
                         if (page <= LingoXApplication.getInstance().getUserPageCount()) {
                             page += 1;
-                            if (!disLocation.getText().toString().isEmpty() || searchLocalOrTravel != 0) {
+                            if (!disLocation.getText().toString().isEmpty() || searchLocalOrTravel != 0 || activityTags.size() > 0) {
                                 if (country.isEmpty()) {
-                                    new GetPaths("", "", "", searchLocalOrTravel, page).execute();
+                                    new GetPaths("", "", "", searchLocalOrTravel, page, activityTags).execute();
                                 } else if (province.isEmpty()) {
-                                    new GetPaths(country, "", "", searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, "", "", searchLocalOrTravel, page, activityTags).execute();
                                 } else if (city.isEmpty()) {
-                                    new GetPaths(country, province, "", searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, province, "", searchLocalOrTravel, page, activityTags).execute();
                                 } else {
-                                    new GetPaths(country, province, city, searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, province, city, searchLocalOrTravel, page, activityTags).execute();
                                 }
                             } else {
                                 Toast.makeText(SearchActivity.this, "Please select a filter condition", Toast.LENGTH_SHORT).show();
@@ -278,18 +315,18 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                     }
                     switch (which) {
                         case 1:
-                            if (!disLocation.getText().toString().isEmpty() || searchLocalOrTravel != 0) {
+                            if (!disLocation.getText().toString().isEmpty() || searchLocalOrTravel != 0 || activityTags.size() > 0) {
                                 pathList.clear();
                                 disAdapter.notifyDataSetChanged();
                                 discover.setVisibility(View.INVISIBLE);
                                 if (country.isEmpty()) {
-                                    new GetPaths("", "", "", searchLocalOrTravel, page).execute();
+                                    new GetPaths("", "", "", searchLocalOrTravel, page, activityTags).execute();
                                 } else if (province.isEmpty()) {
-                                    new GetPaths(country, "", "", searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, "", "", searchLocalOrTravel, page, activityTags).execute();
                                 } else if (city.isEmpty()) {
-                                    new GetPaths(country, province, "", searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, province, "", searchLocalOrTravel, page, activityTags).execute();
                                 } else {
-                                    new GetPaths(country, province, city, searchLocalOrTravel, page).execute();
+                                    new GetPaths(country, province, city, searchLocalOrTravel, page, activityTags).execute();
                                 }
                             } else {
                                 Toast.makeText(this, "Please select a filter condition", Toast.LENGTH_SHORT).show();
@@ -536,12 +573,17 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private class GetPaths extends AsyncTask<Void, String, Boolean> {
         private String country = "", province = "", city = "";
         private int loaclOrTravel = 0;
+        private HashMap<Integer, Integer> map;
+        private ArrayList<String> postJson;
 
-        public GetPaths(String country, String province, String city, int i, int page) {
+        public GetPaths(String country, String province, String city, int i, int page, HashMap<Integer, Integer> map) {
             this.country = country;
             this.city = city;
             this.province = province;
             loaclOrTravel = i;
+            postJson = new ArrayList<>();
+            this.map = new HashMap<>();
+            this.map.putAll(map);
             if (page == 1) {
                 progressBar.setVisibility(View.VISIBLE);
             }
@@ -552,8 +594,15 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         protected Boolean doInBackground(Void... params) {
             try {
                 ArrayList<Path> tempPathList = new ArrayList<>();
+                if (map.size() > 0) {
+                    Set key = activityTags.keySet();
+                    Object[] post = key.toArray();
+                    for (int i = 0; i < post.length; i++) {
+                        postJson.add(String.valueOf((int) post[i]));
+                    }
+                }
                 tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(
-                        country, province, city, loaclOrTravel, page));
+                        country, province, city, loaclOrTravel, page, postJson));
 
                 if (!LingoXApplication.getInstance().getSkip()) {
                     for (Path path : tempPathList) {

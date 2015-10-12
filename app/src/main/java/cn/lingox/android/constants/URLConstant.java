@@ -8,7 +8,7 @@ public class URLConstant {
     // old URL: private static final String MAIN_URL = "http://10.129.169.247:1337";
     public static final String MAIN_URL = "http://182.92.239.194:1337/";//正式版接口
 //    public static final String MAIN_URL = "http://182.92.239.194:1338/";//线上测试接口
-//    public static final String MAIN_URL = "http://172.168.99.198:1338/";//测试接口
+//    public static final String MAIN_URL = "http://192.168.1.222:1338/";//测试接口
 
     // TODO implement these two functionalities into the server (maybe? for the apk it might cause trouble with the qr code)
     public static final String APK_URL = "http://182.92.239.194/app/LingoX.apk";

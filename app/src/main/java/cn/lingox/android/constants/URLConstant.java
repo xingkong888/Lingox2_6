@@ -46,6 +46,8 @@ public class URLConstant {
     public static final String URL_GET_CONTACT_LIST = URL_CONTACT_MODEL + "getContactList";
     public static final String URL_GET_USER_INFO = URL_CONTACT_MODEL + "getUserInfo";
     public static final String URL_GET_USER_FOLLOWING = URL_CONTACT_MODEL + "getUserFollowing";
+    //获取双方的follow关系 true 相互 false 其他
+    public static final String URL_GET_USER_RELATION = URL_CONTACT_MODEL + "isBothFollowed";
     // URL for Search
     private static final String URL_SEARCH = MAIN_URL + "Search/";
     public static final String URL_SEARCH_USER = URL_SEARCH + "searchUser";

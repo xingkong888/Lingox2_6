@@ -46,6 +46,8 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private String userId;
     private String userName;
 
+    private boolean isBothFollowed = false;
+
     // UI Elements
     private ImageView addReference;
     private LinearLayout back, add;
@@ -63,9 +65,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reference);
-
         initView();
-
         Intent intent = getIntent();
         addRef = intent.getIntExtra("addReference", 0);
         userId = intent.getStringExtra(UserInfoFragment.TARGET_USER_ID);
@@ -80,8 +80,6 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
 
         ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
-
-
     }
 
     private void initView() {
@@ -159,11 +157,15 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_add_reference:
+//                if (getIntent().hasExtra(UserInfoFragment.REFERENCES)) {
+//                    new GetBothFollowed().execute();
+//                }else{
                 Intent intent = new Intent(this, ReferenceDialog.class);
                 intent.putExtra(INTENT_TARGET_USER_ID, userId);
                 intent.putExtra(INTENT_TARGET_USER_NAME, userName);
                 intent.putExtra(INTENT_REQUEST_CODE, ADD_REFERENCE);
                 startActivityForResult(intent, ADD_REFERENCE);
+//                }
                 break;
             case R.id.layout_back:
                 ReferenceActivity.this.finish();
@@ -248,6 +250,39 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
     }
 
+    //获取双方是否相互
+//    private class GetBothFollowed extends AsyncTask<Void,Void,Boolean>{
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            try {
+//                isBothFollowed=ServerHelper.getInstance().getBothFollowed(CacheHelper.getInstance().getSelfInfo().getId()
+//                ,
+//                        userId);
+//            }catch (Exception e){
+//                Log.e(LOG_TAG,e.getMessage());
+//            }
+//            return isBothFollowed;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            if (aBoolean){
+//                //相互follow
+//                Intent intent = new Intent(ReferenceActivity.this, ReferenceDialog.class);
+//                intent.putExtra(INTENT_TARGET_USER_ID, userId);
+//                intent.putExtra(INTENT_TARGET_USER_NAME, userName);
+//                intent.putExtra(INTENT_REQUEST_CODE, ADD_REFERENCE);
+//                startActivityForResult(intent, ADD_REFERENCE);
+//            }else{
+//                new AlertDialog.Builder(ReferenceActivity.this)
+//                        .setMessage("相互关注才能评论")
+//                        .create().show();
+//            }
+//        }
+//    }
+
+
+    //下载评论
     private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
 
         @Override

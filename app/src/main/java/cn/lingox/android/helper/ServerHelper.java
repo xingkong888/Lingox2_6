@@ -109,13 +109,36 @@ public class ServerHelper {
         return user;
     }
 
+    //获取双方关系
+    public boolean getBothFollowed(String userId1, String userId2) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", userId1);
+        params.put("user_tar", userId2);
+        params.put(StringConstant.verStr, APPVERSION);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_RELATION, params);
+
+        Log.d(LOG_TAG, "getBothFollowed: " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getBothFollowed: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+        }
+        if (rmsg.getData().getBoolean("bothFollowed")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public User login(String emailOrUsername, String password) throws Exception {
 
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.emailOrUsernameStr, emailOrUsername);
         params.put(StringConstant.passwordStr, password);
         params.put(StringConstant.verStr, APPVERSION);
-
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_LOGIN, params);
 
@@ -239,7 +262,6 @@ public class ServerHelper {
         params.put(StringConstant.userIdStr, CacheHelper.getInstance().getSelfInfo().getId());
         params.put(StringConstant.verStr, APPVERSION);
 
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_CONTACT_LIST, params);
 
         Log.d(LOG_TAG, "getContactList: " + jsonStr);
@@ -304,7 +326,6 @@ public class ServerHelper {
         params.put(StringConstant.userTargetStr, user_tar_id);
         params.put(StringConstant.userIdStr, CacheHelper.getInstance().getSelfInfo().getId());
         params.put(StringConstant.verStr, APPVERSION);
-
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_FOLLOWING, params);
 

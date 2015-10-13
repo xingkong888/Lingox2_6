@@ -66,9 +66,7 @@ public class BitmapCache extends Activity {
 
         new Thread() {
             Bitmap thumb;
-
             public void run() {
-
                 try {
                     if (isThumbPath) {
                         thumb = BitmapFactory.decodeFile(thumbPath);
@@ -97,7 +95,6 @@ public class BitmapCache extends Activity {
                 }
             }
         }.start();
-
     }
 
     public Bitmap revisionImageSize(String path) throws IOException {
@@ -125,7 +122,7 @@ public class BitmapCache extends Activity {
     }
 
     public interface ImageCallback {
-        public void imageLoad(ImageView imageView, Bitmap bitmap,
+        void imageLoad(ImageView imageView, Bitmap bitmap,
                               Object... params);
     }
 }

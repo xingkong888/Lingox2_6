@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:text="My Local Experiences" />
+                        android:text="My Album" />
 
                     <ImageView
                         android:id="@+id/local_add"

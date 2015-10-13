@@ -365,7 +365,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
 
         if (!requestingOthersData) {
-            localTitle.setText(user.getNickname() + "'s Local Experiences");
+            localTitle.setText(user.getNickname() + "'s Album");
             localNothing1.setText(user.getNickname() + " has no posted local experiences yet");
             localNothing2.setText(user.getNickname() + " has no posted local experiences yet");
 

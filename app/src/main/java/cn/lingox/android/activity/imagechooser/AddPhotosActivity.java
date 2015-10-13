@@ -95,7 +95,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                     public void run() {
                         int imageCount = 1;
                         for (Photo photos : photoList) {
-
                             try {
                                 //Bitmap bitmap = MediaStore.Images.Media.getBitmap(AddPicsActivity.this.getContentResolver(), Uri.parse(photos.getUrl()));
                                 ServerHelper.getInstance().uploadPhoto(
@@ -126,7 +125,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                 }.start();
 
                 break;
-
         }
     }
 

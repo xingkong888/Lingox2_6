@@ -1074,7 +1074,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected Comment doInBackground(Void... params) {
             Comment comment;
             try {
-                comment = ServerHelper.getInstance().createComment(userSrcId, userTarId, path.getId(), commentText);
+                comment = ServerHelper.getInstance().createComment
+                        (userSrcId, userTarId, path.getId(), commentText);
             } catch (Exception e) {
                 comment = null;
             }
@@ -1115,14 +1116,16 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                     targetUser = CacheHelper.getInstance().getUserInfo(userTar);
                 if (targetUser == null) {
                     try {
-                        targetUser = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userTar);
+                        targetUser = ServerHelper.getInstance().
+                                getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userTar);
                     } catch (Exception e) {
                         return null;
                     }
                 }
             } else {
                 try {
-                    targetUser = ServerHelper.getInstance().getUserInfo("547a6dbda06d0fd45b41bc89", userTar);
+                    targetUser = ServerHelper.getInstance().
+                            getUserInfo("547a6dbda06d0fd45b41bc89", userTar);
                 } catch (Exception e) {
                     return null;
                 }

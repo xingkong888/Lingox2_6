@@ -70,7 +70,6 @@ public class ReferenceDialog extends Activity implements OnClickListener {
         cancel.setOnClickListener(this);
         title = (TextView) findViewById(R.id.title_reference_dialog);
         switch (requestCode) {
-
             case ReferenceActivity.ADD_REFERENCE:
                 break;
             case ReferenceActivity.EDIT_REFERENCE:

@@ -22,7 +22,6 @@ public class Reference implements Parcelable {
     private String createAt;
     private String updatedAt;
 
-
     public Reference(String id, String title, String content, String userSrcId, String userTarId, String createAt, String updatedAt) {
         super();
         this.id = id;

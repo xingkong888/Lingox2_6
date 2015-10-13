@@ -1,17 +1,22 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
+import cn.lingox.android.activity.ReferenceDialog;
+import cn.lingox.android.activity.UserInfoActivity;
+import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
@@ -19,10 +24,16 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 
 public class ReferenceAdapter extends ArrayAdapter<Reference> {
+    // Intent Extras
+    public static final String INTENT_TARGET_USER_ID = LingoXApplication.PACKAGE_NAME + ".TARGET_USER_ID";
+    public static final String INTENT_TARGET_USER_NAME = LingoXApplication.PACKAGE_NAME + ".TARGET_USER_NAME";
+    public static final String INTENT_REFERENCE = LingoXApplication.PACKAGE_NAME + ".REFERENCE";
+    public static final String INTENT_REQUEST_CODE = LingoXApplication.PACKAGE_NAME + ".REQUEST_CODE";
+    static final int EDIT_REFERENCE = 2;
     // Data Elements
     private Activity context;
     private ArrayList<Reference> referenceList;
-
+    private boolean ownReference = false;
 
     public ReferenceAdapter(Activity context, ArrayList<Reference> rList) {
         super(context, R.layout.row_reference, rList);
@@ -50,12 +61,15 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         View rowView = convertView;
         ViewHolder holder;
 
-        Reference reference = referenceList.get(position);
+        final Reference reference = referenceList.get(position);
+
+//        Log.d("星期",reference.toString());
 
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(
                     R.layout.row_reference, parent, false);
             holder = new ViewHolder();
+            holder.layout = (RelativeLayout) rowView.findViewById(R.id.pdpdpd);
             holder.avatar = (ImageView) rowView.findViewById(R.id.avatar_reference);
             holder.name = (TextView) rowView.findViewById(R.id.name_reference);
             holder.time = (TextView) rowView.findViewById(R.id.time_reference);
@@ -71,11 +85,32 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             holder.name.setText(user.getNickname());
 
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
-
         }
 
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
+
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ownReference =
+                        CacheHelper.getInstance().getSelfInfo().getId().equals(reference.getUserSrcId());
+                if (ownReference) {//自己对别人的评价
+                    Intent intent = new Intent(context, ReferenceDialog.class);
+                    intent.putExtra(INTENT_REFERENCE, reference);
+                    intent.putExtra(INTENT_TARGET_USER_ID, reference.getUserSrcId());
+                    intent.putExtra(INTENT_TARGET_USER_NAME, user.getNickname());
+                    intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
+                    context.startActivityForResult(intent, EDIT_REFERENCE);
+                } else {//别人对自己评价
+                    Intent userInfoIntent = new Intent(context, UserInfoActivity.class);
+                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, reference.getUserSrcId());
+                    context.startActivity(userInfoIntent);
+                }
+            }
+        });
+
         return rowView;
     }
 
@@ -83,6 +118,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         public ImageView avatar;
         public TextView name, time;
         public TextView content;
-
+        public RelativeLayout layout;
     }
 }

@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,8 +31,8 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     // Intent Extras
     public static final String INTENT_TARGET_USER_ID = LingoXApplication.PACKAGE_NAME + ".TARGET_USER_ID";
     public static final String INTENT_TARGET_USER_NAME = LingoXApplication.PACKAGE_NAME + ".TARGET_USER_NAME";
-    static final String INTENT_REFERENCE = LingoXApplication.PACKAGE_NAME + ".REFERENCE";
-    static final String INTENT_REQUEST_CODE = LingoXApplication.PACKAGE_NAME + ".REQUEST_CODE";
+    public static final String INTENT_REFERENCE = LingoXApplication.PACKAGE_NAME + ".REFERENCE";
+    public static final String INTENT_REQUEST_CODE = LingoXApplication.PACKAGE_NAME + ".REQUEST_CODE";
     // Request code
     static final int ADD_REFERENCE = 1;
     static final int EDIT_REFERENCE = 2;
@@ -107,25 +105,26 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         add.setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.list);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Reference selectedReference = referenceList.get(position);
-                boolean ownReference = CacheHelper.getInstance().getSelfInfo().getId().equals(selectedReference.getUserSrcId());
-                if (ownReference) {
-                    Intent intent = new Intent(ReferenceActivity.this, ReferenceDialog.class);
-                    intent.putExtra(INTENT_REFERENCE, selectedReference);
-                    intent.putExtra(INTENT_TARGET_USER_ID, userId);
-                    intent.putExtra(INTENT_TARGET_USER_NAME, userName);
-                    intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
-                    startActivityForResult(intent, EDIT_REFERENCE);
-                } else {
-                    Intent userInfoIntent = new Intent(ReferenceActivity.this, UserInfoActivity.class);
-                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, selectedReference.getUserSrcId());
-                    startActivity(userInfoIntent);
-                }
-            }
-        });
+//        listView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Reference selectedReference = referenceList.get(position);
+//                boolean ownReference =
+//                        CacheHelper.getInstance().getSelfInfo().getId().equals(selectedReference.getUserSrcId());
+//                if (ownReference) {//自己对别人的评价
+//                    Intent intent = new Intent(ReferenceActivity.this, ReferenceDialog.class);
+//                    intent.putExtra(INTENT_REFERENCE, selectedReference);
+//                    intent.putExtra(INTENT_TARGET_USER_ID, userId);
+//                    intent.putExtra(INTENT_TARGET_USER_NAME, userName);
+//                    intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
+//                    startActivityForResult(intent, EDIT_REFERENCE);
+//                } else {//别人对自己评价
+//                    Intent userInfoIntent = new Intent(ReferenceActivity.this, UserInfoActivity.class);
+//                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, selectedReference.getUserSrcId());
+//                    startActivity(userInfoIntent);
+//                }
+//            }
+//        });
 
         if (addRef == 1) {
             Intent intent = new Intent(this, ReferenceDialog.class);

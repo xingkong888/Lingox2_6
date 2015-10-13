@@ -42,67 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/photo_relativeLayout" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/photoScroll"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/photo_tag_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/photo_tag"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="China,Beijing"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/photo_tag_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/photo_tag"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="China,Beijing"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/photo_tag_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/photo_tag"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="China,Beijing"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/photo_loction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/photo_tag"
-            android:drawableLeft="@drawable/discover_location_white_18dp"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-        <!--android:visibility="gone"-->
-    </LinearLayout>
-
     <ScrollView
         android:id="@+id/photoScroll"
         android:layout_width="match_parent"

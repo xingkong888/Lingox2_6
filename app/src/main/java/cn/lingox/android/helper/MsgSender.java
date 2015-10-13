@@ -203,7 +203,7 @@ public class MsgSender {
     }
 
     public static String postPhotoToNet(
-            String _url, String user_id, String description, Bitmap image, String country, String province, String city, String tags) {
+            String _url, String user_id, String description, Bitmap image) {
         String end = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
@@ -212,10 +212,6 @@ public class MsgSender {
                     + StringConstant.userIdStr + "=" + user_id + "&"
                     + StringConstant.photoDescription + "=" +
                     URLEncoder.encode(description, "UTF-8")
-                    + "&" + StringConstant.photoCountry + "=" + country + "&"
-                    + StringConstant.photoCity + "=" + province + "&"
-                    + StringConstant.photoCity + "=" + city + "&"
-                    + StringConstant.photoTags + "=" + tags.replace(" ", "")
                     + StringConstant.verStr + "=" + APPVERSION
             );
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

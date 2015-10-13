@@ -953,10 +953,10 @@ public class ServerHelper {
         return returnComment;
     }
 
-    public String uploadPhoto(String user_id, String description, Bitmap image, String country, String province, String city, String tags) throws Exception {
+    public String uploadPhoto(String user_id, String description, Bitmap image) throws Exception {
 
         String jsonStr = MsgSender.postPhotoToNet(
-                URLConstant.URL_UPLOAD_PHOTO, user_id, description, image, country, province, city, tags);
+                URLConstant.URL_UPLOAD_PHOTO, user_id, description, image);
 
         Log.d(LOG_TAG, "uploadPhoto: " + jsonStr);
 
@@ -1012,10 +1012,6 @@ public class ServerHelper {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.photoId, photo.getId());
         params.put(StringConstant.photoDescription, photo.getDescription());
-        params.put(StringConstant.photoCountry, photo.getCountry());
-        params.put(StringConstant.photoProvince, photo.getProvince());
-        params.put(StringConstant.photoCity, photo.getCity());
-        params.put(StringConstant.photoTags, photo.getTags());
         params.put(StringConstant.verStr, APPVERSION);
 
         Log.d(LOG_TAG, "editPhoto: " + params.toString());

@@ -59,11 +59,13 @@ public class AlbumHelper {
             int _idColumn = cur.getColumnIndex(Thumbnails._ID);
             int image_idColumn = cur.getColumnIndex(Thumbnails.IMAGE_ID);
             int dataColumn = cur.getColumnIndex(Thumbnails.DATA);
+
             do {
                 // Get the field values
                 _id = cur.getInt(_idColumn);
                 image_id = cur.getInt(image_idColumn);
                 image_path = cur.getString(dataColumn);
+
 
                 thumbnailList.put("" + image_id, image_path);
             } while (cur.moveToNext());
@@ -94,6 +96,7 @@ public class AlbumHelper {
             int albumKeyColumn = cur.getColumnIndex(Albums.ALBUM_KEY);
             int artistColumn = cur.getColumnIndex(Albums.ARTIST);
             int numOfSongsColumn = cur.getColumnIndex(Albums.NUMBER_OF_SONGS);
+
             do {
                 // Get the field values
                 _id = cur.getInt(_idColumn);
@@ -115,13 +118,17 @@ public class AlbumHelper {
                 hash.put("artist", artist);
                 hash.put("numOfSongs", numOfSongs + "");
                 albumList.add(hash);
+
             } while (cur.moveToNext());
+
         }
     }
 
     void buildImagesBucketList() {
         long startTime = System.currentTimeMillis();
+
         getThumbnail();
+
         String columns[] = new String[]{Media._ID, Media.BUCKET_ID,
                 Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
                 Media.SIZE, Media.BUCKET_DISPLAY_NAME};
@@ -138,6 +145,7 @@ public class AlbumHelper {
             int bucketIdIndex = cur.getColumnIndexOrThrow(Media.BUCKET_ID);
             int picasaIdIndex = cur.getColumnIndexOrThrow(Media.PICASA_ID);
             int totalNum = cur.getCount();
+
             do {
                 String _id = cur.getString(photoIDIndex);
                 String name = cur.getString(photoNameIndex);
@@ -166,6 +174,7 @@ public class AlbumHelper {
                 imageItem.imagePath = path;
                 imageItem.thumbnailPath = thumbnailList.get(_id);
                 bucket.imageList.add(imageItem);
+
             } while (cur.moveToNext());
         }
 
@@ -210,4 +219,5 @@ public class AlbumHelper {
         }
         return path;
     }
+
 }

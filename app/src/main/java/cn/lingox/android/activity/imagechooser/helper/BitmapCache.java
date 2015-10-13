@@ -19,7 +19,9 @@ import cn.lingox.android.activity.imagechooser.AlbumListActivity;
 
 public class BitmapCache extends Activity {
     private static final String LOG_TAG = "BitmapCache";
+
     public Handler h = new Handler();
+
     private HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<>();
 
     public void put(String path, Bitmap bmp) {
@@ -61,10 +63,12 @@ public class BitmapCache extends Activity {
             }
         }
         iv.setImageBitmap(null);
+
         new Thread() {
             Bitmap thumb;
 
             public void run() {
+
                 try {
                     if (isThumbPath) {
                         thumb = BitmapFactory.decodeFile(thumbPath);
@@ -93,6 +97,7 @@ public class BitmapCache extends Activity {
                 }
             }
         }.start();
+
     }
 
     public Bitmap revisionImageSize(String path) throws IOException {
@@ -120,7 +125,7 @@ public class BitmapCache extends Activity {
     }
 
     public interface ImageCallback {
-        void imageLoad(ImageView imageView, Bitmap bitmap,
-                       Object... params);
+        public void imageLoad(ImageView imageView, Bitmap bitmap,
+                              Object... params);
     }
 }

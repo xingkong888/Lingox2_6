@@ -21,11 +21,10 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.imagechooser.AddPhotosActivity;
+import cn.lingox.android.activity.imagechooser.EditPhotoActivity;
 import cn.lingox.android.adapter.UserPhotoPagerAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Photo;
-import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 
 public class PhotoViewActivity extends Activity implements View.OnClickListener {
@@ -39,12 +38,8 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
     private UserPhotoPagerAdapter adapter;
     private ArrayList<Photo> photoList = new ArrayList<>();
     private int current_page;
-    private TextView description, location, tag1, tag2, tag3;
+    private TextView description;
     private boolean othersPhotos;
-
-    private String[] tags;
-
-    private ArrayList<String> tagsList;
 
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 
@@ -54,7 +49,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
 
         public void onPageScrolled(int arg0, float arg1, int arg2) {
             description.setText(photoList.get(current_page).getDescription());
-            initDate(photoList.get(current_page).getTags());
         }
 
         public void onPageScrollStateChanged(int arg0) {
@@ -79,9 +73,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
 
     private void initView() {
 
-        tagsList = new ArrayList<>();
-        tagsList.addAll(JsonHelper.getInstance().getAllTags());
-
         setContentView(R.layout.activity_view_photo);
         ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -101,12 +92,7 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         photo_del.setOnClickListener(this);
         description = (TextView) findViewById(R.id.tv_description);
         description.setText(photoList.get(current_page).getDescription());
-        location = (TextView) findViewById(R.id.photo_loction);
-        tag1 = (TextView) findViewById(R.id.photo_tag_1);
-        tag2 = (TextView) findViewById(R.id.photo_tag_2);
-        tag3 = (TextView) findViewById(R.id.photo_tag_3);
-
-        initDate(photoList.get(current_page).getTags());
+        Log.d("星期", photoList.get(current_page).toString());
 
         if (othersPhotos) {
             photo_edit.setVisibility(View.GONE);
@@ -117,75 +103,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         }
     }
 
-    private void getCountryAndCity() {
-        String str = LingoXApplication.getInstance().getLocation(photoList.get(current_page).getCountry(),
-                photoList.get(current_page).getProvince(), photoList.get(current_page).getCity());
-        if (!str.isEmpty()) {
-            location.setVisibility(View.VISIBLE);
-            location.setText(str);
-        } else {
-            location.setVisibility(View.GONE);
-        }
-    }
-
-    private void setTags(String str) {
-        tags = str.split(",");
-        if (tags[0] != "") {
-            if (tags.length > 0) {
-                switch (tags.length) {
-                    case 1:
-                        if (tags[0].length() < 2) {
-                            tag1.setVisibility(View.VISIBLE);
-                            tag2.setVisibility(View.GONE);
-                            tag3.setVisibility(View.GONE);
-                            tag1.setText(tagsList.get(Integer.valueOf(tags[0].trim())));
-                        } else {
-                            tag1.setVisibility(View.GONE);
-                            tag2.setVisibility(View.GONE);
-                            tag3.setVisibility(View.GONE);
-                        }
-                        break;
-                    case 2:
-                        if (tags[0].length() <= 2 && tags[1].length() <= 2) {
-                            tag1.setVisibility(View.VISIBLE);
-                            tag2.setVisibility(View.VISIBLE);
-                            tag3.setVisibility(View.GONE);
-                            tag1.setText(tagsList.get(Integer.valueOf(tags[0].trim())));
-                            tag2.setText(tagsList.get(Integer.valueOf(tags[1].trim())));
-                        } else {
-                            tag1.setVisibility(View.GONE);
-                            tag2.setVisibility(View.GONE);
-                            tag3.setVisibility(View.GONE);
-                        }
-                        break;
-                    case 3:
-                        if (tags[0].length() <= 2 && tags[1].length() <= 2 && tags[2].length() <= 2) {
-                            tag1.setVisibility(View.VISIBLE);
-                            tag2.setVisibility(View.VISIBLE);
-                            tag3.setVisibility(View.VISIBLE);
-                            tag1.setText(tagsList.get(Integer.valueOf(tags[0].trim())));
-                            tag2.setText(tagsList.get(Integer.valueOf(tags[1].trim())));
-                            tag3.setText(tagsList.get(Integer.valueOf(tags[2].trim())));
-                        } else {
-                            tag1.setVisibility(View.GONE);
-                            tag2.setVisibility(View.GONE);
-                            tag3.setVisibility(View.GONE);
-                        }
-                        break;
-                }
-            }
-        } else {
-            tag1.setVisibility(View.GONE);
-            tag2.setVisibility(View.GONE);
-            tag3.setVisibility(View.GONE);
-        }
-    }
-
-    private void initDate(String str) {
-
-        getCountryAndCity();
-        setTags(str);
-    }
 
     @Override
     protected void onResume() {
@@ -205,7 +122,7 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
                 break;
             case R.id.photo_bt_edit:
                 Intent intent = new Intent(this,
-                        AddPhotosActivity.class);
+                        EditPhotoActivity.class);
                 intent.putExtra("photo", photoList.get(current_page));
                 startActivityForResult(intent, EDIT_PICTURES);
                 break;

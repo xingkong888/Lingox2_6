@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.lingox.android.R;
+import cn.lingox.android.activity.imagechooser.AddPhotosActivity;
 import cn.lingox.android.activity.imagechooser.entity.ImageItem;
 import cn.lingox.android.activity.imagechooser.helper.BitmapCache;
 
@@ -73,6 +76,7 @@ public class ImageGridAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
+
         if (convertView == null) {
             holder = new Holder();
             convertView = View.inflate(act, R.layout.item_image_grid, null);
@@ -86,6 +90,7 @@ public class ImageGridAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         final ImageItem item = dataList.get(position);
+
         holder.iv.setTag(item.imagePath);
         cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,
                 callback);
@@ -97,6 +102,44 @@ public class ImageGridAdapter extends BaseAdapter {
             holder.selected.setVisibility(View.INVISIBLE);
             holder.text.setBackgroundColor(0x00000000);
         }
+        holder.iv.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String path = dataList.get(position).imagePath;
+
+                if (!selectMultiple) {
+                    selectionListener.onSingleItemSelected(path);
+                } else {
+                    if (selectTotal < AddPhotosActivity.MAX_ADD_PHOTO_COUNT) {
+                        item.isSelected = !item.isSelected;
+                        if (item.isSelected) {
+                            holder.selected.setVisibility(View.VISIBLE);
+                            holder.text.setBackgroundResource(R.drawable.bgd_relatly_line);
+                            selectTotal++;
+                            map.put(path, path);
+                        } else {
+                            holder.selected.setVisibility(View.INVISIBLE);
+                            holder.text.setBackgroundColor(0x00000000);
+                            selectTotal--;
+                            map.remove(path);
+                        }
+                    } else {
+                        if (item.isSelected) {
+                            item.isSelected = !item.isSelected;
+                            holder.selected.setVisibility(View.VISIBLE);
+                            selectTotal--;
+                            map.remove(path);
+
+                        } else {
+                            // TODO Translation
+                            // TODO Change functionality to similar to wechat (instead of toast, just disable ability to choose more images)
+                            Toast.makeText(act, act.getString(R.string.max_img), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            }
+        });
 
         return convertView;
     }
@@ -107,8 +150,9 @@ public class ImageGridAdapter extends BaseAdapter {
         void onMultiItemSelected();
     }
 
-    static class Holder {
-        ImageView iv, selected;
-        TextView text;
+    class Holder {
+        private ImageView iv;
+        private ImageView selected;
+        private TextView text;
     }
 }

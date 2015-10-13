@@ -51,9 +51,6 @@
         <activity
             android:name="com.umeng.fb.ConversationActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
-        <!--<activity-->
-        <!--android:name="com.umeng.fb.ContactActivity"-->
-        <!--android:theme="@android:style/Theme.NoTitleBar" />-->
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -73,13 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- 分享页面-->
-        <!--<activity-->
-        <!--android:name="cn.lingox.android.activity.ShareActivity"-->
-        <!--android:screenOrientation="portrait"-->
-        <!--android:theme="@style/horizontal_slide"-->
-        <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
 
         <!-- 自动更新页面 -->
         <activity
@@ -104,16 +94,10 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".helper.CreateIndentDialog"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
             android:name=".activity.ShowMoreIndentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
 
         <!-- 语伴通讯录 -->
         <activity
@@ -130,12 +114,7 @@
             android:name="cn.lingox.android.activity.UserInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan">
-
-            <!--<meta-data-->
-            <!--android:name="android.support.PARENT_ACTIVITY"-->
-            <!--android:value="cn.lingox.android.activity.MainActivity" />-->
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="cn.lingox.android.activity.select_area.SelectCountry"
             android:screenOrientation="portrait"
@@ -164,11 +143,7 @@
             android:name=".activity.PathViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <!--<meta-data-->
-            <!--android:name="android.support.PARENT_ACTIVITY"-->
-            <!--android:value="cn.lingox.android.activity.MainActivity" />-->
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name=".activity.PathEditActivity"
@@ -230,6 +205,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.imagechooser.EditPhotoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
         <!-- 搜索页面 -->
         <!-- 显示头像页面 -->
         <activity
@@ -267,11 +247,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize" />
-        <!-- 地图 -->
-        <activity
-            android:name="cn.lingox.android.activity.BaiduMapActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
         <!-- 转发消息用户列表页面 -->
         <activity
             android:name="cn.lingox.android.activity.ForwardMessageActivity"
@@ -343,10 +318,10 @@
             android:name="EASEMOB_APPKEY"
             android:value="manyingyu#lingox" />
 
-        <!--百度地图appkey-->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="u7NGONV78Do5PtSoQPkpk976" />
+        <!--&lt;!&ndash;百度地图appkey&ndash;&gt;-->
+        <!--<meta-data-->
+        <!--android:name="com.baidu.lbsapi.API_KEY"-->
+        <!--android:value="u7NGONV78Do5PtSoQPkpk976" />-->
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
         <service

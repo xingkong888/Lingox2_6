@@ -81,19 +81,19 @@ public class PhotoTagsSelectDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (title.contentEquals("photo")) {
-                    photo.setTags("");
-                    if (tags.size() > 0) {
-                        String tag = tags.toString().replace("[", "").replace("]", "");
-                        photo.setTags(tag);
-                        Message msg = new Message();
-                        msg.what = 1;
-                        msg.obj = photo;
-                        handler.sendMessage(msg);
-                    } else {
-                        Message msg = new Message();
-                        msg.what = 0;
-                        handler.sendMessage(msg);
-                    }
+////                    photo.setTags("");
+////                    if (tags.size() > 0) {
+////                        String tag = tags.toString().replace("[", "").replace("]", "");
+////                        photo.setTags(tag);
+////                        Message msg = new Message();
+////                        msg.what = 1;
+////                        msg.obj = photo;
+////                        handler.sendMessage(msg);
+//                    } else {
+//                        Message msg = new Message();
+//                        msg.what = 0;
+//                        handler.sendMessage(msg);
+//                    }
                     dismiss();
                 } else {
                     user.setInterests(null);
@@ -122,13 +122,13 @@ public class PhotoTagsSelectDialog extends DialogFragment {
     private void initData() {
         datas = new ArrayList<>();
         if (title.contentEquals("photo")) {
-            String[] strs1 = photo.getTags().replace("[", "").replace("]", "").split(",");
-            if (strs1[0] != "") {
-                checkedInterest = strs1.length;
-                for (String str : strs1) {
-                    tags.add(str.trim());
-                }
-            }
+//            String[] strs1 = photo.getTags().replace("[", "").replace("]", "").split(",");
+//            if (strs1[0] != "") {
+//                checkedInterest = strs1.length;
+//                for (String str : strs1) {
+//                    tags.add(str.trim());
+//                }
+//            }
         } else {
             if (user.getInterests().size() > 0) {
                 for (int i = 0; i < user.getInterests().size(); i++) {

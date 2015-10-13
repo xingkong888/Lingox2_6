@@ -37,6 +37,7 @@ public class AlbumActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
 
@@ -45,6 +46,7 @@ public class AlbumActivity extends ActionBarActivity {
 
         initView();
     }
+
 
     private void initView() {
         setContentView(R.layout.activity_album);
@@ -57,65 +59,43 @@ public class AlbumActivity extends ActionBarActivity {
 
         GridView gridView = (GridView) findViewById(R.id.album_activity_grid_view);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(AlbumActivity.this, dataList, selectMultiple,
-                new ImageGridAdapter.SelectionListener() {
-                    @Override
-                    public void onSingleItemSelected(String path) {
-                        Intent intent = new Intent();
-                        intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, path);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
+        adapter = new ImageGridAdapter(AlbumActivity.this, dataList, selectMultiple, new ImageGridAdapter.SelectionListener() {
+            @Override
+            public void onSingleItemSelected(String path) {
+                Intent intent = new Intent();
+                intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, path);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
 
-                    @Override
-                    public void onMultiItemSelected() {
-                    }
-                });
+            @Override
+            public void onMultiItemSelected() {
+
+            }
+        });
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (selectMultiple) {
-                    if (dataList.get(position).isSelected) {
-                        dataList.get(position).isSelected = false;
-                    } else {
-                        for (int i = 0; i < dataList.size(); i++) {
-                            if (dataList.get(i).isSelected) {
-                                dataList.get(i).isSelected = false;
-                            }
-                        }
-                        dataList.get(position).isSelected = true;
-                    }
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Intent intent = new Intent();
-                    intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, dataList.get(position).imagePath);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
+                adapter.notifyDataSetChanged();
             }
+
         });
 
         TextView ok = (TextView) findViewById(R.id.album_activity_toolbar_confirm_button);
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (selectMultiple) {
-//                    ArrayList<String> list = new ArrayList<>(adapter.map.values());
-                    ArrayList<String> list = new ArrayList<>();
-                    for (int i = 0; i < dataList.size(); i++) {
-                        if (dataList.get(i).isSelected) {
-                            list.add(dataList.get(i).imagePath);
-                        }
-                    }
+                    ArrayList<String> list = new ArrayList<>(adapter.map.values());
                     ArrayList<String> imageURLs = new ArrayList<>();
                     for (int i = 0; i < list.size(); i++) {
                         String Str = list.get(i).substring(
                                 list.get(i).lastIndexOf("/") + 1,
                                 list.get(i).lastIndexOf("."));
                         imageURLs.add(FileUtils.SDPATH + Str + ".JPEG");
-//                        Log.d(LOG_TAG, imageURLs.toString());
+                        Log.d(LOG_TAG, imageURLs.toString());
                     }
                     Intent intent = new Intent();
                     intent.putStringArrayListExtra(PhotoDialog.SELECTED_IMAGE_LIST, list);

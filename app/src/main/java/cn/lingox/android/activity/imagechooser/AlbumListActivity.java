@@ -38,8 +38,10 @@ public class AlbumListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         initView();
+
         helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
+
         initData();
     }
 
@@ -103,7 +105,6 @@ public class AlbumListActivity extends ActionBarActivity {
                         finish();
                     }
                 }
-                break;
         }
     }
 

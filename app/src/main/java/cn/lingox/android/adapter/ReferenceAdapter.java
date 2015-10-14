@@ -2,6 +2,8 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +40,13 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
     private boolean ownReference = false;
 
     private boolean isSelf = false;//false 查看别人的评论  true 查看自己的评论
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            notifyDataSetChanged();
+        }
+    };
 
     public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId) {
         super(context, R.layout.row_reference, rList);
@@ -104,10 +113,9 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         holder.replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WriteReplayDialog.newInstance(reference).show(context.getFragmentManager(), "");
+                WriteReplayDialog.newInstance(handler, reference).show(context.getFragmentManager(), "");
             }
         });
-
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

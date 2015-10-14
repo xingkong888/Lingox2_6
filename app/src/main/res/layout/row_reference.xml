@@ -4,6 +4,7 @@
     style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     card_view:cardBackgroundColor="@color/btn_white_normal"
     card_view:cardElevation="5dp">
 
@@ -19,6 +20,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:focusable="false"
             android:src="@drawable/default_avatar" />
 
         <RelativeLayout

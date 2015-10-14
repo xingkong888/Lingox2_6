@@ -105,6 +105,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         add.setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.list);
+//        listView.requestDisallowInterceptTouchEvent(false);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

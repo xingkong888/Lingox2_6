@@ -1477,7 +1477,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         protected void onPostExecute(Boolean aBoolean) {
             pd.dismiss();
             if (aBoolean) {
-//                sendText(nickName+"Canceled the application");
                 switch (indent.getState()) {
                     case 2://取消
                         sendText("Canceled the application");

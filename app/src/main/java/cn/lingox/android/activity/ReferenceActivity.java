@@ -105,10 +105,11 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         add.setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.list);
-//        listView.setOnItemClickListener(new OnItemClickListener() {
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Reference selectedReference = referenceList.get(position);
+//
 //                boolean ownReference =
 //                        CacheHelper.getInstance().getSelfInfo().getId().equals(selectedReference.getUserSrcId());
 //                if (ownReference) {//自己对别人的评价
@@ -142,7 +143,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         } else {
             stopAnim();
             listView.setVisibility(View.VISIBLE);
-            arrayAdapter = new ReferenceAdapter(this, referenceList);
+            arrayAdapter = new ReferenceAdapter(this, referenceList, userId);
             listView.setAdapter(arrayAdapter);
             updateList();
         }

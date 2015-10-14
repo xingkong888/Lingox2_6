@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.helper.WriteReplayDialog;
 
 public class ReferenceAdapter extends ArrayAdapter<Reference> {
     // Intent Extras
@@ -35,10 +37,13 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
     private ArrayList<Reference> referenceList;
     private boolean ownReference = false;
 
-    public ReferenceAdapter(Activity context, ArrayList<Reference> rList) {
+    private boolean isSelf = false;//false 查看别人的评论  true 查看自己的评论
+
+    public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId) {
         super(context, R.layout.row_reference, rList);
         this.context = context;
         this.referenceList = rList;
+        isSelf = CacheHelper.getInstance().getSelfInfo().getId().contentEquals(userId);
     }
 
     @Override
@@ -59,10 +64,9 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
-        ViewHolder holder;
+        final ViewHolder holder;
 
         final Reference reference = referenceList.get(position);
-
 //        Log.d("星期",reference.toString());
 
         if (rowView == null) {
@@ -71,9 +75,12 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             holder = new ViewHolder();
             holder.layout = (RelativeLayout) rowView.findViewById(R.id.pdpdpd);
             holder.avatar = (ImageView) rowView.findViewById(R.id.avatar_reference);
+            holder.replay = (ImageView) rowView.findViewById(R.id.refrence_replay);
             holder.name = (TextView) rowView.findViewById(R.id.name_reference);
             holder.time = (TextView) rowView.findViewById(R.id.time_reference);
             holder.content = (TextView) rowView.findViewById(R.id.content_reference);
+            holder.replayContent = (TextView) rowView.findViewById(R.id.refrence_replay_content);
+            holder.editText = new EditText(context);
             rowView.setTag(holder);
         } else {
             holder = (ViewHolder) rowView.getTag();
@@ -83,12 +90,23 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
                     user.getAvatar());
             holder.name.setText(user.getNickname());
-
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
         }
 
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
+
+        if (isSelf) {
+            holder.replay.setVisibility(View.VISIBLE);
+        } else {
+            holder.replay.setVisibility(View.GONE);
+        }
+        holder.replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WriteReplayDialog.newInstance(reference).show(context.getFragmentManager(), "");
+            }
+        });
 
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
@@ -115,9 +133,10 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
     }
 
     static class ViewHolder {
-        public ImageView avatar;
-        public TextView name, time;
-        public TextView content;
-        public RelativeLayout layout;
+        ImageView avatar, replay;
+        TextView name, time;
+        TextView content, replayContent;
+        RelativeLayout layout;
+        EditText editText;
     }
 }

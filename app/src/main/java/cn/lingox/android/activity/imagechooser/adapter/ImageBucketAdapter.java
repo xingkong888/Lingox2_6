@@ -103,5 +103,4 @@ public class ImageBucketAdapter extends BaseAdapter {
         private TextView name;
         private TextView count;
     }
-
 }

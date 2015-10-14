@@ -85,12 +85,10 @@ public class PlacesDialog extends DialogFragment implements
             @Override
             public void onClick(View v) {
                 list.clear();
-//                text.setText("");
                 for (int i = 0; i < data.size(); i++) {
                     list.add(data.get(i).trim());
                 }
                 text.setText(list.toString().replace("[", "").replace("]", ""));
-//                user.setVisited("");
                 user.setVisited(data.toString().replace("[", "").replace("]", ""));
                 Message msg = new Message();
                 msg.obj = data;
@@ -102,14 +100,6 @@ public class PlacesDialog extends DialogFragment implements
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Message msg = new Message();
-                msg.obj = saveData;
-                handler.sendMessage(msg);
-                for (String str : saveData) {
-                    list.add(str);
-                }
-                text.setText(list.toString().replace("[", "").replace("]", ""));
-                user.setVisited(saveData.toString().replace("[", "").replace("]", ""));
                 dismiss();
             }
         });

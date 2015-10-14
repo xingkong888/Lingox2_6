@@ -66,6 +66,7 @@ public class BitmapCache extends Activity {
 
         new Thread() {
             Bitmap thumb;
+
             public void run() {
                 try {
                     if (isThumbPath) {
@@ -123,6 +124,6 @@ public class BitmapCache extends Activity {
 
     public interface ImageCallback {
         void imageLoad(ImageView imageView, Bitmap bitmap,
-                              Object... params);
+                       Object... params);
     }
 }

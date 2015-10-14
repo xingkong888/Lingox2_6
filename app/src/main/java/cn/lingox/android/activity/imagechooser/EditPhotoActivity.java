@@ -85,32 +85,6 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
                 break;
         }
     }
-
-    //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            case SELECT_PHOTOS:
-//                if (resultCode == PhotoDialog.RESULT_OK) {
-//                    if (data.hasExtra(PhotoDialog.SELECTED_IMAGE_LIST)) {
-//                        ArrayList<String> imageURLs =
-//                                data.getStringArrayListExtra(PhotoDialog.SELECTED_IMAGE_LIST);
-//                        photo.setUrl(imageURLs.get(0));
-//                    } else if (data.hasExtra(PhotoDialog.SELECTED_SINGLE_IMAGE)) {
-//                        Uri uri = data.getParcelableExtra(PhotoDialog.SELECTED_SINGLE_IMAGE);
-//                        photo.setDescription(editText.getText().toString());
-//                        photo.setUrl(uri.getPath());
-//                    } else {
-//                        Log.e(LOG_TAG, "onActivityResult(): SELECT_PHOTOS: Data did not have the expected extra");
-//                    }
-//                    //展示图片
-//                    Picasso.with(this).load("file://" + photo.getUrl()).into(showPhoto);
-//                } else if (resultCode == 111) {
-//                    finish();
-//                } else {
-//                    Log.e(LOG_TAG, "onActivityResult(): SELECT_PHOTOS: not RESULT_OK");
-//                }
-//                break;
-//        }
-//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

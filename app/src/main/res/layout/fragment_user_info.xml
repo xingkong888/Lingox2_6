@@ -182,7 +182,7 @@
                         android:background="#e5e5e9"
                         android:gravity="center"
                         android:paddingTop="2dp"
-                        android:text="Post local experiences"
+                        android:text="Post some photos"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -190,7 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Post local experiences"
+                        android:text="Post some photos"
                         android:textColor="#ababab" />
                 </RelativeLayout>
 

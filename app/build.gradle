@@ -38,8 +38,8 @@ android {
         applicationId "cn.lingox.android"
         minSdkVersion 12
         targetSdkVersion 21
-        versionCode 37
-        versionName 'Beta Ver. 2.6'
+        versionCode 38
+        versionName 'Beta Ver. 2.7'
     }
     buildTypes {
         release {

@@ -25,7 +25,6 @@ import cn.lingox.android.utils.ImageCache;
 
 public class EditPhotoActivity extends ActionBarActivity implements View.OnClickListener {
 
-    public static final int SELECT_PHOTOS = 101;
     private static final String LOG_TAG = "EditPhotoActivity";
 
 
@@ -42,7 +41,6 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
         if (getIntent().hasExtra("photo")) {
             photo = getIntent().getParcelableExtra("photo");
         }
-
         initView();
         setData();
     }
@@ -85,6 +83,7 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
                 break;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

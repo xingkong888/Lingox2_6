@@ -155,6 +155,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (getArguments().containsKey(USER)) {
             user = getArguments().getParcelable(USER);
         }
+        Log.d("星期", user.toString());
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
         } else {
@@ -366,8 +367,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
         if (!requestingOthersData) {
             localTitle.setText(user.getNickname() + "'s Album");
-            localNothing1.setText(user.getNickname() + " has no posted local experiences yet");
-            localNothing2.setText(user.getNickname() + " has no posted local experiences yet");
+            localNothing1.setText(user.getNickname() + " has no posted photos yet");
+            localNothing2.setText(user.getNickname() + " has no posted photos yet");
 
             travelTitle.setText(user.getNickname() + "'s Travel Plans");
             travelNothing1.setText(user.getNickname() + " has no posted travel plans yet");

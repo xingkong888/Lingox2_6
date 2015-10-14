@@ -136,7 +136,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
                 }
             }
         });
-
         return rowView;
     }
 

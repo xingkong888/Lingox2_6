@@ -79,6 +79,8 @@ public class MainActivity extends ActionBarActivity implements
 
     private ImageView search;
 
+    private boolean checkUpdata = false;
+
     private int unread = -1;
 
     public static MainActivity getObj() {
@@ -345,10 +347,11 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void onBackPressed() {
-        if (sideDrawers.isDrawerOpen(Gravity.LEFT))
+        if (sideDrawers.isDrawerOpen(Gravity.LEFT)) {
             sideDrawers.closeDrawers();
-        else
+        } else {
             super.onBackPressed();
+        }
     }
 
     @Override
@@ -369,7 +372,6 @@ public class MainActivity extends ActionBarActivity implements
 //            FileUtil.deleteDir();
             this.finish();
             System.exit(0);
-//            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
 
@@ -436,7 +438,8 @@ public class MainActivity extends ActionBarActivity implements
                 PackageManager packageManager = getPackageManager();
                 PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
                 int versionCode = packInfo.versionCode;
-                return ServerHelper.getInstance().requireUpdate(versionCode);
+                checkUpdata = ServerHelper.getInstance().requireUpdate(versionCode);
+                return checkUpdata;
             } catch (PackageManager.NameNotFoundException e) {
                 Log.e(LOG_TAG, e.toString());
                 return false;

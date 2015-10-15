@@ -47,28 +47,12 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.yes:
-                new MyAsynTask().execute();
-//                reference.setContent();
+                reference.setContent(editText.getText().toString().trim());
+                handler.sendMessage(new Message());
                 break;
             case R.id.no:
-                dismiss();
                 break;
         }
-    }
-
-    class MyAsynTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            dismiss();
-            if (true) {
-//            if (aBoolean){
-                handler.sendMessage(new Message());
-            }
-        }
+        dismiss();
     }
 }

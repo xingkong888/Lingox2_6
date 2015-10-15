@@ -41,17 +41,13 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
     private boolean isSelf = false;//false 查看别人的评论  true 查看自己的评论
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            notifyDataSetChanged();
-        }
-    };
+    private Handler handler;
 
-    public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId) {
+    public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId,Handler handler) {
         super(context, R.layout.row_reference, rList);
         this.context = context;
         this.referenceList = rList;
+        this.handler=handler;
         isSelf = CacheHelper.getInstance().getSelfInfo().getId().contentEquals(userId);
     }
 
@@ -76,7 +72,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         final ViewHolder holder;
 
         final Reference reference = referenceList.get(position);
-//        Log.d("星期",reference.toString());
 
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(
@@ -101,7 +96,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             holder.name.setText(user.getNickname());
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
         }
-
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
 

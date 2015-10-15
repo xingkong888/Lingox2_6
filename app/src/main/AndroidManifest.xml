@@ -318,16 +318,16 @@
             android:name="EASEMOB_APPKEY"
             android:value="manyingyu#lingox" />
 
-        <!--&lt;!&ndash;百度地图appkey&ndash;&gt;-->
+        <!--百度地图appkey-->
         <!--<meta-data-->
         <!--android:name="com.baidu.lbsapi.API_KEY"-->
         <!--android:value="u7NGONV78Do5PtSoQPkpk976" />-->
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+        <!--<service-->
+        <!--android:name="com.baidu.location.f"-->
+        <!--android:enabled="true"-->
+        <!--android:process=":remote" />-->
         <!--add for shareSdk-->
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"

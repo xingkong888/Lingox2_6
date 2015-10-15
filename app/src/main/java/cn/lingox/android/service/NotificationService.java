@@ -9,10 +9,6 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +36,8 @@ public class NotificationService extends Service {
     private static final String LOG_TAG = "NotificationService";
     public int type = 0;
     public int notiType = 0;
-    private LocationClient mLocationClient;
-    private BDLocationListener myListener = new MyBDLocationListener();
+//    private LocationClient mLocationClient;
+//    private BDLocationListener myListener = new MyBDLocationListener();
     private List<Notification> notificationList = new ArrayList<>();
 
     private ArrayList<Reference> referenceList = new ArrayList<>();
@@ -54,18 +50,18 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         // Baidu location client
-        mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
-        option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
-        option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
-        option.setIsNeedAddress(true);//返回的定位结果包含地址信息
-        option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
-        mLocationClient.setLocOption(option);
-
-        mLocationClient.start();
-        mLocationClient.requestLocation();
+//        mLocationClient = new LocationClient(getApplicationContext());
+//        mLocationClient.registerLocationListener(myListener);
+//        LocationClientOption option = new LocationClientOption();
+//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
+//        option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
+//        option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
+//        option.setIsNeedAddress(true);//返回的定位结果包含地址信息
+//        option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
+//        mLocationClient.setLocOption(option);
+//
+//        mLocationClient.start();
+//        mLocationClient.requestLocation();
         //获取通知信息
         new Thread(new Runnable() {
             @Override
@@ -220,63 +216,63 @@ public class NotificationService extends Service {
         return START_STICKY;
     }
 
-    private class MyBDLocationListener implements BDLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            if (location == null) {
-                Log.d(LOG_TAG, "BDLocation was null");
-                return;
-            }
-            StringBuilder sb = new StringBuilder(256);
-            sb.append("time : ");
-            sb.append(location.getTime());
-            sb.append("\nloc type : ");
-            sb.append(location.getLocType());
-            sb.append("\nlatitude : ");
-            sb.append(location.getLatitude());
-            sb.append("\nlongitude : ");
-            sb.append(location.getLongitude());
-            sb.append("\nradius : ");
-            sb.append(location.getRadius());
-            if (location.getLocType() == BDLocation.TypeGpsLocation) {
-                sb.append("\nspeed : ");
-                sb.append(location.getSpeed());
-                sb.append("\nsatellite : ");
-                sb.append(location.getSatelliteNumber());
-            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
-                sb.append("\naddr : ");
-                sb.append(location.getAddrStr());
-            }
-
-            try {
-                final double[] geoLocation = {location.getLongitude(), location.getLatitude()};
-                User user = CacheHelper.getInstance().getSelfInfo();
-                user.setLoc(geoLocation);
-//                user.setCity(location.getCity());
-                user.setLocString(location.getDistrict() + ", " + location.getCity());
-                user.setLocString(location.getAddrStr());
-                CacheHelper.getInstance().setSelfInfo(user);
-
-                Log.d(LOG_TAG, "BDLocationListener: " + sb.toString());
-
-                new Thread() {
-                    public void run() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put(StringConstant.userIdStr, CacheHelper
-                                .getInstance().getSelfInfo().getId());
-                        params.put(StringConstant.locStr, JsonHelper.getInstance().getLocationStr(geoLocation));
-                        params.put(StringConstant.locStringStr, CacheHelper
-                                .getInstance().getSelfInfo().getLocString());
-                        try {
-                            ServerHelper.getInstance().updateUserInfo(params);
-                        } catch (Exception e) {
-                            Log.e(LOG_TAG, "onReceiveLocation(): " + e.getMessage());
-                        }
-                    }
-                }.start();
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "MyLocationListener: Exception caught: " + e.getMessage());
-            }
-        }
-    }
+//    private class MyBDLocationListener implements BDLocationListener {
+//        @Override
+//        public void onReceiveLocation(BDLocation location) {
+//            if (location == null) {
+//                Log.d(LOG_TAG, "BDLocation was null");
+//                return;
+//            }
+//            StringBuilder sb = new StringBuilder(256);
+//            sb.append("time : ");
+//            sb.append(location.getTime());
+//            sb.append("\nloc type : ");
+//            sb.append(location.getLocType());
+//            sb.append("\nlatitude : ");
+//            sb.append(location.getLatitude());
+//            sb.append("\nlongitude : ");
+//            sb.append(location.getLongitude());
+//            sb.append("\nradius : ");
+//            sb.append(location.getRadius());
+//            if (location.getLocType() == BDLocation.TypeGpsLocation) {
+//                sb.append("\nspeed : ");
+//                sb.append(location.getSpeed());
+//                sb.append("\nsatellite : ");
+//                sb.append(location.getSatelliteNumber());
+//            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+//                sb.append("\naddr : ");
+//                sb.append(location.getAddrStr());
+//            }
+//
+//            try {
+//                final double[] geoLocation = {location.getLongitude(), location.getLatitude()};
+//                User user = CacheHelper.getInstance().getSelfInfo();
+//                user.setLoc(geoLocation);
+////                user.setCity(location.getCity());
+//                user.setLocString(location.getDistrict() + ", " + location.getCity());
+//                user.setLocString(location.getAddrStr());
+//                CacheHelper.getInstance().setSelfInfo(user);
+//
+//                Log.d(LOG_TAG, "BDLocationListener: " + sb.toString());
+//
+//                new Thread() {
+//                    public void run() {
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put(StringConstant.userIdStr, CacheHelper
+//                                .getInstance().getSelfInfo().getId());
+//                        params.put(StringConstant.locStr, JsonHelper.getInstance().getLocationStr(geoLocation));
+//                        params.put(StringConstant.locStringStr, CacheHelper
+//                                .getInstance().getSelfInfo().getLocString());
+//                        try {
+//                            ServerHelper.getInstance().updateUserInfo(params);
+//                        } catch (Exception e) {
+//                            Log.e(LOG_TAG, "onReceiveLocation(): " + e.getMessage());
+//                        }
+//                    }
+//                }.start();
+//            } catch (Exception e) {
+//                Log.e(LOG_TAG, "MyLocationListener: Exception caught: " + e.getMessage());
+//            }
+//        }
+//    }
 }

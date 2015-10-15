@@ -256,11 +256,11 @@ public class MainActivity extends ActionBarActivity implements
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-            case R.id.update_app://TODO 更新应用
-                Uri updateUri = Uri.parse(URLConstant.APK_URL);
-                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
-                startActivity(updateAppIntent);
-                break;
+//            case R.id.update_app://TODO 更新应用
+//                Uri updateUri = Uri.parse(URLConstant.APK_URL);
+//                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
+//                startActivity(updateAppIntent);
+//                break;
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);

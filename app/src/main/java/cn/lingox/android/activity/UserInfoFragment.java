@@ -155,7 +155,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (getArguments().containsKey(USER)) {
             user = getArguments().getParcelable(USER);
         }
-        Log.d("星期", user.toString());
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
         } else {

@@ -181,8 +181,10 @@ public class SplashActivity extends Activity {
                     break;
                 case ViewPager.SCROLL_STATE_IDLE:
                     if (viewPager.getCurrentItem() == viewPager.getAdapter().getCount() - 1 && !misScrolled) {
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                        SplashActivity.this.finish();
+//                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+//                        SplashActivity.this.finish();
+                        ThirdPartyLogin tpl = new ThirdPartyLogin();
+                        tpl.show(SplashActivity.this);
                     }
                     misScrolled = true;
                     break;

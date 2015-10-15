@@ -317,6 +317,8 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
             msg.what = MSG_AUTH_COMPLETE;
             msg.obj = new Object[]{platform.getName(), res};
             handler.sendMessage(msg);
+
+            Log.d("星期", platform.toString() + ">>>" + res.toString());
         }
     }
 
@@ -360,7 +362,10 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
                 //按正常登录进入应用
                 //注册，并登录
-                new Register((String) res.get("name"), (String) res.get("id"), (String) res.get("id")).execute();
+                new Register(String.valueOf(res.get("name")),
+                        String.valueOf(res.get("id")),
+                        String.valueOf(res.get("id"))
+                ).execute();
 //
 //				if (signupListener != null && signupListener.onSignin(platform, res)) {
 //					SignupPage signupPage = new SignupPage();
@@ -493,22 +498,22 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
     class Register extends AsyncTask<Void, String, Boolean> {
         private String username, password, email;
-        private ProgressDialog pd;
+        private ProgressDialog pd1;
 
         public Register(String username, String password, String email) {
             this.username = username;
             this.password = password;
             this.email = email;
-            //this.pd = new ProgressDialog(RegisterActivity.this);
+            pd1 = new ProgressDialog(activity);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd.setCanceledOnTouchOutside(false);
-            pd.setCancelable(false);
-            pd.setMessage("Registering LingoX Account...");
-            pd.show();
+            pd1.setCanceledOnTouchOutside(false);
+            pd1.setCancelable(false);
+            pd1.setMessage("Registering LingoX Account...");
+            pd1.show();
         }
 
         @Override

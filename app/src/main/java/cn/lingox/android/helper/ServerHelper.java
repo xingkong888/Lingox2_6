@@ -236,7 +236,6 @@ public class ServerHelper {
                 String.valueOf(user_relation));
         params.put(StringConstant.verStr, APPVERSION);
 
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CHANGE_RELATION, params);
 
         Log.d(LOG_TAG, "userRelationChange: " + jsonStr);

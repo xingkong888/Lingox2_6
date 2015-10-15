@@ -63,11 +63,13 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reference);
-        initView();
+
         Intent intent = getIntent();
         addRef = intent.getIntExtra("addReference", 0);
         userId = intent.getStringExtra(UserInfoFragment.TARGET_USER_ID);
         userName = intent.getStringExtra(UserInfoFragment.TARGET_USER_NAME);
+        ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
+        initView();
         if (intent.hasExtra(UserInfoFragment.REFERENCES)) {
             referenceList = intent.getParcelableArrayListExtra(UserInfoFragment.REFERENCES);
             initData();
@@ -76,12 +78,9 @@ public class ReferenceActivity extends Activity implements OnClickListener {
             pb.setVisibility(View.VISIBLE);
             new LoadUserReferences().execute(userId);
         }
-
-        ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
     }
 
     private void initView() {
-
         anim = (ImageView) findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
 

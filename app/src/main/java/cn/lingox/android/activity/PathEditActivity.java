@@ -422,14 +422,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             path.getAvailableTime());
                 }
 
-//                if (CachePath.getInstance().getGroupSize() != 0) {
-//                    path.setCapacity(CachePath.getInstance().getGroupSize());
-//                    groupSize.setText("" + path.getCapacity());
-//                }
-//                if (!CachePath.getInstance().getBudget().isEmpty()) {
-//                    path.setCost(CachePath.getInstance().getBudget());
-//                    budget.setText(path.getCost());
-//                }
                 if (CachePath.getInstance().getTags().size() > 0) {
                     for (int i = 0; i < CachePath.getInstance().getTags().size(); i++) {
                         activityTags.put(Integer.valueOf(CachePath.getInstance().getTags().get(i)), 1);
@@ -496,9 +488,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
             //七
             address.setText(path.getDetailAddress());
-            //八
-//            groupSize.setText("" + path.getCapacity());
-//            budget.setText(path.getCost());
         }
     }
 
@@ -542,9 +531,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 text3.setText(getString(R.string.path_edit_0_local_3));
                 break;
             case R.id.path_edit_country:
-                Intent intent = new Intent(this, SelectCountry.class);
-                intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
-                startActivityForResult(intent, SELECTLOCATION);
+                Intent intent = new Intent(this, AMapActivity.class);
+                startActivity(intent);
+//                Intent intent = new Intent(this, SelectCountry.class);
+//                intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
+//                startActivityForResult(intent, SELECTLOCATION);
                 break;
             case R.id.path_edit_choose_photo:
                 Intent intent4 = new Intent(this, PhotoDialog.class);

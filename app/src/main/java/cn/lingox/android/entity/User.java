@@ -465,7 +465,7 @@ public class User implements Parcelable {
                 + ", profession=" + profession
                 + ", interests=" + interests
                 + ", signature=" + signature
-                + ", loc=" + loc
+                + ", loc=" + loc[0] + "," + loc[1]
                 + ", locString=" + locString
                 + ", loginTime=" + loginTime
                 + ", online=" + online

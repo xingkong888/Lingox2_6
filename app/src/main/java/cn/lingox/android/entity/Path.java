@@ -50,7 +50,6 @@ public class Path implements Parcelable {
     private String longitude;
     private ArrayList<String> tags;
 
-
     public Path() {
         this.id = "";
         this.user_id = "";

@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qiniu.android.storage.UploadManager;
-
 import java.util.ArrayList;
 
 import cn.lingox.android.R;

@@ -3,7 +3,6 @@ package cn.lingox.android.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +42,11 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
     private Handler handler;
 
-    public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId,Handler handler) {
+    public ReferenceAdapter(Activity context, ArrayList<Reference> rList, String userId, Handler handler) {
         super(context, R.layout.row_reference, rList);
         this.context = context;
         this.referenceList = rList;
-        this.handler=handler;
+        this.handler = handler;
         isSelf = CacheHelper.getInstance().getSelfInfo().getId().contentEquals(userId);
     }
 

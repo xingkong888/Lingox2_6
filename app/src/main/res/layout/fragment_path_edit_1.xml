@@ -40,7 +40,7 @@
             android:textColor="#fff" />
 
         <Button
-            android:id="@+id/path_edit_city"
+            android:id="@+id/path_detail_address"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/path_edit_country"
@@ -48,23 +48,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/button_border_blue"
             android:padding="5dp"
+            android:text="Detail Address"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:visibility="gone" />
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/path_edit_address"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/poiu"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/edit_border"
-        android:gravity="center"
-        android:hint="@string/enter_detail_address"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textColorHint="@color/white"
-        android:visibility="gone" />
 </RelativeLayout>

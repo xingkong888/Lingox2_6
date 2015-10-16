@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -44,7 +43,7 @@ public class NotificationService extends Service implements
     private static final String LOG_TAG = "NotificationService";
     public int type = 0;
     public int notiType = 0;
-//    private LocationClient mLocationClient;
+    //    private LocationClient mLocationClient;
 //    private BDLocationListener myListener = new MyBDLocationListener();
     private List<Notification> notificationList = new ArrayList<>();
 
@@ -144,7 +143,7 @@ public class NotificationService extends Service implements
             } catch (Exception e) {
                 Log.e(LOG_TAG, "LocationListener: Exception caught: " + e.getMessage());
             }
-            Toast.makeText(getApplicationContext(), geoLat + ">>>>" + geoLng, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), geoLat + ">>>>" + geoLng, Toast.LENGTH_LONG).show();
         }
     }
 

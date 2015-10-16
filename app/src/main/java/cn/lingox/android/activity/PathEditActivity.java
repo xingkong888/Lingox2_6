@@ -65,10 +65,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     public static final String EDITED_PATH = LingoXApplication.PACKAGE_NAME + ".EDITED_PATH";
     public static final String DELETED_PATH = LingoXApplication.PACKAGE_NAME + ".DELETED_PATH";
     public static final String ADDED_PATH = LingoXApplication.PACKAGE_NAME + ".ADDED_PATH";
+    public static final int SELECTDETIAL = 124;
+    private static final String SELECTDETIALSRC = "detial";
     private static final String LOG_TAG = "PathEditActivity";
-
     private static final int SELECTLOCATION = 123;
-
     private int page = 0;//当前页面
     private RelativeLayout page0, page1, page2, page3, page4, page5, page6, page7;
     private Button next;
@@ -85,16 +85,13 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     private LinearLayout layout;
     private TextView text1, text2, text3;
     //第二页面
-    private Button countryBtn, cityBtn;
-    //    private Country country;
-//    private City city;
+    private Button countryBtn, detailAddress;
     //第三页面
     private EditText title, description;
     //第四页面
     private ListView listView;
     private MyAdapter adapter;
     private ArrayList<PathTags> datas;
-    //    private PathTags pathTag;
     private int checkedNum = 0;
     private ArrayList<String> postJson;
     private HashMap<Integer, Integer> activityTags;
@@ -151,7 +148,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         }
     };
     //第七页面
-    private EditText address, availableTime;
+    private EditText availableTime;
     //第八页面
     private EditText groupSize, budget;
     private Path newPath;
@@ -211,8 +208,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         layout.setVisibility(View.INVISIBLE);
         //二
         countryBtn = (Button) findViewById(R.id.path_edit_country);
-        cityBtn = (Button) findViewById(R.id.path_edit_city);
+        detailAddress = (Button) findViewById(R.id.path_detail_address);
         countryBtn.setOnClickListener(this);
+        detailAddress.setOnClickListener(this);
         //三
         title = (EditText) findViewById(R.id.path_edit_title);
         description = (EditText) findViewById(R.id.path_edit_description);
@@ -300,24 +298,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             public void afterTextChanged(Editable s) {
             }
         });
-        //七
-        address = (EditText) findViewById(R.id.path_edit_address);
-        address.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                path.setDetailAddress(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         //八
         groupSize = (EditText) findViewById(R.id.path_edit_group_size);
         groupSize.addTextChangedListener(new TextWatcher() {
@@ -388,11 +368,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     text1.setText(getString(R.string.path_edit_0_traveler_1));
                     text2.setText(getString(R.string.path_edit_0_traveler_2));
                     text3.setText(getString(R.string.path_edit_0_traveler_3));
-                }
-                if (!CachePath.getInstance().getLocation().isEmpty()) {
-                    path.setLocation(CachePath.getInstance().getLocation());
-                    cityBtn.setVisibility(View.VISIBLE);
-                    cityBtn.setText(CachePath.getInstance().getLocation());
                 }
                 if (!CachePath.getInstance().getTitle().isEmpty()) {
                     path.setTitle(CachePath.getInstance().getTitle());
@@ -486,8 +461,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
                     JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
             UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
-            //七
-            address.setText(path.getDetailAddress());
+//            //七
+//            address.setText(path.getDetailAddress());
         }
     }
 
@@ -531,11 +506,15 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 text3.setText(getString(R.string.path_edit_0_local_3));
                 break;
             case R.id.path_edit_country:
-                Intent intent = new Intent(this, AMapActivity.class);
-                startActivity(intent);
-//                Intent intent = new Intent(this, SelectCountry.class);
-//                intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
-//                startActivityForResult(intent, SELECTLOCATION);
+//                Intent intent = new Intent(this, AMapActivity.class);
+//                startActivity(intent);
+                Intent intent = new Intent(this, SelectCountry.class);
+                intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
+                startActivityForResult(intent, SELECTLOCATION);
+                break;
+            case R.id.path_detail_address:
+                Intent intent1 = new Intent(this, AMapActivity.class);
+                startActivityForResult(intent1, SELECTDETIAL);
                 break;
             case R.id.path_edit_choose_photo:
                 Intent intent4 = new Intent(this, PhotoDialog.class);
@@ -560,10 +539,20 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (!str.isEmpty()) {
                     path.setLocation(str);
                     CachePath.getInstance().setLocation(str);
-//                    countryBtn.setVisibility(View.VISIBLE);
                     countryBtn.setText(str);
-//                    cityBtn.setVisibility(View.VISIBLE);
-//                    cityBtn.setText(str);
+                }
+                break;
+            case SELECTDETIAL:
+                if (data.hasExtra(SELECTDETIALSRC)) {
+                    double[] doubles = data.getDoubleArrayExtra(SELECTDETIALSRC);
+                    String add = data.getStringExtra(SELECTDETIALSRC);
+                    if (!add.isEmpty()) {
+                        path.setDetailAddress(add);
+                    }
+                    if (doubles.length > 0) {
+                        path.setLongitude(String.valueOf(doubles[0]));//经度
+                        path.setLatitude(String.valueOf(doubles[1]));//纬度
+                    }
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
@@ -621,7 +610,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             fourTitle.setText("Is there a cover photo?");
                             fiveTitle.setText("When are you usually available for this local experience? ");
 
-                            address.setVisibility(View.VISIBLE);
+                            detailAddress.setVisibility(View.VISIBLE);
 
                             //page0  -->page2-->page1-->page5-->page3-->page4
                             background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);
@@ -638,7 +627,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             fourTitle.setText("Is there a cover photo?");
                             fiveTitle.setText("Set a time frame for your travel");
 
-                            address.setVisibility(View.INVISIBLE);
+                            detailAddress.setVisibility(View.INVISIBLE);
 
                             //page0  -->page1-->page5-->page2-->page3-->page4
                             background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);

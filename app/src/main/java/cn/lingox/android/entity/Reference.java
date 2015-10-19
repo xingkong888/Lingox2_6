@@ -21,8 +21,10 @@ public class Reference implements Parcelable {
     private String user_tar;
     private String createAt;
     private String updatedAt;
+    private String replay;
 
-    public Reference(String id, String title, String content, String userSrcId, String userTarId, String createAt, String updatedAt) {
+    public Reference(String id, String title, String content, String userSrcId,
+                     String userTarId, String createAt, String updatedAt, String replay) {
         super();
         this.id = id;
         this.title = title;
@@ -31,11 +33,12 @@ public class Reference implements Parcelable {
         this.user_tar = userTarId;
         this.createAt = createAt;
         this.updatedAt = updatedAt;
+        this.replay = replay;
     }
 
     // Parcelable
     public Reference(Parcel in) {
-        String[] data = new String[7];
+        String[] data = new String[8];
 
         in.readStringArray(data);
         this.id = data[0];
@@ -45,6 +48,7 @@ public class Reference implements Parcelable {
         this.user_tar = data[4];
         this.createAt = data[5];
         this.updatedAt = data[6];
+        this.replay = data[7];
     }
 
     public String getCreateAt() {
@@ -103,6 +107,14 @@ public class Reference implements Parcelable {
         this.user_tar = userTarId;
     }
 
+    public String getReplay() {
+        return replay;
+    }
+
+    public void setReplay(String replay) {
+        this.replay = replay;
+    }
+
     @Override
     public String toString() {
         return "Reference ["
@@ -113,6 +125,7 @@ public class Reference implements Parcelable {
                 + ", userTarId=" + user_tar
                 + ", createAt=" + createAt
                 + ", updatedAt=" + updatedAt
+                + ", replay=" + replay
                 + "]";
     }
 
@@ -130,7 +143,8 @@ public class Reference implements Parcelable {
                 this.user_src,
                 this.user_tar,
                 this.createAt,
-                this.updatedAt
+                this.updatedAt,
+                this.replay
         });
     }
 }

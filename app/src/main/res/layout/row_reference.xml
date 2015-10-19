@@ -75,7 +75,6 @@
             android:paddingBottom="6dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="ddd顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶"
             android:textColor="#000"
             android:textSize="15sp" />
 

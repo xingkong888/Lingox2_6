@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.easemob.exceptions.EaseMobException;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -850,6 +852,19 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         MobclickAgent.onEventValue(this, "add_discover_next", map, page);
     }
 
+    private Bitmap compress(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int options = 50;
+//        int options = 100;
+//        while (baos.toByteArray().length / 1024 > 100) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+        baos.reset();//重置baos即清空baos
+        bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+//            options -= 10;//每次都减少10
+//        }
+        Log.d("星期", bitmap.getWidth() + ">>>>" + bitmap.getHeight());
+        return bitmap;
+    }
+
     public static class DatePickerFragment extends DialogFragment {
         private DatePickerDialog.OnDateSetListener onDateSet;
         private int year;
@@ -936,7 +951,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             try {
                 if (imageUri != null) {
                     newPath.setImage(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            FileUtil.getImg(imageUri.getPath())));
+                            compress(FileUtil.getImg(imageUri.getPath()))));
+//                            FileUtil.getImg(imageUri.getPath())));
                 }
 //                Log.d(LOG_TAG, "AddPath: Uploaded image to Path: " + newPath.toString());
             } catch (Exception e) {
@@ -1002,9 +1018,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
                 }
                 newPath = ServerHelper.getInstance().editPath(path.getId(), path);
-                if (imageUri != null)
+                if (imageUri != null) {
                     newPath.setImage(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            FileUtil.getImg(imageUri.getPath())));
+                            compress(FileUtil.getImg(imageUri.getPath()))));
+//                            FileUtil.getImg(imageUri.getPath())));
+                }
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());

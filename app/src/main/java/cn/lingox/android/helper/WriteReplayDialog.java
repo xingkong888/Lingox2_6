@@ -46,7 +46,7 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.yes:
-                reference.setContent(editText.getText().toString().trim());
+                reference.setReplay(editText.getText().toString().trim());
                 handler.sendMessage(new Message());
                 break;
             case R.id.no:

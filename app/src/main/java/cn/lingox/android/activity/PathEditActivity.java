@@ -66,7 +66,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     public static final String DELETED_PATH = LingoXApplication.PACKAGE_NAME + ".DELETED_PATH";
     public static final String ADDED_PATH = LingoXApplication.PACKAGE_NAME + ".ADDED_PATH";
     public static final int SELECTDETIAL = 124;
-    private static final String SELECTDETIALSRC = "detial";
+    public static final String SELECTDETIALADD = "detial";
+    public static final String SELECTDETIALLAT = "location";
     private static final String LOG_TAG = "PathEditActivity";
     private static final int SELECTLOCATION = 123;
     private int page = 0;//当前页面
@@ -543,17 +544,19 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 }
                 break;
             case SELECTDETIAL:
-                if (data.hasExtra(SELECTDETIALSRC)) {
-                    double[] doubles = data.getDoubleArrayExtra(SELECTDETIALSRC);
-                    String add = data.getStringExtra(SELECTDETIALSRC);
+//                if (data.hasExtra(SELECTDETIALADD)) {
+                double[] doubles = data.getDoubleArrayExtra(SELECTDETIALLAT);
+                String add = data.getStringExtra(SELECTDETIALADD);
+//                    Toast.makeText(this,doubles[0]+">>>"+doubles[1]+">>>"+add,Toast.LENGTH_LONG).show();
                     if (!add.isEmpty()) {
                         path.setDetailAddress(add);
+                        detailAddress.setText(add);
                     }
                     if (doubles.length > 0) {
                         path.setLongitude(String.valueOf(doubles[0]));//经度
                         path.setLatitude(String.valueOf(doubles[1]));//纬度
                     }
-                }
+//                }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
                 if (resultCode != RESULT_OK)

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +43,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     //声明变量
     private MapView mapView;
     private AMap aMap;
-
     private String address = new String();
 
     private User user = CacheHelper.getInstance().getSelfInfo();
@@ -55,6 +53,8 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     private LatLonPoint latLonPoint;
     private double lat, lng;
     private Intent intent = new Intent();
+
+    private LatLonPoint point = null;
 
     private EditText editText;
     private Button btn;
@@ -70,12 +70,22 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         super.onCreate(savedInstanceState);
         //在onCreat方法中给aMap对象赋值
         setContentView(R.layout.activity_map);
+        setMapView(savedInstanceState);
+
+        initView();
+    }
+
+    private void setMapView(Bundle savedInstanceState) {
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 必须要写
         aMap = mapView.getMap();
-
-        lat = user.getLoc()[0];
-        lng = user.getLoc()[1];
+        if (getIntent().hasExtra("String")) {
+            lat = Double.valueOf(getIntent().getStringArrayExtra("String")[0]);
+            lng = Double.valueOf(getIntent().getStringArrayExtra("String")[1]);
+        } else {
+            lat = user.getLoc()[0];
+            lng = user.getLoc()[1];
+        }
         latLng = new LatLng(lat, lng);
         latLonPoint = new LatLonPoint(lat, lng);
 
@@ -85,10 +95,9 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);
-        getAddress(latLonPoint);
-        initView();
-    }
 
+        getAddress(latLonPoint);
+    }
 
     private void initView() {
         editText = (EditText) findViewById(R.id.map_search);
@@ -100,22 +109,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (listView.getVisibility() == View.GONE) {
-                    listView.setVisibility(View.VISIBLE);
-                }
-                if (s.toString().trim().length() < 2) {
-//                 tipList.clear();
-                    arrayList.clear();
-                    adapter.notifyDataSetChanged();
-                }
-                // 发送输入提示请求
-                inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
-                try {
-                    // newText表示提示关键字，第二个参数默认代表全国，也可以为城市区号
-                    inputtips.requestInputtips(s.toString().trim(), "");
-                } catch (Exception e) {
-
-                }
+                request(s.toString());
             }
 
             @Override
@@ -128,14 +122,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 发送输入提示请求
-                inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
-                try {
-                    // newText表示提示关键字，第二个参数默认代表全国，也可以为城市区号
-                    inputtips.requestInputtips(editText.getText().toString().trim(), "");
-                } catch (Exception e) {
-
-                }
+                request(editText.getText().toString());
             }
         });
 
@@ -152,12 +139,36 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         });
     }
 
+    private void request(String str) {
+        if (listView.getVisibility() == View.GONE) {
+            listView.setVisibility(View.VISIBLE);
+        }
+        if (str.trim().length() < 2) {
+            arrayList.clear();
+            listView.setVisibility(View.GONE);
+            adapter.notifyDataSetChanged();
+        } else {
+            // 发送输入提示请求
+            inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
+            try {
+                // newText表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+                inputtips.requestInputtips(str.trim(), "");
+            } catch (Exception e) {
+                Toast.makeText(AMapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         if (listView.getVisibility() == View.VISIBLE) {
             listView.setVisibility(View.GONE);
         } else {
-            super.onBackPressed();
+            double[] doubles = {};
+            intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
+            intent.putExtra(PathEditActivity.SELECTDETIALADD, "");//地址
+            setResult(PathEditActivity.SELECTDETIAL, intent);
+            finish();
         }
     }
 
@@ -175,6 +186,11 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         GeocodeQuery query = new GeocodeQuery(address, cityCode);
         geocoderSearch.getFromLocationNameAsyn(query);
 //        Toast.makeText(this, cityCode, Toast.LENGTH_LONG).show();
+    }
+
+    private void makeMarker(LatLonPoint point) {
+        latLng = new LatLng(point.getLatitude(), point.getLongitude());
+        getAddress(point);
     }
 
     //创建标记
@@ -199,9 +215,16 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     @Override
     public void onGetInputtips(List<Tip> list, int i) {
         if (i == 0) {
+            tipList.clear();
             tipList.addAll(list);
+            arrayList.clear();
             for (Tip tip : list) {
                 arrayList.add(tip.getName());
+            }
+            if (arrayList.size() > 0) {
+                listView.setVisibility(View.VISIBLE);
+            } else {
+                listView.setVisibility(View.GONE);
             }
             adapter.notifyDataSetChanged();
         }
@@ -246,9 +269,8 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             if (result != null && result.getGeocodeAddressList() != null
                     && result.getGeocodeAddressList().size() > 0) {
                 GeocodeAddress address = result.getGeocodeAddressList().get(0);
-                LatLonPoint point = address.getLatLonPoint();
-//                Toast.makeText(this,point.getLatitude()+">>>"+point.getLongitude(), Toast.LENGTH_LONG).show();
-                makeMarker(new LatLng(point.getLatitude(), point.getLongitude()), address.getFormatAddress());
+                point = address.getLatLonPoint();
+                makeMarker(point);
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
             }
@@ -282,9 +304,15 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     //返回结果到上一级
     private void returnResult() {
-//        Toast.makeText(this, "ABCD", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent();
-        double[] doubles = {latLonPoint.getLongitude(), latLonPoint.getLatitude()};
+        double[] doubles;
+
+        if (point != null) {
+            doubles = new double[2];
+            doubles[0] = point.getLongitude();
+            doubles[1] = point.getLatitude();
+        } else {
+            doubles = new double[0];
+        }
         intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
         intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址
         setResult(PathEditActivity.SELECTDETIAL, intent);
@@ -323,13 +351,5 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            setResult(PathEditActivity.SELECTDETIAL, intent);
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.CookieManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -85,6 +86,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
     private TextView skip;
 
     private ProgressDialog pd;
+    private CookieManager cookieManager = CookieManager.getInstance();
 
 
     /**
@@ -261,21 +263,18 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
 
                 Toast.makeText(activity, "点了微信", Toast.LENGTH_LONG).show();
-
                 authorize(wechat);
                 break;
             case R.id.third_facebook:
                 Platform facebook = ShareSDK.getPlatform(Facebook.NAME);
 
                 Toast.makeText(activity, "点了Facebook", Toast.LENGTH_LONG).show();
-
                 authorize(facebook);
                 break;
             case R.id.third_qq:
                 Platform qq = ShareSDK.getPlatform(QQ.NAME);
 
                 Toast.makeText(activity, "点了QQ", Toast.LENGTH_LONG).show();
-
                 authorize(qq);
                 break;
 
@@ -283,7 +282,6 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
 
                 Toast.makeText(activity, "点了微博", Toast.LENGTH_LONG).show();
-
                 authorize(weibo);
                 break;
         }
@@ -318,7 +316,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
             msg.obj = new Object[]{platform.getName(), res};
             handler.sendMessage(msg);
 
-            Log.d("星期", platform.toString() + ">>>" + res.toString());
+//            Log.d("星期", platform.toString() + ">>>" + res.toString());
         }
     }
 
@@ -337,7 +335,13 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
     @SuppressWarnings("unchecked")
     public boolean handleMessage(Message msg) {
-
+        //授权成功后,获取用户信息，要自己解析，看看oncomplete里面的注释
+        //ShareSDK只保存以下这几个通用值
+        Platform pf = ShareSDK.getPlatform(getContext(), SinaWeibo.NAME);
+//        pf.author();//这个方法每一次都会调用授权，出现授权界面
+        //如果要删除授权信息，重新授权
+        pf.getDb().removeAccount();
+        //调用后，用户就得重新授权，否则下一次就不用授权
         switch (msg.what) {
             case MSG_AUTH_CANCEL: {
                 //取消授权
@@ -353,6 +357,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 Object[] objs = (Object[]) msg.obj;
                 String platform = (String) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+
                 //授权成功
                 Toast.makeText(activity, "授权成功", Toast.LENGTH_SHORT).show();
 
@@ -362,10 +367,10 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
                 //按正常登录进入应用
                 //注册，并登录
-                new Register(String.valueOf(res.get("name")),
-                        String.valueOf(res.get("id")),
-                        String.valueOf(res.get("id"))
-                ).execute();
+//                new Register(String.valueOf(res.get("name")),
+//                        String.valueOf(res.get("id")),
+//                        String.valueOf(res.get("id"))
+//                ).execute();
 //
 //				if (signupListener != null && signupListener.onSignin(platform, res)) {
 //					SignupPage signupPage = new SignupPage();

@@ -515,6 +515,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 break;
             case R.id.path_detail_address:
                 Intent intent1 = new Intent(this, AMapActivity.class);
+                if (!path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {
+                    String[] doubles = {path.getLatitude(), path.getLongitude()};
+                    intent1.putExtra("String", doubles);
+                }
                 startActivityForResult(intent1, SELECTDETIAL);
                 break;
             case R.id.path_edit_choose_photo:
@@ -548,14 +552,14 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 double[] doubles = data.getDoubleArrayExtra(SELECTDETIALLAT);
                 String add = data.getStringExtra(SELECTDETIALADD);
 //                    Toast.makeText(this,doubles[0]+">>>"+doubles[1]+">>>"+add,Toast.LENGTH_LONG).show();
-                    if (!add.isEmpty()) {
-                        path.setDetailAddress(add);
-                        detailAddress.setText(add);
-                    }
-                    if (doubles.length > 0) {
-                        path.setLongitude(String.valueOf(doubles[0]));//经度
-                        path.setLatitude(String.valueOf(doubles[1]));//纬度
-                    }
+                if (!add.isEmpty()) {
+                    path.setDetailAddress(add);
+                    detailAddress.setText(add);
+                }
+                if (doubles.length > 0) {
+                    path.setLongitude(String.valueOf(doubles[0]));//经度
+                    path.setLatitude(String.valueOf(doubles[1]));//纬度
+                }
 //                }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:

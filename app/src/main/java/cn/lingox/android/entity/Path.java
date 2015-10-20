@@ -35,6 +35,8 @@ public class Path implements Parcelable {
     private long endDateTime;
     private int capacity;
     private String image;    // ArrayList of image URLs
+    private String image11;    // ArrayList of image URLs---1:1
+    private String image21;    // ArrayList of image URLs---2:1
     private String chosenCountry;
     private String province;
     private String chosenCity;
@@ -62,6 +64,8 @@ public class Path implements Parcelable {
         this.availableTime = "";
         this.capacity = 0;
         this.image = "";
+        this.image11 = "";
+        this.image21 = "";
         this.chosenCountry = "";
         this.province = "";
         this.chosenCity = "";
@@ -82,6 +86,8 @@ public class Path implements Parcelable {
                 String text,
                 String cost,
                 String image,
+                String image11,
+                String image21,
                 long dateTime,
                 long createdTime,
                 String availableTime,
@@ -103,6 +109,8 @@ public class Path implements Parcelable {
         this.text = text;
         this.cost = cost;
         this.image = image;
+        this.image11 = image11;
+        this.image21 = image21;
         this.dateTime = dateTime;
         this.createdTime = createdTime;
         this.availableTime = availableTime;
@@ -134,6 +142,8 @@ public class Path implements Parcelable {
         this.availableTime = in.readString();
         this.capacity = in.readInt();
         this.image = in.readString();
+        this.image11 = in.readString();
+        this.image21 = in.readString();
         this.chosenCountry = in.readString();
         this.province = in.readString();
         this.chosenCity = in.readString();
@@ -228,6 +238,22 @@ public class Path implements Parcelable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getImage11() {
+        return image11;
+    }
+
+    public void setImage11(String image11) {
+        this.image11 = image11;
+    }
+
+    public String getImage21() {
+        return image21;
+    }
+
+    public void setImage21(String image21) {
+        this.image21 = image21;
     }
 
     public String getChosenCountry() {
@@ -349,6 +375,8 @@ public class Path implements Parcelable {
                 + ", availableTime=" + availableTime
                 + ", capacity=" + capacity
                 + ", image=" + image
+                + ", image11=" + image11
+                + ", image21=" + image21
                 + ", chosenCountry=" + chosenCountry
                 + ", province=" + province
                 + ", chosenCity=" + chosenCity
@@ -373,11 +401,11 @@ public class Path implements Parcelable {
     }
 
     public String getLocationString() {
-        nonDBLocationString = LingoXApplication.getInstance().getLocation(getChosenCountry(), getProvince(), getChosenCity());
+        nonDBLocationString = getLocation();
         if (!nonDBLocationString.isEmpty()) {
             if (!getDetailAddress().isEmpty()) {
                 return nonDBLocationString = nonDBLocationString
-                        + ",\t" + getDetailAddress().trim();
+                        + ", " + getDetailAddress().trim();
             } else {
                 return nonDBLocationString;
             }
@@ -391,8 +419,8 @@ public class Path implements Parcelable {
     }
 
     public String getLocation() {
-        return LingoXApplication.getInstance().getLocation(getChosenCountry(), getProvince(), getChosenCity());
-
+        return LingoXApplication.getInstance().
+                getLocation(getChosenCountry(), getProvince(), getChosenCity());
     }
 
     public void setLocation(String location) {
@@ -473,6 +501,8 @@ public class Path implements Parcelable {
         dest.writeString(this.availableTime);
         dest.writeInt(this.capacity);
         dest.writeString(this.image);
+        dest.writeString(this.image11);
+        dest.writeString(this.image21);
         dest.writeString(this.chosenCountry);
         dest.writeString(this.province);
         dest.writeString(this.chosenCity);

@@ -298,7 +298,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         pathCommentsNum.setText("" + commentsList.size());
         loadComments();
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar());
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
+        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11());
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 
         switch (path.getType()) {

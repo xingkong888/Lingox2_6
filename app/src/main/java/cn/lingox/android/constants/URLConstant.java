@@ -91,4 +91,13 @@ public class URLConstant {
     public static final String URL_GET_ALL_NEW_NOTIFICATIONS = URL_NOTIFICATION + "getAllNewNotifications";
     public static final String URL_SEEN_NOTIFICATIONS = URL_NOTIFICATION + "seenNotifications";
     public static final String URL_READ_NOTIFICATIONS = URL_NOTIFICATION + "readNotification";
+
+    //对活动进行评论
+    private static final String URL_PATHREFERENCE = MAIN_URL + "pathReference/";
+    public static final String URL_CREATE = URL_PATHREFERENCE + "create";
+    public static final String URL_EDIT = URL_PATHREFERENCE + "edit";
+    public static final String URL_DELETE = URL_PATHREFERENCE + "delete";
+    public static final String URL_GETREFERENCE = URL_PATHREFERENCE + "getPathsReferences";
+
+
 }

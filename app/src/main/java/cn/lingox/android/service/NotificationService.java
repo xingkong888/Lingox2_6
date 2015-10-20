@@ -57,19 +57,6 @@ public class NotificationService extends Service implements
 
     @Override
     public void onCreate() {
-        // Baidu location client
-//        mLocationClient = new LocationClient(getApplicationContext());
-//        mLocationClient.registerLocationListener(myListener);
-//        LocationClientOption option = new LocationClientOption();
-//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
-//        option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
-//        option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
-//        option.setIsNeedAddress(true);//返回的定位结果包含地址信息
-//        option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
-//        mLocationClient.setLocOption(option);
-//
-//        mLocationClient.start();
-//        mLocationClient.requestLocation();
 
         mLocationManagerProxy = LocationManagerProxy.getInstance(getApplicationContext());
         //此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
@@ -87,7 +74,7 @@ public class NotificationService extends Service implements
                 while (true) {
                     try {
                         checkNotification();
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(60 * 1000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -236,15 +223,15 @@ public class NotificationService extends Service implements
                         getApplicationContext(), type, intent5, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent5);
                 break;
-            case 6://到期通知
-                Intent intent6 = new Intent(this, ReferenceActivity.class);
-                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, notification.getUser_id());
-                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME,
-                        CacheHelper.getInstance().getSelfInfo().getNickname());
-                PendingIntent pendIntent6 = PendingIntent.getActivity(
-                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pendIntent6);
-                break;
+//            case 6://到期通知
+//                Intent intent6 = new Intent(this, ReferenceActivity.class);
+//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, notification.getUser_id());
+//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME,
+//                        CacheHelper.getInstance().getSelfInfo().getNickname());
+//                PendingIntent pendIntent6 = PendingIntent.getActivity(
+//                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
+//                mBuilder.setContentIntent(pendIntent6);
+//                break;
         }
         type++;
         Notification noti = mBuilder.build();
@@ -277,10 +264,10 @@ public class NotificationService extends Service implements
                 notifiText = notificationUser.getNickname() + " " + getString(R.string.comment_notification);
                 notiType = 5;
                 break;
-            case LingoNotification.TYPE_INDENT_FINISH:
-                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
-                notiType = 6;
-                break;
+//            case LingoNotification.TYPE_INDENT_FINISH:
+//                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
+//                notiType = 6;
+//                break;
         }
         return notifiText;
     }
@@ -289,64 +276,4 @@ public class NotificationService extends Service implements
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
-
-//    private class MyBDLocationListener implements BDLocationListener {
-//        @Override
-//        public void onReceiveLocation(BDLocation location) {
-//            if (location == null) {
-//                Log.d(LOG_TAG, "BDLocation was null");
-//                return;
-//            }
-//            StringBuilder sb = new StringBuilder(256);
-//            sb.append("time : ");
-//            sb.append(location.getTime());
-//            sb.append("\nloc type : ");
-//            sb.append(location.getLocType());
-//            sb.append("\nlatitude : ");
-//            sb.append(location.getLatitude());
-//            sb.append("\nlongitude : ");
-//            sb.append(location.getLongitude());
-//            sb.append("\nradius : ");
-//            sb.append(location.getRadius());
-//            if (location.getLocType() == BDLocation.TypeGpsLocation) {
-//                sb.append("\nspeed : ");
-//                sb.append(location.getSpeed());
-//                sb.append("\nsatellite : ");
-//                sb.append(location.getSatelliteNumber());
-//            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
-//                sb.append("\naddr : ");
-//                sb.append(location.getAddrStr());
-//            }
-//
-//            try {
-//                final double[] geoLocation = {location.getLongitude(), location.getLatitude()};
-//                User user = CacheHelper.getInstance().getSelfInfo();
-//                user.setLoc(geoLocation);
-////                user.setCity(location.getCity());
-//                user.setLocString(location.getDistrict() + ", " + location.getCity());
-//                user.setLocString(location.getAddrStr());
-//                CacheHelper.getInstance().setSelfInfo(user);
-//
-//                Log.d(LOG_TAG, "BDLocationListener: " + sb.toString());
-//
-//                new Thread() {
-//                    public void run() {
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put(StringConstant.userIdStr, CacheHelper
-//                                .getInstance().getSelfInfo().getId());
-//                        params.put(StringConstant.locStr, JsonHelper.getInstance().getLocationStr(geoLocation));
-//                        params.put(StringConstant.locStringStr, CacheHelper
-//                                .getInstance().getSelfInfo().getLocString());
-//                        try {
-//                            ServerHelper.getInstance().updateUserInfo(params);
-//                        } catch (Exception e) {
-//                            Log.e(LOG_TAG, "onReceiveLocation(): " + e.getMessage());
-//                        }
-//                    }
-//                }.start();
-//            } catch (Exception e) {
-//                Log.e(LOG_TAG, "MyLocationListener: Exception caught: " + e.getMessage());
-//            }
-//        }
-//    }
 }

@@ -282,7 +282,6 @@ public class ClipZoomImageView extends ImageView implements
             setImageMatrix(mScaleMatrix);
             once = false;
         }
-
     }
 
     /**

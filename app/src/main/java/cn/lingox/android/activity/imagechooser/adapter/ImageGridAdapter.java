@@ -107,7 +107,6 @@ public class ImageGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String path = dataList.get(position).imagePath;
-
                 if (!selectMultiple) {
                     selectionListener.onSingleItemSelected(path);
                 } else {
@@ -130,7 +129,6 @@ public class ImageGridAdapter extends BaseAdapter {
                             holder.selected.setVisibility(View.VISIBLE);
                             selectTotal--;
                             map.remove(path);
-
                         } else {
                             // TODO Translation
                             // TODO Change functionality to similar to wechat (instead of toast, just disable ability to choose more images)
@@ -140,7 +138,6 @@ public class ImageGridAdapter extends BaseAdapter {
                 }
             }
         });
-
         return convertView;
     }
 
@@ -150,9 +147,9 @@ public class ImageGridAdapter extends BaseAdapter {
         void onMultiItemSelected();
     }
 
-    class Holder {
-        private ImageView iv;
-        private ImageView selected;
-        private TextView text;
+    static class Holder {
+        ImageView iv;
+        ImageView selected;
+        TextView text;
     }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +20,6 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
-import cn.lingox.android.utils.FileUtil;
-import cn.lingox.android.utils.ImageCache;
 
 public class PathAdapter extends BaseAdapter {
     private Activity context;
@@ -71,7 +68,7 @@ public class PathAdapter extends BaseAdapter {
             holder.type1 = (TextView) convertView.findViewById(R.id.path_type_1);
             holder.type2 = (TextView) convertView.findViewById(R.id.path_type_2);
             holder.type3 = (TextView) convertView.findViewById(R.id.path_type_3);
-            holder.layout = (RelativeLayout) convertView.findViewById(R.id.abc);
+//            holder.layout = (RelativeLayout) convertView.findViewById(R.id.abc);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -79,7 +76,6 @@ public class PathAdapter extends BaseAdapter {
         if (!isFling) {
             final Path path = datas.get(position);
 //            Log.d("星期",path.toString());
-            holder.layout.setVisibility(View.VISIBLE);
             holder.type1.setVisibility(View.GONE);
             holder.type2.setVisibility(View.GONE);
             holder.type3.setVisibility(View.GONE);
@@ -143,38 +139,16 @@ public class PathAdapter extends BaseAdapter {
             holder.title.setEllipsize(TextUtils.TruncateAt.END);
             //TODO 暂时实现，TextView省略显示有问题
             String str = path.getTitle();
-            if (str.length() >= 29) {
-                str = str.substring(0, 22) + "...";
-            }
             holder.title.setText(str);
             holder.acceptNumber.setText(String.valueOf(path.getAcceptedUsers().size()));
             holder.commentNumber.setText(String.valueOf(path.getComments().size()));
             holder.pathImg.setTag(path.getImage());
-            if (ImageCache.getInstance().get(path.getImage()) != null && holder.pathImg.getTag().equals(path.getImage())) {
-                holder.pathImg.setImageBitmap(ImageCache.getInstance().get(path.getImage()));
-            } else {
-                if (FileUtil.getImg(path.getImage()) == null && holder.pathImg.getTag().equals(path.getImage())) {
-                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.pathImg, path.getImage());
-                } else if (holder.pathImg.getTag().equals(path.getImage())) {
-                    holder.pathImg.setImageBitmap(FileUtil.getImg(path.getImage()));
-                } else {
-                    holder.pathImg.setImageResource(R.drawable.discover_default);
-                }
+            if (holder.pathImg.getTag().equals(path.getImage())) {
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21());
+//                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context,holder.pathImg, path.getImage());
             }
         } else {
-            holder.title.setText("");
-            holder.acceptNumber.setText("0");
-            holder.commentNumber.setText("0");
-            holder.location.setText("");
-            holder.traveler.setVisibility(View.GONE);
-            holder.local.setVisibility(View.GONE);
-            holder.name.setText("");
             holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);
-            holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
-            holder.type1.setVisibility(View.GONE);
-            holder.type2.setVisibility(View.GONE);
-            holder.type3.setVisibility(View.GONE);
-            holder.layout.setVisibility(View.GONE);
         }
         return convertView;
     }
@@ -183,7 +157,7 @@ public class PathAdapter extends BaseAdapter {
         this.isFling = isFling;
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView title;
         ImageView pathImg;
         TextView acceptNumber;
@@ -195,7 +169,7 @@ public class PathAdapter extends BaseAdapter {
         TextView type2;
         TextView type3;
         TextView name, lalala;
-        RelativeLayout layout;
+        //        RelativeLayout layout;
         ImageView avatar;
     }
 }

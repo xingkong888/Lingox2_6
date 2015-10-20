@@ -46,9 +46,7 @@ public class AddPhotosAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View gridView = convertView;
         final ViewHolder holder;
-
         final Photo photo = photoList.get(position);
-
         if (gridView == null) {
             gridView = LayoutInflater.from(context).inflate(R.layout.row_pic_item, parent, false);
             holder = new ViewHolder();
@@ -93,14 +91,13 @@ public class AddPhotosAdapter extends BaseAdapter {
             }
         });
 
-
         return gridView;
     }
 
     static class ViewHolder {
-        public ImageView photo;
-        public EditText description;
-        public Button delete;
-        public TextWatcher textWatcher;
+        ImageView photo;
+        EditText description;
+        Button delete;
+        TextWatcher textWatcher;
     }
 }

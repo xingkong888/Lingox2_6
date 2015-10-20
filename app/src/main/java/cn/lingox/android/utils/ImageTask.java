@@ -42,7 +42,6 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
                 int len = 0;
                 while ((len = is.read(buffer)) != -1) {
                     bytesBuffer.append(buffer, 0, len);
-
                 }
                 final byte[] bytes = bytesBuffer.toByteArray();
 
@@ -87,5 +86,4 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
 
         boolean isCancelled(String url); // 是否取消下载图片任务
     }
-
 }

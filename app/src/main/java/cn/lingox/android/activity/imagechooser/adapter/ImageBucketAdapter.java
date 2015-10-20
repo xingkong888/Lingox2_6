@@ -97,10 +97,10 @@ public class ImageBucketAdapter extends BaseAdapter {
         return arg1;
     }
 
-    private class Holder {
-        private ImageView iv;
-        private ImageView selected;
-        private TextView name;
-        private TextView count;
+    static class Holder {
+        ImageView iv;
+        ImageView selected;
+        TextView name;
+        TextView count;
     }
 }

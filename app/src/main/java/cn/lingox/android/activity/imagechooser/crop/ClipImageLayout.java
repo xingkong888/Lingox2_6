@@ -30,11 +30,6 @@ public class ClipImageLayout extends RelativeLayout {
         android.view.ViewGroup.LayoutParams lp = new LayoutParams(
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT);
-        /**
-         * 这里测试，直接写死了图片，真正使用过程中，可以提取为自定义属性
-         */
-//		mZoomImageView.setImageDrawable(getResources().getDrawable(R.drawable.discover_default));
-//		mZoomImageView.setImageDrawable(drawable);
 
         this.addView(mZoomImageView, lp);
         this.addView(mClipImageView, lp);

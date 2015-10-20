@@ -36,7 +36,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
 
         Intent intent = new Intent(this, PhotoDialog.class);
@@ -113,7 +112,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                                 Log.e(LOG_TAG, e.toString());
                             }
                         }
-
                         AddPhotosActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -123,7 +121,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                         finish();
                     }
                 }.start();
-
                 break;
         }
     }

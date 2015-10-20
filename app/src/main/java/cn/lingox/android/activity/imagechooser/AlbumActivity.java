@@ -47,7 +47,6 @@ public class AlbumActivity extends ActionBarActivity {
         initView();
     }
 
-
     private void initView() {
         setContentView(R.layout.activity_album);
 

@@ -107,26 +107,36 @@
                     android:visibility="gone" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/abc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/plmokn"
                 android:layout_toRightOf="@+id/plmsokn"
-                android:background="#4c000000">
+                android:background="#4c000000"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/ddddddddddd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/discover_location_white_18dp" />
 
                 <TextView
                     android:id="@+id/path_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:drawableLeft="@drawable/discover_location_white_18dp"
+                    android:layout_toRightOf="@+id/ddddddddddd"
+                    android:ellipsize="end"
                     android:gravity="right"
-                    android:paddingRight="5dp"
+                    android:lines="1"
+                    android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/plmokn"

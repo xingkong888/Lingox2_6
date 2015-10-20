@@ -85,9 +85,43 @@ public class UIHelper {
 
     public void imageViewSetPossiblyEmptyUrl(Context context, final ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
-            Picasso.with(context).load(url).into(iv);
+            Picasso.with(context)
+                    .load(url)
+//                    .transform(new CropSquareTransformation())
+                    .error(R.drawable.nearby_nopic_294dp)
+                    .into(iv);
         } else {
             iv.setImageResource(R.drawable.nearby_nopic_294dp);
         }
     }
+
+//     class CropSquareTransformation implements Transformation {
+//        @Override
+//        public Bitmap transform(Bitmap source) {
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                source.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+//                int options = 100;
+//            Log.d("星期",source.getByteCount()+"");
+//                while (baos.toByteArray().length / 1024 > 100 && options>0) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+//                    baos.reset();//重置baos即清空baos
+//                    source.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+//                    options -= 10;//每次都减少10
+////                    Log.d("星期",options+">>>");
+////                    Log.d("星期",baos.toByteArray().length / 1024+">>>"+baos.toByteArray().length);
+//                }
+////            int size = Math.min(source.getWidth(), source.getHeight());
+////            int x = (source.getWidth() - size) / 2;
+////            int y = (source.getHeight() - size) / 2;
+//
+////            if (result != source) {
+////                source.recycle();
+////            }
+//            return source;
+//        }
+//
+//        @Override
+//        public String key() {
+//            return "square()";
+//        }
+//    }
 }

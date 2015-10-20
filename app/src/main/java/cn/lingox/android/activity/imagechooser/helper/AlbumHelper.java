@@ -66,7 +66,6 @@ public class AlbumHelper {
                 image_id = cur.getInt(image_idColumn);
                 image_path = cur.getString(dataColumn);
 
-
                 thumbnailList.put("" + image_id, image_path);
             } while (cur.moveToNext());
         }
@@ -120,7 +119,6 @@ public class AlbumHelper {
                 albumList.add(hash);
 
             } while (cur.moveToNext());
-
         }
     }
 
@@ -219,5 +217,4 @@ public class AlbumHelper {
         }
         return path;
     }
-
 }

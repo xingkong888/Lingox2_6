@@ -21,7 +21,7 @@ import cn.lingox.android.entity.Comment;
 import cn.lingox.android.entity.Indent;
 import cn.lingox.android.entity.LingoNotification;
 import cn.lingox.android.entity.Path;
-import cn.lingox.android.entity.PathRefresh;
+import cn.lingox.android.entity.PathReference;
 import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.ReturnMsg;
@@ -1388,7 +1388,7 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-    public PathRefresh createPathReference(HashMap<String, String> params) throws Exception {
+    public PathReference createPathReference(HashMap<String, String> params) throws Exception {
         Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_CREATE, params);
@@ -1403,10 +1403,10 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathRefresh) JsonHelper
+        return (PathReference) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
-                        PathRefresh.class);
+                        PathReference.class);
     }
 
     /**
@@ -1415,7 +1415,7 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-//    public PathRefresh editPathReference(HashMap<String,String> params) throws Exception{
+//    public PathReference editPathReference(HashMap<String,String> params) throws Exception{
 //        Log.d("星期", params.toString());
 //
 //        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_EDIT, params);
@@ -1430,10 +1430,10 @@ public class ServerHelper {
 //        //解析
 //        String json = rmsg.getData().toString();
 //        JSONObject jsonObject = new JSONObject(json);
-//        return (PathRefresh) JsonHelper
+//        return (PathReference) JsonHelper
 //                .getInstance().jsonToBean(
 //                        jsonObject.toString(),
-//                        PathRefresh.class);
+//                        PathReference.class);
 //    }
 
     /**
@@ -1441,7 +1441,7 @@ public class ServerHelper {
      *
      * @String referenceId
      */
-    public PathRefresh deletePathReference(String referenceId) throws Exception {
+    public PathReference deletePathReference(String referenceId) throws Exception {
         Log.d("星期", referenceId);
         HashMap<String, String> params = new HashMap<>();
         params.put("referenceId", referenceId);
@@ -1458,10 +1458,10 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathRefresh) JsonHelper
+        return (PathReference) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
-                        PathRefresh.class);
+                        PathReference.class);
     }
 
     /**
@@ -1471,7 +1471,7 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-    public PathRefresh createPathReplyReference(HashMap<String, String> params) throws Exception {
+    public PathReference createPathReplyReference(HashMap<String, String> params) throws Exception {
         Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
@@ -1486,10 +1486,10 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathRefresh) JsonHelper
+        return (PathReference) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
-                        PathRefresh.class);
+                        PathReference.class);
     }
 
     /**
@@ -1499,7 +1499,7 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-    public PathRefresh deletePathReplyReference(HashMap<String, String> params) throws Exception {
+    public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
         Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
@@ -1514,10 +1514,10 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathRefresh) JsonHelper
+        return (PathReference) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
-                        PathRefresh.class);
+                        PathReference.class);
     }
 
     /**
@@ -1527,7 +1527,7 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-    public PathRefresh getPathReference(HashMap<String, String> params) throws Exception {
+    public PathReference getPathReference(HashMap<String, String> params) throws Exception {
         Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
@@ -1542,10 +1542,10 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathRefresh) JsonHelper
+        return (PathReference) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
-                        PathRefresh.class);
+                        PathReference.class);
     }
 
 }

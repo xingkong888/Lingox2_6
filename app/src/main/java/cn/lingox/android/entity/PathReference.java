@@ -5,15 +5,15 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class PathRefresh implements Parcelable {
+public class PathReference implements Parcelable {
     // Constants
-    public static final Creator<PathRefresh> CREATOR = new Creator<PathRefresh>() {
-        public PathRefresh createFromParcel(Parcel in) {
-            return new PathRefresh(in);
+    public static final Creator<PathReference> CREATOR = new Creator<PathReference>() {
+        public PathReference createFromParcel(Parcel in) {
+            return new PathReference(in);
         }
 
-        public PathRefresh[] newArray(int size) {
-            return new PathRefresh[size];
+        public PathReference[] newArray(int size) {
+            return new PathReference[size];
         }
     };
 
@@ -21,15 +21,15 @@ public class PathRefresh implements Parcelable {
     private String user_tar;//被评论的用户id
     private String path_id;//活动id
     private String content;//评论内容
-    private ArrayList<PathRefreshReply> replays;
+    private ArrayList<PathReferenceReply> replays;
 
     // Parcelable
-    public PathRefresh(Parcel in) {
+    public PathReference(Parcel in) {
         this.user_src = in.readString();
         this.user_tar = in.readString();
         this.path_id = in.readString();
         this.content = in.readString();
-        this.replays = in.createTypedArrayList(PathRefreshReply.CREATOR);
+        this.replays = in.createTypedArrayList(PathReferenceReply.CREATOR);
     }
 
     @Override

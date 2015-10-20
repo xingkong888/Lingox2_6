@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.ReferenceAdapter;
-import cn.lingox.android.entity.PathRefresh;
+import cn.lingox.android.entity.PathReference;
 
 public class PathReferenceActivity extends Activity implements OnClickListener {
 
@@ -39,7 +39,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
 
     private String pathId;
 
-    private ArrayList<PathRefresh> list = new ArrayList<>();
+    private ArrayList<PathReference> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

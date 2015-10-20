@@ -21,10 +21,10 @@ public class Reference implements Parcelable {
     private String user_tar;
     private String createAt;
     private String updatedAt;
-    private String replay;
+    private String reply;
 
     public Reference(String id, String title, String content, String userSrcId,
-                     String userTarId, String createAt, String updatedAt, String replay) {
+                     String userTarId, String createAt, String updatedAt, String reply) {
         super();
         this.id = id;
         this.title = title;
@@ -33,7 +33,7 @@ public class Reference implements Parcelable {
         this.user_tar = userTarId;
         this.createAt = createAt;
         this.updatedAt = updatedAt;
-        this.replay = replay;
+        this.reply = reply;
     }
 
     // Parcelable
@@ -48,7 +48,7 @@ public class Reference implements Parcelable {
         this.user_tar = data[4];
         this.createAt = data[5];
         this.updatedAt = data[6];
-        this.replay = data[7];
+        this.reply = data[7];
     }
 
     public String getCreateAt() {
@@ -107,12 +107,12 @@ public class Reference implements Parcelable {
         this.user_tar = userTarId;
     }
 
-    public String getReplay() {
-        return replay;
+    public String getReply() {
+        return reply;
     }
 
-    public void setReplay(String replay) {
-        this.replay = replay;
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Reference implements Parcelable {
                 + ", userTarId=" + user_tar
                 + ", createAt=" + createAt
                 + ", updatedAt=" + updatedAt
-                + ", replay=" + replay
+                + ", reply=" + reply
                 + "]";
     }
 
@@ -144,7 +144,7 @@ public class Reference implements Parcelable {
                 this.user_tar,
                 this.createAt,
                 this.updatedAt,
-                this.replay
+                this.reply
         });
     }
 }

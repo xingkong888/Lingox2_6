@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import cn.lingox.android.R;
+import cn.lingox.android.activity.PathReferenceActivity;
 import cn.lingox.android.activity.PathViewActivity;
 import cn.lingox.android.activity.ReferenceActivity;
 import cn.lingox.android.activity.UserInfoActivity;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.LingoNotification;
-import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.JsonHelper;
@@ -43,11 +43,8 @@ public class NotificationService extends Service implements
     private static final String LOG_TAG = "NotificationService";
     public int type = 0;
     public int notiType = 0;
-    //    private LocationClient mLocationClient;
-//    private BDLocationListener myListener = new MyBDLocationListener();
     private List<Notification> notificationList = new ArrayList<>();
 
-    private ArrayList<Reference> referenceList = new ArrayList<>();
     private LocationManagerProxy mLocationManagerProxy;
 
     @Override
@@ -109,11 +106,11 @@ public class NotificationService extends Service implements
             Double geoLat = amapLocation.getLatitude();//纬度
             Double geoLng = amapLocation.getLongitude();//经度
             try {
-                final double[] geoLocation = {geoLat, geoLng};
+                final double[] geoLocation = {geoLng, geoLat};
                 User user = CacheHelper.getInstance().getSelfInfo();
                 user.setLoc(geoLocation);
                 CacheHelper.getInstance().setSelfInfo(user);
-
+                LingoXApplication.getInstance().setLocation(geoLat, geoLng);
                 new Thread() {
                     public void run() {
                         Map<String, String> params = new HashMap<>();
@@ -154,7 +151,8 @@ public class NotificationService extends Service implements
         notificationList.clear();
         if (lingoNotifications.size() != 0) {
             for (final LingoNotification lingoNotification : lingoNotifications) {
-                final User notificationUser = CacheHelper.getInstance().getUserInfo(lingoNotification.getUser_src());
+                final User notificationUser = CacheHelper.getInstance()
+                        .getUserInfo(lingoNotification.getUser_src());
                 if (notificationUser == null) {
                     new GetUser(lingoNotification.getUser_src(), new GetUser.Callback() {
                         @Override
@@ -223,15 +221,13 @@ public class NotificationService extends Service implements
                         getApplicationContext(), type, intent5, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent5);
                 break;
-//            case 6://到期通知
-//                Intent intent6 = new Intent(this, ReferenceActivity.class);
-//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_ID, notification.getUser_id());
-//                intent6.putExtra(ReferenceActivity.INTENT_TARGET_USER_NAME,
-//                        CacheHelper.getInstance().getSelfInfo().getNickname());
-//                PendingIntent pendIntent6 = PendingIntent.getActivity(
-//                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
-//                mBuilder.setContentIntent(pendIntent6);
-//                break;
+            case 6://申请完成，给参加的活动添加评论
+                Intent intent6 = new Intent(this, PathReferenceActivity.class);
+                intent6.putExtra(PathReferenceActivity.PATH_ID, notification.getPath_id());
+                PendingIntent pendIntent6 = PendingIntent.getActivity(
+                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pendIntent6);
+                break;
         }
         type++;
         Notification noti = mBuilder.build();
@@ -264,10 +260,10 @@ public class NotificationService extends Service implements
                 notifiText = notificationUser.getNickname() + " " + getString(R.string.comment_notification);
                 notiType = 5;
                 break;
-//            case LingoNotification.TYPE_INDENT_FINISH:
-//                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
-//                notiType = 6;
-//                break;
+            case LingoNotification.TYPE_INDENT_FINISH:
+                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
+                notiType = 6;
+                break;
         }
         return notifiText;
     }

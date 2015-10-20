@@ -3,7 +3,9 @@ package cn.lingox.android.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +74,8 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
         final Reference reference = referenceList.get(position);
 
+        Log.d("星期", reference.toString());
+
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(
                     R.layout.row_reference, parent, false);
@@ -80,6 +84,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             holder.avatar = (ImageView) rowView.findViewById(R.id.avatar_reference);
             holder.replay = (ImageView) rowView.findViewById(R.id.refrence_replay);
             holder.name = (TextView) rowView.findViewById(R.id.name_reference);
+            holder.replyName = (TextView) rowView.findViewById(R.id.name);
             holder.time = (TextView) rowView.findViewById(R.id.time_reference);
             holder.content = (TextView) rowView.findViewById(R.id.content_reference);
             holder.replayContent = (TextView) rowView.findViewById(R.id.refrence_replay_content);
@@ -98,17 +103,30 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
 
-        if (isSelf) {
-            holder.replay.setVisibility(View.VISIBLE);
-        } else {
-            holder.replay.setVisibility(View.GONE);
-        }
+
         holder.replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WriteReplayDialog.newInstance(handler, reference).show(context.getFragmentManager(), "");
+                WriteReplayDialog.newInstance(handler, reference, context).show(context.getFragmentManager(), "");
             }
         });
+
+        if (reference.getReply() != null) {
+            holder.replyName.setText(
+                    Html.fromHtml("<font color=\"#00838f\">"
+                            + CacheHelper.getInstance().getSelfInfo().getNickname() + "</font>"
+                            + " reply " +
+                            "<font color=\"#00838f\">" + user.getNickname() + "</font>"));
+            holder.replayContent.setVisibility(View.VISIBLE);
+            holder.replayContent.setText(reference.getReply());
+        } else {
+            holder.replayContent.setVisibility(View.GONE);
+            if (isSelf) {
+                holder.replay.setVisibility(View.VISIBLE);
+            } else {
+                holder.replay.setVisibility(View.GONE);
+            }
+        }
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +152,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
     static class ViewHolder {
         ImageView avatar, replay;
-        TextView name, time;
+        TextView name, time, replyName;
         TextView content, replayContent;
         RelativeLayout layout;
         EditText editText;

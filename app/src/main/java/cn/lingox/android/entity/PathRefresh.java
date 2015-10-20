@@ -3,6 +3,8 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class PathRefresh implements Parcelable {
     // Constants
     public static final Creator<PathRefresh> CREATOR = new Creator<PathRefresh>() {
@@ -15,38 +17,38 @@ public class PathRefresh implements Parcelable {
         }
     };
 
-    private String userSrc;//发起评论的用户id
-    private String userTar;//被评论的用户id
-    private String pathId;//活动id
+    private String user_src;//发起评论的用户id
+    private String user_tar;//被评论的用户id
+    private String path_id;//活动id
     private String content;//评论内容
-//    private String replay;
+    private ArrayList<PathRefreshReply> replays;
 
     // Parcelable
     public PathRefresh(Parcel in) {
-        this.userSrc = in.readString();
-        this.userTar = in.readString();
-        this.pathId = in.readString();
+        this.user_src = in.readString();
+        this.user_tar = in.readString();
+        this.path_id = in.readString();
         this.content = in.readString();
-//        this.replay=in.readString();
+        this.replays = in.createTypedArrayList(PathRefreshReply.CREATOR);
     }
 
     @Override
     public String toString() {
-        return "[ userSrc=" + userSrc +
-                ", userTar=" + userTar +
-                ", pathId=" + pathId +
+        return "[ user_src=" + user_src +
+                ", user_tar=" + user_tar +
+                ", path_id=" + path_id +
                 ", content=" + content +
-//                ", replay="+replay+
+                ", replays=" + replays +
                 "]";
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userSrc);
-        dest.writeString(userTar);
-        dest.writeString(pathId);
+        dest.writeString(user_src);
+        dest.writeString(user_tar);
+        dest.writeString(path_id);
         dest.writeString(content);
-//        dest.writeString(replay);
+        dest.writeTypedList(replays);
     }
 
     @Override

@@ -301,6 +301,11 @@ public class MsgSender {
             ds.writeBytes(end);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            Matrix matrix=new Matrix();
+//            float scale=LingoXApplication.getInstance().getWidth()/800;
+//            matrix.postScale(scale,scale);
+//            Bitmap bitmap = Bitmap.createBitmap(image,0,0,image.getWidth(),image.getHeight(),matrix,true);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             InputStream isBm = new ByteArrayInputStream(baos.toByteArray());
 

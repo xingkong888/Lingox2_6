@@ -60,6 +60,9 @@ public class LingoXApplication extends Application {
 
     private String location = "";
 
+    private String latitude = "";//纬度
+    private String longitude = "";//经度
+
     public static LingoXApplication getInstance() {
         return instance;
     }
@@ -78,6 +81,19 @@ public class LingoXApplication extends Application {
             getVersion();
         }
         return verNum;
+    }
+
+    public void setLocation(double lat, double lng) {
+        latitude = String.valueOf(lat);
+        longitude = String.valueOf(lng);
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 
     private void getVersion() {

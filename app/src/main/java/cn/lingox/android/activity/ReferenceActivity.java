@@ -63,7 +63,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            arrayAdapter.notifyDataSetChanged();
+            new LoadUserReferences().execute(userId);
         }
     };
 
@@ -289,7 +289,6 @@ public class ReferenceActivity extends Activity implements OnClickListener {
             }
         }
     }
-
 
     //下载评论
     private class LoadUserReferences extends AsyncTask<String, String, Boolean> {

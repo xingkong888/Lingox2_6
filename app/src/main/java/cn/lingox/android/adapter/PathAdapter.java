@@ -68,7 +68,6 @@ public class PathAdapter extends BaseAdapter {
             holder.type1 = (TextView) convertView.findViewById(R.id.path_type_1);
             holder.type2 = (TextView) convertView.findViewById(R.id.path_type_2);
             holder.type3 = (TextView) convertView.findViewById(R.id.path_type_3);
-//            holder.layout = (RelativeLayout) convertView.findViewById(R.id.abc);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -145,7 +144,6 @@ public class PathAdapter extends BaseAdapter {
             holder.pathImg.setTag(path.getImage());
             if (holder.pathImg.getTag().equals(path.getImage())) {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21());
-//                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context,holder.pathImg, path.getImage());
             }
         } else {
             holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);
@@ -169,7 +167,6 @@ public class PathAdapter extends BaseAdapter {
         TextView type2;
         TextView type3;
         TextView name, lalala;
-        //        RelativeLayout layout;
         ImageView avatar;
     }
 }

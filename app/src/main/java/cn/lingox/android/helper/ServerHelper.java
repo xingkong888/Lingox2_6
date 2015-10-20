@@ -21,6 +21,7 @@ import cn.lingox.android.entity.Comment;
 import cn.lingox.android.entity.Indent;
 import cn.lingox.android.entity.LingoNotification;
 import cn.lingox.android.entity.Path;
+import cn.lingox.android.entity.PathRefresh;
 import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.ReturnMsg;
@@ -471,6 +472,7 @@ public class ServerHelper {
         return returnReference;
     }
 
+
     public Reference editReference(String referenceId, String title,
                                    String content) throws Exception {
         Map<String, String> params = new HashMap<>();
@@ -479,6 +481,32 @@ public class ServerHelper {
         params.put(StringConstant.referenceContent, content);
         params.put(StringConstant.verStr, APPVERSION);
 
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
+
+        Log.d(LOG_TAG, "editReference: " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "editReference: Return message code not positive");
+            throw new Exception("Failed to edit Reference!");
+        }
+
+        Reference returnReference = JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(),
+                Reference.class);
+
+        Log.d(LOG_TAG, "editReference: Reference edited: " + returnReference);
+
+        return returnReference;
+    }
+
+    public Reference editReference(String referenceId, String reply) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.referenceId, referenceId);
+        params.put("reply", reply);
+        params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
 
@@ -587,6 +615,8 @@ public class ServerHelper {
 
     public ArrayList<Path> getAllPaths(int page) throws Exception {
         Map<String, String> params = new HashMap<>();
+        params.put("longitude", LingoXApplication.getInstance().getLongitude());
+        params.put(" latitude", LingoXApplication.getInstance().getLatitude());
         params.put("page", String.valueOf(page));
         params.put(StringConstant.verStr, APPVERSION);
 
@@ -901,7 +931,6 @@ public class ServerHelper {
             params.put(StringConstant.commentReplyUser, userTarId);
         params.put(StringConstant.verStr, APPVERSION);
 
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_COMMENT, params);
 
         Log.d(LOG_TAG, "createComment: " + jsonStr);
@@ -918,35 +947,33 @@ public class ServerHelper {
                 Comment.class);
 
         Log.d(LOG_TAG, "createComment: Comment created: " + returnComment);
-
         return returnComment;
     }
 
-    public Comment editComment(String commentId, String text) throws Exception {
-        Map<String, String> params = new HashMap<>();
-        params.put(StringConstant.commentId, commentId);
-        params.put(StringConstant.commentText, text);
-        params.put(StringConstant.verStr, APPVERSION);
-
-        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_COMMENT, params);
-
-        Log.d(LOG_TAG, "editComment: " + jsonStr);
-
-        ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
-        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "editComment: Return message code not positive");
-            throw new Exception("Failed to edit Comment!");
-        }
-
-        Comment returnComment = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Comment.class);
-
-        Log.d(LOG_TAG, "editComment: Comment edited: " + returnComment);
-
-        return returnComment;
-    }
+//    public Comment editComment(String commentId, String text) throws Exception {
+//        Map<String, String> params = new HashMap<>();
+//        params.put(StringConstant.commentId, commentId);
+//        params.put(StringConstant.commentText, text);
+//        params.put(StringConstant.verStr, APPVERSION);
+//
+//        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_COMMENT, params);
+//
+//        Log.d(LOG_TAG, "editComment: " + jsonStr);
+//
+//        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+//
+//        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+//            Log.e(LOG_TAG, "editComment: Return message code not positive");
+//            throw new Exception("Failed to edit Comment!");
+//        }
+//
+//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Comment.class);
+//
+//        Log.d(LOG_TAG, "editComment: Comment edited: " + returnComment);
+//        return returnComment;
+//    }
 
     public Comment deleteComment(String commentId) throws Exception {
         Map<String, String> params = new HashMap<>();
@@ -956,7 +983,6 @@ public class ServerHelper {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_COMMENT, params);
 
         Log.d(LOG_TAG, "deleteComment: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -969,7 +995,6 @@ public class ServerHelper {
                 Comment.class);
 
 //        Log.d(LOG_TAG, "deleteComment: Comment deleted: " + returnComment);
-
         return returnComment;
     }
 
@@ -996,11 +1021,9 @@ public class ServerHelper {
     }
 
     public ArrayList<Photo> getUsersPhotos(String user_id) throws Exception {
-
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, user_id);
         params.put(StringConstant.verStr, APPVERSION);
-
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PHOTOS, params);
 
@@ -1355,4 +1378,174 @@ public class ServerHelper {
             return false;
         }
     }
+
+    // 活动评论相关
+
+    /**
+     * 创建一个活动评论
+     *
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public PathRefresh createPathReference(HashMap<String, String> params) throws Exception {
+        Log.d("星期", params.toString());
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_CREATE, params);
+        Log.d(LOG_TAG, "createPathReference " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "createPathReference: Return message code not positive");
+            throw new Exception("Failed to  createPathReference");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (PathRefresh) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        PathRefresh.class);
+    }
+
+    /**
+     *
+     * @param params
+     * @return
+     * @throws Exception
+     */
+//    public PathRefresh editPathReference(HashMap<String,String> params) throws Exception{
+//        Log.d("星期", params.toString());
+//
+//        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_EDIT, params);
+//        Log.d(LOG_TAG, "editPathReference " + jsonStr);
+//
+//        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+//
+//        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+//            Log.e(LOG_TAG, "editPathReference: Return message code not positive");
+//            throw new Exception("Failed to  editPathReference");
+//        }
+//        //解析
+//        String json = rmsg.getData().toString();
+//        JSONObject jsonObject = new JSONObject(json);
+//        return (PathRefresh) JsonHelper
+//                .getInstance().jsonToBean(
+//                        jsonObject.toString(),
+//                        PathRefresh.class);
+//    }
+
+    /**
+     * 删除一条活动的评论
+     *
+     * @String referenceId
+     */
+    public PathRefresh deletePathReference(String referenceId) throws Exception {
+        Log.d("星期", referenceId);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("referenceId", referenceId);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETE, params);
+        Log.d(LOG_TAG, "deletePathReference " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "deletePathReference: Return message code not positive");
+            throw new Exception("Failed to  deletePathReference");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (PathRefresh) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        PathRefresh.class);
+    }
+
+    /**
+     * 给活动的评论发表回复
+     *
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public PathRefresh createPathReplyReference(HashMap<String, String> params) throws Exception {
+        Log.d("星期", params.toString());
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
+        Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "createPathReplyReference: Return message code not positive");
+            throw new Exception("Failed to  createPathReplyReference");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (PathRefresh) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        PathRefresh.class);
+    }
+
+    /**
+     * 删除一条活动评论的回复
+     *
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public PathRefresh deletePathReplyReference(HashMap<String, String> params) throws Exception {
+        Log.d("星期", params.toString());
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
+        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "deletePathReplyReference: Return message code not positive");
+            throw new Exception("Failed to  deletePathReplyReference");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (PathRefresh) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        PathRefresh.class);
+    }
+
+    /**
+     * 获取一个活动的评论
+     *
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public PathRefresh getPathReference(HashMap<String, String> params) throws Exception {
+        Log.d("星期", params.toString());
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
+        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "deletePathReplyReference: Return message code not positive");
+            throw new Exception("Failed to  deletePathReplyReference");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (PathRefresh) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        PathRefresh.class);
+    }
+
 }

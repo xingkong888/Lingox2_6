@@ -94,10 +94,13 @@ public class URLConstant {
 
     //对活动进行评论
     private static final String URL_PATHREFERENCE = MAIN_URL + "pathReference/";
-    public static final String URL_CREATE = URL_PATHREFERENCE + "create";
-    public static final String URL_EDIT = URL_PATHREFERENCE + "edit";
-    public static final String URL_DELETE = URL_PATHREFERENCE + "delete";
-    public static final String URL_GETREFERENCE = URL_PATHREFERENCE + "getPathsReferences";
+    public static final String URL_PATHREFERENCE_CREATE = URL_PATHREFERENCE + "create";
+    public static final String URL_PATHREFERENCE_EDIT = URL_PATHREFERENCE + "edit";
+    public static final String URL_PATHREFERENCE_DELETE = URL_PATHREFERENCE + "delete";
+    public static final String URL_PATHREFERENCE_GETREFERENCE = URL_PATHREFERENCE + "getPathsReferences";
+    public static final String URL_PATHREFERENCE_REPLY = URL_PATHREFERENCE + "reply";
+    public static final String URL_PATHREFERENCE_EDITREPLY = URL_PATHREFERENCE + "editReply";
+    public static final String URL_PATHREFERENCE_DELETEREPLY = URL_PATHREFERENCE + "deleteReply";
 
 
 }

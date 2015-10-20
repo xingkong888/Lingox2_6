@@ -29,8 +29,6 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.utils.FileUtil;
-import cn.lingox.android.utils.ImageCache;
 import cn.lingox.android.utils.SkipDialog;
 
 public class NearbyAdapter extends BaseAdapter {
@@ -95,21 +93,7 @@ public class NearbyAdapter extends BaseAdapter {
                 holder.lalala.setVisibility(View.VISIBLE);
             }
             holder.avatar.setTag(user.getAvatar());
-            if (FileUtil.getImgName(user.getAvatar()).contentEquals("avatar.jpg")) {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar());
-            } else {
-                if (ImageCache.getInstance().get(user.getAvatar()) != null && holder.avatar.getTag().equals(user.getAvatar())) {
-                    holder.avatar.setImageBitmap(ImageCache.getInstance().get(user.getAvatar()));
-                } else {
-                    if (FileUtil.getImg(user.getAvatar()) == null && holder.avatar.getTag().equals(user.getAvatar())) {
-                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar());
-                    } else if (holder.avatar.getTag().equals(user.getAvatar())) {
-                        holder.avatar.setImageBitmap(FileUtil.getImg(user.getAvatar()));
-                    } else {
-                        holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
-                    }
-                }
-            }
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar());
             ImageHelper.getInstance().loadFlag(holder.flag, JsonHelper.getInstance().getCodeFromCountry(
                     user.getCountry()
             ), 1);

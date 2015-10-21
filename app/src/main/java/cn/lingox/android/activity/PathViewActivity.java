@@ -583,6 +583,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case R.id.path_show_reference:
                 Intent intent = new Intent(this, PathReferenceActivity.class);
                 intent.putExtra(PathReferenceActivity.PATH_ID, path.getId());
+                intent.putExtra(PathReferenceActivity.USER_ID, path.getUserId());
+                intent.putExtra(PathReferenceActivity.TYPE, path.getType());
                 startActivity(intent);
                 break;
         }

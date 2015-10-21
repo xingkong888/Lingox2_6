@@ -2,7 +2,6 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     private ArrayList<ArrayList<HashMap<String, String>>> childs;
     private Handler handler;
 
-    public PathReferenceReplyAdapter(Activity context,ArrayList<HashMap<String, String>>  groups
+    public PathReferenceReplyAdapter(Activity context, ArrayList<HashMap<String, String>> groups
             , ArrayList<ArrayList<HashMap<String, String>>> childs, Handler handler) {
         this.context = context;
         this.groups = groups;
@@ -64,9 +63,9 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         final HashMap<String, String> map = groups.get(groupPosition);
 //        Log.d("星期", map.toString());
         Picasso.with(context)
-        .load(CacheHelper.getInstance().getSelfInfo().getAvatar())
-        .error(R.drawable.nearby_nopic_294dp)
-        .into(groupViewHolder.avatar);
+                .load(CacheHelper.getInstance().getSelfInfo().getAvatar())
+                .error(R.drawable.nearby_nopic_294dp)
+                .into(groupViewHolder.avatar);
         groupViewHolder.content.setText(map.get("content"));
         groupViewHolder.name.setText(
                 CacheHelper.getInstance().getUserInfo(map.get("user_id")).getNickname());
@@ -109,7 +108,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        HashMap<String, String> map = (HashMap<String,String>)getChild(groupPosition,childPosition);
+        HashMap<String, String> map = (HashMap<String, String>) getChild(groupPosition, childPosition);
 
         childViewHolder.content.setText(map.get("content"));
 
@@ -141,6 +140,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     static class ChildViewHolder {
         TextView content;
     }
-
+    //TODO 加一个获取user信息的异步任务
 
 }

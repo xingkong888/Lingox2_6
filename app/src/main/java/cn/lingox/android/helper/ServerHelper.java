@@ -1541,7 +1541,8 @@ public class ServerHelper {
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPathReference: Return message code not positive");
-            throw new Exception("Failed to  getPathReference");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to getPathReference");
         }
         //解析
         String json = rmsg.getData().toString();
@@ -1557,7 +1558,7 @@ public class ServerHelper {
                             PathReference.class));
         }
 
-        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
+//        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
 
         return list;
     }

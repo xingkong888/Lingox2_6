@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +74,10 @@ public class WritePathReplayDialog extends DialogFragment implements View.OnClic
                                 ServerHelper.getInstance()
                                         .createPathReplyReference(referenceId, userId, content);
                                 pathHandler.sendMessage(new Message());
-//                                dismiss();
+                                dismiss();
                             } catch (Exception e) {
-                                Log.d("星期", e.getMessage());
-//                                Toast.makeText(context, "ERROR：" + e.getMessage(), Toast.LENGTH_LONG).show();
-//                                dismiss();
+                                Toast.makeText(context, "ERROR：" + e.getMessage(), Toast.LENGTH_LONG).show();
+                                dismiss();
                             }
                         }
                     }.start();

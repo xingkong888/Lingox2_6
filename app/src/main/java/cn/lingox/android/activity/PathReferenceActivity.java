@@ -22,7 +22,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.PathReferenceReplyAdapter;
@@ -34,6 +33,8 @@ import cn.lingox.android.helper.ServerHelper;
 public class PathReferenceActivity extends Activity implements OnClickListener {
 
     public static final String PATH_ID = "path_id";
+    public static final String USER_ID = "user_id";
+    public static final String TYPE = "type";
     private static final String LOG_TAG = "PathReferenceActivity";
     // UI Elements
     private ImageView addReference;
@@ -48,7 +49,10 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
 
     private ImageView anim;
     private AnimationDrawable animationDrawable;
-    private String pathId;
+    private String pathId, userId;
+    private int type = 0;
+
+    private boolean isSelf = false;
 
     private ArrayList<PathReference> list;
 
@@ -56,7 +60,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
+            adapter.notifyDataSetChanged();
         }
     };
 
@@ -64,8 +68,10 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_reference);
-        if (getIntent().hasExtra(PATH_ID)) {
+        if (getIntent().hasExtra(PATH_ID) && getIntent().hasExtra(USER_ID) && getIntent().hasExtra(TYPE)) {
             pathId = getIntent().getStringExtra(PATH_ID);
+            userId = getIntent().getStringExtra(USER_ID);
+            type = getIntent().getIntExtra(TYPE, 0);
         } else {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             finish();
@@ -102,19 +108,23 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private void initData() {
         if (groups.size() == 0) {
             startAnim();
-//            addReference.setVisibility(View.INVISIBLE);
+            if (type == 1) {//local
+                addReference.setVisibility(View.INVISIBLE);
+            } else {
+                addReference.setVisibility(View.VISIBLE);
+            }
         } else {
-//            if (groups.get(0).get("user_src").contentEquals(CacheHelper.getInstance().getSelfInfo().getId())){
-//                //评论人就是自己
-//                addReference.setVisibility(View.INVISIBLE);
-//            }else{
-//
-//            }
+            addReference.setVisibility(View.INVISIBLE);
             stopAnim();
         }
         adapter = new PathReferenceReplyAdapter(this, groups, childs, handler);
         listView.setAdapter(adapter);
-        listView.setClickable(false);
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                return true;
+            }
+        });
         //将所有项设置成默认展开
         int groupCount = listView.getCount();
         for (int i = 0; i < groupCount; i++) {
@@ -210,7 +220,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         private HashMap<String, String> map;
         private HashMap<String, String> group;
         private HashMap<String, String> child;
-        private ArrayList<HashMap<String,String>> tempChildList;
+        private ArrayList<HashMap<String, String>> tempChildList;
 
         @Override
         protected void onPreExecute() {
@@ -242,7 +252,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
                             PathReferenceReply reply;
                             for (int a = 0, b = reference.getReplys().size(); a < b; a++) {
                                 reply = reference.getReplys().get(a);
-                                tempChildList=new ArrayList<>();
+                                tempChildList = new ArrayList<>();
                                 child = new HashMap<>();
                                 child.put("user_id", reply.getUser_id());
                                 child.put("content", reply.getContent());

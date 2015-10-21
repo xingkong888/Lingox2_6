@@ -125,5 +125,4 @@ public class Comment implements Parcelable {
         dest.writeString(this.text);
         dest.writeString(this.createdAt);
     }
-
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +73,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
         final Reference reference = referenceList.get(position);
 
-        Log.d("星期", reference.toString());
+//        Log.d("星期", reference.toString());
 
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(

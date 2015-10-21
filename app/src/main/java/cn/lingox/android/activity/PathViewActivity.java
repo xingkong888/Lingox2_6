@@ -125,13 +125,13 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private User replyUser;
 
     private ImageView delete, edit;
+    private TextView showReference;
 
     private int width;
     private int height;
     private int scrollViewHight;
     private LinearLayout pathView, delAndEdit, pathTime;
     private boolean hasMeasured = false;
-
     private int commentHeight;
 
     private boolean isApply = false;
@@ -231,6 +231,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
 
         pathTraveler = (TextView) findViewById(R.id.path_traveler);
         pathLocal = (TextView) findViewById(R.id.path_local);
+
+        showReference = (TextView) findViewById(R.id.path_show_reference);
+        showReference.setOnClickListener(this);
 
         pathAcceptButton = (ImageView) findViewById(R.id.path_accept_button);
         pathAcceptButton.setOnClickListener(this);
@@ -576,6 +579,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case R.id.path_view_yindao:
                 layout.setVisibility(View.GONE);
+                break;
+            case R.id.path_show_reference:
+                Intent intent = new Intent(this, PathReferenceActivity.class);
+                intent.putExtra(PathReferenceActivity.PATH_ID, path.getId());
+                startActivity(intent);
                 break;
         }
     }

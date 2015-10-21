@@ -188,6 +188,15 @@
             android:background="#c7c7c7" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/path_show_reference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="活动评论"
+        android:textSize="15sp" />
+
     <LinearLayout
         android:id="@+id/layout_gender"
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,28 +16,28 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cn.lingox.android.R;
-import cn.lingox.android.entity.Reference;
 
-public class WriteReplayDialog extends DialogFragment implements View.OnClickListener {
+public class WritePathReplayDialog extends DialogFragment implements View.OnClickListener {
 
     private static Context context;
 
-    private static Reference reference;
-    private static Handler handler;
+    private static Handler pathHandler;
+    private static String referenceId;
+    private static String userId;
     private EditText editText;
     private Button yes, no;
     private String content;
-
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    public static WriteReplayDialog newInstance(Handler handler1,
-                                                Reference reference1, Context context1) {
+    public static WritePathReplayDialog newInstance(Handler handler2,
+                                                    String referenceId1, String userId1, Context context1) {
 
-        reference = reference1;
-        handler = handler1;
+        pathHandler = handler2;
         context = context1;
+        referenceId = referenceId1;
+        userId = userId1;
 
-        WriteReplayDialog editer = new WriteReplayDialog();
+        WritePathReplayDialog editer = new WritePathReplayDialog();
         Bundle bundle = new Bundle();
         editer.setArguments(bundle);
         return editer;
@@ -72,12 +73,13 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
                         public void run() {
                             try {
                                 ServerHelper.getInstance()
-                                        .editReference(reference.getId(), content);
-                                handler.sendMessage(new Message());
-                                dismiss();
+                                        .createPathReplyReference(referenceId, userId, content);
+                                pathHandler.sendMessage(new Message());
+//                                dismiss();
                             } catch (Exception e) {
-                                Toast.makeText(context, "ERROR：" + e.getMessage(), Toast.LENGTH_LONG).show();
-                                dismiss();
+                                Log.d("星期", e.getMessage());
+//                                Toast.makeText(context, "ERROR：" + e.getMessage(), Toast.LENGTH_LONG).show();
+//                                dismiss();
                             }
                         }
                     }.start();

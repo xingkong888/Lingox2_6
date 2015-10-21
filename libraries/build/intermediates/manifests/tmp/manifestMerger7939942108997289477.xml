@@ -9,8 +9,7 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.handmark.pulltorefresh.library.test"
-                     android:handleProfiling="false"
-                     android:functionalTest="false"
-                     android:label="Tests for com.handmark.pulltorefresh.library.test"/>
+        android:functionalTest="false" android:handleProfiling="false"
+        android:label="Tests for com.handmark.pulltorefresh.library.test"
+        android:targetPackage="com.handmark.pulltorefresh.library.test" />
 </manifest>

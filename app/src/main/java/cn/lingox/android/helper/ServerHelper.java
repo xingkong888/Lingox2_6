@@ -1467,12 +1467,16 @@ public class ServerHelper {
     /**
      * 给活动的评论发表回复
      *
-     * @param params
      * @return
      * @throws Exception
      */
-    public PathReference createPathReplyReference(HashMap<String, String> params) throws Exception {
-        Log.d("星期", params.toString());
+    public PathReference createPathReplyReference(String referenceId, String userId, String content) throws Exception {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("referenceId", referenceId);
+        params.put("userId", userId);
+        params.put("content", content);
+
+//        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
         Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
@@ -1500,7 +1504,7 @@ public class ServerHelper {
      * @throws Exception
      */
     public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
-        Log.d("星期", params.toString());
+//        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
         Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
@@ -1527,25 +1531,35 @@ public class ServerHelper {
      * @return
      * @throws Exception
      */
-    public PathReference getPathReference(HashMap<String, String> params) throws Exception {
-        Log.d("星期", params.toString());
+    public ArrayList<PathReference> getPathReference(HashMap<String, String> params) throws Exception {
+//        Log.d("星期", params.toString());
 
-        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
-        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_GETREFERENCE, params);
+        Log.d(LOG_TAG, "getPathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "deletePathReplyReference: Return message code not positive");
-            throw new Exception("Failed to  deletePathReplyReference");
+            Log.e(LOG_TAG, "getPathReference: Return message code not positive");
+            throw new Exception("Failed to  getPathReference");
         }
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        return (PathReference) JsonHelper
-                .getInstance().jsonToBean(
-                        jsonObject.toString(),
-                        PathReference.class);
+        JSONArray jsonArray = jsonObject.getJSONArray("references");
+        ArrayList<PathReference> list = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            list.add((PathReference) JsonHelper
+                    .getInstance().jsonToBean(
+                            jsonObject1.toString(),
+                            PathReference.class));
+        }
+
+        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
+
+        return list;
     }
 
 }

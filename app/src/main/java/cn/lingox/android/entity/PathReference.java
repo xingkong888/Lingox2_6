@@ -17,38 +17,89 @@ public class PathReference implements Parcelable {
         }
     };
 
-    private String user_src;//发起评论的用户id
-    private String user_tar;//被评论的用户id
+    private String id;//评论id
+    private String user_id;//发起评论的用户id
+    //    private String user_tar;//被评论的用户id
     private String path_id;//活动id
     private String content;//评论内容
-    private ArrayList<PathReferenceReply> replays;
+    private ArrayList<PathReferenceReply> replys;
+
+    public PathReference() {
+        id = "";
+        user_id = "";
+        path_id = "";
+        content = "";
+        replys = new ArrayList<>();
+    }
 
     // Parcelable
     public PathReference(Parcel in) {
-        this.user_src = in.readString();
-        this.user_tar = in.readString();
+        this.id = in.readString();
+        this.user_id = in.readString();
+//        this.user_tar = in.readString();
         this.path_id = in.readString();
         this.content = in.readString();
-        this.replays = in.createTypedArrayList(PathReferenceReply.CREATOR);
+        this.replys = in.createTypedArrayList(PathReferenceReply.CREATOR);
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getPath_id() {
+        return path_id;
+    }
+
+    public void setPath_id(String path_id) {
+        this.path_id = path_id;
+    }
+
+    public ArrayList<PathReferenceReply> getReplys() {
+        return replys;
+    }
+
+    public void setReplys(ArrayList<PathReferenceReply> replys) {
+        this.replys = replys;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
 
     @Override
     public String toString() {
-        return "[ user_src=" + user_src +
-                ", user_tar=" + user_tar +
+        return "[ user_id=" + user_id +
                 ", path_id=" + path_id +
                 ", content=" + content +
-                ", replays=" + replays +
+                ", replys=" + replys +
+                ", id=" + id +
                 "]";
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(user_src);
-        dest.writeString(user_tar);
+        dest.writeString(id);
+        dest.writeString(user_id);
         dest.writeString(path_id);
         dest.writeString(content);
-        dest.writeTypedList(replays);
+        dest.writeTypedList(replys);
     }
 
     @Override

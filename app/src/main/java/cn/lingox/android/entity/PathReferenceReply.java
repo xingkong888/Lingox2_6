@@ -18,10 +18,37 @@ public class PathReferenceReply implements Parcelable {
     private String user_id;//回复的用户id
     private String content;//回复内容
 
+    public PathReferenceReply() {
+        user_id = "";
+        content = "";
+
+    }
+
+    public PathReferenceReply(String user_id, String content) {
+        this.content = content;
+        this.user_id = user_id;
+    }
+
     // Parcelable
     public PathReferenceReply(Parcel in) {
         this.user_id = in.readString();
         this.content = in.readString();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     @Override

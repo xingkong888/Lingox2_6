@@ -103,9 +103,11 @@ public class JsonHelper {
     @SuppressWarnings("unchecked")
     public <T> T jsonToBean(String jsonStr, Class<?> cl) {
         Object obj = null;
+//        Log.d("星期","解析："+jsonStr);
         try {
             if (instance.gson != null) {
                 obj = instance.gson.fromJson(jsonStr, cl);
+//                Log.d("星期","解析结果："+obj.toString());
             }
             return (T) obj;
         } catch (Exception e) {
@@ -114,19 +116,19 @@ public class JsonHelper {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> ArrayList<T> jsonToArrayList(String jsonStr, Class<?> cl) {
-        Object obj = null;
-        try {
-            if (instance.gson != null) {
-                obj = instance.gson.fromJson(jsonStr, new TypeToken<ArrayList<T>>() {
-                }.getType());
-            }
-            return (ArrayList<T>) obj;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+//    @SuppressWarnings("unchecked")
+//    public <T> ArrayList<T> jsonToArrayList(String jsonStr, Class<?> cl) {
+//        Object obj = null;
+//        try {
+//            if (instance.gson != null) {
+//                obj = instance.gson.fromJson(jsonStr, new TypeToken<ArrayList<T>>() {
+//                }.getType());
+//            }
+//            return (ArrayList<T>) obj;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     public ArrayList<Travel> jsonToTravel(String jsonStr) {
         ArrayList<Travel> list = new ArrayList<>();

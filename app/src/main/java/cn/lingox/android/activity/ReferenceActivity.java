@@ -67,7 +67,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
     };
 
-    private int addRef;
+//    private int addRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_reference);
 
         Intent intent = getIntent();
-        addRef = intent.getIntExtra("addReference", 0);
+//        addRef = intent.getIntExtra("addReference", 0);
         userId = intent.getStringExtra(UserInfoFragment.TARGET_USER_ID);
         userName = intent.getStringExtra(UserInfoFragment.TARGET_USER_NAME);
         ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
@@ -114,35 +114,6 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         add.setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.list);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Reference selectedReference = referenceList.get(position);
-//
-//                boolean ownReference =
-//                        CacheHelper.getInstance().getSelfInfo().getId().equals(selectedReference.getUserSrcId());
-//                if (ownReference) {//自己对别人的评价
-//                    Intent intent = new Intent(ReferenceActivity.this, ReferenceDialog.class);
-//                    intent.putExtra(INTENT_REFERENCE, selectedReference);
-//                    intent.putExtra(INTENT_TARGET_USER_ID, userId);
-//                    intent.putExtra(INTENT_TARGET_USER_NAME, userName);
-//                    intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
-//                    startActivityForResult(intent, EDIT_REFERENCE);
-//                } else {//别人对自己评价
-//                    Intent userInfoIntent = new Intent(ReferenceActivity.this, UserInfoActivity.class);
-//                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, selectedReference.getUserSrcId());
-//                    startActivity(userInfoIntent);
-//                }
-//            }
-//        });
-
-        if (addRef == 1) {
-            Intent intent = new Intent(this, ReferenceDialog.class);
-            intent.putExtra(INTENT_TARGET_USER_ID, userId);
-            intent.putExtra(INTENT_TARGET_USER_NAME, userName);
-            intent.putExtra(INTENT_REQUEST_CODE, ADD_REFERENCE);
-            startActivityForResult(intent, ADD_REFERENCE);
-        }
     }
 
     private void initData() {

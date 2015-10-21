@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/AppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    card_view:cardBackgroundColor="@color/btn_white_normal"
+    card_view:cardElevation="5dp">
+
+    <RelativeLayout
+        android:id="@+id/pdpdpd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/path_refrence_replay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:focusable="false"
+            android:src="@drawable/default_avatar" />
+
+        <RelativeLayout
+            android:id="@+id/layout_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00838f" />
+
+            <cn.lingox.android.utils.CircularImageView
+                android:id="@+id/avatar_path_reference"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/default_avatar" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/name_path_reference"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/layout_avatar"
+            android:gravity="center"
+            android:text="Nickname"
+            android:textColor="#00838f"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/time_path_reference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name_path_reference"
+            android:layout_below="@id/name_path_reference"
+            android:text="15/02"
+            android:textColor="#ababab"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/content_path_reference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_avatar"
+            android:layout_marginTop="3dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
+
+

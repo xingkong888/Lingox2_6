@@ -4,13 +4,12 @@
 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="4" />
 
-    <instrumentation android:name="android.test.InstrumentationTestRunner"
-        android:functionalTest="false" android:handleProfiling="false"
-        android:label="Tests for com.handmark.pulltorefresh.library.test"
-        android:targetPackage="com.handmark.pulltorefresh.library.test" />
-
     <application>
         <uses-library android:name="android.test.runner" />
     </application>
 
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false" android:label="Tests for com.handmark.pulltorefresh.library.test"
+        android:targetPackage="com.handmark.pulltorefresh.library.test" />
 </manifest>

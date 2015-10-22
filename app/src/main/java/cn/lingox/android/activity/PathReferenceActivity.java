@@ -1,8 +1,6 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -29,6 +27,7 @@ import cn.lingox.android.entity.PathReference;
 import cn.lingox.android.entity.PathReferenceReply;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
+import cn.lingox.android.helper.WritePathReferenceDialog;
 
 public class PathReferenceActivity extends Activity implements OnClickListener {
 
@@ -37,7 +36,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     public static final String TYPE = "type";
     private static final String LOG_TAG = "PathReferenceActivity";
     // UI Elements
-    private ImageView addReference;
+    private ImageView addReference, deleteReference;
     private LinearLayout back, add;
     private ExpandableListView listView;
     private PathReferenceReplyAdapter adapter;
@@ -56,11 +55,18 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
 
     private ArrayList<PathReference> list;
 
-
+    //回复评论
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             adapter.notifyDataSetChanged();
+        }
+    };
+    //评论
+    private Handler handler1 = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            new CreatePathReference(msg.obj.toString()).execute();
         }
     };
 
@@ -86,11 +92,13 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         pb = (ProgressBar) findViewById(R.id.progress);
 
         addReference = (ImageView) findViewById(R.id.iv_add_reference);
+        deleteReference = (ImageView) findViewById(R.id.iv_delete_reference);
 
         // If we are viewing our own references
         // TODO implement reference managing for own reference page
 
         addReference.setOnClickListener(this);
+        deleteReference.setOnClickListener(this);
 
         back = (LinearLayout) findViewById(R.id.layout_back);
         back.setOnClickListener(this);
@@ -108,13 +116,18 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private void initData() {
         if (groups.size() == 0) {
             startAnim();
-            if (type == 1) {//local
+            addReference.setVisibility(View.VISIBLE);
+        } else {
+            //判断当前用户是否为活动发起者
+            //若是，则显示删除图标
+            //若不是，显示添加图标
+            if (userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
                 addReference.setVisibility(View.INVISIBLE);
+                deleteReference.setVisibility(View.VISIBLE);
             } else {
                 addReference.setVisibility(View.VISIBLE);
+                deleteReference.setVisibility(View.INVISIBLE);
             }
-        } else {
-            addReference.setVisibility(View.INVISIBLE);
             stopAnim();
         }
         adapter = new PathReferenceReplyAdapter(this, groups, childs, handler);
@@ -139,17 +152,21 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
                 finish();
                 break;
             case R.id.iv_add_reference:
-                new AlertDialog.Builder(this)
-                        .setNegativeButton("NO", null)
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                new CreatePathReference().execute();
-                            }
-                        })
-                        .create().show();
+                WritePathReferenceDialog.newInstance(handler1, this).show(getFragmentManager(), "");
                 break;
+//            case R.id.iv_delete_reference:
+//                new AlertDialog.Builder(this)
+//                        .setMessage("是否删除？")
+//                        .setNegativeButton("NO", null)
+//                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                                new DeletePathReference().execute();
+//                            }
+//                        })
+//                        .create().show();
+//                break;
         }
     }
 
@@ -185,13 +202,19 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
 
     private class CreatePathReference extends AsyncTask<Void, Void, Boolean> {
         private HashMap<String, String> map;
+        private String content;
+
+        public CreatePathReference(String content) {
+            this.content = content;
+        }
 
         @Override
         protected void onPreExecute() {
             map = new HashMap<>();
             map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+            map.put("userName", CacheHelper.getInstance().getSelfInfo().getNickname());
             map.put("pathId", pathId);
-            map.put("content", "测试");
+            map.put("content", content);
         }
 
         @Override
@@ -213,6 +236,34 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             }
         }
     }
+//    private class DeletePathReference extends AsyncTask<Void, Void, Boolean> {
+//        private HashMap<String, String> map;
+//
+//        @Override
+//        protected void onPreExecute() {
+//            map = new HashMap<>();
+//            map.put("referenceId", "56274e6990468c16496ed86e");
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            try {
+//                ServerHelper.getInstance().deletePathReference(map);
+//                return true;
+//            } catch (Exception e) {
+//                Log.d("星期", "创建活动评论错误：" + e.getMessage());
+//                return false;
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            if (aBoolean) {
+//                //成功
+//            }
+//        }
+//    }
 
     //下载活动的评论
     private class LoadPathReferences extends AsyncTask<String, String, Boolean> {
@@ -237,7 +288,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             map.put("pathId", params[0]);
             try {
                 list.addAll(ServerHelper.getInstance().getPathReference(map));
-
                 if (list.size() > 0) {
                     //获取评论，存入group
                     PathReference reference;
@@ -245,16 +295,18 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
                         reference = list.get(i);
                         group = new HashMap<>();
                         group.put("user_id", reference.getUser_id());
+                        group.put("user_name", reference.getUser_name());
                         group.put("referenceId", reference.getId());
                         group.put("content", reference.getContent());
                         groups.add(group);
-                        if (reference.getReplys() != null) {
+                        if (!reference.getReplys().isEmpty()) {
                             PathReferenceReply reply;
                             for (int a = 0, b = reference.getReplys().size(); a < b; a++) {
                                 reply = reference.getReplys().get(a);
                                 tempChildList = new ArrayList<>();
                                 child = new HashMap<>();
                                 child.put("user_id", reply.getUser_id());
+                                child.put("user_name", reply.getUser_name());
                                 child.put("content", reply.getContent());
                                 tempChildList.add(child);
                                 childs.add(tempChildList);

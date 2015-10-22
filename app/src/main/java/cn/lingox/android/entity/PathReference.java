@@ -19,6 +19,7 @@ public class PathReference implements Parcelable {
 
     private String id;//评论id
     private String user_id;//发起评论的用户id
+    private String user_name;//发起评论的用户名
     //    private String user_tar;//被评论的用户id
     private String path_id;//活动id
     private String content;//评论内容
@@ -27,6 +28,7 @@ public class PathReference implements Parcelable {
     public PathReference() {
         id = "";
         user_id = "";
+        user_name = "";
         path_id = "";
         content = "";
         replys = new ArrayList<>();
@@ -36,6 +38,7 @@ public class PathReference implements Parcelable {
     public PathReference(Parcel in) {
         this.id = in.readString();
         this.user_id = in.readString();
+        this.user_name = in.readString();
 //        this.user_tar = in.readString();
         this.path_id = in.readString();
         this.content = in.readString();
@@ -82,11 +85,19 @@ public class PathReference implements Parcelable {
         this.user_id = user_id;
     }
 
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
 
     @Override
     public String toString() {
         return "[ user_id=" + user_id +
                 ", path_id=" + path_id +
+                ", user_name=" + user_name +
                 ", content=" + content +
                 ", replys=" + replys +
                 ", id=" + id +
@@ -97,6 +108,7 @@ public class PathReference implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(user_id);
+        dest.writeString(user_name);
         dest.writeString(path_id);
         dest.writeString(content);
         dest.writeTypedList(replys);

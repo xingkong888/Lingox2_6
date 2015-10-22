@@ -23,18 +23,22 @@ public class WritePathReplayDialog extends DialogFragment implements View.OnClic
     private static Handler pathHandler;
     private static String referenceId;
     private static String userId;
+    private static String userName;
     private EditText editText;
     private Button yes, no;
     private String content;
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    public static WritePathReplayDialog newInstance(Handler handler2,
-                                                    String referenceId1, String userId1, Context context1) {
+    public static WritePathReplayDialog newInstance(Handler handler1,
+                                                    String referenceId1,
+                                                    String userId1,
+                                                    String userName1, Context context1) {
 
-        pathHandler = handler2;
+        pathHandler = handler1;
         context = context1;
         referenceId = referenceId1;
         userId = userId1;
+        userName = userName1;
 
         WritePathReplayDialog editer = new WritePathReplayDialog();
         Bundle bundle = new Bundle();
@@ -72,7 +76,7 @@ public class WritePathReplayDialog extends DialogFragment implements View.OnClic
                         public void run() {
                             try {
                                 ServerHelper.getInstance()
-                                        .createPathReplyReference(referenceId, userId, content);
+                                        .createPathReplyReference(referenceId, userId, userName, content);
                                 pathHandler.sendMessage(new Message());
                                 dismiss();
                             } catch (Exception e) {

@@ -618,7 +618,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             threeTitle.setText("Please choose the type(s) of your local experience");
                             fourTitle.setText("Is there a cover photo?");
                             fiveTitle.setText("When are you usually available for this local experience? ");
-
                             detailAddress.setVisibility(View.VISIBLE);
 
                             //page0  -->page2-->page1-->page5-->page3-->page4
@@ -635,7 +634,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             threeTitle.setText("Please choose the type(s) of the experience");
                             fourTitle.setText("Is there a cover photo?");
                             fiveTitle.setText("Set a time frame for your travel");
-
                             detailAddress.setVisibility(View.INVISIBLE);
 
                             //page0  -->page1-->page5-->page2-->page3-->page4
@@ -648,13 +646,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     }
                     break;
                 case 2://time
-
                     switch (path.getType()) {
                         case 1:
                             if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
                                 page--;
                             } else {
-
                                 pageNum.setText("2/5");
                                 //page0-->  page2  -->page1-->page5-->page3-->page4
                                 background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);

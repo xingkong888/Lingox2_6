@@ -118,6 +118,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
                             "<font color=\"#00838f\">" + user.getNickname() + "</font>"));
             holder.replayContent.setVisibility(View.VISIBLE);
             holder.replayContent.setText(reference.getReply());
+            holder.replay.setVisibility(View.GONE);
         } else {
             holder.replayContent.setVisibility(View.GONE);
             if (isSelf) {

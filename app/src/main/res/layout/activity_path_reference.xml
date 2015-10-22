@@ -48,12 +48,26 @@
             android:layout_centerVertical="true"
             android:background="@drawable/text_selector">
 
-            <ImageView
-                android:id="@+id/iv_add_reference"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:src="@drawable/reference_add_18dp" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_add_reference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:src="@drawable/reference_add_18dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_delete_reference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:src="@drawable/personal_delete_18dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 

@@ -16,6 +16,7 @@ public class PathReferenceReply implements Parcelable {
     };
 
     private String user_id;//回复的用户id
+    private String user_name;//回复的用户名
     private String content;//回复内容
 
     public PathReferenceReply() {
@@ -24,14 +25,16 @@ public class PathReferenceReply implements Parcelable {
 
     }
 
-    public PathReferenceReply(String user_id, String content) {
+    public PathReferenceReply(String user_id, String name, String content) {
         this.content = content;
+        this.user_name = name;
         this.user_id = user_id;
     }
 
     // Parcelable
     public PathReferenceReply(Parcel in) {
         this.user_id = in.readString();
+        this.user_name = in.readString();
         this.content = in.readString();
     }
 
@@ -51,9 +54,18 @@ public class PathReferenceReply implements Parcelable {
         this.user_id = user_id;
     }
 
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
     @Override
     public String toString() {
         return "[ user_id=" + user_id +
+                ", name=" + user_name +
                 ", content=" + content +
                 "]";
     }
@@ -61,6 +73,7 @@ public class PathReferenceReply implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(user_id);
+        dest.writeString(user_name);
         dest.writeString(content);
     }
 

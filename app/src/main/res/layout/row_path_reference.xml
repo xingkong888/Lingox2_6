@@ -13,15 +13,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/path_refrence_replay"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:focusable="false"
-            android:src="@drawable/default_avatar" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/path_refrence_replay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:focusable="false"
+                android:padding="15dp"
+                android:src="@drawable/activity_reply_color_24dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/path_refrence_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:focusable="false"
+                android:padding="15dp"
+                android:src="@drawable/personal_delete_18dp"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_avatar"
@@ -64,7 +83,8 @@
             android:layout_below="@id/name_path_reference"
             android:text="15/02"
             android:textColor="#ababab"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/content_path_reference"

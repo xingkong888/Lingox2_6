@@ -15,34 +15,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cn.lingox.android.R;
-import cn.lingox.android.entity.Reference;
 
-public class WriteReplayDialog extends DialogFragment implements View.OnClickListener {
+public class WritePathReferenceDialog extends DialogFragment implements View.OnClickListener {
 
     private static Context context;
 
-    private static Reference reference;
     private static Handler handler;
     private EditText editText;
     private Button yes, no;
     private String content;
-
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    public static WriteReplayDialog newInstance(Handler handler1,
-                                                Reference reference1, Context context1) {
+    public static WritePathReferenceDialog newInstance(Handler handler1, Context context1) {
 
-        reference = reference1;
         handler = handler1;
         context = context1;
 
-        WriteReplayDialog editer = new WriteReplayDialog();
+        WritePathReferenceDialog editer = new WritePathReferenceDialog();
         Bundle bundle = new Bundle();
         editer.setArguments(bundle);
         return editer;
     }
 
-    public static void hideSoftInput(IBinder token, InputMethodManager im) {
+    private static void hideSoftInput(IBinder token, InputMethodManager im) {
         if (token != null) {
             im.hideSoftInputFromWindow(token,
                     InputMethodManager.HIDE_NOT_ALWAYS);
@@ -67,20 +62,10 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
                 hideSoftInput(v.getWindowToken(), im);
                 content = editText.getText().toString().trim();
 //                Log.d("星期", content);
-                if (!editText.getText().toString().trim().isEmpty()) {
-                    new Thread() {
-                        public void run() {
-                            try {
-                                ServerHelper.getInstance()
-                                        .editReference(reference.getId(), content);
-                                handler.sendMessage(new Message());
-                                dismiss();
-                            } catch (Exception e) {
-                                Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show();
-                                dismiss();
-                            }
-                        }
-                    }.start();
+                if (!content.isEmpty()) {
+                    Message msg = new Message();
+                    msg.obj = content;
+                    handler.sendMessage(msg);
                 } else {
                     Toast.makeText(context, "Please write something", Toast.LENGTH_SHORT).show();
                 }

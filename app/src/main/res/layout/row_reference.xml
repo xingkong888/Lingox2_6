@@ -21,7 +21,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:focusable="false"
-            android:src="@drawable/default_avatar" />
+            android:padding="15dp"
+            android:src="@drawable/activity_reply_color_24dp" />
 
         <RelativeLayout
             android:id="@+id/layout_avatar"
@@ -58,7 +59,7 @@
 
         <TextView
             android:id="@+id/time_reference"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/name_reference"
             android:layout_below="@id/name_reference"

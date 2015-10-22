@@ -1,7 +1,12 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Handler;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +22,7 @@ import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.WritePathReplayDialog;
 
 public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
@@ -25,6 +31,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     private ArrayList<HashMap<String, String>> groups;
     private ArrayList<ArrayList<HashMap<String, String>>> childs;
     private Handler handler;
+    private String userName = "", replyName = "";
 
     public PathReferenceReplyAdapter(Activity context, ArrayList<HashMap<String, String>> groups
             , ArrayList<ArrayList<HashMap<String, String>>> childs, Handler handler) {
@@ -55,25 +62,59 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
             groupViewHolder.name = (TextView) convertView.findViewById(R.id.name_path_reference);
             groupViewHolder.time = (TextView) convertView.findViewById(R.id.time_path_reference);
             groupViewHolder.replay = (ImageView) convertView.findViewById(R.id.path_refrence_replay);
+            groupViewHolder.delete = (ImageView) convertView.findViewById(R.id.path_refrence_delete);
 
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
         final HashMap<String, String> map = groups.get(groupPosition);
+
+        userName = map.get("user_name");
+
 //        Log.d("星期", map.toString());
         Picasso.with(context)
-                .load(CacheHelper.getInstance().getSelfInfo().getAvatar())
+                .load(CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar())
                 .error(R.drawable.nearby_nopic_294dp)
                 .into(groupViewHolder.avatar);
         groupViewHolder.content.setText(map.get("content"));
         groupViewHolder.name.setText(
                 CacheHelper.getInstance().getUserInfo(map.get("user_id")).getNickname());
+
+        //判断是否显示回复图标
+        //若当前用户是评论发起者，显示删除图标
+        //若当前用户不是评论发起则，显示回复图标
+        if (map.get("user_id").contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+            groupViewHolder.replay.setVisibility(View.GONE);
+            groupViewHolder.delete.setVisibility(View.VISIBLE);
+        } else {
+            groupViewHolder.replay.setVisibility(View.VISIBLE);
+            groupViewHolder.delete.setVisibility(View.GONE);
+        }
+
+        groupViewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setMessage("是否删除？")
+                        .setNegativeButton("NO", null)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                new DeletePathReference(map.get("referenceId")).execute();
+                            }
+                        })
+                        .create().show();
+            }
+        });
+
         groupViewHolder.replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WritePathReplayDialog.newInstance(handler, map.get("referenceId"),
-                        CacheHelper.getInstance().getSelfInfo().getId(), context).
+                        CacheHelper.getInstance().getSelfInfo().getId(),
+                        CacheHelper.getInstance().getSelfInfo().getNickname(), context).
                         show(context.getFragmentManager(), "");
             }
         });
@@ -110,7 +151,16 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         }
         HashMap<String, String> map = (HashMap<String, String>) getChild(groupPosition, childPosition);
 
-        childViewHolder.content.setText(map.get("content"));
+//        //回复者
+        replyName = map.get("user_name");
+
+        if (!userName.isEmpty() && !replyName.isEmpty()) {
+            childViewHolder.content.setText(
+                    Html.fromHtml("<font color=\"#00838f\">" + replyName + "</font>" + " reply "
+                            + "<font color=\"#00838f\">" + userName + "</font>"
+                            + " : " +
+                            map.get("content")));
+        }
 
         return convertView;
     }
@@ -131,7 +181,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     }
 
     static class GroupViewHolder {
-        ImageView avatar, replay;
+        ImageView avatar, replay, delete;
         TextView name, time;
         TextView content;
         RelativeLayout layout;
@@ -140,6 +190,38 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     static class ChildViewHolder {
         TextView content;
     }
-    //TODO 加一个获取user信息的异步任务
 
+    private class DeletePathReference extends AsyncTask<Void, Void, Boolean> {
+        private HashMap<String, String> map;
+        private String referenceId;
+
+        public DeletePathReference(String referenceId) {
+            this.referenceId = referenceId;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            map = new HashMap<>();
+            map.put("referenceId", referenceId);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            try {
+                ServerHelper.getInstance().deletePathReference(map);
+                return true;
+            } catch (Exception e) {
+                Log.d("星期", "创建活动评论错误：" + e.getMessage());
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                //成功
+            }
+        }
+    }
 }

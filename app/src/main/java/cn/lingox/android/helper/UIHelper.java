@@ -1,6 +1,7 @@
 package cn.lingox.android.helper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import cn.lingox.android.R;
+import cn.lingox.android.utils.ImageTask;
 
 public class UIHelper {
 
@@ -63,6 +65,23 @@ public class UIHelper {
             Picasso.with(context).load(url).placeholder(placeholderResId).into(iv);
     }
 
+    public void imageViewSetPossiblyEmptyUrl(final ImageView iv, String url) {
+        if (!TextUtils.isEmpty(url)) {
+            new ImageTask(new ImageTask.Callback1() {
+                @Override
+                public void response(String url, Bitmap result) {
+                    iv.setImageBitmap(result);
+                }
+
+                @Override
+                public boolean isCancelled(String url) {
+                    return false;
+                }
+            }).executeOnExecutor(pool, url);
+        } else {
+            iv.setImageResource(R.drawable.nearby_nopic_294dp);
+        }
+    }
     public void imageViewSetPossiblyEmptyUrl(Context context, final ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(context)

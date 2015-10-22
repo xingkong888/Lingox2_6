@@ -23,7 +23,8 @@ import cn.lingox.android.activity.imagechooser.adapter.ImageGridAdapter;
 import cn.lingox.android.activity.imagechooser.entity.ImageItem;
 import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.utils.FileUtils;
+import cn.lingox.android.utils.FileUtil;
+//import cn.lingox.android.utils.FileUtils;
 
 public class AlbumActivity extends ActionBarActivity {
     // INCOMING INTENT EXTRAS
@@ -93,7 +94,7 @@ public class AlbumActivity extends ActionBarActivity {
                         String Str = list.get(i).substring(
                                 list.get(i).lastIndexOf("/") + 1,
                                 list.get(i).lastIndexOf("."));
-                        imageURLs.add(FileUtils.SDPATH + Str + ".JPEG");
+                        imageURLs.add(FileUtil.SDPATH + Str + ".JPEG");
                         Log.d(LOG_TAG, imageURLs.toString());
                     }
                     Intent intent = new Intent();

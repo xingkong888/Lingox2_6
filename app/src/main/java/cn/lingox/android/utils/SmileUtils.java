@@ -56,7 +56,6 @@ public class SmileUtils {
     private static final Map<Pattern, Integer> emoticons = new HashMap<Pattern, Integer>();
 
     static {
-
         addPattern(emoticons, ee_1, R.drawable.ee_1);
         addPattern(emoticons, ee_2, R.drawable.ee_2);
         addPattern(emoticons, ee_3, R.drawable.ee_3);
@@ -147,7 +146,6 @@ public class SmileUtils {
                 break;
             }
         }
-
         return b;
     }
 }

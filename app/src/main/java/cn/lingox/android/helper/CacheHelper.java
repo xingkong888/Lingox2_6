@@ -184,7 +184,6 @@ public class CacheHelper {
 
     public boolean isEnglishLanguage() {
         return spSettings.getString(KEY_SETTING_LANGUAGE, null).equals("en");
-
     }
 
     public boolean getSettingMsgSound() {

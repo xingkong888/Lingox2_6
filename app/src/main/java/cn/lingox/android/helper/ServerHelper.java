@@ -919,6 +919,52 @@ public class ServerHelper {
 
         return imagePath;
     }
+    //TODO 使用七牛上传图片的方法，暂未完成
+//    public String uploadPathImage(String path_id, Bitmap image,int i) throws Exception {
+//        Configuration config = new Configuration.Builder()
+//                .chunkSize(256 * 1024)  //分片上传时，每片的大小。 默认 256K
+//                .putThreshhold(1024 * 1024)  // 启用分片上传阀值。默认 512K
+//                .connectTimeout(10) // 链接超时。默认 10秒
+//                .responseTimeout(60) // 服务器响应超时。默认 60秒
+////                .recorder(null)  // recorder 分片上传时，已上传片记录器。默认 null
+////                .recorder(new Recorder() {
+////                    @Override
+////                    public void set(String s, byte[] bytes) {
+////
+////                    }
+////
+////                    @Override
+////                    public byte[] get(String s) {
+////                        return new byte[0];
+////                    }
+////
+////                    @Override
+////                    public void del(String s) {
+////
+////                    }
+////                }, new KeyGenerator() {
+////                    @Override
+////                    public String gen(String s, File file) {
+////                        return null;
+////                    }
+////                })  // keyGen 分片上传时，生成标识符，用于片记录器区分是那个文件的上传记录
+//                .zone(Zone.zone0) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。默认 Zone.zone0
+//                .build();
+//// 重用 uploadManager。一般地，只需要创建一个 uploadManager 对象
+//        UploadManager uploadManager = new UploadManager(config);
+//        String data=image.toString();
+//        String key = null;
+//        String token = "";
+//        uploadManager.put(data, key, token,
+//                new UpCompletionHandler() {
+//                    @Override
+//                    public void complete(String key, ResponseInfo info, JSONObject res) {
+//                        //  res 包含hash、key等信息，具体字段取决于上传策略的设置。
+//                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
+//                    }
+//                }, null);
+//        return "";
+//    }
 
     public Comment createComment(String user_id, String userTarId, String path_id, String text) throws Exception {
         Map<String, String> params = new HashMap<>();

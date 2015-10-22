@@ -15,6 +15,8 @@ public class FileUtil {
 
     public static final String CACHE_DIR = Environment.getExternalStorageDirectory()
             + "/myimages/";
+    public static String SDPATH = Environment.getExternalStorageDirectory()
+            + "/formats/";
 
     public static boolean isMounted() {
         return Environment.MEDIA_MOUNTED.equals(Environment
@@ -47,7 +49,6 @@ public class FileUtil {
         File dir = new File(CACHE_DIR);
         if (dir == null || !dir.exists() || !dir.isDirectory())
             return;
-
         for (File file : dir.listFiles()) {
             if (file.isFile()) {
                 file.delete(); // 删除所有文件

@@ -59,7 +59,6 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
                 @Override
                 public void onClick(View v) {
                     if (thumbnailPath != null) {
-
                         Intent intent = new Intent(activity, ShowBigImage.class);
                         File file = new File(localFullSizePath);
                         if (file.exists()) {

@@ -59,7 +59,6 @@ public class CircularImageView extends ImageView {
     public void setBorderColor(int borderColor) {
         if (paintBorder != null)
             paintBorder.setColor(borderColor);
-
         this.invalidate();
     }
 
@@ -75,10 +74,11 @@ public class CircularImageView extends ImageView {
     public void onDraw(Canvas canvas) {
         //load the bitmap
         loadBitmap();
-
         // init shader
         if (image != null) {
-            shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvas.getWidth(), canvas.getHeight(), false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            shader = new BitmapShader(Bitmap.createScaledBitmap(
+                    image, canvas.getWidth(), canvas.getHeight(), false),
+                    Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             paint.setShader(shader);
             int circleCenter = viewWidth / 2;
             // circleCenter is the x or y of the view's center

@@ -131,7 +131,6 @@ public class JsonHelper {
         ArrayList<Travel> list = new ArrayList<>();
         Travel travel;
         JSONObject jsonObj;
-//        Log.d("星期","travel>>>"+jsonStr);
         try {
             JSONArray jsonArray = new JSONArray(jsonStr);
             for (int i = 0; i < jsonArray.length(); i++) {

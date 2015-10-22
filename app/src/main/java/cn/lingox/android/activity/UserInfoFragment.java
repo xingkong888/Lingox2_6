@@ -67,14 +67,14 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
     private static final int DELETE_TRAVEL = 106;
     private static final int SEEALL_TRAVEL = 107;
-    /**
-     * 标签之间的间距 px
-     */
-    final int itemMargins = 50;
-    /**
-     * 标签的行间距 px
-     */
-    final int lineMargins = 50;
+    //    /**
+//     * 标签之间的间距 px
+//     */
+//    final int itemMargins = 50;
+//    /**
+//     * 标签的行间距 px
+//     */
+//    final int lineMargins = 50;
     //TODO 设置标签的方法
     int length;
     //是否提供

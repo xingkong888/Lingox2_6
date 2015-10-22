@@ -103,7 +103,7 @@ public class AsyncImageLoader {
         try {
             final Bitmap b = loadImageFromFilePath(mImageUrl);
             if (b != null) {
-                imageCache.put(mImageUrl, new SoftReference<Bitmap>(b));
+                imageCache.put(mImageUrl, new SoftReference<>(b));
             }
             handler.post(new Runnable() {
 

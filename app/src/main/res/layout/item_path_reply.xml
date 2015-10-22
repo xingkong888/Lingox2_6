@@ -6,9 +6,51 @@
     android:orientation="vertical"
     android:padding="5dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/path_reference_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:text="dddadfsd"
+            android:textColor="#00838f"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" reply "
+            android:textColor="@color/black_deep"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/path_reference_reply_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:text="asdferasdf"
+            android:textColor="#00838f"
+            android:textSize="16sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/show_reply_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp"
+        android:text="dddddddddddddddddddddddddddddddddddddddddd"
+        android:textColor="@color/black_deep"
         android:textSize="17sp" />
 </LinearLayout>

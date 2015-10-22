@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +20,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.lingox.android.R;
+import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.WritePathReplayDialog;
+import cn.lingox.android.task.GetUser;
 
 public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
 
@@ -31,7 +32,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     private ArrayList<HashMap<String, String>> groups;
     private ArrayList<ArrayList<HashMap<String, String>>> childs;
     private Handler handler;
-    private String userName = "", replyName = "";
 
     public PathReferenceReplyAdapter(Activity context, ArrayList<HashMap<String, String>> groups
             , ArrayList<ArrayList<HashMap<String, String>>> childs, Handler handler) {
@@ -52,8 +52,8 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        GroupViewHolder groupViewHolder;
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        final GroupViewHolder groupViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.row_path_reference, null);
             groupViewHolder = new GroupViewHolder();
@@ -70,13 +70,31 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         }
         final HashMap<String, String> map = groups.get(groupPosition);
 
-        userName = map.get("user_name");
-
 //        Log.d("星期", map.toString());
-        Picasso.with(context)
-                .load(CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar())
-                .error(R.drawable.nearby_nopic_294dp)
-                .into(groupViewHolder.avatar);
+        User user = CacheHelper.getInstance().getUserInfo(map.get("user_id"));
+        if (user == null) {
+            new GetUser(groups.get(groupPosition).get("user_id"), new GetUser.Callback() {
+                @Override
+                public void onSuccess(User user) {
+                    CacheHelper.getInstance().addUserInfo(user);
+                    Picasso.with(context)
+                            .load(user.getAvatar())
+                            .error(R.drawable.nearby_nopic_294dp)
+                            .into(groupViewHolder.avatar);
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            }).execute();
+        } else {
+            Picasso.with(context)
+                    .load(CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar())
+                    .error(R.drawable.nearby_nopic_294dp)
+                    .into(groupViewHolder.avatar);
+        }
+
         groupViewHolder.content.setText(map.get("content"));
         groupViewHolder.name.setText(
                 CacheHelper.getInstance().getUserInfo(map.get("user_id")).getNickname());
@@ -102,7 +120,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                new DeletePathReference(map.get("referenceId")).execute();
+                                new DeletePathReference(map.get("referenceId"), groupPosition).execute();
                             }
                         })
                         .create().show();
@@ -139,29 +157,57 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ChildViewHolder childViewHolder;
+        final ChildViewHolder childViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_path_reply, null);
             childViewHolder = new ChildViewHolder();
             childViewHolder.content = (TextView) convertView.findViewById(R.id.show_reply_content);
+            childViewHolder.userName = (TextView) convertView.findViewById(R.id.path_reference_name);
+            childViewHolder.replyName = (TextView) convertView.findViewById(R.id.path_reference_reply_name);
 
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
         HashMap<String, String> map = (HashMap<String, String>) getChild(groupPosition, childPosition);
+//评论发起者
+        User user = CacheHelper.getInstance().getUserInfo(groups.get(groupPosition).get("user_id"));
+        if (user == null) {
+            new GetUser(groups.get(groupPosition).get("user_id"), new GetUser.Callback() {
+                @Override
+                public void onSuccess(User user) {
+                    CacheHelper.getInstance().addUserInfo(user);
+                    childViewHolder.userName.setText(user.getNickname());
+                }
 
-//        //回复者
-        replyName = map.get("user_name");
+                @Override
+                public void onFail() {
 
-        if (!userName.isEmpty() && !replyName.isEmpty()) {
-            childViewHolder.content.setText(
-                    Html.fromHtml("<font color=\"#00838f\">" + replyName + "</font>" + " reply "
-                            + "<font color=\"#00838f\">" + userName + "</font>"
-                            + " : " +
-                            map.get("content")));
+                }
+            }).execute();
+        } else {
+            childViewHolder.userName.setText(user.getNickname());
+        }
+        //回复者
+        final User replyUser = CacheHelper.getInstance().getUserInfo(map.get("user_id"));
+        if (replyUser == null) {
+            new GetUser(map.get("user_id"), new GetUser.Callback() {
+                @Override
+                public void onSuccess(User user) {
+                    CacheHelper.getInstance().addUserInfo(user);
+                    childViewHolder.replyName.setText(user.getNickname());
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            }).execute();
+        } else {
+            childViewHolder.replyName.setText(user.getNickname());
         }
 
+        childViewHolder.content.setText(map.get("content"));
         return convertView;
     }
 
@@ -188,15 +234,17 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
     }
 
     static class ChildViewHolder {
-        TextView content;
+        TextView content, userName, replyName;
     }
 
     private class DeletePathReference extends AsyncTask<Void, Void, Boolean> {
         private HashMap<String, String> map;
         private String referenceId;
+        private int position;
 
-        public DeletePathReference(String referenceId) {
+        public DeletePathReference(String referenceId, int position) {
             this.referenceId = referenceId;
+            this.position = position;
         }
 
         @Override
@@ -207,7 +255,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
             try {
                 ServerHelper.getInstance().deletePathReference(map);
                 return true;
@@ -221,6 +268,9 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 //成功
+                groups.remove(position);
+                childs.remove(position);
+                notifyDataSetChanged();
             }
         }
     }

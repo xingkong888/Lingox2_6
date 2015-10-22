@@ -73,7 +73,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
         final Reference reference = referenceList.get(position);
 
-//        Log.d("星期", reference.toString());
 
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(

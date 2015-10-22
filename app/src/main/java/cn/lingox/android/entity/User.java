@@ -427,7 +427,6 @@ public class User implements Parcelable {
 
     public void setLocation(String location) {
         String[] str = location.split(", ");
-//        Log.d("星期"，str+">>>>"+str.length);
         switch (str.length) {
             case 1://只有国家
                 setCountry(str[0]);
@@ -442,7 +441,6 @@ public class User implements Parcelable {
                 setCity(str[2]);
                 break;
         }
-//        Log.d("星期", getCountry() + ">>" + getProvince() + ">>>" + getCity());
     }
 
     @Override

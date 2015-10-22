@@ -156,7 +156,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (intent.hasExtra(PATH_TO_VIEW)) {
             path = intent.getParcelableExtra(PATH_TO_VIEW);
         }
-//        Log.d("星期", path.toString());
         map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
         initView();
         if (path == null && intent.getStringExtra(PATH_TO_VIEW_ID).isEmpty()) {
@@ -582,9 +581,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case R.id.path_show_reference:
                 Intent intent = new Intent(this, PathReferenceActivity.class);
-                intent.putExtra(PathReferenceActivity.PATH_ID, path.getId());
-                intent.putExtra(PathReferenceActivity.USER_ID, path.getUserId());
-                intent.putExtra(PathReferenceActivity.TYPE, path.getType());
+                intent.putExtra(PathReferenceActivity.PATH, path);
                 startActivity(intent);
                 break;
         }

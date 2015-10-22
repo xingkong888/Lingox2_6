@@ -797,7 +797,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 postJson.add(String.valueOf((int) post[i]));
             }
             CachePath.getInstance().setTags(postJson);
-//            Log.d("星期",postJson.toString());
             path.setTags(postJson);
         }
     }
@@ -857,7 +856,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
 //            options -= 10;//每次都减少10
 //        }
-        Log.d("星期", bitmap.getWidth() + ">>>>" + bitmap.getHeight());
         return bitmap;
     }
 

@@ -156,7 +156,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             user = getArguments().getParcelable(USER);
         }
 
-//        Log.d("星期",user.toString());
 
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
@@ -322,7 +321,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             );
         }
 
-//        Log.d("星期",user.toString());
 
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values

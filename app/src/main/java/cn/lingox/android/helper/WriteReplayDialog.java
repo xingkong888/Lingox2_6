@@ -66,7 +66,6 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
             case R.id.yes:
                 hideSoftInput(v.getWindowToken(), im);
                 content = editText.getText().toString().trim();
-//                Log.d("星期", content);
                 if (!editText.getText().toString().trim().isEmpty()) {
                     new Thread() {
                         public void run() {

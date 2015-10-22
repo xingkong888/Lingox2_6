@@ -102,11 +102,9 @@ public class JsonHelper {
     @SuppressWarnings("unchecked")
     public <T> T jsonToBean(String jsonStr, Class<?> cl) {
         Object obj = null;
-//        Log.d("星期","解析："+jsonStr);
         try {
             if (instance.gson != null) {
                 obj = instance.gson.fromJson(jsonStr, cl);
-//                Log.d("星期","解析结果："+obj.toString());
             }
             return (T) obj;
         } catch (Exception e) {

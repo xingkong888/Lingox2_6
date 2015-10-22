@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.PathReferenceActivity;
 import cn.lingox.android.activity.PathViewActivity;
 import cn.lingox.android.activity.ReferenceActivity;
 import cn.lingox.android.activity.UserInfoActivity;
@@ -221,13 +220,13 @@ public class NotificationService extends Service implements
                         getApplicationContext(), type, intent5, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent5);
                 break;
-            case 6://申请完成，给参加的活动添加评论
-                Intent intent6 = new Intent(this, PathReferenceActivity.class);
-                intent6.putExtra(PathReferenceActivity.PATH_ID, notification.getPath_id());
-                PendingIntent pendIntent6 = PendingIntent.getActivity(
-                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pendIntent6);
-                break;
+//            case 6://申请完成，给参加的活动添加评论
+//                Intent intent6 = new Intent(this, PathReferenceActivity.class);
+//                intent6.putExtra(PathReferenceActivity.PATH, notification.getPath_id());
+//                PendingIntent pendIntent6 = PendingIntent.getActivity(
+//                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
+//                mBuilder.setContentIntent(pendIntent6);
+//                break;
         }
         type++;
         Notification noti = mBuilder.build();

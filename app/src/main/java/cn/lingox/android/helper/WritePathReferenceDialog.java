@@ -61,7 +61,6 @@ public class WritePathReferenceDialog extends DialogFragment implements View.OnC
             case R.id.yes:
                 hideSoftInput(v.getWindowToken(), im);
                 content = editText.getText().toString().trim();
-//                Log.d("星期", content);
                 if (!content.isEmpty()) {
                     Message msg = new Message();
                     msg.obj = content;

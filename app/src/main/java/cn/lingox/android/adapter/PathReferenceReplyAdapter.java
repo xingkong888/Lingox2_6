@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         }
         final HashMap<String, String> map = groups.get(groupPosition);
 
-//        Log.d("星期", map.toString());
         User user = CacheHelper.getInstance().getUserInfo(map.get("user_id"));
         if (user == null) {
             new GetUser(groups.get(groupPosition).get("user_id"), new GetUser.Callback() {
@@ -259,7 +257,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                 ServerHelper.getInstance().deletePathReference(map);
                 return true;
             } catch (Exception e) {
-                Log.d("星期", "创建活动评论错误：" + e.getMessage());
                 return false;
             }
         }

@@ -23,20 +23,20 @@ import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.PathReferenceReplyAdapter;
+import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.PathReference;
 import cn.lingox.android.entity.PathReferenceReply;
+import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.WritePathReferenceDialog;
 
 public class PathReferenceActivity extends Activity implements OnClickListener {
 
-    public static final String PATH_ID = "path_id";
-    public static final String USER_ID = "user_id";
-    public static final String TYPE = "type";
+    public static final String PATH = "path";
     private static final String LOG_TAG = "PathReferenceActivity";
     // UI Elements
-    private ImageView addReference, deleteReference;
+    private ImageView addReference;
     private LinearLayout back, add;
     private ExpandableListView listView;
     private PathReferenceReplyAdapter adapter;
@@ -50,8 +50,9 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private AnimationDrawable animationDrawable;
     private String pathId, userId;
     private int type = 0;
+    private Path path;
 
-    private boolean isSelf = false;
+    private boolean isSelf = false, accepned = false;
 
     private ArrayList<PathReference> list;
 
@@ -74,14 +75,18 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_reference);
-        if (getIntent().hasExtra(PATH_ID) && getIntent().hasExtra(USER_ID) && getIntent().hasExtra(TYPE)) {
-            pathId = getIntent().getStringExtra(PATH_ID);
-            userId = getIntent().getStringExtra(USER_ID);
-            type = getIntent().getIntExtra(TYPE, 0);
+        if (getIntent().hasExtra(PATH)) {
+            path = getIntent().getParcelableExtra(PATH);
+            pathId = path.getId();
+            userId = path.getUserId();
+            type = path.getType();
         } else {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        isSelf = userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
+        accepned = accept();
         initView();
     }
 
@@ -92,13 +97,11 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         pb = (ProgressBar) findViewById(R.id.progress);
 
         addReference = (ImageView) findViewById(R.id.iv_add_reference);
-        deleteReference = (ImageView) findViewById(R.id.iv_delete_reference);
 
         // If we are viewing our own references
         // TODO implement reference managing for own reference page
 
         addReference.setOnClickListener(this);
-        deleteReference.setOnClickListener(this);
 
         back = (LinearLayout) findViewById(R.id.layout_back);
         back.setOnClickListener(this);
@@ -126,17 +129,34 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private void initData() {
         if (groups.size() == 0) {
             startAnim();
-            addReference.setVisibility(View.VISIBLE);
+            //判断当前用户是否为活动发起者
+            //若是，则显示删除图标
+            //若不是，判断当前用户是否在活动参加人列表中
+            // 若在，显示添加图标
+            //若不在，不能进行任何操作
+            if (isSelf) {
+                addReference.setVisibility(View.VISIBLE);
+            } else {
+                if (accepned) {
+                    addReference.setVisibility(View.VISIBLE);
+                } else {
+                    addReference.setVisibility(View.INVISIBLE);
+                }
+            }
         } else {
             //判断当前用户是否为活动发起者
             //若是，则显示删除图标
-            //若不是，显示添加图标
-            if (userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+            //若不是，判断当前用户是否在活动参加人列表中
+            // 若在，显示添加图标
+            //若不在，不能进行任何操作
+            if (isSelf) {
                 addReference.setVisibility(View.INVISIBLE);
-                deleteReference.setVisibility(View.VISIBLE);
             } else {
-                addReference.setVisibility(View.VISIBLE);
-                deleteReference.setVisibility(View.INVISIBLE);
+                if (accepned) {
+                    addReference.setVisibility(View.VISIBLE);
+                } else {
+                    addReference.setVisibility(View.INVISIBLE);
+                }
             }
             stopAnim();
         }
@@ -146,6 +166,21 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         for (int i = 0; i < groupCount; i++) {
             listView.expandGroup(i);
         }
+    }
+
+    private boolean accept() {
+        boolean accept = false;
+        ArrayList<User> list = path.getAcceptedUsers();
+        for (User user : list) {
+            if (user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                //当前用户在参加了活动
+                accept = true;
+                break;
+            } else {
+                accept = false;
+            }
+        }
+        return accept;
     }
 
     @Override
@@ -213,7 +248,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
                 ServerHelper.getInstance().createPathReference(map);
                 return true;
             } catch (Exception e) {
-                Log.d("星期", "创建活动评论错误：" + e.getMessage());
                 return false;
             }
         }

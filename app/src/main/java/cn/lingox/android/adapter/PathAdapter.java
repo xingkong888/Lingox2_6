@@ -74,7 +74,6 @@ public class PathAdapter extends BaseAdapter {
         }
         if (!isFling) {
             final Path path = datas.get(position);
-//            Log.d("星期",path.toString());
             holder.type1.setVisibility(View.GONE);
             holder.type2.setVisibility(View.GONE);
             holder.type3.setVisibility(View.GONE);

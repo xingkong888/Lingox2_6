@@ -673,7 +673,6 @@ public class ServerHelper {
 
         params.put(StringConstant.verStr, APPVERSION);
 
-//Log.d("星期",params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);
 
@@ -759,7 +758,6 @@ public class ServerHelper {
 
         params.put(StringConstant.pathTags, String.valueOf(path.getTags()));
         params.put(StringConstant.verStr, APPVERSION);
-        Log.d("星期", "params=" + params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_PATH, params);
 
@@ -1220,7 +1218,6 @@ public class ServerHelper {
         params.put(StringConstant.createExperienceCityStr, city);
         params.put(StringConstant.createExperienceTagsStr, tags);
         params.put(StringConstant.verStr, APPVERSION);
-//        Log.d("星期","travel>>>>"+params.toString());
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
 //        Log.d("星期","travel>>>>"+jsonStr.toString());
 
@@ -1295,7 +1292,6 @@ public class ServerHelper {
     //订单信息
     public Indent createApplication(HashMap<String, String> params) throws Exception {
 
-        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_APPLICATION, params);
         Log.d(LOG_TAG, "createApplication " + jsonStr);
@@ -1317,7 +1313,6 @@ public class ServerHelper {
 
     public ArrayList<Indent> getApplication(HashMap<String, String> params) throws Exception {
 
-//        Log.d("星期", params.toString());
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_APPLICATION, params);
         Log.d(LOG_TAG, "getApplication " + jsonStr);
 
@@ -1361,7 +1356,6 @@ public class ServerHelper {
     }
 
     public boolean existApplication(HashMap<String, String> params) throws Exception {
-//        Log.d("星期",params.toString());
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXIST_APPLICATION, params);
         Log.d(LOG_TAG, "existApplication " + jsonStr);
 
@@ -1389,7 +1383,6 @@ public class ServerHelper {
      * @throws Exception
      */
     public PathReference createPathReference(HashMap<String, String> params) throws Exception {
-        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_CREATE, params);
         Log.d(LOG_TAG, "createPathReference " + jsonStr);
@@ -1410,39 +1403,11 @@ public class ServerHelper {
     }
 
     /**
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
-//    public PathReference editPathReference(HashMap<String,String> params) throws Exception{
-//        Log.d("星期", params.toString());
-//
-//        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_EDIT, params);
-//        Log.d(LOG_TAG, "editPathReference " + jsonStr);
-//
-//        ReturnMsg rmsg = checkReturnMsg(jsonStr);
-//
-//        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-//            Log.e(LOG_TAG, "editPathReference: Return message code not positive");
-//            throw new Exception("Failed to  editPathReference");
-//        }
-//        //解析
-//        String json = rmsg.getData().toString();
-//        JSONObject jsonObject = new JSONObject(json);
-//        return (PathReference) JsonHelper
-//                .getInstance().jsonToBean(
-//                        jsonObject.toString(),
-//                        PathReference.class);
-//    }
-
-    /**
      * 删除一条活动的评论
      *
      * @String referenceId
      */
     public PathReference deletePathReference(HashMap<String, String> params) throws Exception {
-        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETE, params);
         Log.d(LOG_TAG, "deletePathReference " + jsonStr);
@@ -1475,7 +1440,6 @@ public class ServerHelper {
         params.put("userName", name);
         params.put("content", content);
 
-//        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
         Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
@@ -1503,7 +1467,6 @@ public class ServerHelper {
      * @throws Exception
      */
     public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
-//        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
         Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
@@ -1531,7 +1494,6 @@ public class ServerHelper {
      * @throws Exception
      */
     public ArrayList<PathReference> getPathReference(HashMap<String, String> params) throws Exception {
-//        Log.d("星期", params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_GETREFERENCE, params);
         Log.d(LOG_TAG, "getPathReference " + jsonStr);

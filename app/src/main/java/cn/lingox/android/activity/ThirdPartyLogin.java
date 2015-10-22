@@ -316,7 +316,6 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
             msg.obj = new Object[]{platform.getName(), res};
             handler.sendMessage(msg);
 
-//            Log.d("星期", platform.toString() + ">>>" + res.toString());
         }
     }
 

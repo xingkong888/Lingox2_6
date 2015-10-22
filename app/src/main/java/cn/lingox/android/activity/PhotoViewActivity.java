@@ -92,7 +92,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         photo_del.setOnClickListener(this);
         description = (TextView) findViewById(R.id.tv_description);
         description.setText(photoList.get(current_page).getDescription());
-        Log.d("星期", photoList.get(current_page).toString());
 
         if (othersPhotos) {
             photo_edit.setVisibility(View.GONE);

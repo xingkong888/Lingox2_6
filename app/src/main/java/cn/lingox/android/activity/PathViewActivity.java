@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -88,7 +87,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     // UI Elements
     private MyScrollView scrollView;
     private ProgressBar loadingBar;
-    private ImageView pathEditButton;
+    private ImageView chat;
     private ImageView pathUserAvatar;
     private ImageView pathBackground;
     private TextView pathUserNickname;
@@ -124,13 +123,13 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private boolean replyEveryOne = true;
     private User replyUser;
 
-    private ImageView delete, edit;
+    private ImageView delete, edit, back;
     private TextView showReference;
 
     private int width;
     private int height;
     private int scrollViewHight;
-    private LinearLayout pathView, delAndEdit, pathTime;
+    private LinearLayout pathView, pathTime;
     private boolean hasMeasured = false;
     private int commentHeight;
 
@@ -178,13 +177,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void initView() {
         setContentView(R.layout.activity_view_path);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.view_path_activity_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.view_activity));
-
-        delAndEdit = (LinearLayout) findViewById(R.id.path_del_and_edit);
         pathTime = (LinearLayout) findViewById(R.id.dududu);
 
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -195,13 +187,15 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         scrollView.setScrollViewListener(this);
 
         loadingBar = (ProgressBar) findViewById(R.id.loading_bar);
-        pathEditButton = (ImageView) findViewById(R.id.iv_chat);
-        pathEditButton.setOnClickListener(this);
+        chat = (ImageView) findViewById(R.id.iv_chat);
+        chat.setOnClickListener(this);
 
         delete = (ImageView) findViewById(R.id.iv_delete);
         delete.setOnClickListener(this);
         edit = (ImageView) findViewById(R.id.iv_edit);
         edit.setOnClickListener(this);
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(this);
 
         pathBackground = (ImageView) findViewById(R.id.path_background);
         DisplayMetrics dm = new DisplayMetrics();
@@ -272,14 +266,18 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (!LingoXApplication.getInstance().getSkip()) {
             ownPath = (CacheHelper.getInstance().getSelfInfo().getId().equals(user.getId()));
             if (ownPath) {
-                pathEditButton.setVisibility(View.GONE);
-                delAndEdit.setVisibility(View.VISIBLE);
+                chat.setVisibility(View.GONE);
+//                delAndEdit.setVisibility(View.VISIBLE);
+                delete.setVisibility(View.VISIBLE);
+                edit.setVisibility(View.VISIBLE);
                 pathAcceptButton.setImageResource(R.drawable.active_likepeople_24dp);
                 pathAcceptButton.setTag(1);
                 pathGroupChat.setVisibility(!TextUtils.isEmpty(path.getHxGroupId()) ? View.VISIBLE : View.GONE);
             } else {
-                delAndEdit.setVisibility(View.GONE);
-                pathEditButton.setVisibility(View.VISIBLE);
+//                delAndEdit.setVisibility(View.GONE);
+                delete.setVisibility(View.GONE);
+                edit.setVisibility(View.GONE);
+                chat.setVisibility(View.VISIBLE);
                 pathAcceptButton.setImageResource(path.hasUserAccepted(
                         CacheHelper.getInstance().getSelfInfo().getId()) ? R.drawable.active_like_24dp : R.drawable.active_dislike_24dp);
                 pathAcceptButton.setTag(path.hasUserAccepted(
@@ -587,6 +585,18 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 intent.putExtra(PathReferenceActivity.PATH, path);
                 startActivity(intent);
                 break;
+            case R.id.back:
+                if (layout.isShown()) {
+                    layout.setVisibility(View.GONE);
+                } else {
+                    if (!replyEveryOne) {
+                        replyEveryOne = true;
+                        commentEditText.setHint("");
+                    } else {
+                        finishedViewing();
+                    }
+                }
+                break;
         }
     }
 
@@ -607,20 +617,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         oks.setUrl("http://lingox.cn/viewActivity?" + StringConstant.pathId + "=" + path.getId());
         // 启动分享GUI
         oks.show(this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (layout.isShown()) {
-            layout.setVisibility(View.GONE);
-        } else {
-            if (!replyEveryOne) {
-                replyEveryOne = true;
-                commentEditText.setHint("");
-            } else {
-                finishedViewing();
-            }
-        }
     }
 
     private void finishedViewing() {

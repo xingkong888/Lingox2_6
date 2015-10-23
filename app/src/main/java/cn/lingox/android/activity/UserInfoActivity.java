@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -33,6 +33,9 @@ public class UserInfoActivity extends ActionBarActivity {
     private ProgressBar progressBar;
     private UserInfoFragment infoFragment;
     private PathFragment pathFragment;
+
+    private ImageView back;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,14 @@ public class UserInfoActivity extends ActionBarActivity {
     private void initView() {
         setContentView(R.layout.activity_user_info);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.user_info_activity_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        name = (TextView) findViewById(R.id.name);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
@@ -93,19 +100,7 @@ public class UserInfoActivity extends ActionBarActivity {
         if (getIntent().hasExtra(PathEditActivity.ADDED_PATH)) {
             viewPager.setCurrentItem(1);
         }
-        getSupportActionBar().setTitle(user.getNickname());
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-//                NavUtils.navigateUpFromSameTask(this);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        name.setText(user.getNickname());
     }
 
     @Override

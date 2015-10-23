@@ -106,7 +106,7 @@ public class NotificationService extends Service implements
             Double geoLng = amapLocation.getLongitude();//经度
             try {
                 final double[] geoLocation = {geoLng, geoLat};
-                User user = CacheHelper.getInstance().getSelfInfo();
+                final User user = CacheHelper.getInstance().getSelfInfo();
                 user.setLoc(geoLocation);
                 CacheHelper.getInstance().setSelfInfo(user);
                 LingoXApplication.getInstance().setLocation(geoLat, geoLng);

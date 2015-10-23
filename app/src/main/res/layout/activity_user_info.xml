@@ -5,12 +5,29 @@
     android:background="#00838f"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:id="@+id/user_info_activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white" />
+        android:layout_height="50dp"
+        android:background="#00838f">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:src="@drawable/top_back_24dp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/back"
+            android:gravity="center"
+            android:text="dddd"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -5,47 +5,60 @@
     android:layout_height="match_parent"
     android:background="#efeff4">
 
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:id="@+id/view_path_activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white">
+        android:layout_height="50dp"
+        android:background="#00838f">
 
         <ImageView
-            android:id="@+id/group_chat"
+            android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="15dp"
-            android:scaleType="center"
-            android:src="@drawable/active_groupchat_24dp"
-            android:visibility="gone" />
+            android:padding="8dp"
+            android:src="@drawable/top_back_24dp" />
 
-        <LinearLayout
-            android:id="@+id/path_del_and_edit"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:visibility="gone">
+            android:layout_toRightOf="@+id/back"
+            android:gravity="center"
+            android:text="View"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
 
             <ImageView
                 android:id="@+id/iv_delete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="center"
-                android:src="@drawable/top_delete_18dp" />
+                android:src="@drawable/top_delete_18dp"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_edit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="15dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="center"
-                android:src="@drawable/top_edit_18dp" />
+                android:src="@drawable/top_edit_18dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/group_chat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="center"
+                android:src="@drawable/active_groupchat_24dp"
+                android:visibility="gone" />
         </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"

@@ -34,11 +34,13 @@ import com.umeng.update.UmengUpdateAgent;
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.URLConstant;
+import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.GetUser;
 import cn.lingox.android.utils.SkipDialog;
 
 
@@ -295,10 +297,31 @@ public class MainActivity extends ActionBarActivity implements
     private void setAvatar() {
         if (!LingoXApplication.getInstance().getSkip()) {
             tabAdapter.notifyDataSetChanged();
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, photo,
-                    CacheHelper.getInstance().getSelfInfo().getAvatar());
-            ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
-                    CacheHelper.getInstance().getSelfInfo().getCountry()));
+//            Picasso.with(this).load(CacheHelper.getInstance().getSelfInfo().getAvatar())
+//                    .error(R.drawable.nearby_nopic_294dp)
+//                    .into(photo);
+            if (!CacheHelper.getInstance().getSelfInfo().getId().isEmpty()) {
+                new GetUser(CacheHelper.getInstance().getSelfInfo().getId(), new GetUser.Callback() {
+                    @Override
+                    public void onSuccess(User user) {
+                        CacheHelper.getInstance().setSelfInfo(user);
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
+                                user.getAvatar());
+                        ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
+                                user.getCountry()));
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                }).execute();
+            } else {
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
+                        CacheHelper.getInstance().getSelfInfo().getAvatar());
+                ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
+                        CacheHelper.getInstance().getSelfInfo().getCountry()));
+            }
         }
     }
 

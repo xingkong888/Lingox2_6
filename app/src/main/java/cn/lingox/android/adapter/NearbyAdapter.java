@@ -129,6 +129,10 @@ public class NearbyAdapter extends BaseAdapter {
                 } else {
                     holder.speak.setText(user.getSpeak());
                 }
+            } else {
+                holder.speak_.setVisibility(View.GONE);
+                holder.speak.setVisibility(View.GONE);
+                holder.point.setVisibility(View.GONE);
             }
             //判断国家是否为空
             String str = user.getLocation();

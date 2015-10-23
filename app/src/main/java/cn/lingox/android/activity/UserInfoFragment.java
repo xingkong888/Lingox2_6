@@ -408,22 +408,21 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userSpeak.setText(user.getSpeak());
         }
         String str2 = "";
-        userInsterest.setOnClickListener(this);
         if (requestingOthersData && user.getInterests().isEmpty()) {
+            userInsterest.setOnClickListener(this);
             userInsterest.setTextColor(Color.rgb(25, 143, 153));
         } else if (requestingOthersData && !user.getInterests().isEmpty()) {
             userInsterest.setTextColor(Color.rgb(25, 143, 153));
             str2 = user.getInterests().toString().substring(1, user.getInterests().toString().length() - 1);
             userInsterest.setText(str2);
+            userInsterest.setOnClickListener(this);
         } else if (user.getInterests().size() > 0) {
             if (!user.getInterests().get(0).isEmpty()) {
                 userInsterest.setHint("");
-                userInsterest.setEnabled(false);
                 str2 = user.getInterests().toString().substring(1, user.getInterests().toString().length() - 1);
                 userInsterest.setText(str2);
             } else {
                 userInsterest.setHint("");
-                userInsterest.setEnabled(false);
             }
         }
 

@@ -210,11 +210,12 @@ public class PhotoDialog extends Activity implements OnClickListener {
             }
         }
         // Create a media file name
-        String timeStamp = SimpleDateFormat.getDateTimeInstance().format(new Date());
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhMMss");
+        String timeStamp = format.format(new Date());
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-        //TODO 有问题----夏普手机
         if (!mediaFile.createNewFile()) {
-            Log.e(LOG_TAG, "File already exists (despite the name having a timestamp in), the file may be overwritten");
+            Log.e(LOG_TAG, "File already exists (despite the name having a timestamp in)," +
+                    " the file may be overwritten");
         }
 //        Log.d(LOG_TAG, "getOutputMediaFile: " + mediaFile.toString());
         return Uri.fromFile(mediaFile);

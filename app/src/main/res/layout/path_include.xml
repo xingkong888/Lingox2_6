@@ -188,15 +188,27 @@
             android:background="#c7c7c7" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/path_show_reference"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="活动评论"
-        android:textSize="15sp"
-        android:visibility="gone" />
+        android:background="#fafafa"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/path_show_reference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/personal_keyboard_right_24dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Activity comments"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_gender"

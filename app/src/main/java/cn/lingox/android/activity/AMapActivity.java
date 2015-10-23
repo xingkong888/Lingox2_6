@@ -83,8 +83,8 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             lat = Double.valueOf(getIntent().getStringArrayExtra("String")[0]);
             lng = Double.valueOf(getIntent().getStringArrayExtra("String")[1]);
         } else {
-            lat = user.getLoc()[0];
-            lng = user.getLoc()[1];
+            lat = user.getLoc()[1];
+            lng = user.getLoc()[0];
         }
         latLng = new LatLng(lat, lng);
         latLonPoint = new LatLonPoint(lat, lng);
@@ -95,6 +95,8 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);
+
+//        Toast.makeText(this,latLonPoint.toString(),Toast.LENGTH_LONG).show();
 
         getAddress(latLonPoint);
     }
@@ -305,13 +307,14 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     //返回结果到上一级
     private void returnResult() {
         double[] doubles;
-
         if (point != null) {
             doubles = new double[2];
             doubles[0] = point.getLongitude();
             doubles[1] = point.getLatitude();
         } else {
-            doubles = new double[0];
+            doubles = new double[2];
+            doubles[0] = lng;
+            doubles[1] = lat;
         }
         intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
         intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址

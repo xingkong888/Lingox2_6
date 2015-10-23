@@ -63,11 +63,12 @@ public class AlbumListActivity extends ActionBarActivity {
                                     int position, long id) {
                 Intent intent = new Intent(AlbumListActivity.this,
                         AlbumActivity.class);
-                intent.putExtra(AlbumActivity.ALBUM_IMAGE_LIST, (Serializable) dataList.get(position).imageList);
-                intent.putExtra(SELECT_MULTIPLE, getIntent().getBooleanExtra(SELECT_MULTIPLE, false));
+                intent.putExtra(AlbumActivity.ALBUM_IMAGE_LIST,
+                        (Serializable) dataList.get(position).imageList);
+                intent.putExtra(SELECT_MULTIPLE,
+                        getIntent().getBooleanExtra(SELECT_MULTIPLE, false));
                 startActivityForResult(intent, SELECT_PHOTOS);
             }
-
         });
     }
 

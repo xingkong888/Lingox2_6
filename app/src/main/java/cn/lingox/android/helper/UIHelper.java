@@ -82,6 +82,7 @@ public class UIHelper {
             iv.setImageResource(R.drawable.nearby_nopic_294dp);
         }
     }
+
     public void imageViewSetPossiblyEmptyUrl(Context context, final ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(context)

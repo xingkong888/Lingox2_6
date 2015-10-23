@@ -41,6 +41,7 @@ public class SplashActivity extends Activity {
 
     private boolean misScrolled = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,7 @@ public class SplashActivity extends Activity {
         }
         initView();
     }
+
 
     private void setLocale(String lang) {
         if (lang != null) {

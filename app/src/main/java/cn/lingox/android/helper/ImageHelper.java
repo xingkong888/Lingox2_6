@@ -145,13 +145,10 @@ public class ImageHelper {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
-
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options.outWidth, options.outHeight, maxWidth, maxHeight);
-
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-
         return BitmapFactory.decodeFile(filePath, options);
     }
 

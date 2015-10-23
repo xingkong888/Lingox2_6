@@ -19,7 +19,8 @@
             android:layout_gravity="end"
             android:layout_marginRight="15dp"
             android:background="@null"
-            android:text="OK" />
+            android:text="OK"
+            android:visibility="gone" />
 
     </android.support.v7.widget.Toolbar>
 

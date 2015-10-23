@@ -44,7 +44,6 @@ public class AlbumActivity extends ActionBarActivity {
 
         dataList = (List<ImageItem>) getIntent().getSerializableExtra(ALBUM_IMAGE_LIST);
         selectMultiple = getIntent().getBooleanExtra(AlbumListActivity.SELECT_MULTIPLE, false);
-
         initView();
     }
 
@@ -59,20 +58,22 @@ public class AlbumActivity extends ActionBarActivity {
 
         GridView gridView = (GridView) findViewById(R.id.album_activity_grid_view);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(AlbumActivity.this, dataList, selectMultiple, new ImageGridAdapter.SelectionListener() {
-            @Override
-            public void onSingleItemSelected(String path) {
-                Intent intent = new Intent();
-                intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, path);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+        adapter = new ImageGridAdapter(AlbumActivity.this,
+                dataList, selectMultiple,
+                new ImageGridAdapter.SelectionListener() {
+                    @Override
+                    public void onSingleItemSelected(String path) {
+                        Intent intent = new Intent();
+                        intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, path);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
 
-            @Override
-            public void onMultiItemSelected() {
+                    @Override
+                    public void onMultiItemSelected() {
 
-            }
-        });
+                    }
+                });
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

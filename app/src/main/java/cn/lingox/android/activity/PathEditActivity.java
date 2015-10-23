@@ -509,8 +509,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 text3.setText(getString(R.string.path_edit_0_local_3));
                 break;
             case R.id.path_edit_country:
-//                Intent intent = new Intent(this, AMapActivity.class);
-//                startActivity(intent);
                 Intent intent = new Intent(this, SelectCountry.class);
                 intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
                 startActivityForResult(intent, SELECTLOCATION);
@@ -550,10 +548,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 }
                 break;
             case SELECTDETIAL:
-//                if (data.hasExtra(SELECTDETIALADD)) {
                 double[] doubles = data.getDoubleArrayExtra(SELECTDETIALLAT);
                 String add = data.getStringExtra(SELECTDETIALADD);
-//                    Toast.makeText(this,doubles[0]+">>>"+doubles[1]+">>>"+add,Toast.LENGTH_LONG).show();
                 if (!add.isEmpty()) {
                     path.setDetailAddress(add);
                     detailAddress.setText(add);
@@ -680,7 +676,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 3://title text
                     switch (path.getType()) {
                         case 1:
-                            if (path.getChosenCountry().isEmpty()) {
+                            if (path.getChosenCountry().isEmpty() || path.getLatitude().isEmpty()) {
                                 page--;
                             } else {
                                 pageNum.setText("3/5");

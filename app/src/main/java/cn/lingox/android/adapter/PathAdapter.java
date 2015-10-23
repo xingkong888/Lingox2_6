@@ -120,6 +120,13 @@ public class PathAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
                         CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar());
             }
+
+//            holder.location.setText(path.getProvince()+" "+ DistanceOfTwoPoints.DistanceOfTwoPoints(
+//                    Double.valueOf(LingoXApplication.getInstance().getLatitude()),
+//                    Double.valueOf(LingoXApplication.getInstance().getLongitude()),
+//                    36, 116
+////                    Double.valueOf(path.getLatitude()),Double.valueOf(path.getLocation())
+//            )+"m ");
             holder.location.setText(path.getLocationString());
             switch (path.getType()) {
                 case 1:

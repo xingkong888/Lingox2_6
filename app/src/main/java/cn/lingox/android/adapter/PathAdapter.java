@@ -120,7 +120,7 @@ public class PathAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
                         CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar());
             }
-
+//显示活动与自己位置的距离
 //            holder.location.setText(path.getProvince()+" "+ DistanceOfTwoPoints.DistanceOfTwoPoints(
 //                    Double.valueOf(LingoXApplication.getInstance().getLatitude()),
 //                    Double.valueOf(LingoXApplication.getInstance().getLongitude()),

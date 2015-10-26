@@ -30,7 +30,7 @@ public class SplashActivity extends Activity {
 
     // Constants
 //    private static final int sleepTime = 3000;
-    private static final int[] pics = {R.drawable.guide_page_1, R.drawable.guide_page2, R.drawable.guide_page3};
+    private static final int[] pics = {R.drawable.guide_page1, R.drawable.guide_page2, R.drawable.guide_page3};
     // UI Elements
     private RelativeLayout rootLayout;
     private ViewPager viewPager;

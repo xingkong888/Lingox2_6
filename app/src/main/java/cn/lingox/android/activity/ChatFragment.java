@@ -426,7 +426,6 @@ public class ChatFragment extends Fragment {
                 EMConversation conversation;
                 int i;
                 for (EMConversation c : lists) {
-//                    new Ge
                     for (i = 0; i < datas.size(); i++) {
                         if (datas.get(i).getType() == 0) {
                             conversation = (EMConversation) datas.get(i).getObj();
@@ -451,7 +450,6 @@ public class ChatFragment extends Fragment {
                     if (isExist == 0 || isExist == 1) {
                         //TODO 记录未读的信息
                         unreadMSG += c.getUnreadMsgCount();
-//                        unreadMSG += 1;
                         can = new ChatAndNotify();
                         can.setType(0);
                         can.setObj(c);
@@ -537,7 +535,6 @@ public class ChatFragment extends Fragment {
                 refresh();
         }
         if (!isConflict) {
-            //updateUnreadLabel();
             EMChatManager.getInstance().activityResumed();
         }
         MobclickAgent.onPageStart("chatFragment");
@@ -597,7 +594,7 @@ public class ChatFragment extends Fragment {
                         //同一个用户的同一类型的通知
                         isExist = 1;
                         datas.remove(i);
-                        if (!notify.getId().equals(n.getId())) {//id不同相同，表示不是同一个通知
+                        if (!notify.getId().equals(n.getId())) {//用户相同，id不同，表示不是同一个通知
                             try {
                                 ServerHelper.getInstance().deleteNotification(notify.getId());
                             } catch (Exception e) {
@@ -685,7 +682,7 @@ public class ChatFragment extends Fragment {
             if (!success) {
                 Toast.makeText(getActivity(), getString(R.string.fail_del_notify), Toast.LENGTH_SHORT).show();
             } else {
-                //  Toast.makeText(getActivity(), "Success to delete Notification", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Success to delete Notification", Toast.LENGTH_SHORT).show();
                 datas.remove(position);
                 notifyChange();
             }
@@ -769,7 +766,8 @@ public class ChatFragment extends Fragment {
                 Log.e(LOG_TAG, "Failed to get user's notifications: " + e.toString());
                 return null;
             }
-            // If we don't have the user information of the user that created the notification, get it from the server
+            // If we don't have the user information of the user that created the notification,
+            // get it from the server
             Collections.reverse(nList);
             unreadNotify = 0;
             for (LingoNotification n : nList) {

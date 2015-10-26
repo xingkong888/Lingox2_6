@@ -78,7 +78,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     /**
      * 标签之间的间距 px
      */
-    final int itemMargins = 50;
+    final int itemMargins = 25;
     /**
      * 标签的行间距 px
      */
@@ -382,9 +382,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } catch (Exception e) {
                 text = tags[i];
             }
-            itemWidth = paint.measureText(text) + itemPadding + 10;
+            itemWidth = paint.measureText(text) + itemPadding;
 
-            if (remainWidth > itemWidth) {
+            if (remainWidth - itemWidth > 35) {
                 addItemView(inflater, layout, tvParams, text);
             } else {
                 resetTextViewMarginsRight(layout);
@@ -913,7 +913,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-
                 MobclickAgent.onEvent(PathViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "like"));
                 if (!TextUtils.isEmpty(path.getHxGroupId())) {
                     pathGroupChat.setVisibility(View.VISIBLE);

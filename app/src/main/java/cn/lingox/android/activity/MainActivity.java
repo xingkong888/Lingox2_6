@@ -1,7 +1,5 @@
 package cn.lingox.android.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -33,7 +31,6 @@ import com.umeng.update.UmengUpdateAgent;
 
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.constants.URLConstant;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
@@ -257,20 +254,8 @@ public class MainActivity extends ActionBarActivity implements
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-            case R.id.update_app://TODO 清除缓存
-//               ProgressDialog pd= new ProgressDialog(this);
-//                pd.setMessage("清除中...");
-//                pd.show();
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        FileUtil.deleteDir();
-//                    }
-//                }).start();
-//                Uri updateUri = Uri.parse(URLConstant.APK_URL);
-//                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
-//                startActivity(updateAppIntent);
-                break;
+//            case R.id.update_app://TODO 清除缓存
+//                break;
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
@@ -461,28 +446,11 @@ public class MainActivity extends ActionBarActivity implements
             super.onPostExecute(requireUpdate);
 //            if (true) {
             if (requireUpdate) {
-//                update.setVisibility(View.VISIBLE);
-                new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("Please upgrade!")
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                System.exit(0);
-                            }
-                        })
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Uri updateUri = Uri.parse(URLConstant.APK_URL);
-                                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
-                                startActivity(updateAppIntent);
-                            }
-                        })
-                        .create().show();
-                Log.d(LOG_TAG, "Update Found");
+                Intent intent = new Intent(MainActivity.this, AppUpdateActivity.class);
+                startActivity(intent);
+//                Log.d(LOG_TAG, "Update Found");
             } else {
-//                update.setVisibility(View.GONE);
-                Log.d(LOG_TAG, "No Update Found");
+//                Log.d(LOG_TAG, "No Update Found");
             }
         }
     }

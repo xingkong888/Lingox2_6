@@ -167,5 +167,4 @@ public class Travel implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
 }

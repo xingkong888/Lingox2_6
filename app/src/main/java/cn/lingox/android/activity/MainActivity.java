@@ -34,13 +34,11 @@ import com.umeng.update.UmengUpdateAgent;
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.URLConstant;
-import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.task.GetUser;
 import cn.lingox.android.utils.SkipDialog;
 
 
@@ -177,6 +175,7 @@ public class MainActivity extends ActionBarActivity implements
         info.setOnClickListener(this);
         update = (TextView) findViewById(R.id.update_app);
         update.setOnClickListener(this);
+        update.setVisibility(View.GONE);
         flag = (ImageView) findViewById(R.id.iv_flag);
         // ----- MAIN VIEW -----
         chatFragment = new ChatFragment();
@@ -258,11 +257,20 @@ public class MainActivity extends ActionBarActivity implements
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-//            case R.id.update_app://TODO 更新应用
+            case R.id.update_app://TODO 清除缓存
+//               ProgressDialog pd= new ProgressDialog(this);
+//                pd.setMessage("清除中...");
+//                pd.show();
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        FileUtil.deleteDir();
+//                    }
+//                }).start();
 //                Uri updateUri = Uri.parse(URLConstant.APK_URL);
 //                Intent updateAppIntent = new Intent(Intent.ACTION_VIEW, updateUri);
 //                startActivity(updateAppIntent);
-//                break;
+                break;
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
@@ -297,31 +305,10 @@ public class MainActivity extends ActionBarActivity implements
     private void setAvatar() {
         if (!LingoXApplication.getInstance().getSkip()) {
             tabAdapter.notifyDataSetChanged();
-//            Picasso.with(this).load(CacheHelper.getInstance().getSelfInfo().getAvatar())
-//                    .error(R.drawable.nearby_nopic_294dp)
-//                    .into(photo);
-            if (!CacheHelper.getInstance().getSelfInfo().getId().isEmpty()) {
-                new GetUser(CacheHelper.getInstance().getSelfInfo().getId(), new GetUser.Callback() {
-                    @Override
-                    public void onSuccess(User user) {
-                        CacheHelper.getInstance().setSelfInfo(user);
-                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
-                                user.getAvatar());
-                        ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
-                                user.getCountry()));
-                    }
-
-                    @Override
-                    public void onFail() {
-
-                    }
-                }).execute();
-            } else {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
-                        CacheHelper.getInstance().getSelfInfo().getAvatar());
-                ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
-                        CacheHelper.getInstance().getSelfInfo().getCountry()));
-            }
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
+                    CacheHelper.getInstance().getSelfInfo().getAvatar());
+            ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
+                    CacheHelper.getInstance().getSelfInfo().getCountry()));
         }
     }
 
@@ -474,7 +461,7 @@ public class MainActivity extends ActionBarActivity implements
             super.onPostExecute(requireUpdate);
 //            if (true) {
             if (requireUpdate) {
-                update.setVisibility(View.VISIBLE);
+//                update.setVisibility(View.VISIBLE);
                 new AlertDialog.Builder(MainActivity.this)
                         .setMessage("Please upgrade!")
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -494,7 +481,7 @@ public class MainActivity extends ActionBarActivity implements
                         .create().show();
                 Log.d(LOG_TAG, "Update Found");
             } else {
-                update.setVisibility(View.GONE);
+//                update.setVisibility(View.GONE);
                 Log.d(LOG_TAG, "No Update Found");
             }
         }

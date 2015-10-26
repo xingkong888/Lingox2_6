@@ -46,5 +46,4 @@ public class ReturnMsg {
         return "ReturnMsg [code=" + code + ", data=" + data + ", remark="
                 + remark + "]";
     }
-
 }

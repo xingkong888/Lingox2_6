@@ -38,7 +38,6 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="10sp" />
-        <!--android:background="@drawable/message_point_28dp"-->
 
         <ImageView
             android:id="@+id/notify"
@@ -127,18 +126,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
-                <!--<TextView-->
-                <!--android:id="@+id/tv_play"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/tv_username"-->
-                <!--android:layout_marginLeft="24dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_toRightOf="@+id/avatar_info"-->
-                <!--android:text="You Country1"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="16sp" />-->
-
             </RelativeLayout>
 
             <TextView
@@ -197,11 +184,10 @@
                 android:drawableLeft="@drawable/ic_info_outline_black_24dp"
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
-                android:text="@string/update_available"
+                android:text="清除缓存"
                 android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
+                android:textSize="16sp" />
+            <!--android:text="@string/update_available"-->
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

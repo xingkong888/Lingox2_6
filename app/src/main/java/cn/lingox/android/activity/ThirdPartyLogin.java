@@ -38,8 +38,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * 中文注释
@@ -148,12 +146,12 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
         clear_pwd = findViewById(R.id.iv_clear2);
         clear_pwd.setOnClickListener(this);
 
-        thirdWechat = findViewById(R.id.third_wechat);
-        thirdWechat.setOnClickListener(this);
+//        thirdWechat = findViewById(R.id.third_wechat);
+//        thirdWechat.setOnClickListener(this);
         thirdFacebook = findViewById(R.id.third_facebook);
         thirdFacebook.setOnClickListener(this);
-        thirdQQ = findViewById(R.id.third_qq);
-        thirdQQ.setOnClickListener(this);
+//        thirdQQ = findViewById(R.id.third_qq);
+//        thirdQQ.setOnClickListener(this);
         thirdWeibo = findViewById(R.id.third_weibo);
         thirdWeibo.setOnClickListener(this);
 
@@ -256,27 +254,27 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 finish();
                 break;
             //TODO 第三方登录
-            case R.id.third_wechat:
-                //微信登录
-                //测试时，需要打包签名；sample测试时，用项目里面的demokey.keystore
-                //打包签名apk,然后才能产生微信的登录
-                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
-
-                Toast.makeText(activity, "点了微信", Toast.LENGTH_LONG).show();
-                authorize(wechat);
-                break;
+//            case R.id.third_wechat:
+//                //微信登录
+//                //测试时，需要打包签名；sample测试时，用项目里面的demokey.keystore
+//                //打包签名apk,然后才能产生微信的登录
+//                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+//
+//                Toast.makeText(activity, "点了微信", Toast.LENGTH_LONG).show();
+//                authorize(wechat);
+//                break;
             case R.id.third_facebook:
                 Platform facebook = ShareSDK.getPlatform(Facebook.NAME);
 
                 Toast.makeText(activity, "点了Facebook", Toast.LENGTH_LONG).show();
                 authorize(facebook);
                 break;
-            case R.id.third_qq:
-                Platform qq = ShareSDK.getPlatform(QQ.NAME);
-
-                Toast.makeText(activity, "点了QQ", Toast.LENGTH_LONG).show();
-                authorize(qq);
-                break;
+//            case R.id.third_qq:
+//                Platform qq = ShareSDK.getPlatform(QQ.NAME);
+//
+//                Toast.makeText(activity, "点了QQ", Toast.LENGTH_LONG).show();
+//                authorize(qq);
+//                break;
 
             case R.id.third_weibo:
                 Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
@@ -356,6 +354,8 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 Object[] objs = (Object[]) msg.obj;
                 String platform = (String) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
+
+                Log.d("星期", res.toString());
 
                 //授权成功
                 Toast.makeText(activity, "授权成功", Toast.LENGTH_SHORT).show();
@@ -500,7 +500,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
         }
     }
 
-    class Register extends AsyncTask<Void, String, Boolean> {
+    private class Register extends AsyncTask<Void, String, Boolean> {
         private String username, password, email;
         private ProgressDialog pd1;
 

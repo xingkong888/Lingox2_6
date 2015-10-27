@@ -187,6 +187,7 @@ public class SplashActivity extends Activity {
                         SplashActivity.this.finish();
 //                        ThirdPartyLogin tpl = new ThirdPartyLogin();
 //                        tpl.show(SplashActivity.this);
+//                         SplashActivity.this.finish();
                     }
                     misScrolled = true;
                     break;

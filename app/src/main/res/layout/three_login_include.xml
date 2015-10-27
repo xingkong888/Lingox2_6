@@ -1,37 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/third_wechat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/wechat_login" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="#efeff4"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/third_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/third_wechat"
         android:src="@drawable/logo_facebook" />
 
-    <ImageView
-        android:id="@+id/third_qq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/third_facebook"
-        android:src="@drawable/logo_qq" />
 
     <ImageView
         android:id="@+id/third_weibo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/third_facebook"
         android:layout_marginLeft="50dp"
         android:src="@drawable/logo_sinaweibo" />
-</RelativeLayout>
+</LinearLayout>

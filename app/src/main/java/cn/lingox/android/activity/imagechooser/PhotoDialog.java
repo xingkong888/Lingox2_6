@@ -284,6 +284,8 @@ public class PhotoDialog extends Activity implements OnClickListener {
                         croppedImage.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
                         options -= 10;//每次都减少10
                     }
+                    FileUtil.saveImg(photoUri.getPath(), croppedImage);
+
                 } catch (Exception e) {
                     Log.e(LOG_TAG, e.toString());
                 } finally {

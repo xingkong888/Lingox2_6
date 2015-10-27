@@ -28,6 +28,7 @@ public class FileUtil {
             throw new RuntimeException("内存卡不存在，请插入内存卡");
         try {
             File dir = new File(CACHE_DIR);
+//            Log.d("星期",dir.getPath());
             if (!dir.exists()) {
                 dir.mkdir();
             }
@@ -79,7 +80,7 @@ public class FileUtil {
         for (int i = 0; i < flist.length; i++) {
             size = size + flist.length;
         }
-        if (size > 1024 * 1024 * 1024) {
+        if (size > 1024 * 1024 * 1024) {//1M
             deleteDir();
         }
     }

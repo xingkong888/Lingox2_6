@@ -940,8 +940,14 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             }
             try {
                 if (imageUri != null) {
-                    newPath.setImage(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
+                    ArrayList<String> list = new ArrayList<>();
+                    list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
                             compress(FileUtil.getImg(imageUri.getPath()))));
+                    if (list.size() > 0) {
+                        newPath.setImage(list.get(0));
+                        newPath.setImage21(list.get(2));
+                        newPath.setImage11(list.get(1));
+                    }
 //                            FileUtil.getImg(imageUri.getPath())));
                 }
 //                Log.d(LOG_TAG, "AddPath: Uploaded image to Path: " + newPath.toString());
@@ -1009,8 +1015,14 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 }
                 newPath = ServerHelper.getInstance().editPath(path.getId(), path);
                 if (imageUri != null) {
-                    newPath.setImage(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
+                    ArrayList<String> list = new ArrayList<>();
+                    list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
                             compress(FileUtil.getImg(imageUri.getPath()))));
+                    if (list.size() > 0) {
+                        newPath.setImage(list.get(0));
+                        newPath.setImage21(list.get(2));
+                        newPath.setImage11(list.get(1));
+                    }
 //                            FileUtil.getImg(imageUri.getPath())));
                 }
                 return true;

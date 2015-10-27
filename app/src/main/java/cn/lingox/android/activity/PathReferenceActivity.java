@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.PathReferenceReplyAdapter;
+import cn.lingox.android.entity.Indent;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.PathReference;
 import cn.lingox.android.entity.PathReferenceReply;
@@ -127,6 +128,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     }
 
     private void initData() {
+
         if (groups.size() == 0) {
             startAnim();
             //判断当前用户是否为活动发起者
@@ -137,11 +139,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             if (isSelf) {
                 addReference.setVisibility(View.VISIBLE);
             } else {
-                if (accepned) {
-                    addReference.setVisibility(View.VISIBLE);
-                } else {
-                    addReference.setVisibility(View.INVISIBLE);
-                }
+                new GetMessage().execute();
             }
         } else {
             //判断当前用户是否为活动发起者
@@ -152,11 +150,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             if (isSelf) {
                 addReference.setVisibility(View.INVISIBLE);
             } else {
-                if (accepned) {
-                    addReference.setVisibility(View.VISIBLE);
-                } else {
-                    addReference.setVisibility(View.INVISIBLE);
-                }
+                new GetMessage().execute();
             }
             stopAnim();
         }
@@ -324,6 +318,73 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             } else {
                 startAnim();
                 Toast.makeText(getApplicationContext(), "Failed to get  References", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    //获取当前用户与活动发起者之间是否存在申请关系
+    //若存在，判断申请的状态及是否到期
+    //若为同意且时间到期，则显示“+”，否则不显示
+    private class GetMessage extends AsyncTask<Void, Void, Boolean> {
+        private HashMap<String, String> map;
+        private ArrayList<Indent> list;
+        private boolean isExist = false;
+
+        @Override
+        protected void onPreExecute() {
+            map = new HashMap<>();
+            map.put("tarId", path.getUserId());
+            map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+            list = new ArrayList<>();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                list.addAll(ServerHelper.getInstance().getApplication(map));
+                if (list.size() > 0) {
+                    //两者之间有申请
+                    //判断其中是否包含本活动
+                    for (Indent indent : list) {
+                        if (indent.getPathId().contentEquals(pathId)) {
+                            //包含本活动，判断申请状态
+                            //1待处理 2申请者取消  3拒绝 4同意 5时间到
+                            switch (indent.getState()) {
+                                case 1:
+                                case 2:
+                                case 3:
+                                case 5:
+                                    isExist = false;
+                                    break;
+                                case 4:
+                                    //判断时间是否到
+                                    if (indent.getEndTime() <= (System.currentTimeMillis() / 1000L)) {
+                                        //显示“+”
+                                        isExist = true;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                } else {
+                    //两者之间无申请
+                    isExist = false;
+                }
+            } catch (Exception e) {
+                Log.e(LOG_TAG, e.getMessage());
+                isExist = false;
+            }
+            return isExist;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                //显示“+”
+                addReference.setVisibility(View.VISIBLE);
+            } else {
+                //不显示“+”
+                addReference.setVisibility(View.INVISIBLE);
             }
         }
     }

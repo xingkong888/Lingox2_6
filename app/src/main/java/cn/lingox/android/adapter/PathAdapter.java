@@ -74,6 +74,7 @@ public class PathAdapter extends BaseAdapter {
         }
         if (!isFling) {
             final Path path = datas.get(position);
+
             holder.type1.setVisibility(View.GONE);
             holder.type2.setVisibility(View.GONE);
             holder.type3.setVisibility(View.GONE);
@@ -149,7 +150,13 @@ public class PathAdapter extends BaseAdapter {
             holder.commentNumber.setText(String.valueOf(path.getComments().size()));
             holder.pathImg.setTag(path.getImage());
             if (holder.pathImg.getTag().equals(path.getImage())) {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21());
+//                if (path.getImage21().isEmpty()){
+//                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
+//                            (context, holder.pathImg, path.getImage());
+//                }else {
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
+                        (context, holder.pathImg, path.getImage21());
+//                }
             }
         } else {
             holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);

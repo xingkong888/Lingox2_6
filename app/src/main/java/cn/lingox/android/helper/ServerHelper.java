@@ -900,7 +900,7 @@ public class ServerHelper {
         return returnPath;
     }
 
-    public String uploadPathImage(String path_id, Bitmap image) throws Exception {
+    public ArrayList<String> uploadPathImage(String path_id, Bitmap image) throws Exception {
         String jsonStr = MsgSender.postPathImageToNet(URLConstant.URL_UPLOAD_PATH_IMAGE, path_id, image);
 
         Log.d(LOG_TAG, "uploadPathImage: " + jsonStr);
@@ -913,11 +913,16 @@ public class ServerHelper {
             throw new Exception("Failed to upload Activity image!");
         }
 
-        String imagePath = rmsg.getData().getString(StringConstant.pathImageUrl);
+        String image21 = rmsg.getData().getString("image21");
+        String image11 = rmsg.getData().getString("image11");
+        String imageUrl = rmsg.getData().getString(StringConstant.pathImageUrl);
+        ArrayList<String> list = new ArrayList<>();
+        list.add(imageUrl);
+        list.add(image11);
+        list.add(image21);
+        Log.d(LOG_TAG, "uploadPathImage: Path image path: " + list.toString());
 
-        Log.d(LOG_TAG, "uploadPathImage: Path image path: " + imagePath);
-
-        return imagePath;
+        return list;
     }
     //TODO 使用七牛上传图片的方法，暂未完成
 //    public String uploadPathImage(String path_id, Bitmap image,int i) throws Exception {

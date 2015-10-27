@@ -49,7 +49,9 @@ public class UserInfoActivity extends ActionBarActivity {
             finish();
         }
         initView();
-        user = CacheHelper.getInstance().getUserInfo(getIntent().getStringExtra(INTENT_USER_ID));
+        if (!LingoXApplication.getInstance().getSkip()) {
+            user = CacheHelper.getInstance().getUserInfo(getIntent().getStringExtra(INTENT_USER_ID));
+        }
         if (user == null) {
             new GetUser(getIntent().getStringExtra(INTENT_USER_ID), new GetUser.Callback() {
                 @Override

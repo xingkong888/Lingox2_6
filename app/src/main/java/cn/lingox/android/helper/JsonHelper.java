@@ -196,7 +196,7 @@ public class JsonHelper {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale == null ? Locale.CHINA : locale);
 
         return (format.format(c.getTime()));
     }
@@ -213,7 +213,7 @@ public class JsonHelper {
 
         try {
             // Locale is the servers location (ie China)
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
             df.setTimeZone(TimeZone.getTimeZone("Zulu"));
             Date parsedDate;
 
@@ -222,7 +222,7 @@ public class JsonHelper {
             Calendar c = Calendar.getInstance();
             c.setTime(parsedDate);
 
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm", locale);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm", locale == null ? Locale.CHINA : locale);
 
             return (format.format(c.getTime()));
         } catch (ParseException e) {
@@ -245,7 +245,7 @@ public class JsonHelper {
         getLocal();
         try {
             // Locale is the servers location (ie China)
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
             df.setTimeZone(TimeZone.getTimeZone("Zulu"));
             Date parsedDate;
             parsedDate = df.parse(date);
@@ -255,12 +255,12 @@ public class JsonHelper {
             SimpleDateFormat format;
             switch (i) {
                 case 0://今天
-                    format = new SimpleDateFormat("HH:mm", locale);
+                    format = new SimpleDateFormat("HH:mm", locale == null ? Locale.CHINA : locale);
                     return format.format(c.getTime());
                 case 1://年份不同
                 case 2://月份不同
                 case 3://大于两天
-                    format = new SimpleDateFormat("yy/MM/dd", locale);
+                    format = new SimpleDateFormat("yy/MM/dd", locale == null ? Locale.CHINA : locale);
                     return format.format(c.getTime());
                 case 4://昨天
                     return context.getString(R.string.date);
@@ -293,7 +293,7 @@ public class JsonHelper {
 
     public long sailsJSDateToTimestamp(String date) throws ParseException {
         // Locale is the servers location (ie China)
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
         df.setTimeZone(TimeZone.getTimeZone("Zulu"));
         Date parsedDate;
 

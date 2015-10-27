@@ -155,10 +155,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (intent.hasExtra(PATH_TO_VIEW)) {
             path = intent.getParcelableExtra(PATH_TO_VIEW);
         }
-
-//        Log.d("星期",path.toString());
-
-        map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+        if (!LingoXApplication.getInstance().getSkip()) {
+            map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+        }
         initView();
         if (path == null && intent.getStringExtra(PATH_TO_VIEW_ID).isEmpty()) {
             Toast.makeText(this, "Activity does not exist", Toast.LENGTH_SHORT).show();
@@ -543,10 +542,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case R.id.path_user_avatar:
 //            case R.id.path_user_name:
-                MobclickAgent.onEvent(this, "discover_avatar");
-                Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
-                userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
-                startActivity(userInfoIntent);
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    MobclickAgent.onEvent(this, "discover_avatar");
+                    Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
+                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
+                    startActivity(userInfoIntent);
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
                 break;
             case R.id.iv_chat:
                 if (!LingoXApplication.getInstance().getSkip()) {
@@ -1026,7 +1029,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                     startActivity(mIntent);
                 }
             };
-            userAvatar.setOnClickListener(userClickListener);
+            if (!LingoXApplication.getInstance().getSkip()) {
+                userAvatar.setOnClickListener(userClickListener);
+            }
             userAvatar.setLongClickable(false);
         }
     }

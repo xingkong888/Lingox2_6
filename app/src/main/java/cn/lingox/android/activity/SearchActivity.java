@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -87,6 +89,9 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
     private HashMap<Integer, Integer> activityTags = new HashMap<>();
 
+    private float x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+    private VelocityTracker mVelocityTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +159,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 break;
         }
 
-        listView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        listView.setMode(PullToRefreshBase.Mode.DISABLED);
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -308,6 +313,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 break;
             case R.id.search_done:
                 listView.setVisibility(View.VISIBLE);
+                listView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
                 if (done.getText().toString().equals("DONE")) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm.isActive()) {//获取键盘状态 true:显示 false：隐藏
@@ -569,6 +575,59 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         super.onPause();
     }
 
+    //事件分发，右滑关闭本页面
+    //暂未开通
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        createVelocityTracker(ev);
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN://按下
+                x1 = ev.getX();
+                y1 = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE://滑动
+                y2 = ev.getY();
+                x2 = ev.getX();
+                //只判断是否为右滑
+//                if (getScrollVelocity()>1000){
+//                    Log.d("星期",getScrollVelocity()+"");
+//                }
+            case MotionEvent.ACTION_UP:
+                recycleVelocityTracker();
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 创建VelocityTracker对象，并将触摸界面的滑动事件加入到VelocityTracker当中。
+     *
+     * @param event
+     */
+    private void createVelocityTracker(MotionEvent event) {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(event);
+    }
+
+    /**
+     * 回收VelocityTracker对象。
+     */
+    private void recycleVelocityTracker() {
+        mVelocityTracker.recycle();
+        mVelocityTracker = null;
+    }
+
+    /**
+     * @return 滑动速度，以每秒钟移动了多少像素值为单位。
+     */
+    private int getScrollVelocity() {
+        mVelocityTracker.computeCurrentVelocity(1000);
+//        int velocity = (int) mVelocityTracker.getYVelocity();
+        int velocity = (int) mVelocityTracker.getXVelocity();
+        return Math.abs(velocity);
+    }
 
     private class GetPaths extends AsyncTask<Void, String, Boolean> {
         private String country = "", province = "", city = "";
@@ -637,8 +696,8 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 discover.setVisibility(View.VISIBLE);
             }
             progressBar.setVisibility(View.GONE);
-            listView.onRefreshComplete();
             disAdapter.notifyDataSetChanged();
+            listView.onRefreshComplete();
         }
     }
 
@@ -687,8 +746,8 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 Toast.makeText(SearchActivity.this, "", Toast.LENGTH_SHORT).show();
             }
             progressBar.setVisibility(View.GONE);
-            listView.onRefreshComplete();
             memAdapter.notifyDataSetChanged();
+            listView.onRefreshComplete();
         }
     }
 }

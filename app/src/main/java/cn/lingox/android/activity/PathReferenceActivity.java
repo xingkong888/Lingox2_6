@@ -23,11 +23,11 @@ import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.PathReferenceReplyAdapter;
+import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Indent;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.PathReference;
 import cn.lingox.android.entity.PathReferenceReply;
-import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.WritePathReferenceDialog;
@@ -85,9 +85,10 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-        isSelf = userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
-        accepned = accept();
+        if (!LingoXApplication.getInstance().getSkip()) {
+            isSelf = userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
+        }
+//        accepned = accept();
         initView();
     }
 
@@ -136,10 +137,14 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             //若不是，判断当前用户是否在活动参加人列表中
             // 若在，显示添加图标
             //若不在，不能进行任何操作
-            if (isSelf) {
-                addReference.setVisibility(View.VISIBLE);
+            if (!LingoXApplication.getInstance().getSkip()) {
+                if (isSelf) {
+                    addReference.setVisibility(View.VISIBLE);
+                } else {
+                    new GetMessage().execute();
+                }
             } else {
-                new GetMessage().execute();
+                addReference.setVisibility(View.GONE);
             }
         } else {
             //判断当前用户是否为活动发起者
@@ -147,10 +152,14 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             //若不是，判断当前用户是否在活动参加人列表中
             // 若在，显示添加图标
             //若不在，不能进行任何操作
-            if (isSelf) {
-                addReference.setVisibility(View.INVISIBLE);
+            if (!LingoXApplication.getInstance().getSkip()) {
+                if (isSelf) {
+                    addReference.setVisibility(View.INVISIBLE);
+                } else {
+                    new GetMessage().execute();
+                }
             } else {
-                new GetMessage().execute();
+                addReference.setVisibility(View.GONE);
             }
             stopAnim();
         }
@@ -161,21 +170,21 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             listView.expandGroup(i);
         }
     }
-
-    private boolean accept() {
-        boolean accept = false;
-        ArrayList<User> list = path.getAcceptedUsers();
-        for (User user : list) {
-            if (user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-                //当前用户在参加了活动
-                accept = true;
-                break;
-            } else {
-                accept = false;
-            }
-        }
-        return accept;
-    }
+//
+//    private boolean accept() {
+//        boolean accept = false;
+//        ArrayList<User> list = path.getAcceptedUsers();
+//        for (User user : list) {
+//            if (user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+//                //当前用户在参加了活动
+//                accept = true;
+//                break;
+//            } else {
+//                accept = false;
+//            }
+//        }
+//        return accept;
+//    }
 
     @Override
     public void onClick(View v) {

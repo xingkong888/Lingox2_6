@@ -15,21 +15,16 @@ public class RotateImageView {
         BitmapDrawable bd;
         int resource = context.getResources().getIdentifier("flag_" + countryCode.toLowerCase(), "drawable", LingoXApplication.PACKAGE_NAME);
 //        Log.d("res==", "res" + resource);
-        if (resource == 0) {
-//            Log.d("res==", "" + context.getResources().getIdentifier("flag_cn", "drawable", LingoXApplication.PACKAGE_NAME));
-            //TODO 设置默认国旗
-            bd = (BitmapDrawable) context.getResources().getDrawable(context.getResources().getIdentifier("flag_cn", "drawable", LingoXApplication.PACKAGE_NAME));
-        } else {
-            bd = (BitmapDrawable) context.getResources().getDrawable(resource);
-        }
+        bd = resource == 0 ?
+                (BitmapDrawable) context.getResources().getDrawable
+                        (context.getResources().getIdentifier
+                                ("flag_cn", "drawable", LingoXApplication.PACKAGE_NAME)) :
+                (BitmapDrawable) context.getResources().getDrawable(resource);
+
         Bitmap bitmap = bd.getBitmap();
         Matrix matrix = new Matrix();
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
         matrix.postRotate(-45);
 
-        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-
-        return newBitmap;
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 }

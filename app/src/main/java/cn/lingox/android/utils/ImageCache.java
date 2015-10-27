@@ -24,7 +24,6 @@ public class ImageCache {
             imageCache = new ImageCache();
         }
         return imageCache;
-
     }
 
     /**

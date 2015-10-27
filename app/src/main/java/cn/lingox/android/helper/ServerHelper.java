@@ -615,8 +615,8 @@ public class ServerHelper {
 
     public ArrayList<Path> getAllPaths(int page) throws Exception {
         Map<String, String> params = new HashMap<>();
-        params.put("longitude", LingoXApplication.getInstance().getLongitude());
-        params.put(" latitude", LingoXApplication.getInstance().getLatitude());
+//        params.put("longitude", LingoXApplication.getInstance().getLongitude());
+//        params.put(" latitude", LingoXApplication.getInstance().getLatitude());
         params.put("page", String.valueOf(page));
         params.put(StringConstant.verStr, APPVERSION);
 

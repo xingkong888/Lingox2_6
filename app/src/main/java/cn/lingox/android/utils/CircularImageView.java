@@ -44,9 +44,8 @@ public class CircularImageView extends ImageView {
         // init paint
         paint = new Paint();
         paint.setAntiAlias(true);
-
+        //外边框画笔
         paintBorder = new Paint();
-
         setBorderColor(Color.rgb(0, 131, 143));
         paintBorder.setAntiAlias(true);
     }
@@ -64,7 +63,6 @@ public class CircularImageView extends ImageView {
 
     private void loadBitmap() {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
-
         if (bitmapDrawable != null)
             image = bitmapDrawable.getBitmap();
     }
@@ -111,9 +109,7 @@ public class CircularImageView extends ImageView {
         } else {
             // Measure the text
             result = viewWidth;
-
         }
-
         return result;
     }
 

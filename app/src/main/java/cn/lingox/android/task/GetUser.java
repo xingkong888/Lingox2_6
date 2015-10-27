@@ -3,6 +3,7 @@ package cn.lingox.android.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
@@ -23,8 +24,13 @@ public class GetUser extends AsyncTask<Void, String, Boolean> {
     protected Boolean doInBackground(Void... params) {
         Log.d(LOG_TAG, "Getting User data");
         try {
-            user = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().
-                    getSelfInfo().getId(), userId);
+            if (!LingoXApplication.getInstance().getSkip()) {
+                user = ServerHelper.getInstance().getUserInfo(
+                        CacheHelper.getInstance().getSelfInfo().getId(), userId);
+            } else {
+                user = ServerHelper.getInstance().getUserInfo(
+                        "55eb1e7aaeed0c53301de44a", userId);
+            }
             CacheHelper.getInstance().addUserInfo(user);
             return true;
         } catch (final Exception e) {

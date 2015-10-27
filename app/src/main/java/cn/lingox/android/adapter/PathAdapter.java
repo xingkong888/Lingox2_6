@@ -150,13 +150,8 @@ public class PathAdapter extends BaseAdapter {
             holder.commentNumber.setText(String.valueOf(path.getComments().size()));
             holder.pathImg.setTag(path.getImage());
             if (holder.pathImg.getTag().equals(path.getImage())) {
-//                if (path.getImage21().isEmpty()){
-//                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
-//                            (context, holder.pathImg, path.getImage());
-//                }else {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
                         (context, holder.pathImg, path.getImage21());
-//                }
             }
         } else {
             holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);

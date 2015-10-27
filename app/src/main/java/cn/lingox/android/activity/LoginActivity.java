@@ -64,11 +64,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 
                 @Override
                 public void onSuccess() {
-                    try {
-                        ServerHelper.getInstance().loginTime(CacheHelper.getInstance().getSelfInfo().getId());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     LoginActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();

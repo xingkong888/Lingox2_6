@@ -199,16 +199,23 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conversation_history, container, false);
+
+        anim = (ImageView) view.findViewById(R.id.anim);
+        animationDrawable = (AnimationDrawable) anim.getBackground();
+
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         errorItem = (RelativeLayout) view.findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
 
         loading = (ProgressBar) view.findViewById(R.id.progress);
-        loading.setVisibility(View.VISIBLE);
+        if (!LingoXApplication.getInstance().getSkip()) {
+            loading.setVisibility(View.VISIBLE);
+        } else {
+            startAnim();
+        }
 
         listView = (ListView) view.findViewById(R.id.chat_list);
-        anim = (ImageView) view.findViewById(R.id.anim);
-        animationDrawable = (AnimationDrawable) anim.getBackground();
+
         datas = new ArrayList<>();
         //下载通知
         if (!isSkip) {

@@ -12,11 +12,13 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.GroupAdapter;
 import it.sephiroth.android.library.widget.HListView;
 
+/**
+ * 群聊管理
+ * 暂未实现
+ */
 public class GroupDetailsActivity extends Activity {
     private EMGroup group;
     private HListView groupSize;
-
-    //    private PathJoinedUsersAdapter adatper;
     private GroupAdapter adatper;
 
     private List<String> list;

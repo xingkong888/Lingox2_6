@@ -263,6 +263,7 @@ public class PathFragment extends Fragment implements OnClickListener {
                     }
                 }
                 // 将数据添加到集合中
+//                pathList.clear();
                 pathList.addAll(tempPathList);
                 return true;
             } catch (Exception e) {

@@ -26,16 +26,9 @@ public class PathEditDialog {
         dialog = new Dialog(context, R.style.MyDialog);
 
         View view = LayoutInflater.from(context).inflate(R.layout.row_path_edit_dialog, null);
-        cancel = (Button) view.findViewById(R.id.path_dialog_cancel);
         save = (Button) view.findViewById(R.id.path_dialog_save);
         notSave = (Button) view.findViewById(R.id.path_dialog_not_save);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +81,5 @@ public class PathEditDialog {
 
         dialog.setContentView(view);
         return dialog;
-
     }
 }

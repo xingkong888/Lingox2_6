@@ -37,7 +37,7 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
         } catch (Exception e) {
         }
         if (!TextUtils.isEmpty(strVersion))
-            currentVersion.setText("V" + strVersion);
+            currentVersion.setText(strVersion);
         else
             currentVersion.setText("Failed to find version");
     }
@@ -52,7 +52,6 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
                 0);
         String version = packInfo.versionName;
         return version;
-
     }
 
     @Override

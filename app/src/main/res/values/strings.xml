@@ -13,13 +13,13 @@
     <string name="follow">Following</string>
 
 
-    <string name="path_edit_0_local_1">- Find locals for homestay or home meals.</string>
-    <string name="path_edit_0_local_2">- Meet locals and take part in awesome activities.</string>
-    <string name="path_edit_0_local_3">- Connect with fellow travelers in the area.</string>
+    <string name="path_edit_0_traveler_1">- Find locals for homestay or home meals.</string>
+    <string name="path_edit_0_traveler_2">- Meet locals and take part in awesome activities.</string>
+    <string name="path_edit_0_traveler_3">- Connect with fellow travelers in the area.</string>
 
-    <string name="path_edit_0_traveler_1">- Share your local culture.</string>
-    <string name="path_edit_0_traveler_2">- Host curious travelers for meals and homestays.</string>
-    <string name="path_edit_0_traveler_3">- Create awesome activities for travelers to join.</string>
+    <string name="path_edit_0_local_1">- Share your local culture.</string>
+    <string name="path_edit_0_local_2">- Host curious travelers for meals and homestays.</string>
+    <string name="path_edit_0_local_3">- Create awesome activities for travelers to join.</string>
 
     <string name="path_edit_next">NEXT</string>
 

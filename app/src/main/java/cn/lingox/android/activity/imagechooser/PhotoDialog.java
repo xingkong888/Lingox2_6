@@ -182,7 +182,6 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     }
                 }
                 break;
-
             case PHOTO_PRESET:
                 if (resultCode == PathCardImgDialog.RESULT_OK) {
                     if (data.hasExtra(PathCardImgDialog.PRESET_URI)) {

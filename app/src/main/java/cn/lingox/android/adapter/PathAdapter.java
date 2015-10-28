@@ -65,37 +65,36 @@ public class PathAdapter extends BaseAdapter {
             holder.traveler = (TextView) convertView.findViewById(R.id.path_traveler);
             holder.local = (TextView) convertView.findViewById(R.id.path_local);
             holder.lalala = (TextView) convertView.findViewById(R.id.asdfasdfasdf);
-            holder.type1 = (TextView) convertView.findViewById(R.id.path_type_1);
-            holder.type2 = (TextView) convertView.findViewById(R.id.path_type_2);
-            holder.type3 = (TextView) convertView.findViewById(R.id.path_type_3);
+            holder.tag1 = (TextView) convertView.findViewById(R.id.path_tag_1);
+            holder.tag2 = (TextView) convertView.findViewById(R.id.path_tag_2);
+            holder.tag3 = (TextView) convertView.findViewById(R.id.path_tag_3);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         if (!isFling) {
             final Path path = datas.get(position);
-
-            holder.type1.setVisibility(View.GONE);
-            holder.type2.setVisibility(View.GONE);
-            holder.type3.setVisibility(View.GONE);
+            holder.tag1.setVisibility(View.GONE);
+            holder.tag2.setVisibility(View.GONE);
+            holder.tag3.setVisibility(View.GONE);
             switch (path.getTags().size()) {
                 case 1:
-                    holder.type1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
-                    holder.type1.setVisibility(View.VISIBLE);
+                    holder.tag1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
+                    holder.tag1.setVisibility(View.VISIBLE);
                     break;
                 case 2:
-                    holder.type1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
-                    holder.type2.setText(tags.get(Integer.valueOf(path.getTags().get(1))).getTag());
-                    holder.type1.setVisibility(View.VISIBLE);
-                    holder.type2.setVisibility(View.VISIBLE);
+                    holder.tag1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
+                    holder.tag2.setText(tags.get(Integer.valueOf(path.getTags().get(1))).getTag());
+                    holder.tag1.setVisibility(View.VISIBLE);
+                    holder.tag2.setVisibility(View.VISIBLE);
                     break;
                 case 3:
-                    holder.type1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
-                    holder.type2.setText(tags.get(Integer.valueOf(path.getTags().get(1))).getTag());
-                    holder.type3.setText(tags.get(Integer.valueOf(path.getTags().get(2))).getTag());
-                    holder.type1.setVisibility(View.VISIBLE);
-                    holder.type2.setVisibility(View.VISIBLE);
-                    holder.type3.setVisibility(View.VISIBLE);
+                    holder.tag1.setText(tags.get(Integer.valueOf(path.getTags().get(0))).getTag());
+                    holder.tag2.setText(tags.get(Integer.valueOf(path.getTags().get(1))).getTag());
+                    holder.tag3.setText(tags.get(Integer.valueOf(path.getTags().get(2))).getTag());
+                    holder.tag1.setVisibility(View.VISIBLE);
+                    holder.tag2.setVisibility(View.VISIBLE);
+                    holder.tag3.setVisibility(View.VISIBLE);
                     break;
             }
             if (LingoXApplication.getInstance().getSkip()) {
@@ -171,9 +170,9 @@ public class PathAdapter extends BaseAdapter {
         TextView location;
         TextView traveler;
         TextView local;
-        TextView type1;
-        TextView type2;
-        TextView type3;
+        TextView tag1;
+        TextView tag2;
+        TextView tag3;
         TextView name, lalala;
         ImageView avatar;
     }

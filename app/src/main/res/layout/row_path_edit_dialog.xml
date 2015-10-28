@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="24dp"
     android:background="#198f98">
 
@@ -9,7 +9,7 @@
         android:id="@+id/temp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="45dp"
         android:gravity="center_horizontal"
         android:src="@drawable/active_exit_icon_30dp94dp" />
 
@@ -23,7 +23,6 @@
         android:shadowColor="#4b000000"
         android:shadowDx="2"
         android:shadowDy="2"
-
         android:shadowRadius="1"
         android:text="@string/path_dialog_title"
         android:textColor="@color/white"
@@ -33,28 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/temp1"
-        android:layout_marginTop="40dp"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/path_dialog_cancel"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_border_blue"
-            android:text="@string/cancel"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp">
 
         <Button
             android:id="@+id/path_dialog_not_save"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/path_dialog_cancel"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_border_blue"
-            android:text="@string/not_save"
+            android:text="NO"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -63,13 +52,12 @@
             android:id="@+id/path_dialog_save"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/path_dialog_cancel"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:layout_toRightOf="@+id/path_dialog_not_save"
             android:background="@drawable/button_border_blue"
-            android:text="@string/save"
+            android:text="YES"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />

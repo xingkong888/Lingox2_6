@@ -1,5 +1,6 @@
 package cn.lingox.android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -103,11 +104,15 @@ public class ContactsFragment extends Fragment {
     }
 
     private class LoadUserFollowing extends AsyncTask<Void, String, Boolean> {
+        private ProgressDialog pd;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             datas.clear();
+            pd = new ProgressDialog(getActivity());
+            pd.setMessage("Load...");
+            pd.show();
         }
 
         @Override
@@ -116,6 +121,7 @@ public class ContactsFragment extends Fragment {
                 datas.addAll(ServerHelper.getInstance().getContactList(CacheHelper.getInstance().getSelfInfo().getId()));
                 return true;
             } catch (Exception e) {
+                Toast.makeText(getActivity(), "ERROR:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(LOG_TAG, "Exception caught: " + e.toString());
                 return false;
             }
@@ -124,9 +130,11 @@ public class ContactsFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 if (datas.size() > 0) {
                     stopAnim();
+                    //判断两用户的用户名首字母是否相同
                     Collections.sort(datas, new Comparator<User>() {
                         @Override
                         public int compare(User lhs, User rhs) {

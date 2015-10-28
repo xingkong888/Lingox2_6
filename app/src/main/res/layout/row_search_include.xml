@@ -5,8 +5,7 @@
     android:layout_height="200dp"
     android:background="#efeff4">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/asdfasdfasdf"
@@ -99,7 +98,6 @@
                         android:layout_marginBottom="12dp"
                         android:layout_marginLeft="12dp"
                         android:gravity="center_vertical"
-
                         android:orientation="horizontal">
 
                         <TextView
@@ -123,7 +121,6 @@
                             android:shadowDx="2"
                             android:shadowDy="2"
                             android:shadowRadius="1"
-                            android:text="000"
                             android:textColor="#00838f"
                             android:textSize="14sp" />
 

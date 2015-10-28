@@ -9,6 +9,5 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:focusable="false"
-        android:text="lalalalla "
         android:textSize="20sp" />
 </LinearLayout>

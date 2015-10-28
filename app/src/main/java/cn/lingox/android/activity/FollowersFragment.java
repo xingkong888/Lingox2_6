@@ -1,5 +1,6 @@
 package cn.lingox.android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -94,11 +95,15 @@ public class FollowersFragment extends Fragment {
     }
 
     private class LoadFollowUser extends AsyncTask<Void, String, Boolean> {
+        private ProgressDialog pd;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             datas.clear();
+            pd = new ProgressDialog(getActivity());
+            pd.setMessage("Load...");
+            pd.show();
         }
 
         @Override
@@ -107,6 +112,7 @@ public class FollowersFragment extends Fragment {
                 datas.addAll(ServerHelper.getInstance().getUserFollowing(CacheHelper.getInstance().getSelfInfo().getId()));
                 return true;
             } catch (Exception e) {
+                Toast.makeText(getActivity(), "ERROR:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(LOG_TAG, "Exception caught: " + e.toString());
                 return false;
             }
@@ -115,6 +121,7 @@ public class FollowersFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 if (datas.size() > 0) {
                     stopAnim();

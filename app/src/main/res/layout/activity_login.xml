@@ -5,7 +5,7 @@
     android:background="#EEEEEE"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/layout_title_bar"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
@@ -22,7 +22,6 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
     <ScrollView
@@ -86,7 +85,6 @@
                 android:padding="6dp"
                 android:src="@drawable/ic_clear_black_48dp" />
 
-
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
@@ -101,9 +99,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-
     </ScrollView>
-
 
     <RelativeLayout
         android:id="@+id/layout_bottom"

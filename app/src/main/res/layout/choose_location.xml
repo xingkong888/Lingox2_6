@@ -45,7 +45,6 @@
         android:layout_below="@+id/ppppppp"
         android:divider="@drawable/list_item_divider"
         android:dividerHeight="1dp" />
-    <!--android:layoutAnimation="@anim/listview_ltr"-->
 
     <ListView
         android:id="@+id/choose_location_provinces"

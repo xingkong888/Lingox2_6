@@ -607,8 +607,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void showShare() {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
-        oks.addHiddenPlatform("QQ");
-        oks.addHiddenPlatform("QZone");
         // 分享时Notification的图标和文字
         oks.setNotification(R.drawable.app_icon, getString(R.string.app_name));
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用

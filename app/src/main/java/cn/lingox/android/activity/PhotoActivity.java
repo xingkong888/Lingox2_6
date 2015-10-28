@@ -133,7 +133,6 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.photo_bt_enter:
                 select_photo.setDescription(et_description.getText().toString());
-
                 if (editingMyPhoto) {
                     final ProgressDialog pd = new ProgressDialog(PhotoActivity.this);
                     pd.setCanceledOnTouchOutside(false);

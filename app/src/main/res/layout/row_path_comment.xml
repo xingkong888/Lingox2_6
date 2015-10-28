@@ -23,33 +23,38 @@
             android:contentDescription="CommentUserAvatar"
             android:src="@drawable/default_avatar" />
 
-        <TextView
-            android:id="@+id/comment_user_nickname"
+        <LinearLayout
+            android:id="@+id/aaaaaaaaaaaaaa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/comment_user_avatar"
-            android:paddingTop="5dp"
-            android:text="@string/nickname"
-            android:textColor="#198f99"
-            android:textSize="12sp" />
+            android:layout_toLeftOf="@+id/comment_date_time"
+            android:layout_toRightOf="@+id/comment_user_avatar">
 
-        <TextView
-            android:id="@+id/reply_tar_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/comment_user_nickname"
-            android:paddingTop="5dp"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/comment_user_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:text="@string/nickname"
+                android:textColor="#198f99"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/reply_tar_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/comment_user_nickname"
+                android:padding="3dp"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/comment_date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:paddingRight="10dp"
             android:text="Comment Time"
             android:textSize="10sp" />
@@ -58,7 +63,7 @@
             android:id="@+id/comment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/comment_user_nickname"
+            android:layout_below="@+id/aaaaaaaaaaaaaa"
             android:layout_toLeftOf="@+id/path_replay"
             android:layout_toRightOf="@+id/comment_user_avatar"
             android:paddingBottom="10dp"

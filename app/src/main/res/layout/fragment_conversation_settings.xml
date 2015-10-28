@@ -141,7 +141,7 @@
                     android:layout_height="1dip"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:background="#E6E6E6" />
+                    android:background="@color/btn_gray_normal" />
 
                 <RelativeLayout
                     android:id="@+id/rl_switch_sound"
@@ -185,7 +185,7 @@
                     android:layout_height="1dip"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:background="#E6E6E6" />
+                    android:background="@color/btn_gray_normal" />
 
                 <RelativeLayout
                     android:id="@+id/rl_switch_vibrate"
@@ -222,6 +222,13 @@
                         android:background="@drawable/close_icon"
                         android:visibility="invisible" />
                 </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@color/btn_gray_normal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

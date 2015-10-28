@@ -255,8 +255,21 @@ public class MainActivity extends ActionBarActivity implements
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-//            case R.id.update_app://TODO 清除缓存
-//                break;
+            case R.id.update_app://TODO 清除缓存
+                new Thread() {
+                    @Override
+                    public void run() {
+                        FileUtil.deleteDir();
+                        try {
+                            sleep(1000);
+                            Toast.makeText(getObj(), "Success", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }.start();
+
+                break;
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);

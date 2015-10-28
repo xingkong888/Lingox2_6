@@ -579,7 +579,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     //暂未开通
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        createVelocityTracker(ev);
+//        createVelocityTracker(ev);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN://按下
                 x1 = ev.getX();
@@ -593,11 +593,12 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 //                    Log.d("星期",getScrollVelocity()+"");
 //                }
             case MotionEvent.ACTION_UP:
-                recycleVelocityTracker();
+//                recycleVelocityTracker();
                 break;
         }
         return super.dispatchTouchEvent(ev);
     }
+
 
     /**
      * 创建VelocityTracker对象，并将触摸界面的滑动事件加入到VelocityTracker当中。

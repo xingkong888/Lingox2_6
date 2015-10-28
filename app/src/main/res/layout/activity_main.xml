@@ -184,10 +184,9 @@
                 android:drawableLeft="@drawable/ic_info_outline_black_24dp"
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
-                android:text="清除缓存"
+                android:text="Clear the cache"
                 android:textColor="@color/left_drawer_text_color"
                 android:textSize="16sp" />
-            <!--android:text="@string/update_available"-->
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

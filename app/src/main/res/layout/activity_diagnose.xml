@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="诊断"
+            android:text="@string/diagnosis"
             android:textColor="#fff"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -33,7 +33,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="当前版本："
+            android:text="The current version:"
             android:textColor="@color/gray_normal"
             android:textSize="18sp" />
 
@@ -42,7 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
             android:textColor="@color/gray_normal"
             android:textSize="18sp" />
     </LinearLayout>
@@ -50,7 +51,7 @@
     <Button
         android:id="@+id/button_uploadlog"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"

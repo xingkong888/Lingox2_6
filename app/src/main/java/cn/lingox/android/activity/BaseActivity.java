@@ -10,5 +10,4 @@ public class BaseActivity extends ActionBarActivity {
         super.onResume();
         EMChatManager.getInstance().activityResumed();
     }
-
 }

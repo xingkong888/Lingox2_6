@@ -31,7 +31,7 @@ public class CachePath {
         location = "";
         title = "";
         description = "";
-        tags = null;
+        tags.clear();
         photo = false;
         startTime = 0;
         endTime = 0;

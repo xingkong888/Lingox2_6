@@ -53,7 +53,7 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private int type = 0;
     private Path path;
 
-    private boolean isSelf = false, accepned = false;
+    private boolean isSelf = false;
 
     private ArrayList<PathReference> list;
 
@@ -88,7 +88,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         if (!LingoXApplication.getInstance().getSkip()) {
             isSelf = userId.contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
         }
-//        accepned = accept();
         initView();
     }
 
@@ -170,21 +169,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
             listView.expandGroup(i);
         }
     }
-//
-//    private boolean accept() {
-//        boolean accept = false;
-//        ArrayList<User> list = path.getAcceptedUsers();
-//        for (User user : list) {
-//            if (user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-//                //当前用户在参加了活动
-//                accept = true;
-//                break;
-//            } else {
-//                accept = false;
-//            }
-//        }
-//        return accept;
-//    }
 
     @Override
     public void onClick(View v) {

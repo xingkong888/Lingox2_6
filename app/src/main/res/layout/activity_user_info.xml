@@ -15,7 +15,7 @@
             android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="8dp"
+            android:padding="10dp"
             android:src="@drawable/top_back_24dp" />
 
         <TextView
@@ -57,10 +57,6 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/PagerTabStripText"
                 android:textColor="@color/white" />
-
         </android.support.v4.view.ViewPager>
-
     </RelativeLayout>
-
-
 </LinearLayout>

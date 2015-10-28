@@ -194,8 +194,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
         page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
         page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
-        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//暂无
-        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);//暂无
+//        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//暂无
+//        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);//暂无
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);
@@ -262,14 +262,13 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         activityTags.put(position, 1);
                         checkedNum++;
                         datas.get(position).setType(1);
-                        adapter.notifyDataSetChanged();
                     }
                 } else {
                     checkedNum--;
                     activityTags.remove(position);
                     datas.get(position).setType(0);
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
         });
         //五
@@ -301,42 +300,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             public void afterTextChanged(Editable s) {
             }
         });
-        //八
-        groupSize = (EditText) findViewById(R.id.path_edit_group_size);
-        groupSize.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!s.toString().isEmpty()) {
-                    path.setCapacity(Integer.valueOf(s.toString()));
-                }
-            }
-        });
-        budget = (EditText) findViewById(R.id.path_edit_budget);
-        budget.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                path.setCost(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
     }
 
     private void setData() {
@@ -358,20 +321,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             if (CachePath.getInstance().getLocalOrTraveler() != 3) {
                 path.setType(CachePath.getInstance().getLocalOrTraveler());
                 layout.setVisibility(View.VISIBLE);
-                if (path.getType() == 1) {
-                    local.setBackgroundResource(R.drawable.button_border_orange);
-                    traveler.setBackgroundResource(R.drawable.button_border_blue);
-                    text1.setText(getString(R.string.path_edit_0_local_1));
-                    text2.setText(getString(R.string.path_edit_0_local_2));
-                    text3.setText(getString(R.string.path_edit_0_local_3));
-                } else {
-                    background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
-                    traveler.setBackgroundResource(R.drawable.button_border_orange);
-                    local.setBackgroundResource(R.drawable.button_border_blue);
-                    text1.setText(getString(R.string.path_edit_0_traveler_1));
-                    text2.setText(getString(R.string.path_edit_0_traveler_2));
-                    text3.setText(getString(R.string.path_edit_0_traveler_3));
-                }
+                setLocalOrTraveler();
                 if (!CachePath.getInstance().getTitle().isEmpty()) {
                     path.setTitle(CachePath.getInstance().getTitle());
                     UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
@@ -423,22 +373,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         if (!addingNewPath) {
             //一
             layout.setVisibility(View.VISIBLE);
-            if (path.getType() == 1) {
-                local.setBackgroundResource(R.drawable.button_border_orange);
-                traveler.setBackgroundResource(R.drawable.button_border_blue);
-                text1.setText(getString(R.string.path_edit_0_local_1));
-                text2.setText(getString(R.string.path_edit_0_local_2));
-                text3.setText(getString(R.string.path_edit_0_local_3));
-            } else {
-                background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
-                traveler.setBackgroundResource(R.drawable.button_border_orange);
-                local.setBackgroundResource(R.drawable.button_border_blue);
-                text1.setText(getString(R.string.path_edit_0_traveler_1));
-                text2.setText(getString(R.string.path_edit_0_traveler_2));
-                text3.setText(getString(R.string.path_edit_0_traveler_3));
-            }
+            setLocalOrTraveler();
             //二
-            //三 在另一个地方实现
+            //三
             if (path.getTags().size() > 0) {
                 for (int i = 0; i < path.getTags().size(); i++) {
                     activityTags.put(Integer.valueOf(path.getTags().get(i)), 1);
@@ -464,8 +401,24 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
                     JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
             UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
-//            //七
-//            address.setText(path.getDetailAddress());
+        }
+    }
+
+    //设置本地人和旅行者相应显示内容
+    private void setLocalOrTraveler() {
+        if (path.getType() == 1) {
+            local.setBackgroundResource(R.drawable.button_border_orange);
+            traveler.setBackgroundResource(R.drawable.button_border_blue);
+            text1.setText(getString(R.string.path_edit_0_local_1));
+            text2.setText(getString(R.string.path_edit_0_local_2));
+            text3.setText(getString(R.string.path_edit_0_local_3));
+        } else {
+            background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
+            traveler.setBackgroundResource(R.drawable.button_border_orange);
+            local.setBackgroundResource(R.drawable.button_border_blue);
+            text1.setText(getString(R.string.path_edit_0_traveler_1));
+            text2.setText(getString(R.string.path_edit_0_traveler_2));
+            text3.setText(getString(R.string.path_edit_0_traveler_3));
         }
     }
 
@@ -488,25 +441,14 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 MobclickAgent.onEvent(this, "add_discover_local");
                 path.setType(1);//本地人
                 layout.setVisibility(View.VISIBLE);
-                background.setBackgroundResource(R.drawable.active_background_01_320dp520dp);
-                local.setBackgroundResource(R.drawable.button_border_orange);
-                traveler.setBackgroundResource(R.drawable.button_border_blue);
-
-                text1.setText(getString(R.string.path_edit_0_traveler_1));
-                text2.setText(getString(R.string.path_edit_0_traveler_2));
-                text3.setText(getString(R.string.path_edit_0_traveler_3));
+                setLocalOrTraveler();
                 break;
             case R.id.path_edit_traveler:
                 MobclickAgent.onEvent(this, "add_discover_traveler");
                 path.setType(2);//旅行者
                 background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
                 layout.setVisibility(View.VISIBLE);
-                traveler.setBackgroundResource(R.drawable.button_border_orange);
-                local.setBackgroundResource(R.drawable.button_border_blue);
-
-                text1.setText(getString(R.string.path_edit_0_local_1));
-                text2.setText(getString(R.string.path_edit_0_local_2));
-                text3.setText(getString(R.string.path_edit_0_local_3));
+                setLocalOrTraveler();
                 break;
             case R.id.path_edit_country:
                 Intent intent = new Intent(this, SelectCountry.class);
@@ -558,7 +500,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     path.setLongitude(String.valueOf(doubles[0]));//经度
                     path.setLatitude(String.valueOf(doubles[1]));//纬度
                 }
-//                }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
                 if (resultCode != RESULT_OK)
@@ -640,7 +581,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             page2.setVisibility(View.INVISIBLE);
                             break;
                     }
-                    break;
                 case 2://time
                     switch (path.getType()) {
                         case 1:
@@ -672,7 +612,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                     }
-                    break;
                 case 3://title text
                     switch (path.getType()) {
                         case 1:
@@ -706,7 +645,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                     }
-                    break;
                 case 4://tag
                     switch (path.getType()) {
                         case 1:
@@ -735,7 +673,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                     }
                     //page0-->page1-->page5-->page2-->  page3  -->page4
-                    break;
                 case 5://photo
                     saveTags();
                     pageNum.setText("5/5");
@@ -757,7 +694,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 back.setVisibility(View.VISIBLE);
                 pageNum.setVisibility(View.VISIBLE);
             }
-
             if (page >= 5) {
                 next.setText(getString(R.string.create));
             } else {
@@ -775,8 +711,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 page3.setVisibility(View.INVISIBLE);
                 page4.setVisibility(View.INVISIBLE);
                 page5.setVisibility(View.INVISIBLE);
-                page6.setVisibility(View.INVISIBLE);
-                page7.setVisibility(View.INVISIBLE);
             } else if (page < 0) {
                 finish();
             }
@@ -845,13 +779,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
     private Bitmap compress(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int options = 50;
-//        int options = 100;
-//        while (baos.toByteArray().length / 1024 > 100) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
-        baos.reset();//重置baos即清空baos
-        bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
-//            options -= 10;//每次都减少10
-//        }
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//这里压缩options%，把压缩后的数据存放到baos中
         return bitmap;
     }
 
@@ -948,9 +876,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         newPath.setImage21(list.get(2));
                         newPath.setImage11(list.get(1));
                     }
-//                            FileUtil.getImg(imageUri.getPath())));
                 }
-//                Log.d(LOG_TAG, "AddPath: Uploaded image to Path: " + newPath.toString());
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());
                 publishProgress(null, "Error uploading image to Activity");
@@ -1000,7 +926,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         protected Boolean doInBackground(Void... params) {
             try {
                 //TODO 环信群————创建
-
                 if (TextUtils.isEmpty(path.getHxGroupId())) {
                     EMGroup emGroup = EMGroupManager.getInstance().
                             createPublicGroup(path.getTitle(), path.getText(), null, false);
@@ -1008,7 +933,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         String groupId = emGroup.getGroupId();
                         path.setHxGroupId(groupId);
                     }
-                } else if (oldTitle.contentEquals(path.getTitle())) {
+                } else if (!oldTitle.contentEquals(path.getTitle())) {
                     //groupId 需要改变名称的群组的id
                     //changedGroupName 改变后的群组名称
                     EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
@@ -1023,7 +948,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         newPath.setImage21(list.get(2));
                         newPath.setImage11(list.get(1));
                     }
-//                            FileUtil.getImg(imageUri.getPath())));
                 }
                 return true;
             } catch (Exception e) {

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import cn.lingox.android.R;
 
-//import cn.lingox.android.adapter.NotificationAdapter;
 
 public class ContactsActivity extends ActionBarActivity implements OnClickListener {
     private static final String LOG_TAG = "ContactsActivity";

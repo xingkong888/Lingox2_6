@@ -96,8 +96,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);
 
-//        Toast.makeText(this,latLonPoint.toString(),Toast.LENGTH_LONG).show();
-
         getAddress(latLonPoint);
     }
 
@@ -176,9 +174,9 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     //根据坐标，获取地址描述
     private void getAddress(LatLonPoint latLonPoint) {
-//        latLonPoint参数表示一个Latlng，第二参数表示范围多少米，GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
+//        latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
+// GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
-//        Toast.makeText(this, latLonPoint.toString(), Toast.LENGTH_LONG).show();
         geocoderSearch.getFromLocationAsyn(query);
     }
 
@@ -187,7 +185,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         // name表示地址，第二个参数表示查询城市，中文或者中文全拼，citycode、adcode
         GeocodeQuery query = new GeocodeQuery(address, cityCode);
         geocoderSearch.getFromLocationNameAsyn(query);
-//        Toast.makeText(this, cityCode, Toast.LENGTH_LONG).show();
     }
 
     private void makeMarker(LatLonPoint point) {
@@ -245,7 +242,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 String addressName = result.getRegeocodeAddress().getFormatAddress()
                         + "附近";
-//                Toast.makeText(this, addressName, Toast.LENGTH_LONG).show();
                 makeMarker(latLng, addressName);
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
@@ -253,7 +249,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         } else if (rCode == 27) {
             Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
         } else if (rCode == 32) {
-//            Toast.makeText(this,R.string.network_unavailable,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "An unknown error", Toast.LENGTH_LONG).show();
         }

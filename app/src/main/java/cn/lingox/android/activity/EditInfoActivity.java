@@ -87,9 +87,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         back = (LinearLayout) findViewById(R.id.layout_back);
         back.setOnClickListener(this);
 
-        maleLayout = (RelativeLayout) findViewById(R.id.adfghh);
+        maleLayout = (RelativeLayout) findViewById(R.id.male_layout);
         maleLayout.setOnClickListener(this);
-        femaleLayout = (RelativeLayout) findViewById(R.id.asdfg);
+        femaleLayout = (RelativeLayout) findViewById(R.id.female_layout);
         femaleLayout.setOnClickListener(this);
 
         editNicknameInfo = (EditText) findViewById(R.id.edit_nickname);
@@ -107,9 +107,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
             }
         });
         editMale = (TextView) findViewById(R.id.edit_gender_male);
-        editMale.setOnClickListener(this);
+//        editMale.setOnClickListener(this);
         editFemale = (TextView) findViewById(R.id.edit_gender_female);
-        editFemale.setOnClickListener(this);
+//        editFemale.setOnClickListener(this);
         editAgeInfo = (TextView) findViewById(R.id.edit_age_info);
         editAgeInfo.setOnClickListener(this);
         editCounty = (TextView) findViewById(R.id.edit_country_info);
@@ -121,9 +121,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         editAvatar.setOnClickListener(this);
 
         xiaoyuandian_male = (ImageView) findViewById(R.id.xiaoyuandian);
-        xiaoyuandian_male.setOnClickListener(this);
+//        xiaoyuandian_male.setOnClickListener(this);
         xiaoyuandian_female = (ImageView) findViewById(R.id.xiaoyuandian2);
-        xiaoyuandian_female.setOnClickListener(this);
+//        xiaoyuandian_female.setOnClickListener(this);
 
         editName = (ImageView) findViewById(R.id.userinfo_edit);
         editName.setOnClickListener(this);
@@ -153,9 +153,8 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
                     break;
             }
         }
-        UIHelper uiHelper = UIHelper.getInstance();
         if (user.hasProperlyFormedBirthDate()) {
-            uiHelper.textViewSetPossiblyNullString(editAgeInfo, user.getBirthDateYear() + "-" + user.getBirthDateMonth() + "-" + user.getBirthDateDay());
+            UIHelper.getInstance().textViewSetPossiblyNullString(editAgeInfo, user.getBirthDateYear() + "-" + user.getBirthDateMonth() + "-" + user.getBirthDateDay());
         }
     }
 
@@ -175,9 +174,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
                 intent.putExtra(PhotoDialog.REQUESTED_IMAGE, PhotoDialog.REQUEST_AVATAR);
                 startActivityForResult(intent, PhotoDialog.REQUEST_AVATAR);
                 break;
-            case R.id.edit_gender_male:
-            case R.id.adfghh:
-            case R.id.xiaoyuandian:
+            case R.id.male_layout:
                 //设置性别
                 gender = "Male";
                 editMale.setTextColor(Color.rgb(25, 143, 153));
@@ -185,9 +182,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
                 xiaoyuandian_male.setImageResource(R.drawable.edit_open);
                 xiaoyuandian_female.setImageResource(R.drawable.edit_off);
                 break;
-            case R.id.edit_gender_female:
-            case R.id.asdf:
-            case R.id.xiaoyuandian2:
+            case R.id.female_layout:
                 //设置性别
                 gender = "Female";
                 editMale.setTextColor(Color.rgb(0, 0, 0));
@@ -297,9 +292,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-
-                User returnUser = ServerHelper.getInstance().updateUserInfo(updateParams);
-                CacheHelper.getInstance().setSelfInfo(returnUser);
+                CacheHelper.getInstance().setSelfInfo(ServerHelper.getInstance().updateUserInfo(updateParams));
                 return true;
             } catch (final Exception e) {
                 Log.e(LOG_TAG, "UpdateUserInfo exception caught: " + e.toString());

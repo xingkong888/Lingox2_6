@@ -10,20 +10,14 @@
         android:background="@color/main_color"
         android:gravity="center_vertical">
 
-        <LinearLayout
+        <ImageView
             android:layout_width="45dp"
             android:layout_height="match_parent"
-            android:background="@drawable/common_tab_bg"
-            android:onClick="back">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/top_back_24dp" />
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:onClick="back"
+            android:scaleType="center"
+            android:src="@drawable/top_back_24dp" />
 
         <TextView
             android:id="@+id/group_name"

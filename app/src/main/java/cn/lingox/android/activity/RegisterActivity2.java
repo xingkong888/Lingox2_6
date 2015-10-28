@@ -48,7 +48,6 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_2);
-
         initView();
     }
 

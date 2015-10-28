@@ -110,7 +110,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         done = (TextView) findViewById(R.id.search_done);
         done.setOnClickListener(this);
 
-
         listView1 = (ListView) findViewById(R.id.search_tage);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
@@ -134,7 +133,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 }
             }
         });
-
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         listView = (PullToRefreshListView) findViewById(R.id.search_show_list);

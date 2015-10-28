@@ -182,7 +182,6 @@
                     android:src="@drawable/ic_clear_black_48dp"
                     android:visibility="invisible" />
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 

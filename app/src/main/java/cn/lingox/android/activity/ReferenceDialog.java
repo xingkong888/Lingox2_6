@@ -163,7 +163,6 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                         try {
                             Reference deletedReference = ServerHelper.getInstance()
                                     .deleteReference(reference.getId());
-
                             Log.d("Dialog_Reference", "Deleted reference result : "
                                     + deletedReference);
                             Intent returnIntent = new Intent();

@@ -67,15 +67,12 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
     };
 
-//    private int addRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reference);
 
         Intent intent = getIntent();
-//        addRef = intent.getIntExtra("addReference", 0);
         userId = intent.getStringExtra(UserInfoFragment.TARGET_USER_ID);
         userName = intent.getStringExtra(UserInfoFragment.TARGET_USER_NAME);
         ownReferencesPage = CacheHelper.getInstance().getSelfInfo().getId().equals(userId);
@@ -93,9 +90,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private void initView() {
         anim = (ImageView) findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
-
         pb = (ProgressBar) findViewById(R.id.progress);
-
         addReference = (ImageView) findViewById(R.id.iv_add_reference);
 
         // If we are viewing our own references
@@ -235,7 +230,8 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                isBothFollowed = ServerHelper.getInstance().getBothFollowed(CacheHelper.getInstance().getSelfInfo().getId()
+                isBothFollowed = ServerHelper.getInstance().getBothFollowed(
+                        CacheHelper.getInstance().getSelfInfo().getId()
                         ,
                         userId);
             } catch (Exception e) {

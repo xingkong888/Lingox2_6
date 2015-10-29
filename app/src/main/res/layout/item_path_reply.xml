@@ -18,7 +18,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
             android:paddingTop="3dp"
-            android:text="dddadfsd"
             android:textColor="#00838f"
             android:textSize="16sp" />
 
@@ -36,7 +35,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
             android:paddingTop="3dp"
-            android:text="asdferasdf"
             android:textColor="#00838f"
             android:textSize="16sp" />
     </LinearLayout>
@@ -50,7 +48,6 @@
         android:paddingLeft="5dp"
         android:paddingRight="10dp"
         android:paddingTop="3dp"
-        android:text="dddddddddddddddddddddddddddddddddddddddddd"
         android:textColor="@color/black_deep"
         android:textSize="17sp" />
 </LinearLayout>

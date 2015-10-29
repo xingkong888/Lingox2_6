@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,7 +199,6 @@ public class NearbyAdapter extends BaseAdapter {
     }
 
     private class LoadUserReferences extends AsyncTask<User, String, Boolean> {
-
         private TextView textView;
         private int num = 0;
 
@@ -215,7 +213,7 @@ public class NearbyAdapter extends BaseAdapter {
                 num = (ServerHelper.getInstance().getUsersReferences(params[0].getId())).size();
                 success = true;
             } catch (Exception e) {
-                Log.e("user", "Exception caught: " + e.toString());
+//                Log.e("user", "Exception caught: " + e.toString());
             }
             return success;
         }

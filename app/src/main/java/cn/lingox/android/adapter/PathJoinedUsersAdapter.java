@@ -85,7 +85,6 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
         }
 
         UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar());
-//
         final View.OnClickListener userClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +92,6 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
                     Intent mIntent = new Intent(context, UserInfoActivity.class);
                     mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, getItem(position).getId());
                     context.startActivity(mIntent);
-                } else {
-
                 }
             }
         };
@@ -104,6 +101,6 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        public CircularImageView photo;
+        CircularImageView photo;
     }
 }

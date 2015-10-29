@@ -22,6 +22,7 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
+import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.helper.WritePathReplayDialog;
 import cn.lingox.android.task.GetUser;
 
@@ -87,10 +88,8 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                 }
             }).execute();
         } else {
-            Picasso.with(context)
-                    .load(CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar())
-                    .error(R.drawable.nearby_nopic_294dp)
-                    .into(groupViewHolder.avatar);
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, groupViewHolder.avatar,
+                    CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar());
         }
 
         groupViewHolder.content.setText(map.get("content"));
@@ -112,7 +111,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
-                        .setMessage("是否删除？")
+                        .setMessage("Delete？")
                         .setNegativeButton("NO", null)
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
@@ -204,7 +203,6 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder.replyName.setText(user.getNickname());
         }
-
         childViewHolder.content.setText(map.get("content"));
         return convertView;
     }
@@ -226,8 +224,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
 
     static class GroupViewHolder {
         ImageView avatar, replay, delete;
-        TextView name, time;
-        TextView content;
+        TextView name, time, content;
         RelativeLayout layout;
     }
 

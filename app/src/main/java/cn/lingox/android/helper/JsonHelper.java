@@ -31,7 +31,6 @@ import java.util.TimeZone;
 import cn.lingox.android.R;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Travel;
-import cn.lingox.android.entity.User;
 import cn.lingox.android.entity.location.Country1;
 import cn.lingox.android.entity.location.Provinces;
 import cn.lingox.android.widget.locationpicker.Country;
@@ -113,20 +112,6 @@ public class JsonHelper {
         }
     }
 
-//    @SuppressWarnings("unchecked")
-//    public <T> ArrayList<T> jsonToArrayList(String jsonStr, Class<?> cl) {
-//        Object obj = null;
-//        try {
-//            if (instance.gson != null) {
-//                obj = instance.gson.fromJson(jsonStr, new TypeToken<ArrayList<T>>() {
-//                }.getType());
-//            }
-//            return (ArrayList<T>) obj;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-
     public ArrayList<Travel> jsonToTravel(String jsonStr) {
         ArrayList<Travel> list = new ArrayList<>();
         Travel travel;
@@ -167,27 +152,6 @@ public class JsonHelper {
         }
     }
 
-    // TODO replace with better solution
-    public String getUserIdAndUsername(JSONObject data) {
-        try {
-            return data.getString(StringConstant.userIdStr) + ";" + data.getString(StringConstant.usernameStr);
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    public String getAvatarPath(JSONObject data) {
-        try {
-            return data.getString(StringConstant.avatarStr);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "getAvatarPath(): caught exception: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public User getUserFullInfo(JSONObject data) {
-        return gson.fromJson(data.toString(), User.class);
-    }
 
     public String parseTimestamp(long timestamp) {
         if (locale == null) {

@@ -72,8 +72,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         final ViewHolder holder;
 
         final Reference reference = referenceList.get(position);
-
-
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(
                     R.layout.row_reference, parent, false);
@@ -100,7 +98,6 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         }
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
-
 
         holder.replay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,8 +148,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
     static class ViewHolder {
         ImageView avatar, replay;
-        TextView name, time, replyName;
-        TextView content, replayContent;
+        TextView name, time, replyName, content, replayContent;
         RelativeLayout layout;
         EditText editText;
     }

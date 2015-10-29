@@ -19,7 +19,7 @@
             android:maxLength="20"
             android:minHeight="40dp"
             android:textSize="18sp" />
-        <!--android:onClick="commentEditTextClicked"-->
+
         <Button
             android:id="@+id/ok"
             style="@android:style/Widget.Button.Small"

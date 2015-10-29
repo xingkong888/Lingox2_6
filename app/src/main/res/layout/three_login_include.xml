@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="#efeff4"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="gone">
 
     <ImageView
         android:id="@+id/third_facebook"

@@ -64,7 +64,6 @@ public class ShowTravelAdapter extends BaseAdapter {
             viewHolder.delete = (ImageView) convertView.findViewById(R.id.show_travel_delete);
             viewHolder.edit = (ImageView) convertView.findViewById(R.id.show_travel_edit);
 
-
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.show_end_time_info);
             viewHolder.startTime = (TextView) convertView.findViewById(R.id.show_start_time_info);
             viewHolder.location = (TextView) convertView.findViewById(R.id.show_travel_location);
@@ -73,7 +72,6 @@ public class ShowTravelAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         final Travel travel = datas.get(position);
         viewHolder.location.setText(travel.getLocation());
         viewHolder.startTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getStartTime(), 1));

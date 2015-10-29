@@ -4,10 +4,7 @@ public class URLConstant {
 
 //    http://www.lingox.cn/json/activity_tags.json 活动标签
 
-
-    // old URL: private static final String MAIN_URL = "http://10.129.169.247:1337";
     public static final String MAIN_URL = "http://182.92.239.194:1337/";//正式版接口
-//    public static final String MAIN_URL = "http://182.92.239.194:1338/";//线上测试接口
 //    public static final String MAIN_URL = "http://192.168.1.222:1338/";//测试接口
 
     // TODO implement these two functionalities into the server (maybe? for the apk it might cause trouble with the qr code)
@@ -25,14 +22,10 @@ public class URLConstant {
     private static final String URL_USER_MODEL = MAIN_URL + "User/";
     public static final String URL_LOGINTIME = URL_USER_MODEL + "updateloginTime";
     public static final String URL_REGISTER = URL_USER_MODEL + "register";
-    public static final String URL_REGISTER_WITH_BETA_KEY = URL_USER_MODEL + "registerWithBetaKey";
     public static final String URL_LOGIN = URL_USER_MODEL + "login";
     public static final String URL_UPLOAD_AVATAR = URL_USER_MODEL + "uploadAvatar";
-    public static final String URL_OWN_INFO = URL_USER_MODEL + "getUser";
     public static final String URL_UPDATE_INFO = URL_USER_MODEL + "updateInfo";
     public static final String URL_FORGOT_PASSWORD = URL_USER_MODEL + "forgotPassword";
-    public static final String URL_CHANGE_PASSWORD = URL_USER_MODEL + "changePassword";
-    public static final String URL_HAS_EXISTED = URL_USER_MODEL + "hasExisted";
     //获取订单
     private static final String URL_APPLICATION_MODEL = MAIN_URL + "application/";
     public static final String URL_GET_APPLICATION = URL_APPLICATION_MODEL + "getApplication";
@@ -74,7 +67,6 @@ public class URLConstant {
     // URL for Comments
     private static final String URL_COMMENT = MAIN_URL + "Comment/";
     public static final String URL_CREATE_COMMENT = URL_COMMENT + "createComment";
-    public static final String URL_EDIT_COMMENT = URL_COMMENT + "editComment";
     public static final String URL_DELETE_COMMENT = URL_COMMENT + "deleteComment";
 
     // URL for Photos
@@ -89,18 +81,13 @@ public class URLConstant {
     public static final String URL_DELETE_NOTIFICATION = URL_NOTIFICATION + "deleteNotification";
     public static final String URL_GET_ALL_NOTIFICATIONS = URL_NOTIFICATION + "getAllNotifications";
     public static final String URL_GET_ALL_NEW_NOTIFICATIONS = URL_NOTIFICATION + "getAllNewNotifications";
-    public static final String URL_SEEN_NOTIFICATIONS = URL_NOTIFICATION + "seenNotifications";
     public static final String URL_READ_NOTIFICATIONS = URL_NOTIFICATION + "readNotification";
 
     //对活动进行评论
     private static final String URL_PATHREFERENCE = MAIN_URL + "pathReference/";
     public static final String URL_PATHREFERENCE_CREATE = URL_PATHREFERENCE + "create";
-    public static final String URL_PATHREFERENCE_EDIT = URL_PATHREFERENCE + "edit";
     public static final String URL_PATHREFERENCE_DELETE = URL_PATHREFERENCE + "delete";
     public static final String URL_PATHREFERENCE_GETREFERENCE = URL_PATHREFERENCE + "getPathsReferences";
     public static final String URL_PATHREFERENCE_REPLY = URL_PATHREFERENCE + "reply";
-    public static final String URL_PATHREFERENCE_EDITREPLY = URL_PATHREFERENCE + "editReply";
     public static final String URL_PATHREFERENCE_DELETEREPLY = URL_PATHREFERENCE + "deleteReply";
-
-
 }

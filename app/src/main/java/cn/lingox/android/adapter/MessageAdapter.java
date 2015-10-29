@@ -142,7 +142,6 @@ public class MessageAdapter extends BaseAdapter {
         if (message.getType() == EMMessage.Type.FILE) {
             return message.direct == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_FILE : MESSAGE_TYPE_SENT_FILE;
         }
-
         return -1;// invalid
     }
 
@@ -203,7 +202,6 @@ public class MessageAdapter extends BaseAdapter {
             rowView = createViewByMessage(message, position);
 
             if (message.getType() == EMMessage.Type.IMAGE) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.IMAGE");
                 try {
                     holder.iv = ((ImageView) rowView
                             .findViewById(R.id.iv_sendPicture));
@@ -545,7 +543,6 @@ public class MessageAdapter extends BaseAdapter {
                 // "!!!! back receive";
                 holder.iv.setImageResource(R.drawable.default_image);
                 showDownloadImageProgress(message, holder);
-                // downloadImage(message, holder);
             } else {
                 // "!!!! not back receive, show image directly");
                 holder.pb.setVisibility(View.GONE);
@@ -553,7 +550,6 @@ public class MessageAdapter extends BaseAdapter {
                 holder.iv.setImageResource(R.drawable.default_image);
                 ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
                 if (imgBody.getLocalUrl() != null) {
-                    // String filePath = imgBody.getLocalUrl();
                     String remotePath = imgBody.getRemoteUrl();
                     String filePath = ImageUtils.getImagePath(remotePath);
                     String thumbRemoteUrl = imgBody.getThumbnailUrl();
@@ -610,13 +606,10 @@ public class MessageAdapter extends BaseAdapter {
                                 if (message.status == EMMessage.Status.SUCCESS) {
                                     holder.pb.setVisibility(View.GONE);
                                     holder.tv.setVisibility(View.GONE);
-                                    // message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
                                     timer.cancel();
                                 } else if (message.status == EMMessage.Status.FAIL) {
                                     holder.pb.setVisibility(View.GONE);
                                     holder.tv.setVisibility(View.GONE);
-                                    // message.setSendingStatus(Message.SENDING_STATUS_FAIL);
-                                    // message.setProgress(0);
                                     holder.staus_iv.setVisibility(View.VISIBLE);
                                     Toast.makeText(
                                             activity,
@@ -657,7 +650,6 @@ public class MessageAdapter extends BaseAdapter {
         });
 
         if (localThumb != null) {
-
             showVideoThumbView(localThumb, holder.iv,
                     videoBody.getThumbnailUrl(), message);
         }
@@ -683,27 +675,19 @@ public class MessageAdapter extends BaseAdapter {
         }
 
         if (message.direct == EMMessage.Direct.RECEIVE) {
-
-            // System.err.println("it is receive msg");
             if (message.status == EMMessage.Status.INPROGRESS) {
-                // System.err.println("!!!! back receive");
                 holder.iv.setImageResource(R.drawable.default_image);
                 showDownloadImageProgress(message, holder);
-
             } else {
-                // System.err.println("!!!! not back receive, show image directly");
                 holder.iv.setImageResource(R.drawable.default_image);
                 if (localThumb != null) {
                     showVideoThumbView(localThumb, holder.iv,
                             videoBody.getThumbnailUrl(), message);
                 }
-
             }
-
             return;
         }
         holder.pb.setTag(position);
-
         // until here ,deal with send video msg
         switch (message.status) {
             case SUCCESS:
@@ -736,7 +720,6 @@ public class MessageAdapter extends BaseAdapter {
                                 if (message.status == EMMessage.Status.SUCCESS) {
                                     holder.pb.setVisibility(View.GONE);
                                     holder.tv.setVisibility(View.GONE);
-                                    // message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
                                     timer.cancel();
                                 } else if (message.status == EMMessage.Status.FAIL) {
                                     holder.pb.setVisibility(View.GONE);
@@ -750,7 +733,6 @@ public class MessageAdapter extends BaseAdapter {
                                             Toast.LENGTH_LONG).show();
                                     timer.cancel();
                                 }
-
                             }
                         });
 
@@ -758,11 +740,8 @@ public class MessageAdapter extends BaseAdapter {
                 }, 0, 500);
                 break;
             default:
-                // sendMsgInBackground(message, holder);
                 sendPictureMessage(message, holder);
-
         }
-
     }
 
     private void handleVoiceMessage(final EMMessage message,
@@ -784,20 +763,16 @@ public class MessageAdapter extends BaseAdapter {
         });
 
         if (message.direct == EMMessage.Direct.RECEIVE) {
-            Log.d("MessageAdapter", "handleVoiceMessage RECEIVE");
-
             if (message.isAcked) {
                 holder.iv_read_status.setVisibility(View.INVISIBLE);
             } else {
                 holder.iv_read_status.setVisibility(View.VISIBLE);
             }
             if (message.status == EMMessage.Status.INPROGRESS) {
-                Log.d("MessageAdapter", "INPROGRESS");
                 holder.pb.setVisibility(View.VISIBLE);
 
                 ((FileMessageBody) message.getBody())
                         .setDownloadCallback(new EMCallBack() {
-
                             @Override
                             public void onSuccess() {
                                 activity.runOnUiThread(new Runnable() {
@@ -864,10 +839,8 @@ public class MessageAdapter extends BaseAdapter {
             public void onClick(View view) {
                 File file = new File(filePath);
                 if (file != null && file.exists()) {
-                    // �ļ����ڣ�ֱ�Ӵ�
                     FileUtils.openFile(file, (Activity) context);
                 } else {
-                    // ����
                     context.startActivity(new Intent(context,
                             ShowNormalFileActivity.class).putExtra("msgbody",
                             fileMessageBody));
@@ -884,9 +857,8 @@ public class MessageAdapter extends BaseAdapter {
                 }
             }
         });
-
-        if (message.direct == EMMessage.Direct.RECEIVE) { // ���յ���Ϣ
-            System.err.println("it is receive msg");
+/*因为不知道乱码的汉字，所以注释掉
+        if (message.direct == EMMessage.Direct.RECEIVE) {
             File file = new File(filePath);
             if (file != null && file.exists()) {
                 holder.tv_file_download_state.setText("������");
@@ -895,6 +867,7 @@ public class MessageAdapter extends BaseAdapter {
             }
             return;
         }
+        */
 
         // until here, deal with send voice msg
         switch (message.status) {
@@ -941,7 +914,6 @@ public class MessageAdapter extends BaseAdapter {
                                             Toast.LENGTH_LONG).show();
                                     timer.cancel();
                                 }
-
                             }
                         });
 
@@ -951,7 +923,6 @@ public class MessageAdapter extends BaseAdapter {
             default:
                 sendMsgInBackground(message, holder);
         }
-
     }
 
     private void handleLocationMessage(final EMMessage message,
@@ -1015,20 +986,15 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public void onProgress(int progress, String status) {
             }
-
         });
-
     }
 
     private void showDownloadImageProgress(final EMMessage message,
                                            final ViewHolder holder) {
         System.err.println("!!! show download image progress");
-        // final ImageMessageBody msgbody = (ImageMessageBody)
-        // message.getBody();
         final FileMessageBody msgbody = (FileMessageBody) message.getBody();
         holder.pb.setVisibility(View.VISIBLE);
         holder.tv.setVisibility(View.VISIBLE);
-
         msgbody.setDownloadCallback(new EMCallBack() {
 
             @Override
@@ -1036,7 +1002,6 @@ public class MessageAdapter extends BaseAdapter {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // message.setBackReceive(false);
                         if (message.getType() == EMMessage.Type.IMAGE) {
                             holder.pb.setVisibility(View.GONE);
                             holder.tv.setVisibility(View.GONE);
@@ -1058,27 +1023,21 @@ public class MessageAdapter extends BaseAdapter {
                         @Override
                         public void run() {
                             holder.tv.setText(progress + "%");
-
                         }
                     });
                 }
-
             }
-
         });
     }
 
     private void sendPictureMessage(final EMMessage message,
                                     final ViewHolder holder) {
         try {
-            String to = message.getTo();
-
             // before send, update ui
             holder.staus_iv.setVisibility(View.GONE);
             holder.pb.setVisibility(View.VISIBLE);
             holder.tv.setVisibility(View.VISIBLE);
             holder.tv.setText("0%");
-            // if (chatType == ChatActivity.CHATTYPE_SINGLE) {
             EMChatManager.getInstance().sendMessage(message, new EMCallBack() {
 
                 @Override
@@ -1099,7 +1058,6 @@ public class MessageAdapter extends BaseAdapter {
                         public void run() {
                             holder.pb.setVisibility(View.GONE);
                             holder.tv.setVisibility(View.GONE);
-                            // message.setSendingStatus(Message.SENDING_STATUS_FAIL);
                             holder.staus_iv.setVisibility(View.VISIBLE);
                             Toast.makeText(
                                     activity,
@@ -1119,7 +1077,6 @@ public class MessageAdapter extends BaseAdapter {
                         }
                     });
                 }
-
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -1153,11 +1110,6 @@ public class MessageAdapter extends BaseAdapter {
     private boolean showImageView(final String thumbernailPath,
                                   final ImageView iv, final String localFullSizePath,
                                   String remoteDir, final EMMessage message) {
-        // String imagename =
-        // localFullSizePath.substring(localFullSizePath.lastIndexOf("/") + 1,
-        // localFullSizePath.length());
-        // final String remote = remoteDir != null ? remoteDir+imagename :
-        // imagename;
         final String remote = remoteDir;
         EMLog.d("###", "local = " + localFullSizePath + " remote: " + remote);
         // first check if the thumbnail image already loaded into cache
@@ -1181,7 +1133,6 @@ public class MessageAdapter extends BaseAdapter {
                         // The local full size pic does not exist yet.
                         // ShowBigImage needs to download it from the server
                         // first
-                        // intent.putExtra("", message.get);
                         ImageMessageBody body = (ImageMessageBody) message
                                 .getBody();
                         intent.putExtra("secret", body.getSecret());
@@ -1204,12 +1155,10 @@ public class MessageAdapter extends BaseAdapter {
             });
             return true;
         } else {
-
             new LoadImageTask().execute(thumbernailPath, localFullSizePath,
                     remote, message.getChatType(), iv, activity, message);
             return true;
         }
-
     }
 
     private void showVideoThumbView(String localThumb, ImageView iv,
@@ -1221,7 +1170,6 @@ public class MessageAdapter extends BaseAdapter {
             iv.setImageBitmap(bitmap);
             iv.setClickable(true);
             iv.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     VideoMessageBody videoBody = (VideoMessageBody) message
@@ -1253,47 +1201,26 @@ public class MessageAdapter extends BaseAdapter {
         }
     }
 
-    public static class ViewHolder {
-        ImageView iv;
-        TextView tv;
+    static class ViewHolder {
+        ImageView iv, staus_iv, head_iv, playBtn, iv_read_status;
         ProgressBar pb;
-        ImageView staus_iv;
-        ImageView head_iv;
-        TextView tv_userId;
-        ImageView playBtn;
-        TextView timeLength;
-        TextView size;
-        LinearLayout container_status_btn;
-        LinearLayout ll_container;
-        ImageView iv_read_status;
-        TextView tv_ack;
-        TextView tv_delivered;
-        TextView tv_file_name;
-        TextView tv_file_size;
-        TextView tv_file_download_state;
+        LinearLayout container_status_btn, ll_container;
+        TextView tv, tv_userId, timeLength, size, tv_ack, tv_delivered, tv_file_name, tv_file_size, tv_file_download_state;
     }
 
+    //获取自己的当前位置
     class MapClickListener implements View.OnClickListener {
-
         LatLng location;
         String address;
 
         public MapClickListener(LatLng loc, String address) {
             location = loc;
             this.address = address;
-
         }
 
         @Override
         public void onClick(View v) {
-//            Intent intent;
-//            intent = new Intent(context, BaiduMapActivity.class);
-//            intent.putExtra("latitude", location.latitude);
-//            intent.putExtra("longitude", location.longitude);
-//            intent.putExtra("address", address);
-//            activity.startActivity(intent);
+            //跳转到地图，获取当前位置
         }
-
     }
-
 }

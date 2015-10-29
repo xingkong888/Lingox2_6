@@ -221,7 +221,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
     }
 
     public void startPhotoZoom(final Uri data) {
-        setContentView(R.layout.dialog_image_crop_new);
+        setContentView(R.layout.dialog_image_crop);
         final TextView cropImageButton = (TextView) findViewById(R.id.image_crop_button);
         final TextView confirmButton = (TextView) findViewById(R.id.image_confirm_button);
 

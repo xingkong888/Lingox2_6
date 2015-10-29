@@ -72,6 +72,6 @@ public class GroupAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        public CircularImageView photo;
+        CircularImageView photo;
     }
 }

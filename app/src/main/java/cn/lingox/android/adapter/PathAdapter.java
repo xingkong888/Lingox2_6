@@ -121,7 +121,7 @@ public class PathAdapter extends BaseAdapter {
                         CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar());
             }
 //显示活动与自己位置的距离
-//            holder.location.setText(path.getProvince()+" "+ DistanceOfTwoPoints.DistanceOfTwoPoints(
+//            holder.location.setText(path.getProvince()+" "+ DistanceHelper.distanceHelper(
 //                    Double.valueOf(LingoXApplication.getInstance().getLatitude()),
 //                    Double.valueOf(LingoXApplication.getInstance().getLongitude()),
 //                    36, 116
@@ -129,13 +129,11 @@ public class PathAdapter extends BaseAdapter {
 //            )+"m ");
             holder.location.setText(path.getLocationString());
             switch (path.getType()) {
-                case 1:
-//                Log.d("天气","本地人");
+                case 1://本地人
                     holder.traveler.setVisibility(View.GONE);
                     holder.local.setVisibility(View.VISIBLE);
                     break;
-                case 2:
-                    // Log.d("天气","旅行者");
+                case 2://旅行者
                     holder.local.setVisibility(View.GONE);
                     holder.traveler.setVisibility(View.VISIBLE);
                     break;
@@ -163,17 +161,7 @@ public class PathAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView title;
-        ImageView pathImg;
-        TextView acceptNumber;
-        TextView commentNumber;
-        TextView location;
-        TextView traveler;
-        TextView local;
-        TextView tag1;
-        TextView tag2;
-        TextView tag3;
-        TextView name, lalala;
-        ImageView avatar;
+        ImageView pathImg, avatar;
+        TextView title, acceptNumber, commentNumber, location, traveler, local, tag1, tag2, tag3, name, lalala;
     }
 }

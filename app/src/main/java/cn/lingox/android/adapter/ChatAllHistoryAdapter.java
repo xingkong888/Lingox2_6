@@ -216,7 +216,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             new GetUser(notify.getUser_src(), new GetUser.Callback() {
                 @Override
                 public void onSuccess(User user) {
-                    loadView(position, holder, notify, user);
+                    loadView(holder, notify, user);
                 }
 
                 @Override
@@ -224,10 +224,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
 //                    Log.e(LOG_TAG, "GetUser onFail()");
                 }
             });
-        else loadView(position, holder, notify, notificationUser);
+        else loadView(holder, notify, notificationUser);
     }
 
-    private void loadView(final int position, final ViewHolder holder, final LingoNotification notification, final User user) {
+    private void loadView(final ViewHolder holder, final LingoNotification notification, final User user) {
         // --- Use data we definitely have ---
         // We should have User info due to the MainActivity getNotifications AsyncTask
         UIHelper uiHelper = UIHelper.getInstance();
@@ -289,21 +289,17 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                     digest = context.getResources().getString(R.string.location_prefix);
                 }
                 break;
-
             case IMAGE:
                 ImageMessageBody imageBody = (ImageMessageBody) message.getBody();
                 digest = context.getString(R.string.picture)
                         + imageBody.getFileName();
                 break;
-
             case VOICE:
                 digest = context.getString(R.string.voice);
                 break;
-
             case VIDEO:
                 digest = context.getString(R.string.video);
                 break;
-
             case TXT:
                 if (!message.getBooleanAttribute(
                         Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
@@ -319,16 +315,14 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             case FILE:
                 digest = context.getString(R.string.file);
                 break;
-
             default:
                 Log.e("ChatAllHistoryAdapter", "Error, unknown type");
                 return "";
         }
-
         return digest;
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView name;
         TextView unreadLabel;
         TextView message;
@@ -349,7 +343,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            //将集合中的数据转换成聊天数据
             userId = params[0];
             //通过username获取每个用户的订单数据
             map.put("tarId", CacheHelper.getInstance().getSelfInfo().getId());
@@ -370,7 +363,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 Collections.reverse(indentDatas);
                 return true;
             } catch (Exception e1) {
-                e1.getMessage();
+//                e1.getMessage();
                 return false;
             }
         }
@@ -413,11 +406,11 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                                 view.setText("Time out");//时间过
                         }
                     } else {
-                        if (tempData.get(0).getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-                            view.setText(tempData.size() + " applications");//申请者
-                        } else {
-                            view.setText(tempData.size() + " applications");//接收者
-                        }
+//                        if (tempData.get(0).getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
+//                            view.setText(tempData.size() + " applications");//申请者
+//                        } else {
+                        view.setText(tempData.size() + " applications");//接收者
+//                        }
                     }
                 }
             }

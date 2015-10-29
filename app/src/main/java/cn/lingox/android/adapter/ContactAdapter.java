@@ -22,9 +22,6 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.widget.Sidebar;
 
 public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer {
-    // Constants
-    static final int ROW_SEARCH = 0;
-    static final int ROW_CONTACT = 1;
 
     // Data Elements
     private Activity context;
@@ -98,8 +95,6 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
                     holder.unreadMsgView.setVisibility(View.INVISIBLE);
                 break;
         }
-//        }
-
         return rowView;
     }
 
@@ -122,7 +117,6 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
         sectionOfPosition.put(0, 0);
         for (int i = 1; i < count; i++) {
             String letter = getItem(i).getHeader();
-//            Log.d("ContactAdapter", "getSections getHeader:" + letter + " name:" + getItem(i).getUsername());
             int section = list.size() - 1;
             if (list.get(section) != null && !list.get(section).equals(letter)) {
                 list.add(letter);

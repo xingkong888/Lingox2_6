@@ -13,7 +13,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import cn.lingox.android.Constant;
-import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
 
 public class User implements Parcelable {
@@ -38,15 +37,11 @@ public class User implements Parcelable {
     private String province;
     private String city;
     private String speak;
-    private String speakLv;
-    private String learning;
-    private String learningLv;
     private String avatar;
     private String dateOfBirth;
     private String gender;
     private String profession;
     private ArrayList<String> interests;
-    private String isHost;
     private String signature;
     private double[] loc;
     private String locString;
@@ -70,15 +65,11 @@ public class User implements Parcelable {
         province = "";
         city = "";
         speak = "";
-        speakLv = "";
-        learning = "";
-        learningLv = "";
         avatar = "";
         dateOfBirth = "";
         gender = "";
         profession = "";
         interests = new ArrayList<>();
-        isHost = "";
         signature = "";
         loc = new double[]{0, 0};
         locString = "";
@@ -92,9 +83,10 @@ public class User implements Parcelable {
     }
 
     public User(String id, String username, String nickname, String email, String country, String province, String city,
-                String speak, String speakLv, String learning, String learningLv,
+                String speak,
                 String avatar, String dateOfBirth, String gender, String profession,
-                ArrayList<String> interests, String isHost, String signature, double[] loc,
+                ArrayList<String> interests,
+                String signature, double[] loc,
                 String locString, String loginTime, boolean online,
                 int relation, boolean localGuide, boolean homeMeal, boolean homeStay
             , String createdAt, String visited) {
@@ -107,15 +99,11 @@ public class User implements Parcelable {
         this.province = province;
         this.city = city;
         this.speak = speak;
-        this.speakLv = speakLv;
-        this.learning = learning;
-        this.learningLv = learningLv;
         this.avatar = avatar;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.profession = profession;
         this.interests = interests;
-        this.isHost = isHost;
         this.signature = signature;
         this.loc = loc;
         this.locString = locString;
@@ -140,15 +128,11 @@ public class User implements Parcelable {
         this.province = in.readString();
         this.city = in.readString();
         this.speak = in.readString();
-        this.speakLv = in.readString();
-        this.learning = in.readString();
-        this.learningLv = in.readString();
         this.avatar = in.readString();
         this.dateOfBirth = in.readString();
         this.gender = in.readString();
         this.profession = in.readString();
         this.interests = in.createStringArrayList();
-        this.isHost = in.readString();
         this.signature = in.readString();
         this.loc = in.createDoubleArray();
         this.locString = in.readString();
@@ -160,26 +144,6 @@ public class User implements Parcelable {
         this.localGuide = in.readByte() != 0;
         this.createdAt = in.readString();
         this.visited = in.readString();
-    }
-
-    public static int getLvColor(String lv) {
-        if (lv == null)
-            return R.color.main_color;
-
-        lv = lv.toLowerCase(Locale.getDefault());
-        if (lv.equals("entry")) {
-            return R.color.Entry;
-        } else if (lv.equals("basic")) {
-            return R.color.Basic;
-        } else if (lv.equals("intermediate")) {
-            return R.color.Intermediate;
-        } else if (lv.equals("advanced")) {
-            return R.color.Advanced;
-        } else if (lv.equals("proficient")) {
-            return R.color.Proficient;
-        } else {
-            return R.color.main_color;
-        }
     }
 
     public String getVisited() {
@@ -294,30 +258,6 @@ public class User implements Parcelable {
         this.speak = speak;
     }
 
-    public String getSpeakLv() {
-        return speakLv;
-    }
-
-    public void setSpeakLv(String speakLv) {
-        this.speakLv = speakLv;
-    }
-
-    public String getLearning() {
-        return learning;
-    }
-
-    public void setLearning(String learning) {
-        this.learning = learning;
-    }
-
-    public String getLearningLv() {
-        return learningLv;
-    }
-
-    public void setLearningLv(String learningLv) {
-        this.learningLv = learningLv;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -356,14 +296,6 @@ public class User implements Parcelable {
 
     public void setInterests(ArrayList<String> interests) {
         this.interests = interests;
-    }
-
-    public String getIsHost() {
-        return isHost;
-    }
-
-    public void setIsHost(String isHost) {
-        this.isHost = isHost;
     }
 
     public String getSignature() {
@@ -454,9 +386,6 @@ public class User implements Parcelable {
                 + ", province=" + province
                 + ", city=" + city
                 + ", speak=" + speak
-                + ", speakLv=" + speakLv
-                + ", learning=" + learning
-                + ", learningLv=" + learningLv
                 + ", avatar=" + avatar
                 + ", dateOfBirth=" + dateOfBirth
                 + ", gender=" + gender
@@ -584,15 +513,11 @@ public class User implements Parcelable {
         dest.writeString(this.province);
         dest.writeString(this.city);
         dest.writeString(this.speak);
-        dest.writeString(this.speakLv);
-        dest.writeString(this.learning);
-        dest.writeString(this.learningLv);
         dest.writeString(this.avatar);
         dest.writeString(this.dateOfBirth);
         dest.writeString(this.gender);
         dest.writeString(this.profession);
         dest.writeStringList(this.interests);
-        dest.writeString(this.isHost);
         dest.writeString(this.signature);
         dest.writeDoubleArray(this.loc);
         dest.writeString(this.locString);

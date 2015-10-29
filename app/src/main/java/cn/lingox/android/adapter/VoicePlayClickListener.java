@@ -33,7 +33,7 @@ public class VoicePlayClickListener implements View.OnClickListener {
     ImageView iv_read_status;
     Activity activity;
     private AnimationDrawable voiceAnimation = null;
-    private String username;
+    //    private String username;
     private ChatType chatType;
     private BaseAdapter adapter;
 
@@ -44,15 +44,17 @@ public class VoicePlayClickListener implements View.OnClickListener {
      * @param iv_read_status
      * @param activity
      */
-    public VoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity activity,
-                                  String username) {
+    public VoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status,
+                                  BaseAdapter adapter, Activity activity
+            , String username
+    ) {
         this.message = message;
         voiceBody = (VoiceMessageBody) message.getBody();
         this.iv_read_status = iv_read_status;
         this.adapter = adapter;
         voiceIconView = v;
         this.activity = activity;
-        this.username = username;
+//        this.username = username;
         this.chatType = message.getChatType();
     }
 
@@ -184,11 +186,5 @@ public class VoicePlayClickListener implements View.OnClickListener {
                 }.execute();
             }
         }
-    }
-
-    interface OnVoiceStopListener {
-        void onStop();
-
-        void onStart();
     }
 }

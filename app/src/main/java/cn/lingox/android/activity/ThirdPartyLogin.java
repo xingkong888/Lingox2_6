@@ -97,7 +97,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
     public void onCreate() {
         // 初始化ui
         handler = new Handler(this);
-        activity.setContentView(R.layout.activity_login_new);
+        activity.setContentView(R.layout.activity_login);
 
         pd = new ProgressDialog(activity);
         pd.setCanceledOnTouchOutside(false);

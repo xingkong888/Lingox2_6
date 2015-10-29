@@ -680,8 +680,6 @@ public class ServerHelper {
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
-        LingoXApplication.getInstance().setPathPageCount(rmsg.getData().getInt("pageCount"));
-
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPathsByLocation: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Path items!");
@@ -719,8 +717,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "getUsersPaths: Return message code not positive");
             throw new Exception("Failed to get Path items!");
         }
-
-        LingoXApplication.getInstance().setPathPageCount(rmsg.getData().getInt("pageCount"));
 
         ArrayList<Path> pathArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.paths);

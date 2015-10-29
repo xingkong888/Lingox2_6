@@ -71,7 +71,6 @@
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/layout_avatar"
             android:gravity="center"
-            android:text="Nickname"
             android:textColor="#00838f"
             android:textSize="15sp" />
 
@@ -81,7 +80,6 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/name_path_reference"
             android:layout_below="@id/name_path_reference"
-            android:text="15/02"
             android:textColor="#ababab"
             android:textSize="13sp"
             android:visibility="gone" />

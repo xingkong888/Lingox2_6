@@ -46,11 +46,8 @@ public class LingoXApplication extends Application {
     protected NotificationManager notificationManager;
     private boolean isSkip = false;//标识应用是否为跳过注册进入true 跳过 false正常登录
     private int width = 0;//屏幕宽度
-    private int pathPageCount = 0;//活动数据总页数
-    private int pathsCount = 0;//每页中活动的条数
 
     private int userPageCount = 1;//用户数据总页数
-    private int usersCount = 0;//每页中的用户条数
 
     private ArrayList<Country1> countryDatas = null;
 
@@ -160,10 +157,6 @@ public class LingoXApplication extends Application {
         this.width = width;
     }
 
-    public void setPathPageCount(int pathPageCount) {
-        this.pathPageCount = pathPageCount;
-    }
-
     public int getUserPageCount() {
         return userPageCount;
     }
@@ -178,7 +171,6 @@ public class LingoXApplication extends Application {
         super.onCreate();
 
         instance = this;
-//        SDKInitializer.initialize(instance);
         CacheHelper.getInstance().setContext(getApplicationContext());
         ImageHelper.getInstance().setContext(getApplicationContext());
         JsonHelper.getInstance().setContext(getApplicationContext());
@@ -270,7 +262,9 @@ public class LingoXApplication extends Application {
         }
         if (indent.getFreeTime().isEmpty()) {
             timeAndNum.setText(TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime())
-                            + "—" + TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " + indent.getParticipants()
+                            + "—" +
+                            TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " +
+                            indent.getParticipants()
                             + " people"
             );
         } else {

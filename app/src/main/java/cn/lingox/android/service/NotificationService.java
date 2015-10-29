@@ -126,7 +126,6 @@ public class NotificationService extends Service implements
             } catch (Exception e) {
                 Log.e(LOG_TAG, "LocationListener: Exception caught: " + e.getMessage());
             }
-//            Toast.makeText(getApplicationContext(), geoLat + ">>>>" + geoLng, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -259,10 +258,10 @@ public class NotificationService extends Service implements
                 notifiText = notificationUser.getNickname() + " " + getString(R.string.comment_notification);
                 notiType = 5;
                 break;
-            case LingoNotification.TYPE_INDENT_FINISH:
-                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
-                notiType = 6;
-                break;
+//            case LingoNotification.TYPE_INDENT_FINISH:
+//                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
+//                notiType = 6;
+//                break;
         }
         return notifiText;
     }

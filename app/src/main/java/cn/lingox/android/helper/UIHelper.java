@@ -3,8 +3,6 @@ package cn.lingox.android.helper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,20 +42,6 @@ public class UIHelper {
             tv.setText("0");
         else
             tv.setText(s);
-    }
-
-    public void editTextSetPossiblyNullString(EditText et, String s) {
-        if (s == null)
-            et.setText("");
-        else
-            et.setText(s);
-    }
-
-    public void editBtnTextSetPossiblyNullString(Button btn, String s) {
-        if (s == null)
-            btn.setText("Select");
-        else
-            btn.setText(s);
     }
 
     public void imageViewSetPossiblyEmptyUrl(Context context, ImageView iv, String url, int placeholderResId) {

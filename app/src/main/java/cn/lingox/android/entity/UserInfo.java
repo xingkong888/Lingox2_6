@@ -6,7 +6,6 @@ public class UserInfo {
     private Gender userGender;
     private String userNote;
 
-
     public String getUserIcon() {
         return userIcon;
     }
@@ -40,5 +39,4 @@ public class UserInfo {
     }
 
     public enum Gender {BOY, GIRL}
-
 }

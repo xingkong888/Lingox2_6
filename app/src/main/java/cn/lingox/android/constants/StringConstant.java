@@ -19,7 +19,6 @@ public class StringConstant {
     public static final String speakStr = "speak";
     public static final String avatarStr = "avatar";
     public static final String locStr = "loc";
-    public static final String locStringStr = "locString";
     public static final String signatureStr = "signature";
     public static final String birthStr = "dateOfBirth";
     public static final String localStr = "localGuide";
@@ -61,7 +60,6 @@ public class StringConstant {
     public static final String pathType = "pathType";
     public static final String pathImageUrl = "pathImageUrl";
     public static final String pathHXGroupId = "pathHXGroupId";
-
     public static final String pathTags = "pathTags";
 
     // Comments
@@ -72,10 +70,6 @@ public class StringConstant {
     // Photo
     public static final String photoId = "photoId";
     public static final String photoDescription = "photoDescription";
-    public static final String photoCountry = "photoCountry";
-    public static final String photoProvince = "province";
-    public static final String photoCity = "photoCity";
-    public static final String photoTags = "photoTags";
     public static final String photos = "photos";
     public static final String photoStr = "photo";
 

@@ -201,7 +201,6 @@ public class SelectCountry extends Activity {
 
     private void close(String str) {
         Intent intent = new Intent();
-        //TODO 实现添加数据
         if (str.isEmpty()) {
             intent.putExtra(SELECTED, str);
         } else if (provincesData.isEmpty()) {

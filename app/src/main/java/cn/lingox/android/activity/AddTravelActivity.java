@@ -173,7 +173,6 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode==RESULT_OK)
         switch (requestCode) {
             case SELECTLOCATION:
                 String str = data.getStringExtra(SelectCountry.SELECTED);
@@ -277,7 +276,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                         CacheHelper.getInstance().getSelfInfo().getId(),
                         String.valueOf(travel.getStartTime()),
                         String.valueOf(travel.getEndTime()),
-                        travel.getCountry(), travel.getProvince(), travel.getCity(), "[]");
+                        travel.getCountry(),
+                        travel.getProvince(),
+                        travel.getCity(), "[]");
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -321,7 +322,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                         travel.getId(),
                         String.valueOf(travel.getStartTime()),
                         String.valueOf(travel.getEndTime()),
-                        travel.getCountry(), travel.getProvince(), travel.getCity(), "[]");
+                        travel.getCountry(),
+                        travel.getProvince(),
+                        travel.getCity(), "[]");
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

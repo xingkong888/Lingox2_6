@@ -16,7 +16,6 @@
     <!--
             Cyan
             500 #00BCD4
-
             50  #E0F7FA
             100 #B2EBF2
             200 #80DEEA
@@ -27,7 +26,6 @@
             700 #0097A7
             800 #00838F
             900 #006064
-
             Accent Teal
             A100 #A7FFEB
             A200 #64FFDA
@@ -36,7 +34,6 @@
          -->
 
     <color name="white">#fff</color>
-
 
     <color name="common_top_bar_blue">#4ebcd3</color>
     <color name="btn_login_normal">#007086</color>
@@ -80,6 +77,5 @@
     <color name="gray_light">#efeff4</color>
     <color name="shadow_color">#55000000</color>
     <color name="c7">#7fc7c7c7</color>
-
 
 </resources>

@@ -145,7 +145,6 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                     }
                 });
         return v;
-
     }
 
     @Override
@@ -175,7 +174,6 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
             startActivityForResult(intent, 100);
         } else {
             VideoEntity vEntty = mList.get(position - 1);
-            // ���ƴ�С���ܳ���10M
             if (vEntty.size > 1024 * 1024 * 10) {
                 Toast.makeText(getActivity(), "�ݲ�֧�ִ���10M����Ƶ��",
                         Toast.LENGTH_SHORT).show();
@@ -208,12 +206,10 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 // ·����MediaStore.Audio.Media.DATA
                 String url = cursor.getString(cursor
                         .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-
                 // �ܲ���ʱ����MediaStore.Audio.Media.DURATION
                 int duration = cursor
                         .getInt(cursor
                                 .getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-
                 // ��С��MediaStore.Audio.Media.SIZE
                 int size = (int) cursor.getLong(cursor
                         .getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
@@ -226,13 +222,11 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 entty.size = size;
                 mList.add(entty);
             } while (cursor.moveToNext());
-
         }
         if (cursor != null) {
             cursor.close();
             cursor = null;
         }
-
     }
 
     @Override
@@ -263,7 +257,6 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                     cursor.close();
                     cursor = null;
                 }
-
                 getActivity().setResult(
                         Activity.RESULT_OK,
                         getActivity().getIntent().putExtra("path", filePath)
@@ -272,7 +265,6 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 
             }
         }
-
     }
 
     private class ImageAdapter extends BaseAdapter {

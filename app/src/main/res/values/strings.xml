@@ -4,14 +4,11 @@
     <!-- 9月5号添加-->
     <string name="travel_plans_self">My Travel Plans</string>
     <string name="travel_plans_other">My Travel Plans</string>
-
     <!-- ********************************************************-->
-
     <string name="end_start">Over time is not less than start time or the current time, please choose again</string>
     <string name="start_end">Start time is not greater than end time, please choose again</string>
     <string name="create">Create</string>
     <string name="follow">Following</string>
-
 
     <string name="path_edit_0_traveler_1">- Find locals for homestay or home meals.</string>
     <string name="path_edit_0_traveler_2">- Meet locals and take part in awesome activities.</string>
@@ -33,7 +30,6 @@
     <string name="city">City</string>
     <string name="description_">Description</string>
 
-    <string name="not_save">Don\'t Save</string>
     <string name="fail_del_notify">Failed to delete Notification</string>
 
     <string name="no_city">There are no Cities for this Country yet!</string>
@@ -54,10 +50,8 @@
     <string name="description_enter">Please enter the description!</string>
     <string name="choose_picture">Please choose a picture!</string>
 
-
     <string name="app_name">LingoX</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="text_ack_msg">Acknowledge</string>
     <string name="text_delivered_msg">Delivered</string>
     <string name="back">Back</string>
@@ -195,11 +189,9 @@
         <item>Unavailable</item>
     </string-array>
 
-
     Please enter a comment!
 
     <string name="enter_comment">Please enter a comment!</string>
-    <!--<string name="fail_down_path">Failed to download Path Info</string>-->
 
     <string name="fail_get_reference">Failed to get User\'s References</string>
     <string name="fail_down_user"> Failed to download User Info</string>
@@ -212,13 +204,11 @@
     <string name="available">Available</string>
     <string name="stay">Home Stay</string>
 
-
     <string name="userinfo_follow">Following</string>
     <string name="userinfo_following">Followers</string>
     <string name="userinfo_reference">References</string>
     <string name="userinfo_male">Male</string>
     <string name="userinfo_female">Female</string>
-    <!--<string name="path_chat">Message</string>-->
     <string name="path_chat">JOIN</string>
     <string name="path_cancle">Cancle</string>
     <string name="path_groups">Groups</string>
@@ -228,7 +218,6 @@
     <string name="user_local"> Local Guide</string>
     <string name="user_meal"> Home Meal</string>
     <string name="user_stay"> Home Stay</string>
-
 
     <string name="user_follow">+ Follow</string>
     <string name="user_unfollow">Unfollow</string>
@@ -242,7 +231,6 @@
     <string name="user_interest">Select interests</string>
 
     <string name="choose">Choose</string>
-
 
     <string name="from">From </string>
     <string name="date">Yesterday</string>
@@ -286,12 +274,10 @@
     <string name="please_wait">Please wait…</string>
     <string name="take_photo">Take Photo</string>
     <string name="choose_photo">Choose Photo</string>
-    <!--<string name="activity_location">Country1 City</string>-->
     <string name="activity_location">Location</string>
     <string name="i_am_a">I am a…</string>
     <string name="add_activity">Add</string>
     <string name="users_interested">Users interested</string>
-    <string name="chat">Chat</string>
     <string name="edit">Edit</string>
     <string name="clear_all_records">Clear All Records?</string>
     <string name="path_fragment_error">Error retrieving activities from the server!</string>
@@ -373,23 +359,13 @@
     <string name="following">Followings\n</string>
     <string name="neteasemicroblog">Netease Microblog</string>
     <string name="pinterest_client_inavailable">Pinterest client does not exist or is out of date</string>
-    <string name="qq_client_inavailable">Mobile QQ client not exist or is out of date</string>
-    <string name="qzone">QZone</string>
-    <string name="renren">Renren</string>
-    <string name="share_to_qq">Share To QQ</string>
-    <string name="share_to_qzone">Share To QZone</string>
     <string name="shortmessage">Short Message</string>
     <string name="sinaweibo">Sina Weibo</string>
-    <string name="sohumicroblog">Sohu Microblog</string>
-    <string name="sohusuishenkan">Sohu Suishenkan</string>
-    <string name="tencentweibo">Tencent Weibo</string>
     <string name="wechatfavorite">Wechat Favorite</string>
     <string name="wechatmoments">Wechat Moments</string>
     <string name="weibo_oauth_regiseter">Authorization</string>
     <string name="whatsapp_client_inavailable">WhatsApp client not exists or the version is too low</string>
     <string name="yixin">Yixin</string>
-    <string name="yixin_client_inavailable">Yixin client not exists or the version is too low</string>
-    <string name="yixinmoments">Yixin Moments</string>
     <string name="select_country">Select Country</string>
     <string name="select_city">Select City</string>
     <string name="auto">Auto</string>
@@ -412,7 +388,6 @@
     <string name="join">JOIN</string>
     <string name="update_available">Update Available!</string>
     <string name="chats">MESSAGES</string>
-    <!--<string name="chats">CHATS</string>-->
     <string name="discover">DISCOVER</string>
     <string name="nearby">MEMBERS</string>
     <string name="title_hint">Come up with a title</string>

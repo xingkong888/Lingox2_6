@@ -64,7 +64,6 @@ public class FollowersFragment extends Fragment {
         return view;
     }
 
-
     public void onListItemClick(int position) {
         Intent intent = new Intent(getActivity(),
                 UserInfoActivity.class);

@@ -90,7 +90,6 @@ public class AddPhotosAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
-
         return gridView;
     }
 

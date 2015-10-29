@@ -65,18 +65,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private static final int ADD_PHOTOS = 103;
     private static final int ADD_TRAVEL = 104;
 
-    private static final int DELETE_TRAVEL = 106;
     private static final int SEEALL_TRAVEL = 107;
-    //    /**
-//     * 标签之间的间距 px
-//     */
-//    final int itemMargins = 50;
-//    /**
-//     * 标签的行间距 px
-//     */
-//    final int lineMargins = 50;
-    //TODO 设置标签的方法
-    int length;
     //是否提供
     private boolean local = false;//false 不提供 true 提供
     private boolean meal = false;
@@ -201,11 +190,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         about = (TextView) v.findViewById(R.id.userinfo_about);
         time = (TextView) v.findViewById(R.id.userinfo_time);
         availableMeal = (TextView) v.findViewById(R.id.userinfo_available_meal);
-        availableMeal.setOnClickListener(this);
         availableLocal = (TextView) v.findViewById(R.id.userinfo_available_local);
-        availableLocal.setOnClickListener(this);
         availableStay = (TextView) v.findViewById(R.id.userinfo_available_stay);
-        availableStay.setOnClickListener(this);
         userName = (TextView) v.findViewById(R.id.userinfo_name);
         userIdAndPlace = (TextView) v.findViewById(R.id.userinfo_id);
         userSexAndAge = (TextView) v.findViewById(R.id.userinfo_sex);
@@ -321,7 +307,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             );
         }
 
-
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values
         if (user.hasProperlyFormedBirthDate()) {
@@ -367,17 +352,16 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
         if (!requestingOthersData) {
             localTitle.setText(user.getNickname() + "'s Album");
-            localNothing1.setText(user.getNickname() + " has no posted photos yet");
-            localNothing2.setText(user.getNickname() + " has no posted photos yet");
+            localNothing1.setText(user.getNickname() + " hasn't posted photos yet");
+            localNothing2.setText(user.getNickname() + " hasn't posted photos yet");
 
             travelTitle.setText(user.getNickname() + "'s Travel Plans");
-            travelNothing1.setText(user.getNickname() + " has no posted travel plans yet");
-            travelNothing2.setText(user.getNickname() + " has no posted travel plans yet");
+            travelNothing1.setText(user.getNickname() + " hasn't posted travel plans yet");
+            travelNothing2.setText(user.getNickname() + " hasn't posted travel plans yet");
 
             aboutSelf1.setText(user.getNickname() + " hasn’t said anything about themself yet");
             aboutSelf2.setText(user.getNickname() + " hasn’t said anything about themself yet");
         }
-
 
         UIHelper uiHelper = UIHelper.getInstance();
         if (requestingOthersData && user.getSignature().equals("")) {
@@ -473,6 +457,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         new getUserExperience().execute();
     }
 
+    @Override
     public void onResume() {
         super.onResume();
         new LoadUserFollowing().execute();
@@ -489,7 +474,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 PhotoTagsSelectDialog.newInstance("interest", getActivity(), user, handler).show(getFragmentManager(), "interest");
                 break;
             case R.id.travel_add:
-//                MobclickAgent.onEvent(getActivity(),"members_");
                 mIntent = new Intent(getActivity(), AddTravelActivity.class);
                 startActivityForResult(mIntent, ADD_TRAVEL);
                 break;
@@ -525,7 +509,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 MobclickAgent.onEvent(getActivity(), "members_follower");
                 mIntent = new Intent(getActivity(), UserListActivity.class);
                 mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowingList);
-//                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, followUserList);
                 mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_following));
                 startActivity(mIntent);
                 break;
@@ -535,7 +518,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 MobclickAgent.onEvent(getActivity(), "members_following");
                 mIntent = new Intent(getActivity(), UserListActivity.class);
                 mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, followUserList);
-//                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowingList);
                 mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_followers));
                 startActivity(mIntent);
                 break;
@@ -574,7 +556,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 startActivityForResult(editIntent, EDIT_USER);
                 break;
             case R.id.layout_available_local:
-            case R.id.userinfo_available_local:
                 if (!local) {
                     user.setLocalGuide(local);
                     local = true;
@@ -591,7 +572,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 new UpdateUserInfo("local").execute();
                 break;
             case R.id.layout_available_meal:
-            case R.id.userinfo_available_meal:
                 if (!meal) {
                     user.setHomeMeal(meal);
                     meal = true;
@@ -608,7 +588,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 new UpdateUserInfo("meal").execute();
                 break;
             case R.id.layout_available_stay:
-            case R.id.userinfo_available_stay:
                 if (!stay) {
                     user.setHomeStay(stay);
                     stay = true;
@@ -735,7 +714,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     }
 
     public View getTravelView(int position) {
-
         return getTravelView(travelList.get(position));
     }
 
@@ -761,7 +739,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 }
             });
         }
-
         return view;
     }
 
@@ -828,8 +805,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onProgressUpdate(values);
             if (values[0] != null)
                 pd.setMessage(values[0]);
-            if (values[1] != null) {
-            }
         }
 
         @Override

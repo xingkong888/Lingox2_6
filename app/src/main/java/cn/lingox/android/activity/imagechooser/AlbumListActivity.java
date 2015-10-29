@@ -37,10 +37,8 @@ public class AlbumListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-
         helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
-
         initData();
     }
 

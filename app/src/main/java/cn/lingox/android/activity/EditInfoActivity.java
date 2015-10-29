@@ -107,9 +107,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
             }
         });
         editMale = (TextView) findViewById(R.id.edit_gender_male);
-//        editMale.setOnClickListener(this);
         editFemale = (TextView) findViewById(R.id.edit_gender_female);
-//        editFemale.setOnClickListener(this);
         editAgeInfo = (TextView) findViewById(R.id.edit_age_info);
         editAgeInfo.setOnClickListener(this);
         editCounty = (TextView) findViewById(R.id.edit_country_info);
@@ -121,9 +119,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         editAvatar.setOnClickListener(this);
 
         xiaoyuandian_male = (ImageView) findViewById(R.id.xiaoyuandian);
-//        xiaoyuandian_male.setOnClickListener(this);
         xiaoyuandian_female = (ImageView) findViewById(R.id.xiaoyuandian2);
-//        xiaoyuandian_female.setOnClickListener(this);
 
         editName = (ImageView) findViewById(R.id.userinfo_edit);
         editName.setOnClickListener(this);
@@ -265,7 +261,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         protected void onPreExecute() {
             super.onPreExecute();
             editOK.setClickable(false);
-            pd.setMessage(getString(R.string.updating_account_info));
+            pd.setMessage("Load...");
             pd.show();
             nickName = editNicknameInfo.getText().toString();
             updateParams.put(StringConstant.userIdStr, user.getId());

@@ -13,7 +13,6 @@ public class ForwardMessageActivity extends ContactListActivity {
     private User selectUser;
     private String forward_msg_id;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

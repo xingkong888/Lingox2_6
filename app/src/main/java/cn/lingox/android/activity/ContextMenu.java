@@ -16,7 +16,6 @@ public class ContextMenu extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int txtValue = EMMessage.Type.TXT.ordinal();
         int type = getIntent().getIntExtra("type", -1);
         if (type == EMMessage.Type.TXT.ordinal()) {
             setContentView(R.layout.context_menu_for_text);
@@ -64,12 +63,6 @@ public class ContextMenu extends BaseActivity {
 
     public void download(View v) {
         setResult(ChatActivity.RESULT_CODE_DWONLOAD,
-                new Intent().putExtra("position", position));
-        finish();
-    }
-
-    public void toCloud(View v) {
-        setResult(ChatActivity.RESULT_CODE_TO_CLOUD,
                 new Intent().putExtra("position", position));
         finish();
     }

@@ -175,7 +175,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     //根据坐标，获取地址描述
     private void getAddress(LatLonPoint latLonPoint) {
 //        latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
-// GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
+//        GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
         geocoderSearch.getFromLocationAsyn(query);
     }
@@ -249,7 +249,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         } else if (rCode == 27) {
             Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
         } else if (rCode == 32) {
-            Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "An unknown error", Toast.LENGTH_LONG).show();
         }

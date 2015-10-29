@@ -148,8 +148,7 @@ public class ImageGridAdapter extends BaseAdapter {
     }
 
     static class Holder {
-        ImageView iv;
-        ImageView selected;
+        ImageView iv, selected;
         TextView text;
     }
 }

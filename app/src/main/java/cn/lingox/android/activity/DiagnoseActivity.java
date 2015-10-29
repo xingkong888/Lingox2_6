@@ -68,7 +68,7 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
         if (progressDialog == null)
             progressDialog = new ProgressDialog(this);
         // TODO English
-        progressDialog.setMessage("Uploading log...");
+        progressDialog.setMessage("Uploading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 

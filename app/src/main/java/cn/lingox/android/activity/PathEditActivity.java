@@ -676,7 +676,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                     }
                     break;
-                    //page0-->page1-->page5-->page2-->  page3  -->page4
+                //page0-->page1-->page5-->page2-->  page3  -->page4
                 case 5://photo
                     saveTags();
                     pageNum.setText("5/5");

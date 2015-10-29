@@ -16,9 +16,7 @@ public class ClipImageLayout extends RelativeLayout {
 
     private ClipZoomImageView mZoomImageView;
     private ClipImageBorderView mClipImageView;
-    /**
-     * 这里测试，直接写死了大小，真正使用过程中，可以提取为自定义属性
-     */
+    //可通过setHorizontalPadding(int mHorizontalPadding)方法自定义内边距
     private int mHorizontalPadding = 0;
 
     public ClipImageLayout(Context context, AttributeSet attrs) {

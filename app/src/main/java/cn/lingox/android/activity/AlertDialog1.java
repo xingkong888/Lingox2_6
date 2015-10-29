@@ -74,7 +74,6 @@ public class AlertDialog1 extends BaseActivity {
         if (position != -1)
             ChatActivity.resendPos = position;
         finish();
-
     }
 
     public void cancel(View view) {

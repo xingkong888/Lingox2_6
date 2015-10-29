@@ -14,19 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import cn.lingox.android.R;
 import cn.lingox.android.activity.PhotoActivity;
 import cn.lingox.android.entity.Photo;
 import cn.lingox.android.helper.ServerHelper;
+import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.ImageCache;
 
 public class EditPhotoActivity extends ActionBarActivity implements View.OnClickListener {
 
     private static final String LOG_TAG = "EditPhotoActivity";
-
 
     private ImageView showPhoto;
     private EditText editText;
@@ -67,7 +65,7 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
             bitmap = FileUtil.getImg(photo.getUrl());
             showPhoto.setImageBitmap(bitmap);
         } else {
-            Picasso.with(this).load(url).into(showPhoto);
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, showPhoto, url);
         }
     }
 

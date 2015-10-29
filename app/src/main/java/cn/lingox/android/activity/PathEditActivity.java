@@ -581,6 +581,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             page2.setVisibility(View.INVISIBLE);
                             break;
                     }
+                    break;
                 case 2://time
                     switch (path.getType()) {
                         case 1:
@@ -612,6 +613,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                     }
+                    break;
                 case 3://title text
                     switch (path.getType()) {
                         case 1:
@@ -645,6 +647,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                     }
+                    break;
                 case 4://tag
                     switch (path.getType()) {
                         case 1:
@@ -672,6 +675,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                     }
+                    break;
                     //page0-->page1-->page5-->page2-->  page3  -->page4
                 case 5://photo
                     saveTags();

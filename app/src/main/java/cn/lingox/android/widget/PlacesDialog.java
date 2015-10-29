@@ -129,7 +129,6 @@ public class PlacesDialog extends DialogFragment implements
                 adapter.notifyDataSetChanged();
             }
         });
-
         return view;
     }
 

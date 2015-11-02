@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +60,24 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
         addPhotosAdapter = new AddPhotosAdapter(this, photoList);
         ListView listView = (ListView) findViewById(R.id.add_photos_activity_photo_list);
         listView.setAdapter(addPhotosAdapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    //空闲
+                    //加载
+                    addPhotosAdapter.isScroll(false);
+                    addPhotosAdapter.notifyDataSetChanged();
+                } else {
+                    addPhotosAdapter.isScroll(true);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     @Override

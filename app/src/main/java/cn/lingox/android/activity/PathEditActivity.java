@@ -194,8 +194,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
         page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
         page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
-//        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//暂无
-//        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);//暂无
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);

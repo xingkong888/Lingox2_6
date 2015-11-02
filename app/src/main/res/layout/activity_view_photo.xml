@@ -6,34 +6,33 @@
     <RelativeLayout
         android:id="@+id/photo_relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:background="#000"
-        android:padding="5dp">
+        android:padding="10dp">
 
-        <Button
+        <ImageView
             android:id="@+id/photo_bt_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ic_arrow_back_white_48dp" />
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_back_white_48dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/photo_bt_edit"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ic_create_white_24dp" />
+            android:padding="5dp"
+            android:src="@drawable/ic_create_white_24dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/photo_bt_delete"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/photo_bt_edit"
-            android:background="@drawable/top_delete_18dp" />
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/top_delete_18dp" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

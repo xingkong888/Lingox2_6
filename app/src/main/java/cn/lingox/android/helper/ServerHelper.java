@@ -1068,7 +1068,7 @@ public class ServerHelper {
     public ArrayList<Photo> getUsersPhotos(String user_id) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, user_id);
-        params.put(StringConstant.verStr, APPVERSION);
+//        params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PHOTOS, params);
 

@@ -556,8 +556,7 @@ public class ChatFragment extends Fragment {
     private void showConflictDialog() {
         isConflictDialogShow = true;
         LingoXApplication.getInstance().logout(null);
-
-        if (!getActivity().isFinishing()) {
+        if (getActivity() != null && !getActivity().isFinishing()) {
             // clear up global variables
             try {
                 if (conflictBuilder == null)
@@ -619,7 +618,6 @@ public class ChatFragment extends Fragment {
             //根据isExist值判断是否添加数据
             if (isExist == 0)
                 i++;
-
             can = new ChatAndNotify();
             can.setType(1);
             can.setObj(n);

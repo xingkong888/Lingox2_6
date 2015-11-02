@@ -3,14 +3,14 @@ package cn.lingox.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
@@ -59,11 +59,15 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     private EditText editText;
     private Button btn;
 
+    private ProgressBar pb;
+
     private ListView listView;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayList<Tip> tipList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private Inputtips inputtips;
+
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         //在onCreat方法中给aMap对象赋值
         setContentView(R.layout.activity_map);
         setMapView(savedInstanceState);
-
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
     }
 
@@ -101,28 +105,18 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     private void initView() {
         editText = (EditText) findViewById(R.id.map_search);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                request(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        pb = (ProgressBar) findViewById(R.id.map_pb);
 
         btn = (Button) findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 request(editText.getText().toString());
+                //关闭键盘
+                if (imm.isActive()) {
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
             }
         });
 
@@ -133,7 +127,11 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Tip tip = tipList.get(position);
+                if (pb.getVisibility() == View.GONE) {
+                    pb.setVisibility(View.VISIBLE);
+                }
                 getAddress(tip.getName(), tip.getAdcode());
+                editText.setText(tip.getName());
                 listView.setVisibility(View.GONE);
             }
         });
@@ -194,6 +192,10 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     //创建标记
     private void makeMarker(LatLng latLng1, String address) {
+//        Toast.makeText(this,latLng1.toString()+">>>"+address,Toast.LENGTH_SHORT).show();
+        if (pb.getVisibility() == View.VISIBLE) {
+            pb.setVisibility(View.GONE);
+        }
         this.address = address;
         aMap.clear();
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
@@ -227,6 +229,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             }
             adapter.notifyDataSetChanged();
         }
+//        Toast.makeText(this,list.size()+">>>",Toast.LENGTH_SHORT).show();
     }
 
     //逆地理编码时将地理坐标转换为中文地址（地名描述） 的回调接口

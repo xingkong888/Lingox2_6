@@ -85,7 +85,7 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
         }
 
         UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar());
-        final View.OnClickListener userClickListener = new View.OnClickListener() {
+        holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!LingoXApplication.getInstance().getSkip()) {
@@ -94,8 +94,7 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
                     context.startActivity(mIntent);
                 }
             }
-        };
-        holder.photo.setOnClickListener(userClickListener);
+        });
 
         return listView;
     }

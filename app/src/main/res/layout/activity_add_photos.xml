@@ -23,6 +23,12 @@
             android:text="@string/ok"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/add_photos_activity_add_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/follow" />
     </android.support.v7.widget.Toolbar>
 
     <ListView
@@ -35,12 +41,12 @@
         android:scrollbarStyle="outsideOverlay"
         android:transcriptMode="normal" />
 
-    <ImageView
-        android:id="@+id/add_photos_activity_add_photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:padding="8dp"
-        android:src="@drawable/follow" />
+    <!--<ImageView-->
+    <!--android:id="@+id/add_photos_activity_add_photo_button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:padding="8dp"-->
+    <!--android:src="@drawable/follow" />-->
 </RelativeLayout>

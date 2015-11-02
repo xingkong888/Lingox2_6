@@ -94,11 +94,8 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private void initView() {
         anim = (ImageView) findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
-
         pb = (ProgressBar) findViewById(R.id.progress);
-
         addReference = (ImageView) findViewById(R.id.iv_add_reference);
-
         // If we are viewing our own references
         // TODO implement reference managing for own reference page
 
@@ -128,7 +125,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     }
 
     private void initData() {
-
         if (groups.size() == 0) {
             startAnim();
             //判断当前用户是否为活动发起者

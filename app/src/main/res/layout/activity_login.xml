@@ -9,7 +9,7 @@
         android:id="@+id/layout_title_bar"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/main_color">
 
         <TextView
             android:id="@+id/title_bar_text"
@@ -137,7 +137,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/skip"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/main_color"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -151,7 +151,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/login"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/main_color"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -165,7 +165,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/sign_up"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/main_color"
             android:textSize="14sp"
             android:textStyle="bold" />
     </RelativeLayout>

@@ -36,7 +36,7 @@ public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
             User user = CacheHelper.getInstance().getSelfInfo();
             user.setAvatar(ServerHelper.getInstance().uploadAvatar(
                     user.getId(),
-                    FileUtil.getImg(photo.getPath())));
+                    FileUtil.getImg(photo.getPath(), context)));
             CacheHelper.getInstance().setSelfInfo(user);
             return true;
         } catch (Exception e) {

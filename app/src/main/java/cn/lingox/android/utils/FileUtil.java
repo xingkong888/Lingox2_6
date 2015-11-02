@@ -1,9 +1,11 @@
 package cn.lingox.android.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,12 +25,13 @@ public class FileUtil {
                 .getExternalStorageState());
     }
 
-    public static void saveImg(String url, Bitmap bitmap) {
-        if (!isMounted())
+    public static void saveImg(String url, Bitmap bitmap, Context context) {
+        if (!isMounted()) {
+            Toast.makeText(context, "内存卡不存在，请插入内存卡", Toast.LENGTH_SHORT).show();
             throw new RuntimeException("内存卡不存在，请插入内存卡");
+        }
         try {
             File dir = new File(CACHE_DIR);
-//            Log.d("星期",dir.getPath());
             if (!dir.exists()) {
                 dir.mkdir();
             }
@@ -36,7 +39,6 @@ public class FileUtil {
             if (imgFile.exists()) {
                 imgFile.delete();
             }
-
             FileOutputStream fos = new FileOutputStream(imgFile);
             bitmap.compress(CompressFormat.JPEG, 100, fos);
             fos.flush();
@@ -60,9 +62,11 @@ public class FileUtil {
         dir.delete();// 删除目录本身
     }
 
-    public static Bitmap getImg(String url) {
-        if (!isMounted())
+    public static Bitmap getImg(String url, Context context) {
+        if (!isMounted()) {
+            Toast.makeText(context, "内存卡不存在，请插入内存卡", Toast.LENGTH_SHORT).show();
             throw new RuntimeException("内存卡不存在，请插入内存卡");
+        }
         Bitmap bitmap = null;
         File imgFile = new File(CACHE_DIR, getImgName(url));
         if (imgFile.exists()) {

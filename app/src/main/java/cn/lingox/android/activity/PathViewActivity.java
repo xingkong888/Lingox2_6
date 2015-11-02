@@ -258,7 +258,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         layout.setOnClickListener(this);
 
         datas = LingoXApplication.getInstance().getDatas();
-
     }
 
     private void setData() {
@@ -266,14 +265,12 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             ownPath = (CacheHelper.getInstance().getSelfInfo().getId().equals(user.getId()));
             if (ownPath) {
                 chat.setVisibility(View.GONE);
-//                delAndEdit.setVisibility(View.VISIBLE);
                 delete.setVisibility(View.VISIBLE);
                 edit.setVisibility(View.VISIBLE);
                 pathAcceptButton.setImageResource(R.drawable.active_likepeople_24dp);
                 pathAcceptButton.setTag(1);
                 pathGroupChat.setVisibility(!TextUtils.isEmpty(path.getHxGroupId()) ? View.VISIBLE : View.GONE);
             } else {
-//                delAndEdit.setVisibility(View.GONE);
                 delete.setVisibility(View.GONE);
                 edit.setVisibility(View.GONE);
                 chat.setVisibility(View.VISIBLE);
@@ -304,12 +301,10 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 
         switch (path.getType()) {
-            case 1:
-//                Log.d("天气","本地人");
+            case 1://本地人
                 pathLocal.setVisibility(View.VISIBLE);
                 break;
-            case 2:
-//            Log.d("天气","旅行者");
+            case 2://旅行者
                 pathTraveler.setVisibility(View.VISIBLE);
                 break;
         }
@@ -326,9 +321,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
             }
-        } else
-//        if (!path.getAvailableTime().isEmpty())
-        {
+        } else {
             availableTime.setVisibility(View.VISIBLE);
             available.setVisibility(View.VISIBLE);
             pathTime.setVisibility(View.GONE);
@@ -430,13 +423,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void pathEdited() {
         pathTitle.setText(path.getTitle());
         switch (path.getType()) {
-            case 1:
-//                Log.d("天气","本地人");
+            case 1://本地人
                 pathLocal.setVisibility(View.VISIBLE);
                 pathTraveler.setVisibility(View.INVISIBLE);
                 break;
-            case 2:
-//            Log.d("天气","旅行者");
+            case 2://旅行者
                 pathLocal.setVisibility(View.INVISIBLE);
                 pathTraveler.setVisibility(View.VISIBLE);
                 break;
@@ -459,8 +450,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }
-//        uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
-//                JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
         if (path.getType() == 2) {
             uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
         } else {
@@ -541,7 +530,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 new joinGroupChat().execute();
                 break;
             case R.id.path_user_avatar:
-//            case R.id.path_user_name:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     MobclickAgent.onEvent(this, "discover_avatar");
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
@@ -1035,7 +1023,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     public class CommentDialog extends Dialog implements View.OnClickListener {
-
         private Comment comment;
 
         public CommentDialog(Comment comment) {

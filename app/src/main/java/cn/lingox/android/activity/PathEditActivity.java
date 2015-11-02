@@ -390,8 +390,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
             UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
             //五
-            if (FileUtil.getImg(path.getImage()) != null) {
-                addPathImage.setImageBitmap(FileUtil.getImg(path.getImage()));
+            if (FileUtil.getImg(path.getImage(), this) != null) {
+                addPathImage.setImageBitmap(FileUtil.getImg(path.getImage(), this));
             } else {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage());
             }
@@ -507,7 +507,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 else {
                     if (data.hasExtra(PhotoDialog.SELECTED_SINGLE_IMAGE)) {
                         imageUri = data.getParcelableExtra(PhotoDialog.SELECTED_SINGLE_IMAGE);
-                        addPathImage.setImageBitmap(FileUtil.getImg(imageUri.getPath()));
+                        addPathImage.setImageBitmap(FileUtil.getImg(imageUri.getPath(), this));
                         path.setImage("");
                         imageSelected = true;
                     } else if (data.hasExtra(PathCardImgDialog.PRESET_URI)) {
@@ -874,7 +874,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            compress(FileUtil.getImg(imageUri.getPath()))));
+                            compress(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));
@@ -946,7 +946,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            compress(FileUtil.getImg(imageUri.getPath()))));
+                            compress(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));

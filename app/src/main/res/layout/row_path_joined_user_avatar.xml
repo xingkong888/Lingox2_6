@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <cn.lingox.android.utils.CircularImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/path_joined_user_avatar"
     android:layout_width="44dp"

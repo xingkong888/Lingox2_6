@@ -15,5 +15,7 @@
 -->
 
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="@android:integer/config_longAnimTime" android:fromYDelta="0"
-    android:toYDelta="-100%p" /><!-- From: file:/E:/project/测试/LingoXAndroid/libraries/res/anim/slide_out_to_top.xml --><!-- From: file:/E:/project/测试/LingoXAndroid/libraries/build/intermediates/bundles/debug/res/anim/slide_out_to_top.xml -->
+    android:duration="@android:integer/config_longAnimTime"
+    android:fromYDelta="0"
+    android:toYDelta="-100%p" />
+<!-- From: file:/E:/project/测试/LingoXAndroid/libraries/res/anim/slide_out_to_top.xml --><!-- From: file:/E:/project/测试/LingoXAndroid/libraries/build/intermediates/bundles/debug/res/anim/slide_out_to_top.xml -->

@@ -236,7 +236,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 croppedImage = cropImageView.clip();
-                FileUtil.saveImg(data.getPath(), croppedImage);
+                FileUtil.saveImg(data.getPath(), croppedImage, PhotoDialog.this);
                 croppedImageView.setImageBitmap(croppedImage);
                 croppedImageView.setVisibility(View.VISIBLE);
                 confirmButton.setVisibility(View.VISIBLE);
@@ -283,7 +283,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
                         croppedImage.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
                         options -= 10;//每次都减少10
                     }
-                    FileUtil.saveImg(photoUri.getPath(), croppedImage);
+                    FileUtil.saveImg(photoUri.getPath(), croppedImage, PhotoDialog.this);
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, e.toString());

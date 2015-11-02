@@ -61,8 +61,8 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
             bitmap = ImageCache.getInstance().get(photo.getUrl());
             showPhoto.setImageBitmap(bitmap);
         }
-        if (FileUtil.getImg(url) != null) {
-            bitmap = FileUtil.getImg(photo.getUrl());
+        if (FileUtil.getImg(url, this) != null) {
+            bitmap = FileUtil.getImg(photo.getUrl(), this);
             showPhoto.setImageBitmap(bitmap);
         } else {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, showPhoto, url);

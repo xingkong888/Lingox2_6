@@ -64,7 +64,7 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
                             , bmpWidth, bmpHeight / 2);
                     // 将图片保存到本地
                     if (bitmap1 != null) {
-                        FileUtil.saveImg(url, bitmap1);
+//                        FileUtil.saveImg(url, bitmap1,);
                         ImageCache.getInstance().put(url, bitmap1);
                     }
 

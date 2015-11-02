@@ -407,6 +407,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="select_language">Select a Language</string>
     <string name="chat_btn">Chat\n</string>
+    <string name="chat">Chat</string>
     <string name="edit_btn">Edit\n</string>
     <string name="title_activity">Title:</string>
     <string name="time_activity">Time:</string>

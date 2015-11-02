@@ -8,7 +8,7 @@
         android:id="@+id/album_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f"
+        android:background="@color/main_color"
         android:titleTextAppearance="@color/white">
 
         <Button
@@ -19,9 +19,7 @@
             android:layout_gravity="end"
             android:layout_marginRight="15dp"
             android:background="@null"
-            android:text="OK"
-            android:visibility="gone" />
-
+            android:text="OK" />
     </android.support.v7.widget.Toolbar>
 
     <GridView
@@ -33,6 +31,4 @@
         android:numColumns="3"
         android:scrollbars="none"
         android:verticalSpacing="8dp" />
-
-
 </LinearLayout>

@@ -49,6 +49,7 @@ public class SplashActivity extends Activity {
 
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.updateOnlineConfig(this);
+        MobclickAgent.setCatchUncaughtExceptions(true);
         AnalyticsConfig.enableEncrypt(true);
         checkFile();
         if (CacheHelper.getInstance().isLoggedIn()) {

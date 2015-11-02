@@ -241,7 +241,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
                     Log.d(LOG_TAG, "onActivityResult -> PHOTO_RESULT -> not RESULT_OK");
                 else {
                     Uri avatarUri = data.getParcelableExtra(PhotoDialog.SELECTED_SINGLE_IMAGE);
-                    editAvatar.setImageBitmap(FileUtil.getImg(avatarUri.getPath()));
+                    editAvatar.setImageBitmap(FileUtil.getImg(avatarUri.getPath(), this));
                     new UploadAvatar(this, editAvatar, avatarUri).execute();
                 }
                 break;

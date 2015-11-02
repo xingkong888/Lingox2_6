@@ -100,10 +100,10 @@ public class NearbyAdapter extends BaseAdapter {
                 if (ImageCache.getInstance().get(user.getAvatar()) != null && holder.avatar.getTag().equals(user.getAvatar())) {
                     holder.avatar.setImageBitmap(ImageCache.getInstance().get(user.getAvatar()));
                 } else {
-                    if (FileUtil.getImg(user.getAvatar()) == null && holder.avatar.getTag().equals(user.getAvatar())) {
+                    if (FileUtil.getImg(user.getAvatar(), context) == null && holder.avatar.getTag().equals(user.getAvatar())) {
                         UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar());
                     } else if (holder.avatar.getTag().equals(user.getAvatar())) {
-                        holder.avatar.setImageBitmap(FileUtil.getImg(user.getAvatar()));
+                        holder.avatar.setImageBitmap(FileUtil.getImg(user.getAvatar(), context));
                     } else {
                         holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
                     }

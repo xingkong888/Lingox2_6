@@ -27,7 +27,6 @@ public class User implements Parcelable {
         }
     };
     private static final String LOG_TAG = "User";
-    private String location = "";
 
     private String id;
     private String username;
@@ -41,7 +40,7 @@ public class User implements Parcelable {
     private String dateOfBirth;
     private String gender;
     private String profession;
-    private ArrayList<String> interests;
+    private ArrayList<String> interests = new ArrayList<>();
     private String signature;
     private double[] loc;
     private String locString;
@@ -69,7 +68,7 @@ public class User implements Parcelable {
         dateOfBirth = "";
         gender = "";
         profession = "";
-        interests = new ArrayList<>();
+        interests.clear();
         signature = "";
         loc = new double[]{0, 0};
         locString = "";

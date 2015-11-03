@@ -72,7 +72,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     // Outgoing Request Codes
     public static final int EDIT_PATH = 101;
     private static final String LOG_TAG = "PathViewActivity";
-    private static final String FILE_DIRECTORY = "/LingoX";
     private static final String FILE_NAME = "/app_icon.jpg";
     private static String appIconImagePath;
     /**

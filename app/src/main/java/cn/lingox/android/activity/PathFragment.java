@@ -87,7 +87,6 @@ public class PathFragment extends Fragment implements OnClickListener {
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
         listView.setRefreshing(true);
-        listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -242,7 +241,13 @@ public class PathFragment extends Fragment implements OnClickListener {
     }
 
     private class GetPaths extends AsyncTask<Void, String, Boolean> {
-        ArrayList<Path> tempPathList = new ArrayList<>();
+        ArrayList<Path> tempPathList;
+
+        @Override
+        protected void onPreExecute() {
+            tempPathList = new ArrayList<>();
+            listView.setMode(PullToRefreshBase.Mode.DISABLED);
+        }
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -276,6 +281,7 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            listView.setMode(PullToRefreshBase.Mode.BOTH);
             listView.onRefreshComplete();
             if (success) {
                 if (pathList.size() != 0 && tempPathList.size() == 0) {

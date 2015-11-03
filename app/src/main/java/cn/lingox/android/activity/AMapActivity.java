@@ -3,6 +3,8 @@ package cn.lingox.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -21,8 +23,6 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.geocoder.GeocodeAddress;
-import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
@@ -64,8 +64,10 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     private ListView listView;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayList<Tip> tipList = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter adapter;
     private Inputtips inputtips;
+
+    private boolean focus = false;//标识edit是否获取焦点，false 失去焦点 true 得到焦点
 
     private InputMethodManager imm;
 
@@ -90,7 +92,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             lat = user.getLoc()[1];
             lng = user.getLoc()[0];
         }
-        latLng = new LatLng(lat, lng);
         latLonPoint = new LatLonPoint(lat, lng);
 
         aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
@@ -105,7 +106,37 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     private void initView() {
         editText = (EditText) findViewById(R.id.map_search);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 2 && focus) {
+                    request(s.toString());
+                } else {
+                    arrayList.clear();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {//获得焦点
+                    focus = true;
+                } else {//失去焦点
+                    focus = false;
+                }
+            }
+        });
         pb = (ProgressBar) findViewById(R.id.map_pb);
 
         btn = (Button) findViewById(R.id.btn);
@@ -119,19 +150,26 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
                 }
             }
         });
-
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //关闭键盘
+                if (imm.isActive()) {
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
                 Tip tip = tipList.get(position);
                 if (pb.getVisibility() == View.GONE) {
                     pb.setVisibility(View.VISIBLE);
                 }
-                getAddress(tip.getName(), tip.getAdcode());
+                lat = tip.getPoint().getLatitude();
+                lng = tip.getPoint().getLongitude();
+                getAddress(tip.getPoint());
+                focus = false;
                 editText.setText(tip.getName());
+                focus = true;
                 listView.setVisibility(View.GONE);
             }
         });
@@ -178,30 +216,18 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         geocoderSearch.getFromLocationAsyn(query);
     }
 
-    //根据地址获取坐标
-    private void getAddress(String address, String cityCode) {
-        // name表示地址，第二个参数表示查询城市，中文或者中文全拼，citycode、adcode
-        GeocodeQuery query = new GeocodeQuery(address, cityCode);
-        geocoderSearch.getFromLocationNameAsyn(query);
-    }
-
-    private void makeMarker(LatLonPoint point) {
-        latLng = new LatLng(point.getLatitude(), point.getLongitude());
-        getAddress(point);
-    }
-
     //创建标记
-    private void makeMarker(LatLng latLng1, String address) {
-//        Toast.makeText(this,latLng1.toString()+">>>"+address,Toast.LENGTH_SHORT).show();
+    private void makeMarker(String address) {
+        latLng = new LatLng(lat, lng);
         if (pb.getVisibility() == View.VISIBLE) {
             pb.setVisibility(View.GONE);
         }
         this.address = address;
         aMap.clear();
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-        aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng1));
+        aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
         marker = aMap.addMarker(new MarkerOptions()
-                .position(latLng1)
+                .position(latLng)
                 .title(address)
                 .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
@@ -229,7 +255,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             }
             adapter.notifyDataSetChanged();
         }
-//        Toast.makeText(this,list.size()+">>>",Toast.LENGTH_SHORT).show();
     }
 
     //逆地理编码时将地理坐标转换为中文地址（地名描述） 的回调接口
@@ -245,7 +270,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 String addressName = result.getRegeocodeAddress().getFormatAddress()
                         + "附近";
-                makeMarker(latLng, addressName);
+                makeMarker(addressName);
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
             }
@@ -266,22 +291,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
      */
     @Override
     public void onGeocodeSearched(GeocodeResult result, int rCode) {
-        if (rCode == 0) {
-            if (result != null && result.getGeocodeAddressList() != null
-                    && result.getGeocodeAddressList().size() > 0) {
-                GeocodeAddress address = result.getGeocodeAddressList().get(0);
-                point = address.getLatLonPoint();
-                makeMarker(point);
-            } else {
-                Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
-            }
-        } else if (rCode == 27) {
-            Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
-        } else if (rCode == 32) {
-//            Toast.makeText(this,R.string.network_unavailable,Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "An unknown error", Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

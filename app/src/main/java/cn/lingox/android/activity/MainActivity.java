@@ -210,6 +210,7 @@ public class MainActivity extends ActionBarActivity implements
                         break;
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
             }

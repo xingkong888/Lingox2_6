@@ -34,6 +34,9 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.utils.SkipDialog;
 
+/**
+ * 活动展示
+ */
 public class PathFragment extends Fragment implements OnClickListener {
     // Request Codes
     public static final int ADD_PATH = 101;
@@ -70,10 +73,11 @@ public class PathFragment extends Fragment implements OnClickListener {
         }
         initView(view);
         refreshList();
-        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId()))
+        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
             addPathButton.setVisibility(View.GONE);
-        else
+        } else {
             addPathButton.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -86,6 +90,7 @@ public class PathFragment extends Fragment implements OnClickListener {
         adapter = new PathAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setRefreshing(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -246,7 +251,6 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             tempPathList = new ArrayList<>();
-            listView.setMode(PullToRefreshBase.Mode.DISABLED);
         }
 
         @Override
@@ -261,14 +265,12 @@ public class PathFragment extends Fragment implements OnClickListener {
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
                         if (tempUser == null) {
-                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(
-                                    CacheHelper.getInstance().getSelfInfo().getId(), path.getUserId()
+                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()
                             ));
                         }
                     }
                 }
                 // 将数据添加到集合中
-//                pathList.clear();
                 pathList.addAll(tempPathList);
                 return true;
             } catch (Exception e) {
@@ -281,7 +283,6 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
-            listView.setMode(PullToRefreshBase.Mode.BOTH);
             listView.onRefreshComplete();
             if (success) {
                 if (pathList.size() != 0 && tempPathList.size() == 0) {

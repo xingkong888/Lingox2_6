@@ -152,8 +152,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     };
     //第七页面
     private EditText availableTime;
-    //第八页面
-    private EditText groupSize, budget;
+
+
     private Path newPath;
 
     @Override
@@ -862,7 +862,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             Boolean success = false;
             try {
                 Collections.sort(path.getTags());
-                newPath = ServerHelper.getInstance().createPath(path);
+                newPath = ServerHelper.getInstance().path("create", path);
+//                newPath = ServerHelper.getInstance().createPath(path);
                 success = true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());
@@ -940,7 +941,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     //changedGroupName 改变后的群组名称
                     EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
                 }
-                newPath = ServerHelper.getInstance().editPath(path.getId(), path);
+                newPath = ServerHelper.getInstance().path("edit", path);
+//                newPath = ServerHelper.getInstance().editPath(path.getId(), path);
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),

@@ -420,7 +420,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userInfoPlaces.setHint("");
             userInfoPlaces.setEnabled(false);
         }
-        userIdAndPlace.setText("ID:" + user.getUsername() + ",\t" + user.getLocation());
+        userIdAndPlace.setText("ID:" + user.getUsername());
+        if (!user.getLocation().isEmpty()) {
+            userIdAndPlace.setText(userIdAndPlace.getText() + ",\t" + user.getLocation());
+        }
         if (user.getHomeMeal()) {
             userMeal.setVisibility(View.VISIBLE);
             meal = true;

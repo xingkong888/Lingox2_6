@@ -104,6 +104,7 @@ public class LingoXApplication extends Application {
     }
 
     public String getLocation(String country, String province, String city) {
+        location = "";
         readLocation(country, province, city);
         return location;
     }

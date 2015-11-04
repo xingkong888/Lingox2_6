@@ -60,6 +60,7 @@ public class NearByFragment extends Fragment {
         animationDrawable = (AnimationDrawable) img.getBackground();
 
         listView = (PullToRefreshListView) view.findViewById(R.id.nearby_listview);
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new NearbyAdapter(getActivity(), searchList);
         listView.setAdapter(adapter);
         listView.setRefreshing(true);
@@ -141,7 +142,6 @@ public class NearByFragment extends Fragment {
         public Search(Map<String, String> p, int searchType) {
             this.localParams = p;
             this.searchType = searchType;
-            listView.setMode(PullToRefreshBase.Mode.DISABLED);
         }
 
         @Override
@@ -173,7 +173,6 @@ public class NearByFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
-            listView.setMode(PullToRefreshBase.Mode.BOTH);
             listView.onRefreshComplete();
         }
     }

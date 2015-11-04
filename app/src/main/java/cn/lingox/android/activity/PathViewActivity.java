@@ -798,7 +798,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             user = CacheHelper.getInstance().getUserInfo(params[0]);
             if (user == null) {
                 try {
-                    user = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), params[0]);
+                    user = ServerHelper.getInstance().getUserInfo(params[0]);
                 } catch (Exception e) {
                     user = null;
                 }
@@ -981,17 +981,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                if (!LingoXApplication.getInstance().getSkip()) {
-                    boolean ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
-                    if (ownComment) {
-                        commentUser = CacheHelper.getInstance().getSelfInfo();
-                    } else {
-                        commentUser = CacheHelper.getInstance().getUserInfo(userId);
-                    }
-                    if (commentUser == null)
-                        commentUser = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userId);
+                boolean ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
+                if (ownComment) {
+                    commentUser = CacheHelper.getInstance().getSelfInfo();
                 } else {
-                    commentUser = ServerHelper.getInstance().getUserInfo("547a6dbda06d0fd45b41bc89", userId);
+                    commentUser = CacheHelper.getInstance().getUserInfo(userId);
+                }
+                if (commentUser == null) {
+                    commentUser = ServerHelper.getInstance().getUserInfo(userId);
                 }
             } catch (Exception e) {
                 Log.e(LOG_TAG, "failed to get Comment's User's info from server");
@@ -1102,24 +1099,15 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected User doInBackground(String... params) {
             User targetUser;
-            if (!LingoXApplication.getInstance().getSkip()) {
-                boolean isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
-                if (isTargetUs)
-                    targetUser = CacheHelper.getInstance().getSelfInfo();
-                else
-                    targetUser = CacheHelper.getInstance().getUserInfo(userTar);
-                if (targetUser == null) {
-                    try {
-                        targetUser = ServerHelper.getInstance().
-                                getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userTar);
-                    } catch (Exception e) {
-                        return null;
-                    }
-                }
+            boolean isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
+            if (isTargetUs) {
+                targetUser = CacheHelper.getInstance().getSelfInfo();
             } else {
+                targetUser = CacheHelper.getInstance().getUserInfo(userTar);
+            }
+            if (targetUser == null) {
                 try {
-                    targetUser = ServerHelper.getInstance().
-                            getUserInfo("547a6dbda06d0fd45b41bc89", userTar);
+                    targetUser = ServerHelper.getInstance().getUserInfo(userTar);
                 } catch (Exception e) {
                     return null;
                 }

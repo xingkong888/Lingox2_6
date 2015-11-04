@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/E:/project/测试/LingoXAndroid/libraries/build/intermediates/bundles/debug/res/values-en/values-en.xml -->
-    <eat-comment/>
-    <string name="pull_to_refresh_pull_label">Pull To Refresh</string>
-    <string name="pull_to_refresh_refreshing_label">Loading…</string>
-    <string name="pull_to_refresh_release_label">Let Go Of To Refresh…</string>
-</resources>

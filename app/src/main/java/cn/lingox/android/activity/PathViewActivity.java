@@ -289,11 +289,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             pathJoinedUserNum.setText("0");
             joinedUsersListView.setVisibility(View.GONE);
         }
-        pathJoinedUserNum.setText("" + joinedUsersList.size());
+        pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
         joinedUsersAdapter.notifyDataSetChanged();
         commentsList.clear();
         commentsList.addAll(path.getComments());
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         loadComments();
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar());
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11());
@@ -640,14 +640,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void removeComment(int position) {
         path.removeComment(commentsList.get(position));
         commentsList.remove(position);
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         commentsListView.removeViewAt(position);
     }
 
     private void addComment(Comment comment) {
         path.addComment(comment);
         commentsList.add(comment);
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         commentsListView.addView(getCommentView(commentsList.size() - 1));
         commentEditText.clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -908,7 +908,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 }
                 path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 joinedUsersAdapter.addItem(CacheHelper.getInstance().getSelfInfo());
-                pathJoinedUserNum.setText("" + (Integer.parseInt("" + pathJoinedUserNum.getText()) + 1));
+                pathJoinedUserNum.setText(String.valueOf(
+                        (Integer.parseInt(
+                                pathJoinedUserNum.getText().toString()) + 1)));
                 joinedUsersAdapter.notifyDataSetChanged();
                 pathAcceptButton.setImageResource(R.drawable.active_like_24dp);
                 pathAcceptButton.setTag(1);
@@ -950,7 +952,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 joinedUsersAdapter.notifyDataSetChanged();
                 if (joinedUsersList.size() == 0)
                     joinedUsersListView.setVisibility(View.GONE);
-                pathJoinedUserNum.setText("" + joinedUsersList.size());
+                pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 pathGroupChat.setVisibility(View.GONE);
             } else {
                 Toast.makeText(PathViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();

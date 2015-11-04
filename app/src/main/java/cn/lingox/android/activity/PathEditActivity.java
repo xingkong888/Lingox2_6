@@ -324,6 +324,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     path.setTitle(CachePath.getInstance().getTitle());
                     UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
                 }
+                if (!CachePath.getInstance().getLocation().isEmpty()) {
+                    path.setLocation(CachePath.getInstance().getLocation());
+                    UIHelper.getInstance().textViewSetPossiblyNullString(countryBtn, path.getLocation());
+                }
                 if (!CachePath.getInstance().getDescription().isEmpty()) {
                     path.setText(CachePath.getInstance().getDescription());
                     UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
@@ -386,6 +390,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             }
             //四
             UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
+            UIHelper.getInstance().textViewSetPossiblyNullString(countryBtn, path.getLocation());
             UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
             //五
             if (FileUtil.getImg(path.getImage(), this) != null) {

@@ -120,7 +120,7 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                 // TODO English
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(VoiceCallActivity.this, "...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(VoiceCallActivity.this, "...", Toast.LENGTH_SHORT);
                     }
                 });
             }

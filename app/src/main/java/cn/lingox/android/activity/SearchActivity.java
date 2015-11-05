@@ -666,7 +666,8 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
                         if (tempUser == null)
-                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()
+                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(
+                                    CacheHelper.getInstance().getSelfInfo().getId(), path.getUserId()
                             ));
                     }
                 }

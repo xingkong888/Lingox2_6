@@ -122,8 +122,8 @@ public class NearbyAdapter extends BaseAdapter {
                 holder.speak_.setVisibility(View.VISIBLE);
                 holder.speak.setVisibility(View.VISIBLE);
                 holder.point.setVisibility(View.VISIBLE);
-                if (user.getSpeak().length() > 10) {
-                    String str = user.getSpeak().substring(0, 7) + "...";
+                if (user.getSpeak().length() > 17) {
+                    String str = user.getSpeak().substring(0, 12) + "...";
                     holder.speak.setText(str);
                 } else {
                     holder.speak.setText(user.getSpeak());
@@ -138,16 +138,12 @@ public class NearbyAdapter extends BaseAdapter {
             if (!str.isEmpty()) {
                 holder.countryAndCity.setVisibility(View.VISIBLE);
                 holder.countryAndCity.setText(context.getString(R.string.from) + " " + str);
-                //设置分隔线长度
-                holder.countryAndCity.measure(0, 0);
-                holder.line.setWidth(holder.countryAndCity.getMeasuredWidth());
             } else {
-                //设置分隔线长度
-                holder.name.measure(0, 0);
-                holder.line.setWidth(holder.name.getMeasuredWidth());
-
                 holder.countryAndCity.setVisibility(View.GONE);
             }
+            //设置分隔线长度
+            holder.countryAndCity.measure(0, 0);
+            holder.line.setWidth(holder.countryAndCity.getMeasuredWidth());
 
             if (user.getLocalGuidey()) {
                 holder.tag2.setVisibility(View.VISIBLE);
@@ -226,7 +222,7 @@ public class NearbyAdapter extends BaseAdapter {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                textView.setText(String.valueOf(num));
+                textView.setText("" + num);
             } else {
                 Toast.makeText(context, context.getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
             }

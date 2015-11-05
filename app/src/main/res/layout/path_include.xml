@@ -170,7 +170,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="@string/type"
+                android:text="Type"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -203,7 +203,7 @@
             android:drawableRight="@drawable/personal_keyboard_right_24dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/activity_comments"
+            android:text="Activity comments"
             android:textSize="15sp" />
 
         <TextView
@@ -241,6 +241,7 @@
                 android:layout_toRightOf="@+id/path_cost"
                 android:focusable="false"
                 android:gravity="center_vertical"
+                android:text="0"
                 android:textColor="#000"
                 android:textSize="19sp" />
         </RelativeLayout>
@@ -281,6 +282,7 @@
                 android:layout_toRightOf="@+id/capacity_activity"
                 android:focusable="false"
                 android:gravity="center_vertical"
+                android:text="0"
                 android:textColor="#000"
                 android:textSize="19sp" />
         </RelativeLayout>

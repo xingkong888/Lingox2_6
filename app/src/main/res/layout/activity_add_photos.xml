@@ -14,12 +14,21 @@
 
         <Button
             android:id="@+id/add_photos_activity_toolbar_confirm_button"
-            android:layout_width="wrap_content"
+            style="@style/TitleBarText"
+            android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginRight="15dp"
-            android:background="@null"
-            android:text="Upload" />
+            android:background="#0000"
+            android:text="@string/ok"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/add_photos_activity_add_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/follow" />
     </android.support.v7.widget.Toolbar>
 
     <ListView
@@ -32,12 +41,12 @@
         android:scrollbarStyle="outsideOverlay"
         android:transcriptMode="normal" />
 
-    <ImageView
-        android:id="@+id/add_photos_activity_add_photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:padding="8dp"
-        android:src="@drawable/follow" />
+    <!--<ImageView-->
+    <!--android:id="@+id/add_photos_activity_add_photo_button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:padding="8dp"-->
+    <!--android:src="@drawable/follow" />-->
 </RelativeLayout>

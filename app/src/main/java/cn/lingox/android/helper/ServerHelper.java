@@ -46,13 +46,8 @@ public class ServerHelper {
             instance = new ServerHelper();
         return instance;
     }
+    // Version
 
-    /**
-     * json数据解析
-     *
-     * @param jsonStr 待解析的json数据
-     * @return
-     */
     private ReturnMsg checkReturnMsg(String jsonStr) {
         if (jsonStr != null && !jsonStr.equals("")) {
             JSONObject jobj;
@@ -73,12 +68,6 @@ public class ServerHelper {
         }
     }
 
-    /**
-     * 版本更新
-     *
-     * @param currentVer
-     * @return
-     */
     public boolean requireUpdate(int currentVer) {
         int minVer;
         try {
@@ -93,15 +82,7 @@ public class ServerHelper {
         return (currentVer < minVer);
     }
 
-    /**
-     * 用户注册
-     *
-     * @param email    邮箱
-     * @param userName 用户名
-     * @param password 用户密码
-     * @return
-     * @throws Exception
-     */
+    // User
     public User register(String email, String userName, String password) throws Exception {
 
         Map<String, String> params = new HashMap<>();
@@ -110,7 +91,8 @@ public class ServerHelper {
         params.put(StringConstant.passwordStr, password);
         params.put(StringConstant.verStr, APPVERSION);
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_REGISTER, params);
-//        Log.d(LOG_TAG, "register: " + jsonStr);
+
+        Log.d(LOG_TAG, "register: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -123,18 +105,12 @@ public class ServerHelper {
                 rmsg.getData().toString(),
                 User.class);
 
-//        Log.d(LOG_TAG, "register: User Info: " + user);
+        Log.d(LOG_TAG, "register: User Info: " + user);
+
         return user;
     }
 
-    /**
-     * 获取双方关系
-     *
-     * @param userId1 当前用户id
-     * @param userId2
-     * @return
-     * @throws Exception
-     */
+    //获取双方关系
     public boolean getBothFollowed(String userId1, String userId2) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", userId1);
@@ -143,7 +119,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_RELATION, params);
 
-//        Log.d(LOG_TAG, "getBothFollowed: " + jsonStr);
+        Log.d(LOG_TAG, "getBothFollowed: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -158,14 +134,6 @@ public class ServerHelper {
         }
     }
 
-    /**
-     * 用户登录
-     *
-     * @param emailOrUsername 邮箱或用户名
-     * @param password        密码
-     * @return
-     * @throws Exception
-     */
     public User login(String emailOrUsername, String password) throws Exception {
 
         Map<String, String> params = new HashMap<>();
@@ -175,7 +143,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_LOGIN, params);
 
-//        Log.d(LOG_TAG, "login: " + jsonStr);
+        Log.d(LOG_TAG, "login: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -183,20 +151,16 @@ public class ServerHelper {
             Log.e(LOG_TAG, "login: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
+
         User user = JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(),
                 User.class);
-//        Log.d(LOG_TAG, "login: User Info: " + user);
+
+        Log.d(LOG_TAG, "login: User Info: " + user);
 
         return user;
     }
 
-    /**
-     * 找回密码
-     *
-     * @param email 邮箱
-     * @throws Exception
-     */
     public void forgotPassword(String email) throws Exception {
 
         Map<String, String> params = new HashMap<>();
@@ -205,7 +169,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_FORGOT_PASSWORD, params);
 
-//        Log.d(LOG_TAG, "forgotPassword: " + jsonStr);
+        Log.d(LOG_TAG, "forgotPassword: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -214,17 +178,10 @@ public class ServerHelper {
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
             throw new Exception(rmsg.getRemark());
         }
-//        Log.d(LOG_TAG, "forgotPassword: password successfully recovered");
+
+        Log.d(LOG_TAG, "forgotPassword: password successfully recovered");
     }
 
-    /**
-     * 更换头像
-     *
-     * @param user_id 用户id
-     * @param avatar  头像
-     * @return
-     * @throws Exception
-     */
     public String uploadAvatar(String user_id, Bitmap avatar) throws Exception {
 
         String jsonStr = MsgSender.postAvatarToNet(URLConstant.URL_UPLOAD_AVATAR,
@@ -247,13 +204,6 @@ public class ServerHelper {
         return avatarPath;
     }
 
-    /**
-     * 更新用户信息
-     *
-     * @param params
-     * @return
-     * @throws Exception
-     */
     public User updateUserInfo(Map<String, String> params) throws Exception {
         params.put(StringConstant.verStr, APPVERSION);
 
@@ -305,11 +255,6 @@ public class ServerHelper {
         return relationCode;
     }
 
-    /**
-     * @param user_src_id
-     * @return
-     * @throws Exception
-     */
     public ArrayList<User> getContactList(String user_src_id) throws Exception {
 
         Map<String, String> params = new HashMap<>();
@@ -344,30 +289,11 @@ public class ServerHelper {
         return contactList;
     }
 
-    /**
-     * 获取用户信息详情
-     *
-     * @param tar_user_id 目标id
-     * @return
-     * @throws Exception
-     */
     public User getUserInfo(String tar_user_id) throws Exception {
-        if (LingoXApplication.getInstance().getSkip()) {
-            return getUserInfo("547a6dbda06d0fd45b41bc89", tar_user_id);
-        } else {
-            return getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), tar_user_id);
-        }
+        return getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), tar_user_id);
     }
 
-    /**
-     * 获取用户信息详情
-     *
-     * @param my_user_id  当前用户id
-     * @param tar_user_id 目标用户id
-     * @return
-     * @throws Exception
-     */
-    private User getUserInfo(String my_user_id, String tar_user_id) throws Exception {
+    public User getUserInfo(String my_user_id, String tar_user_id) throws Exception {
 
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userSourceStr, my_user_id);
@@ -394,13 +320,6 @@ public class ServerHelper {
         return returnUser;
     }
 
-    /**
-     * 获取用户Following的数据
-     *
-     * @param user_tar_id
-     * @return
-     * @throws Exception
-     */
     public ArrayList<User> getUserFollowing(String user_tar_id) throws Exception {
 
         Map<String, String> params = new HashMap<>();
@@ -435,12 +354,7 @@ public class ServerHelper {
         return contactList;
     }
 
-    /**
-     * 提示服务器用户登录，修改登录时间
-     *
-     * @param user_id
-     * @throws Exception
-     */
+    //// TODO: 提示服务器用户登录
     public void loginTime(String user_id) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, user_id);
@@ -452,16 +366,8 @@ public class ServerHelper {
         CacheHelper.getInstance().setSelfInfo(user);
     }
 
-    /**
-     * members页面数据获取
-     *
-     * @param user_id    当前用户id
-     * @param searchType 搜索类型
-     * @param params
-     * @param page
-     * @return
-     * @throws Exception
-     */
+    // Search
+    // TODO use page
     public ArrayList<User> searchUser(String user_id, int searchType, Map<String, String> params, int page) throws Exception {
         if (params == null)
             params = new HashMap<>();
@@ -505,13 +411,8 @@ public class ServerHelper {
     }
     // References
 
-    /**
-     * 默认返回第一页数据
-     *
-     * @return
-     * @throws Exception
-     */
     public ArrayList<User> searchUserDefault() throws Exception {
+
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DEFAULT_USER);
 //        Log.d(LOG_TAG, "searchUser: " + jsonStr);
 
@@ -541,39 +442,19 @@ public class ServerHelper {
         return searchResult;
     }
 
-    /**
-     * 创建和修改评论
-     *
-     * @param referenceId 评论id，用于修改，创建是传 “”空值
-     * @param user_src_id 当前用户id ，用于创建
-     * @param user_tar_id 目标用户id。用于创建
-     * @param title       标题，与content重复
-     * @param content     内容
-     * @return
-     * @throws Exception
-     */
-    public Reference reference(String referenceId, String user_src_id, String user_tar_id, String title,
-                               String content) throws Exception {
+    public Reference createReference(String user_src_id, String user_tar_id, String title,
+                                     String content) throws Exception {
         Map<String, String> params = new HashMap<>();
-        String jsonStr = "";
+        params.put(StringConstant.userSourceStr, user_src_id);
+        params.put(StringConstant.userTargetStr, user_tar_id);
         params.put(StringConstant.referenceTitle, title);
         params.put(StringConstant.referenceContent, content);
         params.put(StringConstant.verStr, APPVERSION);
-        if (referenceId.isEmpty()) {
-            //创建
-            params.put(StringConstant.userSourceStr, user_src_id);
-            params.put(StringConstant.userTargetStr, user_tar_id);
-            jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_REFERENCE, params);
-            Log.d(LOG_TAG, "CreateReference: " + jsonStr);
 
-        } else {
-            //修改
-            params.put(StringConstant.referenceId, referenceId);
-            jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
-            Log.d(LOG_TAG, "EditReference: " + jsonStr);
-        }
 
-        Log.d(LOG_TAG, "Reference: " + jsonStr);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_REFERENCE, params);
+
+        Log.d(LOG_TAG, "createReference: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -591,15 +472,37 @@ public class ServerHelper {
         return returnReference;
     }
 
-    /**
-     * 回复某条评论
-     *
-     * @param referenceId 评论id
-     * @param reply       回复内容
-     * @return
-     * @throws Exception
-     */
-    public Reference replyReference(String referenceId, String reply) throws Exception {
+
+    public Reference editReference(String referenceId, String title,
+                                   String content) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.referenceId, referenceId);
+        params.put(StringConstant.referenceTitle, title);
+        params.put(StringConstant.referenceContent, content);
+        params.put(StringConstant.verStr, APPVERSION);
+
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
+
+        Log.d(LOG_TAG, "editReference: " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "editReference: Return message code not positive");
+            throw new Exception("Failed to edit Reference!");
+        }
+
+        Reference returnReference = JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(),
+                Reference.class);
+
+        Log.d(LOG_TAG, "editReference: Reference edited: " + returnReference);
+
+        return returnReference;
+    }
+
+    public Reference editReference(String referenceId, String reply) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.referenceId, referenceId);
         params.put("reply", reply);
@@ -607,31 +510,24 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
 
-        Log.d(LOG_TAG, "replyReference: " + jsonStr);
+        Log.d(LOG_TAG, "editReference: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "replyReference: Return message code not positive");
-            throw new Exception("Failed to reply Reference!");
+            Log.e(LOG_TAG, "editReference: Return message code not positive");
+            throw new Exception("Failed to edit Reference!");
         }
 
         Reference returnReference = JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(),
                 Reference.class);
 
-        Log.d(LOG_TAG, "replyReference: Reference edited: " + returnReference);
+        Log.d(LOG_TAG, "editReference: Reference edited: " + returnReference);
 
         return returnReference;
     }
 
-    /**
-     * 删除评论
-     *
-     * @param referenceId 评论id
-     * @return
-     * @throws Exception
-     */
     public Reference deleteReference(String referenceId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.referenceId, referenceId);
@@ -657,17 +553,13 @@ public class ServerHelper {
         return returnReference;
     }
 
-    /**
-     * 获取用户的评论
-     *
-     * @param userId 用户id
-     * @return
-     * @throws Exception
-     */
+    // Paths
+
     public ArrayList<Reference> getUsersReferences(String userId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, userId);
         params.put(StringConstant.verStr, APPVERSION);
+
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_REFERENCES, params);
 
@@ -696,13 +588,6 @@ public class ServerHelper {
         return referenceArray;
     }
 
-    /**
-     * 获取某一活动详细数据
-     *
-     * @param pathId 活动id
-     * @return
-     * @throws Exception
-     */
     public Path getPath(String pathId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.pathId, pathId);
@@ -723,18 +608,11 @@ public class ServerHelper {
                 rmsg.getData().toString(),
                 Path.class);
 
-//        Log.d(LOG_TAG, "getPath: Path: " + path);
+        Log.d(LOG_TAG, "getPath: Path: " + path);
 
         return path;
     }
 
-    /**
-     * discover页面数据获取
-     *
-     * @param page 分页加载页码，从1开始
-     * @return
-     * @throws Exception
-     */
     public ArrayList<Path> getAllPaths(int page) throws Exception {
         Map<String, String> params = new HashMap<>();
 //        params.put("longitude", LingoXApplication.getInstance().getLongitude());
@@ -768,18 +646,6 @@ public class ServerHelper {
         return pathArray;
     }
 
-    /**
-     * 根据地理位置获取活动
-     *
-     * @param country       国家
-     * @param province      省市
-     * @param city          城市
-     * @param localOrTravel 本地或旅行者
-     * @param page          页码
-     * @param postJson      需要提交的数据
-     * @return
-     * @throws Exception
-     */
     public ArrayList<Path> getPathsByLocation(String country, String province,
                                               String city, int localOrTravel, int page, ArrayList<String> postJson) throws Exception {
         Map<String, String> params = new HashMap<>();
@@ -804,7 +670,9 @@ public class ServerHelper {
         if (postJson.size() > 0) {
             params.put("tags", postJson.toString());
         }
+
         params.put(StringConstant.verStr, APPVERSION);
+
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);
 
@@ -832,19 +700,12 @@ public class ServerHelper {
         return pathArray;
     }
 
-    /**
-     * 获取某一用户参加和创建的活动
-     *
-     * @param userId 用户id
-     * @param page   页码
-     * @return
-     * @throws Exception
-     */
     public ArrayList<Path> getUsersPaths(String userId, int page) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, userId);
         params.put("page", String.valueOf(page));
         params.put(StringConstant.verStr, APPVERSION);
+
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PATHS, params);
 
@@ -870,17 +731,9 @@ public class ServerHelper {
         return pathArray;
     }
 
-    /**
-     * 创建和修改活动
-     *
-     * @param flag 标识是创建“create”、修改“edit”
-     * @param path
-     * @return
-     * @throws Exception
-     */
-    public Path path(String flag, Path path) throws Exception {
+    public Path createPath(Path path) throws Exception {
         Map<String, String> params = new HashMap<>();
-        String jsonStr = "";
+        params.put(StringConstant.userIdStr, path.getUserId());
         params.put(StringConstant.pathTitle, path.getTitle());
         params.put(StringConstant.pathText, path.getText());
         params.put(StringConstant.pathCost, path.getCost());
@@ -902,24 +755,14 @@ public class ServerHelper {
         params.put(StringConstant.pathTags, String.valueOf(path.getTags()));
         params.put(StringConstant.verStr, APPVERSION);
 
-        switch (flag) {
-            case "create"://创建
-                params.put(StringConstant.userIdStr, path.getUserId());
-                jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_PATH, params);
-                Log.d(LOG_TAG, "createPath: " + jsonStr);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_PATH, params);
 
-                break;
-            case "edit"://修改
-                params.put(StringConstant.pathId, path.getId());
-                jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PATH, params);
-                Log.d(LOG_TAG, "editPath: " + jsonStr);
+        Log.d(LOG_TAG, "createPath: " + jsonStr);
 
-                break;
-        }
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "path: Return message code not positive");
+            Log.e(LOG_TAG, "createPath: Return message code not positive");
             throw new Exception("Failed to create Path!");
         }
 
@@ -927,24 +770,61 @@ public class ServerHelper {
                 rmsg.getData().toString(),
                 Path.class);
 
-        Log.d(LOG_TAG, "path: Path created: " + returnPath);
+        Log.d(LOG_TAG, "createPath: Path created: " + returnPath);
 
         return returnPath;
     }
 
-    /**
-     * 删除活动
-     *
-     * @param pathId 活动id
-     * @return
-     * @throws Exception
-     */
+    public Path editPath(String pathId, Path path) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.pathId, pathId);
+        params.put(StringConstant.pathTitle, path.getTitle());
+        params.put(StringConstant.pathText, path.getText());
+        params.put(StringConstant.pathCost, path.getCost());
+        params.put(StringConstant.pathDateTime, String.valueOf(path.getDateTime()));
+        params.put(StringConstant.pathEndDateTime, String.valueOf(path.getEndDateTime()));
+        params.put(StringConstant.pathCreatedTime, String.valueOf(path.getCreatedTime()));
+        params.put(StringConstant.pathAvailableTime, path.getAvailableTime());
+        params.put(StringConstant.pathCapacity, String.valueOf(path.getCapacity()));
+        params.put(StringConstant.pathImage, path.getImage());
+        params.put(StringConstant.pathChosenCountry, path.getChosenCountry());
+        params.put(StringConstant.pathChosenProvince, path.getProvince());
+        params.put(StringConstant.pathChosenCity, path.getChosenCity());
+        params.put(StringConstant.pathDetailAddress, path.getDetailAddress());
+        params.put(StringConstant.pathLatitude, path.getLatitude());
+        params.put(StringConstant.pathLongitude, path.getLongitude());
+        params.put(StringConstant.pathType, String.valueOf(path.getType()));
+        params.put(StringConstant.pathHXGroupId, path.getHxGroupId());
+
+        params.put(StringConstant.pathTags, String.valueOf(path.getTags()));
+        params.put(StringConstant.verStr, APPVERSION);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PATH, params);
+
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "editPath: Return message code not positive");
+            throw new Exception("Failed to edit Path!");
+        }
+
+        Path returnPath = JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(),
+                Path.class);
+
+        Log.d(LOG_TAG, "editPath: Path edited: " + returnPath);
+
+        return returnPath;
+    }
+
     public Path deletePath(String pathId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.pathId, pathId);
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_PATH, params);
+
         Log.d(LOG_TAG, "deletePath: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -963,14 +843,6 @@ public class ServerHelper {
         return returnPath;
     }
 
-    /**
-     * 同意参加活动
-     *
-     * @param pathId 活动id
-     * @param userId 申请人id---当前用户
-     * @return
-     * @throws Exception
-     */
     public Path acceptPath(String pathId, String userId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.pathId, pathId);
@@ -993,22 +865,16 @@ public class ServerHelper {
                 Path.class);
 
 //        Log.d(LOG_TAG, "acceptPath: Path accepted: " + returnPath);
+
         return returnPath;
     }
 
-    /**
-     * 拒绝参加活动
-     *
-     * @param pathId
-     * @param userId
-     * @return
-     * @throws Exception
-     */
     public Path unAcceptPath(String pathId, String userId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.pathId, pathId);
         params.put(StringConstant.userIdStr, userId);
         params.put(StringConstant.verStr, APPVERSION);
+
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_UNACCEPT_PATH, params);
 
@@ -1030,14 +896,6 @@ public class ServerHelper {
         return returnPath;
     }
 
-    /**
-     * 上传活动图片
-     *
-     * @param path_id 活动id
-     * @param image   图片实例
-     * @return
-     * @throws Exception
-     */
     public ArrayList<String> uploadPathImage(String path_id, Bitmap image) throws Exception {
         String jsonStr = MsgSender.postPathImageToNet(URLConstant.URL_UPLOAD_PATH_IMAGE, path_id, image);
 
@@ -1109,14 +967,6 @@ public class ServerHelper {
 //        return "";
 //    }
 
-    /**
-     * @param user_id
-     * @param userTarId
-     * @param path_id
-     * @param text
-     * @return
-     * @throws Exception
-     */
     public Comment createComment(String user_id, String userTarId, String path_id, String text) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, user_id);
@@ -1145,6 +995,31 @@ public class ServerHelper {
         return returnComment;
     }
 
+//    public Comment editComment(String commentId, String text) throws Exception {
+//        Map<String, String> params = new HashMap<>();
+//        params.put(StringConstant.commentId, commentId);
+//        params.put(StringConstant.commentText, text);
+//        params.put(StringConstant.verStr, APPVERSION);
+//
+//        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_COMMENT, params);
+//
+//        Log.d(LOG_TAG, "editComment: " + jsonStr);
+//
+//        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+//
+//        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+//            Log.e(LOG_TAG, "editComment: Return message code not positive");
+//            throw new Exception("Failed to edit Comment!");
+//        }
+//
+//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Comment.class);
+//
+//        Log.d(LOG_TAG, "editComment: Comment edited: " + returnComment);
+//        return returnComment;
+//    }
+
     public Comment deleteComment(String commentId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.commentId, commentId);
@@ -1168,15 +1043,6 @@ public class ServerHelper {
         return returnComment;
     }
 
-    /**
-     * 上传个人相册
-     *
-     * @param user_id     用户id---当前用户
-     * @param description 图片描述
-     * @param image       图片实例
-     * @return
-     * @throws Exception
-     */
     public String uploadPhoto(String user_id, String description, Bitmap image) throws Exception {
 
         String jsonStr = MsgSender.postPhotoToNet(
@@ -1199,13 +1065,6 @@ public class ServerHelper {
         return imagePath;
     }
 
-    /**
-     * 获取用户相册
-     *
-     * @param user_id 用户id
-     * @return
-     * @throws Exception
-     */
     public ArrayList<Photo> getUsersPhotos(String user_id) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, user_id);
@@ -1237,18 +1096,13 @@ public class ServerHelper {
         return photoArray;
     }
 
-    /**
-     * 修改图片信息
-     *
-     * @param photo
-     * @return
-     * @throws Exception
-     */
     public Photo editPhoto(Photo photo) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.photoId, photo.getId());
         params.put(StringConstant.photoDescription, photo.getDescription());
         params.put(StringConstant.verStr, APPVERSION);
+
+        Log.d(LOG_TAG, "editPhoto: " + params.toString());
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PHOTO, params);
 
@@ -1270,13 +1124,6 @@ public class ServerHelper {
         return returnPhoto;
     }
 
-    /**
-     * 删除图片
-     *
-     * @param photoId 图片id
-     * @return
-     * @throws Exception
-     */
     public Photo deletePhoto(String photoId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.photoId, photoId);
@@ -1302,13 +1149,6 @@ public class ServerHelper {
         return returnPhoto;
     }
 
-    /**
-     * 获取用户所有通知
-     *
-     * @param userId 用户id----当前用户
-     * @return
-     * @throws Exception
-     */
     public ArrayList<LingoNotification> getAllNotifications(String userId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, userId);
@@ -1335,17 +1175,11 @@ public class ServerHelper {
                             LingoNotification.class));
         }
 
-//        Log.d(LOG_TAG, "num=" + notificationArray.size() + "getAllNotifications: Notifications: " + notificationArray);
+        Log.d(LOG_TAG, "num=" + notificationArray.size() + "getAllNotifications: Notifications: " + notificationArray);
 
         return notificationArray;
     }
 
-    /**
-     * 获取用户新通知
-     *
-     * @return
-     * @throws Exception
-     */
     public ArrayList<LingoNotification> getAllNewNotifications() throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userIdStr, CacheHelper.getInstance().getSelfInfo().getId());
@@ -1377,13 +1211,6 @@ public class ServerHelper {
         return notificationArray;
     }
 
-    /**
-     * 删除通知
-     *
-     * @param notificationId 通知id
-     * @return
-     * @throws Exception
-     */
     public LingoNotification deleteNotification(String notificationId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.notificationId, notificationId);
@@ -1409,12 +1236,6 @@ public class ServerHelper {
         return returnNotification;
     }
 
-    /**
-     * 将通知标注为已读
-     *
-     * @param notificationId 通知id
-     * @throws Exception
-     */
     public void readNotification(String notificationId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.notificationId, notificationId);
@@ -1429,55 +1250,32 @@ public class ServerHelper {
             Log.e(LOG_TAG, "readNotification: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
         }
+
         Log.d(LOG_TAG, "readNotification: Notification read");
     }
 
-    /**
-     * 创建和修改个人旅行计划
-     *
-     * @param flag   标识是创建还是修改
-     * @param travel travel实例
-     * @throws Exception
-     */
-    public void travel(String flag, Travel travel) throws Exception {
+    //个人信息——旅行记录
+    public void createExperiences(String userId, String startTime, String endTime, String country, String proivnce, String city, String tags) throws Exception {
         Map<String, String> params = new HashMap<>();
-        String jsonStr = "";
-        params.put(StringConstant.createExperienceStartTimeStr, String.valueOf(travel.getStartTime()));
-        params.put(StringConstant.createExperienceEndTimeStr, String.valueOf(travel.getEndTime()));
-        params.put(StringConstant.createExperienceCountryStr, travel.getCountry());
-        params.put(StringConstant.createExperienceProvinceStr, travel.getProvince());
-        params.put(StringConstant.createExperienceCityStr, travel.getCity());
-        params.put(StringConstant.createExperienceTagsStr, "[]");
+        params.put(StringConstant.createExperienceUserIdStr, userId);
+        params.put(StringConstant.createExperienceStartTimeStr, startTime);
+        params.put(StringConstant.createExperienceEndTimeStr, endTime);
+        params.put(StringConstant.createExperienceCountryStr, country);
+        params.put(StringConstant.createExperienceProvinceStr, proivnce);
+        params.put(StringConstant.createExperienceCityStr, city);
+        params.put(StringConstant.createExperienceTagsStr, tags);
         params.put(StringConstant.verStr, APPVERSION);
-        switch (flag) {
-            case "create"://创建
-                params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
-                jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "CreateTravel>>>>" + jsonStr.toString());
-                break;
-
-            case "edit"://修改
-                params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
-                jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "EditTravel>>>>" + jsonStr.toString());
-                break;
-        }
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
+//        Log.d("星期","travel>>>>"+jsonStr.toString());
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "Travel: Return message code not positive");
+            Log.e(LOG_TAG, "readNotification: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
         }
     }
 
-    /**
-     * 获取用户的个人旅行计划
-     *
-     * @param userId 用户id
-     * @return 计划集合
-     * @throws Exception
-     */
     public ArrayList<Travel> getExperiences(String userId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.getExperienceStr, userId);
@@ -1498,12 +1296,30 @@ public class ServerHelper {
         return list;
     }
 
-    /**
-     * 删除个人旅行计划
-     *
-     * @param experienceId 被删除的计划id
-     * @throws Exception
-     */
+    public void editExperiences(String experienceId, String startTime, String endTime, String country, String province, String city, String tags) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.editExperienceExperienceIdStr, experienceId);
+        params.put(StringConstant.editExperienceStartTimeStr, startTime);
+        params.put(StringConstant.editExperienceEndTimeStr, endTime);
+        params.put(StringConstant.editExperienceCountryStr, country);
+        params.put(StringConstant.editExperienceProvinceStr, province);
+        params.put(StringConstant.editExperienceCityStr, city);
+        params.put(StringConstant.editExperienceTagsStr, tags);
+        params.put(StringConstant.verStr, APPVERSION);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_EDIT, params);
+        Log.d(LOG_TAG, "editExperiences " + jsonStr);
+
+        JSONObject obj = new JSONObject(jsonStr);
+        //加一个json解析
+        ArrayList<Travel> list = JsonHelper.getInstance().jsonToTravel(obj.getJSONArray("data").toString());
+
+        if (obj.getInt("code") != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "readNotification: Return message code not positive");
+            throw new Exception("Failed to mark Notification as read!");
+        }
+    }
+
     public void deleteExperiences(String experienceId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.deleteExperienceStr, experienceId);
@@ -1520,8 +1336,9 @@ public class ServerHelper {
         }
     }
 
-    //申请活动信息
+    //订单信息
     public Indent createApplication(HashMap<String, String> params) throws Exception {
+
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_APPLICATION, params);
         Log.d(LOG_TAG, "createApplication " + jsonStr);
@@ -1541,7 +1358,6 @@ public class ServerHelper {
                         Indent.class);
     }
 
-    //获取活动通知
     public ArrayList<Indent> getApplication(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_APPLICATION, params);
@@ -1567,7 +1383,6 @@ public class ServerHelper {
         return datas;
     }
 
-    //同意、拒绝、取消等状态的改变
     public Indent editApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_APPLICATION, params);
         Log.d(LOG_TAG, "editApplication " + jsonStr);
@@ -1587,7 +1402,6 @@ public class ServerHelper {
                         Indent.class);
     }
 
-    //判断是否已存在申请
     public boolean existApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXIST_APPLICATION, params);
         Log.d(LOG_TAG, "existApplication " + jsonStr);
@@ -1673,6 +1487,7 @@ public class ServerHelper {
         params.put("userName", name);
         params.put("content", content);
 
+
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
         Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
 
@@ -1752,6 +1567,8 @@ public class ServerHelper {
         }
 
 //        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
+
         return list;
     }
+
 }

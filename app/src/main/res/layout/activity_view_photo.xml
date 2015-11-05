@@ -6,33 +6,34 @@
     <RelativeLayout
         android:id="@+id/photo_relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:background="#000"
-        android:padding="10dp">
+        android:padding="5dp">
 
-        <ImageView
+        <Button
             android:id="@+id/photo_bt_back"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_arrow_back_white_48dp" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_arrow_back_white_48dp" />
 
-        <ImageView
+        <Button
             android:id="@+id/photo_bt_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_alignParentRight="true"
-            android:padding="5dp"
-            android:src="@drawable/ic_create_white_24dp" />
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_create_white_24dp" />
 
-        <ImageView
+        <Button
             android:id="@+id/photo_bt_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/photo_bt_edit"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/top_delete_18dp" />
+            android:background="@drawable/top_delete_18dp" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
@@ -52,6 +53,7 @@
             android:id="@+id/tv_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:padding="8dp"
             android:textColor="@android:color/white"
             android:textSize="22sp" />

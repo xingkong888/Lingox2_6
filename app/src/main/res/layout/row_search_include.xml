@@ -37,7 +37,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_toLeftOf="@+id/mnbvcxz"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -71,22 +70,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:ellipsize="end"
                         android:shadowColor="#4b000000"
                         android:shadowDx="2"
                         android:shadowDy="2"
                         android:shadowRadius="1"
-                        android:singleLine="true"
+                        android:text="@string/from"
                         android:textColor="#fff"
-                        android:textSize="13sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/nearby_line"
                         android:layout_width="wrap_content"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="2.5dp"
                         android:layout_marginLeft="12dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="2.5dp"
                         android:background="#fff"
                         android:shadowColor="#4b000000"
                         android:shadowDx="2"
@@ -97,11 +95,10 @@
                         android:id="@+id/nearby_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="12dp"
                         android:layout_marginLeft="12dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="1dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/nearby_comment_"
@@ -113,7 +110,7 @@
                             android:shadowRadius="1"
                             android:text="@string/nearby_comment"
                             android:textColor="#fff"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/nearby_comment"
@@ -124,8 +121,8 @@
                             android:shadowDx="2"
                             android:shadowDy="2"
                             android:shadowRadius="1"
-                            android:textColor="@color/main_color"
-                            android:textSize="12sp" />
+                            android:textColor="#00838f"
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/nearby_point"
@@ -145,7 +142,7 @@
                             android:shadowRadius="1"
                             android:text="@string/nearby_sheak"
                             android:textColor="#fff"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/nearby_speak"
@@ -156,8 +153,8 @@
                             android:shadowDx="2"
                             android:shadowDy="2"
                             android:shadowRadius="1"
-                            android:textColor="@color/main_color"
-                            android:textSize="12sp" />
+                            android:textColor="#00838f"
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -178,7 +175,7 @@
                         android:background="@drawable/nearby_label"
                         android:gravity="right"
                         android:paddingRight="10dp"
-                        android:text="@string/local_guide"
+                        android:text="@string/local"
                         android:textColor="#000"
                         android:textSize="14sp"
                         android:visibility="gone" />
@@ -192,7 +189,7 @@
                         android:background="@drawable/nearby_label"
                         android:gravity="right"
                         android:paddingRight="10dp"
-                        android:text="@string/home_meal"
+                        android:text="@string/meal"
                         android:textColor="#000"
                         android:textSize="14sp"
                         android:visibility="gone" />
@@ -205,7 +202,7 @@
                         android:background="@drawable/nearby_label"
                         android:gravity="right"
                         android:paddingRight="10dp"
-                        android:text="@string/home_stay"
+                        android:text="@string/stay"
                         android:textColor="#000"
                         android:textSize="14sp"
                         android:visibility="gone" />

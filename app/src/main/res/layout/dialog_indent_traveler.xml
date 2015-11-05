@@ -20,6 +20,7 @@
         <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:padding="5dp"
@@ -45,6 +46,7 @@
         <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:gravity="left"
             android:padding="5dp"
@@ -56,6 +58,7 @@
             android:id="@+id/indent_traveler_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:hint="Select time"
             android:padding="5dp"
@@ -67,9 +70,10 @@
         android:id="@+id/indent_traveler_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:hint=" # of travelers"
-        android:inputType="numberDecimal"
+        android:numeric="integer"
         android:padding="5dp"
         android:paddingLeft="10dp"
         android:textSize="20sp" />
@@ -78,6 +82,7 @@
         android:id="@+id/indent_traveler_describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:hint=" Why are you joining?"
         android:padding="5dp"

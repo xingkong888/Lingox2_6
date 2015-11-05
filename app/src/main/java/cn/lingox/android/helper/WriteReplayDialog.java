@@ -71,7 +71,7 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
                         public void run() {
                             try {
                                 ServerHelper.getInstance()
-                                        .replyReference(reference.getId(), content);
+                                        .editReference(reference.getId(), content);
                                 handler.sendMessage(new Message());
                                 dismiss();
                             } catch (Exception e) {

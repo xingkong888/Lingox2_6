@@ -4,133 +4,139 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fafafa">
+    <!--android:background="@drawable/shade">-->
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/asdfasdf"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/userinfo_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/share_pic1_62dp" />
+        android:layout_height="100dp">
 
         <RelativeLayout
-            android:id="@+id/lalalalalala"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/nearby_colorgradient_360dp95dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/userinfo_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/share_pic1_62dp" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_above="@+id/userinfo_id">
-
-                <ImageView
-                    android:id="@+id/userinfo_countryImg"
-                    android:layout_width="30dp"
-                    android:layout_height="22dp"
-                    android:layout_alignParentTop="true" />
-
-                <TextView
-                    android:id="@+id/userinfo_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="12dp"
-                    android:shadowColor="#4b000000"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="1"
-                    android:text="Diana"
-                    android:textColor="#fff"
-                    android:textSize="23sp" />
-
-                <TextView
-                    android:id="@+id/userinfo_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@+id/userinfo_name"
-                    android:textColor="#fff"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/userinfo_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/userinfo_time"
-                android:layout_marginLeft="12dp"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/userinfo_time"
-                android:layout_width="wrap_content"
+                android:id="@+id/lalalalalala"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="12dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/white"
-                android:textSize="11sp" />
+                android:background="@drawable/nearby_colorgradient_360dp95dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_above="@+id/userinfo_id">
+
+                    <ImageView
+                        android:id="@+id/userinfo_countryImg"
+                        android:layout_width="30dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentTop="true" />
+
+                    <TextView
+                        android:id="@+id/userinfo_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="12dp"
+                        android:shadowColor="#4b000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
+                        android:text="Diana"
+                        android:textColor="#fff"
+                        android:textSize="23sp" />
+
+                    <TextView
+                        android:id="@+id/userinfo_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@+id/userinfo_name"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/userinfo_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/userinfo_time"
+                    android:layout_marginLeft="12dp"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/userinfo_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="12dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="95dp"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userinfo_tag2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/nearby_label"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:text="@string/local"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/userinfo_tag1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/nearby_label"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:text="@string/meal"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/userinfo_tag3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/nearby_label"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:text="@string/stay"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+            </LinearLayout>
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="95dp"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userinfo_tag2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/local_guide"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/userinfo_tag1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/home_meal"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/userinfo_tag3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/home_stay"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
-        </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/userinfo_include"
@@ -152,14 +158,17 @@
             <TextView
                 android:id="@+id/userinfo_follow"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="17sp" />
+                android:paddingTop="7dp"
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/userinfo_follow_"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/userinfo_follow"
@@ -179,17 +188,19 @@
             <TextView
                 android:id="@+id/userinfo_following"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="17sp" />
+                android:paddingTop="7dp"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/userinfo_following_"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:paddingBottom="5dp"
                 android:text="@string/userinfo_following"
                 android:textColor="#26a69a"
                 android:textSize="12sp" />
@@ -207,17 +218,19 @@
             <TextView
                 android:id="@+id/userinfo_reference"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="17sp" />
+                android:paddingTop="7dp"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/userinfo_reference_"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:paddingBottom="5dp"
                 android:text="@string/userinfo_reference"
                 android:textColor="#26a69a"
                 android:textSize="12sp" />

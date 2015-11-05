@@ -184,7 +184,7 @@
                 android:drawableLeft="@drawable/ic_info_outline_black_24dp"
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
-                android:text="@string/clear_cache"
+                android:text="Clear the cache"
                 android:textColor="@color/left_drawer_text_color"
                 android:textSize="16sp" />
         </LinearLayout>

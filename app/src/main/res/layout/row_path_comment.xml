@@ -44,6 +44,7 @@
                 android:id="@+id/reply_tar_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/comment_user_nickname"
                 android:padding="3dp"
                 android:textSize="12sp" />
         </LinearLayout>

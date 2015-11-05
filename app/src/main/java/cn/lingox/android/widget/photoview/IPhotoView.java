@@ -22,32 +22,32 @@ public interface IPhotoView {
     RectF getDisplayRect();
 
     /**
-     * @return The current minimum scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * @return The current minimum scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     float getMinScale();
 
     /**
-     * Sets the minimum scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * Sets the minimum scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     void setMinScale(float minScale);
 
     /**
-     * @return The current middle scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * @return The current middle scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     float getMidScale();
 
     /**
-     * Sets the middle scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * Sets the middle scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     void setMidScale(float midScale);
 
     /**
-     * @return The current maximum scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * @return The current maximum scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     float getMaxScale();
 
     /**
-     * Sets the maximum scale level. What this value represents depends on the current {@link android.widget.ImageView.ScaleType}.
+     * Sets the maximum scale level. What this value represents depends on the current {@link ImageView.ScaleType}.
      */
     void setMaxScale(float maxScale);
 
@@ -66,7 +66,7 @@ public interface IPhotoView {
     /**
      * Controls how the image should be resized or moved to match the size of
      * the ImageView. Any scaling or panning will happen within the confines of
-     * this {@link android.widget.ImageView.ScaleType}.
+     * this {@link ImageView.ScaleType}.
      *
      * @param scaleType - The desired scaling mode.
      */

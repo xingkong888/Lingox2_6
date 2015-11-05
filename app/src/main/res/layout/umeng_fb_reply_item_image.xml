@@ -46,7 +46,6 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignBottom="@+id/umeng_fb_reply_date"
-            android:layout_below="@+id/umeng_fb_reply_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/umeng_fb_reply_date"

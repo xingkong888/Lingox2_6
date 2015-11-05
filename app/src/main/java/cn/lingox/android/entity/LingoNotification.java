@@ -16,7 +16,7 @@ public class LingoNotification implements Parcelable {
     public static final int TYPE_USER_COMMENT = 5;
     public static final int TYPE_INDENT_FINISH = 6;
 
-    public static final Parcelable.Creator<LingoNotification> CREATOR = new Parcelable.Creator<LingoNotification>() {
+    public static final Creator<LingoNotification> CREATOR = new Creator<LingoNotification>() {
         public LingoNotification createFromParcel(Parcel in) {
             return new LingoNotification(in);
         }

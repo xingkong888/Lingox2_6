@@ -64,9 +64,9 @@ public class RecorderVideoActivity extends BaseActivity implements
 
     @SuppressLint("NewApi")
     public static void setCameraDisplayOrientation(Activity activity,
-                                                   int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(cameraId, info);
+                                                   int cameraId, Camera camera) {
+        CameraInfo info = new CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
         int degrees = 0;
@@ -86,7 +86,7 @@ public class RecorderVideoActivity extends BaseActivity implements
         }
 
         int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
             result = (360 - result) % 360; // compensate the mirror
         } else { // back-facing
@@ -98,7 +98,7 @@ public class RecorderVideoActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);// ����ȫ��
         // ѡ��֧�ְ�͸��ģʽ������surfaceview��activity��ʹ��
@@ -181,10 +181,10 @@ public class RecorderVideoActivity extends BaseActivity implements
                 + supportedPreviewFrameRates);
 
         // ��ȡ����ͷ������֧�ֵķֱ���
-        List<Camera.Size> resolutionList = Utils.getResolutionList(mCamera);
+        List<Size> resolutionList = Utils.getResolutionList(mCamera);
         if (resolutionList != null && resolutionList.size() > 0) {
             Collections.sort(resolutionList, new Utils.ResolutionComparator());
-            Camera.Size previewSize = null;
+            Size previewSize = null;
             if (defaultScreenResolution == -1) {
                 boolean hasSize = false;
                 // �������ͷ֧��640*480����ôǿ����Ϊ640*480

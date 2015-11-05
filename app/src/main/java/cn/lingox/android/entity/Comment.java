@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Andrew on 07/02/2015.
  */
 public class Comment implements Parcelable {
-    public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         public Comment createFromParcel(Parcel in) {
             return new Comment(in);
         }

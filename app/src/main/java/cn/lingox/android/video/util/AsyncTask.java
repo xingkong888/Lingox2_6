@@ -38,7 +38,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
         }
     };
     /**
-     * An {@link java.util.concurrent.Executor} that executes tasks one at a
+     * An {@link Executor} that executes tasks one at a
      * time in serial order. This serialization is global to a particular
      * process.
      */
@@ -50,7 +50,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
     private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingDeque<Runnable>(
             10);
     /**
-     * An {@link java.util.concurrent.Executor} that can be used to execute
+     * An {@link Executor} that can be used to execute
      * tasks in parallel.
      */
     public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
@@ -123,7 +123,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * the order of execution.
      *
      * @see #execute(Object[])
-     * @see #executeOnExecutor(java.util.concurrent.Executor, Object[])
+     * @see #executeOnExecutor(Executor, Object[])
      */
     public static void execute(Runnable runnable) {
         sDefaultExecutor.execute(runnable);
@@ -304,8 +304,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * its result.
      *
      * @return The computed result.
-     * @throws java.util.concurrent.CancellationException If the computation was cancelled.
-     * @throws java.util.concurrent.ExecutionException    If the computation threw an exception.
+     * @throws CancellationException If the computation was cancelled.
+     * @throws ExecutionException    If the computation threw an exception.
      * @throws InterruptedException                       If the current thread was interrupted while waiting.
      */
     public final Result get() throws InterruptedException, ExecutionException {
@@ -319,10 +319,10 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * @param timeout Time to wait before cancelling the operation.
      * @param unit    The time unit for the timeout.
      * @return The computed result.
-     * @throws java.util.concurrent.CancellationException If the computation was cancelled.
-     * @throws java.util.concurrent.ExecutionException    If the computation threw an exception.
+     * @throws CancellationException If the computation was cancelled.
+     * @throws ExecutionException    If the computation threw an exception.
      * @throws InterruptedException                       If the current thread was interrupted while waiting.
-     * @throws java.util.concurrent.TimeoutException      If the wait timed out.
+     * @throws TimeoutException      If the wait timed out.
      */
     public final Result get(long timeout, TimeUnit unit)
             throws InterruptedException, ExecutionException, TimeoutException {
@@ -352,9 +352,9 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * @param params The parameters of the task.
      * @return This instance of AsyncTask.
      * @throws IllegalStateException If {@link #getStatus()} returns either
-     *                               {@link AsyncTask.Status#RUNNING} or
-     *                               {@link AsyncTask.Status#FINISHED}.
-     * @see #executeOnExecutor(java.util.concurrent.Executor, Object[])
+     *                               {@link Status#RUNNING} or
+     *                               {@link Status#FINISHED}.
+     * @see #executeOnExecutor(Executor, Object[])
      * @see #execute(Runnable)
      */
     public final AsyncTask<Params, Progress, Result> execute(Params... params) {
@@ -369,7 +369,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * This method is typically used with {@link #THREAD_POOL_EXECUTOR} to allow
      * multiple tasks to run in parallel on a pool of threads managed by
      * AsyncTask, however you can also use your own
-     * {@link java.util.concurrent.Executor} for custom behavior.
+     * {@link Executor} for custom behavior.
      * <p/>
      * <p/>
      * <em>Warning:</em> Allowing multiple tasks to run in parallel from a
@@ -392,8 +392,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * @param params The parameters of the task.
      * @return This instance of AsyncTask.
      * @throws IllegalStateException If {@link #getStatus()} returns either
-     *                               {@link AsyncTask.Status#RUNNING} or
-     *                               {@link AsyncTask.Status#FINISHED}.
+     *                               {@link Status#RUNNING} or
+     *                               {@link Status#FINISHED}.
      * @see #execute(Object[])
      */
     public final AsyncTask<Params, Progress, Result> executeOnExecutor(

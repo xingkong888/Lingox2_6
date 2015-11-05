@@ -50,7 +50,7 @@ public class SmileUtils {
     public static final String ee_34 = "[(W)]";
     public static final String ee_35 = "[(D)]";
 
-    private static final Factory spannableFactory = Spannable.Factory
+    private static final Factory spannableFactory = Factory
             .getInstance();
 
     private static final Map<Pattern, Integer> emoticons = new HashMap<Pattern, Integer>();

@@ -60,10 +60,10 @@ public class NearByFragment extends Fragment {
         animationDrawable = (AnimationDrawable) img.getBackground();
 
         listView = (PullToRefreshListView) view.findViewById(R.id.nearby_listview);
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
         adapter = new NearbyAdapter(getActivity(), searchList);
         listView.setAdapter(adapter);
         listView.setRefreshing(true);
-        listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

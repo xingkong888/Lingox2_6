@@ -45,7 +45,7 @@ public class ImageCache {
     /**
      * Create a new ImageCache object using the specified parameters. This
      * should not be called directly by other classes, instead use
-     * {@link ImageCache#getInstance(android.support.v4.app.FragmentManager, ImageCacheParams)}
+     * {@link ImageCache#getInstance(FragmentManager, ImageCacheParams)}
      * to fetch an ImageCache instance.
      *
      * @param cacheParams The cache parameters to use to initialize the cache

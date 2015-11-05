@@ -76,7 +76,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     break;
             }
         }
-        sdCardMounted = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        sdCardMounted = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 
         initView();
     }

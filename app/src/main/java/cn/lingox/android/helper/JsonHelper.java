@@ -85,7 +85,7 @@ public class JsonHelper {
     }
 
     private static String readFileAsString(Context context, String fileName)
-            throws java.io.IOException {
+            throws IOException {
         InputStream is = context.getAssets().open(fileName);
         int size = is.available();
         byte[] buffer = new byte[size];

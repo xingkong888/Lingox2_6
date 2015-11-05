@@ -750,7 +750,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         } else {
             intent = new Intent(
                     Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
     }
@@ -763,7 +763,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         } else {
             intent = new Intent(
                     Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
@@ -1222,7 +1222,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     /**
      * ��ס˵��listener
      */
-    class PressToSpeakListen implements View.OnTouchListener {
+    class PressToSpeakListen implements OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {

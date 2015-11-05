@@ -285,19 +285,23 @@ public class ChatFragment extends Fragment {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+                if (getActivity().getWindow().getAttributes().softInputMode
+                        != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
                     if (getActivity().getCurrentFocus() != null)
-                        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                        inputMethodManager.hideSoftInputFromWindow(
+                                getActivity().getCurrentFocus().getWindowToken(),
                                 InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 return false;
             }
         });
-        if (!isFirst)
+        if (!isFirst) {
             refresh();
+        }
         if (getActivity().getIntent().getBooleanExtra("conflict", false)
-                && !isConflictDialogShow)
+                && !isConflictDialogShow) {
             showConflictDialog();
+        }
         return view;
     }
 
@@ -317,38 +321,42 @@ public class ChatFragment extends Fragment {
 
     private void myNotify(LingoNotification notify, User user) {
         switch (notify.getType()) {
-            case LingoNotification.TYPE_USER_FOLLOWED:
+            case LingoNotification.TYPE_USER_FOLLOWED://用户关注
                 Intent mIntent = new Intent(getActivity(), UserInfoActivity.class);
                 mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
-                if (!notify.getRead())
+                if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
+                }
                 startActivity(mIntent);
                 break;
-            case LingoNotification.TYPE_PATH_JOINED:
-            case LingoNotification.TYPE_PATH_COMMENT:
-            case LingoNotification.TYPE_PATH_CHANGE:
+            case LingoNotification.TYPE_PATH_JOINED://加入活动
+            case LingoNotification.TYPE_PATH_COMMENT://活动被评论
+            case LingoNotification.TYPE_PATH_CHANGE://活动改变
                 Intent mIntent1 = new Intent(getActivity(), PathViewActivity.class);
                 mIntent1.putExtra(PathViewActivity.PATH_TO_VIEW_ID, notify.getPath_id());
-                if (!notify.getRead())
+                if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
+                }
                 startActivity(mIntent1);
                 break;
-            case LingoNotification.TYPE_USER_COMMENT:
+            case LingoNotification.TYPE_USER_COMMENT://用户评论
                 Intent mIntent2 = new Intent(getActivity(), ReferenceActivity.class);
                 mIntent2.putExtra(UserInfoFragment.TARGET_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
                 mIntent2.putExtra(UserInfoFragment.TARGET_USER_NAME, user.getNickname());
-                if (!notify.getRead())
+                if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
+                }
                 new LoadUserReferences(mIntent2).execute(user.getId());
                 break;
-            case LingoNotification.TYPE_INDENT_FINISH:
+            case LingoNotification.TYPE_INDENT_FINISH://申请完成---暂时有问题
                 Intent mIntent3 = new Intent(getActivity(), ReferenceActivity.class);
                 mIntent3.putExtra(UserInfoFragment.TARGET_USER_ID,
                         notify.getUser_src());
                 mIntent3.putExtra(UserInfoFragment.TARGET_USER_NAME,
                         CacheHelper.getInstance().getSelfInfo().getNickname());
-                if (!notify.getRead())
+                if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
+                }
                 new LoadUserReferences(mIntent3).execute(notify.getUser_src());
                 break;
         }
@@ -431,9 +439,9 @@ public class ChatFragment extends Fragment {
                 Collections.reverse(lists);
                 int isExist = 0;//0 不存在  1  已存在
                 EMConversation conversation;
-                int i;
+                int i, j;
                 for (EMConversation c : lists) {
-                    for (i = 0; i < datas.size(); i++) {
+                    for (i = 0, j = datas.size(); i < j; i++) {
                         if (datas.get(i).getType() == 0) {
                             conversation = (EMConversation) datas.get(i).getObj();
                             if ((conversation.getUserName().equals(c.getUserName()))) {
@@ -556,8 +564,7 @@ public class ChatFragment extends Fragment {
     private void showConflictDialog() {
         isConflictDialogShow = true;
         LingoXApplication.getInstance().logout(null);
-
-        if (!getActivity().isFinishing()) {
+        if (getActivity() != null && !getActivity().isFinishing()) {
             // clear up global variables
             try {
                 if (conflictBuilder == null)
@@ -587,6 +594,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    //从通知中读取详细数据
     private void getDatas(LingoNotification n) {
         if (datas.size() == 0) {
             can = new ChatAndNotify();
@@ -594,7 +602,8 @@ public class ChatFragment extends Fragment {
             can.setObj(n);
             datas.add(0, can);
         } else {
-            for (i = 0; i < datas.size(); i++) {
+            int j;
+            for (i = 0, j = datas.size(); i < j; i++) {
                 if (datas.get(i).getType() == 1) {
                     LingoNotification notify = (LingoNotification) datas.get(i).getObj();
                     if ((notify.getType() == n.getType()) && (notify.getUser_src().equals(n.getUser_src()))) {
@@ -617,9 +626,9 @@ public class ChatFragment extends Fragment {
                 }
             }
             //根据isExist值判断是否添加数据
-            if (isExist == 0)
+            if (isExist == 0) {
                 i++;
-
+            }
             can = new ChatAndNotify();
             can.setType(1);
             can.setObj(n);
@@ -724,16 +733,18 @@ public class ChatFragment extends Fragment {
             // 注销广播接收者，否则在ChatActivity中会收到这个广播
             abortBroadcast();
             LingoXApplication.getInstance().notifyNewMessage(message);
-            if (!isFirst)
+            if (!isFirst) {
                 refresh();
+            }
         }
     }
 
     private class MyConnectionListener implements ConnectionListener {
         @Override
         public void onConnected() {
-            if (!isFirst)
+            if (!isFirst) {
                 refresh();
+            }
         }
 
         @Override
@@ -741,15 +752,17 @@ public class ChatFragment extends Fragment {
             if (errorString != null && errorString.contains("conflict")) {
                 showConflictDialog();
             } else {
-                if (!isFirst)
+                if (!isFirst) {
                     refresh();
+                }
             }
         }
 
         @Override
         public void onReConnected() {
-            if (!isFirst)
+            if (!isFirst) {
                 refresh();
+            }
         }
 
         @Override
@@ -759,7 +772,6 @@ public class ChatFragment extends Fragment {
         @Override
         public void onConnecting(String progress) {
         }
-
     }
 
     // Following 通知
@@ -775,6 +787,7 @@ public class ChatFragment extends Fragment {
             }
             // If we don't have the user information of the user that created the notification,
             // get it from the server
+            //翻转list中的数据
             Collections.reverse(nList);
             unreadNotify = 0;
             for (LingoNotification n : nList) {
@@ -816,6 +829,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    //创建环信用户
     private class ConnectToHuanXin extends AsyncTask<Void, String, Void> {
         private String username, password;
 
@@ -856,6 +870,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    //登录环信
     private class LoginToHuanXin extends AsyncTask<Void, String, Void> {
         private String username, password;
 
@@ -891,6 +906,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    //获取用户评论
     private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
         private Intent intent;
 
@@ -911,7 +927,7 @@ public class ChatFragment extends Fragment {
                 referenceList.addAll(ServerHelper.getInstance().getUsersReferences(
                         CacheHelper.getInstance().getSelfInfo().getId()));
                 success = true;
-                for (int i = 0; i < referenceList.size(); i++) {
+                for (int i = 0, j = referenceList.size(); i < j; i++) {
                     try {
                         User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
                         CacheHelper.getInstance().addUserInfo(user);

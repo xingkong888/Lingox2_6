@@ -100,8 +100,12 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                             new Thread() {
                                 public void run() {
                                     try {
+//                                        Reference returnReference = ServerHelper.getInstance()
+//                                                .createReference(
+//                                                        CacheHelper.getInstance().getSelfInfo().getId(),
+//                                                        userId, title, content);
                                         Reference returnReference = ServerHelper.getInstance()
-                                                .createReference(
+                                                .reference("",
                                                         CacheHelper.getInstance().getSelfInfo().getId(),
                                                         userId, title, content);
                                         Intent returnIntent = new Intent();
@@ -127,8 +131,11 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                             new Thread() {
                                 public void run() {
                                     try {
+//                                        Reference editedReference = ServerHelper.getInstance()
+//                                                .editReference(reference.getId(), title,
+//                                                        content);
                                         Reference editedReference = ServerHelper.getInstance()
-                                                .editReference(reference.getId(), title,
+                                                .reference(reference.getId(), "", "", title,
                                                         content);
 
                                         Intent returnIntent = new Intent();

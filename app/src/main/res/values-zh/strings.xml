@@ -395,42 +395,42 @@
     <!--<string name="select_language">选择一种语言</string>-->
     <!--<string name="group_chat">群聊</string>-->
 
-    <string-array name="major">
-        <item>选择职业</item>
-        <item>Student</item>
-        <item>Accounting/Auditing</item>
-        <item>Administration</item>
-        <item>Advertising</item>
-        <item>Analyst</item>
-        <item>Art/Creative</item>
-        <item>Business Development</item>
-        <item>Consulting</item>
-        <item>Customer Service</item>
-        <item>Distribution</item>
-        <item>Design</item>
-        <item>Education</item>
-        <item>Engineering</item>
-        <item>Finance</item>
-        <item>General Business</item>
-        <item>Health Care Provider</item>
-        <item>Information Technology</item>
-        <item>Legal</item>
-        <item>Management</item>
-        <item>Manufacturing</item>
-        <item>Marketing</item>
-        <item>Manufacturing</item>
-        <item>Public Relations</item>
-        <item>Purchasing</item>
-        <item>Product Management</item>
-        <item>Production</item>
-        <item>Quality Assurance</item>
-        <item>Sales</item>
-        <item>Research</item>
-        <item>Science</item>
-        <item>Strategy/Planning</item>
-        <item>Writing/Editing</item>
-        <item>Other</item>
-    </string-array>
+    <!--<string-array name="major">-->
+    <!--<item>选择职业</item>-->
+    <!--<item>Student</item>-->
+    <!--<item>Accounting/Auditing</item>-->
+    <!--<item>Administration</item>-->
+    <!--<item>Advertising</item>-->
+    <!--<item>Analyst</item>-->
+    <!--<item>Art/Creative</item>-->
+    <!--<item>Business Development</item>-->
+    <!--<item>Consulting</item>-->
+    <!--<item>Customer Service</item>-->
+    <!--<item>Distribution</item>-->
+    <!--<item>Design</item>-->
+    <!--<item>Education</item>-->
+    <!--<item>Engineering</item>-->
+    <!--<item>Finance</item>-->
+    <!--<item>General Business</item>-->
+    <!--<item>Health Care Provider</item>-->
+    <!--<item>Information Technology</item>-->
+    <!--<item>Legal</item>-->
+    <!--<item>Management</item>-->
+    <!--<item>Manufacturing</item>-->
+    <!--<item>Marketing</item>-->
+    <!--<item>Manufacturing</item>-->
+    <!--<item>Public Relations</item>-->
+    <!--<item>Purchasing</item>-->
+    <!--<item>Product Management</item>-->
+    <!--<item>Production</item>-->
+    <!--<item>Quality Assurance</item>-->
+    <!--<item>Sales</item>-->
+    <!--<item>Research</item>-->
+    <!--<item>Science</item>-->
+    <!--<item>Strategy/Planning</item>-->
+    <!--<item>Writing/Editing</item>-->
+    <!--<item>Other</item>-->
+    <!--</string-array>-->
     <!--<string name="chat_btn">聊天\n</string>-->
     <!--<string name="note_of_add_pic">添加背景照片</string>-->
     <!--<string name="cost">费用：</string>-->

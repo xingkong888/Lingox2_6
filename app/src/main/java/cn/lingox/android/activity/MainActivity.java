@@ -372,6 +372,7 @@ public class MainActivity extends ActionBarActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
+    //退出应用
     private void exit() {
         if ((System.currentTimeMillis() - clickTime) > 2000) {
             Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program",
@@ -384,6 +385,11 @@ public class MainActivity extends ActionBarActivity implements
         }
     }
 
+    /**
+     * 展示chatfragment页面未读信息的条数
+     *
+     * @param unread
+     */
     @Override
     public void showMessageNum(int unread) {
         this.unread = unread;
@@ -440,6 +446,9 @@ public class MainActivity extends ActionBarActivity implements
         }
     }
 
+    /**
+     * 检查APP版本更新
+     */
     private class CheckForUpdates extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -458,13 +467,9 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected void onPostExecute(Boolean requireUpdate) {
             super.onPostExecute(requireUpdate);
-//            if (true) {
             if (requireUpdate) {
                 Intent intent = new Intent(MainActivity.this, AppUpdateActivity.class);
                 startActivity(intent);
-//                Log.d(LOG_TAG, "Update Found");
-            } else {
-//                Log.d(LOG_TAG, "No Update Found");
             }
         }
     }

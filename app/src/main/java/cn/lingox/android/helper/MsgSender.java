@@ -3,14 +3,6 @@ package cn.lingox.android.helper;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,9 +17,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
@@ -36,7 +25,6 @@ import cn.lingox.android.constants.StringConstant;
 public class MsgSender {
     private static final String LOG_TAG = "MsgSender";
     private static final String APPVERSION = LingoXApplication.getInstance().getAppVersion();
-    public static HttpClient httpClient = new DefaultHttpClient();
 
     public static String postJsonToNet(String url, Map<String, String> params) {
         String jsonString;
@@ -120,37 +108,6 @@ public class MsgSender {
         return jsonString;
     }
 
-    public static String getTransation(final String url)
-            throws InterruptedException, ExecutionException {
-        FutureTask<String> task = new FutureTask<String>(
-                new Callable<String>() {
-
-                    @Override
-                    public String call() throws Exception {
-                        // 创建HttpGet对象
-                        HttpGet get = new HttpGet(url);
-                        // 发送get请求
-                        HttpResponse httpResponse = httpClient.execute(get);
-                        // 如果服务器成功返回响应
-                        if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                            // 获取服务器响应的字符串
-                            return EntityUtils.toString(httpResponse
-                                    .getEntity());
-                        }
-                        return null;
-                    }
-                });
-        new Thread(task).start();
-        String s = null;
-        try {
-            JSONObject jsonObject = new JSONObject(task.get());
-            s = jsonObject.getJSONArray("translation").getString(0).replace(",", "");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return s;
-    }
-
     public static String postAvatarToNet(String _url, String user_id, Bitmap avatar) {
         String end = "\r\n";
         String twoHyphens = "--";
@@ -210,7 +167,7 @@ public class MsgSender {
             URL url = new URL(_url + "?"
                     + StringConstant.userIdStr + "=" + user_id + "&"
                     + StringConstant.photoDescription + "=" +
-                    URLEncoder.encode(description, "UTF-8")
+                    URLEncoder.encode(description, "UTF-8") + "&"
                     + StringConstant.verStr + "=" + APPVERSION
             );
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

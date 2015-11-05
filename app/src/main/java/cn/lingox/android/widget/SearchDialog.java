@@ -76,7 +76,7 @@ public class SearchDialog extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                if (position != 0) {
-                text.setText("" + datas.get(position));
+                text.setText(String.valueOf(datas.get(position)));
 //                }
                 dismiss();
             }

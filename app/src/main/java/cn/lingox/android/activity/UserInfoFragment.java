@@ -78,14 +78,14 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             aboutSelf1, aboutSelf2, userInfoPlaces, about;
     private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit, jiantou1, jiantou2, jiantou3;
     private ProgressBar photosProgressBar;
-    private RelativeLayout layout_photo, editOrChat, layout_travel, layout_tag;
+    private RelativeLayout layout_photo, editOrChat, layout_travel, layout_tag, layoutAvatar;
     //    android:id="@+id/userinfo_edit_chat
     private UserPhotosAdapter photoAdapter;
     private HListView photoListView;
     private LinearLayout
             travelContent,
             layoutSelf, layoutSpeak, layoutAge, layoutSex,
-            layoutLocal, layoutMeal, layoutStay, layoutAvatar;//, layoutInterest
+            layoutLocal, layoutMeal, layoutStay;//, layoutInterest
     // Data Elements
     private User user;
     private ArrayList<User> userFollowingList = new ArrayList<>();
@@ -144,8 +144,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (getArguments().containsKey(USER)) {
             user = getArguments().getParcelable(USER);
         }
-
-
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
         } else {
@@ -241,7 +239,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         layoutAge = (LinearLayout) v.findViewById(R.id.layout_age);
         layoutSex = (LinearLayout) v.findViewById(R.id.layout_gender);
 
-        layoutAvatar = (LinearLayout) v.findViewById(R.id.asdfasdf);
+        layoutAvatar = (RelativeLayout) v.findViewById(R.id.asdfasdf);
         travelContent = (LinearLayout) v.findViewById(R.id.travel_content);
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -420,7 +418,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userInfoPlaces.setHint("");
             userInfoPlaces.setEnabled(false);
         }
-        userIdAndPlace.setText("ID:" + user.getUsername() + ",\t" + user.getLocation());
+        userIdAndPlace.setText("ID:" + user.getUsername());
+        if (!user.getLocation().isEmpty()) {
+            userIdAndPlace.setText(userIdAndPlace.getText() + ",\t" + user.getLocation());
+        }
         if (user.getHomeMeal()) {
             userMeal.setVisibility(View.VISIBLE);
             meal = true;
@@ -696,7 +697,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 travelContent.addView(view);
             } else if (i == 3) {
                 View seeAll = getActivity().getLayoutInflater().inflate(R.layout.row_travel_see_all, travelContent, false);
-                final View.OnClickListener seeAllClickListener = new View.OnClickListener() {
+                final OnClickListener seeAllClickListener = new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), ShowTravelActivity.class);

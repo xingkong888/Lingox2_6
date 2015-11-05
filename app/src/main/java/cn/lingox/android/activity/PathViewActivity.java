@@ -72,7 +72,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     // Outgoing Request Codes
     public static final int EDIT_PATH = 101;
     private static final String LOG_TAG = "PathViewActivity";
-    private static final String FILE_DIRECTORY = "/LingoX";
     private static final String FILE_NAME = "/app_icon.jpg";
     private static String appIconImagePath;
     /**
@@ -290,11 +289,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             pathJoinedUserNum.setText("0");
             joinedUsersListView.setVisibility(View.GONE);
         }
-        pathJoinedUserNum.setText("" + joinedUsersList.size());
+        pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
         joinedUsersAdapter.notifyDataSetChanged();
         commentsList.clear();
         commentsList.addAll(path.getComments());
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         loadComments();
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar());
         uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11());
@@ -641,14 +640,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void removeComment(int position) {
         path.removeComment(commentsList.get(position));
         commentsList.remove(position);
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         commentsListView.removeViewAt(position);
     }
 
     private void addComment(Comment comment) {
         path.addComment(comment);
         commentsList.add(comment);
-        pathCommentsNum.setText("" + commentsList.size());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         commentsListView.addView(getCommentView(commentsList.size() - 1));
         commentEditText.clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -799,7 +798,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             user = CacheHelper.getInstance().getUserInfo(params[0]);
             if (user == null) {
                 try {
-                    user = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), params[0]);
+                    user = ServerHelper.getInstance().getUserInfo(params[0]);
                 } catch (Exception e) {
                     user = null;
                 }
@@ -909,7 +908,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 }
                 path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 joinedUsersAdapter.addItem(CacheHelper.getInstance().getSelfInfo());
-                pathJoinedUserNum.setText("" + (Integer.parseInt("" + pathJoinedUserNum.getText()) + 1));
+                pathJoinedUserNum.setText(String.valueOf(
+                        (Integer.parseInt(
+                                pathJoinedUserNum.getText().toString()) + 1)));
                 joinedUsersAdapter.notifyDataSetChanged();
                 pathAcceptButton.setImageResource(R.drawable.active_like_24dp);
                 pathAcceptButton.setTag(1);
@@ -951,7 +952,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 joinedUsersAdapter.notifyDataSetChanged();
                 if (joinedUsersList.size() == 0)
                     joinedUsersListView.setVisibility(View.GONE);
-                pathJoinedUserNum.setText("" + joinedUsersList.size());
+                pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 pathGroupChat.setVisibility(View.GONE);
             } else {
                 Toast.makeText(PathViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
@@ -982,17 +983,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                if (!LingoXApplication.getInstance().getSkip()) {
-                    boolean ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
-                    if (ownComment) {
-                        commentUser = CacheHelper.getInstance().getSelfInfo();
-                    } else {
-                        commentUser = CacheHelper.getInstance().getUserInfo(userId);
-                    }
-                    if (commentUser == null)
-                        commentUser = ServerHelper.getInstance().getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userId);
+                boolean ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
+                if (ownComment) {
+                    commentUser = CacheHelper.getInstance().getSelfInfo();
                 } else {
-                    commentUser = ServerHelper.getInstance().getUserInfo("547a6dbda06d0fd45b41bc89", userId);
+                    commentUser = CacheHelper.getInstance().getUserInfo(userId);
+                }
+                if (commentUser == null) {
+                    commentUser = ServerHelper.getInstance().getUserInfo(userId);
                 }
             } catch (Exception e) {
                 Log.e(LOG_TAG, "failed to get Comment's User's info from server");
@@ -1103,24 +1101,15 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected User doInBackground(String... params) {
             User targetUser;
-            if (!LingoXApplication.getInstance().getSkip()) {
-                boolean isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
-                if (isTargetUs)
-                    targetUser = CacheHelper.getInstance().getSelfInfo();
-                else
-                    targetUser = CacheHelper.getInstance().getUserInfo(userTar);
-                if (targetUser == null) {
-                    try {
-                        targetUser = ServerHelper.getInstance().
-                                getUserInfo(CacheHelper.getInstance().getSelfInfo().getId(), userTar);
-                    } catch (Exception e) {
-                        return null;
-                    }
-                }
+            boolean isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
+            if (isTargetUs) {
+                targetUser = CacheHelper.getInstance().getSelfInfo();
             } else {
+                targetUser = CacheHelper.getInstance().getUserInfo(userTar);
+            }
+            if (targetUser == null) {
                 try {
-                    targetUser = ServerHelper.getInstance().
-                            getUserInfo("547a6dbda06d0fd45b41bc89", userTar);
+                    targetUser = ServerHelper.getInstance().getUserInfo(userTar);
                 } catch (Exception e) {
                     return null;
                 }

@@ -1118,7 +1118,7 @@ public class MessageAdapter extends BaseAdapter {
             // thumbnail image is already loaded, reuse the drawable
             iv.setImageBitmap(bitmap);
             iv.setClickable(true);
-            iv.setOnClickListener(new View.OnClickListener() {
+            iv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     System.err.println("image view on click");
@@ -1169,7 +1169,7 @@ public class MessageAdapter extends BaseAdapter {
             // thumbnail image is already loaded, reuse the drawable
             iv.setImageBitmap(bitmap);
             iv.setClickable(true);
-            iv.setOnClickListener(new View.OnClickListener() {
+            iv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     VideoMessageBody videoBody = (VideoMessageBody) message
@@ -1209,7 +1209,7 @@ public class MessageAdapter extends BaseAdapter {
     }
 
     //获取自己的当前位置
-    class MapClickListener implements View.OnClickListener {
+    class MapClickListener implements OnClickListener {
         LatLng location;
         String address;
 

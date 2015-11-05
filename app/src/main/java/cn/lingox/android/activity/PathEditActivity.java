@@ -152,8 +152,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     };
     //第七页面
     private EditText availableTime;
-    //第八页面
-    private EditText groupSize, budget;
+
+
     private Path newPath;
 
     @Override
@@ -194,8 +194,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
         page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
         page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
-//        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//暂无
-//        page7 = (RelativeLayout) findViewById(R.id.edit_page_7);//暂无
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);
@@ -326,6 +324,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     path.setTitle(CachePath.getInstance().getTitle());
                     UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
                 }
+                if (!CachePath.getInstance().getLocation().isEmpty()) {
+                    path.setLocation(CachePath.getInstance().getLocation());
+                    UIHelper.getInstance().textViewSetPossiblyNullString(countryBtn, path.getLocation());
+                }
                 if (!CachePath.getInstance().getDescription().isEmpty()) {
                     path.setText(CachePath.getInstance().getDescription());
                     UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
@@ -388,6 +390,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             }
             //四
             UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
+            UIHelper.getInstance().textViewSetPossiblyNullString(countryBtn, path.getLocation());
             UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
             //五
             if (FileUtil.getImg(path.getImage(), this) != null) {
@@ -864,7 +867,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             Boolean success = false;
             try {
                 Collections.sort(path.getTags());
-                newPath = ServerHelper.getInstance().createPath(path);
+                newPath = ServerHelper.getInstance().path("create", path);
+//                newPath = ServerHelper.getInstance().createPath(path);
                 success = true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());
@@ -942,7 +946,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     //changedGroupName 改变后的群组名称
                     EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
                 }
-                newPath = ServerHelper.getInstance().editPath(path.getId(), path);
+                newPath = ServerHelper.getInstance().path("edit", path);
+//                newPath = ServerHelper.getInstance().editPath(path.getId(), path);
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),

@@ -124,7 +124,7 @@ public class AddPhotosAdapter extends BaseAdapter {
      * @return 生成的缩略图
      */
     private Bitmap getImageThumbnail(String imagePath, int width, int height) {
-        Bitmap bitmap = null;
+        Bitmap bitmap;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
 // 获取这个图片的宽和高，注意此处的bitmap为null

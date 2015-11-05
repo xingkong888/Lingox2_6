@@ -263,7 +263,7 @@ public class MainActivity extends ActionBarActivity implements
                         try {
                             sleep(1000);
                             Toast.makeText(getObj(), "Success", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }

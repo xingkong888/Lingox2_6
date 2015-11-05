@@ -147,7 +147,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
         } else {
-            requestingOthersData = user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
+            requestingOthersData = user != null ? user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId()) : false;
         }
         initView();
         initData();
@@ -389,7 +389,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             layoutSpeak.setVisibility(View.VISIBLE);
             userSpeak.setText(user.getSpeak());
         }
-        String str2 = "";
+        String str2;
         if (requestingOthersData && user.getInterests().isEmpty()) {
             userInsterest.setOnClickListener(this);
             userInsterest.setTextColor(Color.rgb(25, 143, 153));
@@ -831,9 +831,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             list.clear();
             if (user.getVisited().length() > 0) {
                 String[] s = user.getVisited().split(",");
-                for (int i = 0; i < s.length; i++) {
-                    placesList.add(s[i].trim());
-                    list.add(s[i].trim());
+                for (String value : s) {
+                    placesList.add(value.trim());
+                    list.add(value.trim());
                 }
             }
         }

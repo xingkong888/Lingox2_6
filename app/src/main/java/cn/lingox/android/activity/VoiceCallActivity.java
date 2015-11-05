@@ -407,8 +407,8 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
     }
 
     private void saveCallRecord() {
-        EMMessage message = null;
-        TextMessageBody txtBody = null;
+        EMMessage message;
+        TextMessageBody txtBody;
         if (!isInComingCall) {
             message = EMMessage.createSendMessage(EMMessage.Type.TXT);
             message.setReceipt(username);

@@ -62,7 +62,7 @@ public class IndicatorLayout extends FrameLayout implements AnimationListener {
                 // Rotate Arrow so it's pointing the correct way
                 mArrowImageView.setScaleType(ScaleType.MATRIX);
                 Matrix matrix = new Matrix();
-                matrix.setRotate(180f, arrowD.getIntrinsicWidth() / 2f, arrowD.getIntrinsicHeight() / 2f);
+                matrix.setRotate(180f, (arrowD != null ? arrowD.getIntrinsicWidth() : 0) / 2f, arrowD.getIntrinsicHeight() / 2f);
                 mArrowImageView.setImageMatrix(matrix);
                 break;
             default:

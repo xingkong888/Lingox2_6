@@ -115,7 +115,7 @@ public class FollowListPage extends FollowerListFakeActivity implements OnClickL
 
     public void onClick(View v) {
         if (v.equals(llTitle.getBtnRight())) {
-            ArrayList<String> selected = new ArrayList<String>();
+            ArrayList<String> selected = new ArrayList<>();
             for (int i = 0, size = adapter.getCount(); i < size; i++) {
                 if (adapter.getItem(i).checked) {
                     selected.add(adapter.getItem(i).atName);
@@ -158,8 +158,8 @@ public class FollowListPage extends FollowerListFakeActivity implements OnClickL
             super(view);
             curPage = -1;
             hasNext = true;
-            map = new HashMap<String, Boolean>();
-            follows = new ArrayList<Following>();
+            map = new HashMap<>();
+            follows = new ArrayList<>();
 
             llHeader = new PRTHeader(getContext());
 
@@ -185,7 +185,7 @@ public class FollowListPage extends FollowerListFakeActivity implements OnClickL
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            FollowListItem item = null;
+            FollowListItem item;
             boolean simpleMode = "FacebookMessenger".equals(platform.getName());
             if (convertView == null) {
                 LinearLayout llItem = new LinearLayout(parent.getContext());

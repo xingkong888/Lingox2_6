@@ -39,7 +39,7 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
 
                 InputStream is = resp.getEntity().getContent();
                 byte[] buffer = new byte[10 * 1024]; // 10k
-                int len = 0;
+                int len;
                 while ((len = is.read(buffer)) != -1) {
                     bytesBuffer.append(buffer, 0, len);
                 }

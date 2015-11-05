@@ -28,7 +28,6 @@ public class AlbumListActivity extends ActionBarActivity {
     public static final String SELECT_MULTIPLE = LingoXApplication.PACKAGE_NAME + ".SELECT_MULTIPLE";
     // OUTGOING REQUEST CODES
     public static final int SELECT_PHOTOS = 101;
-    private static final String LOG_TAG = "AlbumListActivity";
     public static Bitmap bitmap;
     public List<ImageBucket> dataList = new ArrayList<>();
     private AlbumHelper helper;

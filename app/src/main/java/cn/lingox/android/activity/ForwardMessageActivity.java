@@ -36,7 +36,7 @@ public class ForwardMessageActivity extends ContactListActivity {
         if (resultCode == RESULT_OK) {
             try {
                 ChatActivity.activityInstance.finish();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             Intent intent = new Intent(this, ChatActivity.class);
             if (selectUser == null)

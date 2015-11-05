@@ -109,8 +109,6 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
                             } catch (Exception e) {
                                 Log.e("PhotoActivity",
                                         "Exception caught: " + e.getMessage());
-                                if (PhotoActivity.this == null)
-                                    return;
                                 PhotoActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -157,8 +155,6 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
                             } catch (Exception e) {
                                 Log.e("PhotoActivity",
                                         "Exception caught: " + e.getMessage());
-                                if (PhotoActivity.this == null)
-                                    return;
                                 PhotoActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

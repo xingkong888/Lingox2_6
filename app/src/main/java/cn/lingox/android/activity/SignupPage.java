@@ -233,8 +233,10 @@ public class SignupPage extends FakeActivity implements OnClickListener, Callbac
                         e.printStackTrace();
                     } finally {
                         try {
-                            b.flush();
-                            b.close();
+                            if (b!=null) {
+                                b.flush();
+                                b.close();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -255,7 +257,9 @@ public class SignupPage extends FakeActivity implements OnClickListener, Callbac
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == INTENT_ACTION_PICTURE && resultCode == Activity.RESULT_OK && null != data) {
             Cursor c = activity.getContentResolver().query(data.getData(), null, null, null, null);
-            c.moveToNext();
+            if (c!=null){
+                c.moveToNext();
+            }
             String path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
             c.close();
             System.out.println("onActivityResult == " + path);
@@ -428,7 +432,7 @@ public class SignupPage extends FakeActivity implements OnClickListener, Callbac
     private Bitmap compressImageFromFile(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;//只读边,不读内容
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        Bitmap bitmap;
 
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;

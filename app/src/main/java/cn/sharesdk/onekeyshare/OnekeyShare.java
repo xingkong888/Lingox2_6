@@ -63,10 +63,10 @@ public class OnekeyShare implements PlatformActionListener, Callback {
     private PlatformListFakeActivity.OnShareButtonClickListener onShareButtonClickListener;
 
     public OnekeyShare() {
-        shareParamsMap = new HashMap<String, Object>();
-        customers = new ArrayList<CustomerLogo>();
+        shareParamsMap = new HashMap<>();
+        customers = new ArrayList<>();
         callback = this;
-        hiddenPlatforms = new HashMap<String, String>();
+        hiddenPlatforms = new HashMap<>();
     }
 
     public void show(Context context) {
@@ -92,7 +92,7 @@ public class OnekeyShare implements PlatformActionListener, Callback {
                     || platform instanceof CustomPlatform
                     ) {
                 HashMap<Platform, HashMap<String, Object>> shareData
-                        = new HashMap<Platform, HashMap<String, Object>>();
+                        = new HashMap<>();
                 shareData.put(ShareSDK.getPlatform(name), shareParamsMap);
                 share(shareData);
                 return;

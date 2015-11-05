@@ -174,8 +174,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (usernameEditText.getText().toString() != null
-                        && !usernameEditText.getText().toString().equals("")) {
+                if (!usernameEditText.getText().toString().equals("")) {
                     clear_name.setVisibility(View.VISIBLE);
 
                 } else {
@@ -196,8 +195,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (passwordEditText.getText().toString() != null
-                        && !passwordEditText.getText().toString().equals("")) {
+                if (!passwordEditText.getText().toString().equals("")) {
                     clear_pwd.setVisibility(View.VISIBLE);
                 } else {
                     clear_pwd.setVisibility(View.INVISIBLE);
@@ -355,7 +353,7 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 String platform = (String) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
 
-                Log.d("星期", res.toString());
+//                Log.d("星期", res.toString());
 
                 //授权成功
                 Toast.makeText(activity, "授权成功", Toast.LENGTH_SHORT).show();

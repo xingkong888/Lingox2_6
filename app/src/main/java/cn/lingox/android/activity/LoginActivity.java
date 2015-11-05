@@ -116,10 +116,8 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (usernameEditText.getText().toString() != null
-                        && !usernameEditText.getText().toString().equals("")) {
+                if (!usernameEditText.getText().toString().equals("")) {
                     clear_name.setVisibility(View.VISIBLE);
-
                 } else {
                     clear_name.setVisibility(View.INVISIBLE);
                 }
@@ -138,8 +136,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (passwordEditText.getText().toString() != null
-                        && !passwordEditText.getText().toString().equals("")) {
+                if (!passwordEditText.getText().toString().equals("")) {
                     clear_pwd.setVisibility(View.VISIBLE);
                 } else {
                     clear_pwd.setVisibility(View.INVISIBLE);

@@ -193,9 +193,8 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,
                 MediaStore.Video.DEFAULT_SORT_ORDER);
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null ? cursor.moveToFirst() : false) {
             do {
-
                 // ID:MediaStore.Audio.Media._ID
                 int id = cursor.getInt(cursor
                         .getColumnIndexOrThrow(MediaStore.Video.Media._ID));
@@ -242,7 +241,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 int duration = 0;
                 String filePath = null;
 
-                if (cursor.moveToFirst()) {
+                if (cursor != null ? cursor.moveToFirst() : false) {
                     // ·����MediaStore.Audio.Media.DATA
                     filePath = cursor
                             .getString(cursor
@@ -297,7 +296,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
-            ViewHolder holder = null;
+            ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = LayoutInflater.from(mContext).inflate(

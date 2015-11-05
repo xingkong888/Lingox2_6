@@ -26,7 +26,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:background="@drawable/mini_avatar_shadow"
-            android:onClick="me"
             android:scaleType="fitXY" />
 
         <LinearLayout

@@ -238,7 +238,7 @@ public class PlatformGridView extends LinearLayout implements
         }
         lastClickTime = time;
 
-        ArrayList<Object> platforms = new ArrayList<Object>(1);
+        ArrayList<Object> platforms = new ArrayList<>(1);
         platforms.add(v.getTag());
         parent.onPlatformIconClick(v, platforms);
     }
@@ -252,7 +252,7 @@ public class PlatformGridView extends LinearLayout implements
             Method m = View.class.getMethod("setOverScrollMode",
                     Integer.TYPE);
             m.setAccessible(true);
-            m.invoke(view, Integer.valueOf(2));
+            m.invoke(view, 2);
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -270,12 +270,12 @@ public class PlatformGridView extends LinearLayout implements
 
         public PlatformAdapter(PlatformGridView platformGridView) {
             this.platformGridView = platformGridView;
-            logos = new ArrayList<Object>();
+            logos = new ArrayList<>();
             Platform[] platforms = platformGridView.platformList;
             HashMap<String, String> hiddenPlatforms = platformGridView.hiddenPlatforms;
             if (platforms != null) {
                 if (hiddenPlatforms != null && hiddenPlatforms.size() > 0) {
-                    ArrayList<Platform> ps = new ArrayList<Platform>();
+                    ArrayList<Platform> ps = new ArrayList<>();
                     for (Platform p : platforms) {
                         if (hiddenPlatforms.containsKey(p.getName())) {
                             continue;
@@ -323,7 +323,7 @@ public class PlatformGridView extends LinearLayout implements
                 }
                 Object[] gridBean = new Object[pageSize];
                 for (int i = 0; i < pageSize; i++) {
-                    gridBean[i] = logos.get(curSize + i);
+                    gridBean[i] = logos != null ? logos.get(curSize + i) : null;
                 }
 
                 if (position == 0) {
@@ -345,13 +345,11 @@ public class PlatformGridView extends LinearLayout implements
          */
         public void onScreenChange(int currentScreen, int lastScreen) {
             ImageView[] points = platformGridView.points;
-            for (int i = 0; i < points.length; i++) {
-                points[i].setImageBitmap(platformGridView.grayPoint);
+            for (ImageView point : points) {
+                point.setImageBitmap(platformGridView.grayPoint);
             }
-
             points[currentScreen].setImageBitmap(platformGridView.bluePoint);
         }
-
     }
 
     /**

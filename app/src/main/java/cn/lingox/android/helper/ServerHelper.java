@@ -151,11 +151,7 @@ public class ServerHelper {
             Log.e(LOG_TAG, "getBothFollowed: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
-        if (rmsg.getData().getBoolean("bothFollowed")) {
-            return true;
-        } else {
-            return false;
-        }
+        return rmsg.getData().getBoolean("bothFollowed");
     }
 
     /**
@@ -1599,11 +1595,7 @@ public class ServerHelper {
             throw new Exception("Failed to existApplication");
         }
         //解析
-        if ("true".contentEquals(rmsg.getData().get("exists").toString())) {
-            return true;
-        } else {
-            return false;
-        }
+        return "true".contentEquals(rmsg.getData().get("exists").toString());
     }
 
     // 活动评论相关

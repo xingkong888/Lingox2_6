@@ -37,11 +37,6 @@ public class ContactsFragment extends Fragment {
     private AnimationDrawable animationDrawable;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
@@ -84,11 +79,6 @@ public class ContactsFragment extends Fragment {
             anim.setVisibility(View.INVISIBLE);
             animationDrawable.stop();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

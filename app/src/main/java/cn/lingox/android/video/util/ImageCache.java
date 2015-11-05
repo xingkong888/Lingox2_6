@@ -328,7 +328,7 @@ public class ImageCache {
                             // bitmap
                             // to a SoftReference set for possible use with
                             // inBitmap later
-                            mReusableBitmaps.add(new SoftReference<Bitmap>(
+                            mReusableBitmaps.add(new SoftReference<>(
                                     oldValue.getBitmap()));
                         }
                     }

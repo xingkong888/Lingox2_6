@@ -41,7 +41,6 @@ public class PlacesDialog extends DialogFragment implements
     private static Handler handler;
     private static ArrayList<String> data = new ArrayList<>();
     private static ArrayList<String> saveData = new ArrayList<>();
-    ;
     private ArrayList<Country1> datas;
     private ListView listView;
     private PlacesAdapter adapter;

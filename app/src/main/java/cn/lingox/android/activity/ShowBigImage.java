@@ -76,7 +76,7 @@ public class ShowBigImage extends BaseActivity {
             }
         } else if (remotepath != null) {
             System.err.println("download remote image");
-            Map<String, String> maps = new HashMap<String, String>();
+            Map<String, String> maps = new HashMap<>();
             String accessToken = EMChatManager.getInstance().getAccessToken();
             maps.put("Authorization", "Bearer " + accessToken);
             if (!TextUtils.isEmpty(secret)) {

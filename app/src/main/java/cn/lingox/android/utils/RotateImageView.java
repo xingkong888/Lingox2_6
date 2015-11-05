@@ -21,7 +21,7 @@ public class RotateImageView {
                                 ("flag_cn", "drawable", LingoXApplication.PACKAGE_NAME)) :
                 (BitmapDrawable) context.getResources().getDrawable(resource);
 
-        Bitmap bitmap = bd.getBitmap();
+        Bitmap bitmap = bd != null ? bd.getBitmap() : null;
         Matrix matrix = new Matrix();
         matrix.postRotate(-45);
 

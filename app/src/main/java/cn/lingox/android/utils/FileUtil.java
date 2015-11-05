@@ -50,7 +50,7 @@ public class FileUtil {
 
     public static void deleteDir() {
         File dir = new File(CACHE_DIR);
-        if (dir == null || !dir.exists() || !dir.isDirectory())
+        if (!dir.exists() || !dir.isDirectory())
             return;
         for (File file : dir.listFiles()) {
             if (file.isFile()) {

@@ -655,8 +655,8 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 if (map.size() > 0) {
                     Set key = activityTags.keySet();
                     Object[] post = key.toArray();
-                    for (int i = 0; i < post.length; i++) {
-                        postJson.add(String.valueOf((int) post[i]));
+                    for (Object aPost : post) {
+                        postJson.add(String.valueOf((int) aPost));
                     }
                 }
                 tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(

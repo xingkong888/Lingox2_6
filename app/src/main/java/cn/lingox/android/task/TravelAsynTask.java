@@ -59,7 +59,7 @@ public class TravelAsynTask extends AsyncTask<Void, Void, Boolean> {
             });
             Intent returnIntent = new Intent();
             returnIntent.putExtra("Travel", travel);
-            context.setResult(context.RESULT_OK, returnIntent);
+            context.setResult(Activity.RESULT_OK, returnIntent);
             context.finish();
         }
     }

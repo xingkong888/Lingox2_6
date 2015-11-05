@@ -67,7 +67,7 @@ public class PathFragment extends Fragment implements OnClickListener {
 
         if (getArguments() != null) {
             User user = getArguments().getParcelable(USER);
-            userId = user.getId();
+            userId = user != null ? user.getId() : null;
         } else {
             userId = null;
         }

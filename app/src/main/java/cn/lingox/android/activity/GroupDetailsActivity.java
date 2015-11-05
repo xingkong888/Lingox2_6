@@ -2,6 +2,7 @@ package cn.lingox.android.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
@@ -59,4 +60,6 @@ public class GroupDetailsActivity extends Activity {
         super.onResume();
     }
 
+    public void back(View view) {
+    }
 }

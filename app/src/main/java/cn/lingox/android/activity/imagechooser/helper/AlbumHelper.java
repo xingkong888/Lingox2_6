@@ -20,7 +20,7 @@ public class AlbumHelper {
     private static AlbumHelper instance;
     final String TAG = getClass().getSimpleName();
     Context context;
-    ContentResolver cr;
+    private ContentResolver cr;
     HashMap<String, String> thumbnailList = new HashMap<>();
     List<HashMap<String, String>> albumList = new ArrayList<>();
     HashMap<String, ImageBucket> bucketList = new HashMap<>();
@@ -201,20 +201,5 @@ public class AlbumHelper {
             tmpList.add(entry.getValue());
         }
         return tmpList;
-    }
-
-
-    String getOriginalImagePath(String image_id) {
-        String path = null;
-        Log.i(TAG, "---(^o^)----" + image_id);
-        String[] projection = {Media._ID, Media.DATA};
-        Cursor cursor = cr.query(Media.EXTERNAL_CONTENT_URI, projection,
-                Media._ID + "=" + image_id, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            path = cursor.getString(cursor.getColumnIndex(Media.DATA));
-            cursor.close();
-        }
-        return path;
     }
 }

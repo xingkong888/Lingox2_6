@@ -142,19 +142,9 @@ public class ShowTravelActivity extends ActionBarActivity implements OnClickList
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override

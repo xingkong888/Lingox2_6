@@ -730,8 +730,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             Set key = activityTags.keySet();
             Object[] post = key.toArray();
             postJson = new ArrayList<>();
-            for (int i = 0; i < post.length; i++) {
-                postJson.add(String.valueOf((int) post[i]));
+            for (Object aPost : post) {
+                postJson.add(String.valueOf((int) aPost));
             }
             CachePath.getInstance().setTags(postJson);
             path.setTags(postJson);

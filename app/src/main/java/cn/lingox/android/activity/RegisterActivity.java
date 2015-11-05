@@ -80,8 +80,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (userNameEditText.getText().toString() != null
-                        && !userNameEditText.getText().toString().equals("")) {
+                if (!userNameEditText.getText().toString().equals("")) {
                     clearName.setVisibility(View.VISIBLE);
                 } else {
                     clearName.setVisibility(View.INVISIBLE);
@@ -103,8 +102,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (emailEditText.getText().toString() != null
-                        && !emailEditText.getText().toString().equals("")) {
+                if (!emailEditText.getText().toString().equals("")) {
                     clearEmail.setVisibility(View.VISIBLE);
                 } else {
                     clearEmail.setVisibility(View.INVISIBLE);
@@ -126,8 +124,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (passwordEditText.getText().toString() != null
-                        && !passwordEditText.getText().toString().equals("")) {
+                if (!passwordEditText.getText().toString().equals("")) {
                     clearPassword.setVisibility(View.VISIBLE);
                 } else {
                     clearPassword.setVisibility(View.INVISIBLE);
@@ -149,8 +146,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (passwordConfirmEditText.getText().toString() != null
-                        && !passwordConfirmEditText.getText().toString().equals("")) {
+                if (!passwordConfirmEditText.getText().toString().equals("")) {
                     clearPasswordConfirm.setVisibility(View.VISIBLE);
                 } else {
                     clearPasswordConfirm.setVisibility(View.INVISIBLE);

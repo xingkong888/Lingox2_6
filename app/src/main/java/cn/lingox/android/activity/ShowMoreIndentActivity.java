@@ -56,11 +56,6 @@ public class ShowMoreIndentActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);

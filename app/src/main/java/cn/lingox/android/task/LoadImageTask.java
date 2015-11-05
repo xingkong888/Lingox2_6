@@ -101,8 +101,4 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
         }
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
 }

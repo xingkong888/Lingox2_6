@@ -43,7 +43,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     //声明变量
     private MapView mapView;
     private AMap aMap;
-    private String address = new String();
+    private String address = "";
 
     private User user = CacheHelper.getInstance().getSelfInfo();
     private Marker marker;
@@ -130,11 +130,9 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {//获得焦点
-                    focus = true;
-                } else {//失去焦点
-                    focus = false;
-                }
+                //获得焦点
+//失去焦点
+                focus = hasFocus;
             }
         });
         pb = (ProgressBar) findViewById(R.id.map_pb);

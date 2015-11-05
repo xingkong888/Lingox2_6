@@ -184,7 +184,7 @@ public class RecorderVideoActivity extends BaseActivity implements
         List<Size> resolutionList = Utils.getResolutionList(mCamera);
         if (resolutionList != null && resolutionList.size() > 0) {
             Collections.sort(resolutionList, new Utils.ResolutionComparator());
-            Size previewSize = null;
+            Size previewSize;
             if (defaultScreenResolution == -1) {
                 boolean hasSize = false;
                 // �������ͷ֧��640*480����ôǿ����Ϊ640*480
@@ -261,9 +261,7 @@ public class RecorderVideoActivity extends BaseActivity implements
                     Toast.makeText(this, "¼��ʼ", Toast.LENGTH_SHORT).show();
                     btnStart.setVisibility(View.INVISIBLE);
                     btnStop.setVisibility(View.VISIBLE);
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (IllegalStateException | IOException e) {
                     e.printStackTrace();
                 }
 
@@ -344,7 +342,7 @@ public class RecorderVideoActivity extends BaseActivity implements
                 mCamera.release();
                 mCamera = null;
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

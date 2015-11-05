@@ -34,8 +34,8 @@ import static cn.sharesdk.framework.utils.R.getLayoutRes;
 public class PlatformGridViewAdapter extends BaseAdapter implements View.OnClickListener {
 
     private final Context context;
-    private List<Object> logos = new ArrayList<Object>();
-    private List<Integer> checkedPositionList = new ArrayList<Integer>();
+    private List<Object> logos = new ArrayList<>();
+    private List<Integer> checkedPositionList = new ArrayList<>();
     private int directOnlyPosition = -1;
 
     public PlatformGridViewAdapter(Context context) {
@@ -113,7 +113,7 @@ public class PlatformGridViewAdapter extends BaseAdapter implements View.OnClick
             return;
 
         Object item = getItem(position);
-        boolean direct = false;
+        boolean direct;
         //normal platform
         if (item instanceof Platform) {
             direct = ShareCore.isDirectShare((Platform) item);
@@ -142,7 +142,7 @@ public class PlatformGridViewAdapter extends BaseAdapter implements View.OnClick
         if (platforms == null)
             return;
         if (hiddenPlatforms != null && hiddenPlatforms.size() > 0) {
-            ArrayList<Platform> ps = new ArrayList<Platform>();
+            ArrayList<Platform> ps = new ArrayList<>();
             for (Platform p : platforms) {
                 if (hiddenPlatforms.containsKey(p.getName())) {
                     continue;
@@ -165,7 +165,7 @@ public class PlatformGridViewAdapter extends BaseAdapter implements View.OnClick
     }
 
     public List<Object> getCheckedItems() {
-        ArrayList<Object> list = new ArrayList<Object>();
+        ArrayList<Object> list = new ArrayList<>();
 
         if (directOnlyPosition != -1) {
             list.add(getItem(directOnlyPosition));

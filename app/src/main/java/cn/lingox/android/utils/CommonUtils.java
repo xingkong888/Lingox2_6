@@ -63,7 +63,7 @@ public class CommonUtils {
      * @return
      */
     public static String getMessageDigest(EMMessage message, Context context) {
-        String digest = "";
+        String digest;
         switch (message.getType()) {
             case LOCATION: // 位置消息
                 if (message.direct == EMMessage.Direct.RECEIVE) {

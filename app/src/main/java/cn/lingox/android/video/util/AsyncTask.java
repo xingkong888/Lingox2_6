@@ -47,7 +47,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
     public static final Executor DUAL_THREAD_EXECUTOR = Executors
             .newFixedThreadPool(2, sThreadFactory);
     @SuppressLint("NewApi")
-    private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingDeque<Runnable>(
+    private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingDeque<>(
             10);
     /**
      * An {@link Executor} that can be used to execute
@@ -139,7 +139,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
     private Result postResult(Result result) {
         @SuppressWarnings("unchecked")
         Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,
-                new AsyncTaskResult<Result>(this, result));
+                new AsyncTaskResult<>(this, result));
         message.sendToTarget();
         return result;
     }
@@ -436,7 +436,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
     protected final void publishProgress(Progress... values) {
         if (!isCancelled()) {
             sHandler.obtainMessage(MESSAGE_POST_PROGRESS,
-                    new AsyncTaskResult<Progress>(this, values)).sendToTarget();
+                    new AsyncTaskResult<>(this, values)).sendToTarget();
         }
     }
 
@@ -470,7 +470,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
 
     @TargetApi(11)
     private static class SerialExecutor implements Executor {
-        final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
+        final ArrayDeque<Runnable> mTasks = new ArrayDeque<>();
         Runnable mActive;
 
         public synchronized void execute(final Runnable r) {

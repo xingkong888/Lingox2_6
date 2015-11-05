@@ -58,7 +58,7 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
             finish();
         } else if (!TextUtils.isEmpty(remotepath) && !remotepath.equals("null")) {
             System.err.println("download remote video file");
-            Map<String, String> maps = new HashMap<String, String>();
+            Map<String, String> maps = new HashMap<>();
             maps.put("Authorization", "Bearer "
                     + EMChatManager.getInstance().getAccessToken());
             if (!TextUtils.isEmpty(secret)) {
@@ -66,10 +66,7 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
             }
             maps.put("Accept", "application/octet-stream");
             downloadVideo(remotepath, maps);
-        } else {
-
         }
-
     }
 
     /**

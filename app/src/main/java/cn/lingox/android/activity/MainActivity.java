@@ -47,7 +47,6 @@ public class MainActivity extends ActionBarActivity implements
     // RESULT CODES
     public static final int RESULT_CODE_LOGOUT = 201;
     public static final int RESULT_CODE_RESET_LANGUAGE = 202;
-    public static final String REGISTRATION_COMPLETE = LingoXApplication.PACKAGE_NAME + ".REGISTRATION_COMPLETE";
     public static final String SEARCH = "Search";
     private static final String LOG_TAG = "MainActivity";
     private static MainActivity mainActivity;

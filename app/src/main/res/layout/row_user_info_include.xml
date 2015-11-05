@@ -138,8 +138,8 @@
         android:layout_height="53dp"
         android:layout_below="@+id/asdfasdf"
         android:background="#fafafa"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/layout_follow"
@@ -157,6 +157,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/userinfo_follow_"
                 android:layout_width="match_parent"

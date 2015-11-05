@@ -1,6 +1,7 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.location.Location;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
@@ -27,6 +29,10 @@ public class PathAdapter extends BaseAdapter {
     private User user;
     private boolean isFling = false;
     private ArrayList<PathTags> tags;
+
+    private float[] results=new float[1];
+
+    private final DecimalFormat format=new DecimalFormat("##.00");
 
     public PathAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
@@ -120,14 +126,22 @@ public class PathAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
                         CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar());
             }
-//显示活动与自己位置的距离
-//            holder.location.setText(path.getProvince()+" "+ DistanceHelper.distanceHelper(
-//                    Double.valueOf(LingoXApplication.getInstance().getLatitude()),
-//                    Double.valueOf(LingoXApplication.getInstance().getLongitude()),
-//                    36, 116
-////                    Double.valueOf(path.getLatitude()),Double.valueOf(path.getLocation())
-//            )+"m ");
-            holder.location.setText(path.getLocationString());
+            //显示活动与自己位置的距离
+            if (!LingoXApplication.getInstance().getLatitude().isEmpty()&&
+            !LingoXApplication.getInstance().getLongitude().isEmpty()&&
+                    !path.getLatitude().isEmpty()&&
+                    !path.getLongitude().isEmpty()
+            ) {
+                Location.distanceBetween(
+                        Double.valueOf(LingoXApplication.getInstance().getLatitude()),
+                        Double.valueOf(LingoXApplication.getInstance().getLongitude()),
+                        Double.valueOf(path.getLatitude()),
+                        Double.valueOf(path.getLocation())
+                        , results);
+                holder.location.setText(path.getProvince() + " " + format.format(results[0]/1000D) + "m ");
+            }else{
+                holder.location.setText(path.getLocationString());
+            }
             switch (path.getType()) {
                 case 1://本地人
                     holder.traveler.setVisibility(View.GONE);

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +25,11 @@ import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Travel;
+import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.JsonHelper;
+import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.task.TravelAsynTask;
+import cn.lingox.android.video.util.AsyncTask;
 
 
 public class AddTravelActivity extends ActionBarActivity implements OnClickListener {
@@ -143,9 +146,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                     Toast.makeText(this, "Please complete the information", Toast.LENGTH_SHORT).show();
                 } else {
                     if (getIntent().hasExtra("edit")) {
-                        new TravelAsynTask(this, travel, "edit").execute();
+                        new editExperience().execute();
                     } else {
-                        new TravelAsynTask(this, travel, "create").execute();
+                        new createExperience().execute();
                     }
                 }
                 break;
@@ -217,14 +220,14 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         MobclickAgent.onPause(this);
     }
 
-    private void startDatePickerDialog() {
+    public void startDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(startDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private void endDatePickerDialog() {
+    public void endDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(endDateListener);
         newFragment.setValues(calendar);
@@ -252,6 +255,98 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             return new DatePickerDialog(getActivity(), onDateSet, year, month,
                     day);
+        }
+    }
+
+    private class createExperience extends AsyncTask<Void, String, Boolean> {
+        final ProgressDialog pd = new ProgressDialog(AddTravelActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setCanceledOnTouchOutside(false);
+            pd.show();
+            pd.setMessage("Submiting……");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                ServerHelper.getInstance().createExperiences(
+                        CacheHelper.getInstance().getSelfInfo().getId(),
+                        String.valueOf(travel.getStartTime()),
+                        String.valueOf(travel.getEndTime()),
+                        travel.getCountry(),
+                        travel.getProvince(),
+                        travel.getCity(), "[]");
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                AddTravelActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setMessage("Success");
+                    }
+                });
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("Travel", travel);
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
+        }
+    }
+
+    private class editExperience extends AsyncTask<Void, String, Boolean> {
+        final ProgressDialog pd = new ProgressDialog(AddTravelActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setCanceledOnTouchOutside(false);
+            pd.show();
+            pd.setMessage("Submiting……");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                ServerHelper.getInstance().editExperiences(
+                        travel.getId(),
+                        String.valueOf(travel.getStartTime()),
+                        String.valueOf(travel.getEndTime()),
+                        travel.getCountry(),
+                        travel.getProvince(),
+                        travel.getCity(), "[]");
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                AddTravelActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.dismiss();
+                    }
+                });
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("Travel", travel);
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
         }
     }
 }

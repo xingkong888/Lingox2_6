@@ -188,7 +188,7 @@
             android:name=".activity.imagechooser.AddPhotosActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.imagechooser.AlbumListActivity"
             android:screenOrientation="portrait"

@@ -27,6 +27,9 @@ import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.utils.FileUtil;
 
 public class SplashActivity extends Activity {
+
+    // Constants
+//    private static final int sleepTime = 3000;
     private static final int[] pics = {R.drawable.guide_page1, R.drawable.guide_page2, R.drawable.guide_page3};
     // UI Elements
     private RelativeLayout rootLayout;
@@ -37,6 +40,7 @@ public class SplashActivity extends Activity {
     private int currentIndex;
 
     private boolean misScrolled = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -169,7 +169,8 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             new Thread() {
                 public void run() {
                     try {
-                        final User tempUser = ServerHelper.getInstance().getUserInfo(username);
+                        final User tempUser = ServerHelper.getInstance().getUserInfo(
+                                CacheHelper.getInstance().getSelfInfo().getId(), username);
                         if (tempUser != null) {
                             new GetMessage(holder.state).execute(tempUser.getId());
                         }

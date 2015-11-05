@@ -210,7 +210,7 @@ public class MsgSender {
             URL url = new URL(_url + "?"
                     + StringConstant.userIdStr + "=" + user_id + "&"
                     + StringConstant.photoDescription + "=" +
-                    URLEncoder.encode(description, "UTF-8") + "&"
+                    URLEncoder.encode(description, "UTF-8")
                     + StringConstant.verStr + "=" + APPVERSION
             );
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

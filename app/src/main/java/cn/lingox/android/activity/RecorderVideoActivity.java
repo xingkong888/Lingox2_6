@@ -98,7 +98,7 @@ public class RecorderVideoActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);// ����ȫ��
         // ѡ��֧�ְ�͸��ģʽ������surfaceview��activity��ʹ��

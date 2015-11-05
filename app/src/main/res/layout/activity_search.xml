@@ -170,7 +170,7 @@
                     android:background="@drawable/button_cyc"
                     android:gravity="center_vertical"
                     android:padding="3dp"
-                    android:text="@string/home_stay"
+                    android:text="@string/stay"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -184,7 +184,7 @@
                     android:background="@drawable/button_cyc"
                     android:gravity="center_vertical"
                     android:padding="3dp"
-                    android:text="@string/home_meal"
+                    android:text="@string/meal"
                     android:textColor="@color/white" />
             </RelativeLayout>
 
@@ -207,7 +207,7 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="@string/gender"
+                android:text="Gender"
                 android:textSize="20sp" />
 
             <RelativeLayout
@@ -261,7 +261,7 @@
                 android:layout_toLeftOf="@+id/search_member_del2"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="@string/language"
+                android:hint="Language"
                 android:paddingLeft="20dp"
                 android:textSize="20sp" />
 
@@ -307,7 +307,7 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/search_del"
                 android:gravity="center_vertical"
-                android:hint="@string/location"
+                android:hint="Location"
                 android:paddingLeft="20dp"
                 android:textSize="20sp" />
 
@@ -344,7 +344,7 @@
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:src="@drawable/search_icon"
-                android:text="@string/create_by"
+                android:text="Created By"
                 android:textSize="20sp" />
 
             <TextView
@@ -358,7 +358,7 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="@string/local"
+                android:text="Local"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -373,7 +373,7 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="@string/travel"
+                android:text="Travel"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

@@ -5,14 +5,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,21 +77,22 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
 
         RelativeLayout photo_relativeLayout = (RelativeLayout) findViewById(R.id.photo_relativeLayout);
-        photo_relativeLayout.setBackgroundColor(Color.BLACK);
+        photo_relativeLayout.setBackgroundColor(0xff000000);
 
         adapter = new UserPhotoPagerAdapter(this, photoList);
         pager.setAdapter(adapter);
         pager.setOnPageChangeListener(pageChangeListener);
 
         pager.setCurrentItem(current_page);
-        ImageView photo_back = (ImageView) findViewById(R.id.photo_bt_back);
-        ImageView photo_edit = (ImageView) findViewById(R.id.photo_bt_edit);
-        ImageView photo_del = (ImageView) findViewById(R.id.photo_bt_delete);
+        Button photo_back = (Button) findViewById(R.id.photo_bt_back);
+        Button photo_edit = (Button) findViewById(R.id.photo_bt_edit);
+        Button photo_del = (Button) findViewById(R.id.photo_bt_delete);
         photo_back.setOnClickListener(this);
         photo_edit.setOnClickListener(this);
         photo_del.setOnClickListener(this);
         description = (TextView) findViewById(R.id.tv_description);
         description.setText(photoList.get(current_page).getDescription());
+
         if (othersPhotos) {
             photo_edit.setVisibility(View.GONE);
             photo_del.setVisibility(View.GONE);

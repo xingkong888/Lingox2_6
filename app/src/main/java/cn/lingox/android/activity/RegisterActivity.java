@@ -270,7 +270,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         super.onPause();
     }
 
-    //注册用户
     private class Register extends AsyncTask<Void, String, Boolean> {
         private String username, password, email;
         private ProgressDialog pd;
@@ -301,10 +300,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                 // Store user in Cache
                 CacheHelper.getInstance().setSelfInfo(user);
                 CacheHelper.getInstance().setPassword(password);
-//                Log.d(LOG_TAG, "The returned User data is: " + user.toString());
+
+                Log.d(LOG_TAG, "The returned User data is: " + user.toString());
+
                 return true;
             } catch (final Exception e) {
-//                Log.e("Register", "Other Exception caught: " + e.toString());
+                Log.e("Register", "Other Exception caught: " + e.toString());
                 publishProgress(null, "Registration failed: " + e.getMessage());
                 return false;
             }

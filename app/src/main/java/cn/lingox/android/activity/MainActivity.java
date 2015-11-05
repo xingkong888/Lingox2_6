@@ -316,13 +316,13 @@ public class MainActivity extends ActionBarActivity implements
         switch (requestCode) {
             case REQUEST_CODE_SETTINGS:
                 switch (resultCode) {
-                    case MainActivity.RESULT_CODE_LOGOUT:
+                    case RESULT_CODE_LOGOUT:
                         Intent logoutIntent = new Intent(this, LoginActivity.class);
                         logoutIntent.putExtra(LoginActivity.LOGOUT_REQUESTED, true);
                         startActivity(logoutIntent);
                         finish();
                         break;
-                    case MainActivity.RESULT_CODE_RESET_LANGUAGE:
+                    case RESULT_CODE_RESET_LANGUAGE:
                         Intent resetLanguage = new Intent(this, SplashActivity.class);
                         startActivity(resetLanguage);
                         finish();

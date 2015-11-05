@@ -374,8 +374,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 text = tags[i];
             }
             itemWidth = paint.measureText(text) + itemPadding;
-
-            if (remainWidth - itemWidth > 35) {
+            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
+            if (remainWidth>20) {
                 addItemView(inflater, layout, tvParams, text);
             } else {
                 resetTextViewMarginsRight(layout);
@@ -387,7 +387,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 tagsView.addView(layout);
                 remainWidth = containerWidth;
             }
-            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
         }
         if (length > 0) {
             resetTextViewMarginsRight(layout);

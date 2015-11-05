@@ -101,8 +101,7 @@ public class PathFragment extends Fragment implements OnClickListener {
 
                 clickPosition = position - 1;
 
-                Intent intent;
-                intent = new Intent(getActivity(), PathViewActivity.class);
+                Intent intent = new Intent(getActivity(), PathViewActivity.class);
                 intent.putExtra(PathViewActivity.PATH_TO_VIEW, pathList.get(position - 1));
                 startActivityForResult(intent, PathFragment.EDIT_PATH);
             }

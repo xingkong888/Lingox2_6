@@ -207,9 +207,6 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.iv_sendPicture));
                     holder.head_iv = (ImageView) rowView
                             .findViewById(R.id.iv_userhead);
-                    // TODO this next line should be in the handle method
-                    ImageHelper.getInstance()
-                            .loadAvatar(holder.head_iv, user.getAvatar());
                     holder.tv = (TextView) rowView
                             .findViewById(R.id.percentage);
                     holder.pb = (ProgressBar) rowView
@@ -218,7 +215,17 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.msg_status);
                     holder.tv_userId = (TextView) rowView
                             .findViewById(R.id.tv_userid);
+                    switch (message.direct) {
+                        case RECEIVE:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
+                            break;
 
+                        case SEND:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
+                            break;
+                    }
                 } catch (Exception e) {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
@@ -277,12 +284,7 @@ public class MessageAdapter extends BaseAdapter {
                             // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
                             holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
-                            holder.tv_ack = (TextView) rowView.findViewById(R.id.tv_ack);
-                            holder.tv_delivered = (TextView) rowView.findViewById(R.id.tv_delivered);
                             break;
-
-                        default:
-                            throw new Exception("Neither SEND nor RECEIVE");
                     }
 
                 } catch (Exception e) {
@@ -293,9 +295,6 @@ public class MessageAdapter extends BaseAdapter {
                 try {
                     holder.head_iv = (ImageView) rowView
                             .findViewById(R.id.iv_userhead);
-                    // TODO this next line should be in the handle method
-                    ImageHelper.getInstance()
-                            .loadAvatar(holder.head_iv, user.getAvatar());
                     holder.tv = (TextView) rowView
                             .findViewById(R.id.tv_location);
                     holder.pb = (ProgressBar) rowView
@@ -304,6 +303,17 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.msg_status);
                     holder.tv_userId = (TextView) rowView
                             .findViewById(R.id.tv_userid);
+                    switch (message.direct) {
+                        case RECEIVE:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
+                            break;
+
+                        case SEND:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
+                            break;
+                    }
                 } catch (Exception e) {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
@@ -314,9 +324,6 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.chatting_content_iv));
                     holder.head_iv = (ImageView) rowView
                             .findViewById(R.id.iv_userhead);
-                    // TODO this next line should be in the handle method
-                    ImageHelper.getInstance()
-                            .loadAvatar(holder.head_iv, user.getAvatar());
                     holder.tv = (TextView) rowView
                             .findViewById(R.id.percentage);
                     holder.pb = (ProgressBar) rowView
@@ -333,6 +340,17 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.container_status_btn);
                     holder.tv_userId = (TextView) rowView
                             .findViewById(R.id.tv_userid);
+                    switch (message.direct) {
+                        case RECEIVE:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
+                            break;
+
+                        case SEND:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
+                            break;
+                    }
                 } catch (Exception e) {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
@@ -342,8 +360,8 @@ public class MessageAdapter extends BaseAdapter {
                     holder.head_iv = (ImageView) rowView
                             .findViewById(R.id.iv_userhead);
                     // TODO this next line should be in the handle method
-                    ImageHelper.getInstance()
-                            .loadAvatar(holder.head_iv, user.getAvatar());
+//                    ImageHelper.getInstance()
+//                            .loadAvatar(holder.head_iv, user.getAvatar());
                     holder.tv_file_name = (TextView) rowView
                             .findViewById(R.id.tv_file_name);
                     holder.tv_file_size = (TextView) rowView
@@ -360,6 +378,17 @@ public class MessageAdapter extends BaseAdapter {
                             .findViewById(R.id.percentage);
                     holder.tv_userId = (TextView) rowView
                             .findViewById(R.id.tv_userid);
+                    switch (message.direct) {
+                        case RECEIVE:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
+                            break;
+
+                        case SEND:
+                            // TODO this next line should be in the handle method
+                            ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
+                            break;
+                    }
                 } catch (Exception e) {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
@@ -368,7 +397,6 @@ public class MessageAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) rowView.getTag();
         }
-
 
         switch (message.getType()) {
             case IMAGE:
@@ -857,17 +885,16 @@ public class MessageAdapter extends BaseAdapter {
                 }
             }
         });
-/*因为不知道乱码的汉字，所以注释掉
+        //因为不知道乱码的汉字，所以注释掉
         if (message.direct == EMMessage.Direct.RECEIVE) {
             File file = new File(filePath);
             if (file != null && file.exists()) {
-                holder.tv_file_download_state.setText("������");
+                holder.tv_file_download_state.setText("Have downloaded");
             } else {
-                holder.tv_file_download_state.setText("δ����");
+                holder.tv_file_download_state.setText("Did not download");
             }
             return;
         }
-        */
 
         // until here, deal with send voice msg
         switch (message.status) {
@@ -991,7 +1018,7 @@ public class MessageAdapter extends BaseAdapter {
 
     private void showDownloadImageProgress(final EMMessage message,
                                            final ViewHolder holder) {
-        System.err.println("!!! show download image progress");
+//        System.err.println("!!! show download image progress");
         final FileMessageBody msgbody = (FileMessageBody) message.getBody();
         holder.pb.setVisibility(View.VISIBLE);
         holder.tv.setVisibility(View.VISIBLE);

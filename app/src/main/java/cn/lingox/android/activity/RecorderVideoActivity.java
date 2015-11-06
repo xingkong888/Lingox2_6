@@ -97,8 +97,8 @@ public class RecorderVideoActivity extends BaseActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
+        super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);// ����ȫ��
         // ѡ��֧�ְ�͸��ģʽ������surfaceview��activity��ʹ��
@@ -284,7 +284,7 @@ public class RecorderVideoActivity extends BaseActivity implements
                 btnStop.setVisibility(View.INVISIBLE);
 
                 new AlertDialog.Builder(this)
-                        .setMessage("�Ƿ��ͣ�")
+                        .setMessage("Whether to suspend?")
                         .setPositiveButton(R.string.ok,
                                 new DialogInterface.OnClickListener() {
 
@@ -432,8 +432,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 
     private void showFailDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("��ʾ")
-                .setMessage("���豸ʧ�ܣ�")
+                .setMessage("Failure")
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
 

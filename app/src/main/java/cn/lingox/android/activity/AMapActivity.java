@@ -71,6 +71,8 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     private InputMethodManager imm;
 
+    private boolean isChat=false;//标识是否为聊天页获取位置
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,9 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         setMapView(savedInstanceState);
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
+        if (getIntent().hasExtra("LOCATION")){
+            isChat=true;
+        }
     }
 
     private void setMapView(Bundle savedInstanceState) {
@@ -130,8 +135,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                //获得焦点
-//失去焦点
                 focus = hasFocus;
             }
         });
@@ -322,9 +325,16 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             doubles[0] = lng;
             doubles[1] = lat;
         }
-        intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
-        intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址
-        setResult(PathEditActivity.SELECTDETIAL, intent);
+//        if (isChat){
+//            intent.putExtra("latitude", doubles[1]);//坐标
+//            intent.putExtra("longitude", doubles[0]);//坐标
+//            intent.putExtra("address", address);//地址
+//            setResult(4, intent);
+//        }else {
+            intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
+            intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址
+            setResult(PathEditActivity.SELECTDETIAL, intent);
+//        }
         finish();
     }
 

@@ -24,15 +24,13 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
 public class PathAdapter extends BaseAdapter {
+    private final DecimalFormat format=new DecimalFormat("##.00");
     private Activity context;
     private ArrayList<Path> datas;
     private User user;
     private boolean isFling = false;
     private ArrayList<PathTags> tags;
-
     private float[] results=new float[1];
-
-    private final DecimalFormat format=new DecimalFormat("##.00");
 
     public PathAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
@@ -138,7 +136,11 @@ public class PathAdapter extends BaseAdapter {
                         Double.valueOf(path.getLatitude()),
                         Double.valueOf(path.getLocation())
                         , results);
-                holder.location.setText(path.getProvince() + " " + format.format(results[0]/1000D) + "m ");
+                if (!path.getProvince().isEmpty()) {
+                    holder.location.setText(path.getProvince() + " " + format.format(results[0] / 1000D) + "m ");
+                }else{
+                    holder.location.setText(path.getChosenCountry() + " " + format.format(results[0] / 1000D) + "m ");
+                }
             }else{
                 holder.location.setText(path.getLocationString());
             }

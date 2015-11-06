@@ -27,7 +27,6 @@ public class FileUtil {
 
     public static void saveImg(String url, Bitmap bitmap, Context context) {
         if (!isMounted()) {
-            Toast.makeText(context, "内存卡不存在，请插入内存卡", Toast.LENGTH_SHORT).show();
             throw new RuntimeException("内存卡不存在，请插入内存卡");
         }
         try {
@@ -64,7 +63,6 @@ public class FileUtil {
 
     public static Bitmap getImg(String url, Context context) {
         if (!isMounted()) {
-            Toast.makeText(context, "内存卡不存在，请插入内存卡", Toast.LENGTH_SHORT).show();
             throw new RuntimeException("内存卡不存在，请插入内存卡");
         }
         Bitmap bitmap = null;

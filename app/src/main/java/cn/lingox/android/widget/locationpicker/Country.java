@@ -29,10 +29,6 @@ public class Country {
         return cities;
     }
 
-    public void setCities(ArrayList<City> cities) {
-        this.cities = cities;
-    }
-
     public void setCities(JSONArray jsonCities) throws Exception {
         if (code == null)
             throw new Exception("This Country1 has no code. A code must be set before we can set the cities from a JSONArray");
@@ -49,5 +45,9 @@ public class Country {
             city.setName(jsonCities.getString(i));
             cities.add(city);
         }
+    }
+
+    public void setCities(ArrayList<City> cities) {
+        this.cities = cities;
     }
 }

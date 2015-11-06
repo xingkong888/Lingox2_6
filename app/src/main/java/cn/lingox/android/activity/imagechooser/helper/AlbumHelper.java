@@ -20,11 +20,11 @@ public class AlbumHelper {
     private static AlbumHelper instance;
     final String TAG = getClass().getSimpleName();
     Context context;
-    private ContentResolver cr;
     HashMap<String, String> thumbnailList = new HashMap<>();
     List<HashMap<String, String>> albumList = new ArrayList<>();
     HashMap<String, ImageBucket> bucketList = new HashMap<>();
     boolean hasBuildImagesBucketList = false;
+    private ContentResolver cr;
 
     private AlbumHelper() {
     }

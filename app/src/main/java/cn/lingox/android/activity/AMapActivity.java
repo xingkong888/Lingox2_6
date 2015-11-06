@@ -325,16 +325,16 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             doubles[0] = lng;
             doubles[1] = lat;
         }
-//        if (isChat){
-//            intent.putExtra("latitude", doubles[1]);//坐标
-//            intent.putExtra("longitude", doubles[0]);//坐标
-//            intent.putExtra("address", address);//地址
-//            setResult(4, intent);
-//        }else {
+        if (isChat){
+            intent.putExtra("latitude", doubles[1]);//坐标
+            intent.putExtra("longitude", doubles[0]);//坐标
+            intent.putExtra("address", address);//地址
+            setResult(RESULT_OK, intent);
+        }else {
             intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
             intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址
             setResult(PathEditActivity.SELECTDETIAL, intent);
-//        }
+        }
         finish();
     }
 

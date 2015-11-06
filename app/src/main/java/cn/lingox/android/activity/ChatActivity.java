@@ -593,7 +593,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 String locationAddress = data.getStringExtra("address");
                 if (locationAddress != null && !locationAddress.equals("")) {
                     more(more);
-                    Toast.makeText(this, latitude+">>>"+longitude+">>>"+locationAddress, Toast.LENGTH_LONG).show();
                     sendLocationMsg(latitude, longitude, "", locationAddress);
                 } else {
                     Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
@@ -666,7 +665,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 selectFileFromLocal();
                 break;
             case R.id.btn_location://发送位置信息
-//                selectLocation();
+                selectLocation();
                 break;
             case R.id.btn_voice_call:
                 if (!EMChatManager.getInstance().isConnected())
@@ -729,7 +728,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    public void selectPicFromCamera() {
+    private void selectPicFromCamera() {
         if (!CommonUtils.isExitsSdcard()) {
             Toast.makeText(getApplicationContext(), getString(R.string.sd_card_does_not_exist), Toast.LENGTH_SHORT).show();
             return;
@@ -759,7 +758,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
     }
 
-    public void selectPicFromLocal() {
+    private void selectPicFromLocal() {
         Intent intent;
         if (Build.VERSION.SDK_INT < 19) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -772,16 +771,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
     //发送位置
-//    public void selectLocation() {
-//        Intent intent;
-//        if (Build.VERSION.SDK_INT < 19) {
-//            intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        } else {
-//            intent = new Intent(this,AMapActivity.class);
-//            intent.putExtra("LOCATION","");
-//        }
-//        startActivityForResult(intent, REQUEST_CODE_MAP);
-//    }
+    private void selectLocation() {
+        Intent intent = new Intent(this,AMapActivity.class);
+            intent.putExtra("LOCATION","");
+        startActivityForResult(intent, REQUEST_CODE_MAP);
+    }
 
     private void sendText(String content) {
         if (content.length() > 0) {

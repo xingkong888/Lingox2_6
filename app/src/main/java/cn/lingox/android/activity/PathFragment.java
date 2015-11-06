@@ -250,6 +250,9 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             tempPathList = new ArrayList<>();
+            if (listView.getCurrentMode()== PullToRefreshBase.Mode.PULL_FROM_START){
+                listView.setMode(PullToRefreshBase.Mode.DISABLED);
+            }
         }
 
         @Override
@@ -282,6 +285,9 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            if (listView.getCurrentMode()== PullToRefreshBase.Mode.BOTH){
+                listView.setMode(PullToRefreshBase.Mode.BOTH);
+            }
             listView.onRefreshComplete();
             if (success) {
                 if (pathList.size() != 0 && tempPathList.size() == 0) {

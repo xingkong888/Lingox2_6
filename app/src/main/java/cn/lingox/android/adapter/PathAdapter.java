@@ -1,6 +1,7 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -128,8 +129,7 @@ public class PathAdapter extends BaseAdapter {
             if (!LingoXApplication.getInstance().getLatitude().isEmpty()&&
             !LingoXApplication.getInstance().getLongitude().isEmpty()&&
                     !path.getLatitude().isEmpty()&&
-                    !path.getLongitude().isEmpty()
-            ) {
+                    !path.getLongitude().isEmpty()) {
                 Location.distanceBetween(
                         Double.valueOf(LingoXApplication.getInstance().getLatitude()),
                         Double.valueOf(LingoXApplication.getInstance().getLongitude()),
@@ -167,7 +167,8 @@ public class PathAdapter extends BaseAdapter {
                         (context, holder.pathImg, path.getImage21());
             }
         } else {
-            holder.pathImg.setImageResource(R.drawable.nearby_nopic_294dp);
+            holder.pathImg.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.nearby_nopic_294dp));
         }
         return convertView;
     }

@@ -141,5 +141,4 @@ public class IndicatorLayout extends FrameLayout implements AnimationListener {
     public void pullToRefresh() {
         mArrowImageView.startAnimation(mResetRotateAnimation);
     }
-
 }

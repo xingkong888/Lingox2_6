@@ -330,5 +330,4 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
         }
 
     }
-
 }

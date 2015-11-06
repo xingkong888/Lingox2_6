@@ -378,9 +378,19 @@ public class MainActivity extends ActionBarActivity implements
                     Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {
-            FileUtil.deleteDir();
-            this.finish();
-            System.exit(0);
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        FileUtil.deleteDir();
+                        Thread.sleep(700);
+                        MainActivity.this.finish();
+//                        System.exit(0);
+                    }catch (Exception e){
+
+                    }
+                }
+            }.start();
         }
     }
 

@@ -182,7 +182,9 @@ public class NearByFragment extends Fragment {
         protected void onPreExecute() {
             searchList.clear();
             adapter.notifyDataSetChanged();
-            super.onPreExecute();
+            if (listView.getCurrentMode()== PullToRefreshBase.Mode.PULL_FROM_START){
+                listView.setMode(PullToRefreshBase.Mode.DISABLED);
+            }
         }
 
         @Override
@@ -205,6 +207,9 @@ public class NearByFragment extends Fragment {
                     stopAnim();
                 }
                 adapter.notifyDataSetChanged();
+            }
+            if (listView.getCurrentMode()== PullToRefreshBase.Mode.DISABLED){
+                listView.setMode(PullToRefreshBase.Mode.BOTH);
             }
             listView.onRefreshComplete();
         }

@@ -27,23 +27,25 @@ public class FileUtil {
 
     public static void saveImg(String url, Bitmap bitmap, Context context) {
         if (!isMounted()) {
-            throw new RuntimeException("内存卡不存在，请插入内存卡");
-        }
-        try {
-            File dir = new File(CACHE_DIR);
-            if (!dir.exists()) {
-                dir.mkdir();
+//            throw new RuntimeException("内存卡不存在，请插入内存卡");
+            Toast.makeText(context,"内存卡不存在",Toast.LENGTH_LONG).show();
+        }else {
+            try {
+                File dir = new File(CACHE_DIR);
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+                File imgFile = new File(dir, getImgName(url));
+                if (imgFile.exists()) {
+                    imgFile.delete();
+                }
+                FileOutputStream fos = new FileOutputStream(imgFile);
+                bitmap.compress(CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            File imgFile = new File(dir, getImgName(url));
-            if (imgFile.exists()) {
-                imgFile.delete();
-            }
-            FileOutputStream fos = new FileOutputStream(imgFile);
-            bitmap.compress(CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -63,14 +65,17 @@ public class FileUtil {
 
     public static Bitmap getImg(String url, Context context) {
         if (!isMounted()) {
-            throw new RuntimeException("内存卡不存在，请插入内存卡");
+//            throw new RuntimeException("内存卡不存在，请插入内存卡");
+            Toast.makeText(context,"内存卡不存在",Toast.LENGTH_LONG).show();
+            return null;
+        }else {
+            Bitmap bitmap = null;
+            File imgFile = new File(CACHE_DIR, getImgName(url));
+            if (imgFile.exists()) {
+                bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            }
+            return bitmap;
         }
-        Bitmap bitmap = null;
-        File imgFile = new File(CACHE_DIR, getImgName(url));
-        if (imgFile.exists()) {
-            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        }
-        return bitmap;
     }
 
     public static void getFileSize() throws Exception {

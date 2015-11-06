@@ -2,6 +2,7 @@ package cn.lingox.android.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class UIHelper {
             Picasso.with(context).load(url).placeholder(placeholderResId).into(iv);
     }
 
-    public void imageViewSetPossiblyEmptyUrl(final ImageView iv, String url) {
+    public void imageViewSetPossiblyEmptyUrl(final ImageView iv, String url,Context context) {
         if (!TextUtils.isEmpty(url)) {
             new ImageTask(new ImageTask.Callback1() {
                 @Override
@@ -74,7 +75,7 @@ public class UIHelper {
                     .error(R.drawable.nearby_nopic_294dp)
                     .into(iv);
         } else {
-            iv.setImageResource(R.drawable.nearby_nopic_294dp);
+            iv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.nearby_nopic_294dp));
         }
     }
 }

@@ -601,6 +601,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         oks.setText(path.getText());
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setImageUrl(path.getImage());
+        oks.setImagePath(path.getImage());
         oks.setUrl("http://lingox.cn/viewActivity?" + StringConstant.pathId + "=" + path.getId());
         // 启动分享GUI
         oks.show(this);

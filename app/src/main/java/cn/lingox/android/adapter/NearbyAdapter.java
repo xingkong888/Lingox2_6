@@ -2,6 +2,7 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -95,17 +96,18 @@ public class NearbyAdapter extends BaseAdapter {
             }
             holder.avatar.setTag(user.getAvatar());
             if (FileUtil.getImgName(user.getAvatar()).contentEquals("avatar.jpg")) {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar());
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar(),context);
             } else {
                 if (ImageCache.getInstance().get(user.getAvatar()) != null && holder.avatar.getTag().equals(user.getAvatar())) {
                     holder.avatar.setImageBitmap(ImageCache.getInstance().get(user.getAvatar()));
                 } else {
                     if (FileUtil.getImg(user.getAvatar(), context) == null && holder.avatar.getTag().equals(user.getAvatar())) {
-                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar());
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(holder.avatar, user.getAvatar(),context);
                     } else if (holder.avatar.getTag().equals(user.getAvatar())) {
                         holder.avatar.setImageBitmap(FileUtil.getImg(user.getAvatar(), context));
                     } else {
-                        holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
+                        holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),
+                                R.drawable.nearby_nopic_294dp));
                     }
                 }
             }
@@ -185,7 +187,8 @@ public class NearbyAdapter extends BaseAdapter {
             };
             convertView.setOnClickListener(userClickListener);
         } else {
-            holder.avatar.setImageResource(R.drawable.nearby_nopic_294dp);
+            holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.nearby_nopic_294dp));
             holder.info.setVisibility(View.GONE);
             holder.info2.setVisibility(View.GONE);
         }

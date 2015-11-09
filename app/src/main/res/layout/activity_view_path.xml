@@ -82,8 +82,7 @@
                 <ImageView
                     android:id="@+id/path_background"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:src="@drawable/discover_default" />
+                    android:layout_height="180dp" />
 
                 <LinearLayout
                     android:id="@+id/lalala"

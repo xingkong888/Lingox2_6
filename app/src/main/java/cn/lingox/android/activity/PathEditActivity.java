@@ -549,6 +549,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 1://country city address
                     switch (path.getType()) {
                         case 0:
+                            showToast("请选择Local或Travel");
                             page--;
                             break;
                         case 1://本地人
@@ -589,6 +590,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
+                                showToast("请填写标题或详情");
                                 page--;
                             } else {
                                 pageNum.setText("2/5");
@@ -601,6 +603,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if (path.getChosenCountry().isEmpty()) {
+                                showToast("请选择国家");
                                 page--;
                             } else {
                                 pageNum.setText("2/5");
@@ -621,6 +624,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getChosenCountry().isEmpty() || path.getLatitude().isEmpty()) {
+                                showToast("请选择国家或详细地址");
                                 page--;
                             } else {
                                 pageNum.setText("3/5");
@@ -639,6 +643,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if ((path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
+                                showToast("请选择时间");
                                 page--;
                             } else {
                                 pageNum.setText("3/5");
@@ -655,6 +660,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getAvailableTime().isEmpty()) {
+                                showToast("请填写时间介绍");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -667,6 +673,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
+                                showToast("请填写标题或详情");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -689,10 +696,15 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     page3.setVisibility(View.INVISIBLE);
                     break;
                 case 6:
-                    if (addingNewPath) {
-                        new AddPath().execute();
+                    if (imageSelected) {
+                        if (addingNewPath) {
+                            new AddPath().execute();
+                        } else {
+                            new EditPath().execute();
+                        }
                     } else {
-                        new EditPath().execute();
+                        showToast("请选择上传的图片");
+                        page--;
                     }
                     break;
             }
@@ -736,6 +748,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             CachePath.getInstance().setTags(postJson);
             path.setTags(postJson);
         }
+    }
+
+    //提示用户
+    private void showToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     public void startDatePickerDialog() {

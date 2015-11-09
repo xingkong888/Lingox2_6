@@ -121,6 +121,7 @@
         <!-- 详细信息页 -->
         <activity
             android:name="cn.lingox.android.activity.UserInfoActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />

@@ -27,7 +27,7 @@ import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.utils.FileUtil;
 
 public class SplashActivity extends Activity {
-    private static final int[] pics = {R.drawable.guide_page1, R.drawable.guide_page2, R.drawable.guide_page3};
+    private static final int[] pics = {R.drawable.guide_page1, R.drawable.guide_page2};
     // UI Elements
     private RelativeLayout rootLayout;
     private ViewPager viewPager;

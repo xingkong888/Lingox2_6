@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,8 +26,7 @@ public class FileUtil {
 
     public static void saveImg(String url, Bitmap bitmap, Context context) {
         if (!isMounted()) {
-//            throw new RuntimeException("内存卡不存在，请插入内存卡");
-            Toast.makeText(context,"内存卡不存在",Toast.LENGTH_LONG).show();
+            throw new RuntimeException("内存卡不存在，请插入内存卡");
         }else {
             try {
                 File dir = new File(CACHE_DIR);
@@ -65,9 +63,7 @@ public class FileUtil {
 
     public static Bitmap getImg(String url, Context context) {
         if (!isMounted()) {
-//            throw new RuntimeException("内存卡不存在，请插入内存卡");
-            Toast.makeText(context,"内存卡不存在",Toast.LENGTH_LONG).show();
-            return null;
+            throw new RuntimeException("内存卡不存在，请插入内存卡");
         }else {
             Bitmap bitmap = null;
             File imgFile = new File(CACHE_DIR, getImgName(url));

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:padding="15.0dip"
+            android:padding="15dp"
             android:src="@drawable/point" />
 
         <ImageView
@@ -31,23 +31,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:padding="15.0dip"
+            android:padding="15dp"
             android:src="@drawable/point" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:clickable="true"-->
+        <!--android:padding="15dp"-->
+        <!--android:src="@drawable/point" />-->
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:clickable="true"
-            android:padding="15.0dip"
-            android:src="@drawable/point" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:padding="15.0dip"
+            android:padding="15dp"
             android:src="@drawable/top_advance_24dp" />
     </LinearLayout>
 

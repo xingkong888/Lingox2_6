@@ -285,7 +285,7 @@ public class PathFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
-            if (listView.getCurrentMode()== PullToRefreshBase.Mode.BOTH){
+            if (listView.getCurrentMode() == PullToRefreshBase.Mode.DISABLED) {
                 listView.setMode(PullToRefreshBase.Mode.BOTH);
             }
             listView.onRefreshComplete();

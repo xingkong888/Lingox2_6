@@ -69,6 +69,8 @@ public class UIHelper {
     }
 
     public void imageViewSetPossiblyEmptyUrl(Context context, final ImageView iv, String url) {
+        iv.setImageBitmap(null);
+        iv.setImageDrawable(null);
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(context)
                     .load(url)

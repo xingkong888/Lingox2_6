@@ -102,7 +102,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         }
     }
 
-
     @Override
     protected void onResume() {
         MobclickAgent.onResume(this);
@@ -215,6 +214,7 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 int deleteIndex = findPhotoInList(deletedPhoto);
                 photoList.remove(deleteIndex);
@@ -224,11 +224,9 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
                     setResult(RESULT_OK, intent1);
                     finish();
                 }
-                pd.dismiss();
                 Toast.makeText(PhotoViewActivity.this, "Photo Deleted!", Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
             } else {
-                pd.dismiss();
                 Toast.makeText(PhotoViewActivity.this, "Error Deleting Photo!", Toast.LENGTH_SHORT).show();
             }
         }

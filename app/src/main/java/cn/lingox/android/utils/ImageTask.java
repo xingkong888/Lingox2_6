@@ -2,7 +2,6 @@ package cn.lingox.android.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -13,8 +12,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.ByteArrayBuffer;
 
 import java.io.InputStream;
-
-import cn.lingox.android.app.LingoXApplication;
 
 public class ImageTask extends AsyncTask<String, Void, Bitmap> {
     private String url;
@@ -46,28 +43,23 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
                 final byte[] bytes = bytesBuffer.toByteArray();
 
                 if (bytes != null) {
+/*     采用ARGB_4444模式，图片失真率太高
+                    BitmapFactory.Options options=new BitmapFactory.Options();
+                    options.inPreferredConfig= Bitmap.Config.ARGB_4444;
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
+                            bytes.length,options);
+                            */
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
                             bytes.length);
-//
                     bmpWidth = bitmap.getWidth();
                     bmpHeight = bitmap.getHeight();
-                    //设置图片放大比例
-                    double scale = LingoXApplication.getInstance().getWidth() / (double) bmpWidth;
-                    //计算出这次要缩小的比例
-                    float scaleWidth = (float) (1 * scale);
-                    float scaleHeight = (float) (1 * scale);
-                    //产生ReSize之后的bmp对象
-                    Matrix matrix = new Matrix();
-                    matrix.postScale(scaleWidth, scaleHeight);
-                    resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bmpWidth, bmpHeight, matrix, true);
-                    bitmap1 = Bitmap.createBitmap(bitmap, 0, (int) (bmpHeight * 0.25)
-                            , bmpWidth, bmpHeight / 2);
+                    bitmap1 = Bitmap.createBitmap(bitmap, 0, (int) (bmpHeight * 0.25), bmpWidth, bmpHeight / 2);
                     // 将图片保存到本地
                     if (bitmap1 != null) {
+                        bitmap.recycle();
 //                        FileUtil.saveImg(url, bitmap1,);
                         ImageCache.getInstance().put(url, bitmap1);
                     }
-
                     return bitmap1;
                 }
             }

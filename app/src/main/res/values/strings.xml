@@ -19,7 +19,7 @@
     <!-- ********************************************************-->
     <string name="end_start">Over time is not less than start time or the current time, please choose again</string>
     <string name="start_end">Start time is not greater than end time, please choose again</string>
-    <string name="create">Create</string>
+    <string name="create">CREATE</string>
     <string name="follow">Following</string>
 
     <string name="path_edit_0_traveler_1">- Find locals for homestay or home meals.</string>

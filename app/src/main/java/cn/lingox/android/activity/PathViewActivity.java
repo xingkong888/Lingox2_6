@@ -77,11 +77,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     /**
      * 标签之间的间距 px
      */
-    final int itemMargins = 25;
+    private final int itemMargins = 25;
     /**
      * 标签的行间距 px
      */
-    final int lineMargins = 25;
+    private final int lineMargins = 25;
 
     // UI Elements
     private MyScrollView scrollView;
@@ -344,7 +344,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
 
     public void addTagView(String[] tags) {
         tagsView.removeAllViews();
-        final int containerWidth = width - DpToPx.dip2px(this, 80);
+        final int containerWidth = width - DpToPx.dip2px(this, 100);
         final LayoutInflater inflater = this.getLayoutInflater();
         /** 用来测量字符的宽度 */
         final Paint paint = new Paint();
@@ -373,9 +373,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } catch (Exception e) {
                 text = tags[i];
             }
+
             itemWidth = paint.measureText(text) + itemPadding;
-            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
-            if (remainWidth>20) {
+            if (remainWidth - itemWidth > 25) {
                 addItemView(inflater, layout, tvParams, text);
             } else {
                 resetTextViewMarginsRight(layout);
@@ -387,6 +387,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 tagsView.addView(layout);
                 remainWidth = containerWidth;
             }
+            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
         }
         if (length > 0) {
             resetTextViewMarginsRight(layout);
@@ -608,6 +609,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     private void finishedViewing() {
+        pathBackground.setImageDrawable(null);
         Intent editedIntent = new Intent();
         editedIntent.putExtra(EDITED_PATH, path);
         setResult(RESULT_OK, editedIntent);

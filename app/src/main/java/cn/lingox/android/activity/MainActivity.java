@@ -304,7 +304,7 @@ public class MainActivity extends ActionBarActivity implements
         if (!LingoXApplication.getInstance().getSkip()) {
             tabAdapter.notifyDataSetChanged();
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
-                    CacheHelper.getInstance().getSelfInfo().getAvatar());
+                    CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
             ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
                     CacheHelper.getInstance().getSelfInfo().getCountry()));
         }

@@ -65,7 +65,7 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
             bitmap = FileUtil.getImg(photo.getUrl(), this);
             showPhoto.setImageBitmap(bitmap);
         } else {
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, showPhoto, url);
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, showPhoto, url, "circular");
         }
     }
 

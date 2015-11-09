@@ -92,7 +92,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         final User user = CacheHelper.getInstance().getUserInfo(reference.getUserSrcId());
         if (user != null) {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
-                    user.getAvatar());
+                    user.getAvatar(), "circular");
             holder.name.setText(user.getNickname());
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
         }

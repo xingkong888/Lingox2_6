@@ -86,7 +86,7 @@ public class FollowersAdapter extends ArrayAdapter<User> implements SectionIndex
                 break;
             default:
                 holder.nameTextView.setText(user.getNickname());
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar());
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
                 if (holder.unreadMsgView != null)
                     holder.unreadMsgView.setVisibility(View.INVISIBLE);
                 break;

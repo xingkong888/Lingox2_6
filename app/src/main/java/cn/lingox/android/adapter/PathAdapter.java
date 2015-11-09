@@ -33,6 +33,7 @@ public class PathAdapter extends BaseAdapter {
     private ArrayList<PathTags> tags;
     private float[] results=new float[1];
 
+
     public PathAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
         this.datas = list;
@@ -111,7 +112,8 @@ public class PathAdapter extends BaseAdapter {
                         String strName = user.getNickname();
                         holder.name.setText(strName);
                         //设置头像
-                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar());
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
+                                (context, holder.avatar, user.getAvatar(), "circular");
                     }
 
                     @Override
@@ -123,23 +125,25 @@ public class PathAdapter extends BaseAdapter {
                 String strName = CacheHelper.getInstance().getUserInfo(path.getUserId()).getNicknameOrUsername();
                 holder.name.setText(strName);
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
-                        CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar());
+                        CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
             }
             //显示活动与自己位置的距离
-            if (!LingoXApplication.getInstance().getLatitude().isEmpty()&&
-            !LingoXApplication.getInstance().getLongitude().isEmpty()&&
-                    !path.getLatitude().isEmpty()&&
-                    !path.getLongitude().isEmpty()) {
+            if (!LingoXApplication.getInstance().getLatitude().isEmpty() && !LingoXApplication.getInstance().getLongitude().isEmpty() &&
+                    !path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {
                 Location.distanceBetween(
                         Double.valueOf(LingoXApplication.getInstance().getLatitude()),
                         Double.valueOf(LingoXApplication.getInstance().getLongitude()),
                         Double.valueOf(path.getLatitude()),
-                        Double.valueOf(path.getLocation())
+                        Double.valueOf(path.getLongitude())
                         , results);
-                if (!path.getProvince().isEmpty()) {
-                    holder.location.setText(path.getProvince() + " " + format.format(results[0] / 1000D) + "m ");
+                //若距离大于1km
+                if (results[0] / 1000D >= 1000) {
+                    holder.location.setText(path.getProvince().isEmpty() ? path.getChosenCountry() : path.getProvince()
+                            + " " + format.format(results[0] / 1000 / 1000d) + "km ");
                 }else{
-                    holder.location.setText(path.getChosenCountry() + " " + format.format(results[0] / 1000D) + "m ");
+                    //小于1km
+                    holder.location.setText(path.getProvince().isEmpty() ? path.getChosenCountry() : path.getProvince()
+                            + " " + format.format(results[0] / 1000d) + "m ");
                 }
             }else{
                 holder.location.setText(path.getLocationString());
@@ -164,7 +168,7 @@ public class PathAdapter extends BaseAdapter {
             holder.pathImg.setTag(path.getImage());
             if (holder.pathImg.getTag().equals(path.getImage())) {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
-                        (context, holder.pathImg, path.getImage21());
+                        (context, holder.pathImg, path.getImage21(), "original");
             }
         } else {
             holder.pathImg.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),

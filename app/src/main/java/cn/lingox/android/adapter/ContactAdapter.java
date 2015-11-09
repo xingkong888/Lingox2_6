@@ -89,7 +89,7 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
                 break;
             default:
                 holder.nameTextView.setText(user.getNickname());
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar());
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
 
                 if (holder.unreadMsgView != null)
                     holder.unreadMsgView.setVisibility(View.INVISIBLE);

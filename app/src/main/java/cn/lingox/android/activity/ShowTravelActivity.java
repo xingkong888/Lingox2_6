@@ -103,7 +103,7 @@ public class ShowTravelActivity extends ActionBarActivity implements OnClickList
     }
 
     private void initData() {
-        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, userAvatar, user.getAvatar());
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, userAvatar, user.getAvatar(), "circular");
         userName.setText(user.getNickname());
     }
 

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -72,12 +73,13 @@ public class ImageHelper {
 
     public void loadFlag(ImageView imageView, String countryCode, int flag) {
         if (TextUtils.isEmpty(countryCode)) {
+            imageView.setVisibility(View.GONE);
             Log.e(LOG_TAG, "Country1 code was empty");
             return;
         }
         try {
+            imageView.setVisibility(View.VISIBLE);
             imageView.setImageBitmap(RotateImageView.rotateImage(context, countryCode));
-
         } catch (Exception e) {
             Log.e(LOG_TAG, "Exception caught: " + e.toString());
         }
@@ -127,13 +129,10 @@ public class ImageHelper {
         switch (type) {
             case RESIZE_AVATAR:
                 return resizeBitmap(filePath, 800, 800);
-
             case RESIZE_PHOTO:
                 return resizeBitmap(filePath, 800, 800);
-
             case RESIZE_CARD_IMAGE:
                 return resizeBitmap(filePath, 800, 800);
-
             case RESIZE_IMAGE_BEFORE_CROP:
                 return resizeBitmap(filePath, 800, 800);
             default:

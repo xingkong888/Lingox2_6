@@ -78,14 +78,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             aboutSelf1, aboutSelf2, userInfoPlaces, about;
     private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit, jiantou1, jiantou2, jiantou3;
     private ProgressBar photosProgressBar;
-    private RelativeLayout layout_photo, editOrChat, layout_travel, layout_tag, layoutAvatar;
-    //    android:id="@+id/userinfo_edit_chat
+    private RelativeLayout layout_photo, layout_travel, layout_tag, layoutAvatar;
     private UserPhotosAdapter photoAdapter;
     private HListView photoListView;
-    private LinearLayout
-            travelContent,
-            layoutSelf, layoutSpeak, layoutAge, layoutSex,
-            layoutLocal, layoutMeal, layoutStay;//, layoutInterest
+    private LinearLayout travelContent, layoutSelf, layoutSpeak, layoutAge, layoutSex,
+            layoutLocal, layoutMeal, layoutStay, editOrChat;
     // Data Elements
     private User user;
     private ArrayList<User> userFollowingList = new ArrayList<>();
@@ -95,12 +92,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     //旅行计划
     private ArrayList<Travel> travelList;
     //个人标签
-//    private ArrayList<String> tagList = new ArrayList<>();
     private Boolean requestingOthersData;
     private int num = 0;//标识旅行经历的个数
     private EditText tagsView = null;//about
     private TextView line;
-    //    private ViewGroup tagsView = null;
     private int width;//屏幕的宽度
     private boolean editOrOk = false;//表示标签状态 false：完成 true：编辑
 
@@ -233,7 +228,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         layoutStay = (LinearLayout) v.findViewById(R.id.layout_available_stay);
         layoutStay.setOnClickListener(this);
 
-        editOrChat = (RelativeLayout) v.findViewById(R.id.userinfo_edit_chat);
+        editOrChat = (LinearLayout) v.findViewById(R.id.userinfo_edit_chat);
         layoutSelf = (LinearLayout) v.findViewById(R.id.layout_self);
         layoutSpeak = (LinearLayout) v.findViewById(R.id.layout_speak);
         layoutAge = (LinearLayout) v.findViewById(R.id.layout_age);
@@ -448,7 +443,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
 
         String countryCode = JsonHelper.getInstance().getCodeFromCountry(user.getCountry());
-        uiHelper.imageViewSetPossiblyEmptyUrl(getActivity(), userAvatar, user.getAvatar());
+        uiHelper.imageViewSetPossiblyEmptyUrl(getActivity(), userAvatar, user.getAvatar(), "original");
         ImageHelper.getInstance().loadFlag(flag, countryCode, 0);
         if (!user.getSignature().isEmpty()) {
             layout_tag.setVisibility(View.GONE);

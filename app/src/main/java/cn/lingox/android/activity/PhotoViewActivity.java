@@ -35,7 +35,6 @@ public class PhotoViewActivity extends Activity implements View.OnClickListener 
     public static final String OTHERS_PHOTOS = LingoXApplication.PACKAGE_NAME + "OTHERS_PHOTOS";
     // Result Codes
     public static final int EDIT_PICTURES = 202;
-    private static final String LOG_TAG = "PhotoViewActivity";
     private UserPhotoPagerAdapter adapter;
     private ArrayList<Photo> photoList = new ArrayList<>();
     private int current_page;

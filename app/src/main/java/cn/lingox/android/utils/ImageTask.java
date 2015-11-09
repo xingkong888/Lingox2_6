@@ -16,7 +16,7 @@ import java.io.InputStream;
 public class ImageTask extends AsyncTask<String, Void, Bitmap> {
     private String url;
     private int bmpWidth = 0, bmpHeight = 0;
-    private Bitmap resizeBmp = null, bitmap1 = null;
+    private Bitmap bitmap1 = null;
     private Callback1 callback;
 
     public ImageTask(Callback1 callback) {
@@ -49,11 +49,13 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap> {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
                             bytes.length,options);
                             */
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
-                            bytes.length);
+//                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
+//                            bytes.length);
+                    Bitmap bitmap = CompressImageUtil.compressImage(BitmapFactory.decodeByteArray(bytes, 0,
+                            bytes.length));
                     bmpWidth = bitmap.getWidth();
                     bmpHeight = bitmap.getHeight();
-                    bitmap1 = Bitmap.createBitmap(bitmap, 0, (int) (bmpHeight * 0.25), bmpWidth, bmpHeight / 2);
+                    bitmap1 = Bitmap.createBitmap(bitmap, 0, (int) (bmpHeight * 0.25), bmpWidth, (int) (bmpHeight * 0.75));
                     // 将图片保存到本地
                     if (bitmap1 != null) {
                         bitmap.recycle();

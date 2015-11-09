@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,6 +32,7 @@ import cn.lingox.android.activity.PathCardImgDialog;
 import cn.lingox.android.activity.imagechooser.crop.ClipImageLayout;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.helper.ImageHelper;
+import cn.lingox.android.utils.CompressImageUtil;
 import cn.lingox.android.utils.FileUtil;
 
 public class PhotoDialog extends Activity implements OnClickListener {
@@ -275,16 +275,8 @@ public class PhotoDialog extends Activity implements OnClickListener {
             try {
                 FileOutputStream out = null;
                 try {
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    croppedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-                    int options = 100;
-                    while (baos.toByteArray().length / 1024 > 100) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
-                        baos.reset();//重置baos即清空baos
-                        croppedImage.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
-                        options -= 10;//每次都减少10
-                    }
+                    CompressImageUtil.compressImage(croppedImage);
                     FileUtil.saveImg(photoUri.getPath(), croppedImage, PhotoDialog.this);
-
                 } catch (Exception e) {
                     Log.e(LOG_TAG, e.toString());
                 } finally {

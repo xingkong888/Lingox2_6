@@ -49,7 +49,7 @@ public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
         super.onPostExecute(success);
         if (success) {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
-                    context, avatarImageView, CacheHelper.getInstance().getSelfInfo().getAvatar());
+                    context, avatarImageView, CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
         } else {
             Toast.makeText(context, context.getString(R.string.fail_upload_avatar), Toast.LENGTH_SHORT).show();
         }

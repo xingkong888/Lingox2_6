@@ -176,7 +176,8 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         context.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, tempUser.getAvatar());
+                                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
+                                        (context, holder.avatar, tempUser.getAvatar(), "circular");
                                 holder.name.setText(tempUser.getNickname());
                             }
                         });
@@ -186,7 +187,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 }
             }.start();
         } else { // --- Use datas we had in the cache ---
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar());
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
             holder.name.setText(user.getNickname());
         }
     }
@@ -243,7 +244,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
 
         uiHelper.textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(notification.getCreatedAt(), 0));
 
-        uiHelper.imageViewSetPossiblyEmptyUrl(activity, holder.avatar, user.getAvatar());
+        uiHelper.imageViewSetPossiblyEmptyUrl(activity, holder.avatar, user.getAvatar(), "circular");
 
         switch (notification.getType()) {
             case LingoNotification.TYPE_USER_FOLLOWED:

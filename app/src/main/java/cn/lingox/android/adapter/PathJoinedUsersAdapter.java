@@ -83,8 +83,7 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) listView.getTag();
         }
-
-        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar());
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar(), "");
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

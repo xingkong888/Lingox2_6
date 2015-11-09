@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +37,6 @@ import com.easemob.exceptions.EaseMobException;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -58,6 +56,7 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.PathEditDialog;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.utils.CompressImageUtil;
 import cn.lingox.android.utils.FileUtil;
 
 public class PathEditActivity extends FragmentActivity implements OnClickListener {
@@ -334,7 +333,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 }
                 if (CachePath.getInstance().getPhoto()) {
                     path.setImage(CachePath.getInstance().getImage());
-                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage());
+                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage(), "circular");
                 }
                 if (CachePath.getInstance().getStartTime() != 0) {
                     path.setDateTime(CachePath.getInstance().getStartTime());
@@ -396,7 +395,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             if (FileUtil.getImg(path.getImage(), this) != null) {
                 addPathImage.setImageBitmap(FileUtil.getImg(path.getImage(), this));
             } else {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage());
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage(), "original");
             }
             //六
             UIHelper.getInstance().textViewSetPossiblyNullString(startTime,
@@ -801,12 +800,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         MobclickAgent.onEventValue(this, "add_discover_next", map, page);
     }
 
-    private Bitmap compress(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//这里压缩options%，把压缩后的数据存放到baos中
-        return bitmap;
-    }
-
     public static class DatePickerFragment extends DialogFragment {
         private DatePickerDialog.OnDateSetListener onDateSet;
         private int year;
@@ -895,7 +888,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            compress(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
+                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));
@@ -968,7 +961,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            compress(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
+                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));

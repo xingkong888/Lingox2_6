@@ -126,7 +126,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     }
 
     private void initData() {
-        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, editAvatar, user.getAvatar());
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, editAvatar, user.getAvatar(), "circular");
         if (!user.getNickname().isEmpty()) {
             editNicknameInfo.setText(user.getNickname());
         }

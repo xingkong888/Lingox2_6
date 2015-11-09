@@ -89,7 +89,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
             }).execute();
         } else {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, groupViewHolder.avatar,
-                    CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar());
+                    CacheHelper.getInstance().getUserInfo(map.get("user_id")).getAvatar(), "circular");
         }
 
         groupViewHolder.content.setText(map.get("content"));

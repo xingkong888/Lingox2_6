@@ -26,6 +26,6 @@ public class UserAvatarDialog extends Activity {
         ImageView avatarPic = (ImageView) findViewById(R.id.avatar);
         Intent intent = getIntent();
         String url = intent.getStringExtra(UserInfoFragment.AVATAR_URL);
-        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, avatarPic, url);
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, avatarPic, url, "original");
     }
 }

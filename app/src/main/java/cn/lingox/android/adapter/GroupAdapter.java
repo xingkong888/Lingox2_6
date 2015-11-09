@@ -57,7 +57,7 @@ public class GroupAdapter extends BaseAdapter {
         final User user = CacheHelper.getInstance().getUserInfoFromUsername(list.get(position));
 
         if (user != null) {
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar());
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar(), "circular");
             final View.OnClickListener userClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

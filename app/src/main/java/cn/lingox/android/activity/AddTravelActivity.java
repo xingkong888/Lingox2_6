@@ -45,7 +45,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
             start = calendar.getTimeInMillis() / 1000L;
             if (end == 0 ? true : end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        startTimeInfo, JsonHelper.getInstance().parseTimestamp((int) start, 1));
+                        startTimeInfo, JsonHelper.getInstance().parseTimestamp((int) start));
                 travel.setStartTime((int) start);
             } else {
                 Toast.makeText(AddTravelActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
@@ -60,7 +60,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
             end = calendar.getTimeInMillis() / 1000L;
             if (end - now >= 0 && (start == 0 ? true : end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end, 1));
+                        endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end));
                 travel.setEndTime((int) end);
             } else {
                 Toast.makeText(AddTravelActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();

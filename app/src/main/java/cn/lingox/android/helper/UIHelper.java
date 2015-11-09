@@ -8,16 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import cn.lingox.android.R;
-import cn.lingox.android.utils.ImageTask;
+import cn.lingox.android.utils.DpToPx;
 
 public class UIHelper {
-
-    private static final String LOG_TAG = "UIHelper";
+    //    private static final String LOG_TAG = "UIHelper";
     private static UIHelper instance = null;
 
     private ExecutorService pool = Executors.newFixedThreadPool(5);
@@ -32,52 +33,58 @@ public class UIHelper {
     }
 
     public void textViewSetPossiblyNullString(TextView tv, String s) {
-        if (s == null)
+        if (s == null) {
             tv.setText("");
-        else
-            tv.setText(s);
-    }
-
-    public void textViewSetPossiblyNullString(TextView tv, String s, int a) {
-        if (s.equals(""))
+        } else if ("".equals(s)) {
             tv.setText("0");
-        else
-            tv.setText(s);
-    }
-
-    public void imageViewSetPossiblyEmptyUrl(Context context, ImageView iv, String url, int placeholderResId) {
-        if (!TextUtils.isEmpty(url))
-            Picasso.with(context).load(url).placeholder(placeholderResId).into(iv);
-    }
-
-    public void imageViewSetPossiblyEmptyUrl(final ImageView iv, String url,Context context) {
-        if (!TextUtils.isEmpty(url)) {
-            new ImageTask(new ImageTask.Callback1() {
-                @Override
-                public void response(String url, Bitmap result) {
-                    iv.setImageBitmap(result);
-                }
-
-                @Override
-                public boolean isCancelled(String url) {
-                    return false;
-                }
-            }).executeOnExecutor(pool, url);
         } else {
-            iv.setImageResource(R.drawable.nearby_nopic_294dp);
+            tv.setText(s);
         }
     }
 
-    public void imageViewSetPossiblyEmptyUrl(Context context, final ImageView iv, String url) {
-        iv.setImageBitmap(null);
-        iv.setImageDrawable(null);
+    /**
+     * 处理用户头像图片问题
+     *
+     * @param context 上下文
+     * @param iv      控件
+     * @param url     图片URL
+     * @param flag    标识 “crop”--裁切，“original”--原图，“circular”---压缩
+     */
+    public void imageViewSetPossiblyEmptyUrl(Context context, ImageView iv, String url, String flag) {
         if (!TextUtils.isEmpty(url)) {
-            Picasso.with(context)
-                    .load(url)
-                    .error(R.drawable.nearby_nopic_294dp)
-                    .into(iv);
+            RequestCreator rc = Picasso.with(context).load(url).error(R.drawable.default_avatar);
+            switch (flag) {
+                case "crop"://裁切
+                    rc.transform(new CropSquareTransformation());
+                    break;
+                case "original"://原图
+                    break;
+                case "circular"://压缩---将图片压缩到58dpX58dp
+                    int size = DpToPx.dip2px(context, 85);
+                    rc.resize(size, size);
+                    break;
+            }
+            rc.into(iv);
         } else {
-            iv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.nearby_nopic_294dp));
+            iv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+        }
+    }
+
+    private class CropSquareTransformation implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            Bitmap result = Bitmap.createBitmap(source,
+                    0, (int) (source.getHeight() * 0.25),
+                    source.getWidth(), (int) (source.getHeight() * 0.75));
+            if (result != source) {
+                source.recycle();
+            }
+            return result;
+        }
+
+        @Override
+        public String key() {
+            return "square()";
         }
     }
 }

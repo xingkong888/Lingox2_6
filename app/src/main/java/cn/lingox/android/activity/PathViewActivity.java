@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
+import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -295,8 +296,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         commentsList.addAll(path.getComments());
         pathCommentsNum.setText(String.valueOf(commentsList.size()));
         loadComments();
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar());
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11());
+        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar(), "");
+        Picasso.with(this).load(path.getImage11()).into(pathBackground);
+//        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11(),"");
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 
         switch (path.getType()) {
@@ -329,7 +331,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
 
         uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
-        uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost(), 0);
+        uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost());
         if (TextUtils.isEmpty(path.getHxGroupId())) {
             pathGroupChat.setVisibility(View.GONE);
         }
@@ -431,7 +433,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 pathTraveler.setVisibility(View.VISIBLE);
                 break;
         }
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
+        Picasso.with(this).load(path.getImage()).into(pathBackground);
+//        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
             pathTime.setVisibility(View.VISIBLE);
@@ -454,7 +457,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         } else {
             uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString() + "," + path.getDetailAddress());
         }
-        uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost(), 0);
+        uiHelper.textViewSetPossiblyNullString(pathBudgetInfo, path.getCost());
         uiHelper.textViewSetPossiblyNullString(pathGroudSizeInfo, String.valueOf(path.getCapacity()));
     }
 
@@ -1006,7 +1009,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             super.onPostExecute(aVoid);
             //FIXME
             uiHelper.textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
-            uiHelper.imageViewSetPossiblyEmptyUrl(PathViewActivity.this, userAvatar, commentUser.getAvatar());
+            uiHelper.imageViewSetPossiblyEmptyUrl(PathViewActivity.this, userAvatar, commentUser.getAvatar(), "");
             final View.OnClickListener userClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

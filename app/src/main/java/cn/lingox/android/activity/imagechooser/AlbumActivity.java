@@ -24,22 +24,19 @@ import cn.lingox.android.activity.imagechooser.entity.ImageItem;
 import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.utils.FileUtil;
-//import cn.lingox.android.utils.FileUtils;
-
 public class AlbumActivity extends ActionBarActivity {
     // INCOMING INTENT EXTRAS
     public static final String ALBUM_IMAGE_LIST = LingoXApplication.PACKAGE_NAME + ".ALBUM_IMAGE_LIST";
     private static final String LOG_TAG = "AlbumActivity";
     private List<ImageItem> dataList;
     private ImageGridAdapter adapter;
-    private AlbumHelper helper;
     private boolean selectMultiple;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        helper = AlbumHelper.getHelper();
+        AlbumHelper helper = AlbumHelper.getHelper();
         helper.init(getApplicationContext());
 
         dataList = (List<ImageItem>) getIntent().getSerializableExtra(ALBUM_IMAGE_LIST);

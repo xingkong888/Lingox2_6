@@ -72,9 +72,7 @@ public class AlbumListActivity extends ActionBarActivity {
     private void initData() {
         dataList.clear();
         dataList.addAll(helper.getImagesBucketList(false));
-        bitmap = BitmapFactory.decodeResource(
-                getResources(),
-                R.drawable.icon_addpic_unfocused);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_unfocused);
     }
 
     @Override
@@ -102,6 +100,7 @@ public class AlbumListActivity extends ActionBarActivity {
                         finish();
                     }
                 }
+                break;
         }
     }
 

@@ -8,30 +8,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fafafa">
+        android:background="#fafafa"
+        android:gravity="center_vertical"
+        android:minHeight="49dp">
 
         <TextView
             android:id="@+id/ddd"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="Availability"
-            android:textSize="15sp"
-
-            />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/available_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/ddd"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="5dp"
             android:textColor="@color/black_deep"
             android:textSize="15sp" />
 

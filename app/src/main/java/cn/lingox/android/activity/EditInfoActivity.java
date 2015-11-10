@@ -17,8 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +38,6 @@ import cn.lingox.android.utils.CircularImageView;
 import cn.lingox.android.utils.FileUtil;
 
 public class EditInfoActivity extends FragmentActivity implements OnClickListener {
-    public static final String AVATAR_URL = LingoXApplication.PACKAGE_NAME + "AVATAR_URL";
     private static final String LOG_TAG = "EditInfoActivity";
     private static final int SELECTLOCATION = 147;
 
@@ -52,14 +49,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     private EditText editNicknameInfo;
     private CircularImageView editAvatar;
 
-    private ImageView xiaoyuandian_male, xiaoyuandian_female, editName;
-
-    private LinearLayout back;
-
-    private RelativeLayout maleLayout, femaleLayout;
+    private ImageView xiaoyuandian_male, xiaoyuandian_female;
 
     private HashMap<String, String> updateParams = new HashMap<>();
-    private String nickName = "";
     private String age = "";
     private String gender = "";
 
@@ -84,13 +76,12 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     }
 
     private void initView() {
-        back = (LinearLayout) findViewById(R.id.layout_back);
-        back.setOnClickListener(this);
-
-        maleLayout = (RelativeLayout) findViewById(R.id.male_layout);
-        maleLayout.setOnClickListener(this);
-        femaleLayout = (RelativeLayout) findViewById(R.id.female_layout);
-        femaleLayout.setOnClickListener(this);
+        //back
+        findViewById(R.id.layout_back).setOnClickListener(this);
+        //male
+        findViewById(R.id.male_layout).setOnClickListener(this);
+        //female
+        findViewById(R.id.female_layout).setOnClickListener(this);
 
         editNicknameInfo = (EditText) findViewById(R.id.edit_nickname);
         editNicknameInfo.addTextChangedListener(new TextWatcher() {
@@ -121,8 +112,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         xiaoyuandian_male = (ImageView) findViewById(R.id.xiaoyuandian);
         xiaoyuandian_female = (ImageView) findViewById(R.id.xiaoyuandian2);
 
-        editName = (ImageView) findViewById(R.id.userinfo_edit);
-        editName.setOnClickListener(this);
+        findViewById(R.id.userinfo_edit).setOnClickListener(this);
     }
 
     private void initData() {
@@ -263,7 +253,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
             editOK.setClickable(false);
             pd.setMessage("Load...");
             pd.show();
-            nickName = editNicknameInfo.getText().toString();
+            String nickName = editNicknameInfo.getText().toString();
             updateParams.put(StringConstant.userIdStr, user.getId());
             if (!TextUtils.isEmpty(gender) && !gender.contentEquals(user.getGender())) {
                 updateParams.put(StringConstant.genderStr, gender);
@@ -299,10 +289,12 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
 
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(EditInfoActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

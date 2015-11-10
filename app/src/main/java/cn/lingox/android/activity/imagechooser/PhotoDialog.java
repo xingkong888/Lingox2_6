@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -273,23 +272,11 @@ public class PhotoDialog extends Activity implements OnClickListener {
         protected Boolean doInBackground(String... params) {
             Log.d(LOG_TAG, "Cropping Image started");
             try {
-                FileOutputStream out = null;
-                try {
-                    CompressImageUtil.compressImage(croppedImage);
-                    FileUtil.saveImg(photoUri.getPath(), croppedImage, PhotoDialog.this);
-                } catch (Exception e) {
-                    Log.e(LOG_TAG, e.toString());
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                //压缩图片
+                CompressImageUtil.compressImage(croppedImage);
+                FileUtil.saveImg(photoUri.getPath(), croppedImage, PhotoDialog.this);
                 return true;
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 publishProgress(null, "Cropping Image Failed: " + e.getMessage());
                 Log.e(LOG_TAG, "Recovery failed: " + e.toString());
                 return false;
@@ -299,10 +286,12 @@ public class PhotoDialog extends Activity implements OnClickListener {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(PhotoDialog.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -314,12 +303,11 @@ public class PhotoDialog extends Activity implements OnClickListener {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(SELECTED_SINGLE_IMAGE, photoUri);
                 setResult(RESULT_OK, returnIntent);
-                finish();
             } else {
                 Toast.makeText(PhotoDialog.this, getString(R.string.fail_image_crop), Toast.LENGTH_LONG).show();
                 setResult(RESULT_CANCELED);
-                finish();
             }
+            finish();
         }
     }
 }

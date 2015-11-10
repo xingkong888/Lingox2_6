@@ -74,8 +74,8 @@ public class ShowTravelAdapter extends BaseAdapter {
         }
         final Travel travel = datas.get(position);
         viewHolder.location.setText(travel.getLocation());
-        viewHolder.startTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getStartTime(), 1));
-        viewHolder.endTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getEndTime(), 1));
+        viewHolder.startTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getStartTime(), 2));
+        viewHolder.endTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getEndTime(), 2));
 
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

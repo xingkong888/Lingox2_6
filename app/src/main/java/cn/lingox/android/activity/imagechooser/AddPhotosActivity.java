@@ -32,9 +32,10 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
     // RESULT CODES
     private static final int SELECT_PHOTOS = 101;
     // Data elements
-    public ArrayList<Photo> photoList = new ArrayList<>();
+    private ArrayList<Photo> photoList = new ArrayList<>();
     private AddPhotosAdapter addPhotosAdapter;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
@@ -114,7 +115,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                         int imageCount = 1;
                         for (Photo photos : photoList) {
                             try {
-                                //Bitmap bitmap = MediaStore.Images.Media.getBitmap(AddPicsActivity.this.getContentResolver(), Uri.parse(photos.getUrl()));
                                 ServerHelper.getInstance().uploadPhoto(
                                         CacheHelper.getInstance().getSelfInfo().getId(),
                                         photos.getDescription(),
@@ -166,6 +166,7 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
         super.onRestart();
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case SELECT_PHOTOS:

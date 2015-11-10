@@ -70,19 +70,17 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private boolean local = false;//false 不提供 true 提供
     private boolean meal = false;
     private boolean stay = false;
-    private View v, tag;
+    private View v;
     // UI Elements
     private TextView userInsterest, time, userName, userIdAndPlace, userSexAndAge, userFollow, userFollowing, userReference, userFollow_, userFollowing_, userReference_,
-            userEdit, userAddFollow, userChat, userAddReference, userSpeak, userAge, userSex, userLocal, userMeal, userStay,
+            userEdit, userAddFollow, userSpeak, userAge, userSex, userLocal, userMeal, userStay,
             availableLocal, availableMeal, availableStay, localTitle, travelTitle, localNothing1, travelNothing1, localNothing2, travelNothing2,
             aboutSelf1, aboutSelf2, userInfoPlaces, about;
     private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit, jiantou1, jiantou2, jiantou3;
     private ProgressBar photosProgressBar;
-    private RelativeLayout layout_photo, layout_travel, layout_tag, layoutAvatar;
+    private RelativeLayout layout_photo, layout_travel, layout_tag;
     private UserPhotosAdapter photoAdapter;
-    private HListView photoListView;
-    private LinearLayout travelContent, layoutSelf, layoutSpeak, layoutAge, layoutSex,
-            layoutLocal, layoutMeal, layoutStay, editOrChat;
+    private LinearLayout travelContent, layoutSelf, layoutSpeak, layoutAge, layoutSex, editOrChat;
     // Data Elements
     private User user;
     private ArrayList<User> userFollowingList = new ArrayList<>();
@@ -93,13 +91,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private ArrayList<Travel> travelList;
     //个人标签
     private Boolean requestingOthersData;
-    private int num = 0;//标识旅行经历的个数
     private EditText tagsView = null;//about
     private TextView line;
-    private int width;//屏幕的宽度
     private boolean editOrOk = false;//表示标签状态 false：完成 true：编辑
-
-    private ArrayList<String> interestList;
 
     private ArrayList<String> placesList = new ArrayList<>();
     private ArrayList<String> list = new ArrayList<>();
@@ -142,7 +136,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (LingoXApplication.getInstance().getSkip()) {
             requestingOthersData = false;
         } else {
-            requestingOthersData = user != null ? user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId()) : false;
+            requestingOthersData = user != null && user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
         }
         initView();
         initData();
@@ -150,12 +144,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
     private void initView() {
 
-        interestList = new ArrayList<>();
-        interestList.addAll(JsonHelper.getInstance().getAllTags());
-
-        tag = v.findViewById(R.id.userinfo_include_tag);
         if (requestingOthersData) {
-            tag.setVisibility(View.VISIBLE);
+            //如果不是自己的个人信息页面，将home meal等三个选项隐藏
+            v.findViewById(R.id.userinfo_include_tag).setVisibility(View.VISIBLE);
         }
         tagsView = (EditText) v.findViewById(R.id.tags_layout);
 
@@ -188,25 +179,19 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userName = (TextView) v.findViewById(R.id.userinfo_name);
         userIdAndPlace = (TextView) v.findViewById(R.id.userinfo_id);
         userSexAndAge = (TextView) v.findViewById(R.id.userinfo_sex);
+
+        v.findViewById(R.id.layout_follow).setOnClickListener(this);
+        v.findViewById(R.id.layout_following).setOnClickListener(this);
+        v.findViewById(R.id.layout_reference).setOnClickListener(this);
+
         userFollow = (TextView) v.findViewById(R.id.userinfo_follow);
-        userFollow.setOnClickListener(this);
         userFollowing = (TextView) v.findViewById(R.id.userinfo_following);
-        userFollowing.setOnClickListener(this);
         userReference = (TextView) v.findViewById(R.id.userinfo_reference);
-        userReference.setOnClickListener(this);
-        userFollow_ = (TextView) v.findViewById(R.id.userinfo_follow_);
-        userFollow_.setOnClickListener(this);
-        userFollowing_ = (TextView) v.findViewById(R.id.userinfo_following_);
-        userFollowing_.setOnClickListener(this);
-        userReference_ = (TextView) v.findViewById(R.id.userinfo_reference_);
-        userReference_.setOnClickListener(this);
 
         userAddFollow = (TextView) v.findViewById(R.id.userinfo_add_follow);
         userAddFollow.setOnClickListener(this);
-        userChat = (TextView) v.findViewById(R.id.userinfo_chat);
-        userChat.setOnClickListener(this);
-        userAddReference = (TextView) v.findViewById(R.id.userinfo_add_reference);
-        userAddReference.setOnClickListener(this);
+        v.findViewById(R.id.userinfo_chat).setOnClickListener(this);
+        v.findViewById(R.id.userinfo_add_reference).setOnClickListener(this);
         userEdit = (TextView) v.findViewById(R.id.userinfo_edit);
         userEdit.setOnClickListener(this);
         if (!requestingOthersData) {
@@ -221,12 +206,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userStay = (TextView) v.findViewById(R.id.userinfo_tag3);
         userInfoPlaces = (TextView) v.findViewById(R.id.userinfo_places_info);
 
-        layoutLocal = (LinearLayout) v.findViewById(R.id.layout_available_local);
-        layoutLocal.setOnClickListener(this);
-        layoutMeal = (LinearLayout) v.findViewById(R.id.layout_available_meal);
-        layoutMeal.setOnClickListener(this);
-        layoutStay = (LinearLayout) v.findViewById(R.id.layout_available_stay);
-        layoutStay.setOnClickListener(this);
+        v.findViewById(R.id.layout_available_local).setOnClickListener(this);
+        v.findViewById(R.id.layout_available_meal).setOnClickListener(this);
+        v.findViewById(R.id.layout_available_stay).setOnClickListener(this);
 
         editOrChat = (LinearLayout) v.findViewById(R.id.userinfo_edit_chat);
         layoutSelf = (LinearLayout) v.findViewById(R.id.layout_self);
@@ -234,11 +216,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         layoutAge = (LinearLayout) v.findViewById(R.id.layout_age);
         layoutSex = (LinearLayout) v.findViewById(R.id.layout_gender);
 
-        layoutAvatar = (RelativeLayout) v.findViewById(R.id.asdfasdf);
+        RelativeLayout layoutAvatar = (RelativeLayout) v.findViewById(R.id.asdfasdf);
         travelContent = (LinearLayout) v.findViewById(R.id.travel_content);
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;
+        int width = dm.widthPixels;//屏幕的宽度
         LayoutParams params1 = layoutAvatar.getLayoutParams();
         params1.height = width;
         layoutAvatar.setLayoutParams(params1);
@@ -250,7 +232,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         layout_travel = (RelativeLayout) v.findViewById(R.id.userinfo_travel);
 
         photosProgressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-        photoListView = (HListView) v.findViewById(R.id.user_photo_hlist);
+        HListView photoListView = (HListView) v.findViewById(R.id.user_photo_hlist);
         photoListView.setFocusable(false);
         photoAdapter = new UserPhotosAdapter(getActivity(), photoList);
         photoListView.setAdapter(photoAdapter);
@@ -271,7 +253,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (requestingOthersData) {
             editOrChat.setVisibility(View.INVISIBLE);
             userEdit.setVisibility(View.VISIBLE);
-            about.setText(getString(R.string.user_about) + "Me");
+            about.setText(String.format(getString(R.string.user_about), "Me"));
         } else {
             userSexAndAge.setVisibility(View.INVISIBLE);
             photoAdd.setVisibility(View.INVISIBLE);
@@ -282,7 +264,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             jiantou3.setVisibility(View.INVISIBLE);
             line.setVisibility(View.GONE);
             tagsView.setTextColor(Color.BLACK);
-            about.setText(getString(R.string.user_about) + user.getNickname());
+            about.setText(String.format(getString(R.string.user_about), user.getNickname()));
         }
         local = user.getLocalGuidey();
         meal = user.getHomeMeal();
@@ -299,11 +281,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                             + "\tActive:" + TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)
             );
         }
-
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values
         if (user.hasProperlyFormedBirthDate()) {
-            if (!user.getGender().equals("")) {
+            if (!"".equals(user.getGender())) {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
@@ -317,12 +298,12 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                     userSexAndAge.setVisibility(View.INVISIBLE);
                     layoutAge.setVisibility(View.VISIBLE);
                     layoutSex.setVisibility(View.VISIBLE);
-                    userAge.setText("" + user.getUserAge());
+                    userAge.setText(String.valueOf(user.getUserAge()));
                     userSex.setText(user.getGender());
                 }
             }
         } else {
-            if (!user.getGender().equals("")) {
+            if (!"".equals(user.getGender())) {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
@@ -336,24 +317,24 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                     userSexAndAge.setVisibility(View.INVISIBLE);
                     layoutAge.setVisibility(View.VISIBLE);
                     layoutSex.setVisibility(View.VISIBLE);
-
-                    userAge.setText("" + user.getUserAge());
+                    userAge.setText(String.valueOf(user.getUserAge()));
                     userSex.setText(user.getGender());
                 }
             }
         }
 
         if (!requestingOthersData) {
-            localTitle.setText(user.getNickname() + "'s Album");
-            localNothing1.setText(user.getNickname() + " hasn't posted photos yet");
-            localNothing2.setText(user.getNickname() + " hasn't posted photos yet");
+            String name = user.getNickname();
+            localTitle.setText(String.format(getString(R.string.album), name));
+            localNothing1.setText(String.format(getString(R.string.album_content), name));
+            localNothing2.setText(String.format(getString(R.string.album_content), name));
 
-            travelTitle.setText(user.getNickname() + "'s Travel Plans");
-            travelNothing1.setText(user.getNickname() + " hasn't posted travel plans yet");
-            travelNothing2.setText(user.getNickname() + " hasn't posted travel plans yet");
+            travelTitle.setText(String.format(getString(R.string.travel_plans), name));
+            travelNothing1.setText(String.format(getString(R.string.travel_content), name));
+            travelNothing2.setText(String.format(getString(R.string.travel_content), name));
 
-            aboutSelf1.setText(user.getNickname() + " hasn’t said anything about themself yet");
-            aboutSelf2.setText(user.getNickname() + " hasn’t said anything about themself yet");
+            aboutSelf1.setText(String.format(getString(R.string.about_self), name));
+            aboutSelf2.setText(String.format(getString(R.string.about_self), name));
         }
 
         UIHelper uiHelper = UIHelper.getInstance();
@@ -499,8 +480,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             case R.id.userinfo_speak_info:
                 SelectDialog.newInstance("speak", getActivity(), user, userSpeak, handler1, "speak").show(getFragmentManager(), "speak");
                 break;
-            case R.id.userinfo_follow:
-            case R.id.userinfo_follow_:
             case R.id.layout_follow:
                 MobclickAgent.onEvent(getActivity(), "members_follower");
                 mIntent = new Intent(getActivity(), UserListActivity.class);
@@ -508,8 +487,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_following));
                 startActivity(mIntent);
                 break;
-            case R.id.userinfo_following:
-            case R.id.userinfo_following_:
             case R.id.layout_following:
                 MobclickAgent.onEvent(getActivity(), "members_following");
                 mIntent = new Intent(getActivity(), UserListActivity.class);
@@ -526,8 +503,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 mIntent.putExtra("addReference", 1);
                 startActivityForResult(mIntent, EDIT_REFERENCES);
                 break;
-            case R.id.userinfo_reference:
-            case R.id.userinfo_reference_:
             case R.id.layout_reference:
                 MobclickAgent.onEvent(getActivity(), "members_reference");
                 mIntent = new Intent(getActivity(), ReferenceActivity.class);
@@ -676,6 +651,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             Collections.reverse(list);
         }
         View view;
+        int num;//标识旅行经历的个数
         if (list.size() == 0) {
             layout_travel.setVisibility(View.VISIBLE);
             num = 0;
@@ -719,8 +695,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         TextView startTime = (TextView) view.findViewById(R.id.travel_time_start);
         TextView location = (TextView) view.findViewById(R.id.travel_title);
 
-        endTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getEndTime(), 1));
-        startTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getStartTime(), 1));
+        endTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getEndTime(), 2));
+        startTime.setText(JsonHelper.getInstance().parseTimestamp(travel.getStartTime(), 2));
         location.setText(travel.getLocation());
         if (requestingOthersData) {
             view.setOnClickListener(new OnClickListener() {

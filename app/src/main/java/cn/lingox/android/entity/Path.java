@@ -7,7 +7,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.helper.JsonHelper;
 
 public class Path implements Parcelable {
     // Constants
@@ -477,15 +476,6 @@ public class Path implements Parcelable {
             acceptedUsers.remove(i);
         else
             Log.e(LOG_TAG, "removeAcceptedUser(): failed to remove user from acceptedUser list");
-    }
-
-    public String getShareText() {
-//        return "LingoX Activity:    \n" + JsonHelper.getInstance().parseTimestamp(Long.valueOf(dateTime.split("-")[0])) + "\n\n"
-        return "LingoX Activity:    \n" + JsonHelper.getInstance().parseTimestamp(dateTime) + "\n\n"
-                + ((this.type == TYPE_LOCAL) ? "Local" : "Traveller") + " at:    \n" + getLocationString() + "\n\n"
-                + "Event:    \n" + text + "\n\n"
-                + "Cost:    \n" + cost + "\n\n"
-                + "Shared using LingoX Android!";
     }
 
     @Override

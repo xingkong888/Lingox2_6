@@ -22,6 +22,8 @@ import cn.lingox.android.helper.ServerHelper;
 
 /**
  * 定位工具类
+ *
+ * 签名打包后才可正常使用
  */
 public class GetLocationUtil implements AMapLocationListener {
     private static LocationManagerProxy mLocationManagerProxy;

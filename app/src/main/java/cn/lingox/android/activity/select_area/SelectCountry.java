@@ -40,7 +40,6 @@ public class SelectCountry extends Activity {
     private ListView listView2;
     private ListView listView3;
     private LinearLayout layout;
-    private ImageView back;
     private ArrayList<Country1> datas = null;
     private ArrayList<String> countryDatas = new ArrayList<>();//存储国家数据，用于搜索
     private ArrayList<String> countryData = new ArrayList<>();//存储显示数据--国家
@@ -81,7 +80,7 @@ public class SelectCountry extends Activity {
         Collections.sort(countryData);
         countryDatas.addAll(countryData);
         layout = (LinearLayout) findViewById(R.id.ppppppp);
-        back = (ImageView) findViewById(R.id.back);
+        ImageView back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

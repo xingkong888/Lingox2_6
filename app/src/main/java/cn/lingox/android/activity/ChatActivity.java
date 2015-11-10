@@ -105,18 +105,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     public static final int REQUEST_CODE_VOICE = 6;
     public static final int REQUEST_CODE_PICTURE = 7;
     public static final int REQUEST_CODE_LOCATION = 8;
-    public static final int REQUEST_CODE_NET_DISK = 9;
+    //    public static final int REQUEST_CODE_NET_DISK = 9;
     public static final int REQUEST_CODE_FILE = 10;
     public static final int REQUEST_CODE_COPY_AND_PASTE = 11;
-    public static final int REQUEST_CODE_PICK_VIDEO = 12;
-    public static final int REQUEST_CODE_DOWNLOAD_VIDEO = 13;
+    //    public static final int REQUEST_CODE_PICK_VIDEO = 12;
+//    public static final int REQUEST_CODE_DOWNLOAD_VIDEO = 13;
     public static final int REQUEST_CODE_VIDEO = 14;
-    public static final int REQUEST_CODE_DOWNLOAD_VOICE = 15;
-    public static final int REQUEST_CODE_SELECT_USER_CARD = 16;
-    public static final int REQUEST_CODE_SEND_USER_CARD = 17;
+    //    public static final int REQUEST_CODE_DOWNLOAD_VOICE = 15;
+//    public static final int REQUEST_CODE_SELECT_USER_CARD = 16;
+//    public static final int REQUEST_CODE_SEND_USER_CARD = 17;
     public static final int REQUEST_CODE_CAMERA = 18;
     public static final int REQUEST_CODE_LOCAL = 19;
-    public static final int REQUEST_CODE_CLICK_DESTORY_IMG = 20;
+    //    public static final int REQUEST_CODE_CLICK_DESTORY_IMG = 20;
     public static final int REQUEST_CODE_GROUP_DETAIL = 21;
     public static final int REQUEST_CODE_SELECT_VIDEO = 23;
     public static final int REQUEST_CODE_SELECT_FILE = 24;
@@ -126,7 +126,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     public static final int RESULT_CODE_FORWARD = 3;
     public static final int RESULT_CODE_OPEN = 4;
     public static final int RESULT_CODE_DWONLOAD = 5;
-    public static final int RESULT_CODE_TO_CLOUD = 6;
+    //    public static final int RESULT_CODE_TO_CLOUD = 6;
     public static final int RESULT_CODE_EXIT_GROUP = 7;
     public static final int CHATTYPE_SINGLE = 1;
     public static final int CHATTYPE_GROUP = 2;
@@ -136,7 +136,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private static final int REQUEST_CODE_MAP = 4;
     public static ChatActivity activityInstance = null;
     static int resendPos;
-    private final int pagesize = 20;
     private View recordingContainer;
     private ImageView micImage;
     private TextView recordingHint;
@@ -146,7 +145,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private View buttonSetModeVoice;
     private View buttonSend;
     private View buttonPressToSpeak;
-    private ViewPager expressionViewpager;
     private LinearLayout expressionContainer;
     private LinearLayout btnContainer;
     private View more;
@@ -318,7 +316,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
         buttonSend = findViewById(R.id.btn_send);
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
-        expressionViewpager = (ViewPager) findViewById(R.id.vPager);
+        ViewPager expressionViewpager = (ViewPager) findViewById(R.id.vPager);
         expressionContainer = (LinearLayout) findViewById(R.id.ll_face_container);
         btnContainer = (LinearLayout) findViewById(R.id.ll_btn_container);
         iv_emoticons_normal = (ImageView) findViewById(R.id.iv_emoticons_normal);
@@ -609,7 +607,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                     || requestCode == REQUEST_CODE_FILE) {
                 resendMessage();
             } else if (requestCode == REQUEST_CODE_COPY_AND_PASTE) {
-                // ճ��
                 if (!TextUtils.isEmpty(clipboard.getText())) {
                     String pasteText = clipboard.getText().toString();
                     if (pasteText.startsWith(COPY_IMAGE)) {
@@ -617,8 +614,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                     }
                 }
             } else if (requestCode == REQUEST_CODE_ADD_TO_BLACKLIST) {
-                EMMessage deleteMsg = adapter.getItem(data
-                        .getIntExtra("position", -1));
+                EMMessage deleteMsg = adapter.getItem(data.getIntExtra("position", -1));
                 addUserToBlacklist(deleteMsg.getFrom());
             } else if (conversation.getMsgCount() > 0) {
                 adapter.refresh();
@@ -633,8 +629,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_send:
-                String s = mEditTextContent.getText().toString();
-                sendText(s);
+                sendText(mEditTextContent.getText().toString());
                 break;
             case R.id.btn_take_picture:
                 selectPicFromCamera();
@@ -668,12 +663,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 selectLocation();
                 break;
             case R.id.btn_voice_call:
-                if (!EMChatManager.getInstance().isConnected())
+                if (!EMChatManager.getInstance().isConnected()) {
                     Toast.makeText(this, "The chat client is not connected", Toast.LENGTH_SHORT).show();
-                else
-                    startActivity(new Intent(ChatActivity.this,
-                            VoiceCallActivity.class).putExtra("username",
+                } else {
+                    startActivity(new Intent(ChatActivity.this, VoiceCallActivity.class).putExtra("username",
                             toChatUsername).putExtra("isComingCall", false));
+                }
                 break;
             case R.id.self_cancel:
                 final Indent indent = indentDatas.get(0);
@@ -684,11 +679,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                HashMap<String, String> map = new HashMap<>();
-                                map.put("id", indent.getId());
-                                map.put("state", "2");
-                                map.put("reason", edit.getText().toString());
-                                new EditIndent().execute(map);
+                                editIndent(indent.getId(), "2", edit.getText().toString());
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -700,24 +691,15 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         .create().show();
                 break;
             case R.id.decline:
-                Indent indent1 = indentDatas.get(0);
-                HashMap<String, String> map = new HashMap<>();
-                map.put("id", indent1.getId());
-                map.put("state", "4");
-                new EditIndent().execute(map);
+                editIndent(indentDatas.get(0).getId(), "4", "");
                 break;
             case R.id.accept:
-                Indent indent2 = indentDatas.get(0);
-                HashMap<String, String> map1 = new HashMap<>();
-                map1.put("id", indent2.getId());
-                map1.put("state", "3");
-                new EditIndent().execute(map1);
+                editIndent(indentDatas.get(0).getId(), "3", "");
                 break;
             case R.id.show_state_waiting:
                 Intent intent1 = new Intent(this, ShowMoreIndentActivity.class);
                 intent1.putExtra("Indents", indentDatas);
-                intent1.putExtra("username",
-                        CacheHelper.getInstance().getUserInfoFromUsername(toChatUsername).getNickname());
+                intent1.putExtra("username", CacheHelper.getInstance().getUserInfoFromUsername(toChatUsername).getNickname());
                 startActivity(intent1);
                 break;
             case R.id.show_one_path_title:
@@ -726,6 +708,17 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 startActivity(intent2);
                 break;
         }
+    }
+
+    private void editIndent(String id, String state, String reson) {
+        HashMap<String, String> map = new HashMap<>();
+        map.clear();
+        map.put("id", id);
+        map.put("state", state);
+        if (!reson.isEmpty()) {
+            map.put("reason", reson);
+        }
+        new EditIndent().execute(map);
     }
 
     private void selectPicFromCamera() {
@@ -1266,17 +1259,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                                 Toast.LENGTH_SHORT).show();
                         return false;
                     }
-
                     return true;
                 case MotionEvent.ACTION_MOVE: {
                     if (event.getY() < 0) {
-                        recordingHint
-                                .setText(getString(R.string.release_to_cancel));
-                        recordingHint
-                                .setBackgroundResource(R.drawable.recording_text_hint_bg);
+                        recordingHint.setText(getString(R.string.release_to_cancel));
+                        recordingHint.setBackgroundResource(R.drawable.recording_text_hint_bg);
                     } else {
-                        recordingHint
-                                .setText(getString(R.string.move_up_to_cancel));
+                        recordingHint.setText(getString(R.string.move_up_to_cancel));
                         recordingHint.setBackgroundColor(Color.TRANSPARENT);
                     }
                     return true;
@@ -1284,8 +1273,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 case MotionEvent.ACTION_UP:
                     v.setPressed(false);
                     recordingContainer.setVisibility(View.INVISIBLE);
-                    if (wakeLock.isHeld())
+                    if (wakeLock.isHeld()) {
                         wakeLock.release();
+                    }
                     if (event.getY() < 0) {
                         // discard the recorded audio.
                         voiceRecorder.discardRecording();
@@ -1295,24 +1285,22 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                             int length = voiceRecorder.stopRecoding();
                             if (length > 0) {
                                 sendVoice(voiceRecorder.getVoiceFilePath(),
-                                        voiceRecorder
-                                                .getVoiceFileName(toChatUsername),
+                                        voiceRecorder.getVoiceFileName(toChatUsername),
                                         Integer.toString(length), false);
                             } else {
-                                Toast.makeText(getApplicationContext(), getString(R.string.the_recording_time_is_too_short), Toast.LENGTH_SHORT)
-                                        .show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.the_recording_time_is_too_short), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                             Toast.makeText(ChatActivity.this, getString(R.string.send_fail), Toast.LENGTH_SHORT).show();
                         }
-
                     }
                     return true;
                 default:
                     recordingContainer.setVisibility(View.INVISIBLE);
-                    if (voiceRecorder != null)
+                    if (voiceRecorder != null) {
                         voiceRecorder.discardRecording();
+                    }
                     return false;
             }
         }
@@ -1323,17 +1311,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             switch (scrollState) {
                 case OnScrollListener.SCROLL_STATE_IDLE:
-                    if (view.getFirstVisiblePosition() == 0 && !isloading
-                            && haveMoreData) {
+                    if (view.getFirstVisiblePosition() == 0 && !isloading && haveMoreData) {
+                        int pageSize = 20;
                         loadmorePB.setVisibility(View.VISIBLE);
                         List<EMMessage> messages;
                         try {
-                            if (chatType == CHATTYPE_SINGLE)
-                                messages = conversation.loadMoreMsgFromDB(adapter
-                                        .getItem(0).getMsgId(), pagesize);
-                            else
-                                messages = conversation.loadMoreGroupMsgFromDB(
-                                        adapter.getItem(0).getMsgId(), pagesize);
+                            if (chatType == CHATTYPE_SINGLE) {
+                                messages = conversation.loadMoreMsgFromDB(adapter.getItem(0).getMsgId(), pageSize);
+                            } else {
+                                messages = conversation.loadMoreGroupMsgFromDB(adapter.getItem(0).getMsgId(), pageSize);
+                            }
                         } catch (Exception e1) {
                             loadmorePB.setVisibility(View.GONE);
                             return;
@@ -1346,8 +1333,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         if (messages.size() != 0) {
                             adapter.notifyDataSetChanged();
                             listView.setSelection(messages.size() - 1);
-                            if (messages.size() != pagesize)
+                            if (messages.size() != pageSize) {
                                 haveMoreData = false;
+                            }
                         } else {
                             haveMoreData = false;
                         }
@@ -1359,9 +1347,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
 
         @Override
-        public void onScroll(AbsListView view, int firstVisibleItem,
-                             int visibleItemCount, int totalItemCount) {
-
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         }
     }
 
@@ -1372,8 +1358,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (toChatUsername.equals(groupId)) {
-                        Toast.makeText(ChatActivity.this, getString(R.string.you_are_group), Toast.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(ChatActivity.this, getString(R.string.you_are_group), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -1385,8 +1370,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (toChatUsername.equals(groupId)) {
-                        Toast.makeText(ChatActivity.this, getString(R.string.the_current_group), Toast.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(ChatActivity.this, getString(R.string.the_current_group), Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -1395,14 +1379,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     }
 
     private class GetMessage extends AsyncTask<String, Void, Boolean> {
-        HashMap<String, String> map = new HashMap<>();
-        ArrayList<Indent> tempData = new ArrayList<>();
+        HashMap<String, String> map;
+        ArrayList<Indent> tempData;
         private String userId;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             indentDatas.clear();
+            map = new HashMap<>();
+            tempData = new ArrayList<>();
         }
 
         @Override

@@ -160,21 +160,28 @@ public class JsonHelper {
         }
     }
 
-    public String parseTimestamp(long timestamp) {
+    /**
+     * 根据给定的long类型格式化时间
+     *
+     * @param timestamp
+     * @param type      1：带时、分 2：不带时、分
+     * @return
+     */
+    public String parseTimestamp(long timestamp, int type) {
         if (locale == null) {
             getLocal();
         }
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale == null ? Locale.CHINA : locale);
-        return (format.format(c.getTime()));
-    }
-
-    public String parseTimestamp(long timestamp, int a) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(timestamp * 1000L);
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = null;
+        switch (type) {
+            case 1://
+                format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale == null ? Locale.CHINA : locale);
+                break;
+            case 2://
+                format = new SimpleDateFormat("yyyy-MM-dd");
+                break;
+        }
         return (format.format(c.getTime()));
     }
 

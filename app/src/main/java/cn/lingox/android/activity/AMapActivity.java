@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -47,25 +46,21 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     private User user = CacheHelper.getInstance().getSelfInfo();
     private Marker marker;
-    private LatLng latLng;
 
     private GeocodeSearch geocoderSearch;
-    private LatLonPoint latLonPoint;
     private double lat, lng;
     private Intent intent = new Intent();
 
     private LatLonPoint point = null;
 
     private EditText editText;
-    private Button btn;
 
     private ProgressBar pb;
 
     private ListView listView;
-    private ArrayList<String> arrayList = new ArrayList<>();
+    private List<String> arrayList = new ArrayList<>();
     private ArrayList<Tip> tipList = new ArrayList<>();
     private ArrayAdapter adapter;
-    private Inputtips inputtips;
 
     private boolean focus = false;//标识edit是否获取焦点，false 失去焦点 true 得到焦点
 
@@ -97,8 +92,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             lat = user.getLoc()[1];
             lng = user.getLoc()[0];
         }
-        latLonPoint = new LatLonPoint(lat, lng);
-
         aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
         aMap.setInfoWindowAdapter(this);
         aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
@@ -106,7 +99,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);
 
-        getAddress(latLonPoint);
+        getAddress(new LatLonPoint(lat, lng));
     }
 
     private void initView() {
@@ -140,8 +133,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         });
         pb = (ProgressBar) findViewById(R.id.map_pb);
 
-        btn = (Button) findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 request(editText.getText().toString());
@@ -186,7 +178,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             adapter.notifyDataSetChanged();
         } else {
             // 发送输入提示请求
-            inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
+            Inputtips inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
             try {
                 // newText表示提示关键字，第二个参数默认代表全国，也可以为城市区号
                 inputtips.requestInputtips(str.trim(), "");
@@ -219,7 +211,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
 
     //创建标记
     private void makeMarker(String address) {
-        latLng = new LatLng(lat, lng);
+        LatLng latLng = new LatLng(lat, lng);
         if (pb.getVisibility() == View.VISIBLE) {
             pb.setVisibility(View.GONE);
         }

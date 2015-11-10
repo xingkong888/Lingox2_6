@@ -25,8 +25,6 @@ import android.widget.ImageView;
 public class ClipZoomImageView extends ImageView implements
         OnScaleGestureListener, OnTouchListener,
         ViewTreeObserver.OnGlobalLayoutListener {
-
-    private static final String TAG = ClipZoomImageView.class.getSimpleName();
     public static float SCALE_MAX = 4.0f;
     private static float SCALE_MID = 2.0f;
     /**
@@ -107,8 +105,7 @@ public class ClipZoomImageView extends ImageView implements
         /**
          * 缩放的范围控制
          */
-        if ((scale < SCALE_MAX && scaleFactor > 1.0f)
-                || (scale > initScale && scaleFactor < 1.0f)) {
+        if ((scale < SCALE_MAX && scaleFactor > 1.0f) || (scale > initScale && scaleFactor < 1.0f)) {
             /**
              * 最大值最小值判断
              */
@@ -156,9 +153,9 @@ public class ClipZoomImageView extends ImageView implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-        if (mGestureDetector.onTouchEvent(event))
+        if (mGestureDetector.onTouchEvent(event)) {
             return true;
+        }
         mScaleGestureDetector.onTouchEvent(event);
 
         float x = 0, y = 0;
@@ -255,20 +252,16 @@ public class ClipZoomImageView extends ImageView implements
             int dw = d.getIntrinsicWidth();
             int dh = d.getIntrinsicHeight();
             float scale = 1.0f;
-            if (dw < getWidth() - mHorizontalPadding * 2
-                    && dh > getHeight() - mVerticalPadding * 2) {
+            if (dw < getWidth() - mHorizontalPadding * 2 && dh > getHeight() - mVerticalPadding * 2) {
                 scale = (getWidth() * 1.0f - mHorizontalPadding * 2) / dw;
             }
 
-            if (dh < getHeight() - mVerticalPadding * 2
-                    && dw > getWidth() - mHorizontalPadding * 2) {
+            if (dh < getHeight() - mVerticalPadding * 2 && dw > getWidth() - mHorizontalPadding * 2) {
                 scale = (getHeight() * 1.0f - mVerticalPadding * 2) / dh;
             }
 
-            if (dw < getWidth() - mHorizontalPadding * 2
-                    && dh < getHeight() - mVerticalPadding * 2) {
-                float scaleW = (getWidth() * 1.0f - mHorizontalPadding * 2)
-                        / dw;
+            if (dw < getWidth() - mHorizontalPadding * 2 && dh < getHeight() - mVerticalPadding * 2) {
+                float scaleW = (getWidth() * 1.0f - mHorizontalPadding * 2) / dw;
                 float scaleH = (getHeight() * 1.0f - mVerticalPadding * 2) / dh;
                 scale = Math.max(scaleW, scaleH);
             }
@@ -294,9 +287,8 @@ public class ClipZoomImageView extends ImageView implements
                 Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         draw(canvas);
-        return Bitmap.createBitmap(bitmap, mHorizontalPadding,
-                mVerticalPadding, getWidth() - 2 * mHorizontalPadding,
-                getWidth() - 2 * mHorizontalPadding);
+        return Bitmap.createBitmap(bitmap, mHorizontalPadding, mVerticalPadding,
+                getWidth() - 2 * mHorizontalPadding, getWidth() - 2 * mHorizontalPadding);
     }
 
     /**
@@ -308,10 +300,8 @@ public class ClipZoomImageView extends ImageView implements
         float deltaY = 0;
         int width = getWidth();
         int height = getHeight();
-//		Log.e(TAG, "rect.width() =  " + rect.width()
-//				+ " , width - 2 * mHorizontalPadding ="
-//				+ (width - 2 * mHorizontalPadding));
-        // 如果宽或高大于屏幕，则控制范围 ; 这里的0.001是因为精度丢失会产生问题，但是误差一般很小，所以我们直接加了一个0.01
+        // 如果宽或高大于屏幕，则控制范围 ;
+        // 这里的0.001是因为精度丢失会产生问题，但是误差一般很小，所以我们直接加了一个0.01
         if (rect.width() + 0.01 >= width - 2 * mHorizontalPadding) {
             if (rect.left > mHorizontalPadding) {
                 deltaX = -rect.left + mHorizontalPadding;

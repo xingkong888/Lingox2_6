@@ -183,7 +183,6 @@ public class ServerHelper {
                 rmsg.getData().toString(),
                 User.class);
 //        Log.d(LOG_TAG, "login: User Info: " + user);
-
         return user;
     }
 
@@ -739,8 +738,7 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_PATHS, params);
-
-        Log.d(LOG_TAG, "getAllPaths: " + jsonStr);
+//        Log.d(LOG_TAG, "getAllPaths: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 

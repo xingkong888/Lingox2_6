@@ -14,37 +14,17 @@ import android.view.View;
  *         http://blog.csdn.net/lmj623565791/article/details/39761281
  */
 public class ClipImageBorderView extends View {
-    /**
-     * 水平方向与View的边距
-     */
+    //水平方向与View的边距
     private int mHorizontalPadding;
-    /**
-     * 垂直方向与View的边距
-     */
-    private int mVerticalPadding;
-    /**
-     * 绘制的矩形的宽度
-     */
-    private int mWidth;
-    /**
-     * 边框的颜色，默认为白色
-     */
-    private int mBorderColor = Color.parseColor("#FFFFFF");
-    /**
-     * 边框的宽度 单位dp
-     */
+    // 边框的宽度 单位dp
     private int mBorderWidth = 1;
-
     private Paint mPaint;
-
     public ClipImageBorderView(Context context) {
         this(context, null);
     }
-
     public ClipImageBorderView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
     public ClipImageBorderView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -59,9 +39,9 @@ public class ClipImageBorderView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // 计算矩形区域的宽度
-        mWidth = getWidth() - 2 * mHorizontalPadding;
+        int mWidth = getWidth() - 2 * mHorizontalPadding;
         // 计算距离屏幕垂直边界 的边距
-        mVerticalPadding = (getHeight() - mWidth) / 2;
+        int mVerticalPadding = (getHeight() - mWidth) / 2;
         mPaint.setColor(Color.parseColor("#aa000000"));
         mPaint.setStyle(Style.FILL);
         // 绘制左边1
@@ -76,7 +56,7 @@ public class ClipImageBorderView extends View {
         canvas.drawRect(mHorizontalPadding, getHeight() - mVerticalPadding,
                 getWidth() - mHorizontalPadding, getHeight(), mPaint);
         // 绘制外边框
-        mPaint.setColor(mBorderColor);
+        mPaint.setColor(Color.WHITE);
         mPaint.setStrokeWidth(mBorderWidth);
         mPaint.setStyle(Style.STROKE);
         canvas.drawRect(mHorizontalPadding, mVerticalPadding, getWidth()

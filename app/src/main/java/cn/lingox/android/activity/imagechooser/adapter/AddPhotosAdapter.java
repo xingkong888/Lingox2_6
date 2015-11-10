@@ -51,7 +51,7 @@ public class AddPhotosAdapter extends BaseAdapter {
         final ViewHolder holder;
         final Photo photo = photoList.get(position);
         if (gridView == null) {
-            gridView = LayoutInflater.from(context).inflate(R.layout.row_pic_item, parent, false);
+            gridView = LayoutInflater.from(context).inflate(R.layout.row_pic_item, null, false);
             holder = new ViewHolder();
             holder.photo = (ImageView) gridView.findViewById(R.id.item_grida_image);
             holder.description = (EditText) gridView.findViewById(R.id.et_description);
@@ -84,9 +84,6 @@ public class AddPhotosAdapter extends BaseAdapter {
 
         holder.description.addTextChangedListener(holder.textWatcher);
         holder.description.setText(photo.getDescription());
-
-//        Picasso.with(context).load("file://" + photo.getUrl())
-//                .into(holder.photo);
         if (!isScroll) {
             holder.photo.setImageBitmap(getImageThumbnail
                     (photo.getUrl(), 90, 90));
@@ -127,15 +124,15 @@ public class AddPhotosAdapter extends BaseAdapter {
         Bitmap bitmap;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-// 获取这个图片的宽和高，注意此处的bitmap为null
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        // 获取这个图片的宽和高，注意此处的bitmap为null
+        BitmapFactory.decodeFile(imagePath, options);
         options.inJustDecodeBounds = false; // 设为 false
-// 计算缩放比
+        // 计算缩放比
         int h = options.outHeight;
         int w = options.outWidth;
         int beWidth = w / width;
         int beHeight = h / height;
-        int be = 1;
+        int be;
         if (beWidth < beHeight) {
             be = beWidth;
         } else {
@@ -145,14 +142,12 @@ public class AddPhotosAdapter extends BaseAdapter {
             be = 1;
         }
         options.inSampleSize = be;
-// 重新读入图片，读取缩放后的bitmap，注意这次要把options.inJustDecodeBounds 设为 false
+        // 重新读入图片，读取缩放后的bitmap，注意这次要把options.inJustDecodeBounds 设为 false
         bitmap = BitmapFactory.decodeFile(imagePath, options);
-// 利用ThumbnailUtils来创建缩略图，这里要指定要缩放哪个Bitmap对象
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
-                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        // 利用ThumbnailUtils来创建缩略图，这里要指定要缩放哪个Bitmap对象
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         return bitmap;
     }
-
     static class ViewHolder {
         ImageView photo;
         EditText description;

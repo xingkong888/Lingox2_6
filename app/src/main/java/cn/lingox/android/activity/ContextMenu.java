@@ -10,7 +10,6 @@ import com.easemob.chat.EMMessage;
 import cn.lingox.android.R;
 
 public class ContextMenu extends BaseActivity {
-
     private int position;
 
     @Override
@@ -38,32 +37,27 @@ public class ContextMenu extends BaseActivity {
     }
 
     public void copy(View view) {
-        setResult(ChatActivity.RESULT_CODE_COPY,
-                new Intent().putExtra("position", position));
+        setResult(ChatActivity.RESULT_CODE_COPY, new Intent().putExtra("position", position));
         finish();
     }
 
     public void delete(View view) {
-        setResult(ChatActivity.RESULT_CODE_DELETE,
-                new Intent().putExtra("position", position));
+        setResult(ChatActivity.RESULT_CODE_DELETE, new Intent().putExtra("position", position));
         finish();
     }
 
     public void forward(View view) {
-        setResult(ChatActivity.RESULT_CODE_FORWARD,
-                new Intent().putExtra("position", position));
+        setResult(ChatActivity.RESULT_CODE_FORWARD, new Intent().putExtra("position", position));
         finish();
     }
 
     public void open(View v) {
-        setResult(ChatActivity.RESULT_CODE_OPEN,
-                new Intent().putExtra("position", position));
+        setResult(ChatActivity.RESULT_CODE_OPEN, new Intent().putExtra("position", position));
         finish();
     }
 
     public void download(View v) {
-        setResult(ChatActivity.RESULT_CODE_DWONLOAD,
-                new Intent().putExtra("position", position));
+        setResult(ChatActivity.RESULT_CODE_DWONLOAD, new Intent().putExtra("position", position));
         finish();
     }
 }

@@ -66,8 +66,6 @@ public class ChatFragment extends Fragment {
     private static boolean isFirst = true;
     private static ChatFragment chatFragment;
     private int isExist = 3;//0 不存在  1  已存在，未读 3 已存在且已读
-    private ChatAndNotify can;
-    private int i;
 
     private int unreadMSG = 0;
     private int unreadNotify = 0;
@@ -596,13 +594,13 @@ public class ChatFragment extends Fragment {
 
     //从通知中读取详细数据
     private void getDatas(LingoNotification n) {
+        ChatAndNotify can = new ChatAndNotify();
         if (datas.size() == 0) {
-            can = new ChatAndNotify();
             can.setType(1);
             can.setObj(n);
             datas.add(0, can);
         } else {
-            int j;
+            int i, j;
             for (i = 0, j = datas.size(); i < j; i++) {
                 if (datas.get(i).getType() == 1) {
                     LingoNotification notify = (LingoNotification) datas.get(i).getObj();
@@ -629,7 +627,6 @@ public class ChatFragment extends Fragment {
             if (isExist == 0) {
                 i++;
             }
-            can = new ChatAndNotify();
             can.setType(1);
             can.setObj(n);
             datas.add(0, can);

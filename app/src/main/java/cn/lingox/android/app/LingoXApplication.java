@@ -86,11 +86,11 @@ public class LingoXApplication extends Application {
     }
 
     public String getLatitude() {
-        return latitude.isEmpty() ? "" + CacheHelper.getInstance().getSelfInfo().getLoc()[0] : latitude;
+        return latitude;
     }
 
     public String getLongitude() {
-        return longitude.isEmpty() ? "" + CacheHelper.getInstance().getSelfInfo().getLoc()[1] : longitude;
+        return longitude;
     }
 
     private void getVersion() {

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 11月10日-->
+    <string name="album">%1$s\'s Album</string>
+    <string name="album_content">%1$s hasn\'t posted photos yet</string>
+    <string name="travel_plans">%1$s\'s Travel Plans</string>
+    <string name="travel_content">%1$s hasn\'t posted travel plans yet</string>
+    <string name="about_self">%1$s hasn\'t said anything about themself yet</string>
     <!-- 11月4日-->
     <string name="path_group_chat">Great!\nYou can use the group chat now!</string>
     <string name="travel">Travel</string>
@@ -225,7 +231,7 @@
     <string name="user_follow">+ Follow</string>
     <string name="user_unfollow">Unfollow</string>
     <string name="user_reference">+Reference</string>
-    <string name="user_about">More About\t</string>
+    <string name="user_about">More About %1$s</string>
     <string name="user_speak">Select language(s)</string>
     <string name="user_interest">Select interests</string>
 

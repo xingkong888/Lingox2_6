@@ -19,9 +19,7 @@ import cn.lingox.android.activity.imagechooser.AlbumListActivity;
 
 public class BitmapCache extends Activity {
     private static final String LOG_TAG = "BitmapCache";
-
     public Handler h = new Handler();
-
     private HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<>();
 
     public void put(String path, Bitmap bmp) {
@@ -36,7 +34,6 @@ public class BitmapCache extends Activity {
             Log.e(LOG_TAG, "no paths pass in");
             return;
         }
-
         final String path;
         final boolean isThumbPath;
         if (!TextUtils.isEmpty(thumbPath)) {
@@ -46,7 +43,7 @@ public class BitmapCache extends Activity {
             path = sourcePath;
             isThumbPath = false;
         } else {
-            // iv.setImageBitmap(null);
+            iv.setImageBitmap(null);
             return;
         }
 
@@ -66,7 +63,6 @@ public class BitmapCache extends Activity {
 
         new Thread() {
             Bitmap thumb;
-
             public void run() {
                 try {
                     if (isThumbPath) {
@@ -123,7 +119,6 @@ public class BitmapCache extends Activity {
     }
 
     public interface ImageCallback {
-        void imageLoad(ImageView imageView, Bitmap bitmap,
-                       Object... params);
+        void imageLoad(ImageView imageView, Bitmap bitmap, Object... params);
     }
 }

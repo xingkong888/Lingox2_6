@@ -127,6 +127,7 @@ public class PathAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
                         CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
             }
+            //位置只显示国家、城市、距离
             //显示活动与自己位置的距离
             if (!LingoXApplication.getInstance().getLatitude().isEmpty() && !LingoXApplication.getInstance().getLongitude().isEmpty() &&
                     !path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {

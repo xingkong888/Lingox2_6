@@ -40,8 +40,7 @@ import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
 
-public class MainActivity extends ActionBarActivity implements
-        OnClickListener, ChatFragment.showNum {
+public class MainActivity extends ActionBarActivity implements OnClickListener, ChatFragment.showNum {
     // REQUEST CODES
     public static final int REQUEST_CODE_SETTINGS = 101;
     // RESULT CODES
@@ -57,11 +56,6 @@ public class MainActivity extends ActionBarActivity implements
     private PathFragment pathFragment;
     private NearByFragment nearByFragment;
     // UI Elements
-    private TextView contact_list;
-    private TextView set;
-    private TextView feedback;
-    private TextView info;
-    private TextView update;
     private ImageView photo;
     private ImageView flag;
     private MainActivityFragmentAdapter tabAdapter;
@@ -75,8 +69,6 @@ public class MainActivity extends ActionBarActivity implements
     private boolean rightSideDrawerOpen = false;
 
     private ImageView search;
-
-    private boolean checkUpdata = false;
 
     private int unread = -1;
 
@@ -160,17 +152,17 @@ public class MainActivity extends ActionBarActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         // ----- LEFT MENU -----
-        contact_list = (TextView) findViewById(R.id.layout_contact_list);
+        TextView contact_list = (TextView) findViewById(R.id.layout_contact_list);
         contact_list.setOnClickListener(this);
-        set = (TextView) findViewById(R.id.layout_set);
+        TextView set = (TextView) findViewById(R.id.layout_set);
         set.setOnClickListener(this);
         photo = (ImageView) findViewById(R.id.avatar_info);
         photo.setOnClickListener(this);
-        feedback = (TextView) findViewById(R.id.layout_feedback);
+        TextView feedback = (TextView) findViewById(R.id.layout_feedback);
         feedback.setOnClickListener(this);
-        info = (TextView) findViewById(R.id.layout_info);
+        TextView info = (TextView) findViewById(R.id.layout_info);
         info.setOnClickListener(this);
-        update = (TextView) findViewById(R.id.update_app);
+        TextView update = (TextView) findViewById(R.id.update_app);
         update.setOnClickListener(this);
         update.setVisibility(View.GONE);
         flag = (ImageView) findViewById(R.id.iv_flag);
@@ -459,6 +451,8 @@ public class MainActivity extends ActionBarActivity implements
      * 检查APP版本更新
      */
     private class CheckForUpdates extends AsyncTask<Void, Void, Boolean> {
+        private boolean checkUpdata = false;
+
         @Override
         protected Boolean doInBackground(Void... params) {
             try {

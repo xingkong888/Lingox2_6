@@ -30,7 +30,6 @@ import cn.lingox.android.helper.ServerHelper;
 public class ContactsFragment extends Fragment {
     private static final String LOG_TAG = "ContactsFragment";
 
-    private ListView listView;
     private ArrayList<User> datas;
     private FollowersAdapter adapter;
     private ImageView anim;
@@ -43,7 +42,7 @@ public class ContactsFragment extends Fragment {
         anim = (ImageView) view.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
 
-        listView = (ListView) view.findViewById(R.id.followers_list);
+        ListView listView = (ListView) view.findViewById(R.id.followers_list);
         datas = new ArrayList<>();
         new LoadUserFollowing().execute();
 
@@ -83,14 +82,14 @@ public class ContactsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        MobclickAgent.onPageStart("ContactsFragment");
+        MobclickAgent.onPageStart(LOG_TAG);
         super.onResume();
     }
 
     @Override
     public void onPause() {
+        MobclickAgent.onPageEnd(LOG_TAG);
         super.onPause();
-        MobclickAgent.onPageEnd("ContactsFragment");
     }
 
     private class LoadUserFollowing extends AsyncTask<Void, String, Boolean> {

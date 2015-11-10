@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +18,6 @@ import com.umeng.analytics.MobclickAgent;
 import cn.lingox.android.R;
 
 public class DiagnoseActivity extends BaseActivity implements OnClickListener {
-    private TextView currentVersion;
-    private Button uploadLog;
     private ProgressDialog progressDialog;
 
     @Override
@@ -28,18 +25,18 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose);
 
-        currentVersion = (TextView) findViewById(R.id.tv_version);
-        uploadLog = (Button) findViewById(R.id.button_uploadlog);
-        uploadLog.setOnClickListener(this);
+        TextView currentVersion = (TextView) findViewById(R.id.tv_version);
+        findViewById(R.id.button_uploadlog).setOnClickListener(this);
         String strVersion = "";
         try {
             strVersion = getVersionName();
         } catch (Exception ignored) {
         }
-        if (!TextUtils.isEmpty(strVersion))
+        if (!TextUtils.isEmpty(strVersion)) {
             currentVersion.setText(strVersion);
-        else
+        } else {
             currentVersion.setText("Failed to find version");
+        }
     }
 
     public void back(View view) {
@@ -48,10 +45,9 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
 
     private String getVersionName() throws Exception {
         PackageManager packageManager = getPackageManager();
-        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),
-                0);
-        String version = packInfo.versionName;
-        return version;
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+
+        return packInfo.versionName;
     }
 
     @Override
@@ -64,7 +60,6 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
     }
 
     public void uploadlog() {
-
         if (progressDialog == null)
             progressDialog = new ProgressDialog(this);
         // TODO English
@@ -81,9 +76,7 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
-                        // TODO English
-                        Toast.makeText(DiagnoseActivity.this, "Log uplodaded successfully",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DiagnoseActivity.this, "Log uplodaded successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -100,9 +93,7 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
-                        // TODO English
-                        Toast.makeText(DiagnoseActivity.this, "Error uploading log",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DiagnoseActivity.this, "Error uploading log", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -23,14 +23,12 @@ import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.ImageCache;
 
 public class EditPhotoActivity extends ActionBarActivity implements View.OnClickListener {
-
     private static final String LOG_TAG = "EditPhotoActivity";
 
     private ImageView showPhoto;
     private EditText editText;
-    private Button post, cancel;
+    private Button post;
     private Photo photo;
-    private Bitmap bitmap;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +46,12 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
         editText = (EditText) findViewById(R.id.photo_describe);
         post = (Button) findViewById(R.id.photo_post);
         post.setOnClickListener(this);
-        cancel = (Button) findViewById(R.id.edit_photo_cancel);
+        Button cancel = (Button) findViewById(R.id.edit_photo_cancel);
         cancel.setOnClickListener(this);
     }
 
     private void setData() {
+        Bitmap bitmap;
         if (!photo.getDescription().isEmpty()) {
             editText.setText(photo.getDescription());
         }

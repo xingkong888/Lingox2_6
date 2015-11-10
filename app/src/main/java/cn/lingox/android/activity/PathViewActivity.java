@@ -316,11 +316,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             if (path.getDateTime() != 0 && path.getDateTime() != -1) {
                 uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(
-                                path.getDateTime()));
+                                path.getDateTime(), 1));
             }
             if (path.getEndDateTime() != 0) {
                 uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
             }
         } else {
             availableTime.setVisibility(View.VISIBLE);
@@ -441,11 +441,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             if (path.getDateTime() != 0 && path.getDateTime() != -1) {
                 uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
                         JsonHelper.getInstance().parseTimestamp(
-                                path.getDateTime()));
+                                path.getDateTime(), 1));
             }
             if (path.getEndDateTime() != 0) {
                 uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
             }
         } else if (!path.getAvailableTime().isEmpty()) {
             availableTime.setVisibility(View.VISIBLE);

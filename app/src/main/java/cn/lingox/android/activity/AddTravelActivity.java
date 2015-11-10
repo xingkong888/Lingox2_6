@@ -32,7 +32,7 @@ import cn.lingox.android.task.TravelAsynTask;
 public class AddTravelActivity extends ActionBarActivity implements OnClickListener {
     private static final int SELECTLOCATION = 124;
 
-    private TextView cancel, done, locationInfo, startTime, startTimeInfo, endTime, endTimeInfo;
+    private TextView locationInfo, startTimeInfo, endTimeInfo;
 
     private Travel travel = new Travel();
     private Calendar calendar = Calendar.getInstance();
@@ -43,9 +43,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 0, 0, 0);
             start = calendar.getTimeInMillis() / 1000L;
-            if (end == 0 ? true : end >= start) {
+            if (end == 0 || end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        startTimeInfo, JsonHelper.getInstance().parseTimestamp((int) start));
+                        startTimeInfo, JsonHelper.getInstance().parseTimestamp((int) start, 2));
                 travel.setStartTime((int) start);
             } else {
                 Toast.makeText(AddTravelActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
@@ -58,9 +58,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 23, 59, 59);
             end = calendar.getTimeInMillis() / 1000L;
-            if (end - now >= 0 && (start == 0 ? true : end >= start)) {
+            if (end - now >= 0 && (start == 0 || end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end));
+                        endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end, 2));
                 travel.setEndTime((int) end);
             } else {
                 Toast.makeText(AddTravelActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
@@ -94,22 +94,22 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     private void initView() {
         setContentView(R.layout.row_travel_experiences);
 
-        cancel = (TextView) findViewById(R.id.travel_cancel);
+        TextView cancel = (TextView) findViewById(R.id.travel_cancel);
         cancel.setOnClickListener(this);
 
-        done = (TextView) findViewById(R.id.travel_done);
+        TextView done = (TextView) findViewById(R.id.travel_done);
         done.setOnClickListener(this);
 
         locationInfo = (TextView) findViewById(R.id.travel_location);
         locationInfo.setOnClickListener(this);
 
-        startTime = (TextView) findViewById(R.id.start_time);
+        TextView startTime = (TextView) findViewById(R.id.start_time);
         startTime.setOnClickListener(this);
 
         startTimeInfo = (TextView) findViewById(R.id.start_time_info);
         startTimeInfo.setOnClickListener(this);
 
-        endTime = (TextView) findViewById(R.id.end_time);
+        TextView endTime = (TextView) findViewById(R.id.end_time);
         endTime.setOnClickListener(this);
 
         endTimeInfo = (TextView) findViewById(R.id.end_time_info);
@@ -120,22 +120,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.travel_cancel:
-                new AlertDialog.Builder(this)
-                        .setMessage("Cancel Edit?")
-                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent returnIntent = new Intent();
-                                setResult(RESULT_OK, returnIntent);
-                                finish();
-                            }
-                        }).setPositiveButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).create()
-                        .show();
+                showCancel();
                 break;
             case R.id.travel_done:
                 if (locationInfo.getText().toString().isEmpty() || startTimeInfo.getText().toString().isEmpty()
@@ -184,25 +169,29 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            new AlertDialog.Builder(this)
-                    .setMessage("Cancel the editor?")
-                    .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent returnIntent = new Intent();
-                            setResult(RESULT_OK, returnIntent);
-                            finish();
-                        }
-                    }).setPositiveButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            }).create()
-                    .show();
+            showCancel();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //弹框询问用户是否确定取消
+    private void showCancel() {
+        new AlertDialog.Builder(this)
+                .setMessage("Cancel the editor?")
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent returnIntent = new Intent();
+                        setResult(RESULT_OK, returnIntent);
+                        finish();
+                    }
+                }).setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
     }
 
     @Override

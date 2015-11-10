@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 public class ClipImageLayout extends RelativeLayout {
 
     private ClipZoomImageView mZoomImageView;
-    private ClipImageBorderView mClipImageView;
     //可通过setHorizontalPadding(int mHorizontalPadding)方法自定义内边距
     private int mHorizontalPadding = 0;
 
@@ -23,7 +22,7 @@ public class ClipImageLayout extends RelativeLayout {
         super(context, attrs);
 
         mZoomImageView = new ClipZoomImageView(context);
-        mClipImageView = new ClipImageBorderView(context);
+        ClipImageBorderView mClipImageView = new ClipImageBorderView(context);
 
         android.view.ViewGroup.LayoutParams lp = new LayoutParams(
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
@@ -42,7 +41,6 @@ public class ClipImageLayout extends RelativeLayout {
 
     /**
      * 对外公布设置图片的方法,drawable
-     *
      * @param drawable
      */
     public void setDrawable(Drawable drawable) {
@@ -51,7 +49,6 @@ public class ClipImageLayout extends RelativeLayout {
 
     /**
      * 对外公布设置边距的方法,单位为dp
-     *
      * @param mHorizontalPadding
      */
     public void setHorizontalPadding(int mHorizontalPadding) {
@@ -60,11 +57,9 @@ public class ClipImageLayout extends RelativeLayout {
 
     /**
      * 裁切图片
-     *
      * @return
      */
     public Bitmap clip() {
         return mZoomImageView.clip();
     }
-
 }

@@ -19,27 +19,23 @@ import cn.lingox.android.task.DownloadImageTask;
 import cn.lingox.android.utils.ImageCache;
 
 public class AlertDialog1 extends BaseActivity {
-    private TextView mTextView;
-    private Button mButton;
     private int position;
-    private ImageView imageView;
     private EditText editText;
-    private boolean isEditextShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_alert);
-        mTextView = (TextView) findViewById(R.id.title);
-        mButton = (Button) findViewById(R.id.btn_cancel);
-        imageView = (ImageView) findViewById(R.id.image);
+        TextView mTextView = (TextView) findViewById(R.id.title);
+        Button mButton = (Button) findViewById(R.id.btn_cancel);
+        ImageView imageView = (ImageView) findViewById(R.id.image);
         editText = (EditText) findViewById(R.id.edit);
         String msg = getIntent().getStringExtra("msg");
         String title = getIntent().getStringExtra("title");
         position = getIntent().getIntExtra("position", -1);
         boolean isCanceTitle = getIntent().getBooleanExtra("titleIsCancel", false);
         boolean isCanceShow = getIntent().getBooleanExtra("cancel", false);
-        isEditextShow = getIntent().getBooleanExtra("editTextShow", false);
+        boolean isEditextShow = getIntent().getBooleanExtra("editTextShow", false);
         String path = getIntent().getStringExtra("forwardImage");
         if (msg != null)
             ((TextView) findViewById(R.id.alert_message)).setText(msg);

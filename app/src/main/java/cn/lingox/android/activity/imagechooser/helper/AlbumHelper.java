@@ -44,10 +44,8 @@ public class AlbumHelper {
     }
 
     private void getThumbnail() {
-        String[] projection = {Thumbnails._ID, Thumbnails.IMAGE_ID,
-                Thumbnails.DATA};
-        Cursor cursor = cr.query(Thumbnails.EXTERNAL_CONTENT_URI, projection,
-                null, null, null);
+        String[] projection = {Thumbnails._ID, Thumbnails.IMAGE_ID, Thumbnails.DATA};
+        Cursor cursor = cr.query(Thumbnails.EXTERNAL_CONTENT_URI, projection, null, null, null);
         getThumbnailColumnData(cursor);
     }
 
@@ -59,7 +57,6 @@ public class AlbumHelper {
             int _idColumn = cur.getColumnIndex(Thumbnails._ID);
             int image_idColumn = cur.getColumnIndex(Thumbnails.IMAGE_ID);
             int dataColumn = cur.getColumnIndex(Thumbnails.DATA);
-
             do {
                 // Get the field values
                 _id = cur.getInt(_idColumn);
@@ -130,8 +127,7 @@ public class AlbumHelper {
         String columns[] = new String[]{Media._ID, Media.BUCKET_ID,
                 Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
                 Media.SIZE, Media.BUCKET_DISPLAY_NAME};
-        Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,
-                null);
+        Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null, null);
         if (cur.moveToFirst()) {
             int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);
             int photoPathIndex = cur.getColumnIndexOrThrow(Media.DATA);

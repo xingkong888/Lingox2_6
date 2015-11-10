@@ -55,14 +55,15 @@ public class SplashActivity extends Activity {
                         public void run() {
                             try {
                                 ServerHelper.getInstance().loginTime(CacheHelper.getInstance().getSelfInfo().getId());
+                                Thread.sleep(200);
+                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                finish();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
                     }
             ).start();
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
             return;
         }
         initView();

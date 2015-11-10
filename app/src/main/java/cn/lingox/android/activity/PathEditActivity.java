@@ -123,7 +123,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             end = calendar.getTimeInMillis() / 1000L;
             if (end - now >= 0 && (start == 0 ? true : end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        endTime, JsonHelper.getInstance().parseTimestamp((int) end));
+                        endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
                 path.setEndDateTime((int) end);
             } else {
                 Toast.makeText(PathEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
@@ -140,7 +140,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             start = calendar.getTimeInMillis() / 1000L;
             if (end == 0 ? true : end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
-                        startTime, JsonHelper.getInstance().parseTimestamp((int) start));
+                        startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
 
                 path.setDateTime((int) start);
             } else {
@@ -338,12 +338,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (CachePath.getInstance().getStartTime() != 0) {
                     path.setDateTime(CachePath.getInstance().getStartTime());
                     UIHelper.getInstance().textViewSetPossiblyNullString(startTime,
-                            JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
+                            JsonHelper.getInstance().parseTimestamp(path.getDateTime(), 1));
                 }
                 if (CachePath.getInstance().getEndTime() != 0) {
                     path.setEndDateTime(CachePath.getInstance().getEndTime());
                     UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
-                            JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+                            JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
                 }
                 if (CachePath.getInstance().getAvabilableTime().isEmpty()) {
                     path.setAvailableTime(CachePath.getInstance().getAvabilableTime());
@@ -399,9 +399,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             }
             //六
             UIHelper.getInstance().textViewSetPossiblyNullString(startTime,
-                    JsonHelper.getInstance().parseTimestamp(path.getDateTime()));
+                    JsonHelper.getInstance().parseTimestamp(path.getDateTime(), 1));
             UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
-                    JsonHelper.getInstance().parseTimestamp(path.getEndDateTime()));
+                    JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
             UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
         }
     }

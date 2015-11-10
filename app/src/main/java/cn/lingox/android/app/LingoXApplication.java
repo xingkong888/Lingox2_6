@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMMessage;
@@ -83,6 +84,8 @@ public class LingoXApplication extends Application {
     public void setLocation(double lat, double lng) {
         latitude = String.valueOf(lat);
         longitude = String.valueOf(lng);
+        Toast.makeText(getApplicationContext(), latitude + ">>>" + longitude, Toast.LENGTH_LONG).show();
+
     }
 
     public String getLatitude() {
@@ -178,8 +181,7 @@ public class LingoXApplication extends Application {
         TimeHelper.getInstance().setContext(getApplicationContext());
         hxSDKHelper.onInit(getApplicationContext());
 
-        Intent servceIntent = new Intent(getApplicationContext(), NotificationService.class);
-        startService(servceIntent);
+        startService(new Intent(getApplicationContext(), NotificationService.class));
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         getAllTag();
     }

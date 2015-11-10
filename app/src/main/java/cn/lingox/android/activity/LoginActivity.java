@@ -84,6 +84,9 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         }
         setContentView(R.layout.activity_login);
         initView();
+
+        //定位
+//        GetLocationUtil.instance().init(getApplication(),-1);
     }
 
     private void initView() {

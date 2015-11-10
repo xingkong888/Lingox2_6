@@ -444,7 +444,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
         String countryCode = JsonHelper.getInstance().getCodeFromCountry(user.getCountry());
         uiHelper.imageViewSetPossiblyEmptyUrl(getActivity(), userAvatar, user.getAvatar(), "original");
-        ImageHelper.getInstance().loadFlag(flag, countryCode, 0);
+        ImageHelper.getInstance().loadFlag(flag, countryCode, 1);
         if (!user.getSignature().isEmpty()) {
             layout_tag.setVisibility(View.GONE);
             tagsView.setText(user.getSignature());

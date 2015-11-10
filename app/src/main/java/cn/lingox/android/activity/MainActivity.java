@@ -306,7 +306,7 @@ public class MainActivity extends ActionBarActivity implements
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
                     CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
             ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
-                    CacheHelper.getInstance().getSelfInfo().getCountry()));
+                    CacheHelper.getInstance().getSelfInfo().getCountry()), 2);
         }
     }
 

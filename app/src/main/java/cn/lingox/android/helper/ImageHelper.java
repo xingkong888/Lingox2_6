@@ -50,27 +50,13 @@ public class ImageHelper {
             Picasso.with(imageView.getContext()).load(uri).placeholder(R.drawable.default_avatar).into(imageView);
     }
 
-    public void loadThumbnail(ImageView imageView, String uri) {
-        loadAvatar(imageView, uri);
-    }
-
-    public void loadPhoto(ImageView imageView, String uri) {
-        loadAvatar(imageView, uri);
-    }
-
-    public void loadFlag(ImageView imageView, String countryCode) {
-        if (TextUtils.isEmpty(countryCode)) {
-            Log.e(LOG_TAG, "Country1 code was empty");
-            return;
-        }
-        int resource = context.getResources().getIdentifier("flag_" + countryCode.toLowerCase(), "drawable", LingoXApplication.PACKAGE_NAME);
-        try {
-            imageView.setImageResource(resource);
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "Exception caught: " + e.toString());
-        }
-    }
-
+    /**
+     * 设置国旗
+     *
+     * @param imageView   显示控件
+     * @param countryCode 国家代码
+     * @param flag        1：倾斜的国旗 2：正常的国旗
+     */
     public void loadFlag(ImageView imageView, String countryCode, int flag) {
         if (TextUtils.isEmpty(countryCode)) {
             imageView.setVisibility(View.GONE);
@@ -79,7 +65,14 @@ public class ImageHelper {
         }
         try {
             imageView.setVisibility(View.VISIBLE);
-            imageView.setImageBitmap(RotateImageView.rotateImage(context, countryCode));
+            switch (flag) {
+                case 1://倾斜的国旗
+                    imageView.setImageBitmap(RotateImageView.rotateImage(context, countryCode));
+                    break;
+                case 2://正常的国旗
+                    imageView.setImageResource(context.getResources().getIdentifier("flag_" + countryCode.toLowerCase(), "drawable", LingoXApplication.PACKAGE_NAME));
+                    break;
+            }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Exception caught: " + e.toString());
         }

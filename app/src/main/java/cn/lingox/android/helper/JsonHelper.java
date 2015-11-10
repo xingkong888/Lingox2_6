@@ -53,16 +53,24 @@ public class JsonHelper {
     private ArrayList<String> allTags = null;
 
     private JsonHelper() {
-        if (null == gson)
+        if (null == gson) {
             gson = new Gson();
+        }
     }
 
     public static JsonHelper getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new JsonHelper();
+        }
         return instance;
     }
 
+    /**
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
@@ -152,16 +160,13 @@ public class JsonHelper {
         }
     }
 
-
     public String parseTimestamp(long timestamp) {
         if (locale == null) {
             getLocal();
         }
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale == null ? Locale.CHINA : locale);
-
         return (format.format(c.getTime()));
     }
 
@@ -174,7 +179,6 @@ public class JsonHelper {
     }
 
     public String parseSailsJSDate(String date) {
-
         try {
             // Locale is the servers location (ie China)
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
@@ -269,16 +273,8 @@ public class JsonHelper {
         return (c.getTimeInMillis());
     }
 
-    public String getLocationStr(double longitude, double latitude) {
-        return "[" + String.valueOf(longitude) + "," + String.valueOf(latitude) + "]";
-    }
-
     public String getLocationStr(double[] longNlat) {
         return "[" + String.valueOf(longNlat[0]) + "," + String.valueOf(longNlat[1]) + "]";
-    }
-
-    public String getLocationNearStr(String loc) {
-        return "{$near: " + loc + "}";
     }
 
     // TODO maybe make this split with more than just semicolon
@@ -302,7 +298,6 @@ public class JsonHelper {
                 e.printStackTrace();
             }
         }
-
         return pathImgList;
     }
 
@@ -312,13 +307,11 @@ public class JsonHelper {
         if (allCountriesList == null) {
             try {
                 allCountriesList = new ArrayList<>();
-
                 // Read from local file
                 String allCountriesString = readFileAsString(context, COUNTRIES_AND_CITIES_JSON);
                 //Log.d(LOG_TAG, "All countries: " + allCountriesString);
                 JSONObject jsonObject = new JSONObject(allCountriesString);
                 Iterator<?> keys = jsonObject.keys();
-
                 // Add the data to all countries list
                 while (keys.hasNext()) {
                     String key = (String) keys.next();
@@ -343,7 +336,6 @@ public class JsonHelper {
                 countriesList = new ArrayList<>();
                 // Read from local file
                 String allCountriesString = readFileAsString(context, "json/location.json");
-                //Log.d(LOG_TAG, "All countries: " + allCountriesString);
                 JSONObject jsonObject = new JSONObject(allCountriesString);
                 Iterator<?> keys = jsonObject.keys();
                 JSONArray array;
@@ -384,7 +376,6 @@ public class JsonHelper {
                 allTags = new ArrayList<>();
                 // Read from local file
                 String allCountriesString = readFileAsString(context, PATHTAGS_JSON);
-                //Log.d(LOG_TAG, "All countries: " + allCountriesString);
                 JSONObject jsonObject = new JSONObject(allCountriesString);
                 for (int i = 1; i <= jsonObject.length(); i++) {
                     allTags.add(jsonObject.getString(String.valueOf(i)));
@@ -403,13 +394,10 @@ public class JsonHelper {
             try {
                 // Read from local file
                 String allLanguagesString = readFileAsString(context, LANGUAGES_JSON);
-                //Log.d(LOG_TAG, "All countries: " + allCountriesString);
                 JSONObject jsonObject = new JSONObject(allLanguagesString);
                 JSONArray jsonArray = jsonObject.getJSONArray("languages");
 
                 ArrayList<String> tempList = new ArrayList<String>();
-                // TODO find a better way to do this
-                // tempList.add(context.getString(R.string.select_language));
                 for (int i = 0; i < jsonArray.length(); i++) {
                     tempList.add(jsonArray.getString(i).trim());
                 }

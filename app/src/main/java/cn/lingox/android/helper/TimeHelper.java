@@ -9,10 +9,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import cn.lingox.android.R;
-
-/**
- * Created by hugo on 2015/4/10.
- */
 public class TimeHelper {
     private static TimeHelper instance;
     private Context context;
@@ -47,9 +43,8 @@ public class TimeHelper {
             Date d = sdf.parse(time);
             c.setTimeInMillis(d.getTime());
             c.add(Calendar.HOUR, 8);
-            String formattedTime = output.format(c.getTime());
 
-            return formattedTime;
+            return output.format(c.getTime());
         } catch (Exception e) {
             e.printStackTrace();
         }

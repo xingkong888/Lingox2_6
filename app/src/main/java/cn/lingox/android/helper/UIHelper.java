@@ -11,17 +11,11 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import cn.lingox.android.R;
 import cn.lingox.android.utils.DpToPx;
 
 public class UIHelper {
-    //    private static final String LOG_TAG = "UIHelper";
     private static UIHelper instance = null;
-
-    private ExecutorService pool = Executors.newFixedThreadPool(5);
 
     private UIHelper() {
     }
@@ -52,7 +46,7 @@ public class UIHelper {
      */
     public void imageViewSetPossiblyEmptyUrl(Context context, ImageView iv, String url, String flag) {
         if (!TextUtils.isEmpty(url)) {
-            RequestCreator rc = Picasso.with(context).load(url).error(R.drawable.default_avatar);
+            RequestCreator rc = Picasso.with(context).load(url).placeholder(null).error(R.drawable.default_avatar);
             switch (flag) {
                 case "crop"://裁切
                     rc.transform(new CropSquareTransformation());

@@ -25,11 +25,6 @@ import java.util.Map;
 
 import cn.lingox.android.R;
 
-/**
- * չʾ��Ƶ����
- *
- * @author Administrator
- */
 public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
 
     private RelativeLayout loadingLayout;
@@ -156,7 +151,6 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
                         EMChatConfig.getInstance().APPKEY, header, callback);
             }
         }).start();
-
     }
 
     @Override

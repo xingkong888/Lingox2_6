@@ -46,8 +46,9 @@ public class ImageHelper {
         if (isURIEmpty(uri)) {
             Log.d(LOG_TAG, "loadAvatar: uri was empty");
             imageView.setImageResource(R.drawable.default_avatar);
-        } else
+        } else {
             Picasso.with(imageView.getContext()).load(uri).placeholder(R.drawable.default_avatar).into(imageView);
+        }
     }
 
     /**

@@ -29,16 +29,13 @@ public class StringConstant {
     public static final String userSourceStr = "userSrc";
     public static final String userTargetStr = "userTar";
     public static final String userRelationStr = "userRelation";
-
     // Search
     public static final String searchType = "searchType";
     public static final String searchResult = "searchResult";
-
     // References
     public static final String referenceId = "referenceId";
     public static final String referenceTitle = "referenceTitle";
     public static final String referenceContent = "referenceContent";
-
     // Paths
     public static final String paths = "paths";
     public static final String pathId = "pathId";
@@ -61,25 +58,20 @@ public class StringConstant {
     public static final String pathImageUrl = "pathImageUrl";
     public static final String pathHXGroupId = "pathHXGroupId";
     public static final String pathTags = "pathTags";
-
     // Comments
     public static final String commentId = "commentId";
     public static final String commentText = "commentText";
     public static final String commentReplyUser = "commentReplyUser";
-
     // Photo
     public static final String photoId = "photoId";
     public static final String photoDescription = "photoDescription";
     public static final String photos = "photos";
     public static final String photoStr = "photo";
-
     // Notification
     public static final String notifications = "notifications";
     public static final String notificationId = "notificationId";
-
     // Chat
     public static final String msgPosition = "position";
-
     //个人信息——旅行记录
     public static final String createExperienceUserIdStr = "userId";
     public static final String createExperienceStartTimeStr = "startTime";
@@ -89,15 +81,5 @@ public class StringConstant {
     public static final String createExperienceCityStr = "city";
     public static final String createExperienceTagsStr = "tags";
     public static final String getExperienceStr = "userId";
-
     public static final String deleteExperienceStr = "experienceId";
-
-    public static final String editExperienceExperienceIdStr = "experienceId";
-    public static final String editExperienceStartTimeStr = "startTime";
-    public static final String editExperienceEndTimeStr = "endTime";
-    public static final String editExperienceCountryStr = "country";
-    public static final String editExperienceProvinceStr = "province";
-    public static final String editExperienceCityStr = "city";
-    public static final String editExperienceTagsStr = "tags";
-
 }

@@ -366,8 +366,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     //退出应用
     private void exit() {
         if ((System.currentTimeMillis() - clickTime) > 2000) {
-            Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program", Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {
             new Thread(){
@@ -377,7 +376,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         FileUtil.deleteDir();
                         Thread.sleep(700);
                         MainActivity.this.finish();
-//                        System.exit(0);
                     }catch (Exception e){
 
                     }

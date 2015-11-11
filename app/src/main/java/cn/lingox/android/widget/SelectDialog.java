@@ -33,32 +33,25 @@ public class SelectDialog extends DialogFragment {
     private static String which;//标识是哪一个选项
     private static TextView text;
     private static Context context;
-    private static String title;
     private static User user;
     private static ArrayList<String> speakDatas = new ArrayList<>();
-    private static ArrayList<String> interestDatas = new ArrayList<>();
     private static Handler handler;
     private ListView listView;
     private MySelcetAdapter adapter;
     private ArrayList<SpeakAndInterest> datas;
-    private SpeakAndInterest speakAndInterest;
-    private Button ok, cancel;
 
     public static SelectDialog newInstance(String title1, Context context1, User user1, TextView text1, Handler handler1, String which1) {
 
-        title = title1;
         context = context1;
         user = user1;
         which = which1;
         text = text1;
         handler = handler1;
-
         speakDatas.clear();
-        interestDatas.clear();
 
         SelectDialog editer = new SelectDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("title", title1);
         editer.setArguments(bundle);
         return editer;
     }
@@ -75,7 +68,7 @@ public class SelectDialog extends DialogFragment {
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        ok = (Button) view.findViewById(R.id.select_ok);
+        Button ok = (Button) view.findViewById(R.id.select_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +89,7 @@ public class SelectDialog extends DialogFragment {
                 dismiss();
             }
         });
-        cancel = (Button) view.findViewById(R.id.select_cancel);
+        Button cancel = (Button) view.findViewById(R.id.select_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +112,7 @@ public class SelectDialog extends DialogFragment {
                     }
                 }
                 for (String str : JsonHelper.getInstance().getLanguages()) {
-                    speakAndInterest = new SpeakAndInterest();
+                    SpeakAndInterest speakAndInterest = new SpeakAndInterest();
                     speakAndInterest.setStr(str);
                     speakAndInterest.setFlg(1);
                     for (int i = 0; i < speakDatas.size(); i++) {
@@ -140,7 +133,6 @@ public class SelectDialog extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (which) {
                     case "speak":
-//                        if (position != 0) {
                         if (datas.get(position).getFlg() == 2) {
                             speakDatas.remove(datas.get(position).getStr());
                             datas.get(position).setFlg(1);
@@ -149,7 +141,6 @@ public class SelectDialog extends DialogFragment {
                             datas.get(position).setFlg(2);
                         }
                         adapter.notifyDataSetChanged();
-//                        }
                         break;
                 }
             }

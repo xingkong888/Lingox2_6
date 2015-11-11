@@ -13,8 +13,6 @@ import cn.lingox.android.activity.LoginActivity;
 import cn.lingox.android.activity.RegisterActivity;
 
 public class SkipDialog {
-    private static Button register, login;
-    private static ImageView close;
     private static Dialog dialog;
 
     public static Dialog getDialog(final Context context) {
@@ -22,9 +20,9 @@ public class SkipDialog {
         dialog = new Dialog(context, R.style.MyDialog);
 
         View view11 = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null);
-        register = (Button) view11.findViewById(R.id.dialog_register);
-        login = (Button) view11.findViewById(R.id.dialog_login);
-        close = (ImageView) view11.findViewById(R.id.close);
+        Button register = (Button) view11.findViewById(R.id.dialog_register);
+        Button login = (Button) view11.findViewById(R.id.dialog_login);
+        ImageView close = (ImageView) view11.findViewById(R.id.close);
         dialog.setContentView(view11);
         register.setOnClickListener(new View.OnClickListener() {
             @Override

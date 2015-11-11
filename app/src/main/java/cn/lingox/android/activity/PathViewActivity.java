@@ -75,15 +75,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private static final String LOG_TAG = "PathViewActivity";
     private static final String FILE_NAME = "/app_icon.jpg";
     private static String appIconImagePath;
-    /**
-     * 标签之间的间距 px
-     */
-    private final int itemMargins = 25;
-    /**
-     * 标签的行间距 px
-     */
-    private final int lineMargins = 25;
-
     // UI Elements
     private MyScrollView scrollView;
     private ProgressBar loadingBar;
@@ -102,7 +93,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private TextView pathLocal;
     private ImageView pathAcceptButton;
     private ImageView pathGroupChat;
-    private ImageView pathShareButton;
 
     private TextView pathCommentsNum;
     private TextView pathJoinedUserNum;
@@ -123,13 +113,12 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private boolean replyEveryOne = true;
     private User replyUser;
 
-    private ImageView delete, edit, back;
-    private TextView showReference;
+    private ImageView delete, edit;
 
     private int width;
     private int height;
     private int scrollViewHight;
-    private LinearLayout pathView, pathTime;
+    private LinearLayout pathView, pathTime, likeLayout, commitLayout, layoutThree;
     private boolean hasMeasured = false;
     private int commentHeight;
 
@@ -193,8 +182,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         delete.setOnClickListener(this);
         edit = (ImageView) findViewById(R.id.iv_edit);
         edit.setOnClickListener(this);
-        back = (ImageView) findViewById(R.id.back);
-        back.setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
 
         pathBackground = (ImageView) findViewById(R.id.path_background);
         DisplayMetrics dm = new DisplayMetrics();
@@ -227,16 +215,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         pathTraveler = (TextView) findViewById(R.id.path_traveler);
         pathLocal = (TextView) findViewById(R.id.path_local);
 
-        showReference = (TextView) findViewById(R.id.path_show_reference);
-        showReference.setOnClickListener(this);
+        findViewById(R.id.path_show_reference).setOnClickListener(this);
 
         pathAcceptButton = (ImageView) findViewById(R.id.path_accept_button);
         pathAcceptButton.setOnClickListener(this);
         pathAcceptButton.setTag(0);
         pathGroupChat = (ImageView) findViewById(R.id.group_chat);
         pathGroupChat.setOnClickListener(this);
-        pathShareButton = (ImageView) findViewById(R.id.path_share_button);
-        pathShareButton.setOnClickListener(this);
+        findViewById(R.id.path_share_button).setOnClickListener(this);
 
         joinedUsersListView = (HListView) findViewById(R.id.path_view_joined_user_list);
         joinedUsersAdapter = new PathJoinedUsersAdapter(this, joinedUsersList);
@@ -247,6 +233,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
 
         commentsListView = (LinearLayout) findViewById(R.id.path_view_comments_list);
         commentsSend = (LinearLayout) findViewById(R.id.path_view_comment_bar);
+        //包含like、chat和share的layout
+        layoutThree = (LinearLayout) findViewById(R.id.path_view_like_chat_share);
+
+        likeLayout = (LinearLayout) findViewById(R.id.path_view_like);
+        commitLayout = (LinearLayout) findViewById(R.id.path_view_commit);
 
         commentEditText = (EditText) findViewById(R.id.comment_text_box);
         commentSendButton = (Button) findViewById(R.id.btn_reply);
@@ -286,19 +277,25 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         pathTitle.setText(path.getTitle());
         joinedUsersList.clear();
         joinedUsersList.addAll(path.getAcceptedUsers());
-        if (joinedUsersList.size() == 0) {
-            pathJoinedUserNum.setText("0");
-            joinedUsersListView.setVisibility(View.GONE);
+        if (joinedUsersList.size() > 0) {
+            likeLayout.setVisibility(View.VISIBLE);
+            pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
+            joinedUsersAdapter.notifyDataSetChanged();
+        } else {
+            likeLayout.setVisibility(View.GONE);
         }
-        pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
-        joinedUsersAdapter.notifyDataSetChanged();
-        commentsList.clear();
-        commentsList.addAll(path.getComments());
-        pathCommentsNum.setText(String.valueOf(commentsList.size()));
-        loadComments();
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar(), "");
+
+        if (path.getComments().size() > 0) {
+            commitLayout.setVisibility(View.VISIBLE);
+            commentsList.clear();
+            commentsList.addAll(path.getComments());
+            pathCommentsNum.setText(String.valueOf(commentsList.size()));
+            loadComments();
+        } else {
+            commitLayout.setVisibility(View.GONE);
+        }
+        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar(), "crop");
         Picasso.with(this).load(path.getImage11()).into(pathBackground);
-//        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage11(),"");
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 
         switch (path.getType()) {
@@ -345,6 +342,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     public void addTagView(String[] tags) {
+        /**
+         * 标签之间的间距 px
+         */
+        final int itemMargins = 25;
+        /**
+         * 标签的行间距 px
+         */
+        final int lineMargins = 25;
         tagsView.removeAllViews();
         final int containerWidth = width - DpToPx.dip2px(this, 100);
         final LayoutInflater inflater = this.getLayoutInflater();
@@ -439,13 +444,10 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
             pathTime.setVisibility(View.VISIBLE);
             if (path.getDateTime() != 0 && path.getDateTime() != -1) {
-                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
-                        JsonHelper.getInstance().parseTimestamp(
-                                path.getDateTime(), 1));
+                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo, JsonHelper.getInstance().parseTimestamp(path.getDateTime(), 1));
             }
             if (path.getEndDateTime() != 0) {
-                uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
+                uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo, JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
             }
         } else if (!path.getAvailableTime().isEmpty()) {
             availableTime.setVisibility(View.VISIBLE);
@@ -730,10 +732,10 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     @Override
-    public void onScrollChanged(final MyScrollView scrollView1, int x, int y,
-                                int oldx, int oldy) {
+    public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
         if (!LingoXApplication.getInstance().getSkip()) {
-            pathCommentsNum.getLocationInWindow(startLocations);
+//            pathCommentsNum.getLocationInWindow(startLocations);
+            layoutThree.getLocationInWindow(startLocations);
             pathView.getLocationInWindow(endLocations);
             if (scrollViewHight <= endLocations[1]) {
                 scrollViewHight = endLocations[1];
@@ -741,7 +743,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } else {
                 hasMeasured = true;
             }
-            if ((commentHeight - height) <= y) {
+//            Log.d("星期","commentHeight="+commentHeight+">>> height="+height+">>>> y="+y);
+            if (Math.abs(commentHeight - height) <= y) {
                 commentsSend.setVisibility(View.VISIBLE);
             } else {
                 commentsSend.setVisibility(View.GONE);
@@ -838,8 +841,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected Comment doInBackground(Void... params) {
             Comment comment;
             try {
-                comment = ServerHelper.getInstance().createComment(CacheHelper.getInstance().getSelfInfo().getId(),
-                        null, path.getId(), str);
+                comment = ServerHelper.getInstance().createComment(CacheHelper.getInstance().getSelfInfo().getId(), null, path.getId(), str);
             } catch (Exception e) {
                 comment = null;
             }
@@ -913,9 +915,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 }
                 path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 joinedUsersAdapter.addItem(CacheHelper.getInstance().getSelfInfo());
-                pathJoinedUserNum.setText(String.valueOf(
-                        (Integer.parseInt(
-                                pathJoinedUserNum.getText().toString()) + 1)));
+                pathJoinedUserNum.setText(String.valueOf((Integer.parseInt(pathJoinedUserNum.getText().toString()) + 1)));
                 joinedUsersAdapter.notifyDataSetChanged();
                 pathAcceptButton.setImageResource(R.drawable.active_like_24dp);
                 pathAcceptButton.setTag(1);

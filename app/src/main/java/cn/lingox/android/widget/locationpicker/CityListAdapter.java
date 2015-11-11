@@ -10,21 +10,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.lingox.android.R;
-
-/**
- * Created by wuyou on 2015/1/29.
- */
 public class CityListAdapter extends BaseAdapter {
     List<City> cities;
     LayoutInflater inflater;
-    private Context context;
 
     public CityListAdapter(Context context, List<City> countries) {
         super();
-        this.context = context;
         this.cities = countries;
-        inflater = (LayoutInflater) this.context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

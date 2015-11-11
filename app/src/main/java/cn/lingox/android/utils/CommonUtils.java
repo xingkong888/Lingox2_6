@@ -30,9 +30,8 @@ import cn.lingox.android.R;
 public class CommonUtils {
     /**
      * 检测网络是否可用
-     *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return true或false
      */
     public static boolean isNetWorkConnected(Context context) {
         if (context != null) {
@@ -48,8 +47,7 @@ public class CommonUtils {
 
     /**
      * 检测Sdcard是否存在
-     *
-     * @return
+     * @return true或false
      */
     public static boolean isExitsSdcard() {
         return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
@@ -100,7 +98,6 @@ public class CommonUtils {
                 System.err.println("error, unknow type");
                 return "";
         }
-
         return digest;
     }
 

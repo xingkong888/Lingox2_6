@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -50,8 +49,6 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private boolean isBothFollowed = false;
 
     // UI Elements
-    private ImageView addReference;
-    private LinearLayout back, add;
     private ListView listView;
     private ReferenceAdapter arrayAdapter;
 
@@ -91,7 +88,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         anim = (ImageView) findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
         pb = (ProgressBar) findViewById(R.id.progress);
-        addReference = (ImageView) findViewById(R.id.iv_add_reference);
+        ImageView addReference = (ImageView) findViewById(R.id.iv_add_reference);
 
         // If we are viewing our own references
         // TODO implement reference managing for own reference page
@@ -101,12 +98,10 @@ public class ReferenceActivity extends Activity implements OnClickListener {
             addReference.setVisibility(View.VISIBLE);
         }
         addReference.setOnClickListener(this);
-
-        back = (LinearLayout) findViewById(R.id.layout_back);
-        back.setOnClickListener(this);
-
-        add = (LinearLayout) findViewById(R.id.layout_add);
-        add.setOnClickListener(this);
+        //返回按钮
+        findViewById(R.id.layout_back).setOnClickListener(this);
+        //添加按钮
+        findViewById(R.id.layout_add).setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.list);
     }
@@ -231,9 +226,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         protected Boolean doInBackground(Void... params) {
             try {
                 isBothFollowed = ServerHelper.getInstance().getBothFollowed(
-                        CacheHelper.getInstance().getSelfInfo().getId()
-                        ,
-                        userId);
+                        CacheHelper.getInstance().getSelfInfo().getId(), userId);
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
             }
@@ -251,7 +244,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
                 startActivityForResult(intent, ADD_REFERENCE);
             } else {
                 new AlertDialog.Builder(ReferenceActivity.this)
-                        .setMessage("相互关注才能评论")
+                        .setMessage("You two need to follow each other")
                         .create().show();
             }
         }

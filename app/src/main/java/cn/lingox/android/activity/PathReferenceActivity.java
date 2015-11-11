@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -38,7 +37,6 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
     private static final String LOG_TAG = "PathReferenceActivity";
     // UI Elements
     private ImageView addReference;
-    private LinearLayout back, add;
     private ExpandableListView listView;
     private PathReferenceReplyAdapter adapter;
 
@@ -100,12 +98,10 @@ public class PathReferenceActivity extends Activity implements OnClickListener {
         // TODO implement reference managing for own reference page
 
         addReference.setOnClickListener(this);
-
-        back = (LinearLayout) findViewById(R.id.layout_back);
-        back.setOnClickListener(this);
-
-        add = (LinearLayout) findViewById(R.id.layout_add);
-        add.setOnClickListener(this);
+        //返回
+        findViewById(R.id.layout_back).setOnClickListener(this);
+        //添加
+        findViewById(R.id.layout_add).setOnClickListener(this);
 
         listView = (ExpandableListView) findViewById(R.id.path_reference_list);
         listView.setGroupIndicator(null);

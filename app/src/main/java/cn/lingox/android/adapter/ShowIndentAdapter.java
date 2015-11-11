@@ -97,11 +97,7 @@ public class ShowIndentAdapter extends BaseAdapter {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                HashMap<String, String> map = new HashMap<>();
-                                map.put("id", indent.getId());
-                                map.put("state", "2");
-                                map.put("reason", edit.getText().toString());
-                                new EditIndent(indent).execute(map);
+                                setIndent(indent, "2", edit.getText().toString());
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -117,20 +113,14 @@ public class ShowIndentAdapter extends BaseAdapter {
         view2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("id", indent.getId());
-                map.put("state", "3");
-                new EditIndent(indent).execute(map);
+                setIndent(indent, "3", "");
             }
         });
         //拒绝
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("id", indent.getId());
-                map.put("state", "4");
-                new EditIndent(indent).execute(map);
+                setIndent(indent, "4", "");
             }
         });
         //标题
@@ -142,6 +132,17 @@ public class ShowIndentAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void setIndent(Indent indent, String state, String reason) {
+        HashMap<String, String> map = new HashMap<>();
+        map.clear();
+        map.put("id", indent.getId());
+        map.put("state", state);
+        if (!"".equals(reason)) {
+            map.put("reason", reason);
+        }
+        new EditIndent(indent).execute(map);
     }
 
     static class ViewHolder {

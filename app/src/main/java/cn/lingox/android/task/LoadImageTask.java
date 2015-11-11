@@ -73,7 +73,7 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
                         if (message.getChatType() != ChatType.Chat) {
                             // delete the image from server after download
                         }
-                        if (message != null && message.direct == EMMessage.Direct.RECEIVE && !message.isAcked) {
+                        if (message.direct == EMMessage.Direct.RECEIVE && !message.isAcked) {
                             message.isAcked = true;
                             try {
                                 EMChatManager.getInstance().ackMessageRead(message.getFrom(), message.getMsgId());

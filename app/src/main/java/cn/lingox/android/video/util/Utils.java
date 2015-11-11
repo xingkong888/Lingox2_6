@@ -38,13 +38,10 @@ public class Utils {
             StrictMode.setThreadPolicy(threadPolicyBuilder.build());
             StrictMode.setVmPolicy(vmPolicyBuilder.build());
         }
-
-
     }
 
     public static boolean hasFroyo() {
         return Build.VERSION.SDK_INT >= VERSION_CODES.FROYO;
-
     }
 
     public static boolean hasGingerbread() {
@@ -69,19 +66,18 @@ public class Utils {
 
     public static List<Size> getResolutionList(Camera camera) {
         Parameters parameters = camera.getParameters();
-        List<Size> previewSizes = parameters.getSupportedPreviewSizes();
-        return previewSizes;
+        return parameters.getSupportedPreviewSizes();
     }
 
     public static class ResolutionComparator implements Comparator<Size> {
 
         @Override
         public int compare(Size lhs, Size rhs) {
-            if (lhs.height != rhs.height)
+            if (lhs.height != rhs.height) {
                 return lhs.height - rhs.height;
-            else
+            } else {
                 return lhs.width - rhs.width;
+            }
         }
-
     }
 }

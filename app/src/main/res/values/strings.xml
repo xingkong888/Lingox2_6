@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 活动申请-->
+    <string name="wait_confirm">Waiting for confirm</string>
+    <string name="received">Received an application</string>
+    <string name="application_cancelled">Application cancelled</string>
+    <string name="application_accepted">Application Accepted</string>
+    <string name="application_declined">Application declined</string>
+    <string name="time_out">Time out</string>
+    <!-- PathAdapter-->
+    <string name="distance">%1$s %2$s%3$s</string>
+
     <!-- 11月10日-->
     <string name="album">%1$s\'s Album</string>
     <string name="album_content">%1$s hasn\'t posted photos yet</string>
@@ -234,9 +244,7 @@
     <string name="user_about">More About %1$s</string>
     <string name="user_speak">Select language(s)</string>
     <string name="user_interest">Select interests</string>
-
     <string name="choose">Choose</string>
-
     <string name="from">From </string>
     <string name="date">Yesterday</string>
     <string name="nearby_sheak">Speak </string>
@@ -263,7 +271,8 @@
     <string name="take_photo">Take Photo</string>
     <string name="choose_photo">Choose Photo</string>
     <string name="activity_location">Location</string>
-    <string name="i_am_a">I am a…</string>
+    <!--<string name="i_am_a">I am a…</string>-->
+    <string name="as_local">As a local, you can…..</string>
     <string name="edit">Edit</string>
     <string name="clear_all_records">Clear All Records?</string>
     <string name="path_fragment_error">Error retrieving activities from the server!</string>

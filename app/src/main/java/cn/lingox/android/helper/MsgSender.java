@@ -71,11 +71,9 @@ public class MsgSender {
     public static String postJsonToNet(String url) {
         String jsonString;
         try {
-            URL postURL = new URL(url + "?"
-                    + StringConstant.verStr + "=" + APPVERSION
+            URL postURL = new URL(url + "?" + StringConstant.verStr + "=" + APPVERSION
             );
-            HttpURLConnection connection = (HttpURLConnection) postURL
-                    .openConnection();
+            HttpURLConnection connection = (HttpURLConnection) postURL.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
@@ -114,8 +112,7 @@ public class MsgSender {
         String boundary = "*****";
         try {
             URL url = new URL(_url + "?" + StringConstant.userIdStr + "=" + user_id);
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);
@@ -227,8 +224,9 @@ public class MsgSender {
             } catch (UnsupportedEncodingException e) {
                 Log.e(LOG_TAG, "getParamString" + e.getMessage());
             }
-            if (i != keys.length - 1)
+            if (i != keys.length - 1) {
                 sb.append("&");
+            }
         }
         Log.d(LOG_TAG, sb.toString());
         return sb.toString();
@@ -241,8 +239,7 @@ public class MsgSender {
         try {
             URL url = new URL(_url + "?" + StringConstant.pathId + "=" + path_id
             );
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);

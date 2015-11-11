@@ -131,15 +131,12 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                                     - mImageThumbSpacing;
                             mAdapter.setItemHeight(columnWidth);
                             if (BuildConfig.DEBUG) {
-                                Log.d(TAG, "onCreateView - numColumns set to "
-                                        + numColumns);
+                                Log.d(TAG, "onCreateView - numColumns set to " + numColumns);
                             }
                             if (Utils.hasJellyBean()) {
-                                mGridView.getViewTreeObserver()
-                                        .removeOnGlobalLayoutListener(this);
+                                mGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                             } else {
-                                mGridView.getViewTreeObserver()
-                                        .removeGlobalOnLayoutListener(this);
+                                mGridView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                             }
                         }
                     }
@@ -168,15 +165,13 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
         mImageResizer.setPauseWork(true);
 
         if (position == 0) {
-
             Intent intent = new Intent();
             intent.setClass(getActivity(), RecorderVideoActivity.class);
             startActivityForResult(intent, 100);
         } else {
             VideoEntity vEntty = mList.get(position - 1);
             if (vEntty.size > 1024 * 1024 * 10) {
-                Toast.makeText(getActivity(), "�ݲ�֧�ִ���10M����Ƶ��",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Video size less than 10M", Toast.LENGTH_SHORT).show();
                 return;
             }
             Intent intent = getActivity().getIntent()
@@ -193,25 +188,19 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,
                 MediaStore.Video.DEFAULT_SORT_ORDER);
 
-        if (cursor != null ? cursor.moveToFirst() : false) {
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 // ID:MediaStore.Audio.Media._ID
-                int id = cursor.getInt(cursor
-                        .getColumnIndexOrThrow(MediaStore.Video.Media._ID));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
 
                 // ���ƣ�MediaStore.Audio.Media.TITLE
-                String title = cursor.getString(cursor
-                        .getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
                 // ·����MediaStore.Audio.Media.DATA
-                String url = cursor.getString(cursor
-                        .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+                String url = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
                 // �ܲ���ʱ����MediaStore.Audio.Media.DURATION
-                int duration = cursor
-                        .getInt(cursor
-                                .getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+                int duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
                 // ��С��MediaStore.Audio.Media.SIZE
-                int size = (int) cursor.getLong(cursor
-                        .getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
+                int size = (int) cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
 
                 VideoEntity entty = new VideoEntity();
                 entty.ID = id;
@@ -241,24 +230,18 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 int duration = 0;
                 String filePath = null;
 
-                if (cursor != null ? cursor.moveToFirst() : false) {
+                if (cursor != null && cursor.moveToFirst()) {
                     // ·����MediaStore.Audio.Media.DATA
-                    filePath = cursor
-                            .getString(cursor
-                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+                    filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
                     // �ܲ���ʱ����MediaStore.Audio.Media.DURATION
-                    duration = cursor
-                            .getInt(cursor
-                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-                    Log.d("ImageGridFragment", "duration:" + duration);
+                    duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+//                    Log.d("ImageGridFragment", "duration:" + duration);
                 }
                 if (cursor != null) {
                     cursor.close();
                     cursor = null;
                 }
-                getActivity().setResult(
-                        Activity.RESULT_OK,
-                        getActivity().getIntent().putExtra("path", filePath)
+                getActivity().setResult(Activity.RESULT_OK, getActivity().getIntent().putExtra("path", filePath)
                                 .putExtra("dur", duration));
                 getActivity().finish();
 
@@ -275,8 +258,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
         public ImageAdapter(Context context) {
             super();
             mContext = context;
-            mImageViewLayoutParams = new RelativeLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            mImageViewLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         }
 
         @Override
@@ -299,37 +281,30 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
             ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
-                convertView = LayoutInflater.from(mContext).inflate(
-                        R.layout.choose_griditem, container, false);
-                holder.imageView = (RecyclingImageView) convertView
-                        .findViewById(R.id.imageView);
-                holder.icon = (ImageView) convertView
-                        .findViewById(R.id.video_icon);
-                holder.tvDur = (TextView) convertView
-                        .findViewById(R.id.chatting_length_iv);
-                holder.tvSize = (TextView) convertView
-                        .findViewById(R.id.chatting_size_iv);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.choose_griditem, container, false);
+                holder.imageView = (RecyclingImageView) convertView.findViewById(R.id.imageView);
+                holder.icon = (ImageView) convertView.findViewById(R.id.video_icon);
+                holder.tvDur = (TextView) convertView.findViewById(R.id.chatting_length_iv);
+                holder.tvSize = (TextView) convertView.findViewById(R.id.chatting_size_iv);
                 holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 holder.imageView.setLayoutParams(mImageViewLayoutParams);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
             // Check the height matches our calculated column width
             if (holder.imageView.getLayoutParams().height != mItemHeight) {
                 holder.imageView.setLayoutParams(mImageViewLayoutParams);
             }
-
             // Finally load the image asynchronously into the ImageView, this
             // also takes care of
             // setting a placeholder image while the background thread runs
             if (position == 0) {
                 holder.icon.setVisibility(View.GONE);
                 holder.tvDur.setVisibility(View.GONE);
-                holder.tvSize.setText("����¼��");
-                holder.imageView
-                        .setImageResource(R.drawable.actionbar_camera_icon);
+//                holder.tvSize.setText("����¼��");
+                holder.tvSize.setText("");
+                holder.imageView.setImageResource(R.drawable.actionbar_camera_icon);
             } else {
                 holder.icon.setVisibility(View.VISIBLE);
                 VideoEntity entty = mList.get(position - 1);
@@ -341,7 +316,6 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                 mImageResizer.loadImage(entty.filePath, holder.imageView);
             }
             return convertView;
-            // END_INCLUDE(load_gridview_item)
         }
 
         /**
@@ -360,12 +334,10 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
             mImageResizer.setImageSize(height);
             notifyDataSetChanged();
         }
-
         class ViewHolder {
             RecyclingImageView imageView;
             ImageView icon;
-            TextView tvDur;
-            TextView tvSize;
+            TextView tvDur, tvSize;
         }
     }
 }

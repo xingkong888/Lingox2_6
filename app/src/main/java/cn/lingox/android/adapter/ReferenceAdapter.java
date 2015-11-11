@@ -95,7 +95,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
                     user.getAvatar(), "circular");
             holder.name.setText(user.getNickname());
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
-        }
+
         holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
                 : reference.getContent());
 
@@ -143,6 +143,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
                 }
             }
         });
+        }
         return rowView;
     }
 

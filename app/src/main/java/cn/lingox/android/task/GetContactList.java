@@ -15,10 +15,6 @@ public class GetContactList extends AsyncTask<Void, String, Boolean> {
     private Callback callback;
     private ArrayList<User> contactList = new ArrayList<>();
 
-    public GetContactList(Callback callback) {
-        this.callback = callback;
-    }
-
     public GetContactList() {
         this.callback = new Callback() {
             @Override

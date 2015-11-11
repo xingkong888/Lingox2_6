@@ -10,8 +10,6 @@ import cn.lingox.android.app.LingoXApplication;
 
 public class Path implements Parcelable {
     // Constants
-    public static final int TYPE_TRAVELLER = 2;
-    public static final int TYPE_LOCAL = 1;
     public static final Creator<Path> CREATOR = new Creator<Path>() {
         public Path createFromParcel(Parcel in) {
             return new Path(in);
@@ -447,8 +445,9 @@ public class Path implements Parcelable {
 
     public void removeComment(Comment comment) {
         int pos = findCommentInList(comment);
-        if (pos != -1)
+        if (pos != -1) {
             comments.remove(pos);
+        }
     }
 
     private int findCommentInList(Comment comment) {
@@ -472,10 +471,11 @@ public class Path implements Parcelable {
                 break;
             }
         }
-        if (i != -1)
+        if (i != -1) {
             acceptedUsers.remove(i);
-        else
+        } else {
             Log.e(LOG_TAG, "removeAcceptedUser(): failed to remove user from acceptedUser list");
+        }
     }
 
     @Override
@@ -516,11 +516,8 @@ public class Path implements Parcelable {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Path) {
-            Path path = (Path) obj;
             return this.getId().equals(getId());
         }
         return super.equals(obj);
     }
-
-
 }

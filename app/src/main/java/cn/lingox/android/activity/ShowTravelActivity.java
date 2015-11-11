@@ -34,9 +34,7 @@ import cn.lingox.android.video.util.AsyncTask;
 public class ShowTravelActivity extends ActionBarActivity implements OnClickListener {
     private static final int EDIT_TRAVEL = 105;
 
-    private ListView listView;
     private TextView userName;
-    private ImageView back;
     private CircularImageView userAvatar;
 
     private ArrayList<Travel> datas = new ArrayList<>();
@@ -84,7 +82,7 @@ public class ShowTravelActivity extends ActionBarActivity implements OnClickList
     private void initView() {
         setContentView(R.layout.activity_show_travel);
 
-        back = (ImageView) findViewById(R.id.show_travel_back);
+        ImageView back = (ImageView) findViewById(R.id.show_travel_back);
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +94,7 @@ public class ShowTravelActivity extends ActionBarActivity implements OnClickList
         });
         userName = (TextView) findViewById(R.id.show_travel_name);
         userAvatar = (CircularImageView) findViewById(R.id.show_travel_avatar);
-        listView = (ListView) findViewById(R.id.show_travel_list);
+        ListView listView = (ListView) findViewById(R.id.show_travel_list);
 
         adapter = new ShowTravelAdapter(this, datas, handler, isSelf);
         listView.setAdapter(adapter);

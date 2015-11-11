@@ -1,10 +1,6 @@
 package cn.lingox.android.entity.location;
 
 import java.util.ArrayList;
-
-/**
- * Created by Administrator on 2015/9/10.
- */
 public class Country1 {
     private String country = "";
     private String countryCode = "";
@@ -36,7 +32,6 @@ public class Country1 {
 
     @Override
     public String toString() {
-        return "country=" + country
-                + ",provinces=" + provinces.toString();
+        return "country=" + country + ",provinces=" + provinces.toString();
     }
 }

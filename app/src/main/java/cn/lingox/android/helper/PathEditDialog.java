@@ -12,7 +12,6 @@ import cn.lingox.android.entity.Path;
 
 public class PathEditDialog {
     private static PathEditDialog instance = null;
-    private static Button cancel, save, notSave;
     private static Dialog dialog;
 
     public static synchronized PathEditDialog getInstance() {
@@ -26,8 +25,8 @@ public class PathEditDialog {
         dialog = new Dialog(context, R.style.MyDialog);
 
         View view = LayoutInflater.from(context).inflate(R.layout.row_path_edit_dialog, null);
-        save = (Button) view.findViewById(R.id.path_dialog_save);
-        notSave = (Button) view.findViewById(R.id.path_dialog_not_save);
+        Button save = (Button) view.findViewById(R.id.path_dialog_save);
+        Button notSave = (Button) view.findViewById(R.id.path_dialog_not_save);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

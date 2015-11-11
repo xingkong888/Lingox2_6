@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -37,11 +38,15 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 
 
-public class AMapActivity extends Activity implements AMap.OnMarkerClickListener, GeocodeSearch.OnGeocodeSearchListener,
-        AMap.InfoWindowAdapter, Inputtips.InputtipsListener, AMap.OnInfoWindowClickListener {
+public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener, Inputtips.InputtipsListener {
     //声明变量
     private MapView mapView;
     private AMap aMap;
+    private EditText editText;
+    private ProgressBar pb;
+    private Button ok;
+
+
     private String address = "";
 
     private User user = CacheHelper.getInstance().getSelfInfo();
@@ -50,12 +55,7 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     private GeocodeSearch geocoderSearch;
     private double lat, lng;
     private Intent intent = new Intent();
-
     private LatLonPoint point = null;
-
-    private EditText editText;
-
-    private ProgressBar pb;
 
     private ListView listView;
     private List<String> arrayList = new ArrayList<>();
@@ -92,9 +92,6 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
             lat = user.getLoc()[1];
             lng = user.getLoc()[0];
         }
-        aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
-        aMap.setInfoWindowAdapter(this);
-        aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
 
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);
@@ -103,6 +100,15 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     }
 
     private void initView() {
+
+        ok = (Button) findViewById(R.id.map_ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnResult();
+            }
+        });
+
         editText = (EditText) findViewById(R.id.map_search);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -219,13 +225,9 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         aMap.clear();
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
-        marker = aMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title(address)
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                .draggable(true));
+        marker = aMap.addMarker(new MarkerOptions().position(latLng).title(address).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).draggable(true));
         marker.showInfoWindow();// 设置默认显示一个infowinfow
+        ok.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -286,24 +288,24 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
     public void onGeocodeSearched(GeocodeResult result, int rCode) {
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker1) {
-        if (marker1.equals(marker)) {
-            if (aMap != null) {
-                returnResult();
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public void onInfoWindowClick(Marker marker) {
-        if (this.marker.equals(marker)) {
-            if (aMap != null) {
-                returnResult();
-            }
-        }
-    }
+//    @Override
+//    public boolean onMarkerClick(Marker marker1) {
+//        if (marker1.equals(marker)) {
+//            if (aMap != null) {
+//                returnResult();
+//            }
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public void onInfoWindowClick(Marker marker) {
+//        if (this.marker.equals(marker)) {
+//            if (aMap != null) {
+//                returnResult();
+//            }
+//        }
+//    }
 
     //返回结果到上一级
     private void returnResult() {
@@ -330,21 +332,21 @@ public class AMapActivity extends Activity implements AMap.OnMarkerClickListener
         finish();
     }
 
-    /**
-     * 监听自定义infowindow窗口的infowindow事件回调
-     */
-    @Override
-    public View getInfoWindow(Marker marker) {
-        return null;
-    }
-
-    /**
-     * 监听自定义infowindow窗口的infocontents事件回调
-     */
-    @Override
-    public View getInfoContents(Marker marker) {
-        return null;
-    }
+//    /**
+//     * 监听自定义infowindow窗口的infowindow事件回调
+//     */
+//    @Override
+//    public View getInfoWindow(Marker marker) {
+//        return null;
+//    }
+//
+//    /**
+//     * 监听自定义infowindow窗口的infocontents事件回调
+//     */
+//    @Override
+//    public View getInfoContents(Marker marker) {
+//        return null;
+//    }
 
     @Override
     protected void onResume() {

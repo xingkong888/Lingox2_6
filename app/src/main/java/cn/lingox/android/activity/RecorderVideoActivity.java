@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
-import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.OnErrorListener;
@@ -34,6 +33,7 @@ import android.widget.Toast;
 import com.easemob.util.EMLog;
 import com.easemob.util.PathUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -45,17 +45,14 @@ public class RecorderVideoActivity extends BaseActivity implements
         OnClickListener, Callback, OnErrorListener, OnInfoListener {
 
     private final static String CLASS_LABEL = "RecordActivity";
-    String localPath = "";// ¼�Ƶ���Ƶ·��
-    Parameters cameraParameters = null;
-    int defaultCameraId = -1, defaultScreenResolution = -1,
-            cameraSelection = 0;
-    int defaultVideoFrameRate = -1;
+    String localPath = "";
+    int defaultCameraId = -1, defaultScreenResolution = -1, cameraSelection = 0, defaultVideoFrameRate = -1;
     MediaScannerConnection msc = null;
     private PowerManager.WakeLock mWakeLock;
-    private ImageView btnStart;// ��ʼ¼�ư�ť
-    private ImageView btnStop;// ֹͣ¼�ư�ť
-    private MediaRecorder mediarecorder;// ¼����Ƶ����
-    private SurfaceView surfaceview;// ��ʾ��Ƶ�Ŀؼ�
+    private ImageView btnStart;
+    private ImageView btnStop;
+    private MediaRecorder mediarecorder;
+    private SurfaceView surfaceview;
     private SurfaceHolder surfaceHolder;
     private Camera mCamera;
     // Ԥ���Ŀ��
@@ -63,8 +60,7 @@ public class RecorderVideoActivity extends BaseActivity implements
     private int previewHeight = 480;
 
     @SuppressLint("NewApi")
-    public static void setCameraDisplayOrientation(Activity activity,
-                                                   int cameraId, Camera camera) {
+    public static void setCameraDisplayOrientation(Activity activity, int cameraId, Camera camera) {
         CameraInfo info = new CameraInfo();
         Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
@@ -97,11 +93,10 @@ public class RecorderVideoActivity extends BaseActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// ȥ��������
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);// ����ȫ��
-        // ѡ��֧�ְ�͸��ģʽ������surfaceview��activity��ʹ��
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         setContentView(R.layout.activity_recorder);
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
@@ -114,18 +109,15 @@ public class RecorderVideoActivity extends BaseActivity implements
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
         surfaceview = (SurfaceView) this.findViewById(R.id.surfaceview);
-        SurfaceHolder holder = surfaceview.getHolder();// ȡ��holder
-        holder.addCallback(this); // holder����ص��ӿ�
-        // setType�������ã�Ҫ������.
+        SurfaceHolder holder = surfaceview.getHolder();
+        holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
     public void back(View view) {
 
         if (mediarecorder != null) {
-            // ֹͣ¼��
             mediarecorder.stop();
-            // �ͷ���Դ
             mediarecorder.release();
             mediarecorder = null;
         }
@@ -141,10 +133,8 @@ public class RecorderVideoActivity extends BaseActivity implements
     protected void onResume() {
         super.onResume();
         if (mWakeLock == null) {
-            // ��ȡ������,������Ļ����
             PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
-                    CLASS_LABEL);
+            mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, CLASS_LABEL);
             mWakeLock.acquire();
         }
     }
@@ -156,10 +146,8 @@ public class RecorderVideoActivity extends BaseActivity implements
         }
 
         boolean hasSupportRate = false;
-        List<Integer> supportedPreviewFrameRates = mCamera.getParameters()
-                .getSupportedPreviewFrameRates();
-        if (supportedPreviewFrameRates != null
-                && supportedPreviewFrameRates.size() > 0) {
+        List<Integer> supportedPreviewFrameRates = mCamera.getParameters().getSupportedPreviewFrameRates();
+        if (supportedPreviewFrameRates != null && supportedPreviewFrameRates.size() > 0) {
             Collections.sort(supportedPreviewFrameRates);
             for (int i = 0; i < supportedPreviewFrameRates.size(); i++) {
                 int supportRate = supportedPreviewFrameRates.get(i);
@@ -167,27 +155,21 @@ public class RecorderVideoActivity extends BaseActivity implements
                 if (supportRate == 10) {
                     hasSupportRate = true;
                 }
-
             }
             if (hasSupportRate) {
                 defaultVideoFrameRate = 10;
             } else {
                 defaultVideoFrameRate = supportedPreviewFrameRates.get(0);
             }
-
         }
 
-        Log.d("RecorderVideoActivity", "supportedPreviewFrameRates"
-                + supportedPreviewFrameRates);
-
-        // ��ȡ����ͷ������֧�ֵķֱ���
+//        Log.d("RecorderVideoActivity", "supportedPreviewFrameRates"+ supportedPreviewFrameRates);
         List<Size> resolutionList = Utils.getResolutionList(mCamera);
         if (resolutionList != null && resolutionList.size() > 0) {
             Collections.sort(resolutionList, new Utils.ResolutionComparator());
             Size previewSize;
             if (defaultScreenResolution == -1) {
                 boolean hasSize = false;
-                // �������ͷ֧��640*480����ôǿ����Ϊ640*480
                 for (int i = 0; i < resolutionList.size(); i++) {
                     Size size = resolutionList.get(i);
                     if (size != null && size.width == 640 && size.height == 480) {
@@ -198,21 +180,17 @@ public class RecorderVideoActivity extends BaseActivity implements
                         break;
                     }
                 }
-                // �����֧����Ϊ�м���Ǹ�
                 if (!hasSize) {
                     int mediumResolution = resolutionList.size() / 2;
-                    if (mediumResolution >= resolutionList.size())
+                    if (mediumResolution >= resolutionList.size()) {
                         mediumResolution = resolutionList.size() - 1;
+                    }
                     previewSize = resolutionList.get(mediumResolution);
                     previewWidth = previewSize.width;
                     previewHeight = previewSize.height;
-
                 }
-
             }
-
         }
-
     }
 
     @Override
@@ -229,7 +207,7 @@ public class RecorderVideoActivity extends BaseActivity implements
         switch (view.getId()) {
             case R.id.recorder_start:
                 mCamera.unlock();
-                mediarecorder = new MediaRecorder();// ����mediarecorder����
+                mediarecorder = new MediaRecorder();
                 mediarecorder.reset();
                 mediarecorder.setCamera(mCamera);
                 mediarecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
@@ -248,15 +226,12 @@ public class RecorderVideoActivity extends BaseActivity implements
                 }
                 mediarecorder.setPreviewDisplay(surfaceHolder.getSurface());
                 // ������Ƶ�ļ������·��
-                localPath = PathUtil.getInstance().getVideoPath() + "/"
-                        + System.currentTimeMillis() + ".mp4";
+                localPath = PathUtil.getInstance().getVideoPath() + File.separator + System.currentTimeMillis() + ".mp4";
                 mediarecorder.setOutputFile(localPath);
                 mediarecorder.setOnErrorListener(this);
                 mediarecorder.setOnInfoListener(this);
                 try {
-                    // ׼��¼��
                     mediarecorder.prepare();
-                    // ��ʼ¼��
                     mediarecorder.start();
                     Toast.makeText(this, "¼��ʼ", Toast.LENGTH_SHORT).show();
                     btnStart.setVisibility(View.INVISIBLE);
@@ -267,11 +242,8 @@ public class RecorderVideoActivity extends BaseActivity implements
 
                 break;
             case R.id.recorder_stop:
-
                 if (mediarecorder != null) {
-                    // ֹͣ¼��
                     mediarecorder.stop();
-                    // �ͷ���Դ
                     mediarecorder.release();
                     mediarecorder = null;
                 }
@@ -298,23 +270,16 @@ public class RecorderVideoActivity extends BaseActivity implements
                                 }).setNegativeButton(R.string.cancel, null).show();
 
                 break;
-
-            default:
-                break;
         }
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
-        // ��holder�����holderΪ��ʼ��oncreat����ȡ�õ�holder����������surfaceHolder
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         surfaceHolder = holder;
-
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        // ��holder�����holderΪ��ʼ��oncreat����ȡ�õ�holder����������surfaceHolder
         surfaceHolder = holder;
         try {
             initpreview();
@@ -323,12 +288,10 @@ public class RecorderVideoActivity extends BaseActivity implements
             return;
         }
         handleSurfaceChanged();
-
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder arg0) {
-        // surfaceDestroyed��ʱ��ͬʱ��������Ϊnull
         surfaceview = null;
         surfaceHolder = null;
         mediarecorder = null;
@@ -349,7 +312,6 @@ public class RecorderVideoActivity extends BaseActivity implements
     @SuppressLint("NewApi")
     protected void initpreview() throws Exception {
         try {
-
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
                 int numberOfCameras = Camera.getNumberOfCameras();
                 CameraInfo cameraInfo = new CameraInfo();
@@ -359,22 +321,18 @@ public class RecorderVideoActivity extends BaseActivity implements
                         defaultCameraId = i;
                     }
                 }
-
             }
             if (mCamera != null) {
                 mCamera.stopPreview();
             }
-
             mCamera = Camera.open(CameraInfo.CAMERA_FACING_BACK);
             mCamera.setPreviewDisplay(surfaceHolder);
-            setCameraDisplayOrientation(this, CameraInfo.CAMERA_FACING_BACK,
-                    mCamera);
+            setCameraDisplayOrientation(this, CameraInfo.CAMERA_FACING_BACK, mCamera);
             mCamera.startPreview();
         } catch (Exception e) {
             EMLog.e("###", e.getMessage());
             throw new Exception(e.getMessage());
         }
-
     }
 
     public void sendVideo(View view) {
@@ -385,7 +343,6 @@ public class RecorderVideoActivity extends BaseActivity implements
 
         msc = new MediaScannerConnection(this,
                 new MediaScannerConnectionClient() {
-
                     @Override
                     public void onScanCompleted(String path, Uri uri) {
                         Log.d("RecorderVideoActivity", "scanner completed");
@@ -400,7 +357,6 @@ public class RecorderVideoActivity extends BaseActivity implements
                     }
                 });
         msc.connect();
-
     }
 
     @Override
@@ -417,12 +373,10 @@ public class RecorderVideoActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         releaseCamera();
-
         if (mWakeLock != null) {
             mWakeLock.release();
             mWakeLock = null;
         }
-
     }
 
     @Override
@@ -440,9 +394,7 @@ public class RecorderVideoActivity extends BaseActivity implements
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 finish();
-
                             }
                         }).setCancelable(false).show();
-
     }
 }

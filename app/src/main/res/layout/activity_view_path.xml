@@ -180,8 +180,10 @@
                 android:layout_marginTop="15dp" />
 
             <LinearLayout
+                android:id="@+id/path_view_like_chat_share"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginTop="16dp"
                 android:background="#fafafa"
                 android:orientation="vertical">
@@ -223,7 +225,6 @@
                         android:focusable="false"
                         android:scaleType="center"
                         android:src="@drawable/active_share_24dp" />
-
                 </LinearLayout>
 
                 <TextView
@@ -233,11 +234,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/path_view_like"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="15dp"
                 android:background="#fafafa"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -261,10 +264,11 @@
                         android:id="@+id/path_particpants_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/wula"
                         android:focusable="false"
                         android:focusableInTouchMode="true"
+                        android:text="0"
                         android:textSize="16sp" />
 
                     <TextView
@@ -293,11 +297,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/path_view_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:background="#fafafa"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -320,7 +325,7 @@
                         android:id="@+id/path_comments_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/lawu"
                         android:focusable="false"
                         android:textSize="16sp" />
@@ -443,7 +448,6 @@
         android:layout_height="match_parent"
         android:background="#8c000000"
         android:visibility="gone">
-
         <ImageView
             android:id="@+id/plmnbvcddddd"
             android:layout_width="wrap_content"

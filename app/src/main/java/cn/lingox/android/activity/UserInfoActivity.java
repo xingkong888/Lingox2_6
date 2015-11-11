@@ -34,7 +34,6 @@ public class UserInfoActivity extends ActionBarActivity {
     private UserInfoFragment infoFragment;
     private PathFragment pathFragment;
 
-    private ImageView back;
     private TextView name;
 
     @Override
@@ -73,7 +72,7 @@ public class UserInfoActivity extends ActionBarActivity {
     private void initView() {
         setContentView(R.layout.activity_user_info);
 
-        back = (ImageView) findViewById(R.id.back);
+        ImageView back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

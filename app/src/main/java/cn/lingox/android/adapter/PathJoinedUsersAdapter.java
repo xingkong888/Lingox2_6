@@ -16,10 +16,6 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
-
-/**
- * Created by Andrew on 08/02/2015.
- */
 public class PathJoinedUsersAdapter extends BaseAdapter {
     private static final String LOG_TAG = "PathJoinedUsersAdapter";
 
@@ -64,10 +60,11 @@ public class PathJoinedUsersAdapter extends BaseAdapter {
                 break;
             }
         }
-        if (i != -1)
+        if (i != -1) {
             removeItem(i);
-        else
+        } else {
             Log.e(LOG_TAG, "removeItem(): User not found");
+        }
     }
 
     @Override

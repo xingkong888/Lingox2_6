@@ -35,8 +35,6 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
     private static final String LOG_TAG = "RegisterActivity2";
     private static final int SELECTLOCATION = 125;
 
-    private ImageView backButton;
-    private TextView continueButton;
     private Button locationButton;
     private ImageView userAvatar;
     private EditText userNickname;
@@ -52,9 +50,9 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
     }
 
     private void initView() {
-        backButton = (ImageView) findViewById(R.id.back_button);
+        ImageView backButton = (ImageView) findViewById(R.id.back_button);
         backButton.setVisibility(View.INVISIBLE);
-        continueButton = (TextView) findViewById(R.id.continue_button);
+        TextView continueButton = (TextView) findViewById(R.id.continue_button);
         continueButton.setOnClickListener(this);
         locationButton = (Button) findViewById(R.id.location_button);
         locationButton.setOnClickListener(this);
@@ -187,11 +185,8 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            Log.d(LOG_TAG, "Registration stage 2");
-
             try {
                 User user = ServerHelper.getInstance().updateUserInfo(userInfo);
-
                 CacheHelper.getInstance().setSelfInfo(user);
                 ServerHelper.getInstance().login(user.getEmail(), CacheHelper.getInstance().getPassword());
                 return true;
@@ -205,10 +200,12 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(RegisterActivity2.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

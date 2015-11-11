@@ -38,16 +38,16 @@ public class ForwardMessageActivity extends ContactListActivity {
                 ChatActivity.activityInstance.finish();
             } catch (Exception ignored) {
             }
-            Intent intent = new Intent(this, ChatActivity.class);
-            if (selectUser == null)
+            if (selectUser == null) {
                 return;
+            }
+            Intent intent = new Intent(this, ChatActivity.class);
             // it is single chat
             intent.putExtra("username", selectUser.getUsername());
             intent.putExtra("forward_msg_id", forward_msg_id);
             startActivity(intent);
             finish();
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 

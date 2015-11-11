@@ -28,18 +28,15 @@ import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EMServiceNotReadyException;
 import com.umeng.analytics.MobclickAgent;
 
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import cn.lingox.android.Constant;
 import cn.lingox.android.R;
 
 public class VoiceCallActivity extends BaseActivity implements OnClickListener {
-    String msgid;
+    private String msgid;
     private LinearLayout comingBtnContainer;
     private Button hangupBtn;
-    private Button refuseBtn;
-    private Button answerBtn;
     private ImageView muteImage;
     private ImageView handsFreeImage;
     private boolean isMuteState;
@@ -52,10 +49,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
     private Handler handler = new Handler();
     private Ringtone ringtone;
     private int outgoing;
-    private TextView nickTextView;
-    private TextView durationTextView;
-    private SimpleDateFormat dateFormat;
-    private WindowManager windowManager;
     private AudioManager audioManager;
     private Chronometer chronometer;
     private String callDruationText;
@@ -70,14 +63,13 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
         setContentView(R.layout.activity_voice_call);
 
         comingBtnContainer = (LinearLayout) findViewById(R.id.ll_coming_call);
-        refuseBtn = (Button) findViewById(R.id.btn_refuse_call);
-        answerBtn = (Button) findViewById(R.id.btn_answer_call);
+        Button refuseBtn = (Button) findViewById(R.id.btn_refuse_call);
+        Button answerBtn = (Button) findViewById(R.id.btn_answer_call);
         hangupBtn = (Button) findViewById(R.id.btn_hangup_call);
         muteImage = (ImageView) findViewById(R.id.iv_mute);
         handsFreeImage = (ImageView) findViewById(R.id.iv_handsfree);
         callStateTextView = (TextView) findViewById(R.id.tv_call_state);
-        nickTextView = (TextView) findViewById(R.id.tv_nick);
-        durationTextView = (TextView) findViewById(R.id.tv_calling_duration);
+        TextView nickTextView = (TextView) findViewById(R.id.tv_nick);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         voiceContronlLayout = (LinearLayout) findViewById(R.id.ll_voice_control);
 
@@ -350,11 +342,8 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
             audioManager.setSpeakerphoneOn(false);
 
             int id = soundPool.play(outgoing,
-                    volumnRatio,
-                    volumnRatio,
-                    1,
-                    -1,
-                    1);
+                    volumnRatio, volumnRatio,
+                    1, -1, 1);
             return id;
         } catch (Exception e) {
             return -1;
@@ -363,10 +352,12 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void onDestroy() {
-        if (soundPool != null)
+        if (soundPool != null) {
             soundPool.release();
-        if (ringtone != null && ringtone.isPlaying())
+        }
+        if (ringtone != null && ringtone.isPlaying()) {
             ringtone.stop();
+        }
         audioManager.setMode(AudioManager.MODE_NORMAL);
         super.onDestroy();
     }
@@ -383,8 +374,9 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
         try {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
-            if (!audioManager.isSpeakerphoneOn())
+            if (!audioManager.isSpeakerphoneOn()) {
                 audioManager.setSpeakerphoneOn(true);
+            }
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
         } catch (Exception e) {
             e.printStackTrace();
@@ -396,11 +388,11 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
         try {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
-                if (audioManager.isSpeakerphoneOn())
+                if (audioManager.isSpeakerphoneOn()) {
                     audioManager.setSpeakerphoneOn(false);
+                }
                 audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

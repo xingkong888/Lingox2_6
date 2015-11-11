@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.EMCallBack;
@@ -40,12 +39,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
     private EditText passwordEditText;
     private ImageView clear_name;
     private ImageView clear_pwd;
-
-    private TextView login;
-    private TextView forgotPasswordButton;
-    private TextView registerButton;
-
-    private TextView skip;
     private ProgressDialog pd;
 
     @Override
@@ -84,26 +77,24 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         }
         setContentView(R.layout.activity_login);
         initView();
-
-        //定位
-//        GetLocationUtil.instance().init(getApplication(),-1);
     }
 
     private void initView() {
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
-        login = (TextView) findViewById(R.id.login_button);
-        login.setOnClickListener(this);
-        forgotPasswordButton = (TextView) findViewById(R.id.forgot_password);
-        forgotPasswordButton.setOnClickListener(this);
-        registerButton = (TextView) findViewById(R.id.register_button);
-        registerButton.setOnClickListener(this);
+        //登录按钮
+        findViewById(R.id.login_button).setOnClickListener(this);
+        //忘记密码
+        findViewById(R.id.forgot_password).setOnClickListener(this);
+        //注册
+        findViewById(R.id.register_button).setOnClickListener(this);
+        //跳过登录
+        findViewById(R.id.skip_button).setOnClickListener(this);
+
         clear_name = (ImageView) findViewById(R.id.iv_clear);
         clear_name.setOnClickListener(this);
         clear_pwd = (ImageView) findViewById(R.id.iv_clear2);
         clear_pwd.setOnClickListener(this);
-        skip = (TextView) findViewById(R.id.skip_button);
-        skip.setOnClickListener(this);
 
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -155,29 +146,31 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
                 String username = usernameEditText.getText().toString().trim().toLowerCase();
                 String password = passwordEditText.getText().toString();
                 if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your Username or Email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter your Username or Email address", Toast.LENGTH_SHORT).show();
                     usernameEditText.requestFocus();
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter your Password", Toast.LENGTH_SHORT).show();
                     passwordEditText.requestFocus();
-                } else
+                } else {
                     new Login(username, password).execute();
+                }
                 break;
 
             case R.id.forgot_password:
                 String email = usernameEditText.getText().toString().trim();
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your Email address to recover your password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Please enter your Email address to recover your password", Toast.LENGTH_LONG).show();
                     usernameEditText.requestFocus();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(LoginActivity.this, "Please enter a valid Email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter a valid Email address", Toast.LENGTH_SHORT).show();
                     usernameEditText.requestFocus();
-                } else
+                } else {
                     new ForgotPassword().execute(email);
+                }
                 break;
             case R.id.register_button:
                 // FIXME revert this test
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(this, RegisterActivity.class));
                 finish();
                 break;
             case R.id.iv_clear:
@@ -188,7 +181,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
                 break;
             case R.id.skip_button:
                 LingoXApplication.getInstance().setSkip(true);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
         }
@@ -248,10 +241,12 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(LoginActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -285,7 +280,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         @Override
         protected Boolean doInBackground(String... params) {
             Log.d(LOG_TAG, "Forgot Password started");
-
             try {
                 ServerHelper.getInstance().forgotPassword(params[0]);
                 return true;
@@ -299,10 +293,12 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(LoginActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

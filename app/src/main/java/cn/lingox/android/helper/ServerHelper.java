@@ -36,7 +36,6 @@ public class ServerHelper {
     private static final String APPVERSION = LingoXApplication.getInstance().getAppVersion();
     private static String LOG_TAG = "ServerHelper";
     private static ServerHelper instance = null;
-    private ArrayList<Indent> datas;
 
     private ServerHelper() {
     }
@@ -51,7 +50,7 @@ public class ServerHelper {
      * json数据解析
      *
      * @param jsonStr 待解析的json数据
-     * @return
+     * @return true或false
      */
     private ReturnMsg checkReturnMsg(String jsonStr) {
         if (jsonStr != null && !jsonStr.equals("")) {
@@ -76,8 +75,8 @@ public class ServerHelper {
     /**
      * 版本更新
      *
-     * @param currentVer
-     * @return
+     * @param currentVer 版本号
+     * @return true或false
      */
     public boolean requireUpdate(int currentVer) {
         int minVer;
@@ -99,7 +98,7 @@ public class ServerHelper {
      * @param email    邮箱
      * @param userName 用户名
      * @param password 用户密码
-     * @return
+     * @return 用户实例
      * @throws Exception
      */
     public User register(String email, String userName, String password) throws Exception {
@@ -118,13 +117,9 @@ public class ServerHelper {
             Log.e(LOG_TAG, "register: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
-
-        User user = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                User.class);
-
 //        Log.d(LOG_TAG, "register: User Info: " + user);
-        return user;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), User.class);
     }
 
     /**
@@ -132,7 +127,7 @@ public class ServerHelper {
      *
      * @param userId1 当前用户id
      * @param userId2
-     * @return
+     * @return true 或false
      * @throws Exception
      */
     public boolean getBothFollowed(String userId1, String userId2) throws Exception {
@@ -159,7 +154,7 @@ public class ServerHelper {
      *
      * @param emailOrUsername 邮箱或用户名
      * @param password        密码
-     * @return
+     * @return 用户实例
      * @throws Exception
      */
     public User login(String emailOrUsername, String password) throws Exception {
@@ -179,11 +174,9 @@ public class ServerHelper {
             Log.e(LOG_TAG, "login: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
-        User user = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                User.class);
 //        Log.d(LOG_TAG, "login: User Info: " + user);
-        return user;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), User.class);
     }
 
     /**
@@ -217,7 +210,7 @@ public class ServerHelper {
      *
      * @param user_id 用户id
      * @param avatar  头像
-     * @return
+     * @return 头像链接
      * @throws Exception
      */
     public String uploadAvatar(String user_id, Bitmap avatar) throws Exception {
@@ -236,7 +229,6 @@ public class ServerHelper {
         }
 
         String avatarPath = rmsg.getData().getString(StringConstant.avatarStr);
-
         Log.d(LOG_TAG, "uploadAvatar: Avatar path: " + avatarPath);
 
         return avatarPath;
@@ -245,8 +237,8 @@ public class ServerHelper {
     /**
      * 更新用户信息
      *
-     * @param params
-     * @return
+     * @param params 更新信息
+     * @return 用户实例
      * @throws Exception
      */
     public User updateUserInfo(Map<String, String> params) throws Exception {
@@ -263,17 +255,14 @@ public class ServerHelper {
             throw new Exception("Failed to update User info!");
         }
 
-        User user = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                User.class);
 //        Log.d(LOG_TAG, "updateUserInfo: User Info: " + user);
-        return user;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), User.class);
     }
 
     // Contact
     // Returns the new relation code of the contact
-    public int userRelationChange(String my_user_id, String tar_user_id,
-                                  int user_relation) throws Exception {
+    public int userRelationChange(String my_user_id, String tar_user_id, int user_relation) throws Exception {
 
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.userSourceStr, my_user_id);
@@ -301,8 +290,8 @@ public class ServerHelper {
     }
 
     /**
-     * @param user_src_id
-     * @return
+     * @param user_src_id 用户id
+     * @return 用户实例的集合
      * @throws Exception
      */
     public ArrayList<User> getContactList(String user_src_id) throws Exception {
@@ -343,7 +332,7 @@ public class ServerHelper {
      * 获取用户信息详情
      *
      * @param tar_user_id 目标id
-     * @return
+     * @return 用户实例
      * @throws Exception
      */
     public User getUserInfo(String tar_user_id) throws Exception {
@@ -359,7 +348,7 @@ public class ServerHelper {
      *
      * @param my_user_id  当前用户id
      * @param tar_user_id 目标用户id
-     * @return
+     * @return 用户实例
      * @throws Exception
      */
     private User getUserInfo(String my_user_id, String tar_user_id) throws Exception {
@@ -392,8 +381,8 @@ public class ServerHelper {
     /**
      * 获取用户Following的数据
      *
-     * @param user_tar_id
-     * @return
+     * @param user_tar_id 用户id
+     * @return 用户实例的集合
      * @throws Exception
      */
     public ArrayList<User> getUserFollowing(String user_tar_id) throws Exception {
@@ -433,7 +422,7 @@ public class ServerHelper {
     /**
      * 提示服务器用户登录，修改登录时间
      *
-     * @param user_id
+     * @param user_id 用户id
      * @throws Exception
      */
     public void loginTime(String user_id) throws Exception {
@@ -452,9 +441,9 @@ public class ServerHelper {
      *
      * @param user_id    当前用户id
      * @param searchType 搜索类型
-     * @param params
-     * @param page
-     * @return
+     * @param params 数据
+     * @param page 页码
+     * @return 用户实例的集合
      * @throws Exception
      */
     public ArrayList<User> searchUser(String user_id, int searchType, Map<String, String> params, int page) throws Exception {
@@ -503,7 +492,7 @@ public class ServerHelper {
     /**
      * 默认返回第一页数据
      *
-     * @return
+     * @return 用户实例的集合
      * @throws Exception
      */
     public ArrayList<User> searchUserDefault() throws Exception {
@@ -530,7 +519,6 @@ public class ServerHelper {
             searchResult.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
-
         Log.d(LOG_TAG, "searchUser: Found users: " + searchResult);
 
         return searchResult;
@@ -539,18 +527,18 @@ public class ServerHelper {
     /**
      * 创建和修改评论
      *
-     * @param referenceId 评论id，用于修改，创建是传 “”空值
+     * @param referenceId 评论id，用于修改，创建是传 ""空值
      * @param user_src_id 当前用户id ，用于创建
      * @param user_tar_id 目标用户id。用于创建
      * @param title       标题，与content重复
      * @param content     内容
-     * @return
+     * @return 评论的实例
      * @throws Exception
      */
     public Reference reference(String referenceId, String user_src_id, String user_tar_id, String title,
                                String content) throws Exception {
         Map<String, String> params = new HashMap<>();
-        String jsonStr = "";
+        String jsonStr;
         params.put(StringConstant.referenceTitle, title);
         params.put(StringConstant.referenceContent, content);
         params.put(StringConstant.verStr, APPVERSION);
@@ -560,16 +548,13 @@ public class ServerHelper {
             params.put(StringConstant.userTargetStr, user_tar_id);
             jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_REFERENCE, params);
             Log.d(LOG_TAG, "CreateReference: " + jsonStr);
-
         } else {
             //修改
             params.put(StringConstant.referenceId, referenceId);
             jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
             Log.d(LOG_TAG, "EditReference: " + jsonStr);
         }
-
         Log.d(LOG_TAG, "Reference: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -577,13 +562,12 @@ public class ServerHelper {
             throw new Exception("Failed to create Reference!");
         }
 
-        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Reference.class);
+//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Reference.class);
+//        Log.d(LOG_TAG, "createReference: Reference created: " + returnReference);
 
-        Log.d(LOG_TAG, "createReference: Reference created: " + returnReference);
-
-        return returnReference;
+        return JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), Reference.class);
     }
 
     /**
@@ -591,7 +575,7 @@ public class ServerHelper {
      *
      * @param referenceId 评论id
      * @param reply       回复内容
-     * @return
+     * @return 评论的实例
      * @throws Exception
      */
     public Reference replyReference(String referenceId, String reply) throws Exception {
@@ -611,20 +595,20 @@ public class ServerHelper {
             throw new Exception("Failed to reply Reference!");
         }
 
-        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Reference.class);
+//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Reference.class);
+//        Log.d(LOG_TAG, "replyReference: Reference edited: " + returnReference);
 
-        Log.d(LOG_TAG, "replyReference: Reference edited: " + returnReference);
-
-        return returnReference;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Reference.class);
     }
 
     /**
      * 删除评论
      *
      * @param referenceId 评论id
-     * @return
+     * @return 评论的实例
      * @throws Exception
      */
     public Reference deleteReference(String referenceId) throws Exception {
@@ -643,20 +627,20 @@ public class ServerHelper {
             throw new Exception("Failed to delete Reference!");
         }
 
-        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Reference.class);
+//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Reference.class);
+//        Log.d(LOG_TAG, "deleteReference: Reference deleted: " + returnReference);
 
-        Log.d(LOG_TAG, "deleteReference: Reference deleted: " + returnReference);
-
-        return returnReference;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Reference.class);
     }
 
     /**
      * 获取用户的评论
      *
      * @param userId 用户id
-     * @return
+     * @return 评论实例的集合
      * @throws Exception
      */
     public ArrayList<Reference> getUsersReferences(String userId) throws Exception {
@@ -695,7 +679,7 @@ public class ServerHelper {
      * 获取某一活动详细数据
      *
      * @param pathId 活动id
-     * @return
+     * @return 活动实例
      * @throws Exception
      */
     public Path getPath(String pathId) throws Exception {
@@ -714,26 +698,24 @@ public class ServerHelper {
             throw new Exception("Failed to get Path!");
         }
 
-        Path path = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Path.class);
-
+//        Path path = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Path.class);
 //        Log.d(LOG_TAG, "getPath: Path: " + path);
 
-        return path;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Path.class);
     }
 
     /**
      * discover页面数据获取
      *
      * @param page 分页加载页码，从1开始
-     * @return
+     * @return 活动实例的集合
      * @throws Exception
      */
     public ArrayList<Path> getAllPaths(int page) throws Exception {
         Map<String, String> params = new HashMap<>();
-//        params.put("longitude", LingoXApplication.getInstance().getLongitude());
-//        params.put(" latitude", LingoXApplication.getInstance().getLatitude());
         params.put("page", String.valueOf(page));
         params.put(StringConstant.verStr, APPVERSION);
 
@@ -771,29 +753,23 @@ public class ServerHelper {
      * @param localOrTravel 本地或旅行者
      * @param page          页码
      * @param postJson      需要提交的数据
-     * @return
+     * @return 活动实例的集合
      * @throws Exception
      */
-    public ArrayList<Path> getPathsByLocation(String country, String province,
-                                              String city, int localOrTravel, int page, ArrayList<String> postJson) throws Exception {
+    public ArrayList<Path> getPathsByLocation(String country, String province, String city, int localOrTravel, int page, ArrayList<String> postJson) throws Exception {
         Map<String, String> params = new HashMap<>();
-        if (!country.isEmpty())
+        if (!country.isEmpty()) {
             params.put(StringConstant.pathChosenCountry, country);
-//        else
-//            Log.d(LOG_TAG, "getPathsByLocation: countryCode was null");
-        //throw new Exception("ServerHelper, getPathsByLocation: countryCode was null");
+        }
         if (!province.isEmpty()) {
             params.put(StringConstant.pathChosenProvince, province);
         }
-        if (!city.isEmpty())
+        if (!city.isEmpty()) {
             params.put(StringConstant.pathChosenCity, city);
-//        else
-//            Log.d(LOG_TAG, "getPathsByLocation: cityCode was null");
-        if (localOrTravel != 0)
+        }
+        if (localOrTravel != 0) {
             params.put("type", String.valueOf(localOrTravel));
-//        else
-//            Log.d(LOG_TAG, "getPathsByLocation: type was null");
-
+        }
         params.put("page", String.valueOf(page));
         if (postJson.size() > 0) {
             params.put("tags", postJson.toString());
@@ -831,7 +807,7 @@ public class ServerHelper {
      *
      * @param userId 用户id
      * @param page   页码
-     * @return
+     * @return 活动实例的集合
      * @throws Exception
      */
     public ArrayList<Path> getUsersPaths(String userId, int page) throws Exception {
@@ -868,8 +844,8 @@ public class ServerHelper {
      * 创建和修改活动
      *
      * @param flag 标识是创建“create”、修改“edit”
-     * @param path
-     * @return
+     * @param path 活动的实例
+     * @return 活动实例
      * @throws Exception
      */
     public Path path(String flag, Path path) throws Exception {
@@ -917,20 +893,20 @@ public class ServerHelper {
             throw new Exception("Failed to create Path!");
         }
 
-        Path returnPath = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Path.class);
+//        Path returnPath = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Path.class);
+//        Log.d(LOG_TAG, "path: Path created: " + returnPath);
 
-        Log.d(LOG_TAG, "path: Path created: " + returnPath);
-
-        return returnPath;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Path.class);
     }
 
     /**
      * 删除活动
      *
      * @param pathId 活动id
-     * @return
+     * @return 活动的实例
      * @throws Exception
      */
     public Path deletePath(String pathId) throws Exception {
@@ -948,13 +924,14 @@ public class ServerHelper {
             throw new Exception("Failed to delete Path!");
         }
 
-        Path returnPath = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Path.class);
+//        Path returnPath = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Path.class);
+//
+//        Log.d(LOG_TAG, "deletePath: Path deleted: " + returnPath);
 
-        Log.d(LOG_TAG, "deletePath: Path deleted: " + returnPath);
-
-        return returnPath;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Path.class);
     }
 
     /**
@@ -962,7 +939,7 @@ public class ServerHelper {
      *
      * @param pathId 活动id
      * @param userId 申请人id---当前用户
-     * @return
+     * @return 活动的实例
      * @throws Exception
      */
     public Path acceptPath(String pathId, String userId) throws Exception {
@@ -982,20 +959,21 @@ public class ServerHelper {
             throw new Exception("Failed to accept Path!");
         }
 
-        Path returnPath = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Path.class);
+//        Path returnPath = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Path.class);
 
 //        Log.d(LOG_TAG, "acceptPath: Path accepted: " + returnPath);
-        return returnPath;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Path.class);
     }
 
     /**
      * 拒绝参加活动
      *
-     * @param pathId
-     * @param userId
-     * @return
+     * @param pathId 活动的id
+     * @param userId 用户id
+     * @return 活动的实例
      * @throws Exception
      */
     public Path unAcceptPath(String pathId, String userId) throws Exception {
@@ -1015,13 +993,14 @@ public class ServerHelper {
             throw new Exception("Failed to unAccept Path!");
         }
 
-        Path returnPath = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Path.class);
+//        Path returnPath = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Path.class);
+//
+//        Log.d(LOG_TAG, "unAcceptPath: Path unAccepted: " + returnPath);
 
-        Log.d(LOG_TAG, "unAcceptPath: Path unAccepted: " + returnPath);
-
-        return returnPath;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Path.class);
     }
 
     /**
@@ -1029,7 +1008,7 @@ public class ServerHelper {
      *
      * @param path_id 活动id
      * @param image   图片实例
-     * @return
+     * @return 活动图片的url集合
      * @throws Exception
      */
     public ArrayList<String> uploadPathImage(String path_id, Bitmap image) throws Exception {
@@ -1104,11 +1083,11 @@ public class ServerHelper {
 //    }
 
     /**
-     * @param user_id
-     * @param userTarId
-     * @param path_id
-     * @param text
-     * @return
+     * @param user_id 用户id
+     * @param userTarId 目标用户id
+     * @param path_id 活动id
+     * @param text 评论内容
+     * @return 评论的实例
      * @throws Exception
      */
     public Comment createComment(String user_id, String userTarId, String path_id, String text) throws Exception {
@@ -1131,14 +1110,22 @@ public class ServerHelper {
             throw new Exception("Failed to create Comment!");
         }
 
-        Comment returnComment = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Comment.class);
-
-        Log.d(LOG_TAG, "createComment: Comment created: " + returnComment);
-        return returnComment;
+//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Comment.class);
+//
+//        Log.d(LOG_TAG, "createComment: Comment created: " + returnComment);
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Comment.class);
     }
 
+    /**
+     * 删除
+     *
+     * @param commentId 评论id
+     * @return 评论的实例
+     * @throws Exception
+     */
     public Comment deleteComment(String commentId) throws Exception {
         Map<String, String> params = new HashMap<>();
         params.put(StringConstant.commentId, commentId);
@@ -1154,12 +1141,13 @@ public class ServerHelper {
             throw new Exception("Failed to delete Comment!");
         }
 
-        Comment returnComment = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Comment.class);
+//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Comment.class);
 
 //        Log.d(LOG_TAG, "deleteComment: Comment deleted: " + returnComment);
-        return returnComment;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Comment.class);
     }
 
     /**
@@ -1168,7 +1156,7 @@ public class ServerHelper {
      * @param user_id     用户id---当前用户
      * @param description 图片描述
      * @param image       图片实例
-     * @return
+     * @return 图片的url
      * @throws Exception
      */
     public String uploadPhoto(String user_id, String description, Bitmap image) throws Exception {
@@ -1186,18 +1174,18 @@ public class ServerHelper {
             throw new Exception("Failed to upload Image!");
         }
 
-        String imagePath = rmsg.getData().getString(StringConstant.photoStr);
+//        String imagePath = rmsg.getData().getString(StringConstant.photoStr);
+//
+//        Log.d(LOG_TAG, "uploadImage: Image path: " + imagePath);
 
-        Log.d(LOG_TAG, "uploadImage: Image path: " + imagePath);
-
-        return imagePath;
+        return rmsg.getData().getString(StringConstant.photoStr);
     }
 
     /**
      * 获取用户相册
      *
      * @param user_id 用户id
-     * @return
+     * @return photo的集合
      * @throws Exception
      */
     public ArrayList<Photo> getUsersPhotos(String user_id) throws Exception {
@@ -1234,8 +1222,8 @@ public class ServerHelper {
     /**
      * 修改图片信息
      *
-     * @param photo
-     * @return
+     * @param photo photo的实例
+     * @return photo的实例
      * @throws Exception
      */
     public Photo editPhoto(Photo photo) throws Exception {
@@ -1255,20 +1243,21 @@ public class ServerHelper {
             throw new Exception("Failed to edit Photo!");
         }
 
-        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Photo.class);
+//        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Photo.class);
+//
+//        Log.d(LOG_TAG, "editPhoto: Photo edited: " + returnPhoto);
 
-        Log.d(LOG_TAG, "editPhoto: Photo edited: " + returnPhoto);
-
-        return returnPhoto;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Photo.class);
     }
 
     /**
      * 删除图片
      *
      * @param photoId 图片id
-     * @return
+     * @return photo的实例
      * @throws Exception
      */
     public Photo deletePhoto(String photoId) throws Exception {
@@ -1287,20 +1276,21 @@ public class ServerHelper {
             throw new Exception("Failed to delete Photo!");
         }
 
-        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                Photo.class);
+//        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                Photo.class);
+//
+//        Log.d(LOG_TAG, "deletePhoto: Photo deleted: " + returnPhoto);
 
-        Log.d(LOG_TAG, "deletePhoto: Photo deleted: " + returnPhoto);
-
-        return returnPhoto;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), Photo.class);
     }
 
     /**
      * 获取用户所有通知
      *
      * @param userId 用户id----当前用户
-     * @return
+     * @return 通知实例的集合
      * @throws Exception
      */
     public ArrayList<LingoNotification> getAllNotifications(String userId) throws Exception {
@@ -1330,14 +1320,13 @@ public class ServerHelper {
         }
 
 //        Log.d(LOG_TAG, "num=" + notificationArray.size() + "getAllNotifications: Notifications: " + notificationArray);
-
         return notificationArray;
     }
 
     /**
      * 获取用户新通知
      *
-     * @return
+     * @return 通知实例的集合
      * @throws Exception
      */
     public ArrayList<LingoNotification> getAllNewNotifications() throws Exception {
@@ -1375,7 +1364,7 @@ public class ServerHelper {
      * 删除通知
      *
      * @param notificationId 通知id
-     * @return
+     * @return 通知实例
      * @throws Exception
      */
     public LingoNotification deleteNotification(String notificationId) throws Exception {
@@ -1394,13 +1383,14 @@ public class ServerHelper {
             throw new Exception("Failed to delete Notification!");
         }
 
-        LingoNotification returnNotification = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                LingoNotification.class);
+//        LingoNotification returnNotification = JsonHelper.getInstance().jsonToBean(
+//                rmsg.getData().toString(),
+//                LingoNotification.class);
+//
+//        Log.d(LOG_TAG, "deleteNotification: Notification deleted: " + returnNotification);
 
-        Log.d(LOG_TAG, "deleteNotification: Notification deleted: " + returnNotification);
-
-        return returnNotification;
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), LingoNotification.class);
     }
 
     /**
@@ -1550,7 +1540,7 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().get("applications").toString();
         JSONArray jsonArray = new JSONArray(json);
-        datas = new ArrayList<>();
+        ArrayList<Indent> datas = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             datas.add((Indent) JsonHelper
@@ -1601,8 +1591,8 @@ public class ServerHelper {
     /**
      * 创建一个活动评论
      *
-     * @param params
-     * @return
+     * @param params 数据
+     * @return 活动的评论
      * @throws Exception
      */
     public PathReference createPathReference(HashMap<String, String> params) throws Exception {
@@ -1627,8 +1617,6 @@ public class ServerHelper {
 
     /**
      * 删除一条活动的评论
-     *
-     * @String referenceId
      */
     public PathReference deletePathReference(HashMap<String, String> params) throws Exception {
 
@@ -1653,7 +1641,7 @@ public class ServerHelper {
     /**
      * 给活动的评论发表回复
      *
-     * @return
+     * @return 活动的评论
      * @throws Exception
      */
     public PathReference createPathReplyReference(String referenceId, String userId, String name, String content) throws Exception {
@@ -1684,8 +1672,8 @@ public class ServerHelper {
     /**
      * 删除一条活动评论的回复
      *
-     * @param params
-     * @return
+     * @param params 数据
+     * @return 活动的评论
      * @throws Exception
      */
     public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
@@ -1711,8 +1699,8 @@ public class ServerHelper {
     /**
      * 获取一个活动的评论
      *
-     * @param params
-     * @return
+     * @param params 数据
+     * @return 活动评论实例的集合
      * @throws Exception
      */
     public ArrayList<PathReference> getPathReference(HashMap<String, String> params) throws Exception {
@@ -1740,7 +1728,6 @@ public class ServerHelper {
                             jsonObject1.toString(),
                             PathReference.class));
         }
-
 //        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
         return list;
     }

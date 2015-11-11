@@ -130,7 +130,6 @@
                 android:id="@+id/path_detail_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/path_location"
                 android:focusable="false"
                 android:gravity="center_vertical"

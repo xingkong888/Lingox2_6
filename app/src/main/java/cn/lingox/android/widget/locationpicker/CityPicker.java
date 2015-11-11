@@ -19,9 +19,6 @@ import java.util.Locale;
 
 import cn.lingox.android.R;
 
-/**
- * Created by wuyou on 2015/1/29.
- */
 public class CityPicker extends DialogFragment implements Comparator<City> {
     private EditText searchEditText;
     private ListView cityListView;

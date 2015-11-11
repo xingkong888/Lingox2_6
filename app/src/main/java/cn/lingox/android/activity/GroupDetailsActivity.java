@@ -19,8 +19,6 @@ import it.sephiroth.android.library.widget.HListView;
  */
 public class GroupDetailsActivity extends Activity {
     private EMGroup group;
-    private HListView groupSize;
-    private GroupAdapter adatper;
 
     private List<String> list;
 
@@ -43,10 +41,9 @@ public class GroupDetailsActivity extends Activity {
     }
 
     private void initView() {
-        groupSize = (HListView) findViewById(R.id.group_detail);
+        HListView groupSize = (HListView) findViewById(R.id.group_detail);
         if (list != null) {
-            adatper = new GroupAdapter(this, list);
-            groupSize.setAdapter(adatper);
+            groupSize.setAdapter(new GroupAdapter(this, list));
         }
     }
 

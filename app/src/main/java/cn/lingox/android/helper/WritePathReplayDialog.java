@@ -25,14 +25,10 @@ public class WritePathReplayDialog extends DialogFragment implements View.OnClic
     private static String userId;
     private static String userName;
     private EditText editText;
-    private Button yes, no;
     private String content;
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    public static WritePathReplayDialog newInstance(Handler handler1,
-                                                    String referenceId1,
-                                                    String userId1,
-                                                    String userName1, Context context1) {
+    public static WritePathReplayDialog newInstance(Handler handler1, String referenceId1, String userId1, String userName1, Context context1) {
 
         pathHandler = handler1;
         context = context1;
@@ -57,9 +53,9 @@ public class WritePathReplayDialog extends DialogFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_write_replay, null);
         editText = (EditText) view.findViewById(R.id.write_replay);
-        yes = (Button) view.findViewById(R.id.yes);
+        Button yes = (Button) view.findViewById(R.id.yes);
         yes.setOnClickListener(this);
-        no = (Button) view.findViewById(R.id.no);
+        Button no = (Button) view.findViewById(R.id.no);
         no.setOnClickListener(this);
         return view;
     }

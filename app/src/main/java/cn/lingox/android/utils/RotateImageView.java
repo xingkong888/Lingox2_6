@@ -14,7 +14,6 @@ public class RotateImageView {
     public static Bitmap rotateImage(Context context, String countryCode) {
         BitmapDrawable bd;
         int resource = context.getResources().getIdentifier("flag_" + countryCode.toLowerCase(), "drawable", LingoXApplication.PACKAGE_NAME);
-//        Log.d("res==", "res" + resource);
         bd = resource == 0 ?
                 (BitmapDrawable) context.getResources().getDrawable
                         (context.getResources().getIdentifier

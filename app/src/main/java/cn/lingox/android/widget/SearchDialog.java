@@ -18,31 +18,21 @@ import java.util.ArrayList;
 import cn.lingox.android.R;
 import cn.lingox.android.helper.JsonHelper;
 
-/**
- * Created by wuyou on 2015/1/29.
- */
 public class SearchDialog extends DialogFragment {
 
-    private static String which;//标识是哪一个选项
     private static TextView text;
     private static Context context;
-    private static String title;
     private ListView listView;
-    private MySelcetAdapter adapter;
     private ArrayList<String> datas;
 
-    private LinearLayout layout;
+    public static SearchDialog newInstance(String title1, Context context1, TextView text1) {
 
-    public static SearchDialog newInstance(String title1, Context context1, TextView text1, String which1) {
-
-        title = title1;
         context = context1;
-        which = which1;
         text = text1;
 
         SearchDialog editer = new SearchDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("title", title1);
         editer.setArguments(bundle);
         return editer;
     }
@@ -55,7 +45,7 @@ public class SearchDialog extends DialogFragment {
 
         listView = (ListView) view.findViewById(R.id.listview);
 
-        layout = (LinearLayout) view.findViewById(R.id.okOrclose);
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.okOrclose);
         layout.setVisibility(View.INVISIBLE);
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -70,14 +60,11 @@ public class SearchDialog extends DialogFragment {
         for (String str : JsonHelper.getInstance().getLanguages()) {
             datas.add(str);
         }
-        adapter = new MySelcetAdapter();
-        listView.setAdapter(adapter);
+        listView.setAdapter(new MySelcetAdapter());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (position != 0) {
                 text.setText(String.valueOf(datas.get(position)));
-//                }
                 dismiss();
             }
         });

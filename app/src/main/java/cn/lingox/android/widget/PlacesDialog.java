@@ -21,50 +21,38 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import cn.lingox.android.R;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.entity.location.Country1;
 import cn.lingox.android.helper.JsonHelper;
 
-/**
- * Created by wuyou on 2015/1/29.
- */
 public class PlacesDialog extends DialogFragment implements
         Comparator<Country1> {
 
     private static TextView text;
     private static Context context;
-    private static String title;
     private static User user;
     private static Handler handler;
     private static ArrayList<String> data = new ArrayList<>();
-    private static ArrayList<String> saveData = new ArrayList<>();
     private ArrayList<Country1> datas;
-    private ListView listView;
     private PlacesAdapter adapter;
-    private Button ok, cancel;
-    private List<Country1> allCountriesList;
     private ArrayList<String> list = new ArrayList<>();
 
 
     public static PlacesDialog newInstance(String title1, Context context1, User user1, TextView text1, Handler handler1,
                                            ArrayList<String> data1) {
 
-        title = title1;
         context = context1;
         user = user1;
         text = text1;
         handler = handler1;
         data.clear();
         data.addAll(data1);
-        saveData.clear();
-        saveData.addAll(data1);
 
         PlacesDialog editer = new PlacesDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("title", title1);
         editer.setArguments(bundle);
         return editer;
     }
@@ -75,11 +63,11 @@ public class PlacesDialog extends DialogFragment implements
         // Inflate view
         View view = inflater.inflate(R.layout.places_country_picker, null);
 
-        listView = (ListView) view.findViewById(R.id.country_picker_listview);
+        ListView listView = (ListView) view.findViewById(R.id.country_picker_listview);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        ok = (Button) view.findViewById(R.id.ok);
+        Button ok = (Button) view.findViewById(R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +83,7 @@ public class PlacesDialog extends DialogFragment implements
                 dismiss();
             }
         });
-        cancel = (Button) view.findViewById(R.id.cancel);
+        Button cancel = (Button) view.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +91,7 @@ public class PlacesDialog extends DialogFragment implements
             }
         });
 
-        allCountriesList = JsonHelper.getInstance().getCountries();
+        ArrayList<Country1> allCountriesList = JsonHelper.getInstance().getCountries();
         Collections.sort(allCountriesList, this);
         datas = new ArrayList<>();
         datas.addAll(allCountriesList);

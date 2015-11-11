@@ -20,5 +20,4 @@ public class ExpandGridView extends GridView {
                 MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
     }
-
 }

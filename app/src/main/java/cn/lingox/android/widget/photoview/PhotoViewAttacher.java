@@ -73,7 +73,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     private ScaleType mScaleType = ScaleType.FIT_CENTER;
 
     public PhotoViewAttacher(ImageView imageView) {
-        mImageView = new WeakReference<ImageView>(imageView);
+        mImageView = new WeakReference<>(imageView);
 
         imageView.setOnTouchListener(this);
 
@@ -133,9 +133,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
         switch (scaleType) {
             case MATRIX:
-                throw new IllegalArgumentException(scaleType.name()
-                        + " is not supported in PhotoView");
-
+                throw new IllegalArgumentException(scaleType.name() + " is not supported in PhotoView");
             default:
                 return true;
         }
@@ -279,7 +277,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     public final void setScaleType(ScaleType scaleType) {
         if (isSupportedScaleType(scaleType) && scaleType != mScaleType) {
             mScaleType = scaleType;
-
             // Finally update
             update();
         }

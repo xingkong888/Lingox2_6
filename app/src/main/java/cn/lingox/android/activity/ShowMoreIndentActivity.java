@@ -19,10 +19,6 @@ import cn.lingox.android.entity.Indent;
 
 public class ShowMoreIndentActivity extends ActionBarActivity {
 
-    private ImageView back;
-    private TextView name;
-    private ListView listView;
-    private ShowIndentAdapter adapter;
     private ArrayList<Indent> datas = new ArrayList<>();
     private String username = "";
 
@@ -40,17 +36,16 @@ public class ShowMoreIndentActivity extends ActionBarActivity {
     }
 
     private void initView() {
-        back = (ImageView) findViewById(R.id.show_indent_back);
+        ImageView back = (ImageView) findViewById(R.id.show_indent_back);
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        name = (TextView) findViewById(R.id.show_indent_username);
-        listView = (ListView) findViewById(R.id.show_indent_list);
-        adapter = new ShowIndentAdapter(this, datas);
-        listView.setAdapter(adapter);
+        TextView name = (TextView) findViewById(R.id.show_indent_username);
+        ListView listView = (ListView) findViewById(R.id.show_indent_list);
+        listView.setAdapter(new ShowIndentAdapter(this, datas));
 
         name.setText(username);
     }

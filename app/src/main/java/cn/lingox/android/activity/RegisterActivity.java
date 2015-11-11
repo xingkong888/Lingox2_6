@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,7 +28,6 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener {
-    private static final String LOG_TAG = "RegisterActivity";
 
     private EditText userNameEditText;
     private EditText emailEditText;
@@ -39,9 +37,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     private ImageView clearPassword;
     private ImageView clearEmail;
     private ImageView clearPasswordConfirm;
-    private TextView registerButton;
-    private TextView cancelButton;
-    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +50,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         clearName = (ImageView) findViewById(R.id.iv_clear2);
         clearPassword = (ImageView) findViewById(R.id.iv_clear3);
         clearPasswordConfirm = (ImageView) findViewById(R.id.iv_clear4);
-        registerButton = (TextView) findViewById(R.id.register_button);
-        cancelButton = (TextView) findViewById(R.id.cancel_button);
-        backButton = (ImageView) findViewById(R.id.back_button);
+        TextView registerButton = (TextView) findViewById(R.id.register_button);
+        TextView cancelButton = (TextView) findViewById(R.id.cancel_button);
+        ImageView backButton = (ImageView) findViewById(R.id.back_button);
         registerButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
@@ -67,15 +62,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         clearPasswordConfirm.setOnClickListener(this);
         userNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -89,15 +80,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         });
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -111,15 +98,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         });
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -133,15 +116,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         });
         passwordConfirmEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -165,18 +144,15 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                 final String email = emailEditText.getText().toString().toLowerCase().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(this, "Please enter an Email address!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter an Email address!", Toast.LENGTH_SHORT).show();
                     emailEditText.requestFocus();
                     return;
                 } else if (!isEmailValid(email)) {
-                    Toast.makeText(v.getContext(), "Email address is invalid!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Email address is invalid!", Toast.LENGTH_SHORT).show();
                     emailEditText.requestFocus();
                     return;
                 } else if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(this, "Please enter a Username!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter a Username!", Toast.LENGTH_SHORT).show();
                     userNameEditText.requestFocus();
                     return;
                 } else if (!isUsernameValid(username)) {
@@ -186,19 +162,15 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                     userNameEditText.requestFocus();
                     return;
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(this, "Please enter a Password!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter a Password!", Toast.LENGTH_SHORT).show();
                     passwordEditText.requestFocus();
                     return;
                 } else if (TextUtils.isEmpty(confirm_pwd)) {
-                    Toast.makeText(this, "Please confirm your Password!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please confirm your Password!", Toast.LENGTH_SHORT).show();
                     passwordConfirmEditText.requestFocus();
                     return;
                 } else if (!password.equals(confirm_pwd)) {
-                    Toast.makeText(this,
-                            "Your passwords do not match!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Your passwords do not match!", Toast.LENGTH_SHORT).show();
                     passwordConfirmEditText.requestFocus();
                     return;
                 } else {
@@ -289,8 +261,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            Log.d(LOG_TAG, "Registering the new user on LingoXServer");
-
+//            Log.d(LOG_TAG, "Registering the new user on LingoXServer");
             try {
                 // LingoX server: Register the new user
                 final User user = ServerHelper.getInstance().register(email, username, password);
@@ -309,10 +280,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(RegisterActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

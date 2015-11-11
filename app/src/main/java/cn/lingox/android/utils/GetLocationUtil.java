@@ -28,7 +28,6 @@ import cn.lingox.android.helper.ServerHelper;
 public class GetLocationUtil implements AMapLocationListener {
     private static LocationManagerProxy mLocationManagerProxy;
     private static GetLocationUtil getLocationUtil = null;
-//    private Context context;
 
     public static synchronized GetLocationUtil instance() {
         if (getLocationUtil == null) {

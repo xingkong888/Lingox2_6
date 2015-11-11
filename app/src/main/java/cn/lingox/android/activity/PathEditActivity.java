@@ -72,9 +72,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     private static final String LOG_TAG = "PathEditActivity";
     private static final int SELECTLOCATION = 123;
     private int page = 0;//当前页面
-    private RelativeLayout page0, page1, page2, page3, page4, page5, page6, page7;
+    private RelativeLayout page0, page1, page2, page3, page4, page5;
     private Button next;
-    private ImageView background, img, back, close;
+    private ImageView background, img, back;
     private TextView pageNum, oneTitle, twoTitle, threeTitle, fourTitle, fiveTitle;
     private Boolean addingNewPath = true;
     private Boolean imageSelected = false;
@@ -91,11 +91,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     //第三页面
     private EditText title, description;
     //第四页面
-    private ListView listView;
     private MyAdapter adapter;
     private ArrayList<PathTags> datas;
     private int checkedNum = 0;
-    private ArrayList<String> postJson;
     private HashMap<Integer, Integer> activityTags;
     //第五页面
     private ImageView addPathImage;
@@ -121,9 +119,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             calendar.set(Calendar.HOUR_OF_DAY, h);
             calendar.set(Calendar.MINUTE, m);
             end = calendar.getTimeInMillis() / 1000L;
-            if (end - now >= 0 && (start == 0 ? true : end >= start)) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(
-                        endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
+            if (end - now >= 0 && (start == 0 || end >= start)) {
+                UIHelper.getInstance().textViewSetPossiblyNullString(endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
                 path.setEndDateTime((int) end);
             } else {
                 Toast.makeText(PathEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
@@ -138,10 +135,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             calendar.set(Calendar.HOUR_OF_DAY, h);
             calendar.set(Calendar.MINUTE, m);
             start = calendar.getTimeInMillis() / 1000L;
-            if (end == 0 ? true : end >= start) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(
-                        startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
-
+            if (end == 0 || end >= start) {
+                UIHelper.getInstance().textViewSetPossiblyNullString(startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
                 path.setDateTime((int) start);
             } else {
                 Toast.makeText(PathEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
@@ -175,9 +170,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
         back = (ImageView) findViewById(R.id.path_edit_back);
         back.setOnClickListener(this);
-
-        close = (ImageView) findViewById(R.id.path_edit_close);
-        close.setOnClickListener(this);
+        //关闭
+        findViewById(R.id.path_edit_close).setOnClickListener(this);
 
         background = (ImageView) findViewById(R.id.path_edit_background);
         background.setOnClickListener(this);
@@ -205,7 +199,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         text3 = (TextView) findViewById(R.id.path_edit_3);
 
         layout = (LinearLayout) findViewById(R.id.zxcv);
-        layout.setVisibility(View.INVISIBLE);
         //二
         countryBtn = (Button) findViewById(R.id.path_edit_country);
         detailAddress = (Button) findViewById(R.id.path_detail_address);
@@ -246,7 +239,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             }
         });
         //四
-        listView = (ListView) findViewById(R.id.path_edit_listview);
+        ListView listView = (ListView) findViewById(R.id.path_edit_listview);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
         adapter = new MyAdapter(this, datas, 0);
@@ -313,11 +306,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         } else {
             addingNewPath = true;
             path = new Path();
+            path.setType(1);//本地人
+            setLocalOrTraveler();
             path.setUserId(CacheHelper.getInstance().getSelfInfo().getId());
 
             if (CachePath.getInstance().getLocalOrTraveler() != 3) {
                 path.setType(CachePath.getInstance().getLocalOrTraveler());
-                layout.setVisibility(View.VISIBLE);
                 setLocalOrTraveler();
                 if (!CachePath.getInstance().getTitle().isEmpty()) {
                     path.setTitle(CachePath.getInstance().getTitle());
@@ -373,7 +367,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         }
         if (!addingNewPath) {
             //一
-            layout.setVisibility(View.VISIBLE);
             setLocalOrTraveler();
             //二
             //三
@@ -408,6 +401,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
     //设置本地人和旅行者相应显示内容
     private void setLocalOrTraveler() {
+        layout.setVisibility(View.VISIBLE);
         if (path.getType() == 1) {
             local.setBackgroundResource(R.drawable.button_border_orange);
             traveler.setBackgroundResource(R.drawable.button_border_blue);
@@ -442,14 +436,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             case R.id.path_edit_local:
                 MobclickAgent.onEvent(this, "add_discover_local");
                 path.setType(1);//本地人
-                layout.setVisibility(View.VISIBLE);
                 setLocalOrTraveler();
                 break;
             case R.id.path_edit_traveler:
                 MobclickAgent.onEvent(this, "add_discover_traveler");
                 path.setType(2);//旅行者
                 background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
-                layout.setVisibility(View.VISIBLE);
                 setLocalOrTraveler();
                 break;
             case R.id.path_edit_country:
@@ -556,7 +548,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             oneTitle.setText("Where is this experience?");
                             twoTitle.setText("What local experience do you want to share with travelers?");
                             threeTitle.setText("Please choose the type(s) of your local experience");
-                            fourTitle.setText("Is there a cover photo?");
+                            fourTitle.setText("Please upload a cover photo of your experience or yourself");
                             fiveTitle.setText("When are you usually available for this local experience? ");
                             detailAddress.setVisibility(View.VISIBLE);
 
@@ -572,7 +564,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             oneTitle.setText("Where are you going?");
                             twoTitle.setText("What do you want to experience with locals?");
                             threeTitle.setText("Please choose the type(s) of the experience");
-                            fourTitle.setText("Is there a cover photo?");
+                            fourTitle.setText("Please upload a cover photo of your experience or yourself");
                             fiveTitle.setText("Set a time frame for your travel");
                             detailAddress.setVisibility(View.INVISIBLE);
 
@@ -740,7 +732,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         {
             Set key = activityTags.keySet();
             Object[] post = key.toArray();
-            postJson = new ArrayList<>();
+            ArrayList<String> postJson = new ArrayList<>();
             for (Object aPost : post) {
                 postJson.add(String.valueOf((int) aPost));
             }

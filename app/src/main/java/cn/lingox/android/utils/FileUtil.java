@@ -80,7 +80,7 @@ public class FileUtil {
         long size = 0;
         File f = new File(CACHE_DIR);
         File flist[] = f.listFiles();
-        for (int i = 0; i < flist.length; i++) {
+        for (File file : flist) {
             size = size + flist.length;
         }
         if (size > 1024 * 1024 * 1024) {//1M

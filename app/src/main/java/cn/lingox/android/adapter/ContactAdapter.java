@@ -19,7 +19,6 @@ import cn.lingox.android.Constant;
 import cn.lingox.android.R;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.widget.Sidebar;
 
 public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer {
 
@@ -31,9 +30,8 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
 
     private SparseIntArray positionOfSection;
     private SparseIntArray sectionOfPosition;
-//    private Sidebar sidebar;
 
-    public ContactAdapter(Activity context, int resource, ArrayList<User> cList, Sidebar sidebar) {
+    public ContactAdapter(Activity context, int resource, ArrayList<User> cList) {
         super(context, resource, cList);
         this.context = context;
         this.inflater = LayoutInflater.from(context);

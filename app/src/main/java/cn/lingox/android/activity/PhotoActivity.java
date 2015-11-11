@@ -14,15 +14,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 import cn.lingox.android.R;
 import cn.lingox.android.entity.Photo;
 import cn.lingox.android.helper.ServerHelper;
-
-/**
- * Created by wuyou on 2015/1/11.
- */
 public class PhotoActivity extends Activity implements View.OnClickListener {
     public static final String SELECTED_PHOTO = "selectphoto";
     public static final String LOCAL_PHOTO = "selectphotourl";
@@ -31,17 +25,11 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
     public static final String EDITED_PHOTO = "editedphoto";
     public static final int RESULT_PHOTO_DELETED = 201;
     public static final int RESULT_PHOTO_EDITED = 202;
-    private ArrayList<View> listViews = null;
-    private ImageView iv_photo;
-    private Button photo_bt_exit;
-    private Button photo_bt_del;
-    private Button photo_bt_enter;
     private Photo select_photo;
     private EditText et_description;
 
     private boolean editingMyPhoto = false;
 
-    private RelativeLayout photo_relativeLayout;
     private Intent intent;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -56,15 +44,15 @@ public class PhotoActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        iv_photo = (ImageView) findViewById(R.id.iv_photo);
-        photo_relativeLayout = (RelativeLayout) findViewById(R.id.photo_relativeLayout);
+        ImageView iv_photo = (ImageView) findViewById(R.id.iv_photo);
         iv_photo.setBackgroundColor(0xff000000);
+        RelativeLayout photo_relativeLayout = (RelativeLayout) findViewById(R.id.photo_relativeLayout);
         photo_relativeLayout.setBackgroundColor(0xff000000);
-        photo_bt_exit = (Button) findViewById(R.id.photo_bt_exit);
+        Button photo_bt_exit = (Button) findViewById(R.id.photo_bt_exit);
         photo_bt_exit.setOnClickListener(PhotoActivity.this);
-        photo_bt_del = (Button) findViewById(R.id.photo_bt_del);
+        Button photo_bt_del = (Button) findViewById(R.id.photo_bt_del);
         photo_bt_del.setOnClickListener(PhotoActivity.this);
-        photo_bt_enter = (Button) findViewById(R.id.photo_bt_enter);
+        Button photo_bt_enter = (Button) findViewById(R.id.photo_bt_enter);
         photo_bt_enter.setOnClickListener(this);
         et_description = (EditText) findViewById(R.id.et_description);
         et_description.setText(select_photo.getDescription());

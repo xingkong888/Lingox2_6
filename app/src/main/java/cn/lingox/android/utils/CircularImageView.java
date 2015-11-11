@@ -23,7 +23,6 @@ public class CircularImageView extends ImageView {
     private Bitmap image;
     private Paint paint;
     private Paint paintBorder;
-    private BitmapShader shader;
 
     public CircularImageView(Context context) {
         super(context);
@@ -74,7 +73,7 @@ public class CircularImageView extends ImageView {
         loadBitmap();
         // init shader
         if (image != null) {
-            shader = new BitmapShader(Bitmap.createScaledBitmap(
+            BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
                     image, canvas.getWidth(), canvas.getHeight(), false),
                     Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             paint.setShader(shader);

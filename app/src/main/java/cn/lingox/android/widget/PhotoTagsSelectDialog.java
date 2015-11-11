@@ -24,15 +24,10 @@ import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.SpeakAndInterest;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.JsonHelper;
-
-/**
- * Created by wuyou on 2015/1/29.
- */
 public class PhotoTagsSelectDialog extends DialogFragment {
 
     private static Context context;
     private static String title;
-    private static Photo photo;
     private static User user;
 
 
@@ -41,13 +36,11 @@ public class PhotoTagsSelectDialog extends DialogFragment {
     private ListView listView;
     private MySelcetAdapter adapter;
     private ArrayList<SpeakAndInterest> datas;
-    private SpeakAndInterest speakAndInterest;
-    private Button ok, cancel;
     private int checkedInterest = 0;
 
     public static PhotoTagsSelectDialog newInstance(String title1, Context context1, Object obj,
                                                     Handler handler1) {
-
+        Photo photo;
         title = title1;
         context = context1;
         if (title.contentEquals("photo")) {
@@ -77,7 +70,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        ok = (Button) view.findViewById(R.id.select_ok);
+        Button ok = (Button) view.findViewById(R.id.select_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +88,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                 }
             }
         });
-        cancel = (Button) view.findViewById(R.id.select_cancel);
+        Button cancel = (Button) view.findViewById(R.id.select_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +115,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         String str;
         for (int i = 0; i < JsonHelper.getInstance().getAllTags().size(); i++) {
             str = JsonHelper.getInstance().getAllTags().get(i);
-            speakAndInterest = new SpeakAndInterest();
+            SpeakAndInterest speakAndInterest = new SpeakAndInterest();
             speakAndInterest.setStr(str);
             speakAndInterest.setFlg(1);
             if (title.contentEquals("photo")) {

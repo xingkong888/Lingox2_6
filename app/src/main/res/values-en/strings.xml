@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- PathAdapter-->
+    <string name="distance">%1$s %2$s%3$s</string>
+
     <!-- 11月10日-->
     <string name="album">%1$s\'s Album</string>
     <string name="album_content">%1$s hasn\'t posted photos yet</string>
@@ -58,7 +62,7 @@
     <string name="user_unfollow">Unfollow</string>
     <string name="user_reference">+Reference</string>
     <string name="user_album">Album</string>
-    <string name="user_about">More about $1$s</string>
+    <string name="user_about">More about %1$s</string>
     <string name="user_self">Come and introduce yourself!</string>
     <string name="user_country">Click on the select countries</string>
     <string name="user_professional_info">Click on the select professional</string>
@@ -123,7 +127,8 @@
     <string name="profile_photo">Profile Photo</string>
     <string name="take_photo">Take Photo</string>
     <string name="choose_photo">Choose Photo</string>
-    <string name="i_am_a">I am a…</string>
+    <!--<string name="i_am_a">I am a…</string>-->
+    <string name="as_local">As a local, you can…..</string>
     <string name="add_activity">Add</string>
     <string name="chat">Chat</string>
     <string name="edit">Edit</string>

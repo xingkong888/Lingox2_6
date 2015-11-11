@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,18 +52,16 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private static final int SEARCH_TYPE_ADVANCED = 3;
     private static final int SELECTLOCATION = 126;
     Map<String, String> params = new HashMap<>();
-    private TextView cancel, done;
+    private TextView done;
     private PullToRefreshListView listView;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     //活动页面
     private TextView local, travel, disLocation;
     private LinearLayout discover;
-    private ImageView del;
     //个人页面
     private TextView name, memLocation, guide, meal, stay, male, female, language;
     private LinearLayout member;
-    private ImageView delLocation, delLanguage, delName;
     private int which = 0;//1表示搜索活动 2表示搜索个人
     private String country = "";
     private String province = "";
@@ -82,14 +79,12 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
     private int page = 1;
 
-    private ListView listView1;
     private MyAdapter adapter;
     private ArrayList<PathTags> datas = new ArrayList<>();
     private int checkedNum = 0;
 
     private HashMap<Integer, Integer> activityTags = new HashMap<>();
 
-    private float x1 = 0, x2 = 0, y1 = 0, y2 = 0;
     private VelocityTracker mVelocityTracker;
 
     @Override
@@ -105,12 +100,12 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private void initView() {
         anim = (ImageView) findViewById(R.id.search_anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
-        cancel = (TextView) findViewById(R.id.search_cancel);
+        TextView cancel = (TextView) findViewById(R.id.search_cancel);
         cancel.setOnClickListener(this);
         done = (TextView) findViewById(R.id.search_done);
         done.setOnClickListener(this);
 
-        listView1 = (ListView) findViewById(R.id.search_tage);
+        ListView listView1 = (ListView) findViewById(R.id.search_tage);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
         adapter = new MyAdapter(this, datas, 1);
@@ -226,7 +221,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         switch (which) {
             case 1:
                 //discover页面
-                del = (ImageView) findViewById(R.id.search_del);
+                ImageView del = (ImageView) findViewById(R.id.search_del);
                 del.setOnClickListener(this);
                 local = (TextView) findViewById(R.id.search_local);
                 local.setOnClickListener(this);
@@ -241,11 +236,11 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 break;
             case 2:
                 //个人页面
-                delLocation = (ImageView) findViewById(R.id.search_member_del1);
+                ImageView delLocation = (ImageView) findViewById(R.id.search_member_del1);
                 delLocation.setOnClickListener(this);
-                delLanguage = (ImageView) findViewById(R.id.search_member_del2);
+                ImageView delLanguage = (ImageView) findViewById(R.id.search_member_del2);
                 delLanguage.setOnClickListener(this);
-                delName = (ImageView) findViewById(R.id.search_member_del0);
+                ImageView delName = (ImageView) findViewById(R.id.search_member_del0);
                 delName.setOnClickListener(this);
                 name = (TextView) findViewById(R.id.search_member_name);
                 name.addTextChangedListener(new TextWatcher() {
@@ -456,7 +451,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 male.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_cyc));
                 break;
             case R.id.search_member_language:
-                SearchDialog.newInstance("speak", this, language, "speak").show(getSupportFragmentManager(), "speak");
+                SearchDialog.newInstance("speak", this, language).show(getSupportFragmentManager(), "speak");
                 break;
             case R.id.search_member_del1:
                 memLocation.setText("");
@@ -573,61 +568,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         super.onPause();
     }
 
-    //事件分发，右滑关闭本页面
-    //暂未开通
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        createVelocityTracker(ev);
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN://按下
-                x1 = ev.getX();
-                y1 = ev.getY();
-                break;
-            case MotionEvent.ACTION_MOVE://滑动
-                y2 = ev.getY();
-                x2 = ev.getX();
-                //只判断是否为右滑
-//                if (getScrollVelocity()>1000){
-//                    Log.d("星期",getScrollVelocity()+"");
-//                }
-            case MotionEvent.ACTION_UP:
-//                recycleVelocityTracker();
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-
-    /**
-     * 创建VelocityTracker对象，并将触摸界面的滑动事件加入到VelocityTracker当中。
-     *
-     * @param event
-     */
-    private void createVelocityTracker(MotionEvent event) {
-        if (mVelocityTracker == null) {
-            mVelocityTracker = VelocityTracker.obtain();
-        }
-        mVelocityTracker.addMovement(event);
-    }
-
-    /**
-     * 回收VelocityTracker对象。
-     */
-    private void recycleVelocityTracker() {
-        mVelocityTracker.recycle();
-        mVelocityTracker = null;
-    }
-
-    /**
-     * @return 滑动速度，以每秒钟移动了多少像素值为单位。
-     */
-    private int getScrollVelocity() {
-        mVelocityTracker.computeCurrentVelocity(1000);
-//        int velocity = (int) mVelocityTracker.getYVelocity();
-        int velocity = (int) mVelocityTracker.getXVelocity();
-        return Math.abs(velocity);
-    }
-
     private class GetPaths extends AsyncTask<Void, String, Boolean> {
         private String country = "", province = "", city = "";
         private int loaclOrTravel = 0;
@@ -685,7 +625,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
             super.onPostExecute(success);
             done.setClickable(true);
             if (success) {
-                done.setText("SEARCH");
+                done.setText(getString(R.string.search));
                 if (pathList.size() == 0) {
                     //开始动画
                     startAnim();
@@ -734,7 +674,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         protected void onPostExecute(Boolean success) {
             done.setClickable(true);
             if (success) {
-                done.setText("SEARCH");
+                done.setText(getString(R.string.search));
                 if (userList.size() == 0) {
                     //开始动画
                     startAnim();

@@ -73,10 +73,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         return position;
     }
 
-    public int getPosition(ChatAndNotify can) {
-        return datas.indexOf(can);
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -172,7 +168,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         final User tempUser = ServerHelper.getInstance().getUserInfo(username);
                         if (tempUser != null) {
                             new GetMessage(holder.state).execute(tempUser.getId());
-                        }
+
                         context.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -181,6 +177,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                                 holder.name.setText(tempUser.getNickname());
                             }
                         });
+                        }
                     } catch (Exception e) {
                         Log.e("ChatAllHistoryAdapter", e.getMessage());
                     }
@@ -381,36 +378,32 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                             case 1:
                                 if (indent.getUserId().contentEquals(
                                         CacheHelper.getInstance().getSelfInfo().getId())) {
-                                    view.setText("Waiting for confirm");//待处理
+                                    view.setText(context.getString(R.string.wait_confirm));//待处理
                                 } else {
-                                    view.setText("Received an application");//待处理
+                                    view.setText(context.getString(R.string.received));//待处理
                                 }
                                 break;
                             case 2:
                                 view.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                                 view.setTextColor(Color.rgb(199, 199, 199));
-                                view.setText("Application cancelled");//申请这个取消
+                                view.setText(context.getString(R.string.application_cancelled));//申请者取消
                                 break;
                             case 3:
                                 view.setTextColor(Color.rgb(0, 131, 143));
-                                view.setText("Application Accepted");//同意
+                                view.setText(context.getString(R.string.application_accepted));//同意
                                 break;
                             case 4:
                                 view.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                                 view.setTextColor(Color.rgb(199, 199, 199));
-                                view.setText("Application declined");//被拒绝
+                                view.setText(context.getString(R.string.application_declined));//被拒绝
                                 break;
                             case 5:
                                 view.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                                 view.setTextColor(Color.rgb(199, 199, 199));
-                                view.setText("Time out");//时间过
+                                view.setText(context.getString(R.string.time_out));//时间过
                         }
                     } else {
-//                        if (tempData.get(0).getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-//                            view.setText(tempData.size() + " applications");//申请者
-//                        } else {
                         view.setText(tempData.size() + " applications");//接收者
-//                        }
                     }
                 }
             }

@@ -39,7 +39,6 @@ public class ShowNormalFileActivity extends BaseActivity {
             maps.put("share-secret", messageBody.getSecret());
         }
         maps.put("Accept", "application/octet-stream");
-
         new Thread(new Runnable() {
             public void run() {
                 HttpFileManager fileManager = new HttpFileManager(ShowNormalFileActivity.this, EMChatConfig.getInstance().getStorageUrl());
@@ -78,10 +77,8 @@ public class ShowNormalFileActivity extends BaseActivity {
                                 });
                             }
                         });
-
             }
         }).start();
-
     }
 
     @Override

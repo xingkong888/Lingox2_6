@@ -44,10 +44,8 @@ public class VoicePlayClickListener implements View.OnClickListener {
      * @param iv_read_status
      * @param activity
      */
-    public VoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status,
-                                  BaseAdapter adapter, Activity activity
-            , String username
-    ) {
+    public VoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity activity
+            , String username) {
         this.message = message;
         voiceBody = (VoiceMessageBody) message.getBody();
         this.iv_read_status = iv_read_status;
@@ -182,7 +180,6 @@ public class VoicePlayClickListener implements View.OnClickListener {
                         super.onPostExecute(result);
                         adapter.notifyDataSetChanged();
                     }
-
                 }.execute();
             }
         }

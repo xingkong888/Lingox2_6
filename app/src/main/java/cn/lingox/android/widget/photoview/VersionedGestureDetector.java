@@ -11,7 +11,6 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 
 public abstract class VersionedGestureDetector {
-    static final String LOG_TAG = "VersionedGestureDetector";
     OnGestureListener mListener;
 
     public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
@@ -27,7 +26,6 @@ public abstract class VersionedGestureDetector {
         }
 
         detector.mListener = listener;
-
         return detector;
     }
 

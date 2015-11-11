@@ -865,10 +865,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 // If we are already Following them, set relationCode to unfollow and vice versa
                 // TODO Extract to constants somewhere
                 user.setRelation(newRelationCode);
-                ServerHelper.getInstance()
-                        .userRelationChange(
-                                CacheHelper.getInstance().getSelfInfo().getId(),
-                                user.getId(), newRelationCode);
+                ServerHelper.getInstance().userRelationChange(CacheHelper.getInstance().getSelfInfo().getId(), user.getId(), newRelationCode);
                 CacheHelper.getInstance().addUserInfo(user);
                 return true;
             } catch (final Exception e) {
@@ -902,7 +899,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                         new Thread() {
                             @Override
                             public void run() {
-                                publishProgress(null, getString(R.string.follow) + user.getNickname() + "!");
+                                publishProgress(null, getString(R.string.follow) + " " + user.getNickname() + "!");
                             }
                         }.start();
                         userAddFollow.setTextColor(Color.rgb(255, 224, 130));

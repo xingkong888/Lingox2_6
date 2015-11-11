@@ -48,8 +48,9 @@ public class CacheHelper {
     }
 
     public static synchronized CacheHelper getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new CacheHelper();
+        }
         return instance;
     }
 
@@ -58,8 +59,9 @@ public class CacheHelper {
         spSelfEditor = spSelf.edit();
         spSettings = ctx.getSharedPreferences(PREF_SETTINGS, Context.MODE_PRIVATE);
         spSettingsEditor = spSettings.edit();
-        if (CacheHelper.getInstance().getSettingLanguage() == null)
+        if (CacheHelper.getInstance().getSettingLanguage() == null) {
             CacheHelper.getInstance().setKeySettingLanguage(Locale.getDefault().getLanguage());
+        }
     }
 
     // Non-Persistant Cached Data
@@ -115,8 +117,9 @@ public class CacheHelper {
         if (TextUtils.isEmpty(json)) {
             Log.e(LOG_TAG, "getSelfInfo user null");
             return null;
-        } else
+        } else {
             return gson.fromJson(json, User.class);
+        }
     }
 
     public void setSelfInfo(User user) {
@@ -143,23 +146,27 @@ public class CacheHelper {
     }
 
     public User getUserInfo(String userId) {
-        if (userId.equals(getSelfInfo().getId()))
+        if (userId.equals(getSelfInfo().getId())) {
             return getSelfInfo();
-        if (userCache.containsKey(userId))
+        }
+        if (userCache.containsKey(userId)) {
             return userCache.get(userId);
+        }
         Log.e(LOG_TAG, "getUserInfo: UserId '" + userId + "' was not in the cache");
         return null;
     }
 
     public User getUserInfo(String userId, int a) {
-        if (userCache.containsKey(userId))
+        if (userCache.containsKey(userId)) {
             return userCache.get(userId);
+        }
         return null;
     }
 
     public User getUserInfoFromUsername(String username) {
-        if (userIdCache.containsKey(username))
+        if (userIdCache.containsKey(username)) {
             return getUserInfo(userIdCache.get(username));
+        }
         Log.e(LOG_TAG, "getUserInfoFromUsername: Username '" + username + "' was not in the cache");
         return null;
     }

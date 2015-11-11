@@ -29,10 +29,7 @@ import cn.lingox.android.utils.FileUtil;
 public class SplashActivity extends Activity {
     private static final int[] pics = {R.drawable.guide_page1, R.drawable.guide_page2};
     // UI Elements
-    private RelativeLayout rootLayout;
     private ViewPager viewPager;
-    private ViewPagerAdapter vpAdapter;
-    private ArrayList<View> views;
     private ImageView[] points;
     private int currentIndex;
 
@@ -83,11 +80,11 @@ public class SplashActivity extends Activity {
 
     private void initView() {
         setContentView(R.layout.activity_splash);
-        views = new ArrayList<>();
+        ArrayList<View> views = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        vpAdapter = new ViewPagerAdapter(views);
-        rootLayout = (RelativeLayout) findViewById(R.id.splash_root);
+        ViewPagerAdapter vpAdapter = new ViewPagerAdapter(views);
+        RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.splash_root);
         AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
         animation.setDuration(2000);
         rootLayout.startAnimation(animation);

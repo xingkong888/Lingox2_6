@@ -30,17 +30,10 @@ import cn.lingox.android.helper.TimeHelper;
 
 public class SettingsActivity extends Activity implements OnClickListener {
 
-    private RelativeLayout rl_switch_notification;
-
     private RelativeLayout rl_switch_sound;
 
     private RelativeLayout rl_switch_vibrate;
 
-    private RelativeLayout rl_switch_speaker;
-
-    private RelativeLayout rl_language;
-
-    private TextView language_show;
     private ImageView iv_switch_open_notification;
 
     private ImageView iv_switch_close_notification;
@@ -59,25 +52,18 @@ public class SettingsActivity extends Activity implements OnClickListener {
 
     private TextView textview1, textview2;
 
-    private LinearLayout blacklistContainer;
-
-    private Button logoutBtn;
-    private LinearLayout back;
 
     private EMChatOptions chatOptions;
-
-    private LinearLayout llDiagnose;
-    private Locale myLocale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_conversation_settings);
 
-        rl_switch_notification = (RelativeLayout) findViewById(R.id.rl_switch_notification);
+        RelativeLayout rl_switch_notification = (RelativeLayout) findViewById(R.id.rl_switch_notification);
         rl_switch_sound = (RelativeLayout) findViewById(R.id.rl_switch_sound);
         rl_switch_vibrate = (RelativeLayout) findViewById(R.id.rl_switch_vibrate);
-        rl_switch_speaker = (RelativeLayout) findViewById(R.id.rl_switch_speaker);
+        RelativeLayout rl_switch_speaker = (RelativeLayout) findViewById(R.id.rl_switch_speaker);
 
         iv_switch_open_notification = (ImageView) findViewById(R.id.iv_switch_open_notification);
         iv_switch_close_notification = (ImageView) findViewById(R.id.iv_switch_close_notification);
@@ -87,15 +73,15 @@ public class SettingsActivity extends Activity implements OnClickListener {
         iv_switch_close_vibrate = (ImageView) findViewById(R.id.iv_switch_close_vibrate);
         iv_switch_open_speaker = (ImageView) findViewById(R.id.iv_switch_open_speaker);
         iv_switch_close_speaker = (ImageView) findViewById(R.id.iv_switch_close_speaker);
-        logoutBtn = (Button) findViewById(R.id.btn_logout);
-        back = (LinearLayout) findViewById(R.id.layout_back);
+        Button logoutBtn = (Button) findViewById(R.id.btn_logout);
+        LinearLayout back = (LinearLayout) findViewById(R.id.layout_back);
         logoutBtn.setText(getString(R.string.button_logout) + "(" + CacheHelper.getInstance().getSelfInfo().getUsername() + ")");
 
         textview1 = (TextView) findViewById(R.id.textview1);
         textview2 = (TextView) findViewById(R.id.textview2);
 
-        blacklistContainer = (LinearLayout) findViewById(R.id.ll_black_list);
-        llDiagnose = (LinearLayout) findViewById(R.id.ll_diagnose);
+        LinearLayout blacklistContainer = (LinearLayout) findViewById(R.id.ll_black_list);
+        LinearLayout llDiagnose = (LinearLayout) findViewById(R.id.ll_diagnose);
         blacklistContainer.setOnClickListener(this);
         rl_switch_notification.setOnClickListener(this);
         rl_switch_sound.setOnClickListener(this);
@@ -104,8 +90,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
         logoutBtn.setOnClickListener(this);
         back.setOnClickListener(this);
         llDiagnose.setOnClickListener(this);
-        rl_language = (RelativeLayout) findViewById(R.id.rl_language);
-        language_show = (TextView) findViewById(R.id.language_show);
+        RelativeLayout rl_language = (RelativeLayout) findViewById(R.id.rl_language);
         rl_language.setOnClickListener(this);
         chatOptions = EMChatManager.getInstance().getChatOptions();
         if (chatOptions.getNotificationEnable()) {
@@ -251,7 +236,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 
     private void setLocale(String lang) {
         CacheHelper.getInstance().setKeySettingLanguage(lang);
-        myLocale = new Locale(lang);
+        Locale myLocale = new Locale(lang);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();

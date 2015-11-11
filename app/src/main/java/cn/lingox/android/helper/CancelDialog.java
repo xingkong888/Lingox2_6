@@ -15,8 +15,6 @@ import cn.lingox.android.activity.imagechooser.AddPhotosActivity;
 
 public class CancelDialog extends Activity {
 
-    private Button cancel, leave;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +25,14 @@ public class CancelDialog extends Activity {
     private void initView() {
         setContentView(R.layout.row_photo_cancel);
 
-        cancel = (Button) findViewById(R.id.cancel);
+        Button cancel = (Button) findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        leave = (Button) findViewById(R.id.leave);
+        Button leave = (Button) findViewById(R.id.leave);
         leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

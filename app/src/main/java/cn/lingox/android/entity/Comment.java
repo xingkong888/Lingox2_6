@@ -23,24 +23,6 @@ public class Comment implements Parcelable {
     private String text;
     private String createdAt;
 
-    public Comment() {
-        this.id = "";
-        this.path_id = "";
-        this.user_id = "";
-        this.user_tar = "";
-        this.text = "";
-        this.createdAt = "";
-    }
-
-    public Comment(String id, String path_id, String user_id, String text, String createdAt, String user_tar) {
-        this.id = id;
-        this.path_id = path_id;
-        this.user_id = user_id;
-        this.user_tar = user_tar;
-        this.text = text;
-        this.createdAt = createdAt;
-    }
-
     // Parcelable
     public Comment(Parcel in) {
         this.id = in.readString();

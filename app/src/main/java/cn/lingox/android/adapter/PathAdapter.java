@@ -25,6 +25,7 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
 public class PathAdapter extends BaseAdapter {
+    //格式化距离，保留小数点后两位
     private final DecimalFormat format=new DecimalFormat("##.00");
     private Activity context;
     private ArrayList<Path> datas;
@@ -74,6 +75,8 @@ public class PathAdapter extends BaseAdapter {
             holder.tag1 = (TextView) convertView.findViewById(R.id.path_tag_1);
             holder.tag2 = (TextView) convertView.findViewById(R.id.path_tag_2);
             holder.tag3 = (TextView) convertView.findViewById(R.id.path_tag_3);
+            holder.address = "";
+            holder.distance = 0;
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -112,8 +115,7 @@ public class PathAdapter extends BaseAdapter {
                         String strName = user.getNickname();
                         holder.name.setText(strName);
                         //设置头像
-                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
-                                (context, holder.avatar, user.getAvatar(), "circular");
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
                     }
 
                     @Override
@@ -124,11 +126,12 @@ public class PathAdapter extends BaseAdapter {
             } else {
                 String strName = CacheHelper.getInstance().getUserInfo(path.getUserId()).getNicknameOrUsername();
                 holder.name.setText(strName);
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar,
-                        CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
             }
-            //位置只显示国家、城市、距离
+            //只显示国家城市和距离；如果距离超过多少米，那么就无需显示
             //显示活动与自己位置的距离
+            //如果省份为空，则只显示国家，否则显示国家和省份
+            holder.address = path.getProvince().isEmpty() ? path.getChosenCountry() : (path.getChosenCountry() + ", " + path.getProvince());
             if (!LingoXApplication.getInstance().getLatitude().isEmpty() && !LingoXApplication.getInstance().getLongitude().isEmpty() &&
                     !path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {
                 Location.distanceBetween(
@@ -137,17 +140,19 @@ public class PathAdapter extends BaseAdapter {
                         Double.valueOf(path.getLatitude()),
                         Double.valueOf(path.getLongitude())
                         , results);
-                //若距离大于1km
-                if (results[0] / 1000D >= 1000) {
-                    holder.location.setText(path.getProvince().isEmpty() ? path.getChosenCountry() : path.getProvince()
-                            + " " + format.format(results[0] / 1000 / 1000d) + "km ");
-                }else{
+                holder.distance = results[0] / 1000f;
+                if (holder.distance < 1000) {
                     //小于1km
-                    holder.location.setText(path.getProvince().isEmpty() ? path.getChosenCountry() : path.getProvince()
-                            + " " + format.format(results[0] / 1000d) + "m ");
+                    holder.location.setText(String.format(context.getString(R.string.distance), holder.address, format.format(holder.distance), "m"));
+                } else if (holder.distance >= 1000 && holder.distance < 500 * 1000) {
+                    //若距离大于1km
+                    holder.location.setText(String.format(context.getString(R.string.distance), holder.address, format.format(holder.distance / 1000f), "km"));
+                } else {
+                    //距离大于500km
+                    holder.location.setText(holder.address);
                 }
             }else{
-                holder.location.setText(path.getLocationString());
+                holder.location.setText(holder.address);
             }
             switch (path.getType()) {
                 case 1://本地人
@@ -183,6 +188,8 @@ public class PathAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        String address;
+        float distance;
         ImageView pathImg, avatar;
         TextView title, acceptNumber, commentNumber, location, traveler, local, tag1, tag2, tag3, name, lalala;
     }

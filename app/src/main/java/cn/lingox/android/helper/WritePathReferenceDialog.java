@@ -17,13 +17,10 @@ import android.widget.Toast;
 import cn.lingox.android.R;
 
 public class WritePathReferenceDialog extends DialogFragment implements View.OnClickListener {
-
     private static Context context;
 
     private static Handler handler;
     private EditText editText;
-    private Button yes, no;
-    private String content;
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
     public static WritePathReferenceDialog newInstance(Handler handler1, Context context1) {
@@ -48,9 +45,9 @@ public class WritePathReferenceDialog extends DialogFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_write_replay, null);
         editText = (EditText) view.findViewById(R.id.write_replay);
-        yes = (Button) view.findViewById(R.id.yes);
+        Button yes = (Button) view.findViewById(R.id.yes);
         yes.setOnClickListener(this);
-        no = (Button) view.findViewById(R.id.no);
+        Button no = (Button) view.findViewById(R.id.no);
         no.setOnClickListener(this);
         return view;
     }
@@ -60,7 +57,7 @@ public class WritePathReferenceDialog extends DialogFragment implements View.OnC
         switch (v.getId()) {
             case R.id.yes:
                 hideSoftInput(v.getWindowToken(), im);
-                content = editText.getText().toString().trim();
+                String content = editText.getText().toString().trim();
                 if (!content.isEmpty()) {
                     Message msg = new Message();
                     msg.obj = content;

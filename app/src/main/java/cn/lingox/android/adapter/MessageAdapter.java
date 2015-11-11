@@ -68,8 +68,6 @@ import cn.lingox.android.utils.SmileUtils;
 public class MessageAdapter extends BaseAdapter {
 
     public static final String IMAGE_DIR = "chat/image/";
-    public static final String VOICE_DIR = "chat/audio/";
-    public static final String VIDEO_DIR = "chat/video";
     private final static String TAG = "msg";
     private static final int MESSAGE_TYPE_RECV_TXT = 0;
     private static final int MESSAGE_TYPE_SENT_TXT = 1;

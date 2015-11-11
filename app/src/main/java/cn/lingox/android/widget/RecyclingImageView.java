@@ -66,5 +66,4 @@ public class RecyclingImageView extends ImageView {
         // Notify old Drawable so it is no longer being displayed
         notifyDrawable(previousDrawable, false);
     }
-
 }

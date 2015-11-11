@@ -24,13 +24,11 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
     private static Reference reference;
     private static Handler handler;
     private EditText editText;
-    private Button yes, no;
     private String content;
 
     private InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    public static WriteReplayDialog newInstance(Handler handler1,
-                                                Reference reference1, Context context1) {
+    public static WriteReplayDialog newInstance(Handler handler1, Reference reference1, Context context1) {
 
         reference = reference1;
         handler = handler1;
@@ -53,9 +51,9 @@ public class WriteReplayDialog extends DialogFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_write_replay, null);
         editText = (EditText) view.findViewById(R.id.write_replay);
-        yes = (Button) view.findViewById(R.id.yes);
+        Button yes = (Button) view.findViewById(R.id.yes);
         yes.setOnClickListener(this);
-        no = (Button) view.findViewById(R.id.no);
+        Button no = (Button) view.findViewById(R.id.no);
         no.setOnClickListener(this);
         return view;
     }

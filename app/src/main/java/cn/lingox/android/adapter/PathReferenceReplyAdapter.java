@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,10 +74,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onSuccess(User user) {
                     CacheHelper.getInstance().addUserInfo(user);
-                    Picasso.with(context)
-                            .load(user.getAvatar())
-                            .error(R.drawable.nearby_nopic_294dp)
-                            .into(groupViewHolder.avatar);
+                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, groupViewHolder.avatar, user.getAvatar(), "circular");
                 }
 
                 @Override
@@ -119,8 +114,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                                 dialog.dismiss();
                                 new DeletePathReference(map.get("referenceId"), groupPosition).execute();
                             }
-                        })
-                        .create().show();
+                        }).create().show();
             }
         });
 

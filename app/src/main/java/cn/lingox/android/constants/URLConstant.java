@@ -10,12 +10,10 @@ public class URLConstant {
     // TODO implement these two functionalities into the server (maybe? for the apk it might cause trouble with the qr code)
     public static final String APK_URL = "http://182.92.239.194/app/LingoX.apk";
     public static final String VER_URL = "http://182.92.239.194/app/minVer.txt";
-    public static final String TRANSLATE_URL = "http://fanyi.youdao.com/openapi.do?keyfrom=LingoX&key=2018802593&type=data&doctype=json&version=1.1&q=";
     public static final String URL_DEFAULT_USER = MAIN_URL + "recommend/getRecommendUsers";
     //个人信息——旅行记录
     private static final String URL_EXPERIENCES = MAIN_URL + "experience/";
     public static final String URL_EXPERIENCES_CREATE = URL_EXPERIENCES + "create";//创建
-    public static final String URL_EXPERIENCES_EDIT = URL_EXPERIENCES + "edit";//编辑
     public static final String URL_EXPERIENCES_DELETE = URL_EXPERIENCES + "delete";//删除
     public static final String URL_EXPERIENCES_GET = URL_EXPERIENCES + "getUsersExperiences";//更新
     // URL for User model

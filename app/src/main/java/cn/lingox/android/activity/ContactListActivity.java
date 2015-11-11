@@ -37,7 +37,8 @@ public class ContactListActivity extends ActionBarActivity implements OnClickLis
         getSupportActionBar().setHomeButtonEnabled(true);
 
         ListView listView = (ListView) findViewById(R.id.list);
-        contactAdapter = new ContactAdapter(this, R.layout.row_contact, CacheHelper.getInstance().getContactList(), null);
+        contactAdapter = new ContactAdapter(this, R.layout.row_contact,
+                CacheHelper.getInstance().getContactList());
         listView.setAdapter(contactAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override

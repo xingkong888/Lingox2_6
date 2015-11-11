@@ -38,7 +38,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 0, 0, 0);
             start = calendar.getTimeInMillis() / 1000L;
-            if (end == 0 ? true : end >= start) {
+            if (end == 0 || end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
                         startTime, TimeHelper.getInstance().parseTimestampToDate(start));
                 indent.setStartTime(start);
@@ -51,7 +51,7 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 23, 59, 59);
             end = calendar.getTimeInMillis() / 1000L;
-            if (end - now >= 0 && (start == 0 ? true : end >= start)) {
+            if (end - now >= 0 && (start == 0 || end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
                         endTime, TimeHelper.getInstance().parseTimestampToDate(end));
                 indent.setEndTime(end);
@@ -63,7 +63,6 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
     private EditText num, travelerDescribe, time, localDescribe;
     private String pathId, tarId;
     private int type;
-    private Button send, cancel;
     private String username, nickname;
     private HashMap<String, String> map;
 
@@ -103,9 +102,9 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
         localDescribe = (EditText) view.findViewById(R.id.indent_local_describe);
         time = (EditText) view.findViewById(R.id.indent_local_time);
 
-        send = (Button) view.findViewById(R.id.indent_send);
+        Button send = (Button) view.findViewById(R.id.indent_send);
         send.setOnClickListener(this);
-        cancel = (Button) view.findViewById(R.id.indent_cancel);
+        Button cancel = (Button) view.findViewById(R.id.indent_cancel);
         cancel.setOnClickListener(this);
 
         local = (LinearLayout) view.findViewById(R.id.local);

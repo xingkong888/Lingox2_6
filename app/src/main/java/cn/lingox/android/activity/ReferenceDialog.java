@@ -33,11 +33,7 @@ public class ReferenceDialog extends Activity implements OnClickListener {
     static final int SUCCESS_DELETE = 3;
 
     // UI Elements
-    private TextView cancel;
-    private TextView ok;
-    private TextView delete;
     private EditText evContent;
-    private TextView title;
 
     // Data Elements
     private String userId;
@@ -64,16 +60,16 @@ public class ReferenceDialog extends Activity implements OnClickListener {
 
     private void initView() {
         evContent = (EditText) findViewById(R.id.et_content);
-        ok = (TextView) findViewById(R.id.tv_ok);
+        TextView ok = (TextView) findViewById(R.id.tv_ok);
         ok.setOnClickListener(this);
-        cancel = (TextView) findViewById(R.id.tv_cancel);
+        TextView cancel = (TextView) findViewById(R.id.tv_cancel);
         cancel.setOnClickListener(this);
-        title = (TextView) findViewById(R.id.title_reference_dialog);
+        TextView title = (TextView) findViewById(R.id.title_reference_dialog);
         switch (requestCode) {
             case ReferenceActivity.ADD_REFERENCE:
                 break;
             case ReferenceActivity.EDIT_REFERENCE:
-                delete = (TextView) findViewById(R.id.tv_delete);
+                TextView delete = (TextView) findViewById(R.id.tv_delete);
                 delete.setOnClickListener(this);
                 delete.setVisibility(View.VISIBLE);
                 title.setText(getString(R.string.edit_reference));

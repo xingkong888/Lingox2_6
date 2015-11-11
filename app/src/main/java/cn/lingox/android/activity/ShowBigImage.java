@@ -39,7 +39,6 @@ public class ShowBigImage extends BaseActivity {
     private String localFilePath;
     private Bitmap bitmap;
     private boolean isDownloaded;
-    private ProgressBar loadLocalPb;
 
     @SuppressLint("NewApi")
     @Override
@@ -48,7 +47,7 @@ public class ShowBigImage extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         image = (PhotoView) findViewById(R.id.image);
-        loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
+        ProgressBar loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
 
         default_res = getIntent().getIntExtra("default_image", R.drawable.default_avatar);
         showAvator = getIntent().getBooleanExtra("showAvator", false);

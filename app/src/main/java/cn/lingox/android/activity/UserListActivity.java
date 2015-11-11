@@ -28,12 +28,9 @@ public class UserListActivity extends Activity implements OnClickListener {
     // Incoming Intent Extras
     public static final String USER_LIST = LingoXApplication.PACKAGE_NAME + ".USER_LIST";
     public static final String PAGE_TITLE = LingoXApplication.PACKAGE_NAME + ".PAGE_TITLE";
-    private static final String LOG_TAG = "UserListActivity";
     // UI Elements
-    private TextView title;
     private ListView listView;
     private ContactAdapter adapter;
-    private LinearLayout backButton;
 
     private ImageView anim;
     private AnimationDrawable animationDrawable;
@@ -62,9 +59,9 @@ public class UserListActivity extends Activity implements OnClickListener {
     }
 
     private void initView() {
-        title = (TextView) findViewById(R.id.tv_title);
+        TextView title = (TextView) findViewById(R.id.tv_title);
         title.setText(pageTitle);
-        backButton = (LinearLayout) findViewById(R.id.layout_back);
+        LinearLayout backButton = (LinearLayout) findViewById(R.id.layout_back);
         backButton.setOnClickListener(this);
         listView = (ListView) findViewById(R.id.list);
 
@@ -80,7 +77,7 @@ public class UserListActivity extends Activity implements OnClickListener {
             listView.setVisibility(View.VISIBLE);
             stopAnim();
             adapter = new ContactAdapter(UserListActivity.this,
-                    R.layout.row_contact, userList, null);
+                    R.layout.row_contact, userList);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new OnItemClickListener() {
                 @Override

@@ -41,7 +41,6 @@ public class LingoXApplication extends Application {
     public static DemoHXSDKHelper hxSDKHelper = new DemoHXSDKHelper();
     // Constants
     private static LingoXApplication instance;
-    private static PathTags pathTag = null;
     private static ArrayList<PathTags> datas = new ArrayList<>();
     protected NotificationManager notificationManager;
     private boolean isSkip = false;//标识应用是否为跳过注册进入true 跳过 false正常登录
@@ -51,12 +50,8 @@ public class LingoXApplication extends Application {
 
     private ArrayList<Country1> countryDatas = null;
 
-    private PackageManager manager;
-    private PackageInfo info = null;
     private String verNum = "";
-
     private String location = "";
-
     private String latitude = "";//纬度
     private String longitude = "";//经度
 
@@ -66,7 +61,7 @@ public class LingoXApplication extends Application {
 
     private void getAllTag() {
         for (int i = 0; i < JsonHelper.getInstance().getAllTags().size(); i++) {
-            pathTag = new PathTags();
+            PathTags pathTag = new PathTags();
             pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
             pathTag.setType(0);
             datas.add(pathTag);
@@ -94,9 +89,9 @@ public class LingoXApplication extends Application {
     }
 
     private void getVersion() {
-        manager = this.getPackageManager();
+        PackageManager manager = this.getPackageManager();
         try {
-            info = manager.getPackageInfo(this.getPackageName(), 0);
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
             verNum = info.versionName.replace("Beta Ver. ", "");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -113,8 +108,7 @@ public class LingoXApplication extends Application {
         if (!country.isEmpty()) {
             if (!province.isEmpty()) {
                 if (!city.isEmpty()) {
-                    location = country.trim() + ", " +
-                            province.trim() + ", " + city.trim();
+                    location = country.trim() + ", " + province.trim() + ", " + city.trim();
                 } else {
                     location = country.trim() + ", " + province.trim();
                 }
@@ -122,7 +116,7 @@ public class LingoXApplication extends Application {
                 if (city.isEmpty()) {
                     location = country.trim();
                 } else {
-                    location = country.trim() + ",  " + city.trim();
+                    location = country.trim() + ", " + city.trim();
                 }
             }
         }
@@ -264,16 +258,13 @@ public class LingoXApplication extends Application {
             timeAndNum.setText(TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime())
                             + "—" +
                             TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " +
-                            indent.getParticipants()
-                            + " people"
+                            indent.getParticipants() + " people"
             );
         } else {
-            timeAndNum.setText(indent.getFreeTime()
-            );
+            timeAndNum.setText(indent.getFreeTime());
         }
         pathTitle.setText(indent.getPathTitle());
     }
-
     public void logout(final EMCallBack emCallBack) {
         hxSDKHelper.logout(emCallBack);
     }

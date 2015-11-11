@@ -2,9 +2,6 @@ package cn.lingox.android.entity.location;
 
 import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2015/9/10.
- */
 public class Provinces {
     private String provinces = "";
     private ArrayList<String> city = new ArrayList<>();
@@ -27,7 +24,6 @@ public class Provinces {
 
     @Override
     public String toString() {
-        return "provinces=" + provinces
-                + ",city=" + city.toString();
+        return "provinces=" + provinces + ",city=" + city.toString();
     }
 }

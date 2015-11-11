@@ -347,8 +347,9 @@ public class User implements Parcelable {
 
     // This is a safety net method, it shouldn't be required, but we use it just in case the nickname is null or empty
     public String getNicknameOrUsername() {
-        if (TextUtils.isEmpty(nickname))
+        if (TextUtils.isEmpty(nickname)) {
             return username;
+        }
         return nickname;
     }
 

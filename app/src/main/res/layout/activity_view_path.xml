@@ -127,14 +127,15 @@
                             android:layout_marginBottom="4dp"
                             android:textColor="#868686"
                             android:textSize="18sp" />
-
+                        <!--不显示local或travel-->
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/path_title"
                             android:layout_marginLeft="12dp"
                             android:layout_toRightOf="@+id/path_user_name"
-                            android:gravity="right">
+                            android:gravity="right"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/path_traveler"

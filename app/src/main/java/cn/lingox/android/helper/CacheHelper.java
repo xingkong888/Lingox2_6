@@ -146,10 +146,13 @@ public class CacheHelper {
     }
 
     public User getUserInfo(String userId) {
+        Log.d("星期", "userId=" + userId);
         if (userId.equals(getSelfInfo().getId())) {
+            Log.d("星期", "getSelfInfo()=" + getSelfInfo());
             return getSelfInfo();
         }
         if (userCache.containsKey(userId)) {
+            Log.d("星期", "userCache=" + userCache.get(userId));
             return userCache.get(userId);
         }
         Log.e(LOG_TAG, "getUserInfo: UserId '" + userId + "' was not in the cache");

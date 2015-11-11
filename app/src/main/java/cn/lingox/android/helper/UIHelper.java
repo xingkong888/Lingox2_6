@@ -46,16 +46,18 @@ public class UIHelper {
      */
     public void imageViewSetPossiblyEmptyUrl(Context context, ImageView iv, String url, String flag) {
         if (!TextUtils.isEmpty(url)) {
-            RequestCreator rc = Picasso.with(context).load(url).placeholder(null).error(R.drawable.default_avatar);
+            RequestCreator rc = Picasso.with(context).load(url).error(R.drawable.default_avatar);
             switch (flag) {
                 case "crop"://裁切
                     rc.transform(new CropSquareTransformation());
                     break;
                 case "original"://原图
+                    rc.placeholder(null);
                     break;
                 case "circular"://压缩---将图片压缩到58dpX58dp
                     int size = DpToPx.dip2px(context, 85);
                     rc.resize(size, size);
+                    rc.placeholder(R.drawable.default_avatar);
                     break;
             }
             rc.into(iv);

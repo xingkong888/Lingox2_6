@@ -1,7 +1,6 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,10 +29,9 @@ public class PathAdapter extends BaseAdapter {
     private Activity context;
     private ArrayList<Path> datas;
     private User user;
-    private boolean isFling = false;
+    //    private boolean isFling = false;
     private ArrayList<PathTags> tags;
     private float[] results=new float[1];
-
 
     public PathAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
@@ -81,7 +79,6 @@ public class PathAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (!isFling) {
             final Path path = datas.get(position);
             holder.tag1.setVisibility(View.GONE);
             holder.tag2.setVisibility(View.GONE);
@@ -176,15 +173,7 @@ public class PathAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
                         (context, holder.pathImg, path.getImage21(), "original");
             }
-        } else {
-            holder.pathImg.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.nearby_nopic_294dp));
-        }
         return convertView;
-    }
-
-    public void setIsFling(boolean isFling) {
-        this.isFling = isFling;
     }
 
     static class ViewHolder {

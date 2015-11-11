@@ -2,7 +2,6 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,8 +35,6 @@ public class NearbyAdapter extends BaseAdapter {
     private ExecutorService pool = Executors.newFixedThreadPool(5);
     private Activity context;
     private ArrayList<User> datas;
-
-    private boolean isFling = false;
 
     public NearbyAdapter(final Activity context, ArrayList<User> list) {
         this.context = context;
@@ -85,7 +82,6 @@ public class NearbyAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (!isFling) {
             final User user = datas.get(position);
             if (position == (datas.size() - 1)) {
                 holder.lalala.setVisibility(View.GONE);
@@ -168,17 +164,7 @@ public class NearbyAdapter extends BaseAdapter {
                 }
             };
             convertView.setOnClickListener(userClickListener);
-        } else {
-            holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.nearby_nopic_294dp));
-            holder.info.setVisibility(View.GONE);
-            holder.info2.setVisibility(View.GONE);
-        }
         return convertView;
-    }
-
-    public void setIsFling(boolean isFling) {
-        this.isFling = isFling;
     }
 
     private static class ViewHolder {

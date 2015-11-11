@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -78,25 +77,7 @@ public class NearByFragment extends Fragment {
                 defaultSearch();
             }
         });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    //空闲时加载
-                    adapter.setIsFling(false);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    adapter.setIsFling(true);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
     }
-
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
             img.setVisibility(View.VISIBLE);

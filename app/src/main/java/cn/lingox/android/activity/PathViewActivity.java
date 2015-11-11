@@ -294,7 +294,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         } else {
             commitLayout.setVisibility(View.GONE);
         }
-        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar(), "crop");
+        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathUserAvatar, user.getAvatar(), "circular");
         Picasso.with(this).load(path.getImage11()).into(pathBackground);
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 

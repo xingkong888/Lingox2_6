@@ -13,7 +13,6 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -184,38 +183,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                         }
                         break;
                 }
-            }
-        });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    //空闲时加载
-                    switch (which) {
-                        case 1:
-                            disAdapter.setIsFling(false);
-                            disAdapter.notifyDataSetChanged();
-                            break;
-                        case 2:
-                            memAdapter.setIsFling(false);
-                            memAdapter.notifyDataSetChanged();
-                            break;
-                    }
-                } else {
-                    switch (which) {
-                        case 1:
-                            disAdapter.setIsFling(true);
-                            break;
-                        case 2:
-                            memAdapter.setIsFling(true);
-                            break;
-                    }
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
             }
         });
         switch (which) {

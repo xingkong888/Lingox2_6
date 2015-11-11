@@ -72,12 +72,13 @@
                     android:textColor="@color/white"
                     android:visibility="gone" />
             </LinearLayout>
-
+            <!--不显示local或travel-->
             <RelativeLayout
                 android:id="@+id/plmsokn"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/plmokn">
+                android:layout_above="@+id/plmokn"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/path_traveler"

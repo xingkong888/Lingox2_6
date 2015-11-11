@@ -3,6 +3,7 @@
 
     <!-- PathAdapter-->
     <string name="distance">%1$s %2$s%3$s</string>
+    <!-- *******************************************-->
 
     <!-- 11月10日-->
     <string name="album">%1$s\'s Album</string>
@@ -10,6 +11,7 @@
     <string name="travel_plans">%1$s\'s Travel Plans</string>
     <string name="travel_content">%1$s hasn\'t posted travel plans yet</string>
     <string name="about_self">%1$s hasn\'t said anything about themself yet</string>
+    <!-- ************************************************************888-->
     <!-- 11月4日-->
     <string name="path_group_chat">Great!\nYou can use the group chat now!</string>
     <string name="travel">Travel</string>
@@ -21,7 +23,10 @@
     <string name="activity_comments">Activity comments</string>
     <string name="post_photo">Post some photos</string>
     <string name="clear_cache">Clear the cache</string>
-
+    <!-- ***********************************************************888-->
+    <!--其他-->
+    <string name="description">Please tell the travelers some details that the local experience will involve.</string>
+    <!--*******************************************************-->
 
     <string name="enter_comment">Please enter a comment!</string>
     <string name="end_start">Over time is not less than start time or the current time, please choose again</string>

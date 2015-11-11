@@ -584,6 +584,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                                 showToast("请填写标题或详情");
                                 page--;
                             } else {
+                                if (path.getText().length() < 100) {
+                                    showToast("Please enter a description no less than 100 letters");
+                                    page--;
+                                    return;
+                                }
                                 pageNum.setText("2/5");
                                 //page0-->  page2  -->page1-->page5-->page3-->page4
                                 background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);

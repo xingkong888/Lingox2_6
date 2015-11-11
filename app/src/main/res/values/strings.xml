@@ -56,7 +56,7 @@
     <string name="end_time">End Time</string>
     <string name="country">Country</string>
     <string name="city">City</string>
-    <string name="description_">Description</string>
+    <string name="description">Please tell the travelers some details that the local experience will involve.</string>
 
     <string name="fail_del_notify">Failed to delete Notification</string>
 

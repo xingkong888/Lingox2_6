@@ -170,8 +170,7 @@ public class PathAdapter extends BaseAdapter {
             holder.commentNumber.setText(String.valueOf(path.getComments().size()));
             holder.pathImg.setTag(path.getImage());
             if (holder.pathImg.getTag().equals(path.getImage())) {
-                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
-                        (context, holder.pathImg, path.getImage21(), "original");
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21(), "original");
             }
         return convertView;
     }

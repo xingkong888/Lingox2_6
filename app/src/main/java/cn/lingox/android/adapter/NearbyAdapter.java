@@ -117,7 +117,7 @@ public class NearbyAdapter extends BaseAdapter {
             String str = user.getLocation();
             if (!str.isEmpty()) {
                 holder.countryAndCity.setVisibility(View.VISIBLE);
-                holder.countryAndCity.setText(context.getString(R.string.from) + " " + str);
+                holder.countryAndCity.setText(String.format(context.getString(R.string.from), str));
                 //设置分隔线长度
                 holder.countryAndCity.measure(0, 0);
                 holder.line.setWidth(holder.countryAndCity.getMeasuredWidth());
@@ -155,10 +155,8 @@ public class NearbyAdapter extends BaseAdapter {
                     } else {
                         MobclickAgent.onEvent(context, "click_members");
 
-                        Intent intent = new Intent(context,
-                                UserInfoActivity.class);
-                        intent.putExtra(UserInfoActivity.INTENT_USER_ID,
-                                user.getId());
+                        Intent intent = new Intent(context, UserInfoActivity.class);
+                        intent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
                         context.startActivityForResult(intent, NearByFragment.VIEW_USER);
                     }
                 }
@@ -167,7 +165,7 @@ public class NearbyAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView tag1, tag2, tag3, line, commentNum, comment, speak_, speak, countryAndCity, name, lalala;
         ImageView point, flag, avatar;
         LinearLayout info, info2;

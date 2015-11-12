@@ -69,8 +69,7 @@ public class UIHelper {
     private class CropSquareTransformation implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {
-            Bitmap result = Bitmap.createBitmap(source,
-                    0, (int) (source.getHeight() * 0.25),
+            Bitmap result = Bitmap.createBitmap(source, 0, (int) (source.getHeight() * 0.25),
                     source.getWidth(), (int) (source.getHeight() * 0.5));
             if (result != source) {
                 source.recycle();

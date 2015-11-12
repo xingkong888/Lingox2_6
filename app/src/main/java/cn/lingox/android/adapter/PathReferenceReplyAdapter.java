@@ -88,8 +88,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         }
 
         groupViewHolder.content.setText(map.get("content"));
-        groupViewHolder.name.setText(
-                CacheHelper.getInstance().getUserInfo(map.get("user_id")).getNickname());
+        groupViewHolder.name.setText(CacheHelper.getInstance().getUserInfo(map.get("user_id")).getNickname());
 
         //判断是否显示回复图标
         //若当前用户是评论发起者，显示删除图标
@@ -161,7 +160,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
         HashMap<String, String> map = (HashMap<String, String>) getChild(groupPosition, childPosition);
-//评论发起者
+        //评论发起者
         User user = CacheHelper.getInstance().getUserInfo(groups.get(groupPosition).get("user_id"));
         if (user == null) {
             new GetUser(groups.get(groupPosition).get("user_id"), new GetUser.Callback() {

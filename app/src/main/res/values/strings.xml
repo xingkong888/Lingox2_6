@@ -261,7 +261,7 @@
     <string name="user_speak">Select language(s)</string>
     <string name="user_interest">Select interests</string>
     <string name="choose">Choose</string>
-    <string name="from">From </string>
+    <string name="from">From %1$s</string>
     <string name="date">Yesterday</string>
     <string name="nearby_sheak">Speak </string>
     <string name="nearby_comment">References </string>

@@ -73,8 +73,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
         final Reference reference = referenceList.get(position);
         if (rowView == null) {
-            rowView = LayoutInflater.from(context).inflate(
-                    R.layout.row_reference, parent, false);
+            rowView = LayoutInflater.from(context).inflate(R.layout.row_reference, parent, false);
             holder = new ViewHolder();
             holder.layout = (RelativeLayout) rowView.findViewById(R.id.pdpdpd);
             holder.avatar = (ImageView) rowView.findViewById(R.id.avatar_reference);
@@ -127,8 +126,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ownReference =
-                        CacheHelper.getInstance().getSelfInfo().getId().equals(reference.getUserSrcId());
+                ownReference = CacheHelper.getInstance().getSelfInfo().getId().equals(reference.getUserSrcId());
                 if (ownReference) {//自己对别人的评价
                     Intent intent = new Intent(context, ReferenceDialog.class);
                     intent.putExtra(INTENT_REFERENCE, reference);

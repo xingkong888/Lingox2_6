@@ -157,7 +157,7 @@
                     android:background="@drawable/button_cyc"
                     android:gravity="center_vertical"
                     android:padding="3dp"
-                    android:text="@string/local"
+                    android:text="@string/local_guide"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -299,7 +299,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#dcdcdc" />
-
 
             <TextView
                 android:id="@+id/search_location"

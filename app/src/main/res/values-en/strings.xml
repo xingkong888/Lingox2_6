@@ -285,6 +285,7 @@
     <string name="select_country">Select Country</string>
     <string name="auto">Auto</string>
     <string name="pick_language">Language</string>
+    <string name="from">From %1$s</string>
     <string name="cancel">CANCEL</string>
     <string name="time_picker">timePicker</string>
     <string name="uploading_image_1">Uploading Image 1</string>

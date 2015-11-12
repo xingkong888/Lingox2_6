@@ -241,14 +241,14 @@ public class User implements Parcelable {
     }
 
     public String getSpeak() {
-        String[] strs = speak.split(",");
+        String[] strs = speak.split(", ");
         ArrayList<String> list = new ArrayList<>();
         for (String str : strs) {
             if (!str.isEmpty()) {
-                list.add(str);
+                list.add(str.trim());
             }
         }
-        speak = list.toString().replace("[", "").replace("]", "").replace(" ", "").trim();
+        speak = list.toString().replace("[", "").replace("]", "").trim();
         return speak;
     }
 

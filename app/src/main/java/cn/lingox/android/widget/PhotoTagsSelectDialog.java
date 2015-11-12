@@ -69,7 +69,6 @@ public class PhotoTagsSelectDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (title.contentEquals("photo")) {
-                    dismiss();
                 } else {
                     user.setInterests(null);
                     user.setInterests(tags);
@@ -134,6 +133,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (title.contentEquals("photo")) {
+                    //无用
                     if (datas.get(position).getFlg() == 1) {
                         if (checkedInterest < 3) {
                             tags.add(String.valueOf(position));

@@ -340,13 +340,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         UIHelper uiHelper = UIHelper.getInstance();
         if (requestingOthersData && "".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
-
         } else if (requestingOthersData && !"".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
         } else if (!"".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
         }
-
         if (!requestingOthersData) {
             userSpeak.setHint("");
             userInsterest.setHint("");
@@ -383,7 +381,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 userInsterest.setHint("");
             }
         }
-
         if (requestingOthersData && user.getVisited().isEmpty()) {
             userInfoPlaces.setOnClickListener(this);
             userInfoPlaces.setTextColor(Color.rgb(25, 143, 153));
@@ -739,13 +736,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             updateParams.put(StringConstant.userIdStr, user.getId());
             switch (flag) {
                 case "local":
-                    updateParams.put(StringConstant.localStr, "" + local);
+                    updateParams.put(StringConstant.localStr, String.valueOf(local));
                     break;
                 case "meal":
-                    updateParams.put(StringConstant.mealStr, "" + meal);
+                    updateParams.put(StringConstant.mealStr, String.valueOf(meal));
                     break;
                 case "stay":
-                    updateParams.put(StringConstant.stayStr, "" + stay);
+                    updateParams.put(StringConstant.stayStr, String.valueOf(stay));
                     break;
                 case "signature"://存储标签
                     user.setSignature(tagsView.getText().toString());
@@ -798,7 +795,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            travelList = new ArrayList();
+            travelList = new ArrayList<>();
             updateParams.put(StringConstant.userIdStr, user.getId());
             placesList.clear();
             list.clear();

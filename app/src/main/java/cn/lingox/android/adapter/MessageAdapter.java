@@ -160,7 +160,6 @@ public class MessageAdapter extends BaseAdapter {
                         .inflate(R.layout.row_received_picture, null) : inflater
                         .inflate(R.layout.row_sent_picture, null);
 
-
             case VOICE:
                 return message.direct == EMMessage.Direct.RECEIVE ? inflater
                         .inflate(R.layout.row_received_voice, null) : inflater
@@ -177,14 +176,14 @@ public class MessageAdapter extends BaseAdapter {
                         .inflate(R.layout.row_sent_file, null);
 
             default:
-                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false))
+                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                     return message.direct == EMMessage.Direct.RECEIVE
                             ? inflater.inflate(R.layout.row_received_voice_call, null)
                             : inflater.inflate(R.layout.row_sent_voice_call, null);
+                }
                 return message.direct == EMMessage.Direct.RECEIVE
                         ? inflater.inflate(R.layout.row_received_message, null)
                         : inflater.inflate(R.layout.row_sent_message, null);
-
         }
     }
 
@@ -193,26 +192,19 @@ public class MessageAdapter extends BaseAdapter {
         final ViewHolder holder;
         final EMMessage message = getItem(position);
         ChatType chatType = message.getChatType();    // Single or Group
-        final User user = CacheHelper.getInstance().getUserInfoFromUsername(chatType == ChatType.Chat ?
-                username : message.getFrom());
+        final User user = CacheHelper.getInstance().getUserInfoFromUsername(chatType == ChatType.Chat ? username : message.getFrom());
         if (rowView == null) {
             holder = new ViewHolder();
             rowView = createViewByMessage(message, position);
 
             if (message.getType() == EMMessage.Type.IMAGE) {
                 try {
-                    holder.iv = ((ImageView) rowView
-                            .findViewById(R.id.iv_sendPicture));
-                    holder.head_iv = (ImageView) rowView
-                            .findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView
-                            .findViewById(R.id.percentage);
-                    holder.pb = (ProgressBar) rowView
-                            .findViewById(R.id.progressBar);
-                    holder.staus_iv = (ImageView) rowView
-                            .findViewById(R.id.msg_status);
-                    holder.tv_userId = (TextView) rowView
-                            .findViewById(R.id.tv_userid);
+                    holder.iv = ((ImageView) rowView.findViewById(R.id.iv_sendPicture));
+                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
+                    holder.pb = (ProgressBar) rowView.findViewById(R.id.progressBar);
+                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
                             // TODO this next line should be in the handle method
@@ -260,21 +252,16 @@ public class MessageAdapter extends BaseAdapter {
             } else if (message.getType() == EMMessage.Type.VOICE) {
                 Log.d("MessageAdapter", "getView: EMMessage.Type.VOICE");
                 try {
-                    holder.iv = ((ImageView) rowView
-                            .findViewById(R.id.iv_voice));
-                    holder.head_iv = (ImageView) rowView
-                            .findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView
-                            .findViewById(R.id.tv_length);
-                    holder.pb = (ProgressBar) rowView
-                            .findViewById(R.id.pb_sending);
+                    holder.iv = ((ImageView) rowView.findViewById(R.id.iv_voice));
+                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) rowView.findViewById(R.id.tv_length);
+                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
 
                     switch (message.direct) {
                         case RECEIVE:
                             // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
-                            holder.iv_read_status = (ImageView) rowView
-                                    .findViewById(R.id.iv_unread_voice);
+                            holder.iv_read_status = (ImageView) rowView.findViewById(R.id.iv_unread_voice);
                             holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
                             break;
 
@@ -291,16 +278,11 @@ public class MessageAdapter extends BaseAdapter {
             } else if (message.getType() == EMMessage.Type.LOCATION) {
                 Log.d("MessageAdapter", "getView: EMMessage.Type.LOCATION");
                 try {
-                    holder.head_iv = (ImageView) rowView
-                            .findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView
-                            .findViewById(R.id.tv_location);
-                    holder.pb = (ProgressBar) rowView
-                            .findViewById(R.id.pb_sending);
-                    holder.staus_iv = (ImageView) rowView
-                            .findViewById(R.id.msg_status);
-                    holder.tv_userId = (TextView) rowView
-                            .findViewById(R.id.tv_userid);
+                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) rowView.findViewById(R.id.tv_location);
+                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
+                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
                             // TODO this next line should be in the handle method
@@ -318,26 +300,16 @@ public class MessageAdapter extends BaseAdapter {
             } else if (message.getType() == EMMessage.Type.VIDEO) {
                 Log.d("MessageAdapter", "getView: EMMessage.Type.VIDEO");
                 try {
-                    holder.iv = ((ImageView) rowView
-                            .findViewById(R.id.chatting_content_iv));
-                    holder.head_iv = (ImageView) rowView
-                            .findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView
-                            .findViewById(R.id.percentage);
-                    holder.pb = (ProgressBar) rowView
-                            .findViewById(R.id.progressBar);
-                    holder.staus_iv = (ImageView) rowView
-                            .findViewById(R.id.msg_status);
-                    holder.size = (TextView) rowView
-                            .findViewById(R.id.chatting_size_iv);
-                    holder.timeLength = (TextView) rowView
-                            .findViewById(R.id.chatting_length_iv);
-                    holder.playBtn = (ImageView) rowView
-                            .findViewById(R.id.chatting_status_btn);
-                    holder.container_status_btn = (LinearLayout) rowView
-                            .findViewById(R.id.container_status_btn);
-                    holder.tv_userId = (TextView) rowView
-                            .findViewById(R.id.tv_userid);
+                    holder.iv = ((ImageView) rowView.findViewById(R.id.chatting_content_iv));
+                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
+                    holder.pb = (ProgressBar) rowView.findViewById(R.id.progressBar);
+                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                    holder.size = (TextView) rowView.findViewById(R.id.chatting_size_iv);
+                    holder.timeLength = (TextView) rowView.findViewById(R.id.chatting_length_iv);
+                    holder.playBtn = (ImageView) rowView.findViewById(R.id.chatting_status_btn);
+                    holder.container_status_btn = (LinearLayout) rowView.findViewById(R.id.container_status_btn);
+                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
                             // TODO this next line should be in the handle method
@@ -355,27 +327,15 @@ public class MessageAdapter extends BaseAdapter {
             } else if (message.getType() == EMMessage.Type.FILE) {
                 Log.d("MessageAdapter", "getView: EMMessage.Type.FILE");
                 try {
-                    holder.head_iv = (ImageView) rowView
-                            .findViewById(R.id.iv_userhead);
-                    // TODO this next line should be in the handle method
-//                    ImageHelper.getInstance()
-//                            .loadAvatar(holder.head_iv, user.getAvatar());
-                    holder.tv_file_name = (TextView) rowView
-                            .findViewById(R.id.tv_file_name);
-                    holder.tv_file_size = (TextView) rowView
-                            .findViewById(R.id.tv_file_size);
-                    holder.pb = (ProgressBar) rowView
-                            .findViewById(R.id.pb_sending);
-                    holder.staus_iv = (ImageView) rowView
-                            .findViewById(R.id.msg_status);
-                    holder.tv_file_download_state = (TextView) rowView
-                            .findViewById(R.id.tv_file_state);
-                    holder.ll_container = (LinearLayout) rowView
-                            .findViewById(R.id.ll_file_container);
-                    holder.tv = (TextView) rowView
-                            .findViewById(R.id.percentage);
-                    holder.tv_userId = (TextView) rowView
-                            .findViewById(R.id.tv_userid);
+                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
+                    holder.tv_file_name = (TextView) rowView.findViewById(R.id.tv_file_name);
+                    holder.tv_file_size = (TextView) rowView.findViewById(R.id.tv_file_size);
+                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
+                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                    holder.tv_file_download_state = (TextView) rowView.findViewById(R.id.tv_file_state);
+                    holder.ll_container = (LinearLayout) rowView.findViewById(R.id.ll_file_container);
+                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
+                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
                             // TODO this next line should be in the handle method
@@ -401,10 +361,11 @@ public class MessageAdapter extends BaseAdapter {
                 handleImageMessage(message, holder, position, rowView);
                 break;
             case TXT:
-                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false))
+                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                     handleVoiceCallMessage(message, holder, position);
-                else
+                } else {
                     handleTextMessage(message, holder, position);
+                }
                 break;
             case LOCATION:
                 handleLocationMessage(message, holder, position, rowView);
@@ -418,8 +379,6 @@ public class MessageAdapter extends BaseAdapter {
             case FILE:
                 handleFileMessage(message, holder, position, rowView);
                 break;
-            default:
-                // not supported
         }
 
         if (message.direct == EMMessage.Direct.SEND) {
@@ -429,31 +388,23 @@ public class MessageAdapter extends BaseAdapter {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(activity, AlertDialog1.class);
-                    intent.putExtra("msg",
-                            activity.getString(R.string.confirm_resend));
-                    intent.putExtra("title",
-                            activity.getString(R.string.resend));
+                    intent.putExtra("msg", activity.getString(R.string.confirm_resend));
+                    intent.putExtra("title", activity.getString(R.string.resend));
                     intent.putExtra("cancel", true);
                     intent.putExtra("position", position);
-                    if (message.getType() == EMMessage.Type.TXT)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_TEXT);
-                    else if (message.getType() == EMMessage.Type.VOICE)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_VOICE);
-                    else if (message.getType() == EMMessage.Type.IMAGE)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_PICTURE);
-                    else if (message.getType() == EMMessage.Type.LOCATION)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_LOCATION);
-                    else if (message.getType() == EMMessage.Type.FILE)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_FILE);
-                    else if (message.getType() == EMMessage.Type.VIDEO)
-                        activity.startActivityForResult(intent,
-                                ChatActivity.REQUEST_CODE_VIDEO);
-
+                    if (message.getType() == EMMessage.Type.TXT) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_TEXT);
+                    } else if (message.getType() == EMMessage.Type.VOICE) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_VOICE);
+                    } else if (message.getType() == EMMessage.Type.IMAGE) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_PICTURE);
+                    } else if (message.getType() == EMMessage.Type.LOCATION) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_LOCATION);
+                    } else if (message.getType() == EMMessage.Type.FILE) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_FILE);
+                    } else if (message.getType() == EMMessage.Type.VIDEO) {
+                        activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_VIDEO);
+                    }
                 }
             });
             holder.head_iv.setOnClickListener(new OnClickListener() {
@@ -462,13 +413,11 @@ public class MessageAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     String type = "chat";
                     Intent intent = new Intent(activity, UserInfoActivity.class);
-                    intent.putExtra(UserInfoActivity.INTENT_USER_ID,
-                            CacheHelper.getInstance().getSelfInfo().getId());
+                    intent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
                     intent.putExtra("chat", type);
                     activity.startActivity(intent);
                 }
             });
-
         } else {
             holder.head_iv.setOnClickListener(new OnClickListener() {
 
@@ -481,44 +430,35 @@ public class MessageAdapter extends BaseAdapter {
                     activity.startActivity(intent);
                 }
             });
-
         }
 
-        TextView timestamp = (TextView) rowView
-                .findViewById(R.id.timestamp);
+        TextView timestamp = (TextView) rowView.findViewById(R.id.timestamp);
 
         if (position == 0) {
-            timestamp.setText(DateUtils.getTimestampString(new Date(message
-                    .getMsgTime())));
+            timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
             timestamp.setVisibility(View.VISIBLE);
         } else {
-            if (DateUtils.isCloseEnough(message.getMsgTime(), conversation
-                    .getMessage(position - 1).getMsgTime())) {
+            if (DateUtils.isCloseEnough(message.getMsgTime(), conversation.getMessage(position - 1).getMsgTime())) {
                 timestamp.setVisibility(View.GONE);
             } else {
-                timestamp.setText(DateUtils.getTimestampString(new Date(message
-                        .getMsgTime())));
+                timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
                 timestamp.setVisibility(View.VISIBLE);
             }
         }
         return rowView;
     }
 
-    private void handleTextMessage(EMMessage message, ViewHolder holder,
-                                   final int position) {
+    private void handleTextMessage(EMMessage message, ViewHolder holder, final int position) {
         TextMessageBody txtBody = (TextMessageBody) message.getBody();
         Spannable span = SmileUtils
                 .getSmiledText(context, txtBody.getMessage());
         holder.tv.setText(span, BufferType.SPANNABLE);
 
-
         holder.tv.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                activity.startActivityForResult((new Intent(activity,
-                                ContextMenu.class)).putExtra("position", position)
-                                .putExtra("type", EMMessage.Type.TXT.ordinal()),
-                        ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+                activity.startActivityForResult((new Intent(activity, ContextMenu.class)).putExtra("position", position)
+                        .putExtra("type", EMMessage.Type.TXT.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
                 return true;
             }
         });
@@ -539,15 +479,14 @@ public class MessageAdapter extends BaseAdapter {
                     break;
                 default:
                     sendMsgInBackground(message, holder);
+                    break;
             }
         }
     }
 
-    private void handleVoiceCallMessage(EMMessage message, ViewHolder holder,
-                                        final int position) {
+    private void handleVoiceCallMessage(EMMessage message, ViewHolder holder, final int position) {
         TextMessageBody txtBody = (TextMessageBody) message.getBody();
         holder.tv.setText(txtBody.getMessage());
-
     }
 
     private void handleImageMessage(final EMMessage message, final ViewHolder holder, final int position, View rowView) {
@@ -579,10 +518,8 @@ public class MessageAdapter extends BaseAdapter {
                     String remotePath = imgBody.getRemoteUrl();
                     String filePath = ImageUtils.getImagePath(remotePath);
                     String thumbRemoteUrl = imgBody.getThumbnailUrl();
-                    String thumbnailPath = ImageUtils
-                            .getThumbnailImagePath(thumbRemoteUrl);
-                    showImageView(thumbnailPath, holder.iv, filePath,
-                            imgBody.getRemoteUrl(), message);
+                    String thumbnailPath = ImageUtils.getThumbnailImagePath(thumbRemoteUrl);
+                    showImageView(thumbnailPath, holder.iv, filePath, imgBody.getRemoteUrl(), message);
                 }
             }
             return;
@@ -593,13 +530,10 @@ public class MessageAdapter extends BaseAdapter {
         ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
         String filePath = imgBody.getLocalUrl();
         if (filePath != null && new File(filePath).exists()) {
-            showImageView(ImageUtils.getThumbnailImagePath(filePath),
-                    holder.iv, filePath, null, message);
+            showImageView(ImageUtils.getThumbnailImagePath(filePath), holder.iv, filePath, null, message);
         } else {
-            showImageView(ImageUtils.getThumbnailImagePath(filePath),
-                    holder.iv, filePath, IMAGE_DIR, message);
+            showImageView(ImageUtils.getThumbnailImagePath(filePath), holder.iv, filePath, IMAGE_DIR, message);
         }
-
         switch (message.status) {
             case SUCCESS:
                 holder.pb.setVisibility(View.GONE);
@@ -615,8 +549,9 @@ public class MessageAdapter extends BaseAdapter {
                 holder.staus_iv.setVisibility(View.GONE);
                 holder.pb.setVisibility(View.VISIBLE);
                 holder.tv.setVisibility(View.VISIBLE);
-                if (timers.containsKey(message.getMsgId()))
+                if (timers.containsKey(message.getMsgId())) {
                     return;
+                }
                 // set a timer
                 final Timer timer = new Timer();
                 timers.put(message.getMsgId(), timer);
@@ -637,18 +572,12 @@ public class MessageAdapter extends BaseAdapter {
                                     holder.pb.setVisibility(View.GONE);
                                     holder.tv.setVisibility(View.GONE);
                                     holder.staus_iv.setVisibility(View.VISIBLE);
-                                    Toast.makeText(
-                                            activity,
-                                            activity.getString(R.string.send_fail)
-                                                    + activity
-                                                    .getString(R.string.connect_failuer_toast),
-                                            Toast.LENGTH_LONG).show();
+                                    Toast.makeText(activity, activity.getString(R.string.send_fail) + activity
+                                            .getString(R.string.connect_failuer_toast), Toast.LENGTH_LONG).show();
                                     timer.cancel();
                                 }
-
                             }
                         });
-
                     }
                 }, 0, 500);
                 break;
@@ -657,8 +586,7 @@ public class MessageAdapter extends BaseAdapter {
         }
     }
 
-    private void handleVideoMessage(final EMMessage message,
-                                    final ViewHolder holder, final int position, View convertView) {
+    private void handleVideoMessage(final EMMessage message, final ViewHolder holder, final int position, View convertView) {
 
         VideoMessageBody videoBody = (VideoMessageBody) message.getBody();
         String localThumb = videoBody.getLocalThumb();
@@ -676,8 +604,7 @@ public class MessageAdapter extends BaseAdapter {
         });
 
         if (localThumb != null) {
-            showVideoThumbView(localThumb, holder.iv,
-                    videoBody.getThumbnailUrl(), message);
+            showVideoThumbView(localThumb, holder.iv, videoBody.getThumbnailUrl(), message);
         }
         if (videoBody.getLength() > 0) {
             String time = DateUtils.toTimeBySecond(videoBody.getLength());
@@ -687,15 +614,12 @@ public class MessageAdapter extends BaseAdapter {
 
         if (message.direct == EMMessage.Direct.RECEIVE) {
             if (videoBody.getVideoFileLength() > 0) {
-                String size = TextFormater.getDataSize(videoBody
-                        .getVideoFileLength());
+                String size = TextFormater.getDataSize(videoBody.getVideoFileLength());
                 holder.size.setText(size);
             }
         } else {
-            if (videoBody.getLocalUrl() != null
-                    && new File(videoBody.getLocalUrl()).exists()) {
-                String size = TextFormater.getDataSize(new File(videoBody
-                        .getLocalUrl()).length());
+            if (videoBody.getLocalUrl() != null && new File(videoBody.getLocalUrl()).exists()) {
+                String size = TextFormater.getDataSize(new File(videoBody.getLocalUrl()).length());
                 holder.size.setText(size);
             }
         }
@@ -707,8 +631,7 @@ public class MessageAdapter extends BaseAdapter {
             } else {
                 holder.iv.setImageResource(R.drawable.default_image);
                 if (localThumb != null) {
-                    showVideoThumbView(localThumb, holder.iv,
-                            videoBody.getThumbnailUrl(), message);
+                    showVideoThumbView(localThumb, holder.iv, videoBody.getThumbnailUrl(), message);
                 }
             }
             return;

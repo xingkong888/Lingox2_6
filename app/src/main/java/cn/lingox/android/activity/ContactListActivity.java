@@ -30,15 +30,13 @@ public class ContactListActivity extends ActionBarActivity implements OnClickLis
     }
 
     private void initView() {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.contact_list_activity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         ListView listView = (ListView) findViewById(R.id.list);
-        contactAdapter = new ContactAdapter(this, R.layout.row_contact,
-                CacheHelper.getInstance().getContactList());
+        contactAdapter = new ContactAdapter(this, R.layout.row_contact, CacheHelper.getInstance().getContactList());
         listView.setAdapter(contactAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -67,8 +65,7 @@ public class ContactListActivity extends ActionBarActivity implements OnClickLis
 
     public void onListItemClick(int position) {
         if (position != 0) {
-            Intent intent = new Intent(ContactListActivity.this,
-                    UserInfoActivity.class);
+            Intent intent = new Intent(ContactListActivity.this, UserInfoActivity.class);
             intent.putExtra(UserInfoActivity.INTENT_USER_ID, contactAdapter.getItem(position).getId());
             startActivity(intent);
         }

@@ -103,7 +103,6 @@ public class SplashActivity extends Activity {
 
     private void initPoint() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll);
-
         points = new ImageView[pics.length];
         for (int i = 0; i < pics.length; i++) {
             points[i] = (ImageView) linearLayout.getChildAt(i);
@@ -180,9 +179,11 @@ public class SplashActivity extends Activity {
                     if (viewPager.getCurrentItem() == viewPager.getAdapter().getCount() - 1 && !misScrolled) {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         SplashActivity.this.finish();
-//                        ThirdPartyLogin tpl = new ThirdPartyLogin();
-//                        tpl.show(SplashActivity.this);
-//                         SplashActivity.this.finish();
+                        /*第三方登录---未实现
+                        ThirdPartyLogin tpl = new ThirdPartyLogin();
+                        tpl.show(SplashActivity.this);
+                         SplashActivity.this.finish();
+                        */
                     }
                     misScrolled = true;
                     break;

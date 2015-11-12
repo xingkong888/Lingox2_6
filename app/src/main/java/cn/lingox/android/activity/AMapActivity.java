@@ -46,11 +46,9 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     private ProgressBar pb;
     private Button ok;
 
-
     private String address = "";
 
     private User user = CacheHelper.getInstance().getSelfInfo();
-    private Marker marker;
 
     private GeocodeSearch geocoderSearch;
     private double lat, lng;
@@ -85,6 +83,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 必须要写
         aMap = mapView.getMap();
+        aMap.getUiSettings().setZoomControlsEnabled(false);//使缩放按钮不可见
         if (getIntent().hasExtra("String")) {
             lat = Double.valueOf(getIntent().getStringArrayExtra("String")[0]);
             lng = Double.valueOf(getIntent().getStringArrayExtra("String")[1]);
@@ -225,7 +224,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         aMap.clear();
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
-        marker = aMap.addMarker(new MarkerOptions().position(latLng).title(address).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).draggable(true));
+        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(address).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).draggable(true));
         marker.showInfoWindow();// 设置默认显示一个infowinfow
         ok.setVisibility(View.VISIBLE);
     }
@@ -269,10 +268,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
             }
-        } else if (rCode == 27) {
+        } else if (rCode == 27 || rCode == 32) {
             Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
-        } else if (rCode == 32) {
-//            Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "An unknown error", Toast.LENGTH_LONG).show();
         }
@@ -287,25 +284,6 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     @Override
     public void onGeocodeSearched(GeocodeResult result, int rCode) {
     }
-
-//    @Override
-//    public boolean onMarkerClick(Marker marker1) {
-//        if (marker1.equals(marker)) {
-//            if (aMap != null) {
-//                returnResult();
-//            }
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public void onInfoWindowClick(Marker marker) {
-//        if (this.marker.equals(marker)) {
-//            if (aMap != null) {
-//                returnResult();
-//            }
-//        }
-//    }
 
     //返回结果到上一级
     private void returnResult() {
@@ -331,22 +309,6 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         }
         finish();
     }
-
-//    /**
-//     * 监听自定义infowindow窗口的infowindow事件回调
-//     */
-//    @Override
-//    public View getInfoWindow(Marker marker) {
-//        return null;
-//    }
-//
-//    /**
-//     * 监听自定义infowindow窗口的infocontents事件回调
-//     */
-//    @Override
-//    public View getInfoContents(Marker marker) {
-//        return null;
-//    }
 
     @Override
     protected void onResume() {

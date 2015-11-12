@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.lingox.android.R;
@@ -83,8 +81,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private int checkedNum = 0;
 
     private HashMap<Integer, Integer> activityTags = new HashMap<>();
-
-    private VelocityTracker mVelocityTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,6 +247,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         }
     }
 
+    //开始动画
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
             anim.setVisibility(View.VISIBLE);
@@ -258,6 +255,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         }
     }
 
+    //停止动画
     private void stopAnim() {
         if (animationDrawable.isRunning()) {
             anim.setVisibility(View.GONE);
@@ -477,9 +475,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private boolean tvSearch() {
         if (memLocation.getText().toString().isEmpty() && language.getText().toString().isEmpty() && (int) guide.getTag() == 0 && (int) meal.getTag() == 0
                 && (int) stay.getTag() == 0 && (int) male.getTag() == 0 && (int) female.getTag() == 0 && name.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this,
-                    getString(R.string.choose_condition), Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, getString(R.string.choose_condition), Toast.LENGTH_LONG).show();
             return false;
         } else {
             params.clear();
@@ -515,12 +511,16 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         }
     }
 
+    /**
+     * 判断是否为邮箱格式
+     *
+     * @param str 待判断的字符串
+     * @return true 邮箱格式 false 非邮箱格式
+     */
     private boolean isEmail(String str) {
         String strPattern = "^//s*//w+(?://.{0,1}[//w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*//.[a-zA-Z]+//s*$";
 
-        Pattern p = Pattern.compile(strPattern);
-        Matcher m = p.matcher(str);
-        return m.matches();
+        return Pattern.compile(strPattern).matcher(str).matches();
     }
 
     @Override
@@ -541,11 +541,13 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         private HashMap<Integer, Integer> map;
         private ArrayList<String> postJson;
 
+        //目前只支持local
         public GetPaths(String country, String province, String city, int i, int page, HashMap<Integer, Integer> map) {
             this.country = country;
             this.city = city;
             this.province = province;
-            loaclOrTravel = i;
+//            loaclOrTravel = i;
+            loaclOrTravel=1;
             postJson = new ArrayList<>();
             this.map = new HashMap<>();
             this.map.putAll(map);
@@ -566,18 +568,15 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                         postJson.add(String.valueOf((int) aPost));
                     }
                 }
-                tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(
-                        country, province, city, loaclOrTravel, page, postJson));
+                tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(country, province, city, loaclOrTravel, page, postJson));
 
                 if (!LingoXApplication.getInstance().getSkip()) {
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
                         if (tempUser == null)
-                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()
-                            ));
+                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()));
                     }
                 }
-                //TODO 将数据添加到集合中
                 pathList.addAll(tempPathList);
                 return true;
             } catch (Exception e) {
@@ -606,6 +605,9 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         }
     }
 
+    /**
+     * 搜索人
+     */
     private class SearchUser extends AsyncTask<Void, String, Boolean> {
         public Map<String, String> localParams;
         private int searchType;
@@ -648,7 +650,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
                 }
             } else {
                 member.setVisibility(View.VISIBLE);
-                Toast.makeText(SearchActivity.this, "", Toast.LENGTH_SHORT).show();
             }
             progressBar.setVisibility(View.GONE);
             memAdapter.notifyDataSetChanged();

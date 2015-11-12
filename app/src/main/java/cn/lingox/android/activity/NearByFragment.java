@@ -46,8 +46,7 @@ public class NearByFragment extends Fragment {
     private AnimationDrawable animationDrawable;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
         initView(view);
         new SearchUser().execute();

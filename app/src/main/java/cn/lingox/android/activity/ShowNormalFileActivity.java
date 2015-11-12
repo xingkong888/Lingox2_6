@@ -68,8 +68,9 @@ public class ShowNormalFileActivity extends BaseActivity {
                             public void onError(final String msg) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        if (file != null && file.exists())
+                                        if (file != null && file.exists()) {
                                             file.delete();
+                                        }
                                         // TODO English
                                         Toast.makeText(ShowNormalFileActivity.this, "...: " + msg, Toast.LENGTH_SHORT).show();
                                         finish();

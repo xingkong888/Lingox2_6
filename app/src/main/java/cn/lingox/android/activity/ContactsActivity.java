@@ -14,17 +14,8 @@ import android.widget.ImageView;
 import cn.lingox.android.R;
 
 public class ContactsActivity extends ActionBarActivity implements OnClickListener {
-    private static final String LOG_TAG = "ContactsActivity";
-
     private ContactsFragment contactsFragment;
     private FollowersFragment followersFragment;
-
-    // UI Elements
-    private ImageView back;
-
-    private ContactsActivityFragmentAdapter tabAdapter;
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +25,14 @@ public class ContactsActivity extends ActionBarActivity implements OnClickListen
     }
 
     private void initView() {
-        back = (ImageView) findViewById(R.id.back_button);
+        ImageView back = (ImageView) findViewById(R.id.back_button);
         back.setOnClickListener(this);
 
         contactsFragment = new ContactsFragment();
         followersFragment = new FollowersFragment();
 
-        tabAdapter = new ContactsActivityFragmentAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.fragment_contacts);
+        ContactsActivityFragmentAdapter tabAdapter = new ContactsActivityFragmentAdapter(getSupportFragmentManager());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_contacts);
         viewPager.setAdapter(tabAdapter);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(0);

@@ -28,7 +28,6 @@ import cn.lingox.android.task.GetContactList;
 
 
 public class LoginActivity extends ActionBarActivity implements OnClickListener {
-
     // Incoming Intent Extras
     public static final String LOGOUT_REQUESTED = LingoXApplication.PACKAGE_NAME + ".LOGOUT_REQUESTED";
     public static final String REGISTRATION_COMPLETE = LingoXApplication.PACKAGE_NAME + ".REGISTRATION_COMPLETE";
@@ -98,19 +97,17 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 passwordEditText.setText(null);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!usernameEditText.getText().toString().equals("")) {
+                if (!"".equals(usernameEditText.getText().toString())) {
                     clear_name.setVisibility(View.VISIBLE);
                 } else {
                     clear_name.setVisibility(View.INVISIBLE);
@@ -119,18 +116,16 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         });
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!passwordEditText.getText().toString().equals("")) {
+                if (!"".equals(passwordEditText.getText().toString())) {
                     clear_pwd.setVisibility(View.VISIBLE);
                 } else {
                     clear_pwd.setVisibility(View.INVISIBLE);
@@ -199,6 +194,9 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         super.onPause();
     }
 
+    /**
+     * 登录
+     */
     private class Login extends AsyncTask<Void, String, Boolean> {
         private String username, password;
 
@@ -216,10 +214,8 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
 
         @Override
         protected Boolean doInBackground(Void... params) {
-//            Log.d(LOG_TAG, "Login started");
             try {
                 User user = ServerHelper.getInstance().login(username, password);
-
                 CacheHelper.getInstance().setSelfInfo(user);
                 CacheHelper.getInstance().setPassword(password);
                 publishProgress("Getting contact list...", null);
@@ -269,6 +265,9 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         }
     }
 
+    /**
+     * 忘记密码
+     */
     private class ForgotPassword extends AsyncTask<String, String, Boolean> {
         @Override
         protected void onPreExecute() {

@@ -175,18 +175,6 @@
                 android:text="@string/about_us"
                 android:textColor="@color/left_drawer_text_color"
                 android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/update_app"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginLeft="24dp"
-                android:drawableLeft="@drawable/ic_info_outline_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"
-                android:text="@string/clear_cache"
-                android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp" />
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

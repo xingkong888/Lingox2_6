@@ -1,29 +1,22 @@
 package cn.lingox.android.activity.imagechooser;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.PhotoActivity;
 import cn.lingox.android.entity.Photo;
-import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.PostPhoto;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.ImageCache;
 
 public class EditPhotoActivity extends ActionBarActivity implements View.OnClickListener {
-    private static final String LOG_TAG = "EditPhotoActivity";
 
     private ImageView showPhoto;
     private EditText editText;
@@ -76,7 +69,7 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
                 finish();
                 break;
             case R.id.photo_post:
-                new PostPhoto().execute();
+                new PostPhoto(this, post, photo, editText.getText().toString().trim()).execute();
                 break;
         }
     }
@@ -91,47 +84,5 @@ public class EditPhotoActivity extends ActionBarActivity implements View.OnClick
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private class PostPhoto extends AsyncTask<Void, Void, Boolean> {
-        final ProgressDialog pd = new ProgressDialog(EditPhotoActivity.this);
-        boolean isSuccess = false;
-
-        @Override
-        protected void onPreExecute() {
-            pd.setCanceledOnTouchOutside(false);
-            pd.show();
-            pd.setMessage("Uploading Image");
-            post.setClickable(false);
-            photo.setDescription(editText.getText().toString().trim());
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                photo = ServerHelper.getInstance().editPhoto(photo);
-                isSuccess = true;
-            } catch (Exception e) {
-                Log.e(LOG_TAG, e.toString());
-                isSuccess = false;
-            }
-            return isSuccess;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            post.setClickable(true);
-            pd.dismiss();
-            if (success) {
-                Toast.makeText(EditPhotoActivity.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra(PhotoActivity.EDITED_PHOTO, photo);
-                setResult(PhotoActivity.RESULT_PHOTO_EDITED, intent);
-                finish();
-            } else {
-                Toast.makeText(EditPhotoActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 }

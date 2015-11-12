@@ -162,9 +162,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         feedback.setOnClickListener(this);
         TextView info = (TextView) findViewById(R.id.layout_info);
         info.setOnClickListener(this);
-        TextView update = (TextView) findViewById(R.id.update_app);
-        update.setOnClickListener(this);
-        update.setVisibility(View.GONE);
         flag = (ImageView) findViewById(R.id.iv_flag);
         // ----- MAIN VIEW -----
         chatFragment = new ChatFragment();
@@ -245,21 +242,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 Uri uri = Uri.parse("http://lingox.cn");
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
-                break;
-            case R.id.update_app://TODO 清除缓存
-                new Thread() {
-                    @Override
-                    public void run() {
-                        FileUtil.deleteDir();
-                        try {
-                            sleep(1000);
-                            Toast.makeText(getObj(), "Success", Toast.LENGTH_SHORT).show();
-                        } catch (Exception ignored) {
-
-                        }
-                    }
-                }.start();
-
                 break;
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {

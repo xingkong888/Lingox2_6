@@ -82,8 +82,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
 
             holder.avatar = (ImageView) convertView.findViewById(R.id.chat_user_avatar);
             holder.name = (TextView) convertView.findViewById(R.id.chat_user_name);
-            holder.unreadLabel = (TextView) convertView
-                    .findViewById(R.id.chat_message_num);
+            holder.unreadLabel = (TextView) convertView.findViewById(R.id.chat_message_num);
             holder.message = (TextView) convertView.findViewById(R.id.chat_message);
             holder.time = (TextView) convertView.findViewById(R.id.chat_date);
             holder.state = (TextView) convertView.findViewById(R.id.msg_state);
@@ -138,7 +137,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 if (user != null) {
                     new GetMessage(holder.state).execute(user.getId());
                 }
-                // TODO Username or "Loading..."
                 holder.name.setText(conversation.getUserName());
             }
         }
@@ -168,12 +166,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         final User tempUser = ServerHelper.getInstance().getUserInfo(username);
                         if (tempUser != null) {
                             new GetMessage(holder.state).execute(tempUser.getId());
-
-                        context.runOnUiThread(new Runnable() {
+                            context.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl
-                                        (context, holder.avatar, tempUser.getAvatar(), "circular");
+                                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, tempUser.getAvatar(), "circular");
                                 holder.name.setText(tempUser.getNickname());
                             }
                         });
@@ -204,8 +200,8 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         return LingoNotification.NUMBER_OF_NOTIFICATION_TYPES;
     }
 
-    private void notifition(final int position, final ViewHolder holder)//TODO 通知的
-    {
+    //通知的
+    private void notifition(final int position, final ViewHolder holder) {
         final LingoNotification notify = (LingoNotification) datas.get(position).getObj();
         final User notificationUser = CacheHelper.getInstance().getUserInfo(notify.getUser_src());
         // TODO Possible add a progress bar for each notification that is setVisibility(View.GONE) in loadView()
@@ -218,10 +214,11 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
 
                 @Override
                 public void onFail() {
-//                    Log.e(LOG_TAG, "GetUser onFail()");
                 }
             });
-        else loadView(holder, notify, notificationUser);
+        else {
+            loadView(holder, notify, notificationUser);
+        }
     }
 
     private void loadView(final ViewHolder holder, final LingoNotification notification, final User user) {
@@ -247,7 +244,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             case LingoNotification.TYPE_USER_FOLLOWED:
                 //Followed
                 uiHelper.textViewSetPossiblyNullString(holder.message, "Followed you.");
-//                uiHelper.textViewSetPossiblyNullString(holder.message, context.getString(R.string.chat_follower));
                 break;
             case LingoNotification.TYPE_PATH_JOINED:
                 uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
@@ -275,7 +271,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     }
 
     private String getMessageDigest(EMMessage message) {
-        String digest = "";
+        String digest;
         switch (message.getType()) {
             case LOCATION:
                 if (message.direct == EMMessage.Direct.RECEIVE) {
@@ -298,14 +294,12 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 digest = context.getString(R.string.video);
                 break;
             case TXT:
-                if (!message.getBooleanAttribute(
-                        Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
+                if (!message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                     TextMessageBody txtBody = (TextMessageBody) message.getBody();
                     digest = txtBody.getMessage();
                 } else {
                     TextMessageBody txtBody = (TextMessageBody) message.getBody();
-                    digest = context.getString(R.string.voice_call)
-                            + txtBody.getMessage();
+                    digest = context.getString(R.string.voice_call) + txtBody.getMessage();
                 }
                 break;
 
@@ -320,11 +314,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView name;
-        TextView unreadLabel;
-        TextView message;
-        TextView time;
-        TextView state;
+        TextView name, unreadLabel, message, time, state;
         ImageView avatar;
     }
 
@@ -360,7 +350,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 Collections.reverse(indentDatas);
                 return true;
             } catch (Exception e1) {
-//                e1.getMessage();
                 return false;
             }
         }
@@ -376,8 +365,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         indent = indentDatas.get(0);
                         switch (indent.getState()) {
                             case 1:
-                                if (indent.getUserId().contentEquals(
-                                        CacheHelper.getInstance().getSelfInfo().getId())) {
+                                if (indent.getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
                                     view.setText(context.getString(R.string.wait_confirm));//待处理
                                 } else {
                                     view.setText(context.getString(R.string.received));//待处理

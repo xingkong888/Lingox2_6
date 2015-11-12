@@ -481,6 +481,12 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     path.setLocation(str);
                     CachePath.getInstance().setLocation(str);
                     countryBtn.setText(str);
+                    if ("China".equals(path.getChosenCountry())) {
+                        //如果选择的是中国，显示地图按钮
+                        detailAddress.setVisibility(View.VISIBLE);
+                    } else {
+                        detailAddress.setVisibility(View.GONE);
+                    }
                 }
                 break;
             case SELECTDETIAL:
@@ -518,8 +524,8 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     }
 
     /**
-     * 0��ʾnext
-     * 1��ʾback
+     * 0 on behalf of the next
+     * 1 on behalf of the back
      * page0-->local or traveler
      * page1-->选择地点
      * page5-->选择时间
@@ -527,7 +533,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
      * page3-->标签
      * page4-->选择图片
      *
-     * @param nextOrBack 表示页码
+     * 注意：现在只提供local发布活动的流程
+     *
+     * @param nextOrBack on behalf of the page number
      */
     private void nextClick(int nextOrBack) {
         if (nextOrBack == 0) {
@@ -550,7 +558,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             threeTitle.setText(getString(R.string.local_three));
                             fourTitle.setText(getString(R.string.local_four));
                             fiveTitle.setText(getString(R.string.local_five));
-                            detailAddress.setVisibility(View.VISIBLE);
 
                             //page0  -->page2-->page1-->page5-->page3-->page4
                             background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);
@@ -566,7 +573,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             threeTitle.setText(getString(R.string.travel_three));
                             fourTitle.setText(getString(R.string.travel_four));
                             fiveTitle.setText(getString(R.string.travel_five));
-                            detailAddress.setVisibility(View.INVISIBLE);
 
                             //page0  -->page1-->page5-->page2-->page3-->page4
                             background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);

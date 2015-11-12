@@ -471,15 +471,17 @@ public class ChatFragment extends Fragment {
                 }
             }
 
-            if (NetUtils.hasNetwork(getActivity()))
+            if (NetUtils.hasNetwork(getActivity())) {
                 errorText.setText("Cannot connect to the chat server");
-            else
+            } else {
                 errorText.setText("Network is unavailable");
+            }
 
-            if (EMChatManager.getInstance().isConnected())
+            if (EMChatManager.getInstance().isConnected()) {
                 errorItem.setVisibility(View.GONE);
-            else
+            } else {
                 errorItem.setVisibility(View.VISIBLE);
+            }
             if (!isFirst) {
                 notifyChange();
             }
@@ -535,8 +537,9 @@ public class ChatFragment extends Fragment {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if (!hidden) {
-            if (!isFirst)
+            if (!isFirst) {
                 refresh();
+            }
         }
     }
 
@@ -544,8 +547,9 @@ public class ChatFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (!hidden) {
-            if (!isFirst)
+            if (!isFirst) {
                 refresh();
+            }
         }
         if (!isConflict) {
             EMChatManager.getInstance().activityResumed();
@@ -565,9 +569,9 @@ public class ChatFragment extends Fragment {
         if (getActivity() != null && !getActivity().isFinishing()) {
             // clear up global variables
             try {
-                if (conflictBuilder == null)
-                    conflictBuilder = new android.app.AlertDialog.Builder(
-                            getActivity());
+                if (conflictBuilder == null) {
+                    conflictBuilder = new android.app.AlertDialog.Builder(getActivity());
+                }
                 conflictBuilder.setTitle("Account Conflict");
                 conflictBuilder.setMessage("You have been logged in elsewhere");
                 conflictBuilder.setPositiveButton(R.string.ok,
@@ -579,8 +583,7 @@ public class ChatFragment extends Fragment {
                                 dialog.dismiss();
                                 conflictBuilder = null;
                                 getActivity().finish();
-                                startActivity(new Intent(getActivity(),
-                                        LoginActivity.class));
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
                             }
                         });
                 conflictBuilder.setCancelable(false);

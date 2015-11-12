@@ -338,12 +338,12 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
 
         UIHelper uiHelper = UIHelper.getInstance();
-        if (requestingOthersData && user.getSignature().equals("")) {
+        if (requestingOthersData && "".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
 
-        } else if (requestingOthersData && !user.getSignature().equals("")) {
+        } else if (requestingOthersData && !"".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
-        } else if (!user.getSignature().equals("")) {
+        } else if (!"".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
         }
 
@@ -353,13 +353,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userInfoPlaces.setHint("");
         }
         userSpeak.setOnClickListener(this);
-        if (requestingOthersData && user.getSpeak().equals("")) {
+        if (requestingOthersData && "".equals(user.getSpeak())) {
             layoutSpeak.setVisibility(View.VISIBLE);
-        } else if (requestingOthersData && !user.getSpeak().equals("")) {
+        } else if (requestingOthersData && !"".equals(user.getSpeak())) {
             layoutSpeak.setVisibility(View.VISIBLE);
             userSpeak.setTextColor(Color.rgb(25, 143, 153));
             userSpeak.setText(user.getSpeak());
-        } else if (!user.getSpeak().equals("")) {
+        } else if (!"".equals(user.getSpeak())) {
             userSpeak.setHint("");
             userSpeak.setEnabled(false);
             layoutSpeak.setVisibility(View.VISIBLE);
@@ -789,7 +789,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
     }
 
-    //TODO 获取旅行记录
+    /**
+     * 获取旅行记录
+     */
     private class getUserExperience extends AsyncTask<Void, String, Boolean> {
         HashMap<String, String> updateParams = new HashMap<>();
 
@@ -928,6 +930,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
     }
 
+    /**
+     * 下载用户相册
+     */
     private class LoadUserPhotos extends AsyncTask<Void, String, Boolean> {
 
         @Override
@@ -978,7 +983,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPreExecute();
             userFollowing.setClickable(false);
             userFollowingList.clear();
-            // TODO Show a progressBar
         }
 
         @Override
@@ -1003,7 +1007,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                     Toast.makeText(getActivity(), "Failed to get User's Contacts", Toast.LENGTH_LONG).show();
                 }
             }
-
         }
     }
 
@@ -1014,7 +1017,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPreExecute();
             userFollow.setClickable(false);
             followUserList.clear();
-            // TODO Show a progressBar
         }
 
         @Override
@@ -1048,7 +1050,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPreExecute();
             userReference.setClickable(false);
             referenceList.clear();
-            // TODO Show a progressBar
         }
 
         @Override

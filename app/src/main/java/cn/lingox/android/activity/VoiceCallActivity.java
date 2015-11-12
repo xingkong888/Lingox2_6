@@ -79,8 +79,7 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
         muteImage.setOnClickListener(this);
         handsFreeImage.setOnClickListener(this);
 
-        getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setMicrophoneMute(false);
@@ -92,7 +91,7 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
         isInComingCall = getIntent().getBooleanExtra("isComingCall", false);
 
         nickTextView.setText(username);
-        if (!isInComingCall) {// ����绰
+        if (!isInComingCall) {
             soundPool = new SoundPool(1, AudioManager.STREAM_RING, 0);
             outgoing = soundPool.load(this, R.raw.outgoing, 1);
 
@@ -131,11 +130,8 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onCallStateChanged(CallState callState, CallError error) {
-                // Message msg = handler.obtainMessage();
                 switch (callState) {
-
                     case CONNECTING:
-                        // TODO English
                         VoiceCallActivity.this.runOnUiThread(new Runnable() {
 
                             @Override
@@ -244,15 +240,9 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                                 }
                                 postDelayedCloseMsg();
                             }
-
                         });
-
-                        break;
-
-                    default:
                         break;
                 }
-
             }
         });
     }
@@ -261,8 +251,9 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_refuse_call:
-                if (ringtone != null)
+                if (ringtone != null) {
                     ringtone.stop();
+                }
                 try {
                     EMChatManager.getInstance().rejectCall();
                 } catch (Exception e1) {
@@ -277,8 +268,9 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                 comingBtnContainer.setVisibility(View.INVISIBLE);
                 hangupBtn.setVisibility(View.VISIBLE);
                 voiceContronlLayout.setVisibility(View.VISIBLE);
-                if (ringtone != null)
+                if (ringtone != null) {
                     ringtone.stop();
+                }
                 closeSpeakerOn();
                 if (isInComingCall) {
                     try {
@@ -293,8 +285,9 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.btn_hangup_call:
-                if (soundPool != null)
+                if (soundPool != null) {
                     soundPool.stop(streamID);
+                }
                 endCallTriggerByMe = true;
                 try {
                     EMChatManager.getInstance().endCall();
@@ -327,8 +320,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                     isHandsfreeState = true;
                 }
                 break;
-            default:
-                break;
         }
     }
 
@@ -341,10 +332,7 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
             audioManager.setMode(AudioManager.MODE_RINGTONE);
             audioManager.setSpeakerphoneOn(false);
 
-            int id = soundPool.play(outgoing,
-                    volumnRatio, volumnRatio,
-                    1, -1, 1);
-            return id;
+            return soundPool.play(outgoing, volumnRatio, volumnRatio, 1, -1, 1);
         } catch (Exception e) {
             return -1;
         }
@@ -373,7 +361,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
     public void openSpeakerOn() {
         try {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
             if (!audioManager.isSpeakerphoneOn()) {
                 audioManager.setSpeakerphoneOn(true);
             }
@@ -384,7 +371,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
     }
 
     public void closeSpeakerOn() {
-
         try {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {

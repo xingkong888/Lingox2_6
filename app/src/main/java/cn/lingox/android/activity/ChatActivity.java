@@ -105,18 +105,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     public static final int REQUEST_CODE_VOICE = 6;
     public static final int REQUEST_CODE_PICTURE = 7;
     public static final int REQUEST_CODE_LOCATION = 8;
-    //    public static final int REQUEST_CODE_NET_DISK = 9;
     public static final int REQUEST_CODE_FILE = 10;
     public static final int REQUEST_CODE_COPY_AND_PASTE = 11;
-    //    public static final int REQUEST_CODE_PICK_VIDEO = 12;
-//    public static final int REQUEST_CODE_DOWNLOAD_VIDEO = 13;
     public static final int REQUEST_CODE_VIDEO = 14;
-    //    public static final int REQUEST_CODE_DOWNLOAD_VOICE = 15;
-//    public static final int REQUEST_CODE_SELECT_USER_CARD = 16;
-//    public static final int REQUEST_CODE_SEND_USER_CARD = 17;
     public static final int REQUEST_CODE_CAMERA = 18;
     public static final int REQUEST_CODE_LOCAL = 19;
-    //    public static final int REQUEST_CODE_CLICK_DESTORY_IMG = 20;
     public static final int REQUEST_CODE_GROUP_DETAIL = 21;
     public static final int REQUEST_CODE_SELECT_VIDEO = 23;
     public static final int REQUEST_CODE_SELECT_FILE = 24;
@@ -126,7 +119,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     public static final int RESULT_CODE_FORWARD = 3;
     public static final int RESULT_CODE_OPEN = 4;
     public static final int RESULT_CODE_DWONLOAD = 5;
-    //    public static final int RESULT_CODE_TO_CLOUD = 6;
     public static final int RESULT_CODE_EXIT_GROUP = 7;
     public static final int CHATTYPE_SINGLE = 1;
     public static final int CHATTYPE_GROUP = 2;
@@ -172,11 +164,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
     private RelativeLayout layoutShowOne;
     private LinearLayout declineAndAccept;
-    private TextView state, timeAndNum, pathTitle, cancel, decline, accept, showWaiting;
+    private TextView state, timeAndNum, pathTitle, cancel, showWaiting;
 
     private String title;//由于编辑后后台无返回数据
-
-    private String nickName = "";
 
     private Handler micImageHandler = new Handler() {
         @Override
@@ -213,8 +203,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         public void onReceive(Context context, Intent intent) {
             String msgid = intent.getStringExtra("msgid");
             String from = intent.getStringExtra("from");
-            EMConversation conversation = EMChatManager.getInstance()
-                    .getConversation(from);
+            EMConversation conversation = EMChatManager.getInstance().getConversation(from);
             if (conversation != null) {
                 // 获取message
                 EMMessage msg = conversation.getMessage(msgid);
@@ -297,8 +286,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         timeAndNum = (TextView) findViewById(R.id.show_one_start_time);
         pathTitle = (TextView) findViewById(R.id.show_one_path_title);
         cancel = (TextView) findViewById(R.id.self_cancel);
-        decline = (TextView) findViewById(R.id.decline);
-        accept = (TextView) findViewById(R.id.accept);
+        TextView decline = (TextView) findViewById(R.id.decline);
+        TextView accept = (TextView) findViewById(R.id.accept);
         showWaiting = (TextView) findViewById(R.id.show_state_waiting);
         showWaiting.setOnClickListener(this);
         pathTitle.setOnClickListener(this);
@@ -415,8 +404,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         if (chatType == CHATTYPE_SINGLE) {
             toChatUsername = getIntent().getStringExtra("username");
             User toChatUser = CacheHelper.getInstance().getUserInfoFromUsername(toChatUsername);
-            nickName = toChatUser.getNickname();
-            getSupportActionBar().setTitle(nickName);
+            getSupportActionBar().setTitle(toChatUser.getNickname());
             tarId = toChatUser.getId();
         } else {
             toChatUsername = getIntent().getStringExtra("groupId");

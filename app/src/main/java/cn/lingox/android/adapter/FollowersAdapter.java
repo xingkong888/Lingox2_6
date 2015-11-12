@@ -125,9 +125,7 @@ public class FollowersAdapter extends ArrayAdapter<User> implements SectionIndex
     }
 
     static class ViewHolder {
-        public ImageView avatar;
-        public TextView unreadMsgView;
-        public TextView nameTextView;
-        public TextView tvHeader;
+        ImageView avatar;
+        TextView unreadMsgView, nameTextView, tvHeader;
     }
 }

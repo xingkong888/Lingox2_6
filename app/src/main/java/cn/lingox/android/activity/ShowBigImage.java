@@ -86,7 +86,6 @@ public class ShowBigImage extends BaseActivity {
         } else {
             image.setImageResource(default_res);
         }
-
         image.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,18 +102,19 @@ public class ShowBigImage extends BaseActivity {
         pd.setMessage("...: 0%");
         pd.show();
         if (!showAvator) {
-            if (remoteFilePath.contains("/"))
+            if (remoteFilePath.contains("/")) {
                 localFilePath = PathUtil.getInstance().getImagePath().getAbsolutePath() + "/"
                         + remoteFilePath.substring(remoteFilePath.lastIndexOf("/") + 1);
-            else
+            } else {
                 localFilePath = PathUtil.getInstance().getImagePath().getAbsolutePath() + "/" + remoteFilePath;
+            }
         } else {
-            if (remoteFilePath.contains("/"))
+            if (remoteFilePath.contains("/")) {
                 localFilePath = PathUtil.getInstance().getImagePath().getAbsolutePath() + "/"
                         + remoteFilePath.substring(remoteFilePath.lastIndexOf("/") + 1);
-            else
+            } else {
                 localFilePath = PathUtil.getInstance().getImagePath().getAbsolutePath() + "/" + remoteFilePath;
-
+            }
         }
         final HttpFileManager httpFileMgr = new HttpFileManager(this, EMChatConfig.getInstance().getStorageUrl());
         final CloudOperationCallback callback = new CloudOperationCallback() {
@@ -135,7 +135,6 @@ public class ShowBigImage extends BaseActivity {
                             image.setImageBitmap(bitmap);
                             ImageCache.getInstance().put(localFilePath, bitmap);
                             isDownloaded = true;
-
                         }
                         if (pd != null) {
                             pd.dismiss();
@@ -160,7 +159,6 @@ public class ShowBigImage extends BaseActivity {
             }
 
             public void onProgress(final int progress) {
-                Log.d("ease", "Progress: " + progress);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -182,8 +180,9 @@ public class ShowBigImage extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (isDownloaded)
+        if (isDownloaded) {
             setResult(RESULT_OK);
+        }
         finish();
     }
 }

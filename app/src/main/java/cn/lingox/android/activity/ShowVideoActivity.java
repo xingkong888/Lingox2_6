@@ -34,8 +34,7 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_video);
         loadingLayout = (RelativeLayout) findViewById(R.id.loading_layout);
@@ -43,19 +42,16 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
         localFilePath = getIntent().getStringExtra("localpath");
         String remotepath = getIntent().getStringExtra("remotepath");
         String secret = getIntent().getStringExtra("secret");
-        System.err.println("show video view file:" + localFilePath
-                + " remotepath:" + remotepath + " secret:" + secret);
+        System.err.println("show video view file:" + localFilePath + " remotepath:" + remotepath + " secret:" + secret);
         if (localFilePath != null && new File(localFilePath).exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(localFilePath)),
-                    "video/mp4");
+            intent.setDataAndType(Uri.fromFile(new File(localFilePath)), "video/mp4");
             startActivity(intent);
             finish();
         } else if (!TextUtils.isEmpty(remotepath) && !remotepath.equals("null")) {
             System.err.println("download remote video file");
             Map<String, String> maps = new HashMap<>();
-            maps.put("Authorization", "Bearer "
-                    + EMChatManager.getInstance().getAccessToken());
+            maps.put("Authorization", "Bearer " + EMChatManager.getInstance().getAccessToken());
             if (!TextUtils.isEmpty(secret)) {
                 maps.put("share-secret", secret);
             }
@@ -65,21 +61,18 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
     }
 
     /**
-     * ������Ƶ�ļ�
+     * 下载视频
      */
-    private void downloadVideo(final String remoteUrl,
-                               final Map<String, String> header) {
+    private void downloadVideo(final String remoteUrl, final Map<String, String> header) {
 
         if (TextUtils.isEmpty(localFilePath)) {
-            localFilePath = PathUtil.getInstance().getVideoPath()
-                    .getAbsolutePath()
+            localFilePath = PathUtil.getInstance().getVideoPath().getAbsolutePath()
                     + "/" + remoteUrl.substring(remoteUrl.lastIndexOf("/") + 1) + ".mp4";
         }
 
         if (new File(localFilePath).exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(localFilePath)),
-                    "video/mp4");
+            intent.setDataAndType(Uri.fromFile(new File(localFilePath)), "video/mp4");
             startActivity(intent);
             finish();
             return;
@@ -88,8 +81,7 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
         System.err.println("download view file ...");
         loadingLayout.setVisibility(View.VISIBLE);
 
-        final HttpFileManager httpFileMgr = new HttpFileManager(this,
-                EMChatConfig.getInstance().getStorageUrl());
+        final HttpFileManager httpFileMgr = new HttpFileManager(this, EMChatConfig.getInstance().getStorageUrl());
         final CloudOperationCallback callback = new CloudOperationCallback() {
 
             @Override
@@ -101,14 +93,11 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
                         loadingLayout.setVisibility(View.GONE);
                         progressBar.setProgress(0);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(
-                                Uri.fromFile(new File(localFilePath)),
-                                "video/mp4");
+                        intent.setDataAndType(Uri.fromFile(new File(localFilePath)), "video/mp4");
                         startActivity(intent);
                         finish();
                     }
                 });
-
             }
 
             @Override
@@ -119,10 +108,8 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
                     @Override
                     public void run() {
                         progressBar.setProgress(progress);
-
                     }
                 });
-
             }
 
             @Override
@@ -132,14 +119,6 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
                 if (file.exists()) {
                     file.delete();
                 }
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                    }
-                });
-
             }
         };
 
@@ -147,8 +126,7 @@ public class ShowVideoActivity extends BaseActivity implements OnTouchListener {
 
             @Override
             public void run() {
-                httpFileMgr.downloadFile(remoteUrl, localFilePath,
-                        EMChatConfig.getInstance().APPKEY, header, callback);
+                httpFileMgr.downloadFile(remoteUrl, localFilePath, EMChatConfig.getInstance().APPKEY, header, callback);
             }
         }).start();
     }

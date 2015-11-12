@@ -76,17 +76,14 @@ public class UserListActivity extends Activity implements OnClickListener {
         } else {
             listView.setVisibility(View.VISIBLE);
             stopAnim();
-            adapter = new ContactAdapter(UserListActivity.this,
-                    R.layout.row_contact, userList);
+            adapter = new ContactAdapter(UserListActivity.this, R.layout.row_contact, userList);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    Intent intent = new Intent(UserListActivity.this,
-                            UserInfoActivity.class);
-                    intent.putExtra(UserInfoActivity.INTENT_USER_ID,
-                            adapter.getItem(position).getId());
+                    Intent intent = new Intent(UserListActivity.this, UserInfoActivity.class);
+                    intent.putExtra(UserInfoActivity.INTENT_USER_ID, adapter.getItem(position).getId());
                     startActivity(intent);
                 }
             });
@@ -99,7 +96,6 @@ public class UserListActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.layout_back:
                 UserListActivity.this.finish();
-            default:
                 break;
         }
     }

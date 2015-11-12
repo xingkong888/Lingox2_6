@@ -62,7 +62,7 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
                             .append(String.format("%02d", month + 1)).append("-")
                             .append(String.format("%02d", day))
             );
-            age = ("" + String.format("%02d", day) + "" + String.format("%02d", month + 1) + "" + year);
+            age = (String.format("%02d", day) + String.format("%02d", month + 1) + year);
         }
     };
 
@@ -238,6 +238,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         }
     }
 
+    /**
+     * 更新用户信息
+     */
     private class UpdateUserInfo extends AsyncTask<Void, String, Boolean> {
         private ProgressDialog pd;
 

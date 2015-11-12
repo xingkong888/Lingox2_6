@@ -45,7 +45,7 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
         startActivityForResult(intent, SELECT_PHOTOS);
     }
 
-    public void initView() {
+    private void initView() {
         setContentView(R.layout.activity_add_photos);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_photos_activity_toolbar);
@@ -144,9 +144,8 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    public void update() {
+    private void update() {
         addPhotosAdapter.notifyDataSetChanged();
-        Log.d(LOG_TAG, photoList.toString());
     }
 
     @Override

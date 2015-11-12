@@ -21,7 +21,6 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 
 public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer {
-
     // Data Elements
     private Activity context;
     private LayoutInflater inflater;
@@ -89,8 +88,9 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
                 holder.nameTextView.setText(user.getNickname());
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
 
-                if (holder.unreadMsgView != null)
+                if (holder.unreadMsgView != null) {
                     holder.unreadMsgView.setVisibility(View.INVISIBLE);
+                }
                 break;
         }
         return rowView;
@@ -127,9 +127,7 @@ public class ContactAdapter extends ArrayAdapter<User> implements SectionIndexer
     }
 
     static class ViewHolder {
-        public ImageView avatar;
-        public TextView unreadMsgView;
-        public TextView nameTextView;
-        public TextView tvHeader;
+        ImageView avatar;
+        TextView unreadMsgView, nameTextView, tvHeader;
     }
 }

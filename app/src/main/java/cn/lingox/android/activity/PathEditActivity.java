@@ -527,7 +527,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
      * page3-->标签
      * page4-->选择图片
      *
-     * @param nextOrBack
+     * @param nextOrBack 表示页码
      */
     private void nextClick(int nextOrBack) {
         if (nextOrBack == 0) {
@@ -545,11 +545,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 1://本地人
                             pageNum.setText("1/5");
-                            oneTitle.setText("Where is this experience?");
-                            twoTitle.setText("What local experience do you want to share with travelers?");
-                            threeTitle.setText("Please choose the type(s) of your local experience");
-                            fourTitle.setText("Please upload a cover photo of your experience or yourself");
-                            fiveTitle.setText("When are you usually available for this local experience? ");
+                            oneTitle.setText(getString(R.string.local_one));
+                            twoTitle.setText(getString(R.string.local_two));
+                            threeTitle.setText(getString(R.string.local_three));
+                            fourTitle.setText(getString(R.string.local_four));
+                            fiveTitle.setText(getString(R.string.local_five));
                             detailAddress.setVisibility(View.VISIBLE);
 
                             //page0  -->page2-->page1-->page5-->page3-->page4
@@ -561,11 +561,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2://旅行者
                             pageNum.setText("1/5");
-                            oneTitle.setText("Where are you going?");
-                            twoTitle.setText("What do you want to experience with locals?");
-                            threeTitle.setText("Please choose the type(s) of the experience");
-                            fourTitle.setText("Please upload a cover photo of your experience or yourself");
-                            fiveTitle.setText("Set a time frame for your travel");
+                            oneTitle.setText(getString(R.string.travel_one));
+                            twoTitle.setText(getString(R.string.travel_two));
+                            threeTitle.setText(getString(R.string.travel_three));
+                            fourTitle.setText(getString(R.string.travel_four));
+                            fiveTitle.setText(getString(R.string.travel_five));
                             detailAddress.setVisibility(View.INVISIBLE);
 
                             //page0  -->page1-->page5-->page2-->page3-->page4

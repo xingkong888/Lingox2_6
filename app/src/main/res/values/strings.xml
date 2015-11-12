@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+<!--PathEditActivity-->
+    <!-- 创建活动的提示语-->
+    <!--**************** local ************************-->
+    <string name="local_one">Where is this experience?</string>
+    <string name="local_two">What local experience do you want to share with travelers?</string>
+    <string name="local_three">Please choose the type(s) of your local experience</string>
+    <string name="local_four">Please upload a cover photo of your experience or yourself</string>
+    <string name="local_five">When are you usually available for this local experience?</string>
+    <!--****************************************-->
+    <!--**************** travel ************************-->
+    <string name="travel_one">Where are you going?</string>
+    <string name="travel_two">What do you want to experience with locals?</string>
+    <string name="travel_three">Please choose the type(s) of the experience</string>
+    <string name="travel_four">Please upload a cover photo of your experience or yourself</string>
+    <string name="travel_five">Set a time frame for your travel</string>
+    <!--****************************************-->
+<!--*******************************************************************************************-->
     <!-- 活动申请-->
     <string name="wait_confirm">Waiting for confirm</string>
     <string name="received">Received an application</string>

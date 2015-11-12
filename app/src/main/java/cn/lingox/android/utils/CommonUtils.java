@@ -30,6 +30,7 @@ import cn.lingox.android.R;
 public class CommonUtils {
     /**
      * 检测网络是否可用
+     *
      * @param context 上下文
      * @return true或false
      */
@@ -47,6 +48,7 @@ public class CommonUtils {
 
     /**
      * 检测Sdcard是否存在
+     *
      * @return true或false
      */
     public static boolean isExitsSdcard() {
@@ -109,9 +111,10 @@ public class CommonUtils {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
 
-        if (runningTaskInfos != null)
+        if (runningTaskInfos != null) {
             return runningTaskInfos.get(0).topActivity.getClassName();
-        else
+        } else {
             return "";
+        }
     }
 }

@@ -395,7 +395,9 @@ public class JsonHelper {
         return allTags;
     }
 
-    // TODO make us retrieve this JSON file from the server, this will allow us to keep the countries/cities list up to date even if the user doesn't update their app
+    // TODO make us retrieve this JSON file from the server,
+    // this will allow us to keep the countries/cities list up to date even if
+    // the user doesn't update their app
     public String[] getLanguages() {
         if (allLanguagesList == null) {
             try {

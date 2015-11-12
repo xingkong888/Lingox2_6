@@ -34,9 +34,7 @@ public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             User user = CacheHelper.getInstance().getSelfInfo();
-            user.setAvatar(ServerHelper.getInstance().uploadAvatar(
-                    user.getId(),
-                    FileUtil.getImg(photo.getPath(), context)));
+            user.setAvatar(ServerHelper.getInstance().uploadAvatar(user.getId(), FileUtil.getImg(photo.getPath(), context)));
             CacheHelper.getInstance().setSelfInfo(user);
             return true;
         } catch (Exception e) {
@@ -48,8 +46,7 @@ public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
-                    context, avatarImageView, CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, avatarImageView, CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
         } else {
             Toast.makeText(context, context.getString(R.string.fail_upload_avatar), Toast.LENGTH_SHORT).show();
         }

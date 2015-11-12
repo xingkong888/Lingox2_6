@@ -50,13 +50,13 @@ public class SearchDialog extends DialogFragment {
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        // }
         initData();
         return view;
     }
 
     private void initData() {
         datas = new ArrayList<>();
+//        datas.addAll();
         for (String str : JsonHelper.getInstance().getLanguages()) {
             datas.add(str);
         }

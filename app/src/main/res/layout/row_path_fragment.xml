@@ -3,7 +3,7 @@
     android:id="@+id/path_layout_main"
     android:layout_width="match_parent"
     android:layout_height="280dp"
-    android:background="#efeff4">
+    android:background="@color/gray_light">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         style="@style/AppTheme"

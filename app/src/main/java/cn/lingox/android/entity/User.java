@@ -49,7 +49,6 @@ public class User implements Parcelable {
     private boolean homeStay;
     private boolean homeMeal;
     private boolean localGuide;
-    // Not in our User model on the server)
     private int relation;
 
     private String createdAt;
@@ -420,8 +419,8 @@ public class User implements Parcelable {
     }
 
     public int getUserAge() {
-        if (!dateOfBirth.trim().contentEquals("Select Birthdate") && !dateOfBirth.trim().isEmpty()
-                && !dateOfBirth.trim().contentEquals("null")) {
+        if (!"Select Birthdate".contentEquals(dateOfBirth.trim()) && !dateOfBirth.trim().isEmpty()
+                && !"null".contentEquals(dateOfBirth.trim())) {
             GregorianCalendar cal = new GregorianCalendar();
             int y, m, d, a;
             int _year = Integer.parseInt(getBirthDateYear());
@@ -491,10 +490,11 @@ public class User implements Parcelable {
         } else {
             char header = (HanziToPinyin.getInstance().get(headerName).get(0).target)
                     .toLowerCase(Locale.getDefault()).charAt(0);
-            if (header < 'a' || header > 'z')
+            if (header < 'a' || header > 'z') {
                 return ("#");
-            else
+            } else {
                 return (String.valueOf(header));
+            }
         }
     }
 

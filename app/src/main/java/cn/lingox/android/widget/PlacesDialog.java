@@ -27,8 +27,7 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.entity.location.Country1;
 import cn.lingox.android.helper.JsonHelper;
 
-public class PlacesDialog extends DialogFragment implements
-        Comparator<Country1> {
+public class PlacesDialog extends DialogFragment implements Comparator<Country1> {
 
     private static TextView text;
     private static Context context;

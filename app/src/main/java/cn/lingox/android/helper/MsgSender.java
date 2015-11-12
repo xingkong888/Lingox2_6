@@ -71,8 +71,7 @@ public class MsgSender {
     public static String postJsonToNet(String url) {
         String jsonString;
         try {
-            URL postURL = new URL(url + "?" + StringConstant.verStr + "=" + APPVERSION
-            );
+            URL postURL = new URL(url + "?" + StringConstant.verStr + "=" + APPVERSION);
             HttpURLConnection connection = (HttpURLConnection) postURL.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);

@@ -53,7 +53,7 @@ public class ServerHelper {
      * @return true或false
      */
     private ReturnMsg checkReturnMsg(String jsonStr) {
-        if (jsonStr != null && !jsonStr.equals("")) {
+        if (jsonStr != null && !"".equals(jsonStr)) {
             JSONObject jobj;
             try {
                 jobj = new JSONObject(jsonStr);

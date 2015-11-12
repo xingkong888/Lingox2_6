@@ -3,7 +3,7 @@
     android:id="@+id/activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efeff4">
+    android:background="@color/gray_light">
 
     <RelativeLayout
         android:id="@+id/view_path_activity_toolbar"

@@ -32,8 +32,7 @@ public class GetContactList extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            contactList.addAll(
-                    ServerHelper.getInstance().getContactList(
+            contactList.addAll(ServerHelper.getInstance().getContactList(
                             CacheHelper.getInstance().getSelfInfo().getId()));
             return true;
         } catch (Exception e) {
@@ -44,10 +43,11 @@ public class GetContactList extends AsyncTask<Void, String, Boolean> {
 
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
-        if (success)
+        if (success) {
             callback.onSuccess(contactList);
-        else
+        } else {
             callback.onFail();
+        }
     }
 
     public interface Callback {

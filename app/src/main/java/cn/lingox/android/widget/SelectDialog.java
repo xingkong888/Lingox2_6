@@ -30,7 +30,6 @@ import cn.lingox.android.helper.JsonHelper;
  */
 public class SelectDialog extends DialogFragment {
 
-    private static String which;//标识是哪一个选项
     private static TextView text;
     private static Context context;
     private static User user;
@@ -40,11 +39,10 @@ public class SelectDialog extends DialogFragment {
     private MySelcetAdapter adapter;
     private ArrayList<SpeakAndInterest> datas;
 
-    public static SelectDialog newInstance(String title1, Context context1, User user1, TextView text1, Handler handler1, String which1) {
+    public static SelectDialog newInstance(String title1, Context context1, User user1, TextView text1, Handler handler1) {
 
         context = context1;
         user = user1;
-        which = which1;
         text = text1;
         handler = handler1;
         speakDatas.clear();
@@ -60,32 +58,24 @@ public class SelectDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate view
-
         View view = inflater.inflate(R.layout.select_dialog, null);
 
         listView = (ListView) view.findViewById(R.id.listview);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
         Button ok = (Button) view.findViewById(R.id.select_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (which) {
-                    case "speak":
-                        user.setSpeak(speakDatas.toString().replace("[", "").replace("]", ""));
-                        text.setTextColor(Color.rgb(25, 143, 153));
-                        text.setText("");
-                        text.setText(speakDatas.toString().replace("[", "").replace("]", ""));
+                user.setSpeak(speakDatas.toString().replace("[", "").replace("]", ""));
+                text.setTextColor(Color.rgb(25, 143, 153));
+                text.setText("");
+                text.setText(speakDatas.toString().replace("[", "").replace("]", ""));
 
-                        Message msg = new Message();
-                        msg.obj = speakDatas.toString().replace("[", "").replace("]", "");
-                        handler.sendMessage(msg);
-
-                        break;
-
-                }
+                Message msg = new Message();
+                msg.obj = speakDatas.toString().replace("[", "").replace("]", "");
+                handler.sendMessage(msg);
                 dismiss();
             }
         });
@@ -103,46 +93,37 @@ public class SelectDialog extends DialogFragment {
 
     private void initData() {
         datas = new ArrayList<>();
-        switch (which) {
-            case "speak":
-                String[] strs = text.getText().toString().split(",");
-                for (String str : strs) {
-                    if (!str.isEmpty()) {
-                        speakDatas.add(str.trim());
-                    }
-                }
-                for (String str : JsonHelper.getInstance().getLanguages()) {
-                    SpeakAndInterest speakAndInterest = new SpeakAndInterest();
-                    speakAndInterest.setStr(str);
-                    speakAndInterest.setFlg(1);
-                    for (int i = 0; i < speakDatas.size(); i++) {
-                        if (speakDatas.get(i).contentEquals(str)) {
-                            speakAndInterest.setFlg(2);
-                        }
-                    }
-                    datas.add(speakAndInterest);
-                }
-                break;
+        String[] strs = text.getText().toString().split(",");
+        for (String str : strs) {
+            if (!str.isEmpty()) {
+                speakDatas.add(str.trim());
+            }
         }
-
+        for (String str : JsonHelper.getInstance().getLanguages()) {
+            SpeakAndInterest speakAndInterest = new SpeakAndInterest();
+            speakAndInterest.setStr(str);
+            speakAndInterest.setFlg(1);
+            for (int i = 0; i < speakDatas.size(); i++) {
+                if (speakDatas.get(i).contentEquals(str)) {
+                    speakAndInterest.setFlg(2);
+                }
+            }
+            datas.add(speakAndInterest);
+        }
 
         adapter = new MySelcetAdapter();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (which) {
-                    case "speak":
-                        if (datas.get(position).getFlg() == 2) {
-                            speakDatas.remove(datas.get(position).getStr());
-                            datas.get(position).setFlg(1);
-                        } else {
-                            speakDatas.add(datas.get(position).getStr());
-                            datas.get(position).setFlg(2);
-                        }
-                        adapter.notifyDataSetChanged();
-                        break;
+                if (datas.get(position).getFlg() == 2) {
+                    speakDatas.remove(datas.get(position).getStr());
+                    datas.get(position).setFlg(1);
+                } else {
+                    speakDatas.add(datas.get(position).getStr());
+                    datas.get(position).setFlg(2);
                 }
+                adapter.notifyDataSetChanged();
             }
         });
     }

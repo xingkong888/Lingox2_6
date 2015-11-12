@@ -32,7 +32,6 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
 
     private Indent indent = new Indent();
     private TextView startTime, endTime;
-    private LinearLayout local, traveler;
 
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -107,8 +106,8 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
         Button cancel = (Button) view.findViewById(R.id.indent_cancel);
         cancel.setOnClickListener(this);
 
-        local = (LinearLayout) view.findViewById(R.id.local);
-        traveler = (LinearLayout) view.findViewById(R.id.traveler);
+        LinearLayout local = (LinearLayout) view.findViewById(R.id.local);
+        LinearLayout traveler = (LinearLayout) view.findViewById(R.id.traveler);
 
         switch (type) {
             case 1://traveler参加local发布的活动

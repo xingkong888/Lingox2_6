@@ -26,13 +26,13 @@ public class TimeHelper {
 
     public void setContext(Context context) {
         this.context = context;
-        if (CacheHelper.getInstance().getSettingLanguage() != null)
+        if (CacheHelper.getInstance().getSettingLanguage() != null) {
             locale = new Locale(CacheHelper.getInstance().getSettingLanguage());
+        }
         else {
             Configuration conf = context.getResources().getConfiguration();
             locale = conf.locale;
         }
-
     }
 
     public String parseTimestampToDate(String time) {

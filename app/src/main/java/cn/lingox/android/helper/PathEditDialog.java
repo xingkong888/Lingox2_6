@@ -15,8 +15,9 @@ public class PathEditDialog {
     private static Dialog dialog;
 
     public static synchronized PathEditDialog getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new PathEditDialog();
+        }
         return instance;
     }
 

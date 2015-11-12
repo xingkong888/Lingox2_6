@@ -18,7 +18,6 @@ import cn.lingox.android.helper.ServerHelper;
  */
 public class PostPhoto extends AsyncTask<Void, Void, Boolean> {
     private ProgressDialog pd;
-    private boolean isSuccess = false;
     private Button post;//提交按钮
     private Photo photo;
     private String description = "";//图片的描述
@@ -45,12 +44,11 @@ public class PostPhoto extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             photo = ServerHelper.getInstance().editPhoto(photo);
-            isSuccess = true;
+            return true;
         } catch (Exception e) {
             Log.e("PostPhoto", e.toString());
-            isSuccess = false;
+            return false;
         }
-        return isSuccess;
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.easemob.chat.EMMessage;
 
 import java.util.ArrayList;
 
+import cn.lingox.android.R;
 import cn.lingox.android.activity.MainActivity;
 import cn.lingox.android.easemob.DemoHXSDKHelper;
 import cn.lingox.android.entity.Indent;
@@ -229,29 +230,29 @@ public class LingoXApplication extends Application {
         switch (indent.getState()) {
             case 1:
                 if (indent.getUserId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId())) {
-                    state.setText("Waiting for confirm");//待处理
+                    state.setText(getString(R.string.wait_confirm));//待处理
                 } else {
-                    state.setText("Received an application");//待处理
+                    state.setText(getString(R.string.received));//待处理
                 }
                 break;
             case 2:
                 state.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 state.setTextColor(Color.rgb(199, 199, 199));
-                state.setText("Application cancelled");//申请这个取消
+                state.setText(getString(R.string.application_cancelled));//申请这个取消
                 break;
             case 3:
                 state.setTextColor(Color.rgb(0, 131, 143));
-                state.setText("Application Accepted");//同意
+                state.setText(getString(R.string.application_accepted));//同意
                 break;
             case 4:
                 state.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 state.setTextColor(Color.rgb(199, 199, 199));
-                state.setText("Application declined");//被拒绝
+                state.setText(getString(R.string.application_declined));//被拒绝
                 break;
             case 5:
                 state.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 state.setTextColor(Color.rgb(199, 199, 199));
-                state.setText("Time out");//超过结束时间
+                state.setText(getString(R.string.time_out));//超过结束时间
                 break;
         }
         if (indent.getFreeTime().isEmpty()) {

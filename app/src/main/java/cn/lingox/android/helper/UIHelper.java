@@ -21,8 +21,9 @@ public class UIHelper {
     }
 
     public static synchronized UIHelper getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new UIHelper();
+        }
         return instance;
     }
 

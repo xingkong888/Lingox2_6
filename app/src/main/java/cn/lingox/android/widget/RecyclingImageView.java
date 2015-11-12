@@ -24,8 +24,7 @@ public class RecyclingImageView extends ImageView {
      * @param drawable
      * @param isDisplayed
      */
-    private static void notifyDrawable(Drawable drawable,
-                                       final boolean isDisplayed) {
+    private static void notifyDrawable(Drawable drawable, final boolean isDisplayed) {
         if (drawable instanceof RecyclingBitmapDrawable) {
             // The drawable is a CountingBitmapDrawable, so notify it
             ((RecyclingBitmapDrawable) drawable).setIsDisplayed(isDisplayed);

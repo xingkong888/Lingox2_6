@@ -5,7 +5,6 @@ import org.json.JSONObject;
 // TODO this should be moved either to the Helper folder as as an inner class in ServerHelper
 // the Entity folder is just for major Data Entities (ie server entities)
 public class ReturnMsg {
-
     private int code;
     private JSONObject data;
     private String remark;

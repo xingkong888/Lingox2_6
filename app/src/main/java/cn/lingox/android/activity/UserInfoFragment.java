@@ -478,7 +478,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 }
                 break;
             case R.id.userinfo_speak_info:
-                SelectDialog.newInstance("speak", getActivity(), user, userSpeak, handler1, "speak").show(getFragmentManager(), "speak");
+                SelectDialog.newInstance("speak", getActivity(), user, userSpeak, handler1).show(getFragmentManager(), "speak");
                 break;
             case R.id.layout_follow:
                 MobclickAgent.onEvent(getActivity(), "members_follower");

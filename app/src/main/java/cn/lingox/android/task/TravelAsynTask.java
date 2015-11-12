@@ -11,7 +11,6 @@ import cn.lingox.android.helper.ServerHelper;
 
 /**
  * 创建和修改旅行计划
- * <p/>
  * Create by wangxinxing on 04/11/2015
  */
 public class TravelAsynTask extends AsyncTask<Void, Void, Boolean> {
@@ -25,7 +24,6 @@ public class TravelAsynTask extends AsyncTask<Void, Void, Boolean> {
         this.travel = travel;
         pd = new ProgressDialog(context);
         this.flag = flag;
-
     }
 
     @Override
@@ -43,8 +41,8 @@ public class TravelAsynTask extends AsyncTask<Void, Void, Boolean> {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override

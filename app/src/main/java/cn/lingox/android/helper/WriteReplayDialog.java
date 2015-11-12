@@ -18,7 +18,6 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.Reference;
 
 public class WriteReplayDialog extends DialogFragment implements View.OnClickListener {
-
     private static Context context;
 
     private static Reference reference;

@@ -22,7 +22,7 @@ import cn.lingox.android.helper.ServerHelper;
 
 /**
  * 定位工具类
- *
+ * <p/>
  * 签名打包后才可正常使用
  */
 public class GetLocationUtil implements AMapLocationListener {
@@ -43,14 +43,12 @@ public class GetLocationUtil implements AMapLocationListener {
      * @param longTime 定位间隔，单位：ms
      */
     public void init(Context context, int longTime) {
-//        this.context=context;
         mLocationManagerProxy = LocationManagerProxy.getInstance(context);
         //此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
         //注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求
         //在定位结束后，在合适的生命周期调用destroy()方法
         //其中如果间隔时间为-1，则定位只定一次
-        mLocationManagerProxy.requestLocationData(
-                LocationProviderProxy.AMapNetwork, longTime, 15, this);
+        mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, longTime, 15, this);
         mLocationManagerProxy.setGpsEnable(false);
     }
 
@@ -80,17 +78,16 @@ public class GetLocationUtil implements AMapLocationListener {
             Double geoLng = amapLocation.getLongitude();//经度
             try {
                 final double[] geoLocation = {geoLng, geoLat};
-//                Toast.makeText(context,geoLocation[0]+">>>"+geoLocation[1], Toast.LENGTH_LONG).show();
-                if (CacheHelper.getInstance().getSelfInfo() != null) {
-                    final User user = CacheHelper.getInstance().getSelfInfo();
+                final User user = CacheHelper.getInstance().getSelfInfo();
+                //用户登录且用户位置发生改变
+                if (user != null && (Math.abs(user.getLoc()[0] - geoLng) > 0.5) && (Math.abs(user.getLoc()[1] - geoLat) > 0.5)) {
                     user.setLoc(geoLocation);
                     CacheHelper.getInstance().setSelfInfo(user);
                     LingoXApplication.getInstance().setLocation(geoLat, geoLng);
                     new Thread() {
                         public void run() {
                             Map<String, String> params = new HashMap<>();
-                            params.put(StringConstant.userIdStr, CacheHelper
-                                    .getInstance().getSelfInfo().getId());
+                            params.put(StringConstant.userIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                             params.put(StringConstant.locStr, JsonHelper.getInstance().getLocationStr(geoLocation));
                             try {
                                 ServerHelper.getInstance().updateUserInfo(params);

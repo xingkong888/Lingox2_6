@@ -3,7 +3,7 @@
     android:id="@+id/notification_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#efeff4">
+    android:background="@color/gray_light">
 
     <RelativeLayout
         android:id="@+id/travel_toolbar"

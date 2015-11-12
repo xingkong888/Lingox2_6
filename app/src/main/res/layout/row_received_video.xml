@@ -34,19 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/iv_userhead"
-            android:layout_toLeftOf="@+id/ll_click_area" />
-
-        <LinearLayout
-            android:id="@+id/ll_click_area"
-            android:layout_width="130dp"
-            android:layout_height="145dp"
-            android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:layout_toRightOf="@id/iv_userhead">
+            android:layout_toLeftOf="@+id/chatting_click_area" />
 
             <FrameLayout
                 android:id="@+id/chatting_click_area"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="130dp"
+                android:layout_height="145dp"
+                android:layout_marginLeft="@dimen/margin_chat_activity"
+                android:layout_toRightOf="@id/iv_userhead"
                 android:background="@drawable/chatfrom_bg">
 
                 <ImageView
@@ -94,7 +89,6 @@
                         android:background="@null" />
                 </LinearLayout>
             </FrameLayout>
-        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

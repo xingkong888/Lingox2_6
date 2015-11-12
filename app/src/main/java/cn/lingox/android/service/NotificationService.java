@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,6 @@ import cn.lingox.android.utils.GetLocationUtil;
 public class NotificationService extends Service {
     public static final String NOTIFICATION = LingoXApplication.PACKAGE_NAME + ".activity";
     public static final String UPDATE = LingoXApplication.PACKAGE_NAME + ".UPDATE";
-    //    public static final String NOTICE_CLICKED = LingoXApplication.PACKAGE_NAME + ".NOTICE_CLICKED";
     private static final String LOG_TAG = "NotificationService";
     public int type = 0;
     public int notiType = 0;
@@ -78,15 +76,12 @@ public class NotificationService extends Service {
         notificationList.clear();
         if (lingoNotifications.size() != 0) {
             for (final LingoNotification lingoNotification : lingoNotifications) {
-                final User notificationUser = CacheHelper.getInstance()
-                        .getUserInfo(lingoNotification.getUser_src());
+                final User notificationUser = CacheHelper.getInstance().getUserInfo(lingoNotification.getUser_src());
                 if (notificationUser == null) {
                     new GetUser(lingoNotification.getUser_src(), new GetUser.Callback() {
                         @Override
                         public void onSuccess(User user) {
-                            notificationList.add(
-                                    generaNotification(user,
-                                            makeNotifiText(user, lingoNotification), lingoNotification));
+                            notificationList.add(generaNotification(user, makeNotifiText(user, lingoNotification), lingoNotification));
                         }
 
                         @Override
@@ -94,13 +89,12 @@ public class NotificationService extends Service {
 
                         }
                     }).execute();
-                } else
-                    Log.d(LOG_TAG, notificationUser.toString());
-                notificationList.add(generaNotification(notificationUser, makeNotifiText(notificationUser, lingoNotification), lingoNotification));
+                } else {
+                    notificationList.add(generaNotification(notificationUser, makeNotifiText(notificationUser, lingoNotification), lingoNotification));
+                }
             }
         }
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         for (int i = 0; i < notificationList.size(); i++) {
             mNotificationManager.notify(i, notificationList.get(i));
         }
@@ -160,7 +154,6 @@ public class NotificationService extends Service {
         Notification noti = mBuilder.build();
         noti.defaults = Notification.DEFAULT_ALL;
         noti.flags |= Notification.FLAG_AUTO_CANCEL;
-//        Log.d(LOG_TAG, noti.toString());
         return noti;
     }
 

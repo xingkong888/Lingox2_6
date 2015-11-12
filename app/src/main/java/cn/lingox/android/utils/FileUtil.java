@@ -27,7 +27,7 @@ public class FileUtil {
     public static void saveImg(String url, Bitmap bitmap, Context context) {
         if (!isMounted()) {
             throw new RuntimeException("内存卡不存在，请插入内存卡");
-        }else {
+        } else {
             try {
                 File dir = new File(CACHE_DIR);
                 if (!dir.exists()) {
@@ -49,8 +49,9 @@ public class FileUtil {
 
     public static void deleteDir() {
         File dir = new File(CACHE_DIR);
-        if (!dir.exists() || !dir.isDirectory())
+        if (!dir.exists() || !dir.isDirectory()) {
             return;
+        }
         for (File file : dir.listFiles()) {
             if (file.isFile()) {
                 file.delete(); // 删除所有文件
@@ -64,7 +65,7 @@ public class FileUtil {
     public static Bitmap getImg(String url, Context context) {
         if (!isMounted()) {
             throw new RuntimeException("内存卡不存在，请插入内存卡");
-        }else {
+        } else {
             Bitmap bitmap = null;
             File imgFile = new File(CACHE_DIR, getImgName(url));
             if (imgFile.exists()) {
@@ -75,13 +76,14 @@ public class FileUtil {
     }
 
     public static void getFileSize() throws Exception {
-        if (!isMounted())
+        if (!isMounted()) {
             throw new RuntimeException("内存卡不存在，请插入内存卡");
+        }
         long size = 0;
         File f = new File(CACHE_DIR);
         File flist[] = f.listFiles();
         for (File file : flist) {
-            size = size + flist.length;
+            size = size + file.length();
         }
         if (size > 1024 * 1024 * 1024) {//1M
             deleteDir();

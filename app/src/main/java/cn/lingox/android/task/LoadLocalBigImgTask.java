@@ -56,11 +56,11 @@ public class LoadLocalBigImgTask extends AsyncTask<Void, Void, Bitmap> {
         super.onPostExecute(result);
         pb.setVisibility(View.INVISIBLE);
         photoView.setVisibility(View.VISIBLE);
-        if (result != null)
+        if (result != null) {
             ImageCache.getInstance().put(path, result);
-        else
-            result = BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.signin_local_gallry);
+        } else {
+            result = BitmapFactory.decodeResource(context.getResources(), R.drawable.signin_local_gallry);
+        }
         photoView.setImageBitmap(result);
     }
 }

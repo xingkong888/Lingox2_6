@@ -21,12 +21,11 @@ public class GetUser extends AsyncTask<Void, String, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        Log.d(LOG_TAG, "Getting User data");
         try {
             user = ServerHelper.getInstance().getUserInfo(userId);
             CacheHelper.getInstance().addUserInfo(user);
             return true;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             Log.e(LOG_TAG, "GetUser exception: " + e.toString());
         }
         return false;

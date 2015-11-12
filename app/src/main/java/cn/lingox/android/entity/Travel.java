@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import cn.lingox.android.app.LingoXApplication;
 
 /**
+ * 旅行计划实体类
  * Created by Administrator on 2015/6/25.
  */
 public class Travel implements Parcelable {
@@ -52,7 +53,6 @@ public class Travel implements Parcelable {
         this.createTime = in.readString();
         this.updateTime = in.readString();
         this.tags = in.readString();
-
     }
 
     public String getId() {
@@ -61,10 +61,6 @@ public class Travel implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTags() {
-        return tags;
     }
 
     public void setTags(String tags) {

@@ -20,7 +20,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
-import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.SpeakAndInterest;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.JsonHelper;
@@ -29,7 +28,6 @@ public class PhotoTagsSelectDialog extends DialogFragment {
     private static Context context;
     private static String title;
     private static User user;
-
 
     private static ArrayList<String> tags;
     private static Handler handler;
@@ -40,12 +38,8 @@ public class PhotoTagsSelectDialog extends DialogFragment {
 
     public static PhotoTagsSelectDialog newInstance(String title1, Context context1, Object obj,
                                                     Handler handler1) {
-        Photo photo;
         title = title1;
         context = context1;
-        if (title.contentEquals("photo")) {
-            photo = (Photo) obj;
-        }
         if (title.contentEquals("interest")) {
             user = (User) obj;
         }
@@ -106,8 +100,9 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         } else {
             if (user.getInterests().size() > 0) {
                 for (int i = 0; i < user.getInterests().size(); i++) {
-                    if (!user.getInterests().get(i).isEmpty())
+                    if (!user.getInterests().get(i).isEmpty()) {
                         tags.add(user.getInterests().get(i));
+                    }
                 }
             }
         }
@@ -156,13 +151,11 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                     if (datas.get(position).getFlg() == 1) {
                         if (checkedInterest < 3) {
                             tags.add(datas.get(position).getStr());
-//                            checkedInterest++;
                             datas.get(position).setFlg(2);
                             adapter.notifyDataSetChanged();
                         }
                     } else {
                         tags.remove(datas.get(position).getStr());
-//                        checkedInterest--;
                         datas.get(position).setFlg(1);
                         adapter.notifyDataSetChanged();
                     }

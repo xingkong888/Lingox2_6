@@ -3,7 +3,7 @@
     android:id="@+id/userinfo_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fafafa">
+    android:background="@color/three_fa">
 
     <RelativeLayout
         android:id="@+id/asdfasdf"

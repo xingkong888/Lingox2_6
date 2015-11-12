@@ -97,8 +97,6 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
                     }).start();
                 }
             }
-
         }
     }
-
 }

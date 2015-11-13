@@ -2,124 +2,74 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/path_layout_main"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
-    android:background="@color/gray_light">
+    android:layout_height="280dp">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        style="@style/AppTheme"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/asdfasdfasdf"
-        card_view:cardBackgroundColor="#99cccccc"
-        card_view:cardElevation="5dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="false">
+        android:background="@drawable/path">
+
+        <ImageView
+            android:id="@+id/path_bag"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/discover_default" />
+
+        <!--不显示local或travel-->
+        <RelativeLayout
+            android:id="@+id/plmsokn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/plmokn"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/path_traveler"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#80cbc4"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/path_traveler"
+                android:textColor="#efeff4"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/path_local"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#ffe082"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/path_local"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fafafa">
-
-            <ImageView
-                android:id="@+id/path_bag"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/discover_default" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/path_tag_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="5dp"
-                    android:background="#7f00838f"
-                    android:gravity="end"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/path_tag_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="5dp"
-                    android:background="#7f00838f"
-                    android:gravity="end"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/path_tag_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="#7f00838f"
-                    android:gravity="end"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-            </LinearLayout>
-            <!--不显示local或travel-->
-            <RelativeLayout
-                android:id="@+id/plmsokn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/plmokn"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/path_traveler"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#80cbc4"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="@string/path_traveler"
-                    android:textColor="#efeff4"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/path_local"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:background="#ffe082"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="@string/path_local"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-            </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/plmokn"
+            android:layout_toRightOf="@+id/plmsokn">
 
             <LinearLayout
                 android:id="@+id/abc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/plmokn"
-                android:layout_toRightOf="@+id/plmsokn"
-                android:background="#4c000000"
-                android:gravity="end">
+                android:layout_height="30dp"
+                android:background="@drawable/gradient_black"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/ddddddddddd"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:scaleType="center"
                     android:src="@drawable/discover_location_white_18dp" />
 
@@ -136,105 +86,144 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/plmokn"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/path_bag"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/path_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
 
-                <cn.lingox.android.utils.CircularImageView
-                    android:id="@+id/path_user_avatar"
-                    android:layout_width="58dp"
-                    android:layout_height="58dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="14dp"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/app_icon" />
+                <ImageView
+                    android:id="@+id/path_people"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_like" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/path_people_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toRightOf="@id/path_people"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/path_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@id/path_layout"
-                        android:layout_marginRight="12dp"
-                        android:ellipsize="end"
-                        android:paddingBottom="2dp"
-                        android:singleLine="true"
-                        android:textColor="#000"
-                        android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/path_comment"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/path_people_num"
+                    android:src="@drawable/icon_coment" />
 
-                    <TextView
-                        android:id="@+id/path_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/path_title"
-                        android:paddingBottom="2dp"
-                        android:textColor="#868686"
-                        android:textSize="15sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/path_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="5dp">
-
-                        <ImageView
-                            android:id="@+id/path_people"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/active_like_24dp" />
-
-                        <TextView
-                            android:id="@+id/path_people_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_toRightOf="@id/path_people"
-                            android:textColor="#000"
-                            android:textSize="15sp" />
-
-                        <ImageView
-                            android:id="@+id/path_comment"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/path_people_num"
-                            android:src="@drawable/activity_reply_color_24dp" />
-
-                        <TextView
-                            android:id="@+id/path_comment_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_toRightOf="@id/path_comment"
-                            android:textColor="#000"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/path_comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/path_comment"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </RelativeLayout>
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/plmokn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@+id/path_bag"
+            android:orientation="horizontal">
+
+            <cn.lingox.android.utils.CircularImageView
+                android:id="@+id/path_user_avatar"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/app_icon" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <!--活动标题-->
+                <TextView
+                    android:id="@+id/path_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:paddingBottom="2dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_deep"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <!--标签-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/path_title"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/path_tag_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/path_tag"
+                        android:padding="5dp"
+                        android:textColor="@color/main_color"
+                        android:textSize="11sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/path_tag_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/path_tag"
+                        android:padding="5dp"
+                        android:textColor="@color/main_color"
+                        android:textSize="11sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/path_tag_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/path_tag"
+                        android:padding="5dp"
+                        android:textColor="@color/main_color"
+                        android:textSize="11sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <!--用户名——————需求不显示-->
+                <TextView
+                    android:id="@+id/path_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/path_title"
+                    android:paddingBottom="2dp"
+                    android:textColor="#868686"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/asdfasdfasdf"
         android:layout_width="match_parent"
-        android:layout_height="20sp"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="13dp"
+        android:layout_alignParentBottom="true"
+        android:background="#0000" />
 </RelativeLayout>

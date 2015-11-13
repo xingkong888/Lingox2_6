@@ -486,6 +486,9 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                         detailAddress.setVisibility(View.VISIBLE);
                     } else {
                         detailAddress.setVisibility(View.GONE);
+                        path.setDetailAddress("");
+                        detailAddress.setText("");
+                        detailAddress.setHint("Detail Address");
                     }
                 }
                 break;

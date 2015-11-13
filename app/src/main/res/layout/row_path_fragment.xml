@@ -54,7 +54,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_above="@+id/plmokn"
             android:layout_toRightOf="@+id/plmsokn">
 
@@ -66,11 +66,11 @@
                 android:gravity="center_vertical">
                 <ImageView
                     android:id="@+id/ddddddddddd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_marginLeft="10dp"
-                    android:scaleType="center"
-                    android:src="@drawable/discover_location_white_18dp" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_location" />
 
                 <TextView
                     android:id="@+id/path_location"
@@ -82,19 +82,20 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/path_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:id="@+id/path_people"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/icon_like" />
 
@@ -107,12 +108,12 @@
                     android:layout_marginRight="8dp"
                     android:layout_toRightOf="@id/path_people"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/path_comment"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/path_people_num"
                     android:src="@drawable/icon_coment" />
@@ -126,7 +127,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_toRightOf="@id/path_comment"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -159,7 +160,7 @@
                     android:ellipsize="end"
                     android:paddingBottom="2dp"
                     android:singleLine="true"
-                    android:textColor="@color/black_deep"
+                    android:textColor="#34495e"
                     android:textSize="18sp"
                     android:textStyle="bold" />
                 <!--标签-->
@@ -175,9 +176,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/path_tag"
-                        android:padding="5dp"
+                        android:padding="4dp"
                         android:textColor="@color/main_color"
                         android:textSize="11sp"
                         android:visibility="gone" />
@@ -187,9 +188,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/path_tag"
-                        android:padding="5dp"
+                        android:padding="4dp"
                         android:textColor="@color/main_color"
                         android:textSize="11sp"
                         android:visibility="gone" />
@@ -199,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/path_tag"
-                        android:padding="5dp"
+                        android:padding="4dp"
                         android:textColor="@color/main_color"
                         android:textSize="11sp"
                         android:visibility="gone" />
@@ -224,5 +225,5 @@
         android:layout_width="match_parent"
         android:layout_height="13dp"
         android:layout_alignParentBottom="true"
-        android:background="#0000" />
+        android:background="@drawable/gradient_black_1" />
 </RelativeLayout>

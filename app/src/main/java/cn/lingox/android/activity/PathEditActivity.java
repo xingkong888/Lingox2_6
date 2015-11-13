@@ -548,7 +548,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 1://country city address
                     switch (path.getType()) {
                         case 0:
-                            showToast("请选择Local或Travel");
+//                            showToast("请选择Local或Travel");
                             page--;
                             break;
                         case 1://本地人
@@ -587,7 +587,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
-                                showToast("请填写标题或详情");
+//                                showToast("请填写标题或详情");
                                 page--;
                             } else {
                                 if (path.getText().length() < 100) {
@@ -605,7 +605,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if (path.getChosenCountry().isEmpty()) {
-                                showToast("请选择国家");
+//                                showToast("请选择国家");
                                 page--;
                             } else {
                                 pageNum.setText("2/5");
@@ -625,8 +625,10 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 3://title text
                     switch (path.getType()) {
                         case 1:
-                            if (path.getChosenCountry().isEmpty() || path.getLatitude().isEmpty()) {
-                                showToast("请选择国家或详细地址");
+                            if (path.getChosenCountry().isEmpty()) {
+//                                showToast("请选择国家或详细地址");
+                                page--;
+                            } else if ("China".equals(path.getChosenCountry()) && path.getLatitude().isEmpty()) {
                                 page--;
                             } else {
                                 pageNum.setText("3/5");
@@ -645,7 +647,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if ((path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
-                                showToast("请选择时间");
+//                                showToast("请选择时间");
                                 page--;
                             } else {
                                 pageNum.setText("3/5");
@@ -662,7 +664,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getAvailableTime().isEmpty()) {
-                                showToast("请填写时间介绍");
+//                                showToast("请填写时间介绍");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -675,7 +677,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
-                                showToast("请填写标题或详情");
+//                                showToast("请填写标题或详情");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -705,7 +707,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             new EditPath().execute();
                         }
                     } else {
-                        showToast("请选择上传的图片");
+//                        showToast("请选择上传的图片");
                         page--;
                     }
                     break;

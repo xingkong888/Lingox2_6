@@ -129,7 +129,11 @@ public class PathAdapter extends BaseAdapter {
             //显示活动与自己位置的距离
             //如果省份为空，则只显示国家，否则显示国家和省份
             holder.address = path.getProvince().isEmpty() ? path.getChosenCountry() : (path.getChosenCountry() + ", " + path.getProvince());
-            if (!LingoXApplication.getInstance().getLatitude().isEmpty() && !LingoXApplication.getInstance().getLongitude().isEmpty() &&
+        if (holder.address.length() > 20) {
+            holder.address = holder.address.substring(0, 17) + "...";
+        }
+
+        if (!LingoXApplication.getInstance().getLatitude().isEmpty() && !LingoXApplication.getInstance().getLongitude().isEmpty() &&
                     !path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {
                 Location.distanceBetween(
                         Double.valueOf(LingoXApplication.getInstance().getLatitude()),

@@ -207,6 +207,30 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         //三
         title = (EditText) findViewById(R.id.path_edit_title);
         description = (EditText) findViewById(R.id.path_edit_description);
+        description.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {//获取焦点
+                    description.setHint("");
+                } else {
+                    if (description.getText().length() <= 0) {
+                        description.setHint(getString(R.string.description));
+                    }
+                }
+            }
+        });
+        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {//获取焦点
+                    title.setHint("");
+                } else {
+                    if (title.getText().length() <= 0) {
+                        title.setHint(getString(R.string.title));
+                    }
+                }
+            }
+        });
 
         title.addTextChangedListener(new TextWatcher() {
             @Override
@@ -589,8 +613,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 case 2://time
                     switch (path.getType()) {
                         case 1:
-                            if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
-//                                showToast("请填写标题或详情");
+                            if (path.getTitle().isEmpty()) {
+                                showToast("Please give a title to your local experience.");
+                                page--;
+                            } else if (path.getText().isEmpty()) {
+                                showToast("Please tell travelers more details about your local experience.");
                                 page--;
                             } else {
                                 if (path.getText().length() < 100) {
@@ -608,7 +635,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             break;
                         case 2:
                             if (path.getChosenCountry().isEmpty()) {
-//                                showToast("请选择国家");
+                                showToast("Please  choose a location for this local experience.");
                                 page--;
                             } else {
                                 pageNum.setText("2/5");
@@ -629,9 +656,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getChosenCountry().isEmpty()) {
-//                                showToast("请选择国家或详细地址");
-                                page--;
-                            } else if ("China".equals(path.getChosenCountry()) && path.getLatitude().isEmpty()) {
+                                showToast("Please  choose a location for this local experience.");
                                 page--;
                             } else {
                                 pageNum.setText("3/5");
@@ -667,7 +692,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     switch (path.getType()) {
                         case 1:
                             if (path.getAvailableTime().isEmpty()) {
-//                                showToast("请填写时间介绍");
+                                showToast("Please choose your available time for this local experience.");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -679,8 +704,11 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             }
                             break;
                         case 2:
-                            if (path.getTitle().isEmpty() || path.getText().isEmpty()) {
-//                                showToast("请填写标题或详情");
+                            if (path.getTitle().isEmpty()) {
+                                showToast("Please give a title to your local experience.");
+                                page--;
+                            } else if (path.getText().isEmpty()) {
+                                showToast("Please tell travelers more details about your local experience.");
                                 page--;
                             } else {
                                 pageNum.setText("4/5");
@@ -695,12 +723,16 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                     break;
                 //page0-->page1-->page5-->page2-->  page3  -->page4
                 case 5://photo
-                    saveTags();
-                    pageNum.setText("5/5");
-                    //page0-->page1-->page5-->page2-->page3-->  page4
-                    background.setBackgroundResource(R.drawable.active_map_04_320dp520dp);
-                    page4.setVisibility(View.VISIBLE);
-                    page3.setVisibility(View.INVISIBLE);
+                    if (!saveTags()) {
+                        showToast("Please choose the type(s) of your local experience.");
+                        page--;
+                    } else {
+                        pageNum.setText("5/5");
+                        //page0-->page1-->page5-->page2-->page3-->  page4
+                        background.setBackgroundResource(R.drawable.active_map_04_320dp520dp);
+                        page4.setVisibility(View.VISIBLE);
+                        page3.setVisibility(View.INVISIBLE);
+                    }
                     break;
                 case 6:
                     if (imageSelected) {
@@ -710,7 +742,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                             new EditPath().execute();
                         }
                     } else {
-//                        showToast("请选择上传的图片");
+                        showToast("Please choose a picture of your local experience. ");
                         page--;
                     }
                     break;
@@ -743,9 +775,13 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
         }
     }
 
-    private void saveTags() {
-        if (activityTags.size() > 0) //标签被选择
-        {
+    /**
+     * 保存活动标签
+     *
+     * @return true:选择至少一个标签，false:未选择标签
+     */
+    private boolean saveTags() {
+        if (activityTags.size() > 0) {//标签被选择
             Set key = activityTags.keySet();
             Object[] post = key.toArray();
             ArrayList<String> postJson = new ArrayList<>();
@@ -755,6 +791,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             CachePath.getInstance().setTags(postJson);
             path.setTags(postJson);
         }
+        return path.getTags().size()>0;
     }
 
     //提示用户

@@ -56,7 +56,7 @@
     <RelativeLayout
         android:id="@+id/qwer"
         android:layout_width="match_parent"
-        android:layout_height="345dp"
+        android:layout_height="350dp"
         android:layout_below="@+id/xingqi">
         <!--local or traveler-->
         <include

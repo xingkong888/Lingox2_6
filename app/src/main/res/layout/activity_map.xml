@@ -47,14 +47,14 @@
 
     <Button
         android:id="@+id/map_ok"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
-        android:text="确定"
-        android:textSize="15sp"
+        android:text="OK"
+        android:textSize="20sp"
         android:visibility="gone" />
     <ProgressBar
         android:id="@+id/map_pb"

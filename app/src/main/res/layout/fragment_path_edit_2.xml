@@ -35,8 +35,8 @@
         android:maxLength="30"
         android:padding="3dp"
         android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textColorHint="@color/white" />
+        android:textColor="@color/white"
+        android:textColorHint="#c7c7c7" />
 
     <EditText
         android:id="@+id/path_edit_description"
@@ -50,8 +50,8 @@
         android:hint="@string/description"
         android:padding="3dp"
         android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textColorHint="#c7c7c7"
         android:textSize="15sp" />
 
 </RelativeLayout>

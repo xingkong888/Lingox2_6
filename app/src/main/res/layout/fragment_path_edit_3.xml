@@ -25,9 +25,9 @@
     <ListView
         android:id="@+id/path_edit_listview"
         android:layout_width="240dp"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/path_edit_choose"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="#00838f" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_border_blue" />
 </RelativeLayout>

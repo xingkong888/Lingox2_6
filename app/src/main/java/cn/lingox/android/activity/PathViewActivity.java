@@ -675,6 +675,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     public View getCommentView(final int position) {
         View rowView = getLayoutInflater().inflate(R.layout.row_path_comment, null);
         final Comment comment = commentsList.get(position);
+
         ImageView userAvatar = (ImageView) rowView.findViewById(R.id.comment_user_avatar);
         if (!LingoXApplication.getInstance().getSkip()) {
             if (CacheHelper.getInstance().getSelfInfo().getId().contentEquals(comment.getUserId())) {
@@ -694,7 +695,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         uiHelper.textViewSetPossiblyNullString(commentDateTime,
                 JsonHelper.getInstance().parseSailsJSDate(comment.getCreatedAt()));
         new LoadCommentUser(userNickname, userAvatar, comment.getUserId()).execute();
-        new LoadReplyUser(comment.getUser_tar(), replyTarName).execute();
+        if (!comment.getUser_tar().isEmpty()) {
+            new LoadReplyUser(comment.getUser_tar(), replyTarName).execute();
+        }
         if (!LingoXApplication.getInstance().getSkip()) {
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -743,7 +746,6 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } else {
                 hasMeasured = true;
             }
-//            Log.d("星期","commentHeight="+commentHeight+">>> height="+height+">>>> y="+y);
             if (Math.abs(commentHeight - height) <= y) {
                 commentsSend.setVisibility(View.VISIBLE);
             } else {
@@ -966,7 +968,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    private class LoadCommentUser extends AsyncTask<Void, Void, Void> {
+    private class LoadCommentUser extends AsyncTask<Void, Void, Boolean> {
         private TextView userNickname;
         private ImageView userAvatar;
         private String userId;
@@ -986,9 +988,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
-                boolean ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
+                boolean ownComment;
+                if (LingoXApplication.getInstance().getSkip()) {
+                    ownComment = false;
+                } else {
+                    ownComment = (CacheHelper.getInstance().getSelfInfo().getId().equals(userId));
+                }
                 if (ownComment) {
                     commentUser = CacheHelper.getInstance().getSelfInfo();
                 } else {
@@ -1000,28 +1007,30 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } catch (Exception e) {
                 Log.e(LOG_TAG, "failed to get Comment's User's info from server");
                 Log.e(LOG_TAG, e.getMessage());
+                return false;
             }
-            return null;
+            return true;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(Boolean success) {
             //FIXME
-            uiHelper.textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
-            uiHelper.imageViewSetPossiblyEmptyUrl(PathViewActivity.this, userAvatar, commentUser.getAvatar(), "");
-            final View.OnClickListener userClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent mIntent = new Intent(PathViewActivity.this, UserInfoActivity.class);
-                    mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, commentUser.getId());
-                    startActivity(mIntent);
+            if (success) {
+                uiHelper.textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
+                uiHelper.imageViewSetPossiblyEmptyUrl(PathViewActivity.this, userAvatar, commentUser.getAvatar(), "");
+                final View.OnClickListener userClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(PathViewActivity.this, UserInfoActivity.class);
+                        mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, commentUser.getId());
+                        startActivity(mIntent);
+                    }
+                };
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    userAvatar.setOnClickListener(userClickListener);
                 }
-            };
-            if (!LingoXApplication.getInstance().getSkip()) {
-                userAvatar.setOnClickListener(userClickListener);
+                userAvatar.setLongClickable(false);
             }
-            userAvatar.setLongClickable(false);
         }
     }
 
@@ -1106,13 +1115,18 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected User doInBackground(String... params) {
             User targetUser;
-            boolean isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
+            boolean isTargetUs;
+            if (LingoXApplication.getInstance().getSkip()) {
+                isTargetUs = false;
+            } else {
+                isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
+            }
             if (isTargetUs) {
                 targetUser = CacheHelper.getInstance().getSelfInfo();
             } else {
                 targetUser = CacheHelper.getInstance().getUserInfo(userTar);
             }
-            if (targetUser == null) {
+            if (targetUser == null && userTar != null) {
                 try {
                     targetUser = ServerHelper.getInstance().getUserInfo(userTar);
                 } catch (Exception e) {

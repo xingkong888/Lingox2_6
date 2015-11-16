@@ -155,11 +155,9 @@
                     android:id="@+id/path_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:ellipsize="end"
                     android:paddingBottom="2dp"
-                    android:singleLine="true"
                     android:textColor="#34495e"
                     android:textSize="18sp"
                     android:textStyle="bold" />

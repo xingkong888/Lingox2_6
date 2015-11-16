@@ -369,9 +369,7 @@ public class ServerHelper {
             throw new Exception("Failed to get User's info!");
         }
 
-        User returnUser = JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(),
-                User.class);
+        User returnUser = JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), User.class);
         CacheHelper.getInstance().addUserInfo(returnUser);
 
         Log.d(LOG_TAG, "getUserInfo: User's info: " + returnUser);

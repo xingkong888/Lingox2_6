@@ -55,7 +55,7 @@ public class UIHelper {
                 case "original"://原图
                     rc.placeholder(null);
                     break;
-                case "circular"://压缩---将图片压缩到58dpX58dp
+                case "circular"://压缩---将图片压缩到85dpX85dp
                     int size = DpToPx.dip2px(context, 85);
                     rc.resize(size, size);
                     rc.placeholder(R.drawable.default_avatar);

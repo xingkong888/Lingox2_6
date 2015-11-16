@@ -146,14 +146,17 @@ public class CacheHelper {
     }
 
     public User getUserInfo(String userId) {
-        if (userId.equals(getSelfInfo().getId())) {
+        if (userId == null) {
+            return null;
+        }
+        if (getSelfInfo() != null && userId.equals(getSelfInfo().getId())) {
             return getSelfInfo();
-        }
-        if (userCache.containsKey(userId)) {
+        } else if (userCache.containsKey(userId)) {
             return userCache.get(userId);
+        } else {
+            Log.e(LOG_TAG, "getUserInfo: UserId '" + userId + "' was not in the cache");
+            return null;
         }
-        Log.e(LOG_TAG, "getUserInfo: UserId '" + userId + "' was not in the cache");
-        return null;
     }
 
     public User getUserInfo(String userId, int a) {

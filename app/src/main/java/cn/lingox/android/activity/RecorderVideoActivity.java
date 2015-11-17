@@ -298,10 +298,6 @@ public class RecorderVideoActivity extends BaseActivity implements
 
                                     }
                                 }).setNegativeButton(R.string.cancel, null).show();
-
-                break;
-
-            default:
                 break;
         }
     }
@@ -434,8 +430,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 
     private void showFailDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("��ʾ")
-                .setMessage("���豸ʧ�ܣ�")
+                .setMessage("Whether to send?")
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
 
@@ -443,7 +438,6 @@ public class RecorderVideoActivity extends BaseActivity implements
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 finish();
-
                             }
                         }).setCancelable(false).show();
     }

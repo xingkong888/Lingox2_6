@@ -157,7 +157,6 @@
             android:visibility="gone">
 
             <!-- 表情图片 -->
-
             <LinearLayout
                 android:id="@+id/ll_face_container"
                 android:layout_width="match_parent"
@@ -170,9 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-
             <!-- 图片，表情，名片等按钮 -->
-
             <LinearLayout
                 android:id="@+id/ll_btn_container"
                 android:layout_width="match_parent"
@@ -265,7 +262,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/btn_video"
@@ -291,6 +289,7 @@
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="6dp"
                     android:baselineAligned="false"
+                    android:visibility="gone"
                     android:weightSum="4">
 
                     <LinearLayout

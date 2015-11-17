@@ -777,7 +777,6 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
     /**
      * 保存活动标签
-     *
      * @return true:选择至少一个标签，false:未选择标签
      */
     private boolean saveTags() {

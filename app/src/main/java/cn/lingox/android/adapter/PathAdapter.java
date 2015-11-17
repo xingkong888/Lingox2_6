@@ -144,7 +144,7 @@ public class PathAdapter extends BaseAdapter {
                     Double.valueOf(path.getLongitude())
                     , results);
 
-            holder.distance = results[0] / 1000f;
+            holder.distance = results[0];
             if (holder.distance < 1000) {
                 //小于1km
                 if (path.getTitle().equals(holder.location.getTag())) {

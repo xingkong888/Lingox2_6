@@ -107,6 +107,7 @@ dependencies {
     compile files('libs/AMap_Location_v1.4.1_20150917.jar')
     compile files('libs/AMap_Search_v2.6.0_20150914.jar')
     compile files('libs/easemobchat_2.2.3.jar')
+    compile files('libs/easemobchat_2.2.4.jar')
 }
 task copyNativeLibs(type: Copy) {
     from(new File(getProjectDir(), 'src/main/native-libs')) { include '**/*.so' }

@@ -581,14 +581,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.back:
-                if (layout.isShown()) {
-                    layout.setVisibility(View.GONE);
-                } else if (!replyEveryOne) {
-                    replyEveryOne = true;
-                    commentEditText.setHint("");
-                } else {
                     finishedViewing();
-                }
                 break;
         }
     }
@@ -611,14 +604,33 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         oks.show(this);
     }
 
+    /**
+     * 返回上一级
+     */
     private void finishedViewing() {
-        pathBackground.setImageDrawable(null);
-        Intent editedIntent = new Intent();
-        editedIntent.putExtra(EDITED_PATH, path);
-        setResult(RESULT_OK, editedIntent);
-        finish();
+        if (layout.isShown()) {
+            layout.setVisibility(View.GONE);
+        } else if (!replyEveryOne) {
+            replyEveryOne = true;
+            commentEditText.setHint("");
+        } else {
+            Intent editedIntent = new Intent();
+            editedIntent.putExtra(EDITED_PATH, path);
+            setResult(RESULT_OK, editedIntent);
+            finish();
+        }
     }
 
+    @Override
+    protected void onDestroy() {
+        //置空，加速GC回收图片资源内存
+        pathBackground.setImageDrawable(null);
+        super.onDestroy();
+    }
+
+    /*
+    *系统回退键
+     */
     @Override
     public void onBackPressed() {
         finishedViewing();

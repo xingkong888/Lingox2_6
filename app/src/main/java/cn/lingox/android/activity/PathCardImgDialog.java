@@ -76,7 +76,7 @@ public class PathCardImgDialog extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            for (int i = 0; i < imgUrl.size(); i++)
+            for (int i = 0, j = imgUrl.size(); i < j; i++)
                 recommendImgList.addView(getPathImg(imgUrl.get(i)));
         }
     }

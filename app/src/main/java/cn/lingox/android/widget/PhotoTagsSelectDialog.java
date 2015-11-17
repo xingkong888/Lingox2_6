@@ -98,7 +98,7 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         if (title.contentEquals("photo")) {
         } else {
             if (user.getInterests().size() > 0) {
-                for (int i = 0; i < user.getInterests().size(); i++) {
+                for (int i = 0, j = user.getInterests().size(); i < j; i++) {
                     if (!user.getInterests().get(i).isEmpty()) {
                         tags.add(user.getInterests().get(i));
                     }
@@ -107,19 +107,19 @@ public class PhotoTagsSelectDialog extends DialogFragment {
         }
 
         String str;
-        for (int i = 0; i < JsonHelper.getInstance().getAllTags().size(); i++) {
+        for (int i = 0, a = JsonHelper.getInstance().getAllTags().size(); i < a; i++) {
             str = JsonHelper.getInstance().getAllTags().get(i);
             SpeakAndInterest speakAndInterest = new SpeakAndInterest();
             speakAndInterest.setStr(str);
             speakAndInterest.setFlg(1);
             if (title.contentEquals("photo")) {
-                for (int j = 0; j < tags.size(); j++) {
+                for (int j = 0, b = tags.size(); j < b; j++) {
                     if (Integer.valueOf(tags.get(j)) == i) {
                         speakAndInterest.setFlg(2);
                     }
                 }
             } else {
-                for (int j = 0; j < tags.size(); j++) {
+                for (int j = 0, b = tags.size(); j < b; j++) {
                     if (tags.get(j).contentEquals(str)) {
                         speakAndInterest.setFlg(2);
                     }

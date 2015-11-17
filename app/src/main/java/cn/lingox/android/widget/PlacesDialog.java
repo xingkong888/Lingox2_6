@@ -71,7 +71,7 @@ public class PlacesDialog extends DialogFragment implements Comparator<Country1>
             @Override
             public void onClick(View v) {
                 list.clear();
-                for (int i = 0; i < data.size(); i++) {
+                for (int i = 0, j = data.size(); i < j; i++) {
                     list.add(data.get(i).trim());
                 }
                 text.setText(list.toString().replace("[", "").replace("]", ""));
@@ -158,7 +158,7 @@ public class PlacesDialog extends DialogFragment implements Comparator<Country1>
             viewHolder.box.setText(datas.get(position).getCountry());
             viewHolder.box.setTag(position);
             viewHolder.box.setChecked(false);
-            for (int i = 0; i < data.size(); i++) {
+            for (int i = 0, j = data.size(); i < j; i++) {
                 if (datas.get(position).getCountry().equals(data.get(i).trim())) {
                     viewHolder.box.setChecked(true);
                     break;

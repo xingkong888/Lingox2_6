@@ -265,7 +265,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
             try {
                 referenceList.addAll(ServerHelper.getInstance().getUsersReferences(params[0]));
                 success = true;
-                for (int i = 0; i < referenceList.size(); i++) {
+                for (int i = 0, j = referenceList.size(); i < j; i++) {
                     try {
                         User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
                         CacheHelper.getInstance().addUserInfo(user);

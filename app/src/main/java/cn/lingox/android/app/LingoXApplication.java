@@ -61,11 +61,13 @@ public class LingoXApplication extends Application {
     }
 
     private void getAllTag() {
-        for (int i = 0; i < JsonHelper.getInstance().getAllTags().size(); i++) {
+        for (int i = 0, j = JsonHelper.getInstance().getAllTags().size(); i < j; i++) {
             PathTags pathTag = new PathTags();
             pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
             pathTag.setType(0);
             datas.add(pathTag);
+            //加速GC回收
+            pathTag = null;
         }
     }
 

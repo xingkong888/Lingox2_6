@@ -95,7 +95,7 @@ public class NotificationService extends Service {
             }
         }
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        for (int i = 0; i < notificationList.size(); i++) {
+        for (int i = 0, j = notificationList.size(); i < j; i++) {
             mNotificationManager.notify(i, notificationList.get(i));
         }
     }

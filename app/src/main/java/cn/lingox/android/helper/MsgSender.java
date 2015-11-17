@@ -216,7 +216,7 @@ public class MsgSender {
         if (keys.length == 0)
             return null;
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < keys.length; i++) {
+        for (int i = 0, j = keys.length; i < j; i++) {
             try {
                 sb.append(keys[i].toString()).append("=").append(URLEncoder.encode(params.get(keys[i].toString()),
                         "UTF-8"));

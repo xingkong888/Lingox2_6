@@ -334,7 +334,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         }
         if (path.getTags().size() > 0) {
             tags = new String[path.getTags().size()];
-            for (int a = 0; a < path.getTags().size(); a++) {
+            for (int a = 0, b = path.getTags().size(); a < b; a++) {
                 tags[a] = path.getTags().get(a);
             }
         }
@@ -682,7 +682,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
 
     private void loadComments() {
         commentsListView.removeAllViews();
-        for (int i = 0; i < commentsList.size(); i++) {
+        for (int i = 0, j = commentsList.size(); i < j; i++) {
             commentsListView.addView(getCommentView(i));
         }
         if (!hasMeasured) {

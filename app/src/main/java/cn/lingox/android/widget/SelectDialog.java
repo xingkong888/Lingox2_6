@@ -103,7 +103,7 @@ public class SelectDialog extends DialogFragment {
             SpeakAndInterest speakAndInterest = new SpeakAndInterest();
             speakAndInterest.setStr(str);
             speakAndInterest.setFlg(1);
-            for (int i = 0; i < speakDatas.size(); i++) {
+            for (int i = 0, j = speakDatas.size(); i < j; i++) {
                 if (speakDatas.get(i).contentEquals(str)) {
                     speakAndInterest.setFlg(2);
                 }

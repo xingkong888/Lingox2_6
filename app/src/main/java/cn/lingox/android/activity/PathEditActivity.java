@@ -370,7 +370,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 }
 
                 if (CachePath.getInstance().getTags().size() > 0) {
-                    for (int i = 0; i < CachePath.getInstance().getTags().size(); i++) {
+                    for (int i = 0, j = CachePath.getInstance().getTags().size(); i < j; i++) {
                         activityTags.put(Integer.valueOf(CachePath.getInstance().getTags().get(i)), 1);
                         if (checkedNum < 3) {
                             checkedNum++;
@@ -395,7 +395,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             //二
             //三
             if (path.getTags().size() > 0) {
-                for (int i = 0; i < path.getTags().size(); i++) {
+                for (int i = 0, j = path.getTags().size(); i < j; i++) {
                     activityTags.put(Integer.valueOf(path.getTags().get(i)), 1);
                     if (checkedNum < 3) {
                         checkedNum++;

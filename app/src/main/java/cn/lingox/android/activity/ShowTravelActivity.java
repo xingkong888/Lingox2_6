@@ -127,7 +127,7 @@ public class ShowTravelActivity extends ActionBarActivity implements OnClickList
                 if (data.hasExtra("Travel")) {
                     Travel travel;
                     travel = data.getParcelableExtra("Travel");
-                    for (int i = 0; i < datas.size(); i++) {
+                    for (int i = 0, j = datas.size(); i < j; i++) {
                         if (travel.getId().equals(datas.get(i).getId())) {
                             datas.remove(i);
                             datas.add(i, travel);

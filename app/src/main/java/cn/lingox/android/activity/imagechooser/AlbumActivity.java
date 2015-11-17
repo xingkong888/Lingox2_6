@@ -88,7 +88,7 @@ public class AlbumActivity extends ActionBarActivity {
                 if (selectMultiple) {
                     ArrayList<String> list = new ArrayList<>(adapter.map.values());
                     ArrayList<String> imageURLs = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++) {
+                    for (int i = 0, j = list.size(); i < j; i++) {
                         String Str = list.get(i).substring(
                                 list.get(i).lastIndexOf("/") + 1,
                                 list.get(i).lastIndexOf("."));

@@ -104,7 +104,7 @@ public class SplashActivity extends Activity {
     private void initPoint() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll);
         points = new ImageView[pics.length];
-        for (int i = 0; i < pics.length; i++) {
+        for (int i = 0, j = pics.length; i < j; i++) {
             points[i] = (ImageView) linearLayout.getChildAt(i);
             points[i].setEnabled(true);
             points[i].setOnClickListener(new pointListener());

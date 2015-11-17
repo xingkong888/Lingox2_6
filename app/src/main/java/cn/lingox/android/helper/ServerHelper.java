@@ -315,7 +315,7 @@ public class ServerHelper {
         ArrayList<User> contactList = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(
                 "contacts");
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             User user = JsonHelper
                     .getInstance().jsonToBean(
@@ -404,12 +404,13 @@ public class ServerHelper {
         ArrayList<User> contactList = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(
                 "contacts");
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             User user = JsonHelper
                     .getInstance().jsonToBean(
                             jsonObject.toString(),
                             User.class);
+            jsonObject = null;
             contactList.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
@@ -470,7 +471,7 @@ public class ServerHelper {
 
         JSONArray jsonArray = rmsg.getData().getJSONArray(
                 StringConstant.searchResult);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             User user = JsonHelper
                     .getInstance().jsonToBean(
@@ -507,7 +508,7 @@ public class ServerHelper {
 
         JSONArray jsonArray = rmsg.getData().getJSONArray(
                 StringConstant.searchResult);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             User user = JsonHelper
                     .getInstance().jsonToBean(
@@ -660,7 +661,7 @@ public class ServerHelper {
         ArrayList<Reference> referenceArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(
                 "references");
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             referenceArray.add((Reference) JsonHelper
                     .getInstance().jsonToBean(
@@ -729,7 +730,7 @@ public class ServerHelper {
 
         ArrayList<Path> pathArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.paths);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             pathArray.add((Path) JsonHelper
                     .getInstance().jsonToBean(
@@ -787,7 +788,7 @@ public class ServerHelper {
 
         ArrayList<Path> pathArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.paths);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             pathArray.add((Path) JsonHelper
                     .getInstance().jsonToBean(
@@ -827,7 +828,7 @@ public class ServerHelper {
 
         ArrayList<Path> pathArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.paths);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             pathArray.add((Path) JsonHelper
                     .getInstance().jsonToBean(
@@ -1204,7 +1205,7 @@ public class ServerHelper {
 
         ArrayList<Photo> photoArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.photos);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             photoArray.add((Photo) JsonHelper
                     .getInstance().jsonToBean(
@@ -1309,7 +1310,7 @@ public class ServerHelper {
 
         ArrayList<LingoNotification> notificationArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.notifications);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             notificationArray.add((LingoNotification) JsonHelper
                     .getInstance().jsonToBean(
@@ -1345,7 +1346,7 @@ public class ServerHelper {
 
         ArrayList<LingoNotification> notificationArray = new ArrayList<>();
         JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.notifications);
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             notificationArray.add((LingoNotification) JsonHelper
                     .getInstance().jsonToBean(
@@ -1539,7 +1540,7 @@ public class ServerHelper {
         String json = rmsg.getData().get("applications").toString();
         JSONArray jsonArray = new JSONArray(json);
         ArrayList<Indent> datas = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             datas.add((Indent) JsonHelper
                     .getInstance().jsonToBean(
@@ -1719,7 +1720,7 @@ public class ServerHelper {
         JSONArray jsonArray = jsonObject.getJSONArray("references");
         ArrayList<PathReference> list = new ArrayList<>();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
             list.add((PathReference) JsonHelper
                     .getInstance().jsonToBean(

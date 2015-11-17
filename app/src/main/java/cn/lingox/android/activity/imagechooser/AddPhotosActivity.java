@@ -172,7 +172,7 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
                 if (resultCode == PhotoDialog.RESULT_OK) {
                     if (data.hasExtra(PhotoDialog.SELECTED_IMAGE_LIST)) {
                         ArrayList<String> imageURLs = data.getStringArrayListExtra(PhotoDialog.SELECTED_IMAGE_LIST);
-                        for (int i = 0; i < imageURLs.size(); i++) {
+                        for (int i = 0, j = imageURLs.size(); i < j; i++) {
                             photoList.add(new Photo("", "", imageURLs.get(i)));
                         }
                     } else if (data.hasExtra(PhotoDialog.SELECTED_SINGLE_IMAGE)) {

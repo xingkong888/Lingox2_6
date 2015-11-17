@@ -161,7 +161,7 @@ public class RecorderVideoActivity extends BaseActivity implements
         if (supportedPreviewFrameRates != null
                 && supportedPreviewFrameRates.size() > 0) {
             Collections.sort(supportedPreviewFrameRates);
-            for (int i = 0; i < supportedPreviewFrameRates.size(); i++) {
+            for (int i = 0, j = supportedPreviewFrameRates.size(); i < j; i++) {
                 int supportRate = supportedPreviewFrameRates.get(i);
 
                 if (supportRate == 10) {
@@ -184,11 +184,11 @@ public class RecorderVideoActivity extends BaseActivity implements
         List<Camera.Size> resolutionList = Utils.getResolutionList(mCamera);
         if (resolutionList != null && resolutionList.size() > 0) {
             Collections.sort(resolutionList, new Utils.ResolutionComparator());
-            Camera.Size previewSize = null;
+            Camera.Size previewSize;
             if (defaultScreenResolution == -1) {
                 boolean hasSize = false;
                 // �������ͷ֧��640*480����ôǿ����Ϊ640*480
-                for (int i = 0; i < resolutionList.size(); i++) {
+                for (int i = 0, j = supportedPreviewFrameRates.size(); i < j; i++) {
                     Size size = resolutionList.get(i);
                     if (size != null && size.width == 640 && size.height == 480) {
                         previewSize = size;

@@ -125,7 +125,7 @@ public class JsonHelper {
         JSONObject jsonObj;
         try {
             JSONArray jsonArray = new JSONArray(jsonStr);
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0, j = jsonArray.length(); i < j; i++) {
                 jsonObj = jsonArray.getJSONObject(i);
                 travel = new Travel();
                 travel.setId(jsonObj.optString("id"));
@@ -298,7 +298,7 @@ public class JsonHelper {
         if (pathImgList.isEmpty()) {
             try {
                 JSONArray tempArray = readJsonFromUrl("http://lingox.cn/json/activity_images.json").getJSONArray("images");
-                for (int i = 0; i < tempArray.length(); i++) {
+                for (int i = 0, j = tempArray.length(); i < j; i++) {
                     pathImgList.add(tempArray.getString(i));
                 }
             } catch (IOException | JSONException e) {
@@ -360,7 +360,7 @@ public class JsonHelper {
                         provinces.setProvinces(key1);
                         array = obj.getJSONArray(key1);
                         ArrayList<String> city = new ArrayList<>();
-                        for (int i = 0; i < array.length(); i++) {
+                        for (int i = 0, j = array.length(); i < j; i++) {
                             city.add(array.getString(i));
                         }
                         provinces.setCity(city);
@@ -384,7 +384,7 @@ public class JsonHelper {
                 // Read from local file
                 String allCountriesString = readFileAsString(context, PATHTAGS_JSON);
                 JSONObject jsonObject = new JSONObject(allCountriesString);
-                for (int i = 1; i <= jsonObject.length(); i++) {
+                for (int i = 1, j = jsonObject.length(); i <= j; i++) {
                     allTags.add(jsonObject.getString(String.valueOf(i)));
                 }
             } catch (Exception e) {
@@ -407,7 +407,7 @@ public class JsonHelper {
                 JSONArray jsonArray = jsonObject.getJSONArray("languages");
 
                 ArrayList<String> tempList = new ArrayList<String>();
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0, j = jsonArray.length(); i < j; i++) {
                     tempList.add(jsonArray.getString(i).trim());
                 }
                 allLanguagesList = new String[tempList.size()];

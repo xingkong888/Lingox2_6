@@ -73,7 +73,7 @@ public class SelectCountry extends Activity {
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (datas != null) {
-            for (int i = 0; i < datas.size(); i++) {
+            for (int i = 0, j = datas.size(); i < j; i++) {
                 countryData.add(datas.get(i).getCountry());
             }
         }

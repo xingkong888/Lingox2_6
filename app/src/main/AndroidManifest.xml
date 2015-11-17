@@ -47,7 +47,7 @@
 
         <activity
             android:name="cn.lingox.android.activity.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
@@ -58,6 +58,7 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="54718961fd98c56dcf000851" />
+        <!-- 用于多渠道打包-->
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${CHANNEL_NAME}" />
@@ -154,7 +155,7 @@
         <!-- PathView Activity -->
         <activity
             android:name=".activity.PathViewActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />

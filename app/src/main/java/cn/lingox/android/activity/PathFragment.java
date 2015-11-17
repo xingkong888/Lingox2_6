@@ -122,24 +122,6 @@ public class PathFragment extends Fragment implements OnClickListener {
                 refreshList();
             }
         });
-
-//        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    //空闲时加载
-//                    adapter.setIsFling(false);
-//                    adapter.notifyDataSetChanged();
-//                } else {
-//                    adapter.setIsFling(true);
-//                }
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//            }
-//        });
         addPathButton = (ImageView) v.findViewById(R.id.iv_add_path);
         addPathButton.setOnClickListener(this);
     }

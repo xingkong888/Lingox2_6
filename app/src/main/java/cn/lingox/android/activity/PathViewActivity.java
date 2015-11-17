@@ -583,13 +583,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case R.id.back:
                 if (layout.isShown()) {
                     layout.setVisibility(View.GONE);
+                } else if (!replyEveryOne) {
+                    replyEveryOne = true;
+                    commentEditText.setHint("");
                 } else {
-                    if (!replyEveryOne) {
-                        replyEveryOne = true;
-                        commentEditText.setHint("");
-                    } else {
-                        finishedViewing();
-                    }
+                    finishedViewing();
                 }
                 break;
         }
@@ -622,6 +620,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     }
 
     @Override
+    public void onBackPressed() {
+        finishedViewing();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -647,6 +650,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     private void removeComment(int position) {
         path.removeComment(commentsList.get(position));
         commentsList.remove(position);
+        if (commentsList.size() <= 0) {
+            commitLayout.setVisibility(View.GONE);
+        }
         pathCommentsNum.setText(String.valueOf(commentsList.size()));
         commentsListView.removeViewAt(position);
     }
@@ -858,6 +864,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             } else {
                 MobclickAgent.onEvent(PathViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "discover"));
                 addComment(comment);
+                commitLayout.setVisibility(View.VISIBLE);
                 commentEditText.setText("");
             }
             commentSendButton.setEnabled(true);
@@ -883,8 +890,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             super.onPostExecute(success);
             if (success) {
                 removeComment(position);
-            } else
+            } else {
                 Toast.makeText(PathViewActivity.this, getString(R.string.fail_comment_del), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -922,6 +930,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 pathAcceptButton.setImageResource(R.drawable.active_like_24dp);
                 pathAcceptButton.setTag(1);
                 joinedUsersListView.setVisibility(View.VISIBLE);
+                likeLayout.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(PathViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
@@ -957,8 +966,10 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 pathAcceptButton.setTag(0);
                 joinedUsersAdapter.removeItem(CacheHelper.getInstance().getSelfInfo());
                 joinedUsersAdapter.notifyDataSetChanged();
-                if (joinedUsersList.size() == 0)
+                if (joinedUsersList.size() == 0) {
                     joinedUsersListView.setVisibility(View.GONE);
+                    likeLayout.setVisibility(View.GONE);
+                }
                 pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 pathGroupChat.setVisibility(View.GONE);
             } else {

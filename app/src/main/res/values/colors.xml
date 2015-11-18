@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="translucent_background">#80000000</color>
-
     <color name="page_back">#fff2f2f2</color>
     <color name="logo_text_color">#ff7f7f7f</color>
     <color name="login_with_other_plat_text_color">#ff383838</color>
@@ -11,7 +9,8 @@
     <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#0097A7</color>
     <color name="colorAccent">#1DE9B6</color>
-    <color name="transparent">#0000</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="three_e">#eee</color>
     <!--
             Cyan
             500 #00BCD4
@@ -32,7 +31,7 @@
             A700 #00BFA5
          -->
 
-    <color name="white">#fff</color>
+    <color name="white">@android:color/white</color>
     <color name="three_fa">#fafafa</color>
 
     <color name="common_top_bar_blue">#4ebcd3</color>
@@ -65,9 +64,9 @@
     <color name="gray_pressed">@color/btn_white_pressed</color>
     <color name="gray_normal">#666667</color>
     <color name="grid_state_pressed">#1Affffff</color>
-    <color name="grid_state_focused">@color/translucent_background</color>
+    <color name="grid_state_focused">#80000000</color>
     <color name="voip_interface_text_color">#bababa</color>
-    <color name="black_deep">#FF000000</color>
+    <color name="black_deep">@android:color/black</color>
     <color name="main_color">#00838f</color>
     <color name="Proficient">#3949ab</color>
     <color name="Advanced">#42a5f5</color>
@@ -75,6 +74,6 @@
     <color name="Basic">#4dd0e1</color>
     <color name="Entry">#b2dfdb</color>
     <color name="gray_light">#efeff4</color>
-    <color name="shadow_color">#55000000</color>
-    <color name="c7">#7fc7c7c7</color>
+    <color name="shadow_color">#5000</color>
+    <color name="three_c7">#7fc7c7c7</color>
 </resources>

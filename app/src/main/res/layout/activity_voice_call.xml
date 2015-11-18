@@ -24,15 +24,14 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:textColor="@color/voip_interface_text_color"
-            android:textSize="22sp"
-            android:visibility="visible" />
+            android:textSize="22sp" />
 
         <Chronometer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chronometer"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:visibility="invisible" />
 
         <TextView
@@ -40,8 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:textColor="@color/voip_interface_text_color"
-            android:textSize="15sp"
-            android:visibility="visible" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="张三"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>

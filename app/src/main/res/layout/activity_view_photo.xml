@@ -1,13 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/photo_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="#000"
+        android:background="@color/black_deep"
         android:padding="10dp">
 
         <ImageView
@@ -29,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
-            android:layout_toLeftOf="@+id/photo_bt_edit"
+            android:layout_toLeftOf="@id/photo_bt_edit"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/top_delete_18dp" />
@@ -39,7 +38,7 @@
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/photo_relativeLayout" />
+        android:layout_below="@id/photo_relativeLayout" />
 
     <ScrollView
         android:id="@+id/photoScroll"

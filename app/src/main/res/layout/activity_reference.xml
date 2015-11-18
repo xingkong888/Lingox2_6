@@ -2,12 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEEEEE"
-    android:orientation="vertical">
+    android:background="@color/three_e">
 
     <RelativeLayout
         android:id="@+id/layout_title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/main_color">
 
@@ -36,7 +35,7 @@
             android:layout_toRightOf="@+id/layout_back"
             android:alpha="1"
             android:text="@string/reference"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -64,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_title"
-        android:divider="@android:color/transparent"
+        android:divider="@color/transparent"
         android:dividerHeight="8dp"
         android:layoutAnimation="@anim/listview_ltr"
         android:padding="5dp"

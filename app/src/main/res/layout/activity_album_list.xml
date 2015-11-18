@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    android:background="@color/three_e"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/album_list_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white">
+        android:background="@color/main_color"
+        android:titleTextAppearance="@android:color/white">
 
         <Button
             android:id="@+id/album_list_activity_toolbar_confirm_button"
@@ -18,7 +18,7 @@
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginRight="15dp"
-            android:background="#0000"
+            android:background="@android:color/transparent"
             android:text="@string/ok"
             android:visibility="gone" />
 

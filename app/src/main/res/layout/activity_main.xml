@@ -7,8 +7,8 @@
         android:id="@+id/main_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white" />
+        android:background="@color/main_color"
+        android:titleTextAppearance="@android:color/white" />
 
     <ImageView
         android:id="@+id/search"
@@ -36,7 +36,7 @@
             android:layout_marginRight="4dp"
             android:background="@drawable/message_point_28dp"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="10sp" />
 
         <ImageView
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main_activity_toolbar"
-        android:background="#efeff4"
+        android:background="@color/gray_light"
         android:orientation="vertical"
         android:touchscreenBlocksFocus="false">
 
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:background="#00838f"
+                android:background="@color/main_color"
                 android:textAppearance="@style/PagerTabStripText" />
         </android.support.v4.view.ViewPager>
 
@@ -77,7 +77,7 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/white"
+            android:background="@android:color/white"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:orientation="vertical">
@@ -123,7 +123,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/avatar_info"
                     android:text="@string/nickname"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
             </RelativeLayout>
@@ -177,4 +177,12 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
+
+    <Button
+        android:id="@+id/asdfg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
 </RelativeLayout>

@@ -9,8 +9,8 @@
         android:id="@+id/add_photos_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white">
+        android:background="@color/main_color"
+        android:titleTextAppearance="@android:color/white">
 
         <Button
             android:id="@+id/edit_photo_cancel"
@@ -18,7 +18,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="#0000"
+            android:background="@android:color/transparent"
             android:paddingRight="15dp"
             android:text="@string/cancel"
             android:textAllCaps="false" />
@@ -29,13 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="97dp"
         android:layout_marginTop="10dp"
-        android:background="#fafafa"
+        android:background="@color/three_fa"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:background="@color/three_c7" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_margin="10dp"
-                android:background="#efeff4"
+                android:background="@color/gray_light"
                 android:scaleType="centerInside"
                 android:src="@drawable/share_pic1_62dp" />
 
@@ -60,14 +60,14 @@
                 android:layout_toRightOf="@+id/show_photo"
                 android:background="@null"
                 android:hint="Describe this experience..."
-                android:textColor="#000"
+                android:textColor="@color/black_deep"
                 android:textColorHint="#ababab" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:background="@color/three_c7" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,10 +80,10 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="#00838f"
+            android:background="@color/main_color"
             android:text="Post"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <TextView

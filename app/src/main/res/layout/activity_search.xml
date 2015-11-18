@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_toLeftOf="@+id/search_member_del0"
+                android:layout_toLeftOf="@id/search_member_del0"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="NickName/Email"
@@ -97,14 +97,14 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:id="@+id/search_member_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_toLeftOf="@+id/search_member_del1"
+                android:layout_toLeftOf="@id/search_member_del1"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="Location"
@@ -129,7 +129,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:id="@+id/search_member_availability"
@@ -145,8 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/search_member_availability"
-                android:orientation="vertical">
+                android:layout_toRightOf="@id/search_member_availability">
 
                 <TextView
                     android:id="@+id/search_member_local"
@@ -166,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/search_member_local"
+                    android:layout_toRightOf="@id/search_member_local"
                     android:background="@drawable/button_cyc"
                     android:gravity="center_vertical"
                     android:padding="3dp"
@@ -177,7 +176,7 @@
                     android:id="@+id/search_member_meal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/search_member_stay"
+                    android:layout_below="@id/search_member_stay"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
@@ -198,7 +197,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:id="@+id/search_member_gender"
@@ -214,7 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/search_member_gender">
+                android:layout_toRightOf="@id/search_member_gender">
 
                 <TextView
                     android:id="@+id/search_member_male"
@@ -233,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/search_member_male"
+                    android:layout_toRightOf="@id/search_member_male"
                     android:background="@drawable/button_cyc"
                     android:gravity="center_vertical"
                     android:padding="3dp"
@@ -252,13 +251,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:id="@+id/search_member_language"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/search_member_del2"
+                android:layout_toLeftOf="@id/search_member_del2"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="@string/language"
@@ -285,7 +284,7 @@
         android:id="@+id/search_discover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/layout_title"
+        android:layout_below="@id/layout_title"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -293,7 +292,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <TextView
                 android:layout_width="match_parent"
@@ -304,7 +303,7 @@
                 android:id="@+id/search_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/search_del"
+                android:layout_toLeftOf="@id/search_del"
                 android:gravity="center_vertical"
                 android:hint="@string/location"
                 android:paddingLeft="20dp"
@@ -329,7 +328,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="#fafafa"
+            android:background="@color/three_fa"
             android:visibility="gone">
 
             <TextView
@@ -353,7 +352,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/search_create"
+                android:layout_toRightOf="@id/search_create"
                 android:background="@drawable/button_cyc"
                 android:gravity="center"
                 android:paddingLeft="10dp"
@@ -368,7 +367,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/search_local"
+                android:layout_toRightOf="@id/search_local"
                 android:background="@drawable/button_cyc"
                 android:gravity="center"
                 android:paddingLeft="10dp"
@@ -394,7 +393,7 @@
                 android:layout_width="200dp"
                 android:layout_height="250dp"
                 android:layout_centerInParent="true"
-                android:background="#fafafa" />
+                android:background="@color/three_fa" />
         </RelativeLayout>
     </LinearLayout>
 

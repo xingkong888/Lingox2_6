@@ -4,7 +4,7 @@
     <!-- item name="android:windowIsTranslucent"      设置当前Activity是否透明-->
     <!-- item name="android:windowAnimationStyle"     设置当前Activity进出方式-->
     <style name="translucent">
-        <item name="android:windowBackground">@color/translucent_background</item>
+        <item name="android:windowBackground">@color/grid_state_focused</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>

@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_photo"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/et_description"
         android:scaleType="fitCenter" />
@@ -18,8 +17,8 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_description"
         android:padding="8dp"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="22sp" />
 
     <RelativeLayout

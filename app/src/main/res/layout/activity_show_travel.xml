@@ -2,14 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light"
-    android:orientation="vertical">
+    android:background="@color/gray_light">
 
     <RelativeLayout
         android:id="@+id/asdfasdfasdf"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#00838f">
+        android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/show_travel_back"
@@ -23,11 +22,11 @@
             android:id="@+id/show_travel_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/show_travel_back"
+            android:layout_toRightOf="@id/show_travel_back"
             android:gravity="center"
             android:text="Travel Experiences"
             android:textAllCaps="false"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -35,8 +34,8 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="78dp"
-        android:layout_below="@+id/asdfasdfasdf"
-        android:background="#fafafa">
+        android:layout_below="@id/asdfasdfasdf"
+        android:background="@color/three_fa">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/show_travel_avatar"
@@ -52,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/show_travel_avatar"
+            android:layout_toRightOf="@id/show_travel_avatar"
             android:text="adfasdfas"
             android:textSize="20sp" />
 
@@ -67,13 +66,13 @@
         android:id="@+id/show_travel_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top"
+        android:layout_below="@id/top"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:divider="@null"
         android:dividerHeight="20dp"
-        android:listSelector="#00000000"
+        android:listSelector="@color/transparent"
         android:scrollbarStyle="outsideOverlay"
         android:transcriptMode="normal" />
 </RelativeLayout>

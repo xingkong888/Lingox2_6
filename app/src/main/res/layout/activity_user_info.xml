@@ -9,7 +9,7 @@
         android:id="@+id/user_info_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#00838f">
+        android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/back"
@@ -22,7 +22,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/back"
+            android:layout_toRightOf="@id/back"
             android:gravity="center"
             android:text="dddd"
             android:textColor="@color/white"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:background="#00838f"
+                android:background="@color/main_color"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textAllCaps="true"

@@ -9,14 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/top_bar_normal_bg"
-        android:titleTextAppearance="@color/white" />
+        android:titleTextAppearance="@android:color/white" />
 
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:cacheColorHint="#00000000"
             android:descendantFocusability="afterDescendants"
             android:divider="@color/divider_list"
             android:dividerHeight="1px"

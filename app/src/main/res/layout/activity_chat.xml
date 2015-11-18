@@ -9,8 +9,8 @@
         android:id="@+id/chat_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f"
-        android:titleTextAppearance="@color/white" />
+        android:background="@color/main_color"
+        android:titleTextAppearance="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/bar_bottom"
@@ -30,7 +30,7 @@
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#aaffffff"
+            android:background="#afff"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="4dp">
@@ -41,8 +41,7 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/chatting_setmode_voice_btn"
-                android:onClick="setModeVoice"
-                android:visibility="visible" />
+                android:onClick="setModeVoice" />
 
             <Button
                 android:id="@+id/btn_set_mode_keyboard"
@@ -71,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="@string/button_pushtotalk"
-                    android:textColor="#666666"
+                    android:textColor="#666"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -109,8 +108,7 @@
                     android:layout_gravity="center_vertical|right"
                     android:layout_margin="1dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/chatting_biaoqing_btn_normal"
-                    android:visibility="visible" />
+                    android:src="@drawable/chatting_biaoqing_btn_normal" />
 
                 <ImageView
                     android:id="@+id/iv_emoticons_checked"
@@ -143,7 +141,7 @@
                 android:maxLines="1"
                 android:onClick="onClick"
                 android:text="@string/button_send"
-                android:textColor="#666666"
+                android:textColor="#666"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </LinearLayout>
@@ -152,7 +150,7 @@
             android:id="@+id/more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#EFEFF4"
+            android:background="@color/gray_light"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -363,10 +361,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/pb_load_more"
-            android:cacheColorHint="#00000000"
             android:divider="@null"
             android:dividerHeight="5dp"
-            android:listSelector="#00000000"
+            android:listSelector="@android:color/transparent"
             android:scrollbarStyle="outsideOverlay"
             android:transcriptMode="normal" />
 

@@ -8,7 +8,7 @@
         android:id="@+id/ppp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00838f">
+        android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/back"
@@ -23,7 +23,7 @@
         android:id="@+id/ppppppp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ppp">
+        android:layout_below="@id/ppp">
 
         <ImageView
             android:layout_width="40dp"
@@ -42,7 +42,7 @@
         android:id="@+id/choose_location_country"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ppppppp"
+        android:layout_below="@id/ppppppp"
         android:divider="@drawable/list_item_divider"
         android:dividerHeight="1dp" />
 
@@ -50,7 +50,7 @@
         android:id="@+id/choose_location_provinces"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ppp"
+        android:layout_below="@id/ppp"
         android:divider="@drawable/list_item_divider"
         android:dividerHeight="1dp"
         android:visibility="gone" />
@@ -59,7 +59,7 @@
         android:id="@+id/choose_location_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ppp"
+        android:layout_below="@id/ppp"
         android:divider="@drawable/list_item_divider"
         android:dividerHeight="1dp"
         android:visibility="gone" />

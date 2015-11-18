@@ -32,7 +32,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/layout_back"
-            android:alpha="1.0"
             android:text="@string/edit"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -44,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="126dp"
         android:layout_below="@+id/layout_title"
-        android:background="#fafafa">
+        android:background="@color/three_fa">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/edit_avatar"
@@ -73,7 +72,7 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:text="@string/nickname"
-                android:textColor="#00838f"
+                android:textColor="@color/main_color"
                 android:textSize="20sp" />
 
             <ImageView
@@ -117,7 +116,7 @@
                     android:layout_toRightOf="@+id/xiaoyuandian"
                     android:padding="5dp"
                     android:text="@string/userinfo_male"
-                    android:textColor="#000"
+                    android:textColor="@color/black_deep"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -144,7 +143,7 @@
                     android:layout_toRightOf="@+id/xiaoyuandian2"
                     android:padding="5dp"
                     android:text="@string/userinfo_female"
-                    android:textColor="#000"
+                    android:textColor="@color/black_deep"
                     android:textSize="18sp" />
             </RelativeLayout>
         </RelativeLayout>
@@ -157,7 +156,7 @@
         android:layout_height="53dp"
         android:layout_below="@+id/top"
         android:layout_marginTop="15dp"
-        android:background="#fafafa">
+        android:background="@color/three_fa">
 
         <TextView
             android:id="@+id/edit_age"
@@ -196,7 +195,7 @@
         android:layout_height="53dp"
         android:layout_below="@+id/second"
         android:layout_marginTop="15dp"
-        android:background="#fafafa">
+        android:background="@color/three_fa">
 
         <TextView
             android:id="@+id/edit_country"
@@ -239,6 +238,6 @@
         android:background="#198f99"
         android:gravity="center"
         android:text="@string/save"
-        android:textColor="#fafafa"
+        android:textColor="@color/three_fa"
         android:textSize="25sp" />
 </RelativeLayout>

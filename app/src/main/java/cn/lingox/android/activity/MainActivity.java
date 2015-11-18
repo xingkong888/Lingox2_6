@@ -203,6 +203,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        findViewById(R.id.asdfg).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.asdfg, pathFragment)
+                        .commit();
+            }
+        });
     }
 
     private void initDate() {

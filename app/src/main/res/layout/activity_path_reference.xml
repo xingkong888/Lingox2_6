@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEEEEE">
+    android:background="@color/three_e">
 
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -35,7 +35,7 @@
             android:layout_toRightOf="@+id/layout_back"
             android:alpha="1"
             android:text="@string/reference"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 

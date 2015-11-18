@@ -12,7 +12,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/ok"
-        android:background="@color/white"
+        android:background="@android:color/white"
         android:maxLength="20"
         android:minHeight="40dp"
         android:textSize="18sp" />
@@ -26,12 +26,12 @@
         android:layout_centerVertical="true"
         android:text="Ok"
         android:textAllCaps="false"
-        android:textColor="#666666"
+        android:textColor="#666"
         android:textSize="16sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/dialog_edit"
-        android:background="#000" />
+        android:background="@color/black_deep" />
 </RelativeLayout>

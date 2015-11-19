@@ -23,6 +23,7 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.SpeakAndInterest;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.JsonHelper;
+
 public class PhotoTagsSelectDialog extends DialogFragment {
 
     private static Context context;

@@ -24,6 +24,7 @@ import cn.lingox.android.activity.imagechooser.entity.ImageItem;
 import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.utils.FileUtil;
+
 public class AlbumActivity extends ActionBarActivity {
     // INCOMING INTENT EXTRAS
     public static final String ALBUM_IMAGE_LIST = LingoXApplication.PACKAGE_NAME + ".ALBUM_IMAGE_LIST";

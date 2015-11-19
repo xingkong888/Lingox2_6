@@ -41,6 +41,7 @@ public class Comment implements Parcelable {
         this.text = text;
         this.createdAt = createdAt;
     }
+
     // Parcelable
     public Comment(Parcel in) {
         this.id = in.readString();

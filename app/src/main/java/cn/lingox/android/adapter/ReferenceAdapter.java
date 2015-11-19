@@ -95,52 +95,52 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
             holder.name.setText(user.getNickname());
             UIHelper.getInstance().textViewSetPossiblyNullString(holder.time, JsonHelper.getInstance().parseSailsJSDate(reference.getUpdatedAt(), 0));
 
-        holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
-                : reference.getContent());
+            holder.content.setText(TextUtils.isEmpty(reference.getContent()) ? reference.getTitle()
+                    : reference.getContent());
 
-        holder.replay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WriteReplayDialog.newInstance(handler, reference, context).show(context.getFragmentManager(), "");
-            }
-        });
+            holder.replay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WriteReplayDialog.newInstance(handler, reference, context).show(context.getFragmentManager(), "");
+                }
+            });
 
-        if (reference.getReply() != null) {
-            holder.replyName.setText(
-                    Html.fromHtml("<font color=\"#00838f\">"
-                            + CacheHelper.getInstance().getSelfInfo().getNickname() + "</font>"
-                            + " reply " +
-                            "<font color=\"#00838f\">" + user.getNickname() + "</font>"));
-            holder.replayContent.setVisibility(View.VISIBLE);
-            holder.replayContent.setText(reference.getReply());
-            holder.replay.setVisibility(View.GONE);
-        } else {
-            holder.replayContent.setVisibility(View.GONE);
-            if (isSelf) {
-                holder.replay.setVisibility(View.VISIBLE);
-            } else {
+            if (reference.getReply() != null) {
+                holder.replyName.setText(
+                        Html.fromHtml("<font color=\"#00838f\">"
+                                + CacheHelper.getInstance().getSelfInfo().getNickname() + "</font>"
+                                + " reply " +
+                                "<font color=\"#00838f\">" + user.getNickname() + "</font>"));
+                holder.replayContent.setVisibility(View.VISIBLE);
+                holder.replayContent.setText(reference.getReply());
                 holder.replay.setVisibility(View.GONE);
-            }
-        }
-
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ownReference = CacheHelper.getInstance().getSelfInfo().getId().equals(reference.getUserSrcId());
-                if (ownReference) {//自己对别人的评价
-                    Intent intent = new Intent(context, ReferenceDialog.class);
-                    intent.putExtra(INTENT_REFERENCE, reference);
-                    intent.putExtra(INTENT_TARGET_USER_ID, reference.getUserSrcId());
-                    intent.putExtra(INTENT_TARGET_USER_NAME, user.getNickname());
-                    intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
-                    context.startActivityForResult(intent, EDIT_REFERENCE);
-                } else {//别人对自己评价
-                    Intent userInfoIntent = new Intent(context, UserInfoActivity.class);
-                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, reference.getUserSrcId());
-                    context.startActivity(userInfoIntent);
+            } else {
+                holder.replayContent.setVisibility(View.GONE);
+                if (isSelf) {
+                    holder.replay.setVisibility(View.VISIBLE);
+                } else {
+                    holder.replay.setVisibility(View.GONE);
                 }
             }
-        });
+
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ownReference = CacheHelper.getInstance().getSelfInfo().getId().equals(reference.getUserSrcId());
+                    if (ownReference) {//自己对别人的评价
+                        Intent intent = new Intent(context, ReferenceDialog.class);
+                        intent.putExtra(INTENT_REFERENCE, reference);
+                        intent.putExtra(INTENT_TARGET_USER_ID, reference.getUserSrcId());
+                        intent.putExtra(INTENT_TARGET_USER_NAME, user.getNickname());
+                        intent.putExtra(INTENT_REQUEST_CODE, EDIT_REFERENCE);
+                        context.startActivityForResult(intent, EDIT_REFERENCE);
+                    } else {//别人对自己评价
+                        Intent userInfoIntent = new Intent(context, UserInfoActivity.class);
+                        userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, reference.getUserSrcId());
+                        context.startActivity(userInfoIntent);
+                    }
+                }
+            });
         }
         return rowView;
     }

@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.PathViewActivity;
+import cn.lingox.android.activity.LocalViewActivity;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Indent;
 import cn.lingox.android.helper.ServerHelper;
@@ -127,8 +127,8 @@ public class ShowIndentAdapter extends BaseAdapter {
         view4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PathViewActivity.class);
-                intent.putExtra(PathViewActivity.PATH_TO_VIEW_ID, indent.getPathId());
+                Intent intent = new Intent(context, LocalViewActivity.class);
+                intent.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, indent.getPathId());
                 context.startActivity(intent);
             }
         });

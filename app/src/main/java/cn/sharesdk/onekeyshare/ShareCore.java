@@ -111,7 +111,7 @@ public class ShareCore {
 
     /**
      * 向指定平台分享内容
-     * <p/>
+     * <p>
      * <b>注意：</b><br>
      * 参数data的键值需要严格按照{@link ShareParams}不同子类具体字段来命名，
      * 否则无法反射此字段，也无法设置其值。

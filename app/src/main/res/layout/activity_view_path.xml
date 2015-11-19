@@ -63,8 +63,8 @@
         android:id="@+id/path_view_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/path_view_comment_bar"
-        android:layout_below="@id/view_path_activity_toolbar">
+        android:layout_above="@+id/path_view_comment_bar"
+        android:layout_below="@+id/view_path_activity_toolbar">
 
         <LinearLayout
             android:id="@+id/path_view"
@@ -449,7 +449,8 @@
         android:layout_height="match_parent"
         android:background="#8c000000"
         android:visibility="gone">
-        <ImageView
+
+    <ImageView
             android:id="@+id/plmnbvcddddd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.PathViewActivity;
+import cn.lingox.android.activity.LocalViewActivity;
 import cn.lingox.android.activity.ReferenceActivity;
 import cn.lingox.android.activity.UserInfoActivity;
 import cn.lingox.android.app.LingoXApplication;
@@ -106,15 +106,15 @@ public class NotificationService extends Service {
                 .setContentTitle("LingoX").setContentText(tickerText);
         switch (notiType) {
             case 1:
-                Intent intent1 = new Intent(this, PathViewActivity.class);
-                intent1.putExtra(PathViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
+                Intent intent1 = new Intent(this, LocalViewActivity.class);
+                intent1.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
                 PendingIntent pendIntent1 =
                         PendingIntent.getActivity(this, type, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent1);
                 break;
             case 2:
-                Intent intent2 = new Intent(this, PathViewActivity.class);
-                intent2.putExtra(PathViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
+                Intent intent2 = new Intent(this, LocalViewActivity.class);
+                intent2.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
                 PendingIntent pendIntent2 =
                         PendingIntent.getActivity(this, type, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent2);
@@ -127,8 +127,8 @@ public class NotificationService extends Service {
                 mBuilder.setContentIntent(pendIntent3);
                 break;
             case 4:
-                Intent intent4 = new Intent(this, PathViewActivity.class);
-                intent4.putExtra(PathViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
+                Intent intent4 = new Intent(this, LocalViewActivity.class);
+                intent4.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, notification.getPath_id());
                 PendingIntent pendIntent4 =
                         PendingIntent.getActivity(this, type, intent4, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pendIntent4);
@@ -143,8 +143,8 @@ public class NotificationService extends Service {
                 mBuilder.setContentIntent(pendIntent5);
                 break;
 //            case 6://申请完成，给参加的活动添加评论
-//                Intent intent6 = new Intent(this, PathReferenceActivity.class);
-//                intent6.putExtra(PathReferenceActivity.PATH, notification.getPath_id());
+//                Intent intent6 = new Intent(this, LocalReferenceActivity.class);
+//                intent6.putExtra(LocalReferenceActivity.PATH, notification.getPath_id());
 //                PendingIntent pendIntent6 = PendingIntent.getActivity(
 //                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
 //                mBuilder.setContentIntent(pendIntent6);

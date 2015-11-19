@@ -440,8 +440,8 @@ public class ServerHelper {
      *
      * @param user_id    当前用户id
      * @param searchType 搜索类型
-     * @param params 数据
-     * @param page 页码
+     * @param params     数据
+     * @param page       页码
      * @return 用户实例的集合
      * @throws Exception
      */
@@ -1082,10 +1082,10 @@ public class ServerHelper {
 //    }
 
     /**
-     * @param user_id 用户id
+     * @param user_id   用户id
      * @param userTarId 目标用户id
-     * @param path_id 活动id
-     * @param text 评论内容
+     * @param path_id   活动id
+     * @param text      评论内容
      * @return 评论的实例
      * @throws Exception
      */

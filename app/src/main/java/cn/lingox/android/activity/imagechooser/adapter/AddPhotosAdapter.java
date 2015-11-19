@@ -148,6 +148,7 @@ public class AddPhotosAdapter extends BaseAdapter {
         bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         return bitmap;
     }
+
     static class ViewHolder {
         ImageView photo;
         EditText description;

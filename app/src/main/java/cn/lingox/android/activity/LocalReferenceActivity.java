@@ -31,10 +31,10 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.WritePathReferenceDialog;
 
-public class PathReferenceActivity extends Activity implements OnClickListener {
+public class LocalReferenceActivity extends Activity implements OnClickListener {
 
     public static final String PATH = "path";
-    private static final String LOG_TAG = "PathReferenceActivity";
+    private static final String LOG_TAG = "LocalReferenceActivity";
     // UI Elements
     private ImageView addReference;
     private ExpandableListView listView;

@@ -63,7 +63,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import it.sephiroth.android.library.widget.HListView;
 
-public class PathViewActivity extends ActionBarActivity implements View.OnClickListener, ScrollViewListener {
+public class LocalViewActivity extends ActionBarActivity implements View.OnClickListener, ScrollViewListener {
     // Incoming Intent Extras
     public static final String PATH_TO_VIEW = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW";
     public static final String PATH_TO_VIEW_ID = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW_ID";
@@ -72,7 +72,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     public static final String DELETED_PATH = LingoXApplication.PACKAGE_NAME + ".DELETED_PATH";
     // Outgoing Request Codes
     public static final int EDIT_PATH = 101;
-    private static final String LOG_TAG = "PathViewActivity";
+    private static final String LOG_TAG = "LocalViewActivity";
     private static final String FILE_NAME = "/app_icon.jpg";
     private static String appIconImagePath;
     // UI Elements
@@ -494,7 +494,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                                 try {
                                     path = ServerHelper.getInstance().deletePath(path.getId());
                                     Intent intent = new Intent();
-                                    intent.putExtra(PathViewActivity.DELETED_PATH, path);
+                                    intent.putExtra(LocalViewActivity.DELETED_PATH, path);
                                     setResult(RESULT_OK, intent);
                                     finish();
                                 } catch (Exception e) {
@@ -510,7 +510,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 finishedViewing();
                 break;
             case R.id.path_share_button:
-                MobclickAgent.onEvent(PathViewActivity.this, "discover_share");
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_share");
                 showShare();
                 break;
             case R.id.path_accept_button:
@@ -545,7 +545,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case R.id.iv_chat:
                 if (!LingoXApplication.getInstance().getSkip()) {
-                    MobclickAgent.onEvent(PathViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "chat"));
+                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "chat"));
                     new GetExist().execute(map);
                 } else {
                     SkipDialog.getDialog(this).show();
@@ -553,9 +553,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 break;
             case R.id.iv_edit:
                 if (!LingoXApplication.getInstance().getSkip()) {
-                    MobclickAgent.onEvent(PathViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
-                    Intent editPathIntent = new Intent(this, PathEditActivity.class);
-                    editPathIntent.putExtra(PathEditActivity.PATH_TO_EDIT, path);
+                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
+                    Intent editPathIntent = new Intent(this, LocalEditActivity.class);
+                    editPathIntent.putExtra(LocalEditActivity.PATH_TO_EDIT, path);
                     startActivityForResult(editPathIntent, EDIT_PATH);
                 } else {
                     SkipDialog.getDialog(this).show();
@@ -576,12 +576,12 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 layout.setVisibility(View.GONE);
                 break;
             case R.id.path_show_reference:
-                Intent intent = new Intent(this, PathReferenceActivity.class);
-                intent.putExtra(PathReferenceActivity.PATH, path);
+                Intent intent = new Intent(this, LocalReferenceActivity.class);
+                intent.putExtra(LocalReferenceActivity.PATH, path);
                 startActivity(intent);
                 break;
             case R.id.back:
-                    finishedViewing();
+                finishedViewing();
                 break;
         }
     }
@@ -643,14 +643,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             case EDIT_PATH:
                 switch (resultCode) {
                     case RESULT_OK:
-                        if (data.hasExtra(PathEditActivity.DELETED_PATH)) {
+                        if (data.hasExtra(LocalEditActivity.DELETED_PATH)) {
                             Intent deletedIntent = new Intent();
-                            deletedIntent.putExtra(DELETED_PATH, data.getParcelableExtra(PathEditActivity.DELETED_PATH));
+                            deletedIntent.putExtra(DELETED_PATH, data.getParcelableExtra(LocalEditActivity.DELETED_PATH));
                             setResult(RESULT_OK, deletedIntent);
                             finish();
                             break;
                         } else {
-                            path = data.getParcelableExtra(PathEditActivity.EDITED_PATH);
+                            path = data.getParcelableExtra(LocalEditActivity.EDITED_PATH);
                             pathEdited();
                             break;
                         }
@@ -741,14 +741,14 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
     @Override
     protected void onResume() {
         MobclickAgent.onResume(this);
-        MobclickAgent.onPageStart("PathViewActivity");
+        MobclickAgent.onPageStart("LocalViewActivity");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         MobclickAgent.onPause(this);
-        MobclickAgent.onPageEnd("PathViewActivity");
+        MobclickAgent.onPageEnd("LocalViewActivity");
         super.onPause();
     }
 
@@ -795,7 +795,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (path == null) {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_down_path), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_down_path), Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
@@ -838,7 +838,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (user == null) {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_down_user), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_down_user), Toast.LENGTH_SHORT).show();
                 finish();
             }
             loadingBar.setVisibility(View.INVISIBLE);
@@ -872,9 +872,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Comment comment) {
             super.onPostExecute(comment);
             if (comment == null) {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_comment), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_comment), Toast.LENGTH_SHORT).show();
             } else {
-                MobclickAgent.onEvent(PathViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "discover"));
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "discover"));
                 addComment(comment);
                 commitLayout.setVisibility(View.VISIBLE);
                 commentEditText.setText("");
@@ -903,7 +903,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             if (success) {
                 removeComment(position);
             } else {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_comment_del), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_comment_del), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -930,7 +930,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                MobclickAgent.onEvent(PathViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "like"));
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "like"));
                 if (!TextUtils.isEmpty(path.getHxGroupId())) {
                     pathGroupChat.setVisibility(View.VISIBLE);
                     layout.setVisibility(View.VISIBLE);
@@ -944,7 +944,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 joinedUsersListView.setVisibility(View.VISIBLE);
                 likeLayout.setVisibility(View.VISIBLE);
             } else {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
             pathAcceptButton.setClickable(true);
         }
@@ -972,7 +972,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                MobclickAgent.onEvent(PathViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "dislike"));
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "dislike"));
                 path.removeAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 pathAcceptButton.setImageResource(R.drawable.active_dislike_24dp);
                 pathAcceptButton.setTag(0);
@@ -985,7 +985,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                 pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 pathGroupChat.setVisibility(View.GONE);
             } else {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
             pathAcceptButton.setClickable(true);
         }
@@ -1040,11 +1040,11 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
             //FIXME
             if (success) {
                 uiHelper.textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
-                uiHelper.imageViewSetPossiblyEmptyUrl(PathViewActivity.this, userAvatar, commentUser.getAvatar(), "");
+                uiHelper.imageViewSetPossiblyEmptyUrl(LocalViewActivity.this, userAvatar, commentUser.getAvatar(), "");
                 final View.OnClickListener userClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent mIntent = new Intent(PathViewActivity.this, UserInfoActivity.class);
+                        Intent mIntent = new Intent(LocalViewActivity.this, UserInfoActivity.class);
                         mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, commentUser.getId());
                         startActivity(mIntent);
                     }
@@ -1061,7 +1061,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         private Comment comment;
 
         public CommentDialog(Comment comment) {
-            super(PathViewActivity.this, R.style.MyDialogStyle);
+            super(LocalViewActivity.this, R.style.MyDialogStyle);
             this.comment = comment;
         }
 
@@ -1116,9 +1116,9 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         protected void onPostExecute(Comment comment) {
             super.onPostExecute(comment);
             if (comment == null) {
-                Toast.makeText(PathViewActivity.this, getString(R.string.fail_comment), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalViewActivity.this, getString(R.string.fail_comment), Toast.LENGTH_SHORT).show();
             } else {
-                MobclickAgent.onEvent(PathViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "user"));
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "user"));
                 addComment(comment);
                 commentEditText.setText("");
             }
@@ -1231,8 +1231,8 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            MobclickAgent.onEvent(PathViewActivity.this, "discover_group_chat");
-            Intent intent = new Intent(PathViewActivity.this, ChatActivity.class);
+            MobclickAgent.onEvent(LocalViewActivity.this, "discover_group_chat");
+            Intent intent = new Intent(LocalViewActivity.this, ChatActivity.class);
             intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
             intent.putExtra("groupId", path.getHxGroupId());
             startActivity(intent);
@@ -1261,7 +1261,7 @@ public class PathViewActivity extends ActionBarActivity implements View.OnClickL
                     isApply = true;
                 }
                 if (isApply) {
-                    Intent chatIntent = new Intent(PathViewActivity.this, ChatActivity.class);
+                    Intent chatIntent = new Intent(LocalViewActivity.this, ChatActivity.class);
                     chatIntent.putExtra("username", user.getUsername());
                     chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
                     chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);

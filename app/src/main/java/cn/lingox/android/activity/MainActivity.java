@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     public static final String SEARCH = "Search";
     private static final String LOG_TAG = "MainActivity";
     private static MainActivity mainActivity;
+    int a = 0;
     //两次返回退出
     private long clickTime;
     // UI Elements
@@ -62,14 +63,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private ViewPager viewPager;
     private DrawerLayout sideDrawers;
     private ActionBarDrawerToggle sideDrawerToggle;
-
     private RelativeLayout showNumLayout;
     private TextView num;
-
     private boolean rightSideDrawerOpen = false;
-
     private ImageView search;
-
     private int unread = -1;
 
     public static MainActivity getObj() {
@@ -201,15 +198,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 
             @Override
             public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-        findViewById(R.id.asdfg).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.asdfg, pathFragment)
-                        .commit();
             }
         });
     }
@@ -360,14 +348,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program", Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {
-            new Thread(){
+            new Thread() {
                 @Override
                 public void run() {
                     try {
                         FileUtil.deleteDir();
                         Thread.sleep(700);
                         MainActivity.this.finish();
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 }
@@ -410,7 +398,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 case 0:
                     return chatFragment;
                 case 1:
-                    return pathFragment;
+                    switch (a) {
+                        case 0:
+                            return pathFragment;
+                        case 1:
+                            return new TravelFragment();
+                    }
                 case 2:
                     return nearByFragment;
             }

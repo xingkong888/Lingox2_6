@@ -33,7 +33,7 @@ public class GetContactList extends AsyncTask<Void, String, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             contactList.addAll(ServerHelper.getInstance().getContactList(
-                            CacheHelper.getInstance().getSelfInfo().getId()));
+                    CacheHelper.getInstance().getSelfInfo().getId()));
             return true;
         } catch (Exception e) {
             Log.e(LOG_TAG, "Failed to get Contact List: " + e.toString());

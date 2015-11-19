@@ -691,8 +691,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.show_one_path_title:
-                Intent intent2 = new Intent(this, PathViewActivity.class);
-                intent2.putExtra(PathViewActivity.PATH_TO_VIEW_ID, indentDatas.get(0).getPathId());
+                Intent intent2 = new Intent(this, LocalViewActivity.class);
+                intent2.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, indentDatas.get(0).getPathId());
                 startActivity(intent2);
                 break;
         }
@@ -751,10 +751,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
         startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
+
     //发送位置
     private void selectLocation() {
-        Intent intent = new Intent(this,AMapActivity.class);
-            intent.putExtra("LOCATION","");
+        Intent intent = new Intent(this, AMapActivity.class);
+        intent.putExtra("LOCATION", "");
         startActivityForResult(intent, REQUEST_CODE_MAP);
     }
 

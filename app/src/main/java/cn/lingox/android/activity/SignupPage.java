@@ -233,7 +233,7 @@ public class SignupPage extends FakeActivity implements OnClickListener, Callbac
                         e.printStackTrace();
                     } finally {
                         try {
-                            if (b!=null) {
+                            if (b != null) {
                                 b.flush();
                                 b.close();
                             }
@@ -257,7 +257,7 @@ public class SignupPage extends FakeActivity implements OnClickListener, Callbac
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == INTENT_ACTION_PICTURE && resultCode == Activity.RESULT_OK && null != data) {
             Cursor c = activity.getContentResolver().query(data.getData(), null, null, null, null);
-            if (c!=null){
+            if (c != null) {
                 c.moveToNext();
             }
             String path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));

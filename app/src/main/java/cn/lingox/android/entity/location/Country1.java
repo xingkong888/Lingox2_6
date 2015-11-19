@@ -1,6 +1,7 @@
 package cn.lingox.android.entity.location;
 
 import java.util.ArrayList;
+
 public class Country1 {
     private String country = "";
     private String countryCode = "";

@@ -98,7 +98,7 @@ public class UserInfoActivity extends ActionBarActivity {
         viewPager.setAdapter(tabAdapter);
         // (Number of fragments - 1) This prevents the edge tabs being recreated
         viewPager.setOffscreenPageLimit(2);
-        if (getIntent().hasExtra(PathEditActivity.ADDED_PATH)) {
+        if (getIntent().hasExtra(LocalEditActivity.ADDED_PATH)) {
             viewPager.setCurrentItem(1);
         }
         name.setText(user.getNickname());

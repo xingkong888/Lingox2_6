@@ -143,6 +143,7 @@ public class ImageGridAdapter extends BaseAdapter {
 
     public interface SelectionListener {
         void onSingleItemSelected(String path);
+
         void onMultiItemSelected();
     }
 

@@ -167,12 +167,12 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                         if (tempUser != null) {
                             new GetMessage(holder.state).execute(tempUser.getId());
                             context.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, tempUser.getAvatar(), "circular");
-                                holder.name.setText(tempUser.getNickname());
-                            }
-                        });
+                                @Override
+                                public void run() {
+                                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, tempUser.getAvatar(), "circular");
+                                    holder.name.setText(tempUser.getNickname());
+                                }
+                            });
                         }
                     } catch (Exception e) {
                         Log.e("ChatAllHistoryAdapter", e.getMessage());

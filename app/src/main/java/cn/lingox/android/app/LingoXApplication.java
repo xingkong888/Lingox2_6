@@ -268,6 +268,7 @@ public class LingoXApplication extends Application {
         }
         pathTitle.setText(indent.getPathTitle());
     }
+
     public void logout(final EMCallBack emCallBack) {
         hxSDKHelper.logout(emCallBack);
     }

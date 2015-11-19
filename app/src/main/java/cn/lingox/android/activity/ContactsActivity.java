@@ -16,6 +16,7 @@ import cn.lingox.android.R;
 public class ContactsActivity extends ActionBarActivity implements OnClickListener {
     private ContactsFragment contactsFragment;
     private FollowersFragment followersFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

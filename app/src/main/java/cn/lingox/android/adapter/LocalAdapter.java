@@ -22,7 +22,7 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
-public class PathAdapter extends BaseAdapter {
+public class LocalAdapter extends BaseAdapter {
     //格式化距离，保留小数点后两位
     private final DecimalFormat format = new DecimalFormat("##.00");
     private Activity context;
@@ -32,7 +32,7 @@ public class PathAdapter extends BaseAdapter {
     private ArrayList<PathTags> tags;
     private float[] results = new float[1];
 
-    public PathAdapter(Activity context, ArrayList<Path> list) {
+    public LocalAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
         this.datas = list;
         tags = LingoXApplication.getInstance().getDatas();

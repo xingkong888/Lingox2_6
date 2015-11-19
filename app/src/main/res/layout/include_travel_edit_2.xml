@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/edit_page_0"
+    android:id="@+id/travel_edit_page_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:orientation="vertical">
-    <!--android:background="@color/transparent">-->
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <TextView
-        android:id="@+id/i_am"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -22,6 +21,7 @@
         android:textSize="22sp" />
     <!-- 详细描述-->
     <EditText
+        android:id="@+id/travel_page_2_describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -29,11 +29,9 @@
         android:text="ddddddd"
         android:textColor="@color/white" />
     <!--选择类型标签 -->
-    <EditText
+    <ListView
+        android:id="@+id/travel_page_2_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="ddddddd"
-        android:textColor="@color/white" />
+        android:layout_marginTop="10dp" />
 </LinearLayout>

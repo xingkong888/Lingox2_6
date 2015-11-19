@@ -330,8 +330,8 @@ public class ChatFragment extends Fragment {
             case LingoNotification.TYPE_PATH_JOINED://加入活动
             case LingoNotification.TYPE_PATH_COMMENT://活动被评论
             case LingoNotification.TYPE_PATH_CHANGE://活动改变
-                Intent mIntent1 = new Intent(getActivity(), PathViewActivity.class);
-                mIntent1.putExtra(PathViewActivity.PATH_TO_VIEW_ID, notify.getPath_id());
+                Intent mIntent1 = new Intent(getActivity(), LocalViewActivity.class);
+                mIntent1.putExtra(LocalViewActivity.PATH_TO_VIEW_ID, notify.getPath_id());
                 if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
                 }

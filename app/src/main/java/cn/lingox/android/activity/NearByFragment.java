@@ -77,6 +77,7 @@ public class NearByFragment extends Fragment {
             }
         });
     }
+
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
             img.setVisibility(View.VISIBLE);
@@ -162,7 +163,7 @@ public class NearByFragment extends Fragment {
         protected void onPreExecute() {
             searchList.clear();
             adapter.notifyDataSetChanged();
-            if (listView.getCurrentMode()== PullToRefreshBase.Mode.PULL_FROM_START){
+            if (listView.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_START) {
                 listView.setMode(PullToRefreshBase.Mode.DISABLED);
             }
         }
@@ -188,7 +189,7 @@ public class NearByFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
-            if (listView.getCurrentMode()== PullToRefreshBase.Mode.DISABLED){
+            if (listView.getCurrentMode() == PullToRefreshBase.Mode.DISABLED) {
                 listView.setMode(PullToRefreshBase.Mode.BOTH);
             }
             listView.onRefreshComplete();

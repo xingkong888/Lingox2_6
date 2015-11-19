@@ -160,19 +160,19 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.PathViewActivity"
+            android:name=".activity.LocalViewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.PathReferenceActivity"
+            android:name=".activity.LocalReferenceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".activity.PathEditActivity"
+            android:name=".activity.LocalEditActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />

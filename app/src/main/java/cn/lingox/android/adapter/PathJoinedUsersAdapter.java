@@ -16,6 +16,7 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
+
 public class PathJoinedUsersAdapter extends BaseAdapter {
     private static final String LOG_TAG = "PathJoinedUsersAdapter";
 

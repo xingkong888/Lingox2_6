@@ -19,12 +19,15 @@ public class ClipImageBorderView extends View {
     // 边框的宽度 单位dp
     private int mBorderWidth = 1;
     private Paint mPaint;
+
     public ClipImageBorderView(Context context) {
         this(context, null);
     }
+
     public ClipImageBorderView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public ClipImageBorderView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 

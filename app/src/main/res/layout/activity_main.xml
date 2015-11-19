@@ -178,11 +178,4 @@
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
-    <Button
-        android:id="@+id/asdfg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
 </RelativeLayout>

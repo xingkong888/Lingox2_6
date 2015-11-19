@@ -82,86 +82,86 @@ public class NearbyAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-            final User user = datas.get(position);
-            if (position == (datas.size() - 1)) {
-                holder.lalala.setVisibility(View.GONE);
+        final User user = datas.get(position);
+        if (position == (datas.size() - 1)) {
+            holder.lalala.setVisibility(View.GONE);
+        } else {
+            holder.lalala.setVisibility(View.VISIBLE);
+        }
+        holder.avatar.setTag(user.getAvatar());
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "crop");
+        ImageHelper.getInstance().loadFlag(holder.flag, JsonHelper.getInstance().getCodeFromCountry(
+                user.getCountry()
+        ), 1);
+        holder.name.setText(user.getNickname());
+        //加载用户评论数
+        new LoadUserReferences(holder.comment).executeOnExecutor(pool, user);
+        //判断语言是否为空
+        if (!TextUtils.isEmpty(user.getSpeak())) {
+            //不为空
+            holder.speak_.setVisibility(View.VISIBLE);
+            holder.speak.setVisibility(View.VISIBLE);
+            holder.point.setVisibility(View.VISIBLE);
+            if (user.getSpeak().length() > 10) {
+                String str = user.getSpeak().substring(0, 7) + "...";
+                holder.speak.setText(str);
             } else {
-                holder.lalala.setVisibility(View.VISIBLE);
+                holder.speak.setText(user.getSpeak());
             }
-            holder.avatar.setTag(user.getAvatar());
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "crop");
-            ImageHelper.getInstance().loadFlag(holder.flag, JsonHelper.getInstance().getCodeFromCountry(
-                    user.getCountry()
-            ), 1);
-            holder.name.setText(user.getNickname());
-            //加载用户评论数
-            new LoadUserReferences(holder.comment).executeOnExecutor(pool, user);
-            //判断语言是否为空
-            if (!TextUtils.isEmpty(user.getSpeak())) {
-                //不为空
-                holder.speak_.setVisibility(View.VISIBLE);
-                holder.speak.setVisibility(View.VISIBLE);
-                holder.point.setVisibility(View.VISIBLE);
-                if (user.getSpeak().length() > 10) {
-                    String str = user.getSpeak().substring(0, 7) + "...";
-                    holder.speak.setText(str);
+        } else {
+            holder.speak_.setVisibility(View.GONE);
+            holder.speak.setVisibility(View.GONE);
+            holder.point.setVisibility(View.GONE);
+        }
+        //判断国家是否为空
+        String str = user.getLocation();
+        if (!str.isEmpty()) {
+            holder.countryAndCity.setVisibility(View.VISIBLE);
+            holder.countryAndCity.setText(String.format(context.getString(R.string.from), str));
+            //设置分隔线长度
+            holder.countryAndCity.measure(0, 0);
+            holder.line.setWidth(holder.countryAndCity.getMeasuredWidth());
+        } else {
+            //设置分隔线长度
+            holder.name.measure(0, 0);
+            holder.line.setWidth(holder.name.getMeasuredWidth());
+
+            holder.countryAndCity.setVisibility(View.GONE);
+        }
+
+        if (user.getLocalGuidey()) {
+            holder.tag2.setVisibility(View.VISIBLE);
+        } else {
+            holder.tag2.setVisibility(View.GONE);
+        }
+        if (user.getHomeMeal()) {
+            holder.tag1.setVisibility(View.VISIBLE);
+        } else {
+            holder.tag1.setVisibility(View.GONE);
+        }
+        if (user.getHomeStay()) {
+            holder.tag3.setVisibility(View.VISIBLE);
+        } else {
+            holder.tag3.setVisibility(View.GONE);
+        }
+        holder.info.setVisibility(View.VISIBLE);
+        holder.info2.setVisibility(View.VISIBLE);
+
+        final View.OnClickListener userClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LingoXApplication.getInstance().getSkip()) {
+                    SkipDialog.getDialog(context).show();
                 } else {
-                    holder.speak.setText(user.getSpeak());
+                    MobclickAgent.onEvent(context, "click_members");
+
+                    Intent intent = new Intent(context, UserInfoActivity.class);
+                    intent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
+                    context.startActivityForResult(intent, NearByFragment.VIEW_USER);
                 }
-            } else {
-                holder.speak_.setVisibility(View.GONE);
-                holder.speak.setVisibility(View.GONE);
-                holder.point.setVisibility(View.GONE);
             }
-            //判断国家是否为空
-            String str = user.getLocation();
-            if (!str.isEmpty()) {
-                holder.countryAndCity.setVisibility(View.VISIBLE);
-                holder.countryAndCity.setText(String.format(context.getString(R.string.from), str));
-                //设置分隔线长度
-                holder.countryAndCity.measure(0, 0);
-                holder.line.setWidth(holder.countryAndCity.getMeasuredWidth());
-            } else {
-                //设置分隔线长度
-                holder.name.measure(0, 0);
-                holder.line.setWidth(holder.name.getMeasuredWidth());
-
-                holder.countryAndCity.setVisibility(View.GONE);
-            }
-
-            if (user.getLocalGuidey()) {
-                holder.tag2.setVisibility(View.VISIBLE);
-            } else {
-                holder.tag2.setVisibility(View.GONE);
-            }
-            if (user.getHomeMeal()) {
-                holder.tag1.setVisibility(View.VISIBLE);
-            } else {
-                holder.tag1.setVisibility(View.GONE);
-            }
-            if (user.getHomeStay()) {
-                holder.tag3.setVisibility(View.VISIBLE);
-            } else {
-                holder.tag3.setVisibility(View.GONE);
-            }
-            holder.info.setVisibility(View.VISIBLE);
-            holder.info2.setVisibility(View.VISIBLE);
-
-            final View.OnClickListener userClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (LingoXApplication.getInstance().getSkip()) {
-                        SkipDialog.getDialog(context).show();
-                    } else {
-                        MobclickAgent.onEvent(context, "click_members");
-
-                        Intent intent = new Intent(context, UserInfoActivity.class);
-                        intent.putExtra(UserInfoActivity.INTENT_USER_ID, user.getId());
-                        context.startActivityForResult(intent, NearByFragment.VIEW_USER);
-                    }
-                }
-            };
-            convertView.setOnClickListener(userClickListener);
+        };
+        convertView.setOnClickListener(userClickListener);
         return convertView;
     }
 

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/edit_page_0"
+    android:id="@+id/travel_edit_page_3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:orientation="vertical">
-    <!--android:background="@color/transparent">-->
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <TextView
-        android:id="@+id/i_am"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -32,6 +31,12 @@
             android:layout_height="wrap_content"
             android:text="From:"
             android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/travel_page_3_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择时间" />
     </LinearLayout>
     <!-- 选择时间*****结束时间-->
     <LinearLayout
@@ -45,5 +50,11 @@
             android:layout_height="wrap_content"
             android:text="To:"
             android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/travel_page_3_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择时间" />
     </LinearLayout>
 </LinearLayout>

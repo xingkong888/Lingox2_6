@@ -45,8 +45,8 @@ public class Path implements Parcelable {
     // Variables that are not linked to the Server
     private String nonDBLocationString;
     private String detailAddress;
-    private String latitude="";
-    private String longitude="";
+    private String latitude = "";
+    private String longitude = "";
     private ArrayList<String> tags;
 
     public Path() {

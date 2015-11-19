@@ -54,6 +54,7 @@
         android:text="OK"
         android:textSize="20sp"
         android:visibility="gone" />
+
     <ProgressBar
         android:id="@+id/map_pb"
         android:layout_width="wrap_content"

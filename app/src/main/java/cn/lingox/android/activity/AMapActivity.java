@@ -64,7 +64,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
 
     private InputMethodManager imm;
 
-    private boolean isChat=false;//标识是否为聊天页获取位置
+    private boolean isChat = false;//标识是否为聊天页获取位置
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +74,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         setMapView(savedInstanceState);
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
-        if (getIntent().hasExtra("LOCATION")){
-            isChat=true;
+        if (getIntent().hasExtra("LOCATION")) {
+            isChat = true;
         }
     }
 
@@ -199,9 +199,9 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
             listView.setVisibility(View.GONE);
         } else {
             double[] doubles = {};
-            intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
-            intent.putExtra(PathEditActivity.SELECTDETIALADD, "");//地址
-            setResult(PathEditActivity.SELECTDETIAL, intent);
+            intent.putExtra(LocalEditActivity.SELECTDETIALLAT, doubles);//坐标
+            intent.putExtra(LocalEditActivity.SELECTDETIALADD, "");//地址
+            setResult(LocalEditActivity.SELECTDETIAL, intent);
             finish();
         }
     }
@@ -297,15 +297,15 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
             doubles[0] = lng;
             doubles[1] = lat;
         }
-        if (isChat){
+        if (isChat) {
             intent.putExtra("latitude", doubles[1]);//坐标
             intent.putExtra("longitude", doubles[0]);//坐标
             intent.putExtra("address", address);//地址
             setResult(RESULT_OK, intent);
-        }else {
-            intent.putExtra(PathEditActivity.SELECTDETIALLAT, doubles);//坐标
-            intent.putExtra(PathEditActivity.SELECTDETIALADD, address);//地址
-            setResult(PathEditActivity.SELECTDETIAL, intent);
+        } else {
+            intent.putExtra(LocalEditActivity.SELECTDETIALLAT, doubles);//坐标
+            intent.putExtra(LocalEditActivity.SELECTDETIALADD, address);//地址
+            setResult(LocalEditActivity.SELECTDETIAL, intent);
         }
         finish();
     }

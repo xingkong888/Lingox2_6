@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import cn.lingox.android.R;
+
 public class TimeHelper {
     private static TimeHelper instance;
     private Context context;
@@ -28,8 +29,7 @@ public class TimeHelper {
         this.context = context;
         if (CacheHelper.getInstance().getSettingLanguage() != null) {
             locale = new Locale(CacheHelper.getInstance().getSettingLanguage());
-        }
-        else {
+        } else {
             Configuration conf = context.getResources().getConfiguration();
             locale = conf.locale;
         }

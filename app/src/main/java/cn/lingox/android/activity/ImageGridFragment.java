@@ -242,7 +242,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                     cursor = null;
                 }
                 getActivity().setResult(Activity.RESULT_OK, getActivity().getIntent().putExtra("path", filePath)
-                                .putExtra("dur", duration));
+                        .putExtra("dur", duration));
                 getActivity().finish();
 
             }
@@ -334,6 +334,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
             mImageResizer.setImageSize(height);
             notifyDataSetChanged();
         }
+
         class ViewHolder {
             RecyclingImageView imageView;
             ImageView icon;

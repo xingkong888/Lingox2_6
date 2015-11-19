@@ -6,7 +6,7 @@
     <string name="travel_three">What\'s you time available for this?</string>
     <string name="travel_four">To be hosted, what would you provide back to the local(s)?</string>
     <!-- ******************************************************************************************-->
-<!--PathEditActivity-->
+    <!--LocalEditActivity-->
     <!-- 创建活动的提示语-->
     <!--**************** local ************************-->
     <string name="local_one">Where is this experience?</string>
@@ -22,7 +22,7 @@
     <!--<string name="travel_four">Please upload a cover photo of your experience or yourself</string>-->
     <!--<string name="travel_five">Set a time frame for your travel</string>-->
     <!--****************************************-->
-<!--*******************************************************************************************-->
+    <!--*******************************************************************************************-->
     <!-- 活动申请-->
     <string name="wait_confirm">Waiting for confirm</string>
     <string name="received">Received an application</string>
@@ -30,7 +30,7 @@
     <string name="application_accepted">Application Accepted</string>
     <string name="application_declined">Application declined</string>
     <string name="time_out">Time out</string>
-    <!-- PathAdapter-->
+    <!-- LocalAdapter-->
     <string name="distance">%1$s %2$s%3$s</string>
 
     <!-- 11月10日-->

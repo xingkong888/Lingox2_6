@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import cn.lingox.android.R;
 import cn.lingox.android.entity.Photo;
 import cn.lingox.android.helper.ServerHelper;
+
 public class PhotoActivity extends Activity implements View.OnClickListener {
     public static final String SELECTED_PHOTO = "selectphoto";
     public static final String LOCAL_PHOTO = "selectphotourl";

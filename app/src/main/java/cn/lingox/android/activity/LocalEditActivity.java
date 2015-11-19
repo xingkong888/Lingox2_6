@@ -59,7 +59,7 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CompressImageUtil;
 import cn.lingox.android.utils.FileUtil;
 
-public class PathEditActivity extends FragmentActivity implements OnClickListener {
+public class LocalEditActivity extends FragmentActivity implements OnClickListener {
     //Incoming Intent Extras
     public static final String PATH_TO_EDIT = LingoXApplication.PACKAGE_NAME + ".PATH_TO_EDIT";
     //  Returning Intent Extras
@@ -69,7 +69,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     public static final int SELECTDETIAL = 124;
     public static final String SELECTDETIALADD = "detial";
     public static final String SELECTDETIALLAT = "location";
-    private static final String LOG_TAG = "PathEditActivity";
+    private static final String LOG_TAG = "LocalEditActivity";
     private static final int SELECTLOCATION = 123;
     private int page = 0;//当前页面
     private RelativeLayout page0, page1, page2, page3, page4, page5;
@@ -123,7 +123,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 UIHelper.getInstance().textViewSetPossiblyNullString(endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
                 path.setEndDateTime((int) end);
             } else {
-                Toast.makeText(PathEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
                 endDatePickerDialog();
             }
         }
@@ -139,7 +139,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 UIHelper.getInstance().textViewSetPossiblyNullString(startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
                 path.setDateTime((int) start);
             } else {
-                Toast.makeText(PathEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
                 startDatePickerDialog();
             }
         }
@@ -153,7 +153,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_path_edit);
+        setContentView(R.layout.layout_local_edit);
         initView();
         setData();
     }
@@ -559,7 +559,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
      * page2-->标题
      * page3-->标签
      * page4-->选择图片
-     *
+     * <p>
      * 注意：现在只提供local发布活动的流程
      *
      * @param nextOrBack on behalf of the page number
@@ -777,6 +777,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
 
     /**
      * 保存活动标签
+     *
      * @return true:选择至少一个标签，false:未选择标签
      */
     private boolean saveTags() {
@@ -790,7 +791,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             CachePath.getInstance().setTags(postJson);
             path.setTags(postJson);
         }
-        return path.getTags().size()>0;
+        return path.getTags().size() > 0;
     }
 
     //提示用户
@@ -892,7 +893,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     }
 
     private class AddPath extends AsyncTask<Void, String, Boolean> {
-        private ProgressDialog pd = new ProgressDialog(PathEditActivity.this);
+        private ProgressDialog pd = new ProgressDialog(LocalEditActivity.this);
 
         @Override
         protected void onPreExecute() {
@@ -932,7 +933,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
+                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), LocalEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));
@@ -952,7 +953,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             if (values[0] != null)
                 pd.setMessage(values[0]);
             if (values[1] != null)
-                Toast.makeText(PathEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -972,7 +973,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
     }
 
     private class EditPath extends AsyncTask<Void, String, Boolean> {
-        private ProgressDialog pd = new ProgressDialog(PathEditActivity.this);
+        private ProgressDialog pd = new ProgressDialog(LocalEditActivity.this);
 
         @Override
         protected void onPreExecute() {
@@ -1005,7 +1006,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),
-                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), PathEditActivity.this))));
+                            CompressImageUtil.compressImage(FileUtil.getImg(imageUri.getPath(), LocalEditActivity.this))));
                     if (list.size() > 0) {
                         newPath.setImage(list.get(0));
                         newPath.setImage21(list.get(2));
@@ -1026,7 +1027,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             if (values[0] != null)
                 pd.setMessage(values[0]);
             if (values[1] != null)
-                Toast.makeText(PathEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -1036,7 +1037,7 @@ public class PathEditActivity extends FragmentActivity implements OnClickListene
             next.setClickable(true);
             if (success) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(PathViewActivity.EDITED_PATH, newPath);
+                returnIntent.putExtra(LocalViewActivity.EDITED_PATH, newPath);
                 setResult(RESULT_OK, returnIntent);
                 finish();
             } else {

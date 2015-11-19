@@ -209,8 +209,7 @@ public class JsonHelper {
     public void getLocal() {
         if (CacheHelper.getInstance().getSettingLanguage() != null) {
             locale = new Locale(CacheHelper.getInstance().getSettingLanguage());
-        }
-        else {
+        } else {
             Configuration conf = context.getResources().getConfiguration();
             locale = conf.locale;
         }

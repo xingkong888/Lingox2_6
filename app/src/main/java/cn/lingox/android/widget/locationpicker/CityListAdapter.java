@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.lingox.android.R;
+
 public class CityListAdapter extends BaseAdapter {
     List<City> cities;
     LayoutInflater inflater;

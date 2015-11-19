@@ -32,9 +32,9 @@ import java.util.regex.Pattern;
 
 import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
+import cn.lingox.android.adapter.LocalAdapter;
 import cn.lingox.android.adapter.MyAdapter;
 import cn.lingox.android.adapter.NearbyAdapter;
-import cn.lingox.android.adapter.PathAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Path;
@@ -63,7 +63,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
     private String country = "";
     private String province = "";
     private String city = "";
-    private PathAdapter disAdapter;
+    private LocalAdapter disAdapter;
     private NearbyAdapter memAdapter;
     private ProgressBar progressBar;
 
@@ -129,14 +129,14 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         switch (which) {
             case 1:
                 MobclickAgent.onEvent(this, "search_discover");
-                disAdapter = new PathAdapter(this, pathList);
+                disAdapter = new LocalAdapter(this, pathList);
                 listView.setAdapter(disAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(SearchActivity.this, PathViewActivity.class);
-                        intent.putExtra(PathViewActivity.PATH_TO_VIEW, pathList.get(position - 1));
-                        startActivityForResult(intent, PathFragment.EDIT_PATH);
+                        Intent intent = new Intent(SearchActivity.this, LocalViewActivity.class);
+                        intent.putExtra(LocalViewActivity.PATH_TO_VIEW, pathList.get(position - 1));
+                        startActivityForResult(intent, LocalFragment.EDIT_PATH);
                     }
                 });
                 break;
@@ -547,7 +547,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
             this.city = city;
             this.province = province;
 //            loaclOrTravel = i;
-            loaclOrTravel=1;
+            loaclOrTravel = 1;
             postJson = new ArrayList<>();
             this.map = new HashMap<>();
             this.map.putAll(map);

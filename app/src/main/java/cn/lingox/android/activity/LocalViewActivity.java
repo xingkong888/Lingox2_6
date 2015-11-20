@@ -163,7 +163,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void initView() {
-        setContentView(R.layout.activity_view_path);
+        setContentView(R.layout.activity_view_local);
 
         pathTime = (LinearLayout) findViewById(R.id.dududu);
 

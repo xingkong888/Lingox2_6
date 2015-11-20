@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:background="@color/transparent"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="5dp"
         android:background="@color/main_color"
         android:gravity="center"
@@ -19,8 +17,7 @@
 
     <TextView
         android:id="@+id/photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="5dp"
         android:background="@color/main_color"
         android:gravity="center"
@@ -31,8 +28,7 @@
 
     <TextView
         android:id="@+id/photo_recommend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="5dp"
         android:background="@color/main_color"
         android:gravity="center"
@@ -44,8 +40,7 @@
 
     <TextView
         android:id="@+id/photo_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="5dp"
         android:background="@color/main_color"
         android:gravity="center"

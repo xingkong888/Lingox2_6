@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    style="@style/match_match"
     android:layout_marginTop="12dp"
     android:background="@color/gray_light"
     android:focusable="false"
@@ -9,19 +8,17 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:background="@color/three_c7" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="20dp"
             android:text="I Can Provide Travelers" />
@@ -29,50 +26,32 @@
 
     <LinearLayout
         android:id="@+id/layout_available_local"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
-        android:orientation="vertical">
+        style="@style/row_user_info_include_available_layout">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:background="@color/three_c7" />
 
         <TextView
             android:id="@+id/userinfo_available_local"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/local_guide"
-            android:textColor="#c7c7c7"
-            android:textSize="20sp" />
+            style="@style/row_user_info_include_available_tv"
+            android:text="@string/local_guide" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:background="@color/three_c7" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_available_meal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
-        android:orientation="vertical">
+        style="@style/row_user_info_include_available_layout">
 
         <TextView
             android:id="@+id/userinfo_available_meal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/home_meal"
-            android:textColor="#c7c7c7"
-            android:textSize="20sp" />
+            style="@style/row_user_info_include_available_tv"
+            android:text="@string/home_meal" />
 
         <TextView
             android:layout_width="match_parent"
@@ -82,21 +61,12 @@
 
     <LinearLayout
         android:id="@+id/layout_available_stay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
-        android:orientation="vertical">
+        style="@style/row_user_info_include_available_layout">
 
         <TextView
             android:id="@+id/userinfo_available_stay"
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/home_stay"
-            android:textColor="#c7c7c7"
-            android:textSize="20sp" />
+            style="@style/row_user_info_include_available_tv"
+            android:text="@string/home_stay" />
 
         <TextView
             android:layout_width="match_parent"

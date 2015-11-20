@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <RelativeLayout
@@ -19,8 +18,7 @@
             android:src="@drawable/top_back_24dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_toRightOf="@id/back"
             android:gravity="center"
             android:text="View"
@@ -28,8 +26,7 @@
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentRight="true">
 
             <ImageView
@@ -61,22 +58,19 @@
 
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_above="@+id/path_view_comment_bar"
         android:layout_below="@+id/view_path_activity_toolbar">
 
         <LinearLayout
             android:id="@+id/path_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/match_match"
                 android:background="@color/three_fa">
 
                 <ImageView
@@ -103,14 +97,11 @@
                         android:layout_marginRight="14dp"
                         android:src="@drawable/app_icon" />
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                    <RelativeLayout style="@style/wrap_match">
 
                         <TextView
                             android:id="@+id/path_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:layout_marginRight="12dp"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -121,16 +112,14 @@
 
                         <TextView
                             android:id="@+id/path_user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/wrap_wrap"
                             android:layout_below="@id/path_title"
                             android:layout_marginBottom="4dp"
                             android:textColor="#868686"
                             android:textSize="18sp" />
                         <!--不显示local或travel-->
                         <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/wrap_wrap"
                             android:layout_below="@id/path_title"
                             android:layout_marginLeft="12dp"
                             android:layout_toRightOf="@id/path_user_name"
@@ -202,8 +191,7 @@
 
                     <ImageView
                         android:id="@+id/path_accept_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        style="@style/wrap_match"
                         android:layout_weight="1"
                         android:focusable="false"
                         android:scaleType="center"
@@ -220,8 +208,7 @@
 
                     <ImageView
                         android:id="@+id/path_share_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        style="@style/wrap_match"
                         android:layout_weight="1"
                         android:focusable="false"
                         android:scaleType="center"
@@ -236,8 +223,7 @@
 
             <LinearLayout
                 android:id="@+id/path_view_like"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_marginBottom="15dp"
                 android:background="@color/three_fa"
                 android:orientation="vertical"
@@ -250,21 +236,18 @@
 
                 <RelativeLayout
                     android:id="@+id/path_view_social_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    style="@style/match_wrap">
 
                     <TextView
                         android:id="@+id/wula"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginLeft="16dp"
                         android:text="@string/like"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/path_particpants_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/wula"
                         android:focusable="false"
@@ -287,9 +270,8 @@
 
                 <view
                     android:id="@+id/path_view_joined_user_list"
-                    class="it.sephiroth.android.library.widget.HListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    style="@style/match_wrap"
+                    class="it.sephiroth.android.library.widget.HListView" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -299,8 +281,7 @@
 
             <LinearLayout
                 android:id="@+id/path_view_commit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:background="@color/three_fa"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -310,22 +291,18 @@
                     android:layout_height="1dp"
                     android:background="@color/three_fa" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <RelativeLayout style="@style/match_wrap">
 
                     <TextView
                         android:id="@+id/lawu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginLeft="16dp"
                         android:text="@string/path_comments"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/path_comments_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/lawu"
                         android:focusable="false"
@@ -362,8 +339,7 @@
 
     <LinearLayout
         android:id="@+id/path_view_comment_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
@@ -389,8 +365,7 @@
 
             <cn.lingox.android.widget.PasteEditText
                 android:id="@+id/comment_text_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:background="@color/white"
                 android:maxLines="3"
                 android:minHeight="30dp"
@@ -445,23 +420,20 @@
 
     <RelativeLayout
         android:id="@+id/path_view_yindao"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:background="#8c000000"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/plmnbvcddddd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_marginRight="65dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/hint_33dp_24dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_below="@id/plmnbvcddddd"
             android:background="@drawable/textview_rounded"

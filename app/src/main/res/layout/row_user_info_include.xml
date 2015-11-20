@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/userinfo_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:background="@color/three_fa">
 
     <RelativeLayout
@@ -13,15 +12,13 @@
 
         <ImageView
             android:id="@+id/userinfo_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:scaleType="fitXY"
             android:src="@drawable/share_pic1_62dp" />
 
         <RelativeLayout
             android:id="@+id/lalalalalala"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_alignParentBottom="true"
             android:background="@drawable/nearby_colorgradient_360dp95dp"
             android:orientation="vertical">
@@ -39,42 +36,34 @@
 
                 <TextView
                     android:id="@+id/userinfo_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/shadow_style"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="12dp"
-                    android:shadowColor="#4b000000"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="1"
                     android:text="Diana"
-                    android:textColor="#fff"
+                    android:textColor="@color/white"
                     android:textSize="23sp" />
 
                 <TextView
                     android:id="@+id/userinfo_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="12dp"
                     android:layout_toRightOf="@+id/userinfo_name"
-                    android:textColor="#fff"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/userinfo_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_above="@+id/userinfo_time"
                 android:layout_marginLeft="12dp"
-                android:textColor="#fff"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/userinfo_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="12dp"
                 android:paddingBottom="8dp"
@@ -92,43 +81,22 @@
 
             <TextView
                 android:id="@+id/userinfo_tag2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/row_user_info_include_tag"
                 android:layout_marginBottom="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/local_guide"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:text="@string/local_guide" />
 
             <TextView
                 android:id="@+id/userinfo_tag1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/row_user_info_include_tag"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/home_meal"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:text="@string/home_meal" />
 
             <TextView
                 android:id="@+id/userinfo_tag3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="row_user_info_include_tag"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/nearby_label"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="@string/home_stay"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:text="@string/home_stay" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -137,92 +105,50 @@
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_below="@+id/asdfasdf"
-        android:background="#fafafa"
+        android:background="@color/three_fa"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/layout_follow"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/three_fa"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/row_user_info_include_linear">
 
             <TextView
                 android:id="@+id/userinfo_follow"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="17sp" />
+                style="@style/row_user_info_include_num" />
 
             <TextView
                 android:id="@+id/userinfo_follow_"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/userinfo_follow"
-                android:textColor="#26a69a"
-                android:textSize="12sp" />
+                style="@style/row_user_info_include_"
+                android:text="@string/userinfo_follow" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_following"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/three_fa"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/row_user_info_include_linear">
 
             <TextView
                 android:id="@+id/userinfo_following"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="17sp" />
+                style="@style/row_user_info_include_num" />
 
             <TextView
                 android:id="@+id/userinfo_following_"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/userinfo_following"
-                android:textColor="#26a69a"
-                android:textSize="12sp" />
+                style="@style/row_user_info_include_"
+                android:text="@string/userinfo_following" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_reference"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/three_fa"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/row_user_info_include_linear">
 
             <TextView
                 android:id="@+id/userinfo_reference"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="17sp" />
+                style="@style/row_user_info_include_num" />
 
             <TextView
                 android:id="@+id/userinfo_reference_"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/userinfo_reference"
-                android:textColor="#26a69a"
-                android:textSize="12sp" />
+                style="@style/row_user_info_include_"
+                android:text="@string/userinfo_reference" />
         </LinearLayout>
     </LinearLayout>
 

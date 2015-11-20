@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#efeff4"
+        style="@style/match_match"
+        android:background="@color/gray_light"
         android:orientation="vertical">
 
         <include
@@ -16,9 +14,8 @@
 
         <ListView
             android:id="@+id/chat_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#000"
+            style="@style/match_match"
+            android:cacheColorHint="@color/black_deep"
             android:divider="@drawable/line1"
             android:dividerHeight="1dp"
             android:transcriptMode="normal" />
@@ -26,8 +23,7 @@
 
     <ImageView
         android:id="@+id/anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_centerInParent="true"
         android:background="@anim/anim_chat"
         android:visibility="gone" />

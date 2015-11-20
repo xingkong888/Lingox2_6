@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#efeff4">
+    style="@style/match_wrap"
+    android:background="@color/gray_light">
 
     <LinearLayout
         android:id="@+id/asdf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_above="@+id/okOrclose"
         android:layout_marginBottom="5dp">
 
         <ListView
             android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#0000"
+            style="@style/match_match"
+            android:divider="@color/transparent"
             android:dividerHeight="5dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/okOrclose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/select_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_weight="1"
             android:text="@string/cancel"
             android:textAllCaps="true"
@@ -36,8 +31,7 @@
 
         <Button
             android:id="@+id/select_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_weight="1"
             android:text="@string/ok"
             android:textAllCaps="true"

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/main_color">
 
     <RelativeLayout
         android:id="@+id/travel_xingqi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/match_wrap">
 
         <ImageView
             android:id="@+id/travel_edit_close"
@@ -30,8 +28,7 @@
 
         <TextView
             android:id="@+id/travel_edit_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:textColor="@color/white"
@@ -41,8 +38,7 @@
 
     <ImageView
         android:id="@+id/travel_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:src="@drawable/active_map_01_320dp520dp" />
 
     <RelativeLayout
@@ -51,24 +47,20 @@
         android:layout_below="@+id/travel_xingqi">
         <!--要去的地方-->
         <include
-            layout="@layout/include_travel_edit_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_1" />
         <!--你到当地需要的服务及描述-->
         <include
-            layout="@layout/include_travel_edit_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_2" />
         <!--时间段-->
         <include
-            layout="@layout/include_travel_edit_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_3" />
         <!--你作为本地人的时候能提供什么-->
         <include
-            layout="@layout/include_travel_edit_4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_4" />
 
     </RelativeLayout>
 

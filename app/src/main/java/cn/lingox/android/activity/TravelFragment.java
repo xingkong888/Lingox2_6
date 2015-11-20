@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelAdapter;
+import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.task.GetAllTravel;
+import cn.lingox.android.utils.SkipDialog;
 
 /**
  * 展示travel数据
@@ -134,9 +136,13 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_add_travel:
-                //添加新的 TravelEditActivity
-                Intent intent = new Intent(getActivity(), TravelEditActivity.class);
-                startActivity(intent);
+                if (LingoXApplication.getInstance().getSkip()) {
+                    SkipDialog.getDialog(getActivity()).show();
+                } else {
+                    //添加新的 TravelEditActivity
+                    Intent intent = new Intent(getActivity(), TravelEditActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

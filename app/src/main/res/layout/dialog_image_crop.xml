@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@+id/layout_bottom">
 
         <cn.lingox.android.activity.imagechooser.crop.ClipImageLayout
             android:id="@+id/id_clipImageLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match" />
 
         <ImageView
             android:id="@+id/image_cropped_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
             android:src="@drawable/discover_default"
@@ -34,8 +30,7 @@
 
         <TextView
             android:id="@+id/image_crop_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -46,8 +41,7 @@
 
         <TextView
             android:id="@+id/image_confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentRight="true"
             android:background="@drawable/text_selector"
             android:gravity="center"

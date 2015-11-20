@@ -12,13 +12,11 @@
 
     <RelativeLayout
         android:id="@+id/path_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/match_wrap">
 
         <ImageView
             android:id="@+id/path_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:scaleType="fitXY" />
 
     </RelativeLayout>

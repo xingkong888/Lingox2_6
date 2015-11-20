@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp">
 
     <TextView
         android:id="@+id/timestamp"
-        style="@style/chat_text_date_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/chat_text_date_style" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="@dimen/margin_chat_activity">
 
         <ImageView
@@ -40,17 +36,13 @@
         <TextView
             android:id="@+id/tv_length"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_voice"
-            android:gravity="center"
-            android:text="3&apos;&apos;" />
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/iv_unread_voice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_length"
             android:src="@drawable/voice_unread" />
@@ -67,8 +59,6 @@
         <TextView
             android:id="@+id/tv_userid"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/iv_userhead"
             android:layout_toLeftOf="@id/iv_voice" />

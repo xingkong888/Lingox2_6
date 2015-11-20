@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/edit_page_1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/transparent"
     android:visibility="gone">
 
     <TextView
         android:id="@+id/path_edit_you_are"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/shadow_style"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:shadowColor="#4b000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
     <RelativeLayout
         android:id="@+id/poiu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@+id/path_edit_you_are">
 
         <Button
@@ -37,7 +30,7 @@
             android:background="@drawable/button_border_blue"
             android:text="Location"
             android:textAllCaps="false"
-            android:textColor="#fff" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/path_detail_address"
@@ -50,7 +43,7 @@
             android:padding="5dp"
             android:text="Detail Address"
             android:textAllCaps="false"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

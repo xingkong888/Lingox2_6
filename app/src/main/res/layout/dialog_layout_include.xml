@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="255dp"
     android:layout_height="302dp"
-    android:background="#00838f">
+    android:background="@color/main_color">
 
     <ImageView
         android:id="@+id/img_title"
@@ -14,8 +14,7 @@
 
     <TextView
         android:id="@+id/text_abc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_below="@+id/img_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -29,15 +28,14 @@
         android:layout_below="@+id/text_abc"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="#fff"
+        android:background="@color/white"
         android:text="@string/register"
-        android:textColor="#00838f"
+        android:textColor="@color/main_color"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/text_abcd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_below="@+id/dialog_register"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="4dp"

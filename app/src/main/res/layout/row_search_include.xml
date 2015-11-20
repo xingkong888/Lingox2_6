@@ -6,14 +6,12 @@
 
     <RelativeLayout
         android:id="@+id/ddddddd"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@+id/asdfasdfasdf">
 
         <ImageView
             android:id="@+id/nearby_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:scaleType="fitXY" />
 
         <RelativeLayout
@@ -25,8 +23,7 @@
 
             <LinearLayout
                 android:id="@+id/abcdefg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_alignParentBottom="true"
                 android:layout_toLeftOf="@+id/mnbvcxz"
                 android:orientation="vertical">
@@ -44,31 +41,21 @@
 
                     <TextView
                         android:id="@+id/nearby_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/shadow_style"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="12dp"
-                        android:shadowColor="#4b000000"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="1"
                         android:text="Diana"
-                        android:textColor="#fff"
+                        android:textColor="@color/white"
                         android:textSize="23sp" />
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/nearby_country"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/shadow_style"
                     android:layout_marginLeft="12dp"
                     android:ellipsize="end"
-                    android:shadowColor="#4b000000"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="1"
                     android:singleLine="true"
-                    android:textColor="#fff"
+                    android:textColor="@color/white"
                     android:textSize="13sp" />
 
                 <TextView
@@ -78,16 +65,11 @@
                     android:layout_marginBottom="2dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="2dp"
-                    android:background="#fff"
-                    android:shadowColor="#4b000000"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="1" />
+                    android:background="@color/white" />
 
                 <LinearLayout
                     android:id="@+id/nearby_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="12dp"
                     android:gravity="center_vertical"
@@ -96,57 +78,36 @@
 
                     <TextView
                         android:id="@+id/nearby_comment_"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="#4b000000"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="1"
+                        style="@style/shadow_style"
                         android:text="@string/nearby_comment"
-                        android:textColor="#fff"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/nearby_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/shadow_style"
                         android:layout_marginLeft="2dp"
-                        android:shadowColor="#4b000000"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="1"
                         android:textColor="@color/main_color"
                         android:textSize="12sp" />
 
                     <ImageView
                         android:id="@+id/nearby_point"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
                         android:src="@drawable/nearby_point_8dp" />
 
                     <TextView
                         android:id="@+id/nearby_speak_"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="#4b000000"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="1"
+                        style="@style/shadow_style"
                         android:text="@string/nearby_sheak"
-                        android:textColor="#fff"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/nearby_speak"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/shadow_style"
                         android:layout_marginLeft="2dp"
-                        android:shadowColor="#4b000000"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
-                        android:shadowRadius="1"
                         android:textColor="@color/main_color"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -163,43 +124,25 @@
 
                 <TextView
                     android:id="@+id/nearby_tag2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/row_user_info_include_tag"
                     android:layout_marginBottom="4dp"
-                    android:background="@drawable/nearby_label"
                     android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:text="@string/local_guide"
-                    android:textColor="#000"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:text="@string/local_guide" />
 
                 <TextView
                     android:id="@+id/nearby_tag1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/row_user_info_include_tag"
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/nearby_label"
                     android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:text="@string/home_meal"
-                    android:textColor="#000"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:text="@string/home_meal" />
 
                 <TextView
                     android:id="@+id/nearby_tag3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/row_user_info_include_tag"
+                    android:layout_marginBottom="4dp"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/nearby_label"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:text="@string/home_stay"
-                    android:textColor="#000"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:text="@string/home_stay" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

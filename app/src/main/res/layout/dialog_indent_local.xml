@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:orientation="vertical">
 
     <!--<TextView-->
@@ -13,8 +12,7 @@
 
     <EditText
         android:id="@+id/indent_local_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="20dp"
         android:hint=" I am free on days"
         android:padding="5dp"
@@ -23,8 +21,7 @@
 
     <EditText
         android:id="@+id/indent_local_describe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="20dp"
         android:padding="5dp"
         android:paddingLeft="10dp"

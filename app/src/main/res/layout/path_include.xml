@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#efeff4"
+    style="@style/match_match"
+    android:background="@color/gray_light"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:gravity="center_vertical"
         android:minHeight="49dp">
 
@@ -22,8 +20,7 @@
 
         <TextView
             android:id="@+id/available_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_toRightOf="@+id/ddd"
             android:textColor="@color/black_deep"
             android:textSize="15sp" />
@@ -36,8 +33,7 @@
             android:visibility="gone">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_weight="1">
 
                 <TextView
@@ -56,13 +52,12 @@
 
                 <TextView
                     android:id="@+id/path_datetime_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/match_match"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/path_datetime"
                     android:focusable="false"
                     android:gravity="center_vertical"
-                    android:textColor="#000"
+                    android:textColor="@color/black_deep"
                     android:textSize="15sp" />
             </RelativeLayout>
 
@@ -72,8 +67,7 @@
                 android:background="#c7c7c7c7" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_weight="1">
 
                 <TextView
@@ -87,13 +81,12 @@
 
                 <TextView
                     android:id="@+id/path_endtime_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/match_match"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/path_endtime"
                     android:focusable="false"
                     android:gravity="top"
-                    android:textColor="#000"
+                    android:textColor="@color/black_deep"
                     android:textSize="15sp" />
             </RelativeLayout>
 
@@ -101,9 +94,8 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -113,8 +105,7 @@
             android:background="#c7c7c7" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:gravity="center_vertical"
             android:minHeight="49dp">
 
@@ -128,12 +119,11 @@
 
             <TextView
                 android:id="@+id/path_detail_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_toRightOf="@+id/path_location"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:textColor="#000"
+                android:textColor="@color/black_deep"
                 android:textSize="15sp" />
         </RelativeLayout>
 
@@ -144,15 +134,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:focusable="false"
             android:gravity="center_vertical"
             android:minHeight="50dp"
@@ -168,8 +156,7 @@
 
             <LinearLayout
                 android:id="@+id/path_tag_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:focusable="false"
                 android:orientation="vertical"
                 android:paddingBottom="5dp"
@@ -183,16 +170,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/path_show_reference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:drawableRight="@drawable/personal_keyboard_right_24dp"
             android:gravity="center"
             android:padding="10dp"
@@ -209,7 +194,7 @@
         android:id="@+id/layout_gender"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#fafafa"
+        android:background="@color/three_fa"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -228,13 +213,12 @@
 
             <TextView
                 android:id="@+id/path_cost_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/match_wrap"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/path_cost"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:textColor="#000"
+                android:textColor="@color/black_deep"
                 android:textSize="19sp" />
         </RelativeLayout>
 
@@ -244,12 +228,11 @@
             android:background="#c7c7c7" />
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/layout_professional"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#fafafa"
+        android:background="@color/three_fa"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -268,13 +251,12 @@
 
             <TextView
                 android:id="@+id/capacity_activity_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/match_match"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/capacity_activity"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:textColor="#000"
+                android:textColor="@color/black_deep"
                 android:textSize="19sp" />
         </RelativeLayout>
 
@@ -286,15 +268,13 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fafafa"
+        style="@style/match_wrap"
+        android:background="@color/three_fa"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/path_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center_vertical"

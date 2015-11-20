@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp">
 
     <TextView
         android:id="@+id/timestamp"
-        style="@style/chat_text_date_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/chat_text_date_style" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="@dimen/margin_chat_activity"
         android:paddingLeft="20dp">
 
@@ -30,22 +26,19 @@
 
         <LinearLayout
             android:id="@+id/ll_file_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@id/iv_userhead"
             android:layout_toRightOf="@+id/ll_loading"
             android:background="@drawable/chatto_bg">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_margin="5dp"
                 android:src="@drawable/chat_item_file" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
@@ -53,32 +46,28 @@
 
                 <TextView
                     android:id="@+id/tv_file_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="#000"
+                    android:textColor="@color/black_deep"
                     android:textSize="15sp" />
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginTop="3dp">
 
                     <TextView
                         android:id="@+id/tv_file_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_gravity="center_vertical"
                         android:textColor="#818181"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_file_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center_vertical"
                         android:textColor="#818181"
@@ -89,8 +78,7 @@
 
         <ImageView
             android:id="@+id/msg_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/ll_file_container"
             android:clickable="true"
@@ -100,8 +88,6 @@
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/tv_chatcontent"
             android:text="@string/text_ack_msg"
@@ -111,8 +97,6 @@
         <TextView
             android:id="@+id/tv_delivered"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/tv_chatcontent"
             android:text="@string/text_delivered_msg"
@@ -121,8 +105,7 @@
 
         <LinearLayout
             android:id="@+id/ll_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:gravity="center"
@@ -131,16 +114,12 @@
             <ProgressBar
                 android:id="@+id/pb_sending"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:visibility="visible" />
+                android:layout_height="25dp" />
 
             <TextView
                 android:id="@+id/percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0%"
-                android:textColor="@android:color/black"
-                android:visibility="visible" />
+                style="@style/wrap_wrap"
+                android:textColor="@android:color/black" />
         </LinearLayout>
     </RelativeLayout>
 

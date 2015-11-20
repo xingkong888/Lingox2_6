@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <RelativeLayout
@@ -20,8 +19,7 @@
 
         <TextView
             android:id="@+id/travel_view_toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_toRightOf="@id/travel_view_back"
             android:gravity="center"
             android:text="View"
@@ -31,8 +29,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@id/travel_view_top"
         android:background="@color/three_fa"
         android:paddingBottom="10dp"
@@ -49,82 +46,68 @@
         <!-- 名字-->
         <TextView
             android:id="@+id/travel_view_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_toRightOf="@id/travel_view_avatar"
             android:text="name"
             android:textSize="20sp" />
         <!--地点-->
         <TextView
             android:id="@+id/travel_view_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_below="@+id/travel_view_name"
             android:layout_toRightOf="@id/travel_view_avatar"
             android:text="Traveling in China" />
         <!-- 时间-->
         <LinearLayout
             android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_below="@+id/travel_view_avatar"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:text="Time" />
 
             <TextView
                 android:id="@+id/travel_view_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:text="2015/12/29 - 2015/12/29" />
         </LinearLayout>
         <!-- 标签-->
         <LinearLayout
             android:id="@+id/tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_below="@+id/time"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:text="Type" />
 
             <TextView
                 android:id="@+id/travel_view_tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:text="标签" />
         </LinearLayout>
         <!-- 描述-->
         <TextView
             android:id="@+id/travel_view_describe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tag"
-            android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
+            style="@style/match_wrap"
+            android:layout_below="@+id/tag" />
         <!-- 可提供-->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_below="@+id/travel_view_describe"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:text="What Can I provide:" />
 
             <TextView
                 android:id="@+id/travel_view_provide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" />
+                style="@style/wrap_wrap" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

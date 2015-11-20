@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:background="@color/white"
     android:orientation="horizontal">
 
@@ -13,15 +12,13 @@
         android:src="@drawable/app_icon" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_marginTop="15dp">
 
         <TextView
             android:id="@+id/chat_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
+            style="@style/wrap_wrap"
+            android:textColor="@color/black_deep"
             android:textSize="18.5sp" />
 
         <TextView
@@ -33,22 +30,20 @@
             android:layout_toRightOf="@id/chat_user_name"
             android:background="@drawable/message_point_28dp"
             android:gravity="center"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/chat_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp"
             android:textColor="#ababab" />
 
         <TextView
             android:id="@+id/msg_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_below="@id/chat_user_name"
             android:padding="2dp"
             android:textColor="#cc8c0c"
@@ -56,8 +51,7 @@
 
         <TextView
             android:id="@+id/chat_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/msg_state"
             android:layout_marginTop="3dp"

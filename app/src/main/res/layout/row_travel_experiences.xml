@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/notification_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:background="@color/gray_light">
 
     <RelativeLayout
         android:id="@+id/travel_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#00838f">
+        android:background="@color/main_color">
 
         <TextView
             android:id="@+id/travel_cancel"
@@ -42,8 +40,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@+id/travel_toolbar"
         android:layout_margin="20dp"
         android:layout_marginTop="15dp"
@@ -57,28 +54,20 @@
 
             <ImageView
                 android:id="@+id/location_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_centerVertical="true"
                 android:src="@drawable/travel_location_right_18dp" />
 
             <TextView
                 android:id="@+id/travel_location"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/match_match"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/location_img"
                 android:gravity="center_vertical"
                 android:hint="Where are you going?"
-                android:textColor="#00838f" />
+                android:textColor="@color/main_color" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/personal_keyboard_right_24dp" />
+            <ImageView style="@style/right_arrows_iv" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -95,30 +84,16 @@
 
             <TextView
                 android:id="@+id/start_time"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="Start Time"
-                android:textColor="#ababab" />
+                style="@style/row_travel_experiences_tv_l"
+                android:text="Start Time" />
 
             <TextView
                 android:id="@+id/start_time_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="13dp"
+                style="@style/row_travel_experiences_tv_r"
                 android:layout_toRightOf="@+id/start_time"
-                android:gravity="center_vertical"
-                android:hint="Start Time"
-                android:textColor="#00838f" />
+                android:hint="Start Time" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/personal_keyboard_right_24dp" />
+            <ImageView style="@style/right_arrows_iv" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -135,30 +110,16 @@
 
             <TextView
                 android:id="@+id/end_time"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="End Time"
-                android:textColor="#ababab" />
+                style="@style/row_travel_experiences_tv_l"
+                android:text="End Time" />
 
             <TextView
                 android:id="@+id/end_time_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="13dp"
+                style="@style/row_travel_experiences_tv_r"
                 android:layout_toRightOf="@+id/end_time"
-                android:gravity="center_vertical"
-                android:hint="End Time"
-                android:textColor="#00838f" />
+                android:hint="End Time" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/personal_keyboard_right_24dp" />
+            <ImageView style="@style/right_arrows_iv" />
 
             <TextView
                 android:layout_width="match_parent"

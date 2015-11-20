@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:background="@color/white">
     <!-- 头像-->
     <RelativeLayout
         android:id="@+id/avatar_flg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        style="@style/wrap_wrap">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/travel_avatar"
@@ -28,79 +26,65 @@
     </RelativeLayout>
     <!-- 内容-->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/avatar_flg"
         android:orientation="vertical">
         <!-- 名字、地点-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <LinearLayout style="@style/wrap_wrap">
             <!-- 名字-->
             <TextView
                 android:id="@+id/travel_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:text="name" />
             <!-- 地点-->
             <TextView
                 android:id="@+id/travel_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:text="Traveling in China" />
         </LinearLayout>
         <!-- 描述-->
         <TextView
             android:id="@+id/travel_describe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:text="ddddddddddddddddddddddddddddddd" />
         <!-- 标签-->
         <TextView
             android:id="@+id/travel_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:text="sss" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <RelativeLayout style="@style/match_wrap">
             <!-- 发布时间-->
             <TextView
                 android:id="@+id/travel_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:text="time" />
             <!-- 回复人数-->
             <TextView
                 android:id="@+id/reply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/travel_reply_num"
                 android:text="reply" />
 
             <TextView
                 android:id="@+id/travel_reply_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/like"
                 android:text="1" />
             <!--like人数 -->
             <TextView
                 android:id="@+id/like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/travel_like_num"
                 android:text="like" />
 
             <TextView
                 android:id="@+id/travel_like_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:text="3" />

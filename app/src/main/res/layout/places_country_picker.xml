@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <ListView
         android:id="@+id/country_picker_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@+id/ddd"
         android:layout_margin="4dp"
-        android:background="#fafafa" />
+        android:background="@color/three_fa" />
 
     <LinearLayout
         android:id="@+id/ddd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Cancel"
@@ -30,8 +26,7 @@
 
         <Button
             android:id="@+id/ok"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Ok"

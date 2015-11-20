@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <RelativeLayout
         android:id="@+id/photo_relativeLayout"
@@ -17,16 +16,14 @@
 
         <ImageView
             android:id="@+id/photo_bt_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentRight="true"
             android:padding="5dp"
             android:src="@drawable/ic_create_white_24dp" />
 
         <ImageView
             android:id="@+id/photo_bt_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/photo_bt_edit"
             android:padding="5dp"
@@ -36,8 +33,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@id/photo_relativeLayout" />
 
     <ScrollView
@@ -49,8 +45,7 @@
 
         <TextView
             android:id="@+id/tv_description"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:padding="8dp"
             android:textColor="@android:color/white"
             android:textSize="22sp" />

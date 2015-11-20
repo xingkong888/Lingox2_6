@@ -2,16 +2,14 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:fillViewport="true"
     android:orientation="vertical"
     android:scrollbars="vertical"
     android:touchscreenBlocksFocus="false">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:orientation="vertical">
 
         <include
@@ -31,15 +29,14 @@
                 android:background="#c7c7c7" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00838f">
+                style="@style/match_wrap"
+                android:background="@color/main_color">
 
                 <TextView
                     android:id="@+id/userinfo_edit"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
-                    android:background="#0000"
+                    android:background="@color/transparent"
                     android:gravity="center"
                     android:text="@string/edit"
                     android:textColor="@color/white"
@@ -49,7 +46,7 @@
                     android:id="@+id/userinfo_edit_chat"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
-                    android:background="#0000"
+                    android:background="@color/transparent"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -118,10 +115,9 @@
 
         <RelativeLayout
             android:id="@+id/layout_pic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginTop="12dp"
-            android:background="#fafafa">
+            android:background="@color/three_fa">
 
             <RelativeLayout
                 android:id="@+id/line"
@@ -135,8 +131,7 @@
 
                 <TextView
                     android:id="@+id/userinfo_local_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:text="My Album" />
@@ -159,9 +154,8 @@
 
             <view
                 android:id="@+id/user_photo_hlist"
+                style="@style/wrap_wrap"
                 class="it.sephiroth.android.library.widget.HListView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/line" />
 
             <RelativeLayout
@@ -172,8 +166,7 @@
 
                 <TextView
                     android:id="@+id/userinfo_local_nothing1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/match_match"
                     android:background="#e5e5e9"
                     android:gravity="center"
                     android:paddingTop="2dp"
@@ -182,8 +175,7 @@
 
                 <TextView
                     android:id="@+id/userinfo_local_nothing2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/match_match"
                     android:gravity="center"
                     android:text="@string/post_photo"
                     android:textColor="#ababab" />
@@ -191,8 +183,7 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -204,15 +195,13 @@
         <!-- 旅游记录-->
         <LinearLayout
             android:id="@+id/travel_about"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_marginTop="12dp"
-                android:background="#fafafa">
+                android:background="@color/three_fa">
 
                 <RelativeLayout
                     android:id="@+id/line_1"
@@ -226,8 +215,7 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/wrap_wrap"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:text="@string/travel_plans_self" />
@@ -250,8 +238,7 @@
 
                 <LinearLayout
                     android:id="@+id/travel_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_below="@+id/line_1"
                     android:layout_marginTop="-1dp"
                     android:orientation="vertical" />
@@ -264,8 +251,7 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_nothing1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        style="@style/match_match"
                         android:background="#e5e5e9"
                         android:gravity="center"
                         android:paddingTop="2dp"
@@ -274,8 +260,7 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_nothing2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        style="@style/match_match"
                         android:gravity="center"
                         android:text="@string/travel_experience"
                         android:textColor="#ababab" />
@@ -289,9 +274,8 @@
             </RelativeLayout>
 
             <include
+                style="@style/wrap_wrap"
                 layout="@layout/row_user_info_include_about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp" />
         </LinearLayout>
     </LinearLayout>

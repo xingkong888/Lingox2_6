@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/travel_edit_page_1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/transparent"
     android:orientation="vertical">
 
     <TextView
+        style="@style/shadow_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:gravity="center"
-        android:shadowColor="#4b000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1"
         android:text="@string/travel_one"
         android:textColor="@color/white"
         android:textSize="22sp" />
 
     <EditText
         android:id="@+id/travel_page_1_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_border_blue"
         android:gravity="center"

@@ -26,8 +26,12 @@ public class TravelViewActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_travel);
 
         initView();
+        setData();
     }
 
+    /**
+     * 初始化控件
+     */
     private void initView() {
         back = (ImageView) findViewById(R.id.travel_view_back);
         back.setOnClickListener(this);
@@ -40,6 +44,12 @@ public class TravelViewActivity extends Activity implements OnClickListener {
         provide = (TextView) findViewById(R.id.travel_view_provide);
     }
 
+    /**
+     * 设置数据
+     */
+    private void setData() {
+
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

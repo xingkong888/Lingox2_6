@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp">
 
     <TextView
         android:id="@+id/timestamp"
-        style="@style/chat_text_date_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/chat_text_date_style" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="@dimen/margin_chat_activity">
 
         <ImageView
@@ -29,16 +25,14 @@
 
         <RelativeLayout
             android:id="@+id/rl_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@drawable/chatto_bg">
 
             <ImageView
                 android:id="@+id/iv_call_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="4dp"
                 android:src="@drawable/chat_voice_call_self" />
@@ -46,8 +40,6 @@
             <TextView
                 android:id="@+id/tv_chatcontent"
                 style="@style/chat_content_date_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/iv_call_icon"
                 android:background="@null"
@@ -57,8 +49,7 @@
 
         <ImageView
             android:id="@+id/msg_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/rl_picture"
             android:clickable="true"
@@ -68,8 +59,6 @@
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/rl_picture"
             android:text="@string/text_ack_msg"

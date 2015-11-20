@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    style="@style/wrap_wrap"
     android:layout_gravity="center_horizontal"
     android:background="@color/gray_light"
     android:orientation="horizontal"
@@ -9,15 +8,12 @@
 
     <ImageView
         android:id="@+id/third_facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:src="@drawable/logo_facebook" />
-
 
     <ImageView
         android:id="@+id/third_weibo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_marginLeft="50dp"
         android:src="@drawable/logo_sinaweibo" />
 </LinearLayout>

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/nearby_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_marginTop="-1.5dp" />
 
     <ImageView
         android:id="@+id/anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_centerInParent="true"
         android:background="@anim/anim_chat"
         android:visibility="gone" />

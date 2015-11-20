@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/travel_edit_page_2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/transparent"
     android:orientation="vertical"
     android:visibility="gone">
 
     <TextView
+        style="@style/shadow_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:gravity="center"
-        android:shadowColor="#4b000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="1"
         android:text="@string/travel_two"
         android:textColor="@color/white"
         android:textSize="22sp" />
     <!-- 详细描述-->
     <EditText
         android:id="@+id/travel_page_2_describe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="ddddddd"
         android:textColor="@color/white" />
     <!--选择类型标签 -->
     <ListView
         android:id="@+id/travel_page_2_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="10dp" />
 </LinearLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="#252C39"
     android:orientation="vertical"
     android:paddingLeft="20dp"
@@ -19,8 +18,7 @@
 
         <TextView
             android:id="@+id/tv_call_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:textColor="@color/voip_interface_text_color"
@@ -28,8 +26,7 @@
 
         <Chronometer
             android:id="@+id/chronometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:text="Chronometer"
             android:textColor="@color/white"
             android:visibility="invisible" />
@@ -59,8 +56,7 @@
 
         <TextView
             android:id="@+id/tv_nick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_marginTop="10dp"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
@@ -74,8 +70,7 @@
 
         <LinearLayout
             android:id="@+id/ll_voice_control"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:baselineAligned="false">
 
             <LinearLayout
@@ -87,14 +82,12 @@
 
                 <ImageView
                     android:id="@+id/iv_mute"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_mute_normal" />
 
                 <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginTop="3dp"
                     android:gravity="center"
                     android:text="静音"
@@ -110,14 +103,12 @@
 
                 <ImageView
                     android:id="@+id/iv_handsfree"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_speaker_normal" />
 
                 <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginTop="3dp"
                     android:gravity="center"
                     android:text="免提"
@@ -126,8 +117,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_marginTop="20dp">
 
             <Button
@@ -143,8 +133,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_coming_call"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/match_wrap">
 
                 <Button
                     android:id="@+id/btn_refuse_call"

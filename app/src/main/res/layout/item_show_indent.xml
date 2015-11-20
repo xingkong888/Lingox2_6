@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 只有一条时显示-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:layout_centerHorizontal="true"
     android:gravity="center_horizontal"
     android:visibility="gone">
@@ -17,8 +16,7 @@
         card_view:cardUseCompatPadding="false">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_centerHorizontal="true"
             android:background="#dbffffff"
             android:gravity="center_horizontal"
@@ -26,8 +24,7 @@
             <!-- 展示订单状态-->
             <TextView
                 android:id="@+id/show_one_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:gravity="center"
                 android:padding="3dp"
                 android:textSize="27sp" />
@@ -35,15 +32,13 @@
 
             <TextView
                 android:id="@+id/show_one_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_margin="5dp"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/show_one_path_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_margin="2dp"
                 android:gravity="center"
                 android:padding="5dp"
@@ -57,8 +52,7 @@
 
             <TextView
                 android:id="@+id/self_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="Cancel"
@@ -68,8 +62,7 @@
 
             <LinearLayout
                 android:id="@+id/layout_decline_accept"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:orientation="horizontal"
                 android:visibility="gone">
 

@@ -10,13 +10,11 @@
 
     <RelativeLayout
         android:id="@+id/pdpdpd"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/match_match">
 
         <ImageView
             android:id="@+id/refrence_replay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -34,7 +32,7 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="#00838f" />
+                android:background="@color/main_color" />
 
             <cn.lingox.android.utils.CircularImageView
                 android:id="@+id/avatar_reference"
@@ -53,13 +51,12 @@
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/layout_avatar"
             android:gravity="center"
-            android:textColor="#00838f"
+            android:textColor="@color/main_color"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/time_reference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignLeft="@id/name_reference"
             android:layout_below="@id/name_reference"
             android:textColor="#ababab"
@@ -67,32 +64,28 @@
 
         <TextView
             android:id="@+id/content_reference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_below="@id/layout_avatar"
             android:layout_marginTop="3dp"
             android:paddingBottom="6dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textColor="#000"
+            android:textColor="@color/black_deep"
             android:textSize="15sp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_below="@+id/content_reference">
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_marginLeft="10dp"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/refrence_replay_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_below="@+id/name"
                 android:layout_margin="13dp"
                 android:textColor="@color/black_deep" />

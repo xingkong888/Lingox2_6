@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    style="@style/match_match"
     android:paddingBottom="2dp">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        style="@style/match_match"
         android:background="@color/white">
 
         <cn.lingox.android.widget.RecyclingImageView
             android:id="@+id/imageView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            style="@style/match_match" />
 
         <ImageView
             android:id="@+id/video_icon"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            style="@style/match_match"
             android:clickable="false"
             android:scaleType="center"
             android:src="@drawable/video_download_btn_nor"
@@ -26,8 +22,7 @@
 
     <LinearLayout
         android:id="@+id/video_data_area"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        style="@style/match_match"
         android:background="@drawable/chat_video_mask_to"
         android:gravity="bottom"
         android:orientation="horizontal"
@@ -43,8 +38,7 @@
 
         <TextView
             android:id="@+id/chatting_length_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:gravity="right"
             android:textColor="@android:color/white"
             android:textSize="12sp" />

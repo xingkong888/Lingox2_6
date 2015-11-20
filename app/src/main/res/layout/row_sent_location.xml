@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/match_wrap"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp">
 
     <TextView
         android:id="@+id/timestamp"
-        style="@style/chat_text_date_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/chat_text_date_style" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_marginTop="@dimen/margin_chat_activity">
 
         <ImageView
@@ -29,8 +25,7 @@
 
         <LinearLayout
             android:id="@+id/ll_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@drawable/chatto_bg">
@@ -38,8 +33,6 @@
             <TextView
                 android:id="@+id/tv_location"
                 style="@style/chat_content_date_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:background="@drawable/location_msg"
                 android:gravity="center"
                 android:textColor="@android:color/white" />
@@ -47,8 +40,7 @@
 
         <ImageView
             android:id="@+id/msg_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/ll_location"
             android:clickable="true"
@@ -58,8 +50,6 @@
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/ll_location"
             android:text="@string/text_ack_msg"
@@ -69,8 +59,6 @@
         <TextView
             android:id="@+id/tv_delivered"
             style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/text_delivered_msg"
             android:textSize="12sp"
@@ -81,8 +69,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/ll_location"
-            android:visibility="visible" />
+            android:layout_toLeftOf="@id/ll_location" />
     </RelativeLayout>
 
 </LinearLayout>

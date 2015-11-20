@@ -559,7 +559,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      * page2-->标题
      * page3-->标签
      * page4-->选择图片
-     * <p>
+     * <p/>
      * 注意：现在只提供local发布活动的流程
      *
      * @param nextOrBack on behalf of the page number

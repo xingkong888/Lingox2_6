@@ -26,6 +26,7 @@ import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.ReturnMsg;
 import cn.lingox.android.entity.Travel;
+import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 
 // TODO Fix debug and error logging
@@ -1730,4 +1731,166 @@ public class ServerHelper {
 //        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
         return list;
     }
+/*********************************旅行者发布问题**************************************************************************/
+    /**
+     * 一次性获取所有的travel数据--分页加载
+     *
+     * @param page 页码
+     * @return travel的实例集合
+     * @throws Exception 抛出异常
+     */
+    public ArrayList<TravelEntity> getAllTravel(int page) throws Exception {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+
+        String jsonStr = MsgSender.postJsonToNet("获取全部的travel的接口", params);
+        Log.d(LOG_TAG, "getAllTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getAllTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to getAllTravel");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray jsonArray = jsonObject.getJSONArray("待替换");
+        ArrayList<TravelEntity> list = new ArrayList<>();
+
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            list.add((TravelEntity) JsonHelper
+                    .getInstance().jsonToBean(
+                            jsonObject1.toString(),
+                            TravelEntity.class));
+        }
+//        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
+        return list;
+    }
+
+    /**
+     * 获取某一指定的travel
+     *
+     * @param id 指定travel的id
+     * @return 对应id的travel实例
+     * @throws Exception 抛出异常
+     */
+    public TravelEntity getTravel(String id) throws Exception {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+
+        String jsonStr = MsgSender.postJsonToNet("获取某一travel的接口", params);
+        Log.d(LOG_TAG, "getTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to getTravel");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
+        return (TravelEntity) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        TravelEntity.class);
+    }
+
+    /**
+     * 旅行者发布新的问题
+     *
+     * @param params 创建所需参数的集合
+     * @return 创建的成功的实例
+     * @throws Exception 抛出异常
+     */
+    public TravelEntity createTravel(HashMap<String, String> params) throws Exception {
+
+        String jsonStr = MsgSender.postJsonToNet("创建travel的接口", params);
+        Log.d(LOG_TAG, "createTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to getTravel");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
+        return (TravelEntity) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        TravelEntity.class);
+    }
+
+    /**
+     * 修改
+     *
+     * @param params 修改的数据集合
+     * @return 修改成功后的实例
+     * @throws Exception 抛出异常
+     */
+    public TravelEntity editTravel(HashMap<String, String> params) throws Exception {
+
+        String jsonStr = MsgSender.postJsonToNet("修改travel的接口", params);
+        Log.d(LOG_TAG, "editTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "editTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to editTravel");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
+        return (TravelEntity) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        TravelEntity.class);
+    }
+
+    /**
+     * 删除
+     *
+     * @param id 将要删除的数据的id
+     * @return 删除成功后返回该数据实例
+     * @throws Exception 抛出异常
+     */
+    public TravelEntity deleteTravel(String id) throws Exception {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+
+        String jsonStr = MsgSender.postJsonToNet("删除travel的接口", params);
+        Log.d(LOG_TAG, "deleteTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "deleteTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+//            throw new Exception("Failed to deleteTravel");
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+//        Log.d("deleteTravel", list.size() + ">>>>" + list.toString());
+        return (TravelEntity) JsonHelper
+                .getInstance().jsonToBean(
+                        jsonObject.toString(),
+                        TravelEntity.class);
+    }
+
+    /*******************************************************************************************/
 }

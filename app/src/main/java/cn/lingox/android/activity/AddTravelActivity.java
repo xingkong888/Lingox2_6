@@ -26,7 +26,7 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Travel;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
-import cn.lingox.android.task.TravelAsynTask;
+import cn.lingox.android.task.TravelPlanAsynTask;
 
 
 public class AddTravelActivity extends ActionBarActivity implements OnClickListener {
@@ -128,9 +128,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                     Toast.makeText(this, "Please complete the information", Toast.LENGTH_SHORT).show();
                 } else {
                     if (getIntent().hasExtra("edit")) {
-                        new TravelAsynTask(this, travel, "edit").execute();
+                        new TravelPlanAsynTask(this, travel, "edit").execute();
                     } else {
-                        new TravelAsynTask(this, travel, "create").execute();
+                        new TravelPlanAsynTask(this, travel, "create").execute();
                     }
                 }
                 break;

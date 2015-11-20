@@ -11,14 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
+import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.utils.CircularImageView;
 
 public class TravelAdapter extends BaseAdapter {
     private Activity context;
-    private ArrayList datas;
+    private ArrayList<TravelEntity> datas;
 
-    public TravelAdapter(Activity context, ArrayList list) {
+    public TravelAdapter(Activity context, ArrayList<TravelEntity> list) {
         this.context = context;
+        datas = new ArrayList<>();
         datas.addAll(list);
     }
 
@@ -58,6 +60,11 @@ public class TravelAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        TravelEntity travelEntity = datas.get(position);
+//        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context,holder.avatar,"url","circular");
+        holder.describe.setText(travelEntity.getDescribe());
+        holder.location.setText(travelEntity.getTraveling());
         return convertView;
     }
 

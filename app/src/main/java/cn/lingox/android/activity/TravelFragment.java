@@ -10,20 +10,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.umeng.analytics.MobclickAgent;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelAdapter;
+import cn.lingox.android.entity.TravelEntity;
+import cn.lingox.android.task.GetAllTravel;
 
 /**
  * 展示travel数据
  */
 public class TravelFragment extends Fragment implements View.OnClickListener {
+    private static final int SHOW_TRAVEL = 1101;//跳转到TravelViewActivity的请求码
+
     private static TravelFragment fragment;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
@@ -31,6 +35,10 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     private ImageView add;
     private int clickPosition = 0;
     private TravelAdapter adapter;
+
+    private ArrayList<TravelEntity> datas;
+
+    private int page = 1;//分页加载页码
 
     public static synchronized TravelFragment newInstance() {
         if (fragment == null) {
@@ -50,42 +58,62 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         add.setOnClickListener(this);
 
         listView = (PullToRefreshListView) view.findViewById(R.id.travel_listview);
-//        adapter=new TravelAdapter(getActivity(),null);
-//        listView.setAdapter(adapter);
+        datas = new ArrayList<>();
+        refreshList();
+        adapter = new TravelAdapter(getActivity(), datas);
+        listView.setAdapter(adapter);
         listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setRefreshing(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> map = new HashMap<>();
-//                map.put("discover", pathList.get(position - 1).getTitle());
-                MobclickAgent.onEvent(getActivity(), "click_discover", map);
-
                 clickPosition = position - 1;
 
-                Intent intent = new Intent(getActivity(), LocalViewActivity.class);
-//                intent.putExtra(LocalViewActivity.PATH_TO_VIEW, pathList.get(position - 1));
-                startActivityForResult(intent, LocalFragment.EDIT_PATH);
+                Intent intent = new Intent(getActivity(), TravelViewActivity.class);
+                intent.putExtra(TravelViewActivity.TRAVEL_VIEW, datas.get(position - 1));
+                startActivityForResult(intent, TravelFragment.SHOW_TRAVEL);
             }
         });
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //下拉刷新
-//                page = 1;
-//                pathList.clear();
-//                adapter.notifyDataSetChanged();
-//                refreshList();
+                page = 1;
+                datas.clear();
+                adapter.notifyDataSetChanged();
+                refreshList();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //上拉加载更多
-//                page++;
-//                refreshList();
+                page++;
+                refreshList();
             }
         });
         return view;
+    }
+
+    private void refreshList() {
+        new GetAllTravel(page, new GetAllTravel.Callback() {
+            @Override
+            public void onSuccess(ArrayList<TravelEntity> list) {
+                datas.addAll(list);
+                if (datas.size() > 0) {
+                    stopAnim();
+                } else {
+                    startAnim();
+                }
+                listView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFail() {
+                listView.onRefreshComplete();
+                Toast.makeText(getActivity(), "Download fail", Toast.LENGTH_SHORT).show();
+            }
+        }).execute();
     }
 
     private void startAnim() {

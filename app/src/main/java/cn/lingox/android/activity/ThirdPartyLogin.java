@@ -46,7 +46,7 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
  * 2、如果要咨询客服，请加企业QQ 4006852216 </br>
  * 3、咨询客服时，请把问题描述清楚，最好附带错误信息截图 </br>
  * 4、一般问题，集成文档中都有，请先看看集成文档；减少客服压力，多谢合作  ^_^</br></br></br>
- * <p>
+ * <p/>
  * The password of demokey.keystore is 123456
  * *ShareSDK Official Website ： http://www.mob.com </br>
  * 1、Be carefully, this sample use the version of 2.11 sharesdk  </br>

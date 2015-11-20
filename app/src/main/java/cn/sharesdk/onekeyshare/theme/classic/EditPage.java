@@ -63,7 +63,7 @@ import static cn.sharesdk.framework.utils.R.getStringRes;
 
 /**
  * Photo-text Sharing will be handling in this page
- * <p>
+ * <p/>
  * note:
  * wechat, yixin, qzone, etc. are shared in their clients, not in this page
  */

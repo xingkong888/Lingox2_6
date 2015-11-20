@@ -14,6 +14,7 @@ import cn.lingox.android.utils.CircularImageView;
  * 创建travel数据
  */
 public class TravelViewActivity extends Activity implements OnClickListener {
+    public static final String TRAVEL_VIEW = "travelView";//传递travel的实例
 
     private ImageView back;
     private CircularImageView avatar;

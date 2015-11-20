@@ -157,7 +157,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * Override this method to perform a computation on a background thread. The
      * specified parameters are the parameters passed to {@link #execute} by the
      * caller of this task.
-     * <p>
+     * <p/>
      * This method can call {@link #publishProgress} to publish updates on the
      * UI thread.
      *
@@ -332,8 +332,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
     /**
      * Executes the task with the specified parameters. The task returns itself
      * (this) so that the caller can keep a reference to it.
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * Note: this function schedules the task on a queue for a single background
      * thread or pool of threads depending on the platform version. When first
      * introduced, AsyncTasks were executed serially on a single background
@@ -345,8 +345,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * parallel execution, you can use the {@link #executeOnExecutor} version of
      * this method with {@link #THREAD_POOL_EXECUTOR}; however, see commentary
      * there for warnings on its use.
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * This method must be invoked on the UI thread.
      *
      * @param params The parameters of the task.
@@ -364,14 +364,14 @@ public abstract class AsyncTask<Params, Progress, Result> {
     /**
      * Executes the task with the specified parameters. The task returns itself
      * (this) so that the caller can keep a reference to it.
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * This method is typically used with {@link #THREAD_POOL_EXECUTOR} to allow
      * multiple tasks to run in parallel on a pool of threads managed by
      * AsyncTask, however you can also use your own
      * {@link Executor} for custom behavior.
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * <em>Warning:</em> Allowing multiple tasks to run in parallel from a
      * thread pool is generally <em>not</em> what one wants, because the order
      * of their operation is not defined. For example, if these tasks are used
@@ -382,8 +382,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * loss and stability issues. Such changes are best executed in serial; to
      * guarantee such work is serialized regardless of platform version you can
      * use this function with {@link #SERIAL_EXECUTOR}.
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * This method must be invoked on the UI thread.
      *
      * @param exec   The executor to use. {@link #THREAD_POOL_EXECUTOR} is
@@ -425,7 +425,7 @@ public abstract class AsyncTask<Params, Progress, Result> {
      * updates on the UI thread while the background computation is still
      * running. Each call to this method will trigger the execution of
      * {@link #onProgressUpdate} on the UI thread.
-     * <p>
+     * <p/>
      * {@link #onProgressUpdate} will note be called if the task has been
      * canceled.
      *

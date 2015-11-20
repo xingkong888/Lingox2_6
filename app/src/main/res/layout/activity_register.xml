@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/three_e">
 
-<include
+    <include
         android:id="@+id/layout_title_bar"
         layout="@layout/title_bar" />
 

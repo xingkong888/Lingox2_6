@@ -65,7 +65,7 @@
                 android:background="@drawable/gradient_black"
                 android:gravity="center_vertical">
 
-            <ImageView
+                <ImageView
                     android:id="@+id/ddddddddddd"
                     android:layout_width="15dp"
                     android:layout_height="15dp"

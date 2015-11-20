@@ -13,13 +13,13 @@ import cn.lingox.android.helper.ServerHelper;
  * 创建和修改旅行计划
  * Create by wangxinxing on 04/11/2015
  */
-public class TravelAsynTask extends AsyncTask<Void, Void, Boolean> {
+public class TravelPlanAsynTask extends AsyncTask<Void, Void, Boolean> {
     private ProgressDialog pd;
     private Activity context;
     private Travel travel;
     private String flag = "";
 
-    public TravelAsynTask(Context context, Travel travel, String flag) {
+    public TravelPlanAsynTask(Context context, Travel travel, String flag) {
         this.context = (Activity) context;
         this.travel = travel;
         pd = new ProgressDialog(context);

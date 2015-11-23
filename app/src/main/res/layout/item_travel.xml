@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/match_wrap"
-    android:background="@color/white">
+    style="@style/match_wrap">
+
+    <RelativeLayout
+        android:id="@+id/content"
+        style="@style/wrap_wrap"
+        android:background="@drawable/path">
     <!-- 头像-->
     <RelativeLayout
         android:id="@+id/avatar_flg"
@@ -117,4 +122,12 @@
 
         </RelativeLayout>
     </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/asdfasdfasdf"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_below="@+id/content"
+        android:background="@drawable/gradient_black_1" />
 </RelativeLayout>

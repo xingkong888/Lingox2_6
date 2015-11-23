@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="page_back">#fff2f2f2</color>
-    <color name="logo_text_color">#ff7f7f7f</color>
-    <color name="login_with_other_plat_text_color">#ff383838</color>
-    <color name="dialog_white_bg">#fbfbfb</color>
+    <color name="page_back">#FFF2F2F2</color>
+    <color name="logo_text_color">#FF7F7F7F</color>
+    <color name="login_with_other_plat_text_color">#FF383838</color>
+    <color name="dialog_white_bg">#FBFBFB</color>
 
     <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#0097A7</color>
     <color name="colorAccent">#1DE9B6</color>
     <color name="transparent">@android:color/transparent</color>
-    <color name="three_e">#eee</color>
+    <color name="three_e">#EEEEEE</color>
     <!--
             Cyan
             500 #00BCD4
@@ -32,48 +32,48 @@
          -->
 
     <color name="white">@android:color/white</color>
-    <color name="three_fa">#fafafa</color>
+    <color name="three_fa">#FAFAFA</color>
 
-    <color name="common_top_bar_blue">#4ebcd3</color>
+    <color name="common_top_bar_blue">#4EBCD3</color>
     <color name="btn_login_normal">#007086</color>
     <color name="btn_login_pressed">#303744</color>
-    <color name="btn_logout_normal">#d33f3f</color>
+    <color name="btn_logout_normal">#D33F3F</color>
     <color name="btn_logout_pressed">#DA5A4D</color>
-    <color name="btn_register_normal">#2dafa3</color>
+    <color name="btn_register_normal">#2DAFA3</color>
     <color name="btn_register_pressed">@color/common_top_bar_blue</color>
-    <color name="common_bottom_bar_normal_bg">#2d2f31</color>
+    <color name="common_bottom_bar_normal_bg">#2D2F31</color>
     <color name="common_bottom_bar_selected_bg">#161718</color>
-    <color name="common_botton_bar_blue">#2ea7e0</color>
-    <color name="common_bg">#fcfcfc</color>
+    <color name="common_botton_bar_blue">#2EA7E0</color>
+    <color name="common_bg">#FCFCFC</color>
     <color name="btn_pressed_green_solid">#B6DA53</color>
-    <color name="divider_list">#ccc</color>
+    <color name="divider_list">#CCCCCC</color>
     <color name="top_bar_normal_bg">@color/main_color</color>
     <color name="error_item_color">#F6EBE6</color>
     <color name="bottom_bar_normal_bg">@color/common_bottom_bar_normal_bg</color>
     <color name="bottom_text_color_normal">@color/white</color>
-    <color name="btn_white_normal">#f7f8f8</color>
-    <color name="btn_white_pressed">#b5b5b6</color>
+    <color name="btn_white_normal">#F7F8F8</color>
+    <color name="btn_white_pressed">#B5B5B6</color>
     <color name="btn_green_noraml">#68C270</color>
     <color name="btn_green_pressed">#6FCD78</color>
-    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="btn_gray_normal">#C0C0C0</color>
     <color name="btn_gray_pressed_status">@color/btn_white_pressed</color>
     <color name="btn_gray_pressed">@color/gray_normal</color>
-    <color name="btn_blue_normal">#1e90ff</color>
+    <color name="btn_blue_normal">#1E90FF</color>
     <color name="btn_blue_pressed">#0066FF</color>
     <color name="orange">#FFA500</color>
     <color name="gray_pressed">@color/btn_white_pressed</color>
     <color name="gray_normal">#666667</color>
     <color name="grid_state_pressed">#1Affffff</color>
     <color name="grid_state_focused">#80000000</color>
-    <color name="voip_interface_text_color">#bababa</color>
+    <color name="voip_interface_text_color">#BABABA</color>
     <color name="black_deep">@android:color/black</color>
-    <color name="main_color">#00838f</color>
-    <color name="Proficient">#3949ab</color>
-    <color name="Advanced">#42a5f5</color>
-    <color name="Intermediate">#4fc3f7</color>
-    <color name="Basic">#4dd0e1</color>
-    <color name="Entry">#b2dfdb</color>
-    <color name="gray_light">#efeff4</color>
-    <color name="shadow_color">#5000</color>
-    <color name="three_c7">#7fc7c7c7</color>
+    <color name="main_color">#00838F</color>
+    <color name="Proficient">#3949AB</color>
+    <color name="Advanced">#42A5F5</color>
+    <color name="Intermediate">#4FC3F7</color>
+    <color name="Basic">#4DD0E1</color>
+    <color name="Entry">#B2DFDB</color>
+    <color name="gray_light">#EFEFF4</color>
+    <color name="shadow_color">#55000000</color>
+    <color name="three_c7">#7FC7C7C7</color>
 </resources>

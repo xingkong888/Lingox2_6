@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/add_photos_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white">
 
@@ -37,9 +35,7 @@
             android:layout_height="1dp"
             android:background="@color/three_c7" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <RelativeLayout style="@style/match_wrap">
 
             <ImageView
                 android:id="@+id/show_photo"
@@ -71,8 +67,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:orientation="vertical">
 
         <Button

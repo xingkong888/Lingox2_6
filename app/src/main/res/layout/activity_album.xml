@@ -1,13 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/album_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white">
 
@@ -24,8 +22,7 @@
 
     <GridView
         android:id="@+id/album_activity_grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_margin="8dp"
         android:horizontalSpacing="8dp"
         android:numColumns="3"

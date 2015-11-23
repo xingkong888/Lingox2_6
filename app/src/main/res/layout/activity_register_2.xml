@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/three_e">
 
     <include
@@ -10,12 +9,12 @@
 
     <RelativeLayout
         android:id="@+id/register_2_bottom_bar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true">
 
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -24,8 +23,7 @@
 
         <TextView
             android:id="@+id/continue_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:drawableRight="@drawable/ic_chevron_right_grey600_18dp"
@@ -40,20 +38,17 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@id/register_2_bottom_bar"
         android:layout_below="@id/layout_title_bar">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:padding="24dp">
 
             <TextView
                 android:id="@+id/register_2_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_marginTop="35dp"
                 android:gravity="center"
                 android:text="@string/register_2_tell_us_more"
@@ -63,8 +58,7 @@
 
             <EditText
                 android:id="@+id/register_2_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_below="@id/register_2_text"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
@@ -74,8 +68,7 @@
 
             <TextView
                 android:id="@+id/register_2_avatar_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_below="@id/register_2_nickname"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
@@ -95,8 +88,7 @@
 
             <Button
                 android:id="@+id/location_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_below="@+id/register_2_avatar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"

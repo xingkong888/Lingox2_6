@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/loading_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:layout_gravity="center"
     android:gravity="center"
     android:visibility="gone">
@@ -19,8 +18,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@id/progressBar"
         android:gravity="center"
         android:text="Is downloading video, please wait for a while..."

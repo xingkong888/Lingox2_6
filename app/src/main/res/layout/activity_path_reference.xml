@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    style="@style/match_match"
     android:background="@color/three_e">
 
     <RelativeLayout
         android:id="@+id/layout_title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/main_color">
 
@@ -28,8 +27,7 @@
 
         <TextView
             android:id="@+id/detail_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/layout_back"
@@ -50,8 +48,7 @@
 
             <ImageView
                 android:id="@+id/iv_add_reference"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                style="@style/wrap_match"
                 android:padding="8dp"
                 android:src="@drawable/reference_add_18dp"
                 android:visibility="gone" />
@@ -60,8 +57,7 @@
 
     <ExpandableListView
         android:id="@+id/path_reference_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_below="@+id/layout_title"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
@@ -72,15 +68,13 @@
 
     <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
     <ImageView
         android:id="@+id/anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_centerInParent="true"
         android:background="@anim/anim_chat"
         android:visibility="gone" />

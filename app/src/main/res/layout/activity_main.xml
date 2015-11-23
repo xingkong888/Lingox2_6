@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white" />
 
@@ -41,8 +39,7 @@
 
         <ImageView
             android:id="@+id/notify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:padding="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_notifications_none_white_48dp" />
@@ -51,8 +48,7 @@
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_below="@id/main_activity_toolbar"
         android:background="@color/gray_light"
         android:orientation="vertical"
@@ -60,13 +56,11 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:background="@color/gray_light">
 
             <android.support.v4.view.PagerTabStrip
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:layout_gravity="top"
                 android:background="@color/main_color"
                 android:textAppearance="@style/PagerTabStripText" />
@@ -84,7 +78,7 @@
 
             <RelativeLayout
                 android:id="@+id/layout_top"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@drawable/bac_left_drawer2">
 
@@ -105,8 +99,7 @@
 
                 <TextView
                     android:id="@+id/tv_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="45dp"
                     android:layout_toRightOf="@+id/avatar_info"
@@ -116,8 +109,7 @@
 
                 <TextView
                     android:id="@+id/tv_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_below="@+id/tv_nickname"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="10dp"

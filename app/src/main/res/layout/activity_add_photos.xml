@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/three_e">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/add_photos_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white">
 
@@ -23,8 +21,7 @@
 
     <ListView
         android:id="@+id/add_photos_activity_photo_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_below="@+id/add_photos_activity_toolbar"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
@@ -33,8 +30,7 @@
 
     <ImageView
         android:id="@+id/add_photos_activity_add_photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrap_wrap"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:padding="8dp"

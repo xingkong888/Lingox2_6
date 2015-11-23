@@ -50,6 +50,7 @@ public class TravelViewActivity extends Activity implements OnClickListener {
     private void setData() {
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

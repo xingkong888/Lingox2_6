@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    style="@style/match_match"
+    android:background="@color/three_e"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_title_bar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/main_color">
 
         <TextView
             android:id="@+id/title_bar_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_marginLeft="32dp"
-            android:alpha="1.0"
             android:text="LingoX"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -26,18 +23,15 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@+id/layout_bottom"
         android:layout_below="@id/layout_title_bar">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        <RelativeLayout style="@style/match_wrap">
 
             <EditText
                 android:id="@+id/username"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
@@ -61,7 +55,7 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_below="@id/username"
                 android:layout_centerVertical="true"
@@ -86,11 +80,9 @@
                 android:padding="6dp"
                 android:src="@drawable/ic_clear_black_48dp" />
 
-
             <TextView
                 android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_below="@id/password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
@@ -114,13 +106,13 @@
 
     <RelativeLayout
         android:id="@+id/layout_bottom"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -128,8 +120,7 @@
 
         <TextView
             android:id="@+id/skip_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentLeft="true"
             android:background="@drawable/text_selector"
             android:gravity="center"
@@ -142,8 +133,7 @@
 
         <TextView
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_alignParentRight="true"
             android:drawableRight="@drawable/ic_chevron_right_grey600_18dp"
             android:gravity="center"
@@ -156,8 +146,7 @@
 
         <TextView
             android:id="@+id/register_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_centerInParent="true"
             android:background="@drawable/text_selector"
             android:gravity="center"

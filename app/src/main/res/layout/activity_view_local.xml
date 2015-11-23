@@ -84,7 +84,7 @@
                     android:layout_height="80dp"
                     android:layout_alignParentBottom="true"
                     android:layout_below="@id/path_background"
-                    android:background="@color/gray_light"
+                    android:background="@color/three_fa"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <RelativeLayout
         android:id="@+id/layout_title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/main_color">
 
@@ -27,8 +26,7 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/layout_back"
@@ -64,8 +62,7 @@
 
             <EditText
                 android:id="@+id/edit_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                style="@style/wrap_match"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/userinfo_edit"
                 android:background="@null"
@@ -96,21 +93,18 @@
 
             <RelativeLayout
                 android:id="@+id/male_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                style="@style/wrap_match"
                 android:layout_marginLeft="10dp">
 
                 <ImageView
                     android:id="@+id/xiaoyuandian"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:src="@drawable/edit_off" />
 
                 <TextView
                     android:id="@+id/edit_gender_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="3dp"
                     android:layout_toRightOf="@+id/xiaoyuandian"
@@ -122,22 +116,19 @@
 
             <RelativeLayout
                 android:id="@+id/female_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                style="@style/wrap_match"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/male_layout">
 
                 <ImageView
                     android:id="@+id/xiaoyuandian2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:src="@drawable/edit_off" />
 
                 <TextView
                     android:id="@+id/edit_gender_female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="3dp"
                     android:layout_toRightOf="@+id/xiaoyuandian2"
@@ -148,7 +139,6 @@
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/second"
@@ -170,8 +160,7 @@
 
         <TextView
             android:id="@+id/edit_age_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/edit_age"
             android:gravity="center_vertical"
@@ -180,8 +169,7 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -209,8 +197,7 @@
 
         <TextView
             android:id="@+id/edit_country_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:layout_marginLeft="20dp"
             android:layout_toLeftOf="@+id/ddd"
             android:layout_toRightOf="@+id/edit_country"
@@ -221,8 +208,7 @@
 
         <ImageView
             android:id="@+id/ddd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"

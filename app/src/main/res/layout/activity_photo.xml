@@ -1,18 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <ImageView
         android:id="@+id/iv_photo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@+id/et_description"
         android:scaleType="fitCenter" />
 
     <EditText
         android:id="@+id/et_description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_above="@+id/photo_relativeLayout"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_description"

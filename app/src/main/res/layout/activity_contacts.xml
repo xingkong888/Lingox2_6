@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    style="@style/match_match"
     android:background="@color/gray_light"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/main_color">
 
@@ -21,8 +20,7 @@
 
         <TextView
             android:id="@+id/top_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/back_button"
             android:alpha="1.0"
@@ -35,14 +33,12 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragment_contacts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_below="@+id/layout_title"
         android:background="@color/gray_light">
 
         <android.support.v4.view.PagerTabStrip
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:layout_gravity="top"
             android:background="@color/main_color"
             android:paddingBottom="5dp"
@@ -50,7 +46,5 @@
             android:textAllCaps="true"
             android:textAppearance="@style/PagerTabStripText"
             android:textColor="@android:color/white" />
-
     </android.support.v4.view.ViewPager>
-
 </RelativeLayout>

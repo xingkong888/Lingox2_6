@@ -43,28 +43,28 @@
             style="@style/match_wrap"
             android:orientation="vertical">
 
-            <!--<RelativeLayout-->
-            <!--android:id="@+id/rl_language"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:background="@drawable/btn_bottom_selector"-->
-            <!--android:padding="10dp"-->
-            <!--android:visibility="gone">-->
+            <RelativeLayout
+                android:id="@+id/rl_language"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_bottom_selector"
+                android:padding="10dp"
+                android:visibility="gone">
 
-            <!--<TextView-->
-            <!--style="@style/wrap_wrap"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:text="@string/language"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:textSize="14sp" />-->
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:text="@string/language"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/language_show"-->
-            <!--style="@style/wrap_wrap"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true" />-->
-            <!--</RelativeLayout>-->
+                <TextView
+                    android:id="@+id/language_show"
+                    style="@style/wrap_wrap"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
 
             <LinearLayout
                 style="@style/match_wrap"

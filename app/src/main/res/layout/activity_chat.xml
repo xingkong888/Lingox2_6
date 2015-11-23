@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/chat_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/bar_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:paddingBottom="2dp"
@@ -28,8 +25,7 @@
 
         <LinearLayout
             android:id="@+id/rl_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:background="#afff"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -66,8 +62,7 @@
                 android:visibility="gone">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/wrap_wrap"
                     android:layout_marginLeft="5dp"
                     android:text="@string/button_pushtotalk"
                     android:textColor="#666"
@@ -86,8 +81,7 @@
 
                 <cn.lingox.android.widget.PasteEditText
                     android:id="@+id/et_sendmessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginRight="35dp"
                     android:background="@null"
                     android:maxLines="3"
@@ -148,8 +142,7 @@
 
         <LinearLayout
             android:id="@+id/more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/match_wrap"
             android:background="@color/gray_light"
             android:orientation="vertical"
             android:visibility="gone">
@@ -170,14 +163,12 @@
             <!-- 图片，表情，名片等按钮 -->
             <LinearLayout
                 android:id="@+id/ll_btn_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/match_wrap"
                 android:orientation="vertical"
                 android:visibility="gone">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="6dp"
                     android:baselineAligned="false"
@@ -200,8 +191,7 @@
                             android:scaleType="fitCenter" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_take_pic"
                             android:textColor="#727171" />
@@ -224,8 +214,7 @@
                             android:scaleType="fitCenter" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_picture"
                             android:textColor="#727171" />
@@ -248,8 +237,7 @@
                             android:src="@drawable/chat_location_selector" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_location"
                             android:textColor="#727171" />
@@ -273,8 +261,7 @@
                             android:src="@drawable/chat_video_selector" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_video"
                             android:textColor="#727171" />
@@ -282,8 +269,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/match_wrap"
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="6dp"
                     android:baselineAligned="false"
@@ -307,8 +293,7 @@
                             android:scaleType="fitCenter" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_file"
                             android:textColor="#727171" />
@@ -332,8 +317,7 @@
                             android:scaleType="fitCenter" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/match_wrap"
                             android:gravity="center"
                             android:text="@string/attach_voice_call"
                             android:textColor="#727171" />
@@ -344,8 +328,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_above="@id/bar_bottom"
         android:layout_below="@+id/layout_show_one">
 
@@ -358,8 +341,7 @@
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/match_match"
             android:layout_below="@id/pb_load_more"
             android:divider="@null"
             android:dividerHeight="5dp"
@@ -369,24 +351,21 @@
 
         <RelativeLayout
             android:id="@+id/recording_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerInParent="true"
             android:background="@drawable/recording_hint_bg"
             android:padding="10dp"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/mic_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/record_animate_01" />
 
             <TextView
                 android:id="@+id/recording_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap_wrap"
                 android:layout_below="@id/mic_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
@@ -399,8 +378,7 @@
     <!-- 等待处理-->
     <TextView
         android:id="@+id/show_state_waiting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/match_wrap"
         android:layout_below="@+id/chat_activity_toolbar"
         android:layout_margin="5dp"
         android:background="#dbffffff"

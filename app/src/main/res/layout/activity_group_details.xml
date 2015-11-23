@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/match_match">
 
     <RelativeLayout
         android:id="@+id/poiuy"
@@ -21,8 +20,7 @@
 
         <TextView
             android:id="@+id/group_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
@@ -38,7 +36,6 @@
 
     <view
         android:id="@+id/group_detail"
-        class="it.sephiroth.android.library.widget.HListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        style="@style/match_wrap"
+        class="it.sephiroth.android.library.widget.HListView" />
 </RelativeLayout>

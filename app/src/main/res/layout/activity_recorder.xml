@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,8 +13,7 @@
         <include layout="@layout/commom_back_btn" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrap_wrap"
             android:layout_centerInParent="true"
             android:text="@string/recording_video"
             android:textColor="@color/white"
@@ -23,14 +21,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <SurfaceView
             android:id="@+id/surfaceview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/match_match" />
 
         <ImageView
             android:id="@+id/recorder_start"
@@ -49,7 +46,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:src="@drawable/video_recorder_stop_btn"
-            android:visibility="invisible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

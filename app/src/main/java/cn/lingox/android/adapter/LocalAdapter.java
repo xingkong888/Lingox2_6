@@ -60,14 +60,14 @@ public class LocalAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.row_path_fragment, parent, false);
             holder = new ViewHolder();
             holder.avatar = (ImageView) convertView.findViewById(R.id.path_user_avatar);
-            holder.name = (TextView) convertView.findViewById(R.id.path_user_name);
+//            holder.name = (TextView) convertView.findViewById(R.id.path_user_name);
             holder.acceptNumber = (TextView) convertView.findViewById(R.id.path_people_num);
             holder.title = (TextView) convertView.findViewById(R.id.path_title);
             holder.pathImg = (ImageView) convertView.findViewById(R.id.path_bag);
             holder.commentNumber = (TextView) convertView.findViewById(R.id.path_comment_num);
             holder.location = (TextView) convertView.findViewById(R.id.path_location);
-            holder.traveler = (TextView) convertView.findViewById(R.id.path_traveler);
-            holder.local = (TextView) convertView.findViewById(R.id.path_local);
+//            holder.traveler = (TextView) convertView.findViewById(R.id.path_traveler);
+//            holder.local = (TextView) convertView.findViewById(R.id.path_local);
             holder.lalala = (TextView) convertView.findViewById(R.id.asdfasdfasdf);
             holder.tag1 = (TextView) convertView.findViewById(R.id.path_tag_1);
             holder.tag2 = (TextView) convertView.findViewById(R.id.path_tag_2);
@@ -109,7 +109,7 @@ public class LocalAdapter extends BaseAdapter {
                     user = cbUser;
                     CacheHelper.getInstance().addUserInfo(user);
                     String strName = user.getNickname();
-                    holder.name.setText(strName);
+//                    holder.name.setText(strName);
                     //设置头像
                     UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
                 }
@@ -120,8 +120,8 @@ public class LocalAdapter extends BaseAdapter {
                 }
             }).execute();
         } else {
-            String strName = CacheHelper.getInstance().getUserInfo(path.getUserId()).getNicknameOrUsername();
-            holder.name.setText(strName);
+//            String strName = CacheHelper.getInstance().getUserInfo(path.getUserId()).getNicknameOrUsername();
+//            holder.name.setText(strName);
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
                     context, holder.avatar,
                     CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
@@ -166,16 +166,16 @@ public class LocalAdapter extends BaseAdapter {
                 holder.location.setText(holder.address);
             }
         }
-        switch (path.getType()) {
-            case 1://本地人
-                holder.traveler.setVisibility(View.GONE);
-                holder.local.setVisibility(View.VISIBLE);
-                break;
-            case 2://旅行者
-                holder.local.setVisibility(View.GONE);
-                holder.traveler.setVisibility(View.VISIBLE);
-                break;
-        }
+//        switch (path.getType()) {
+//            case 1://本地人
+//                holder.traveler.setVisibility(View.GONE);
+//                holder.local.setVisibility(View.VISIBLE);
+//                break;
+//            case 2://旅行者
+//                holder.local.setVisibility(View.GONE);
+//                holder.traveler.setVisibility(View.VISIBLE);
+//                break;
+//        }
         //TODO 暂时实现，TextView省略显示有问题
         String str = path.getTitle();
         if (str.length() > 27) {
@@ -195,6 +195,7 @@ public class LocalAdapter extends BaseAdapter {
         String address;
         float distance;
         ImageView pathImg, avatar;
-        TextView title, acceptNumber, commentNumber, location, traveler, local, tag1, tag2, tag3, name, lalala;
+        TextView title, acceptNumber, commentNumber, location, tag1, tag2, tag3, lalala;
+        //name, traveler, local
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:background="@color/gray_light">
 
     <RelativeLayout
@@ -20,8 +19,7 @@
 
         <TextView
             android:id="@+id/show_indent_username"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/wrap_match"
             android:layout_toRightOf="@id/show_indent_back"
             android:gravity="center"
             android:text="username"
@@ -32,8 +30,7 @@
 
     <ListView
         android:id="@+id/show_indent_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/match_match"
         android:layout_below="@+id/asdfasdfasdf"
         android:listSelector="@color/transparent"
         android:scrollbarStyle="outsideOverlay"

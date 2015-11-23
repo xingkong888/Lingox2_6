@@ -134,7 +134,7 @@
     <string name="button_logout">Log out</string>
     <string name="button_uploadlog">Upload Log</string>
     <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="leave">Leave</string>
     <string name="prompt">Prompt</string>
     <string name="clear_records">Clear Records</string>

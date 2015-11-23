@@ -9,14 +9,14 @@ import cn.lingox.android.helper.ServerHelper;
 /**
  * 获取指定id的数据
  */
-public class GetTravel extends AsyncTask<Void, String, Boolean> {
-    private static final String LOG_TAG = "GetTravel";
+public class GetTravelEntity extends AsyncTask<Void, String, Boolean> {
+    private static final String LOG_TAG = "GetTravelEntity";
 
     private Callback callback;
     private String id;
     private TravelEntity travelEntity;
 
-    public GetTravel(String id, Callback callback) {
+    public GetTravelEntity(String id, Callback callback) {
         this.callback = callback;
         this.id = id;
     }

@@ -1437,13 +1437,13 @@ public class ServerHelper {
             case "create"://创建
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "CreateTravel>>>>" + jsonStr.toString());
+                Log.d(LOG_TAG, "CreateTravelEntity>>>>" + jsonStr.toString());
                 break;
 
             case "edit"://修改
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "EditTravel>>>>" + jsonStr.toString());
+                Log.d(LOG_TAG, "EditTravelEntity>>>>" + jsonStr.toString());
                 break;
         }
 
@@ -1744,7 +1744,7 @@ public class ServerHelper {
         HashMap<String, String> params = new HashMap<>();
         params.put("page", String.valueOf(page));
 
-        String jsonStr = MsgSender.postJsonToNet("获取全部的travel的接口", params);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GETALL, params);
         Log.d(LOG_TAG, "getAllTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1757,7 +1757,7 @@ public class ServerHelper {
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-        JSONArray jsonArray = jsonObject.getJSONArray("待替换");
+        JSONArray jsonArray = jsonObject.getJSONArray("demands");
         ArrayList<TravelEntity> list = new ArrayList<>();
 
         for (int i = 0, j = jsonArray.length(); i < j; i++) {
@@ -1767,7 +1767,7 @@ public class ServerHelper {
                             jsonObject1.toString(),
                             TravelEntity.class));
         }
-//        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
+        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
         return list;
     }
 
@@ -1783,7 +1783,7 @@ public class ServerHelper {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
 
-        String jsonStr = MsgSender.postJsonToNet("获取某一travel的接口", params);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GET, params);
         Log.d(LOG_TAG, "getTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1812,7 +1812,7 @@ public class ServerHelper {
      */
     public TravelEntity createTravel(HashMap<String, String> params) throws Exception {
 
-        String jsonStr = MsgSender.postJsonToNet("创建travel的接口", params);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_CREATE, params);
         Log.d(LOG_TAG, "createTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1841,7 +1841,7 @@ public class ServerHelper {
      */
     public TravelEntity editTravel(HashMap<String, String> params) throws Exception {
 
-        String jsonStr = MsgSender.postJsonToNet("修改travel的接口", params);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_EDIT, params);
         Log.d(LOG_TAG, "editTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1872,7 +1872,7 @@ public class ServerHelper {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
 
-        String jsonStr = MsgSender.postJsonToNet("删除travel的接口", params);
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_DELETE, params);
         Log.d(LOG_TAG, "deleteTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1892,5 +1892,5 @@ public class ServerHelper {
                         TravelEntity.class);
     }
 
-    /*******************************************************************************************/
+    /**********************************************************************************************/
 }

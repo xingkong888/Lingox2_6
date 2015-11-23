@@ -274,10 +274,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
         //设置登录和注册时间
         if (user.getLoginTime().isEmpty()) {
-            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt())
+            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")
             );
         } else {
-            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt())
+            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")
                             + "\tActive:" + TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)
             );
         }

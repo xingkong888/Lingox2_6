@@ -40,7 +40,7 @@ public class Path implements Parcelable {
     private ArrayList<User> acceptedUsers;
     private ArrayList<Comment> comments;
     private String createdAt;
-    private int type;
+    private int type;//local：1 or travel:2
     private String hxGroupId;
     // Variables that are not linked to the Server
     private String nonDBLocationString;

@@ -3,31 +3,33 @@ package cn.lingox.android.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.HashMap;
+
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 删除
+ * 创建
  */
-public class DeleteTravel extends AsyncTask<Void, String, Boolean> {
-    private static final String LOG_TAG = "DeleteTravel";
+public class CreateTravelEntity extends AsyncTask<Void, String, Boolean> {
+    private static final String LOG_TAG = "CreateTravelEntity";
 
     private Callback callback;
-    private String id;
+    private HashMap<String, String> maps;
     private TravelEntity travelEntity;
 
-    public DeleteTravel(String id, Callback callback) {
+    public CreateTravelEntity(HashMap<String, String> params, Callback callback) {
         this.callback = callback;
-        this.id = id;
+        this.maps = params;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            travelEntity = ServerHelper.getInstance().deleteTravel(id);
+            travelEntity = ServerHelper.getInstance().createTravel(maps);
             return true;
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to delete TravelEntity: " + e.toString());
+            Log.e(LOG_TAG, "Failed to create TravelEntity: " + e.toString());
             return false;
         }
     }

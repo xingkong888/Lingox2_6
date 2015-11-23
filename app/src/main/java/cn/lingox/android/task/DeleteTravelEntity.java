@@ -3,33 +3,31 @@ package cn.lingox.android.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 获取所有的旅行者发布的信息
+ * 删除
  */
-public class GetAllTravel extends AsyncTask<Void, String, Boolean> {
-    private static final String LOG_TAG = "GetAllTravel";
+public class DeleteTravelEntity extends AsyncTask<Void, String, Boolean> {
+    private static final String LOG_TAG = "DeleteTravelEntity";
 
     private Callback callback;
-    private int page;
-    private ArrayList<TravelEntity> list = new ArrayList<>();
+    private String id;
+    private TravelEntity travelEntity;
 
-    public GetAllTravel(int page, Callback callback) {
+    public DeleteTravelEntity(String id, Callback callback) {
         this.callback = callback;
-        this.page = page;
+        this.id = id;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            list.addAll(ServerHelper.getInstance().getAllTravel(page));
+            travelEntity = ServerHelper.getInstance().deleteTravel(id);
             return true;
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to get all TravelEntity: " + e.toString());
+            Log.e(LOG_TAG, "Failed to delete TravelEntity: " + e.toString());
             return false;
         }
     }
@@ -37,14 +35,14 @@ public class GetAllTravel extends AsyncTask<Void, String, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
-            callback.onSuccess(list);
+            callback.onSuccess(travelEntity);
         } else {
             callback.onFail();
         }
     }
 
     public interface Callback {
-        void onSuccess(ArrayList<TravelEntity> list);
+        void onSuccess(TravelEntity entity);
 
         void onFail();
     }

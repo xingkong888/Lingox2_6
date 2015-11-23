@@ -12,6 +12,11 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.entity.TravelEntity;
+import cn.lingox.android.entity.User;
+import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.TimeHelper;
+import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.GetUser;
 import cn.lingox.android.utils.CircularImageView;
 
 public class TravelAdapter extends BaseAdapter {
@@ -20,8 +25,8 @@ public class TravelAdapter extends BaseAdapter {
 
     public TravelAdapter(Activity context, ArrayList<TravelEntity> list) {
         this.context = context;
-        datas = new ArrayList<>();
-        datas.addAll(list);
+        datas = list;
+
     }
 
     @Override
@@ -43,34 +48,55 @@ public class TravelAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_travel, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_travel, null, false);
             holder = new ViewHolder();
 
             holder.avatar = (CircularImageView) convertView.findViewById(R.id.travel_avatar);
             holder.flg = (ImageView) convertView.findViewById(R.id.travel_country_flg);
             holder.name = (TextView) convertView.findViewById(R.id.travel_user_name);
-            holder.location = (TextView) convertView.findViewById(R.id.travel_user_name);
+            holder.location = (TextView) convertView.findViewById(R.id.travel_location);
             holder.describe = (TextView) convertView.findViewById(R.id.travel_describe);
-            holder.tag = (TextView) convertView.findViewById(R.id.travel_tag);
-            holder.time = (TextView) convertView.findViewById(R.id.travel_time);
-            holder.replyNum = (TextView) convertView.findViewById(R.id.travel_reply_num);
+            holder.createTime = (TextView) convertView.findViewById(R.id.travel_create_time);
+            holder.comentNum = (TextView) convertView.findViewById(R.id.travel_comment_num);
             holder.likeNum = (TextView) convertView.findViewById(R.id.travel_like_num);
+            holder.time = (TextView) convertView.findViewById(R.id.travel_time);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         TravelEntity travelEntity = datas.get(position);
-//        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context,holder.avatar,"url","circular");
-        holder.describe.setText(travelEntity.getDescribe());
-        holder.location.setText(travelEntity.getTraveling());
+        User user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
+        if (user == null) {
+            new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
+                @Override
+                public void onSuccess(User user) {
+                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+                    holder.name.setText(user.getNicknameOrUsername());
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            }).execute();
+        } else {
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+            holder.name.setText(user.getNicknameOrUsername());
+        }
+        //显示时间段
+        holder.time.setText("dddd");
+        holder.describe.setText(travelEntity.getText());
+        holder.location.setText(travelEntity.getProvince());//显示省份
+        holder.likeNum.setText(String.valueOf(travelEntity.getLikeUsers().size()));//like的人数
+        holder.comentNum.setText(String.valueOf(travelEntity.getComments().size()));//comment的人数
+        holder.createTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));//发布时间距离当前时间
         return convertView;
     }
 
     static class ViewHolder {
         ImageView flg;
         CircularImageView avatar;
-        TextView name, location, describe, tag, time, replyNum, likeNum;
+        TextView name, location, describe, time, createTime, comentNum, likeNum;
     }
 }

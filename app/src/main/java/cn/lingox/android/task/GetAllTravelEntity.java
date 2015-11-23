@@ -3,33 +3,33 @@ package cn.lingox.android.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 修改
+ * 获取所有的旅行者发布的信息
  */
-public class EditTravel extends AsyncTask<Void, String, Boolean> {
-    private static final String LOG_TAG = "EditTravel";
+public class GetAllTravelEntity extends AsyncTask<Void, String, Boolean> {
+    private static final String LOG_TAG = "GetAllTravelEntity";
 
     private Callback callback;
-    private HashMap<String, String> maps;
-    private TravelEntity travelEntity;
+    private int page;
+    private ArrayList<TravelEntity> list = new ArrayList<>();
 
-    public EditTravel(HashMap<String, String> params, Callback callback) {
+    public GetAllTravelEntity(int page, Callback callback) {
         this.callback = callback;
-        this.maps = params;
+        this.page = page;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            travelEntity = ServerHelper.getInstance().editTravel(maps);
+            list.addAll(ServerHelper.getInstance().getAllTravel(page));
             return true;
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to edit TravelEntity: " + e.toString());
+            Log.e(LOG_TAG, "Failed to get all TravelEntity: " + e.toString());
             return false;
         }
     }
@@ -37,14 +37,14 @@ public class EditTravel extends AsyncTask<Void, String, Boolean> {
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
-            callback.onSuccess(travelEntity);
+            callback.onSuccess(list);
         } else {
             callback.onFail();
         }
     }
 
     public interface Callback {
-        void onSuccess(TravelEntity entity);
+        void onSuccess(ArrayList<TravelEntity> list);
 
         void onFail();
     }

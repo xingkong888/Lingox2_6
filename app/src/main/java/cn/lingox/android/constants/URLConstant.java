@@ -88,4 +88,23 @@ public class URLConstant {
     public static final String URL_PATHREFERENCE_GETREFERENCE = URL_PATHREFERENCE + "getPathsReferences";
     public static final String URL_PATHREFERENCE_REPLY = URL_PATHREFERENCE + "reply";
     public static final String URL_PATHREFERENCE_DELETEREPLY = URL_PATHREFERENCE + "deleteReply";
+    /*********************************
+     * 旅行者发布相关接口
+     ***************************************************/
+    //活动
+    private static final String URL_TRAVEL_BASE = MAIN_URL + "demand/";
+    public static final String URL_TRAVEL_CREATE = URL_TRAVEL_BASE + "createDemand";//创建
+    public static final String URL_TRAVEL_EDIT = URL_TRAVEL_BASE + "editDemand";//修改
+    public static final String URL_TRAVEL_DELETE = URL_TRAVEL_BASE + "deleteDemand";//删除
+    public static final String URL_TRAVEL_GET = URL_TRAVEL_BASE + "getDemand";//获取单个
+    public static final String URL_TRAVEL_GETALL = URL_TRAVEL_BASE + "getAllDemands";//获取所有
+    public static final String URL_TRAVEL_LIKE = URL_TRAVEL_BASE + "likeDemand";//添加like
+    public static final String URL_TRAVEL_UNLIKE = URL_TRAVEL_BASE + "unLikeDemand";//移除like
+
+    //评论
+    private static final String URL_TRAVEL_COMMENT_BASE = MAIN_URL + "demandComment/";
+    public static final String URL_TRAVEL_COMMENT_CREATE = URL_TRAVEL_COMMENT_BASE + "createComment";//创建
+    public static final String URL_TRAVEL_COMMENT_EDIT = URL_TRAVEL_COMMENT_BASE + "editComment";//修改
+    public static final String URL_TRAVEL_COMMENT_DELETE = URL_TRAVEL_COMMENT_BASE + "deleteComment";//删除
+/******************************************************************************************************************/
 }

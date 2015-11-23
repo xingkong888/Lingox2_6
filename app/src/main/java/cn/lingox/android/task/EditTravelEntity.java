@@ -9,16 +9,16 @@ import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 创建
+ * 修改
  */
-public class CreateTravel extends AsyncTask<Void, String, Boolean> {
-    private static final String LOG_TAG = "CreateTravel";
+public class EditTravelEntity extends AsyncTask<Void, String, Boolean> {
+    private static final String LOG_TAG = "EditTravelEntity";
 
     private Callback callback;
     private HashMap<String, String> maps;
     private TravelEntity travelEntity;
 
-    public CreateTravel(HashMap<String, String> params, Callback callback) {
+    public EditTravelEntity(HashMap<String, String> params, Callback callback) {
         this.callback = callback;
         this.maps = params;
     }
@@ -26,10 +26,10 @@ public class CreateTravel extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            travelEntity = ServerHelper.getInstance().createTravel(maps);
+            travelEntity = ServerHelper.getInstance().editTravel(maps);
             return true;
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to create TravelEntity: " + e.toString());
+            Log.e(LOG_TAG, "Failed to edit TravelEntity: " + e.toString());
             return false;
         }
     }

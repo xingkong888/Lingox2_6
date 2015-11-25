@@ -720,7 +720,7 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_PATHS, params);
-//        Log.d(LOG_TAG, "getAllPaths: " + jsonStr);
+        Log.d(LOG_TAG, "getAllPaths: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -738,8 +738,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             Path.class));
         }
-
-        Log.d(LOG_TAG, "getAllPaths: Paths: " + pathArray.size());
 
         return pathArray;
     }
@@ -892,11 +890,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "path: Return message code not positive");
             throw new Exception("Failed to create Path!");
         }
-
-//        Path returnPath = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Path.class);
-//        Log.d(LOG_TAG, "path: Path created: " + returnPath);
 
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Path.class);
@@ -1109,12 +1102,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "createComment: Return message code not positive");
             throw new Exception("Failed to create Comment!");
         }
-
-//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Comment.class);
-//
-//        Log.d(LOG_TAG, "createComment: Comment created: " + returnComment);
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Comment.class);
     }
@@ -1140,12 +1127,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "deleteComment: Return message code not positive");
             throw new Exception("Failed to delete Comment!");
         }
-
-//        Comment returnComment = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Comment.class);
-
-//        Log.d(LOG_TAG, "deleteComment: Comment deleted: " + returnComment);
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Comment.class);
     }
@@ -1173,11 +1154,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
             throw new Exception("Failed to upload Image!");
         }
-
-//        String imagePath = rmsg.getData().getString(StringConstant.photoStr);
-//
-//        Log.d(LOG_TAG, "uploadImage: Image path: " + imagePath);
-
         return rmsg.getData().getString(StringConstant.photoStr);
     }
 
@@ -1242,13 +1218,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "editPhoto: Return message code not positive");
             throw new Exception("Failed to edit Photo!");
         }
-
-//        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Photo.class);
-//
-//        Log.d(LOG_TAG, "editPhoto: Photo edited: " + returnPhoto);
-
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Photo.class);
     }
@@ -1275,13 +1244,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "deletePhoto: Return message code not positive");
             throw new Exception("Failed to delete Photo!");
         }
-
-//        Photo returnPhoto = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Photo.class);
-//
-//        Log.d(LOG_TAG, "deletePhoto: Photo deleted: " + returnPhoto);
-
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Photo.class);
     }
@@ -1319,7 +1281,6 @@ public class ServerHelper {
                             LingoNotification.class));
         }
 
-//        Log.d(LOG_TAG, "num=" + notificationArray.size() + "getAllNotifications: Notifications: " + notificationArray);
         return notificationArray;
     }
 
@@ -1382,12 +1343,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "deleteNotification: Return message code not positive");
             throw new Exception("Failed to delete Notification!");
         }
-
-//        LingoNotification returnNotification = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                LingoNotification.class);
-//
-//        Log.d(LOG_TAG, "deleteNotification: Notification deleted: " + returnNotification);
 
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), LingoNotification.class);
@@ -1468,7 +1423,6 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_GET, params);
-//        Log.d(LOG_TAG,"travel>>>>"+jsonStr.toString());
 
         JSONObject obj = new JSONObject(jsonStr);
         //加一个json解析
@@ -1478,7 +1432,6 @@ public class ServerHelper {
             Log.e(LOG_TAG, "readNotification: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
         }
-//        Log.d(LOG_TAG,"travel>>>>"+list.toString());
         return list;
     }
 
@@ -1713,7 +1666,6 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPathReference: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to getPathReference");
         }
         //解析
         String json = rmsg.getData().toString();
@@ -1728,7 +1680,6 @@ public class ServerHelper {
                             jsonObject1.toString(),
                             PathReference.class));
         }
-//        Log.d("getPathReference", list.size() + ">>>>" + list.toString());
         return list;
     }
 /*********************************旅行者发布问题**************************************************************************/
@@ -1752,7 +1703,6 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getAllTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to getAllTravel");
         }
         //解析
         String json = rmsg.getData().toString();
@@ -1767,7 +1717,7 @@ public class ServerHelper {
                             jsonObject1.toString(),
                             TravelEntity.class));
         }
-        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
+//        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
         return list;
     }
 
@@ -1791,12 +1741,10 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to getTravel");
         }
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
         return (TravelEntity) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
@@ -1820,12 +1768,10 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to getTravel");
         }
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
         return (TravelEntity) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
@@ -1849,12 +1795,10 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "editTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to editTravel");
         }
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-//        Log.d("getTravel", list.size() + ">>>>" + list.toString());
         return (TravelEntity) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),
@@ -1870,7 +1814,7 @@ public class ServerHelper {
      */
     public TravelEntity deleteTravel(String id) throws Exception {
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", id);
+        params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_DELETE, params);
         Log.d(LOG_TAG, "deleteTravel " + jsonStr);
@@ -1880,12 +1824,10 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
-//            throw new Exception("Failed to deleteTravel");
         }
         //解析
         String json = rmsg.getData().toString();
         JSONObject jsonObject = new JSONObject(json);
-//        Log.d("deleteTravel", list.size() + ">>>>" + list.toString());
         return (TravelEntity) JsonHelper
                 .getInstance().jsonToBean(
                         jsonObject.toString(),

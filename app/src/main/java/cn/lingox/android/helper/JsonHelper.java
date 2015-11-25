@@ -181,7 +181,7 @@ public class JsonHelper {
                 format = new SimpleDateFormat("yyyy-MM-dd");
                 break;
         }
-        return (format.format(c.getTime()));
+        return format.format(c.getTime());
     }
 
     public String parseSailsJSDate(String date) {

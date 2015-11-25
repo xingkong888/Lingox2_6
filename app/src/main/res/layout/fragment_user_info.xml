@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
-    style="@style/match_match"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
     android:scrollbars="vertical"
     android:touchscreenBlocksFocus="false">
 
     <LinearLayout
-        style="@style/match_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <include
@@ -20,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="12dp"
-            android:background="#fafafa"
+            android:background="@color/three_fa"
             android:orientation="vertical">
 
             <TextView
@@ -29,7 +30,8 @@
                 android:background="#c7c7c7" />
 
             <RelativeLayout
-                style="@style/match_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/main_color">
 
                 <TextView
@@ -92,7 +94,6 @@
                         android:text="@string/user_reference"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
-
                 </LinearLayout>
 
                 <TextView
@@ -115,7 +116,8 @@
 
         <RelativeLayout
             android:id="@+id/layout_pic"
-            style="@style/match_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@color/three_fa">
 
@@ -154,8 +156,9 @@
 
             <view
                 android:id="@+id/user_photo_hlist"
-                style="@style/wrap_wrap"
                 class="it.sephiroth.android.library.widget.HListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/line" />
 
             <RelativeLayout
@@ -166,7 +169,8 @@
 
                 <TextView
                     android:id="@+id/userinfo_local_nothing1"
-                    style="@style/match_match"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="#e5e5e9"
                     android:gravity="center"
                     android:paddingTop="2dp"
@@ -175,7 +179,8 @@
 
                 <TextView
                     android:id="@+id/userinfo_local_nothing2"
-                    style="@style/match_match"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/post_photo"
                     android:textColor="#ababab" />
@@ -183,7 +188,8 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="@style/wrap_wrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -195,11 +201,13 @@
         <!-- 旅游记录-->
         <LinearLayout
             android:id="@+id/travel_about"
-            style="@style/match_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
-                style="@style/match_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@color/three_fa">
 
@@ -215,7 +223,8 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_title"
-                        style="@style/wrap_wrap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:text="@string/travel_plans_self" />
@@ -238,7 +247,8 @@
 
                 <LinearLayout
                     android:id="@+id/travel_content"
-                    style="@style/match_wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/line_1"
                     android:layout_marginTop="-1dp"
                     android:orientation="vertical" />
@@ -251,7 +261,8 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_nothing1"
-                        style="@style/match_match"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="#e5e5e9"
                         android:gravity="center"
                         android:paddingTop="2dp"
@@ -260,7 +271,8 @@
 
                     <TextView
                         android:id="@+id/userinfo_travel_nothing2"
-                        style="@style/match_match"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@string/travel_experience"
                         android:textColor="#ababab" />
@@ -274,8 +286,9 @@
             </RelativeLayout>
 
             <include
-                style="@style/wrap_wrap"
                 layout="@layout/row_user_info_include_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp" />
         </LinearLayout>
     </LinearLayout>

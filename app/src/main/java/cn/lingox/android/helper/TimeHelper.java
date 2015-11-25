@@ -99,7 +99,6 @@ public class TimeHelper {
     }
 
     /**
-     *
      * @param time 时间戳
      * @return 格式化后的时间
      */
@@ -132,6 +131,7 @@ public class TimeHelper {
         }
         return null;
     }
+
     private int comparePathDate(long time) {
         Calendar c1 = Calendar.getInstance();
         c1.setTimeInMillis(System.currentTimeMillis());
@@ -153,7 +153,7 @@ public class TimeHelper {
     public String parseTimestampToDate(long timestamp) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
-        SimpleDateFormat format = new SimpleDateFormat("MMM-dd EEE", locale);
+        SimpleDateFormat format = new SimpleDateFormat("MMM-dd", locale);
         return (format.format(c.getTime()));
     }
 

@@ -25,10 +25,11 @@
             android:text="From:"
             android:textColor="@color/white" />
 
-        <Button
+        <TextView
             android:id="@+id/travel_page_3_from"
             style="@style/wrap_wrap"
-            android:text="选择时间" />
+            android:hint="选择时间"
+            android:textColorHint="@color/white" />
     </LinearLayout>
     <!-- 选择时间*****结束时间-->
     <LinearLayout
@@ -41,9 +42,10 @@
             android:text="To:"
             android:textColor="@color/white" />
 
-        <Button
+        <TextView
             android:id="@+id/travel_page_3_to"
             style="@style/wrap_wrap"
-            android:text="选择时间" />
+            android:hint="选择时间"
+            android:textColorHint="@color/white" />
     </LinearLayout>
 </LinearLayout>

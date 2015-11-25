@@ -1,5 +1,6 @@
 package cn.lingox.android.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.lingox.android.R;
-import cn.lingox.android.adapter.PathJoinedUsersAdapter;
+import cn.lingox.android.adapter.LocalJoinedUsersAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Comment;
@@ -76,7 +77,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private static final String FILE_NAME = "/app_icon.jpg";
     private static String appIconImagePath;
     // UI Elements
-    private MyScrollView scrollView;
     private ProgressBar loadingBar;
     private ImageView chat;
     private ImageView pathUserAvatar;
@@ -107,7 +107,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private Path path = null;
     private User user;
     private ArrayList<User> joinedUsersList = new ArrayList<>();
-    private PathJoinedUsersAdapter joinedUsersAdapter;
+    private LocalJoinedUsersAdapter joinedUsersAdapter;
     private ArrayList<Comment> commentsList = new ArrayList<>();
     private boolean ownPath;
     private boolean replyEveryOne = true;
@@ -118,9 +118,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private int width;
     private int height;
     private int scrollViewHight;
-    private LinearLayout pathView, pathTime, likeLayout, commitLayout, layoutThree;
-    private boolean hasMeasured = false;
     private int commentHeight;
+    private LinearLayout pathView, pathTime, likeLayout, commitLayout, layoutThree;
 
     private boolean isApply = false;
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
@@ -171,7 +170,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
+        MyScrollView scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
         scrollView.setScrollViewListener(this);
 
         loadingBar = (ProgressBar) findViewById(R.id.loading_bar);
@@ -225,7 +224,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         findViewById(R.id.path_share_button).setOnClickListener(this);
 
         joinedUsersListView = (HListView) findViewById(R.id.path_view_joined_user_list);
-        joinedUsersAdapter = new PathJoinedUsersAdapter(this, joinedUsersList);
+        joinedUsersAdapter = new LocalJoinedUsersAdapter(this, joinedUsersList);
         joinedUsersListView.setAdapter(joinedUsersAdapter);
         if (LingoXApplication.getInstance().getSkip()) {
             joinedUsersListView.setClickable(false);
@@ -439,7 +438,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 break;
         }
         Picasso.with(this).load(path.getImage()).into(pathBackground);
-//        uiHelper.imageViewSetPossiblyEmptyUrl(this, pathBackground, path.getImage());
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
             pathTime.setVisibility(View.VISIBLE);
@@ -478,7 +476,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_delete:
-                new android.app.AlertDialog.Builder(this)
+                new AlertDialog.Builder(this)
                         .setTitle("Are you sure to delete?")
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -677,16 +675,13 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         commentEditText.clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
-        scrollView.fullScroll(View.FOCUS_DOWN);
+//        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     private void loadComments() {
         commentsListView.removeAllViews();
         for (int i = 0, j = commentsList.size(); i < j; i++) {
             commentsListView.addView(getCommentView(i));
-        }
-        if (!hasMeasured) {
-            scrollView.smoothScrollTo(0, 0);
         }
     }
 
@@ -761,8 +756,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             if (scrollViewHight <= endLocations[1]) {
                 scrollViewHight = endLocations[1];
                 commentHeight = startLocations[1];
-            } else {
-                hasMeasured = true;
             }
             if (Math.abs(commentHeight - height) <= y) {
                 commentsSend.setVisibility(View.VISIBLE);

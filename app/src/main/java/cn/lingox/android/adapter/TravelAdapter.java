@@ -14,6 +14,8 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.ImageHelper;
+import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
@@ -71,8 +73,12 @@ public class TravelAdapter extends BaseAdapter {
             new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
                 @Override
                 public void onSuccess(User user) {
+                    //头像
                     UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+                    //名字
                     holder.name.setText(user.getNicknameOrUsername());
+                    //国旗
+                    ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
                 }
 
                 @Override
@@ -81,16 +87,27 @@ public class TravelAdapter extends BaseAdapter {
                 }
             }).execute();
         } else {
+            //头像
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+            //名字
             holder.name.setText(user.getNicknameOrUsername());
+            //国旗
+            ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
         }
         //显示时间段
-        holder.time.setText("dddd");
+        String startTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime());
+        String endTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime());
+        holder.time.setText(startTime + " - " + endTime);
+        //问题
         holder.describe.setText(travelEntity.getText());
-        holder.location.setText(travelEntity.getProvince());//显示省份
-        holder.likeNum.setText(String.valueOf(travelEntity.getLikeUsers().size()));//like的人数
-        holder.comentNum.setText(String.valueOf(travelEntity.getComments().size()));//comment的人数
-        holder.createTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));//发布时间距离当前时间
+        //显示省份
+        holder.location.setText(travelEntity.getProvince().isEmpty() ? travelEntity.getCountry() : travelEntity.getProvince());
+        //like的人数
+        holder.likeNum.setText(String.valueOf(travelEntity.getLikeUsers().size()));
+        //comment的人数
+        holder.comentNum.setText(String.valueOf(travelEntity.getComments().size()));
+        //发布时间距离当前时间
+        holder.createTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
         return convertView;
     }
 

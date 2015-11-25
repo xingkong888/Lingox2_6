@@ -3,10 +3,13 @@
     style="@style/match_match"
     android:background="@color/main_color">
 
+    <ImageView
+        android:id="@+id/travel_bg"
+        style="@style/match_match"
+        android:src="@drawable/active_map_01_320dp520dp" />
     <RelativeLayout
         android:id="@+id/travel_xingqi"
         style="@style/match_wrap">
-
         <ImageView
             android:id="@+id/travel_edit_close"
             android:layout_width="40dp"
@@ -23,23 +26,17 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/active_back_61dp"
-            android:visibility="gone" />
+            android:background="@drawable/active_back_61dp" />
 
         <TextView
             android:id="@+id/travel_edit_num"
             style="@style/wrap_wrap"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
+            android:text="1/4"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:visibility="gone" />
+            android:textSize="20sp" />
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/travel_bg"
-        style="@style/match_match"
-        android:src="@drawable/active_map_01_320dp520dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -26,88 +26,203 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
+        <LinearLayout
+            style="@style/wrap_match"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="center"
+                android:src="@drawable/top_delete_18dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="center"
+                android:src="@drawable/top_edit_18dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/group_chat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="center"
+                android:src="@drawable/active_groupchat_24dp"
+                android:visibility="gone" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
+    <cn.lingox.android.widget.MyScrollView
+        android:id="@+id/path_view_scroll_view"
         style="@style/match_wrap"
-        android:layout_below="@id/travel_view_top"
-        android:background="@color/three_fa"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp">
-        <!-- 头像-->
-        <cn.lingox.android.utils.CircularImageView
-            android:id="@+id/travel_view_avatar"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/share_pic1_62dp" />
-        <!-- 名字-->
-        <TextView
-            android:id="@+id/travel_view_name"
-            style="@style/wrap_wrap"
-            android:layout_toRightOf="@id/travel_view_avatar"
-            android:text="name"
-            android:textSize="20sp" />
-        <!--地点-->
-        <TextView
-            android:id="@+id/travel_view_location"
+        android:layout_below="@id/travel_view_top">
+
+        <RelativeLayout
+            android:id="@+id/travel_layout"
             style="@style/match_wrap"
-            android:layout_below="@+id/travel_view_name"
-            android:layout_toRightOf="@id/travel_view_avatar"
-            android:text="Traveling in China" />
-        <!-- 时间-->
-        <LinearLayout
-            android:id="@+id/time"
-            style="@style/wrap_wrap"
-            android:layout_below="@+id/travel_view_avatar"
-            android:orientation="horizontal">
+            android:background="@color/three_fa"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+            <!-- 头像-->
+            <RelativeLayout
+                android:id="@+id/avatar_flg"
+                style="@style/wrap_wrap">
 
+                <cn.lingox.android.utils.CircularImageView
+                    android:id="@+id/travel_view_avatar"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/default_avatar" />
+
+                <ImageView
+                    android:id="@+id/travel_country_flg"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignBottom="@+id/travel_view_avatar"
+                    android:layout_alignRight="@+id/travel_view_avatar"
+                    android:src="@drawable/flag_ac" />
+            </RelativeLayout>
+            <!-- 名字-->
             <TextView
+                android:id="@+id/travel_view_name"
                 style="@style/wrap_wrap"
-                android:text="Time" />
-
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/avatar_flg"
+                android:textColor="@color/main_color"
+                android:textSize="20sp" />
+            <!--地点-->
             <TextView
-                android:id="@+id/travel_view_time"
+                android:id="@+id/travel_view_location"
                 style="@style/match_wrap"
-                android:text="2015/12/29 - 2015/12/29" />
-        </LinearLayout>
-        <!-- 标签-->
-        <LinearLayout
-            android:id="@+id/tag"
-            style="@style/wrap_wrap"
-            android:layout_below="@+id/time"
-            android:orientation="horizontal">
+                android:layout_below="@+id/travel_view_name"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/avatar_flg"
+                android:text="Traveling in China" />
 
-            <TextView
-                style="@style/match_wrap"
-                android:text="Type" />
-
-            <TextView
-                android:id="@+id/travel_view_tag"
-                style="@style/match_wrap"
-                android:text="标签" />
-        </LinearLayout>
-        <!-- 描述-->
-        <TextView
-            android:id="@+id/travel_view_describe"
-            style="@style/match_wrap"
-            android:layout_below="@+id/tag" />
-        <!-- 可提供-->
-        <LinearLayout
-            style="@style/wrap_wrap"
-            android:layout_below="@+id/travel_view_describe"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/avatar_flg"
+                android:layout_marginTop="5dp"
+                android:background="#c7c7c7" />
+            <!-- 时间-->
+            <LinearLayout
+                android:id="@+id/time"
                 style="@style/wrap_wrap"
-                android:text="What Can I provide:" />
+                android:layout_below="@+id/line"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:text="Time:"
+                    android:textColor="@color/main_color" />
+
+                <TextView
+                    android:id="@+id/travel_view_time"
+                    style="@style/match_wrap"
+                    android:paddingLeft="5dp"
+                    android:text="2015/12/29 - 2015/12/29" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/time"
+                android:layout_marginTop="5dp"
+                android:background="#c7c7c7" />
+            <!-- 标签、描述-->
+            <LinearLayout
+                android:id="@+id/tag"
+                style="@style/wrap_wrap"
+                android:layout_below="@+id/line_1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:text="Want to do:"
+                    android:textColor="@color/main_color" />
+
+                <TextView
+                    android:id="@+id/travel_view_tag"
+                    style="@style/wrap_wrap"
+                    android:paddingLeft="5dp"
+                    android:text="标签" />
+
+            </LinearLayout>
+            <!-- 描述-->
             <TextView
-                android:id="@+id/travel_view_provide"
-                style="@style/wrap_wrap" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:id="@+id/travel_view_describe"
+                style="@style/match_wrap"
+                android:layout_below="@+id/tag"
+                android:layout_marginLeft="10dp"
+                android:text="ddadadfasf" />
+
+            <View
+                android:id="@+id/line_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/travel_view_describe"
+                android:layout_marginTop="5dp"
+                android:background="#c7c7c7" />
+            <!-- 可提供-->
+            <LinearLayout
+                android:id="@+id/provide"
+                style="@style/wrap_wrap"
+                android:layout_below="@+id/line_2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:text="I can offer:"
+                    android:textColor="@color/main_color" />
+
+                <TextView
+                    android:id="@+id/travel_view_provide"
+                    style="@style/wrap_wrap"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
+            <!--like、chat、share -->
+            <include
+                android:id="@+id/like_chat_share"
+                layout="@layout/path_like_chat_share" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/like_chat_share"
+                android:orientation="vertical">
+                <!-- 展示like-->
+                <include
+                    layout="@layout/path_like_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+                <!-- 展示评论-->
+                <include
+                    layout="@layout/path_comment_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </cn.lingox.android.widget.MyScrollView>
+    <!-- 发表评论-->
+    <include layout="@layout/path_commit_edit" />
 </RelativeLayout>

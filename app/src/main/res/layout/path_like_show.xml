@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/path_view_like"
+    style="@style/match_wrap"
+    android:layout_marginBottom="15dp"
+    android:background="@color/three_fa"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/three_c7" />
+
+    <RelativeLayout
+        android:id="@+id/path_view_social_layout"
+        style="@style/match_wrap">
+
+        <TextView
+            android:id="@+id/wula"
+            style="@style/wrap_wrap"
+            android:layout_marginLeft="16dp"
+            android:text="@string/like"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/path_particpants_num"
+            style="@style/wrap_wrap"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/wula"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:text="0"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/three_c7" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gray_light"
+        android:visibility="gone" />
+
+    <view
+        android:id="@+id/path_view_joined_user_list"
+        style="@style/match_wrap"
+        class="it.sephiroth.android.library.widget.HListView" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/three_c7" />
+</LinearLayout>

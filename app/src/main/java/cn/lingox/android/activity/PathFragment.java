@@ -1,6 +1,7 @@
 package cn.lingox.android.activity;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import cn.lingox.android.R;
@@ -15,8 +17,8 @@ import cn.lingox.android.R;
 public class PathFragment extends Fragment implements View.OnClickListener {
 
     private int fragmentContainerId;
-    private Fragment oldFragment, newFragment;
     private Fragment mContent;
+    private Button local, travel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +31,7 @@ public class PathFragment extends Fragment implements View.OnClickListener {
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        oldFragment = fm.findFragmentById(fragmentContainerId);
+        Fragment oldFragment = fm.findFragmentById(fragmentContainerId);
         if (oldFragment != null) {
             ft.remove(oldFragment);
         }
@@ -37,23 +39,31 @@ public class PathFragment extends Fragment implements View.OnClickListener {
         ft.add(fragmentContainerId, mContent);
         ft.commit();
         //本地人
-        view.findViewById(R.id.path_local).setOnClickListener(this);
+        local = (Button) view.findViewById(R.id.path_local);
+        local.setOnClickListener(this);
         //旅行者
-        view.findViewById(R.id.path_travel).setOnClickListener(this);
+        travel = (Button) view.findViewById(R.id.path_travel);
+        travel.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        Fragment newFragment;
         switch (v.getId()) {
             case R.id.path_local:
                 newFragment = LocalFragment.newInstance();
                 switchContent(newFragment);
+                local.setBackgroundColor(Color.WHITE);
+                travel.setBackgroundColor(0Xc7c7c7);
+
                 break;
             case R.id.path_travel:
                 newFragment = TravelFragment.newInstance();
                 switchContent(newFragment);
+                travel.setBackgroundColor(Color.WHITE);
+                local.setBackgroundColor(0Xc7c7c7);
                 break;
         }
     }

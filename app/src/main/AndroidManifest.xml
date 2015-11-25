@@ -158,6 +158,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <activity
+            android:name=".activity.TravelViewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.LocalViewActivity"

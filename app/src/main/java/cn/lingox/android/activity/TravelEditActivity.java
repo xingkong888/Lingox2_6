@@ -3,12 +3,15 @@ package cn.lingox.android.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,16 +19,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Set;
 
 import cn.lingox.android.R;
+import cn.lingox.android.activity.select_area.SelectCountry;
+import cn.lingox.android.adapter.MyAdapter;
+import cn.lingox.android.app.LingoXApplication;
+import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.JsonHelper;
+import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CreateTravelEntity;
 import cn.lingox.android.task.EditTravelEntity;
@@ -34,57 +42,38 @@ import cn.lingox.android.task.EditTravelEntity;
  * 创建travel数据
  */
 public class TravelEditActivity extends FragmentActivity implements OnClickListener {
+    public static final String TRAVEL_EDIT = "TravelEdit";
+    public static final String TRAVEL_CREATE = "TravelCreate";
+    private static final int SELECT_LOCATION = 2013;
+
 
     private ImageView bg, colse, back;
     private LinearLayout page1, page2, page3, page4;
-    private EditText traveling, describe;
-    private ListView listView;
-    private Button from, to;
+    private EditText describe;//traveling
+    private MyAdapter adapter;
+    private ArrayList<PathTags> datas;
+    private int checkedNum = 0;
+    private HashMap<Integer, Integer> activityTags = new HashMap<>();
+
+    private TextView from, to;
     private EditText provide;
     private Button next;
     private TextView pageNum;
+    private TextView selectLocation;
 
-    private TravelEntity travelEntity = new TravelEntity();
+    private TravelEntity travelEntity;
 
-    private int page = 0;
+    private boolean isEdit = false;//表示是否为修改 false创建、true修改
+
+    private int page = 1;
     private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
     private Calendar calendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
-            startTimePickerDialog();
-        }
-    };
-    private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
-            endTimePickerDialog();
-        }
-    };
-    TimePickerDialog.OnTimeSetListener endTimePicked = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int h, int m) {
-            calendar.set(Calendar.HOUR_OF_DAY, h);
-            calendar.set(Calendar.MINUTE, m);
-            end = calendar.getTimeInMillis() / 1000L;
-            if (end - now >= 0 && (start == 0 || end >= start)) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
-                travelEntity.setEndTime(end);
-            } else {
-                Toast.makeText(TravelEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
-                endDatePickerDialog();
-            }
-        }
-    };
-    private Button startTime, endTime;
-    TimePickerDialog.OnTimeSetListener startTimePicked = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int h, int m) {
-            calendar.set(Calendar.HOUR_OF_DAY, h);
-            calendar.set(Calendar.MINUTE, m);
+            calendar.set(year, month, day, 0, 0, 0);
             start = calendar.getTimeInMillis() / 1000L;
             if (end == 0 || end >= start) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
+                UIHelper.getInstance().textViewSetPossiblyNullString(from, TimeHelper.getInstance().parseTimestampToDate(start));
                 travelEntity.setStartTime(start);
             } else {
                 Toast.makeText(TravelEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
@@ -92,34 +81,106 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             }
         }
     };
+    private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            calendar.set(year, month, day, 23, 59, 59);
+            end = calendar.getTimeInMillis() / 1000L;
+            if (end - now >= 0 && (start == 0 || end >= start)) {
+                UIHelper.getInstance().textViewSetPossiblyNullString(to, TimeHelper.getInstance().parseTimestampToDate(end));
+                travelEntity.setEndTime(end);
+            } else {
+                Toast.makeText(TravelEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
+                endDatePickerDialog();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_travel_edit);
-
         initView();
+        //判断是否为修改
+        if (getIntent().hasExtra(TRAVEL_EDIT)) {
+            travelEntity = getIntent().getParcelableExtra(TRAVEL_EDIT);
+            isEdit = true;
+            setData();
+        } else {
+            travelEntity = new TravelEntity();
+            isEdit = false;
+        }
     }
 
+    /**
+     * 设置数据
+     * 若是修改，则将原数据设置到控件上
+     */
+    private void setData() {
+        selectLocation.setText(travelEntity.getLocation());
+        describe.setText(travelEntity.getText());
+        //设置tag
+        if (travelEntity.getTags().size() > 0) {
+            for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
+                activityTags.put(Integer.valueOf(travelEntity.getTags().get(i)), 1);
+                if (checkedNum < 3) {
+                    checkedNum++;
+                    datas.get(Integer.valueOf(travelEntity.getTags().get(i))).setType(1);
+                }
+            }
+            adapter.notifyDataSetChanged();
+        }
+        /************************/
+        from.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()));
+        to.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()));
+
+        provide.setText(travelEntity.getProvide());
+    }
+
+    /**
+     * 实例化控件
+     */
     private void initView() {
         bg = (ImageView) findViewById(R.id.travel_bg);
         next = (Button) findViewById(R.id.travel_edit_next);
         next.setOnClickListener(this);
-//        colse=(ImageView)findViewById(R.id.travel_edit_close);
-//        colse.setOnClickListener(this);
         back = (ImageView) findViewById(R.id.travel_edit_back);
         back.setOnClickListener(this);
         pageNum = (TextView) findViewById(R.id.travel_edit_num);
 //        第一页
         page1 = (LinearLayout) findViewById(R.id.travel_edit_page_1);
-        traveling = (EditText) findViewById(R.id.travel_page_1_edit);
+        selectLocation = (TextView) findViewById(R.id.travel_page_1_select);
+        selectLocation.setOnClickListener(this);
 //        第二页
         page2 = (LinearLayout) findViewById(R.id.travel_edit_page_2);
         describe = (EditText) findViewById(R.id.travel_page_2_describe);
-        listView = (ListView) findViewById(R.id.travel_page_2_tags);
+        ListView listView = (ListView) findViewById(R.id.travel_page_2_tags);
+        datas = new ArrayList<>();
+        datas.addAll(LingoXApplication.getInstance().getDatas());
+        adapter = new MyAdapter(this, datas, 0);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (datas.get(position).getType() == 0) {
+                    if (checkedNum < 3) {
+                        activityTags.put(position, 1);
+                        checkedNum++;
+                        datas.get(position).setType(1);
+                    }
+                } else {
+                    checkedNum--;
+                    activityTags.remove(position);
+                    datas.get(position).setType(0);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
 //        第三页
         page3 = (LinearLayout) findViewById(R.id.travel_edit_page_3);
-        from = (Button) findViewById(R.id.travel_page_3_from);
-        to = (Button) findViewById(R.id.travel_page_3_to);
+        from = (TextView) findViewById(R.id.travel_page_3_from);
+        from.setOnClickListener(this);
+        to = (TextView) findViewById(R.id.travel_page_3_to);
+        to.setOnClickListener(this);
 //        第四页
         page4 = (LinearLayout) findViewById(R.id.travel_edit_page_4);
         provide = (EditText) findViewById(R.id.travel_page_4_edit);
@@ -139,9 +200,11 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 //选择时间
                 endDatePickerDialog();
                 break;
-//            case R.id.travel_edit_close:
-////                nextClick(0);
-//                break;
+            //选择地点
+            case R.id.travel_page_1_select:
+                Intent intent = new Intent(this, SelectCountry.class);
+                startActivityForResult(intent, SELECT_LOCATION);
+                break;
             case R.id.travel_edit_back:
                 nextClick(1);
                 break;
@@ -151,6 +214,23 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     @Override
     public void onBackPressed() {
         nextClick(1);
+    }
+    /**
+     * 保存活动标签
+     *
+     * @return true:选择至少一个标签，false:未选择标签
+     */
+    private boolean saveTags() {
+        if (activityTags.size() > 0) {//标签被选择
+            Set key = activityTags.keySet();
+            Object[] post = key.toArray();
+            ArrayList<String> postJson = new ArrayList<>();
+            for (Object aPost : post) {
+                postJson.add(String.valueOf((int) aPost));
+            }
+            travelEntity.setTags(postJson);
+        }
+        return travelEntity.getTags().size() > 0;
     }
 
     /**
@@ -180,7 +260,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                     bg.setImageResource(R.drawable.active_map_01_320dp520dp);
                     break;
                 case 2://填写详细描述及选择类型
-                    if (traveling.getText().toString().isEmpty()) {
+                    if (selectLocation.getText().toString().trim().isEmpty()) {
                         page--;
                         break;
                     }
@@ -192,7 +272,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                     bg.setImageResource(R.drawable.active_map_02_320dp520dp);
                     break;
                 case 3://选择时间
-                    if (describe.getText().toString().isEmpty()) {
+                    if (!saveTags() || describe.getText().toString().isEmpty()) {
                         page--;
                         break;
                     }
@@ -206,10 +286,10 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                     bg.setImageResource(R.drawable.active_map_03_320dp520dp);
                     break;
                 case 4://填写当你作为本地人的时候，你能提供什么
-//                    if (from.getText().toString().isEmpty() || to.getText().toString().isEmpty()) {
-//                        page--;
-//                        break;
-//                    }
+                    if (from.getText().toString().isEmpty() || to.getText().toString().isEmpty()) {
+                        page--;
+                        break;
+                    }
                     page4.setVisibility(View.VISIBLE);
                     page2.setVisibility(View.GONE);
                     page3.setVisibility(View.GONE);
@@ -222,7 +302,8 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                         page--;
                         break;
                     }
-                    if (" ".equals(" ")) {
+                    travelEntity.setProvide(provide.getText().toString().trim());
+                    if (!isEdit) {
                         //创建
                         create();
                     } else {
@@ -246,30 +327,47 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case SELECT_LOCATION://选择地点
+                String str = data.getStringExtra(SelectCountry.SELECTED);
+                if (!str.isEmpty()) {
+                    selectLocation.setText(str);
+                    travelEntity.setLocation(str);
+                }
+                break;
+        }
+    }
+
     /**
      * 创建
      */
     private void create() {
-        HashMap<String, String> params = new HashMap<>();
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Creating Activity...");
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        next.setClickable(false);
 
-        params.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
-        params.put("text", travelEntity.getText());
-        params.put("provide", travelEntity.getProvide());
-        params.put("startTime", String.valueOf(travelEntity.getStartTime()));
-        params.put("endTime", String.valueOf(travelEntity.getEndTime()));
-        params.put("country", travelEntity.getCountry());
-        params.put("province", travelEntity.getProvince());
-        params.put("city", travelEntity.getCity());
-        params.put("tags", travelEntity.getTags().toString().replace("[", "").replace("]", ""));
-        new CreateTravelEntity(params, new CreateTravelEntity.Callback() {
+        HashMap<String, String> createParams = new HashMap<>();
+        setParams(createParams, "create");
+        new CreateTravelEntity(createParams, new CreateTravelEntity.Callback() {
             @Override
             public void onSuccess(TravelEntity entity) {
-                Toast.makeText(TravelEditActivity.this, "成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.putExtra(TRAVEL_CREATE, entity);
+                setResult(RESULT_OK, intent);
+                finish();
+                pd.dismiss();
+
             }
 
             @Override
             public void onFail() {
-
+                Toast.makeText(TravelEditActivity.this, "创建失败", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         }).execute();
     }
@@ -278,19 +376,53 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
      * 编辑
      */
     private void edit() {
-        new EditTravelEntity(null, new EditTravelEntity.Callback() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Upload...");
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        next.setClickable(false);
+        HashMap<String, String> editParams = new HashMap<>();
+        setParams(editParams, "edit");
+        new EditTravelEntity(editParams, new EditTravelEntity.Callback() {
             @Override
             public void onSuccess(TravelEntity entity) {
-
+                Intent intent = new Intent();
+                intent.putExtra(TRAVEL_CREATE, entity);
+                setResult(RESULT_OK, intent);
+                finish();
+                pd.dismiss();
             }
 
             @Override
             public void onFail() {
-
+                Toast.makeText(TravelEditActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         }).execute();
     }
 
+    /**
+     * 设置上传数据
+     */
+    private void setParams(HashMap<String, String> params, String flg) {
+        switch (flg) {
+            case "create":
+                params.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+                break;
+            case "edit":
+                params.put("demandId", travelEntity.getId());
+                break;
+        }
+        params.put("text", travelEntity.getText());
+        params.put("provide", travelEntity.getProvide());
+        params.put("startTime", String.valueOf(travelEntity.getStartTime()));
+        params.put("endTime", String.valueOf(travelEntity.getEndTime()));
+        params.put("country", travelEntity.getCountry());
+        params.put("province", travelEntity.getProvince());
+        params.put("city", travelEntity.getCity());
+        params.put("tags", String.valueOf(travelEntity.getTags()));
+    }
 
     public void startDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
@@ -304,20 +436,6 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         newFragment.setCallback(endDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public void startTimePickerDialog() {
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setCallback(startTimePicked);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), getResources().getString(R.string.time_picker));
-    }
-
-    public void endTimePickerDialog() {
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setCallback(endTimePicked);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), getResources().getString(R.string.time_picker));
     }
 
     public static class DatePickerFragment extends DialogFragment {

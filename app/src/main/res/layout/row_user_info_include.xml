@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/userinfo_view"
-    style="@style/match_wrap"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/three_fa">
 
     <RelativeLayout
@@ -94,7 +95,7 @@
 
             <TextView
                 android:id="@+id/userinfo_tag3"
-                style="row_user_info_include_tag"
+                style="@style/row_user_info_include_tag"
                 android:layout_marginTop="2dp"
                 android:text="@string/home_stay" />
         </LinearLayout>

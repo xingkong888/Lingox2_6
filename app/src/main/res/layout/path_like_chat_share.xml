@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="53dp"
+    android:layout_below="@+id/provide"
+    android:layout_marginTop="10dp"
+    android:background="@color/main_color"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/path_accept_button"
+        style="@style/wrap_match"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:scaleType="center"
+        android:src="@drawable/active_dislike_24dp" />
+
+    <ImageView
+        android:id="@+id/iv_chat"
+        style="@style/TitleBarText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scaleType="center"
+        android:src="@drawable/chat_color_24dp" />
+
+    <ImageView
+        android:id="@+id/path_share_button"
+        style="@style/wrap_match"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:scaleType="center"
+        android:src="@drawable/active_share_24dp" />
+</LinearLayout>

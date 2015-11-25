@@ -4,21 +4,22 @@
     style="@style/match_match"
     android:background="@color/transparent"
     android:orientation="vertical">
-
     <TextView
+        android:id="@+id/travel_page_1_select"
         style="@style/shadow_style"
         android:layout_width="match_parent"
         android:layout_marginTop="70dp"
         android:gravity="center"
-        android:text="@string/travel_one"
+        android:hint="@string/travel_one"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="22sp" />
 
-    <EditText
-        android:id="@+id/travel_page_1_edit"
-        style="@style/match_wrap"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_border_blue"
-        android:gravity="center"
-        android:textColor="@color/white" />
+    <!--<EditText-->
+    <!--android:id="@+id/travel_page_1_edit"-->
+    <!--style="@style/match_wrap"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:background="@drawable/button_border_blue"-->
+    <!--android:gravity="center"-->
+    <!--android:textColor="@color/white" />-->
 </LinearLayout>

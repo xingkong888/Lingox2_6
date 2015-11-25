@@ -353,8 +353,6 @@ public class ThirdPartyLogin extends FakeActivity implements OnClickListener, Ca
                 String platform = (String) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
 
-//                Log.d("星期", res.toString());
-
                 //授权成功
                 Toast.makeText(activity, "授权成功", Toast.LENGTH_SHORT).show();
 

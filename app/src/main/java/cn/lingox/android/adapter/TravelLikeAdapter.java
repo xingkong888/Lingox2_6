@@ -17,14 +17,14 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
 
-public class PathJoinedUsersAdapter extends BaseAdapter {
-    private static final String LOG_TAG = "PathJoinedUsersAdapter";
+public class TravelLikeAdapter extends BaseAdapter {
+    private static final String LOG_TAG = "LocalJoinedUsersAdapter";
 
     private Activity context;
     private LayoutInflater inflater;
     private ArrayList<User> userList;
 
-    public PathJoinedUsersAdapter(Activity context, ArrayList<User> uList) {
+    public TravelLikeAdapter(Activity context, ArrayList<User> uList) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.userList = uList;

@@ -226,8 +226,7 @@ public class TravelEntity implements Parcelable {
      * @return 返回位置字符串
      */
     public String getLocation() {
-        return LingoXApplication.getInstance().
-                getLocation(getCountry(), getProvince(), getCity());
+        return LingoXApplication.getInstance().getLocation(getCountry(), getProvince(), getCity());
     }
 
     /**
@@ -287,7 +286,7 @@ public class TravelEntity implements Parcelable {
                 ", likeUsers=" + likeUsers.toString() +
                 ", comment=" + comments.toString() +
                 ", createdAt=" + createdAt +
-                ", updatedAt="+updatedAt
+                ", updatedAt=" + updatedAt
                 ;
     }
 

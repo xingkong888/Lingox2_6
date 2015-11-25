@@ -923,7 +923,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             try {
                 Collections.sort(path.getTags());
                 newPath = ServerHelper.getInstance().path("create", path);
-//                newPath = ServerHelper.getInstance().createPath(path);
                 success = true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());

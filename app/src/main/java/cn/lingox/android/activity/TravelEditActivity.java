@@ -215,6 +215,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     public void onBackPressed() {
         nextClick(1);
     }
+
     /**
      * 保存活动标签
      *
@@ -388,7 +389,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             @Override
             public void onSuccess(TravelEntity entity) {
                 Intent intent = new Intent();
-                intent.putExtra(TRAVEL_CREATE, entity);
+                intent.putExtra(TRAVEL_EDIT, entity);
                 setResult(RESULT_OK, intent);
                 finish();
                 pd.dismiss();

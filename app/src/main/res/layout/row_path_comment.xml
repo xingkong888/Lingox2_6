@@ -32,7 +32,6 @@
                 android:id="@+id/comment_user_nickname"
                 style="@style/wrap_wrap"
                 android:padding="3dp"
-                android:text="@string/nickname"
                 android:textColor="#198f99"
                 android:textSize="12sp" />
 
@@ -49,7 +48,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="16dp"
             android:paddingRight="10dp"
-            android:text="Comment Time"
             android:textSize="10sp" />
 
         <TextView
@@ -60,7 +58,6 @@
             android:layout_toRightOf="@+id/comment_user_avatar"
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
-            android:text="@string/comment_text"
             android:textColor="@color/black_deep"
             android:textSize="16sp" />
 

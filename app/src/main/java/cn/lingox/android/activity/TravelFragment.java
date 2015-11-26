@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,14 +153,15 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     private void refershView(int flg, TravelEntity travelEntity) {
         switch (flg) {
             case 1:
-                travelDatas.add(travelEntity);
+                travelDatas.add(0, travelEntity);
                 break;
             case 2:
+                travelDatas.remove(clickPosition);
                 travelDatas.add(clickPosition, travelEntity);
                 break;
             case 3:
-                travelDatas.remove(travelEntity);
-                Log.d("星期", "delete>>>>" + travelDatas.size());
+                travelDatas.remove(clickPosition);
+//                travelDatas.remove(travelEntity);
                 break;
         }
         adapter.notifyDataSetChanged();

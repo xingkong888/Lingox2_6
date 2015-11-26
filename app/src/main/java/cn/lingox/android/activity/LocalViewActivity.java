@@ -560,9 +560,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 }
                 break;
             case R.id.btn_reply:
-                if (commentEditText.getText().toString().isEmpty())
+                if (commentEditText.getText().toString().isEmpty()) {
                     Toast.makeText(this, getString(R.string.enter_comment), Toast.LENGTH_SHORT).show();
-                else if (replyEveryOne) {
+                } else if (replyEveryOne) {
                     new PostComment().execute();
                 } else {
                     new ReplyComment(replyUser.getId(), commentEditText.getText().toString()).execute();
@@ -675,7 +675,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         commentEditText.clearFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
-//        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     private void loadComments() {
@@ -719,8 +718,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                         CommentDialog commentDialog = new CommentDialog(comment);
                         commentDialog.setCanceledOnTouchOutside(true);
                         commentDialog.show();
-                    } else
+                    } else {
                         replyOthers(comment);
+                    }
                 }
             });
         }
@@ -1050,7 +1050,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    public class CommentDialog extends Dialog implements View.OnClickListener {
+    private class CommentDialog extends Dialog implements View.OnClickListener {
         private Comment comment;
 
         public CommentDialog(Comment comment) {
@@ -1097,8 +1097,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         protected Comment doInBackground(Void... params) {
             Comment comment;
             try {
-                comment = ServerHelper.getInstance().createComment
-                        (userSrcId, userTarId, path.getId(), commentText);
+                comment = ServerHelper.getInstance().createComment(userSrcId, userTarId, path.getId(), commentText);
             } catch (Exception e) {
                 comment = null;
             }

@@ -8,7 +8,8 @@ import android.os.Parcelable;
  */
 public class LingoNotification implements Parcelable {
     // Constants
-    public static final int NUMBER_OF_NOTIFICATION_TYPES = 7;
+    public static final int NUMBER_OF_NOTIFICATION_TYPES = 11;
+    //    public static final int NUMBER_OF_NOTIFICATION_TYPES = 7;
     public static final int TYPE_USER_FOLLOWED = 1;
     public static final int TYPE_PATH_JOINED = 2;
     public static final int TYPE_PATH_COMMENT = 3;

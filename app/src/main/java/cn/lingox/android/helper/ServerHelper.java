@@ -26,6 +26,7 @@ import cn.lingox.android.entity.Photo;
 import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.ReturnMsg;
 import cn.lingox.android.entity.Travel;
+import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 
@@ -698,13 +699,7 @@ public class ServerHelper {
             throw new Exception("Failed to get Path!");
         }
 
-//        Path path = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Path.class);
-//        Log.d(LOG_TAG, "getPath: Path: " + path);
-
-        return JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(), Path.class);
+        return JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), Path.class);
     }
 
     /**
@@ -1712,12 +1707,8 @@ public class ServerHelper {
 
         for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-            list.add((TravelEntity) JsonHelper
-                    .getInstance().jsonToBean(
-                            jsonObject1.toString(),
-                            TravelEntity.class));
+            list.add((TravelEntity) JsonHelper.getInstance().jsonToBean(jsonObject1.toString(), TravelEntity.class));
         }
-//        Log.d("getAllTravel", list.size() + ">>>>" + list.toString());
         return list;
     }
 
@@ -1833,6 +1824,101 @@ public class ServerHelper {
                         jsonObject.toString(),
                         TravelEntity.class);
     }
+
+    /**
+     * like
+     *
+     * @param params 必要的参数
+     * @return 返回结果
+     * @throws Exception 异常
+     */
+    public TravelEntity likeTravel(HashMap<String, String> params) throws Exception {
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_LIKE, params);
+        Log.d(LOG_TAG, "likeTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "likeTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (TravelEntity) JsonHelper.getInstance().jsonToBean(jsonObject.toString(), TravelEntity.class);
+    }
+
+    /**
+     * unlike
+     *
+     * @param params 必要的参数
+     * @return 返回结果
+     * @throws Exception 异常
+     */
+    public TravelEntity unLikeTravel(HashMap<String, String> params) throws Exception {
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_UNLIKE, params);
+        Log.d(LOG_TAG, "unLikeTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "unLikeTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        return (TravelEntity) JsonHelper.getInstance().jsonToBean(jsonObject.toString(), TravelEntity.class);
+    }
+
+    /**
+     * @param params 必要的参数
+     * @return 评论的实例
+     * @throws Exception
+     */
+    public TravelComment createTravelComment(HashMap<String, String> params) throws Exception {
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_CREATE, params);
+
+        Log.d(LOG_TAG, "createTravelComment: " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "createTravelComment: Return message code not positive");
+            throw new Exception("Failed to create TravelComment!");
+        }
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), TravelComment.class);
+    }
+
+    /**
+     * 删除
+     *
+     * @param commentId 评论id
+     * @return 评论的实例
+     * @throws Exception
+     */
+    public TravelComment deleteTravelComment(String commentId) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.commentId, commentId);
+        params.put(StringConstant.verStr, APPVERSION);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_DELETE, params);
+
+        Log.d(LOG_TAG, "deleteTravelComment: " + jsonStr);
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "deleteTravelComment: Return message code not positive");
+            throw new Exception("Failed to delete TravelComment!");
+        }
+        return JsonHelper.getInstance().jsonToBean(
+                rmsg.getData().toString(), TravelComment.class);
+    }
+
 
     /**********************************************************************************************/
 }

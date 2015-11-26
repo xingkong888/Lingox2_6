@@ -59,7 +59,7 @@ public class TravelAdapter extends BaseAdapter {
             holder.location = (TextView) convertView.findViewById(R.id.travel_location);
             holder.describe = (TextView) convertView.findViewById(R.id.travel_describe);
             holder.createTime = (TextView) convertView.findViewById(R.id.travel_create_time);
-            holder.comentNum = (TextView) convertView.findViewById(R.id.travel_comment_num);
+            holder.commentNum = (TextView) convertView.findViewById(R.id.travel_comment_num);
             holder.likeNum = (TextView) convertView.findViewById(R.id.travel_like_num);
             holder.time = (TextView) convertView.findViewById(R.id.travel_time);
 
@@ -68,6 +68,7 @@ public class TravelAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         TravelEntity travelEntity = datas.get(position);
+
         User user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
         if (user == null) {
             new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
@@ -105,7 +106,7 @@ public class TravelAdapter extends BaseAdapter {
         //like的人数
         holder.likeNum.setText(String.valueOf(travelEntity.getLikeUsers().size()));
         //comment的人数
-        holder.comentNum.setText(String.valueOf(travelEntity.getComments().size()));
+        holder.commentNum.setText(String.valueOf(travelEntity.getComments().size()));
         //发布时间距离当前时间
         holder.createTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
         return convertView;
@@ -114,6 +115,6 @@ public class TravelAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView flg;
         CircularImageView avatar;
-        TextView name, location, describe, time, createTime, comentNum, likeNum;
+        TextView name, location, describe, time, createTime, commentNum, likeNum;
     }
 }

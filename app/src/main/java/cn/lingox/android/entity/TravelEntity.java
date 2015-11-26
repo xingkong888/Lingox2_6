@@ -32,8 +32,8 @@ public class TravelEntity implements Parcelable {
     private long startTime;//开始时间
     private long endTime;//结束时间
     private String provide;//可提供
-    private ArrayList<User> likeUsers;//likeUsers的用户
-    private ArrayList<Comment> comments;//评论的用户
+    private ArrayList<User> likedUsers;//likeUsers的用户
+    private ArrayList<TravelComment> comments;//评论的用户
     private String createdAt;//创建时间
     private String updatedAt;// 修改时间，自动生成
 
@@ -48,7 +48,7 @@ public class TravelEntity implements Parcelable {
         startTime = -1;
         endTime = -1;
         provide = "";
-        likeUsers = new ArrayList<>();
+        likedUsers = new ArrayList<>();
         comments = new ArrayList<>();
         createdAt = "";
         updatedAt = "";
@@ -65,8 +65,8 @@ public class TravelEntity implements Parcelable {
         this.startTime = in.readLong();
         this.endTime = in.readLong();
         this.provide = in.readString();
-        this.likeUsers = in.createTypedArrayList(User.CREATOR);
-        this.comments = in.createTypedArrayList(Comment.CREATOR);
+        this.likedUsers = in.createTypedArrayList(User.CREATOR);
+        this.comments = in.createTypedArrayList(TravelComment.CREATOR);
         this.createdAt = in.readString();
         this.updatedAt = in.readString();
 
@@ -81,18 +81,18 @@ public class TravelEntity implements Parcelable {
     }
 
     public ArrayList<User> getLikeUsers() {
-        return likeUsers;
+        return likedUsers;
     }
 
     public void setLikeUsers(ArrayList<User> likeUsers) {
-        this.likeUsers = likeUsers;
+        this.likedUsers = likeUsers;
     }
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<TravelComment> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(ArrayList<TravelComment> comments) {
         this.comments = comments;
     }
 
@@ -185,11 +185,25 @@ public class TravelEntity implements Parcelable {
     }
 
     /**
+     * 查找用户是否已like
+     *
+     * @param userId
+     * @return
+     */
+    public boolean hasUserLiked(String userId) {
+        for (User users : likedUsers) {
+            if (users.getId().equals(userId))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * 添加新的comment
      *
      * @param comment comment的实例
      */
-    public void addComment(Comment comment) {
+    public void addComment(TravelComment comment) {
         comments.add(comment);
     }
 
@@ -198,7 +212,7 @@ public class TravelEntity implements Parcelable {
      *
      * @param comment comment的实例
      */
-    public void removeComment(Comment comment) {
+    public void removeComment(TravelComment comment) {
         int pos = findCommentInList(comment);
         if (pos != -1) {
             comments.remove(pos);
@@ -211,7 +225,7 @@ public class TravelEntity implements Parcelable {
      * @param comment 待查找的comment
      * @return 若存在，返回位置，否则返回-1
      */
-    private int findCommentInList(Comment comment) {
+    private int findCommentInList(TravelComment comment) {
         for (int i = 0; i < comments.size(); i++) {
             if (comments.get(i).getId().equals(comment.getId())) {
                 return i;
@@ -264,7 +278,7 @@ public class TravelEntity implements Parcelable {
         dest.writeLong(this.startTime);
         dest.writeLong(this.endTime);
         dest.writeString(this.provide);
-        dest.writeTypedList(this.likeUsers);
+        dest.writeTypedList(this.likedUsers);
         dest.writeTypedList(this.comments);
         dest.writeString(this.createdAt);
         dest.writeString(this.updatedAt);
@@ -283,7 +297,7 @@ public class TravelEntity implements Parcelable {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", provide=" + provide +
-                ", likeUsers=" + likeUsers.toString() +
+                ", likeUsers=" + likedUsers.toString() +
                 ", comment=" + comments.toString() +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt

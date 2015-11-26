@@ -2,35 +2,47 @@ package cn.lingox.android.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelLikeAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
-import cn.lingox.android.entity.Comment;
+import cn.lingox.android.entity.PathTags;
+import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
+import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.CreateCommentTravelEntity;
+import cn.lingox.android.task.DelCommentTravelEntity;
 import cn.lingox.android.task.DeleteTravelEntity;
 import cn.lingox.android.task.GetUser;
+import cn.lingox.android.task.LikeTravelEntity;
+import cn.lingox.android.task.UnLikeTravelEntity;
 import cn.lingox.android.utils.CircularImageView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.MyScrollView;
@@ -66,7 +78,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private LinearLayout commentLayout;
     private TextView commentNum;
     private LinearLayout commentList;
-    private ArrayList<Comment> commentDatas = new ArrayList<>();
+    private ArrayList<TravelComment> commentDatas = new ArrayList<>();
     //commite
     private LinearLayout commitLayout;
     private EditText commitEdit;
@@ -83,6 +95,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
 
     private TravelEntity travelEntity;
     private User user;
+
+    private boolean ownTravel = false;//false 不是自己的活动   true是自己的活动
+    private User replyUser;
+    private boolean replyEveryOne = false;//true回复  false不回复
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +137,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         //分享
         findViewById(R.id.path_share_button).setOnClickListener(this);
         //包含like、chat和share的layout
-        threeLayout = (LinearLayout) findViewById(R.id.path_view_like_chat_share);
+        threeLayout = (LinearLayout) findViewById(R.id.like_chat_share);
         travelLayout = (RelativeLayout) findViewById(R.id.travel_layout);
 
         avatar = (CircularImageView) findViewById(R.id.travel_view_avatar);
@@ -153,6 +169,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
+/*****************************************comment*******************************************/
+
     /**
      * 设置数据
      */
@@ -167,9 +185,15 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         //判断是否为自己
         if (travelEntity.getUser_id().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
             //自己
+            ownTravel = true;
             chat.setVisibility(View.GONE);
             edit.setVisibility(View.VISIBLE);
             delete.setVisibility(View.VISIBLE);
+        } else {//不是自己的
+            ownTravel = false;
+            chat.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
         }
         //获取用户信息
         user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
@@ -199,14 +223,14 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             ImageHelper.getInstance().loadFlag(flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
         }
         //设置标签
-//        if (travelEntity.getTags().size() > 0) {
-//            ArrayList<String> list=new ArrayList<>();
-//            ArrayList<PathTags> tags=LingoXApplication.getInstance().getDatas();
-//            for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
-//                list.add(tags.get(Integer.valueOf(travelEntity.getTags().get(i))).getTag());
-//            }
-//            tag.setText(list.toString().replace("[","").replace("]",""));
-//        }
+        if (travelEntity.getTags().size() > 0) {
+            ArrayList<String> list = new ArrayList<>();
+            ArrayList<PathTags> tags = LingoXApplication.getInstance().getDatas();
+            for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
+                list.add(tags.get(Integer.valueOf(travelEntity.getTags().get(i))).getTag());
+            }
+            tag.setText(list.toString().replace("[", "").replace("]", ""));
+        }
         //设置地点
         location.setText(travelEntity.getLocation());
         //设置时间段
@@ -217,32 +241,232 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         //设置可提供
         provide.setText(travelEntity.getProvide());
         //设置like
-        likeDatas.addAll(travelEntity.getLikeUsers());
-        if (likeDatas.size() > 0) {
-            //有数据
-            likeLayout.setVisibility(View.VISIBLE);
-            likeNum.setText(String.valueOf(likeDatas.size()));
-            likeAdapter.notifyDataSetChanged();
-        } else {
-            likeLayout.setVisibility(View.GONE);
+        if (!LingoXApplication.getInstance().getSkip()) {
+            likeDatas.addAll(travelEntity.getLikeUsers());
+            if (likeDatas.size() > 0) {
+                //有数据
+                likeLayout.setVisibility(View.VISIBLE);
+                likeNum.setText(String.valueOf(likeDatas.size()));
+                likeAdapter.notifyDataSetChanged();
+            } else {
+                likeLayout.setVisibility(View.GONE);
+            }
+            if (ownTravel) {
+                like.setImageResource(R.drawable.active_likepeople_24dp);
+                like.setTag(1);
+            } else {
+
+                like.setImageResource(
+                        travelEntity.hasUserLiked(CacheHelper.getInstance().getSelfInfo().getId())
+                                ? R.drawable.active_like_24dp : R.drawable.active_dislike_24dp);
+                like.setTag(travelEntity.hasUserLiked(CacheHelper.getInstance().getSelfInfo().getId()) ? 0 : 1);
+            }
         }
+
         //设置comment
         commentDatas.addAll(travelEntity.getComments());
         if (commentDatas.size() > 0) {
             //有数据
             commentLayout.setVisibility(View.VISIBLE);
             commentNum.setText(String.valueOf(commentDatas.size()));
-
+            loadComments();
         } else {
             commentLayout.setVisibility(View.GONE);
         }
+
+        commitLayout.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 判断当前用户是否已like
+     *
+     * @return false尚未like  true已like
+     */
+    private boolean userAccepted() {
+        for (User users : travelEntity.getLikeUsers()) {
+            if (users.getId().equals(CacheHelper.getInstance().getSelfInfo().getId()))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * 设置评论的提交参数
+     *
+     * @return 参数集合
+     */
+    private HashMap<String, String> setCommentCommit() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put(StringConstant.userIdStr, CacheHelper.getInstance().getSelfInfo().getId());
+        params.put("demandId", travelEntity.getId());
+        params.put("text", commitEdit.getText().toString());
+        if (replyEveryOne) {
+            params.put("replyUser", replyUser.getId());
+        }
+        return params;
+    }
+
+    private void removeComment(int position) {
+        travelEntity.removeComment(commentDatas.get(position));
+        commentDatas.remove(position);
+        if (commentDatas.size() <= 0) {
+            commitLayout.setVisibility(View.GONE);
+        }
+        commentNum.setText(String.valueOf(commentDatas.size()));
+        commentList.removeViewAt(position);
+    }
+
+    private void addComment(TravelComment comment) {
+        travelEntity.addComment(comment);
+        commentDatas.add(comment);
+        commentNum.setText(String.valueOf(commentDatas.size()));
+        commentList.addView(getCommentView(commentDatas.size() - 1));
+        commitEdit.clearFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(commitEdit.getWindowToken(), 0);
+    }
+
+    private void loadComments() {
+        commentList.removeAllViews();
+        for (int i = 0, j = commentDatas.size(); i < j; i++) {
+            commentList.addView(getCommentView(i));
+        }
+    }
+
+    public View getCommentView(final int position) {
+        View rowView = getLayoutInflater().inflate(R.layout.row_path_comment, null);
+        final TravelComment comment = commentDatas.get(position);
+        ImageView userAvatar = (ImageView) rowView.findViewById(R.id.comment_user_avatar);
+        if (!LingoXApplication.getInstance().getSkip()) {
+            if (CacheHelper.getInstance().getSelfInfo().getId().contentEquals(comment.getUser_id())) {
+                ImageView delete = (ImageView) rowView.findViewById(R.id.path_del);
+                delete.setVisibility(View.VISIBLE);
+            } else {
+                ImageView replay = (ImageView) rowView.findViewById(R.id.path_replay);
+                replay.setVisibility(View.VISIBLE);
+            }
+        }
+        TextView userNickname = (TextView) rowView.findViewById(R.id.comment_user_nickname);
+        TextView commentText = (TextView) rowView.findViewById(R.id.comment_text);
+        TextView commentDateTime = (TextView) rowView.findViewById(R.id.comment_date_time);
+        TextView replyTarName = (TextView) rowView.findViewById(R.id.reply_tar_name);
+
+        UIHelper.getInstance().textViewSetPossiblyNullString(commentText, comment.getText());
+        UIHelper.getInstance().textViewSetPossiblyNullString(commentDateTime, JsonHelper.getInstance().parseSailsJSDate(comment.getCreatedAt()));
+        new LoadCommentUser(userNickname, userAvatar, comment.getUser_id()).execute();
+        if (!comment.getUser_tar().isEmpty()) {
+            new LoadReplyUser(comment.getUser_tar(), replyTarName).execute();
+        }
+        if (!LingoXApplication.getInstance().getSkip()) {
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (comment.getUser_id().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                        CommentDialog commentDialog = new CommentDialog(comment);
+                        commentDialog.setCanceledOnTouchOutside(true);
+                        commentDialog.show();
+                    } else {
+                        replyOthers(comment);
+                    }
+                }
+            });
+        }
+        return rowView;
+    }
+
+    private void replyOthers(final TravelComment comment) {
+        replyUser = CacheHelper.getInstance().getUserInfo(comment.getUser_id());
+        commitEdit.setText("");
+        commitEdit.setHint((getString(R.string.reply_comment)) + " " + replyUser.getNickname() + ":");
+        replyEveryOne = true;
+    }
+
+    /*********************************************************************************************/
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_reply:
+                if (commitEdit.getText().toString().isEmpty()) {
+                    Toast.makeText(this, getString(R.string.enter_comment), Toast.LENGTH_SHORT).show();
+                } else {
+                    commit.setClickable(false);
+                    new CreateCommentTravelEntity(this, setCommentCommit(), new CreateCommentTravelEntity.Callback() {
+                        @Override
+                        public void onSuccess(TravelComment comment) {
+                            replyEveryOne = false;
+                            addComment(comment);
+                            commit.setClickable(true);
+                            commitEdit.setText("");
+                            commitEdit.setHint("");
+                        }
+
+                        @Override
+                        public void onFail() {
+                            commit.setClickable(true);
+                        }
+                    }).execute();
+                }
+                break;
+            case R.id.path_accept_button:
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("demandId", travelEntity.getId());
+                    map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
+                    if (!ownTravel) {//不是自己的
+                        if (userAccepted()) {
+                            new UnLikeTravelEntity(this, map, new UnLikeTravelEntity.Callback() {
+                                @Override
+                                public void onSuccess(TravelEntity entity) {
+                                    likeDatas.remove(CacheHelper.getInstance().getSelfInfo());
+                                    travelEntity.setLikeUsers(likeDatas);
+                                    like.setImageResource(R.drawable.active_dislike_24dp);
+                                    like.setTag(0);
+                                    likeAdapter.notifyDataSetChanged();
+                                    if (likeDatas.size() == 0) {
+                                        likeList.setVisibility(View.GONE);
+                                        likeLayout.setVisibility(View.GONE);
+                                    }
+                                    likeNum.setText(String.valueOf(likeDatas.size()));
+                                }
+
+                                @Override
+                                public void onFail() {
+                                    Toast.makeText(TravelViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+                                }
+                            }).execute();
+                        } else {
+                            //like成功，添加到数据源中，并刷新
+                            new LikeTravelEntity(map, new LikeTravelEntity.Callback() {
+                                @Override
+                                public void onSuccess(TravelEntity entity) {
+                                    likeDatas.add(CacheHelper.getInstance().getSelfInfo());
+                                    likeNum.setText(String.valueOf((Integer.parseInt(likeNum.getText().toString()) + 1)));
+                                    likeAdapter.notifyDataSetChanged();
+                                    travelEntity.setLikeUsers(likeDatas);
+                                    like.setImageResource(R.drawable.active_like_24dp);
+                                    like.setTag(1);
+                                    likeList.setVisibility(View.VISIBLE);
+                                    likeLayout.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onFail() {
+                                    Toast.makeText(TravelViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+                                }
+                            }).execute();
+                        }
+                    } else {
+                        Intent mIntent = new Intent(this, UserListActivity.class);
+                        mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, travelEntity.getLikeUsers());
+                        mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.joined_users));
+                        startActivity(mIntent);
+                    }
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
             case R.id.travel_view_back:
-                finish();
+                finishedViewing();
                 break;
             case R.id.path_share_button:
                 showShare();
@@ -279,13 +503,13 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                             }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            new DeleteTravelEntity(travelEntity.getId(), new DeleteTravelEntity.Callback() {
+                            new DeleteTravelEntity(TravelViewActivity.this, travelEntity.getId(), new DeleteTravelEntity.Callback() {
                                 @Override
                                 public void onSuccess(TravelEntity entity) {
                                     try {
-                                        Intent intent = new Intent();
-                                        intent.putExtra(TravelViewActivity.DELETE, travelEntity);
-                                        setResult(RESULT_OK, intent);
+                                        Intent delIntent = new Intent();
+                                        delIntent.putExtra(TravelViewActivity.DELETE, travelEntity);
+                                        setResult(RESULT_OK, delIntent);
                                         finish();
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -303,6 +527,29 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                     SkipDialog.getDialog(this).show();
                 }
                 break;
+        }
+    }
+
+    /*
+      *系统回退键
+       */
+    @Override
+    public void onBackPressed() {
+        finishedViewing();
+    }
+
+    /**
+     * 返回上一级
+     */
+    private void finishedViewing() {
+        if (replyEveryOne) {
+            replyEveryOne = false;
+            commitEdit.setHint("");
+        } else {
+            Intent editedIntent = new Intent();
+            editedIntent.putExtra(EDIT, travelEntity);
+            setResult(RESULT_OK, editedIntent);
+            finish();
         }
     }
 
@@ -325,7 +572,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     @Override
     public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
         if (!LingoXApplication.getInstance().getSkip()) {
-//            pathCommentsNum.getLocationInWindow(startLocations);
             threeLayout.getLocationInWindow(startLocations);
             travelLayout.getLocationInWindow(endLocations);
             if (scrollViewHight <= endLocations[1]) {
@@ -337,6 +583,160 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             } else {
                 commitLayout.setVisibility(View.GONE);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case EDIT_TRAVEL:
+                    if (data.hasExtra(TravelEditActivity.TRAVEL_EDIT)) {
+                        travelEntity = data.getParcelableExtra(TravelEditActivity.TRAVEL_EDIT);
+                        setData();
+                    }
+                    break;
+            }
+        }
+    }
+
+    private class CommentDialog extends Dialog implements View.OnClickListener {
+        private TravelComment comment;
+
+        public CommentDialog(TravelComment comment) {
+            super(TravelViewActivity.this, R.style.MyDialogStyle);
+            this.comment = comment;
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.dialog_comment_options);
+            TextView deleteButton = (TextView) findViewById(R.id.dialog_comment_delete);
+            deleteButton.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.dialog_comment_delete:
+                    new DelCommentTravelEntity(comment.getId(), new DelCommentTravelEntity.Callback() {
+                        @Override
+                        public void onSuccess(TravelComment result) {
+                            removeComment(commentDatas.indexOf(comment));
+                        }
+
+                        @Override
+                        public void onFail() {
+
+                        }
+                    }).execute();
+                    dismiss();
+                    break;
+            }
+        }
+    }
+
+    private class LoadCommentUser extends AsyncTask<Void, Void, Boolean> {
+        private TextView userNickname;
+        private ImageView userAvatar;
+        private String userId;
+        private User commentUser;
+
+        public LoadCommentUser(TextView userNickname, ImageView userAvatar, String userId) {
+            this.userNickname = userNickname;
+            this.userAvatar = userAvatar;
+            this.userId = userId;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            userNickname.setText("Loading...");
+            userAvatar.setImageResource(R.drawable.default_avatar);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                if (!LingoXApplication.getInstance().getSkip()
+                        && (CacheHelper.getInstance().getSelfInfo().getId().equals(userId))) {
+                    commentUser = CacheHelper.getInstance().getSelfInfo();
+                } else {
+                    commentUser = CacheHelper.getInstance().getUserInfo(userId);
+                }
+                if (commentUser == null) {
+                    commentUser = ServerHelper.getInstance().getUserInfo(userId);
+                }
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            //FIXME
+            if (success) {
+                UIHelper.getInstance().textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(TravelViewActivity.this, userAvatar, commentUser.getAvatar(), "");
+                final View.OnClickListener userClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(TravelViewActivity.this, UserInfoActivity.class);
+                        mIntent.putExtra(UserInfoActivity.INTENT_USER_ID, commentUser.getId());
+                        startActivity(mIntent);
+                    }
+                };
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    userAvatar.setOnClickListener(userClickListener);
+                }
+                userAvatar.setLongClickable(false);
+            }
+        }
+    }
+
+    private class LoadReplyUser extends AsyncTask<String, Void, User> {
+        private String userTar;
+        private TextView tarName;
+
+        public LoadReplyUser(String user_tar, TextView tarName) {
+            this.userTar = user_tar;
+            this.tarName = tarName;
+        }
+
+        @Override
+        protected User doInBackground(String... params) {
+            User targetUser;
+            boolean isTargetUs;
+            if (LingoXApplication.getInstance().getSkip()) {
+                isTargetUs = false;
+            } else {
+                isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
+            }
+            if (isTargetUs) {
+                targetUser = CacheHelper.getInstance().getSelfInfo();
+            } else {
+                targetUser = CacheHelper.getInstance().getUserInfo(userTar);
+            }
+            if (targetUser == null && userTar != null) {
+                try {
+                    targetUser = ServerHelper.getInstance().getUserInfo(userTar);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+            return targetUser;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            if (user != null) {
+                tarName.setText(" " + getString(R.string.replied_to) + " " + user.getNickname());
+                tarName.setVisibility(View.VISIBLE);
+            }
+            super.onPostExecute(user);
         }
     }
 }

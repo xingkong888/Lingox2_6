@@ -155,7 +155,6 @@
         <!-- PathView Activity -->
         <activity
             android:name=".activity.TravelEditActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />

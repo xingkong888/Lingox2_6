@@ -67,7 +67,6 @@
             android:id="@+id/travel_layout"
             style="@style/match_wrap"
             android:background="@color/three_fa"
-            android:paddingBottom="10dp"
             android:paddingTop="10dp">
             <!-- 头像-->
             <RelativeLayout
@@ -100,13 +99,25 @@
                 android:textColor="@color/main_color"
                 android:textSize="20sp" />
             <!--地点-->
-            <TextView
-                android:id="@+id/travel_view_location"
-                style="@style/match_wrap"
+            <LinearLayout
+                style="@style/wrap_wrap"
                 android:layout_below="@+id/travel_view_name"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/avatar_flg"
-                android:text="Traveling in China" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:layout_toRightOf="@id/avatar_flg"
+                    android:text="Visting:" />
+
+                <TextView
+                    android:id="@+id/travel_view_location"
+                    style="@style/wrap_wrap"
+                    android:paddingLeft="5dp"
+                    android:text="Traveling in China"
+                    android:textColor="@color/main_color" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/line"
@@ -133,7 +144,7 @@
                     android:id="@+id/travel_view_time"
                     style="@style/match_wrap"
                     android:paddingLeft="5dp"
-                    android:text="2015/12/29 - 2015/12/29" />
+                    android:textColor="@color/black_deep" />
             </LinearLayout>
 
             <View
@@ -161,16 +172,20 @@
                     android:id="@+id/travel_view_tag"
                     style="@style/wrap_wrap"
                     android:paddingLeft="5dp"
-                    android:text="标签" />
+                    android:paddingRight="5dp"
+                    android:text="标签"
+                    android:textColor="@color/black_deep" />
 
             </LinearLayout>
             <!-- 描述-->
             <TextView
                 android:id="@+id/travel_view_describe"
-                style="@style/match_wrap"
+                style="@style/wrap_wrap"
                 android:layout_below="@+id/tag"
                 android:layout_marginLeft="10dp"
-                android:text="ddadadfasf" />
+                android:padding="2dp"
+                android:text="ddadadfasf"
+                android:textColor="@color/black_deep" />
 
             <View
                 android:id="@+id/line_2"
@@ -196,7 +211,8 @@
                 <TextView
                     android:id="@+id/travel_view_provide"
                     style="@style/wrap_wrap"
-                    android:paddingLeft="5dp" />
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/black_deep" />
             </LinearLayout>
             <!--like、chat、share -->
             <include
@@ -209,17 +225,10 @@
                 android:layout_below="@+id/like_chat_share"
                 android:orientation="vertical">
                 <!-- 展示like-->
-                <include
-                    layout="@layout/path_like_show"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                <include layout="@layout/path_like_show" />
+
                 <!-- 展示评论-->
-                <include
-                    layout="@layout/path_comment_show"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                <include layout="@layout/path_comment_show" />
             </LinearLayout>
         </RelativeLayout>
     </cn.lingox.android.widget.MyScrollView>

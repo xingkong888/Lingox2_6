@@ -37,7 +37,6 @@
 
     <LinearLayout
         android:id="@+id/path_view_comments_list"
-        style="@style/path_view_comments_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="false"

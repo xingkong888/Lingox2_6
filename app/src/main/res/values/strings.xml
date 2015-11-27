@@ -394,4 +394,5 @@
     <string name="apply_notification">apply your activity.</string>
     <string name="followed_notification">followed you.</string>
     <string name="failed_mark_read_notification">Failed mark notification as read.</string>
+    <string name="liked_travel">Liked Your Ask Questions</string>
 </resources>

@@ -18,16 +18,14 @@
                 android:layout_height="58dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/default_avatar" />
+                android:layout_marginTop="10dp" />
 
             <ImageView
                 android:id="@+id/travel_country_flg"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/travel_avatar"
-                android:layout_alignRight="@+id/travel_avatar"
-                android:src="@drawable/flag_ac" />
+                android:layout_alignRight="@+id/travel_avatar" />
         </RelativeLayout>
         <!-- 内容-->
         <LinearLayout
@@ -42,10 +40,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
-                android:text="name"
                 android:textColor="@color/main_color"
                 android:textSize="20sp" />
-            <!-- 地点、时间段-->
+            <!-- 地点-->
             <LinearLayout
                 style="@style/wrap_wrap"
                 android:layout_marginTop="5dp"
@@ -53,26 +50,34 @@
                 <!-- 地点-->
                 <TextView
                     style="@style/wrap_wrap"
-                    android:text="Visiting "
-                    android:textColor="#34495e" />
+                    android:text="Visiting: "
+                    android:textColor="#34495e"
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/travel_location"
                     style="@style/wrap_wrap"
-                    android:text="BeiJing"
                     android:textColor="#34495e"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dot_blue" />
+            </LinearLayout>
+            <!-- 时间段-->
+            <LinearLayout
+                style="@style/wrap_wrap"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
+                <!-- 地点-->
+                <TextView
+                    style="@style/wrap_wrap"
+                    android:text="Time: "
+                    android:textColor="#34495e"
+                    android:textSize="11sp" />
                 <!-- 时间段-->
                 <TextView
                     android:id="@+id/travel_time"
                     style="@style/wrap_wrap"
-                    android:text="Nov 24-Nov 27"
                     android:textColor="#34495e"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
             <!-- 描述-->
@@ -80,17 +85,15 @@
                 android:id="@+id/travel_describe"
                 style="@style/match_wrap"
                 android:ellipsize="end"
-                android:maxLines="3"
-                android:text="ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
+                android:maxLines="3" />
 
             <RelativeLayout
                 style="@style/match_wrap"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="10dp">
                 <!-- 发布时间-->
                 <TextView
                     android:id="@+id/travel_create_time"
-                    style="@style/wrap_wrap"
-                    android:text="6mins ago" />
+                    style="@style/wrap_wrap" />
                 <!-- like人数-->
                 <ImageView
                     style="@style/wrap_wrap"
@@ -103,8 +106,7 @@
                     style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/like"
-                    android:text="1" />
+                    android:layout_toLeftOf="@+id/like" />
                 <!--like人数 -->
                 <ImageView
                     android:id="@+id/like"
@@ -118,8 +120,7 @@
                     style="@style/wrap_wrap"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:text="3" />
+                    android:layout_marginRight="15dp" />
 
             </RelativeLayout>
         </LinearLayout>

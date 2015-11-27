@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +38,7 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CreateCommentTravelEntity;
 import cn.lingox.android.task.DelCommentTravelEntity;
 import cn.lingox.android.task.DeleteTravelEntity;
+import cn.lingox.android.task.GetTravelEntity;
 import cn.lingox.android.task.GetUser;
 import cn.lingox.android.task.LikeTravelEntity;
 import cn.lingox.android.task.UnLikeTravelEntity;
@@ -58,12 +57,13 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     public static final String TRAVEL_VIEW = "travelView";//传递travel的实例
     public static final String DELETE = "delete";//删除
     public static final String EDIT = "edit";//删除
+    public static final String TRAVEL_ID = "demand_id";
     private static final int EDIT_TRAVEL = 2102;
 
     private ImageView delete, edit;
     private ImageView like, chat;
     private ImageView flg;
-
+    /*用于判断评论编辑栏是否隐藏----暂时屏蔽掉，不使用
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
     private int[] startLocations = new int[2];
     private int[] endLocations = new int[2];
@@ -73,7 +73,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
 
     private RelativeLayout travelLayout;
     private LinearLayout threeLayout;
-
+*/
     //comments
     private LinearLayout commentLayout;
     private TextView commentNum;
@@ -106,8 +106,29 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         setContentView(R.layout.activity_travel);
         //初始化控件
         initView();
-        //设置数据
-        setData();
+        Intent intent = getIntent();
+        if (intent.hasExtra(TRAVEL_VIEW)) {
+            travelEntity = intent.getParcelableExtra(TRAVEL_VIEW);
+            //设置数据
+            setData();
+        } else if (intent.hasExtra(TRAVEL_ID)) {
+            //根据id，下载数据
+            new GetTravelEntity(intent.getStringExtra(TRAVEL_ID), new GetTravelEntity.Callback() {
+                @Override
+                public void onSuccess(TravelEntity entity) {
+                    travelEntity = entity;
+                    //设置数据
+                    setData();
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            }).execute();
+        } else {
+            finish();
+        }
     }
 
     /**
@@ -116,11 +137,15 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private void initView() {
         ImageView back = (ImageView) findViewById(R.id.travel_view_back);
         back.setOnClickListener(this);
-
+         /*用于判断评论编辑栏是否隐藏，获取屏幕高度----暂时屏蔽掉，不使用
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         height = dm.heightPixels;
 
+         //包含like、chat和share的layout
+        threeLayout = (LinearLayout) findViewById(R.id.like_chat_share);
+        travelLayout = (RelativeLayout) findViewById(R.id.travel_layout);
+        */
         MyScrollView scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
         scrollView.setScrollViewListener(this);
 
@@ -136,10 +161,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         like.setTag(0);
         //分享
         findViewById(R.id.path_share_button).setOnClickListener(this);
-        //包含like、chat和share的layout
-        threeLayout = (LinearLayout) findViewById(R.id.like_chat_share);
-        travelLayout = (RelativeLayout) findViewById(R.id.travel_layout);
-
+        //界面
         avatar = (CircularImageView) findViewById(R.id.travel_view_avatar);
         userName = (TextView) findViewById(R.id.travel_view_name);
         flg = (ImageView) findViewById(R.id.travel_country_flg);
@@ -175,13 +197,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
      * 设置数据
      */
     private void setData() {
-        Intent intent = getIntent();
-        if (intent.hasExtra(TRAVEL_VIEW)) {
-            travelEntity = intent.getParcelableExtra(TRAVEL_VIEW);
-        } else {
-            finish();
-            return;
-        }
+        commitLayout.setVisibility(View.VISIBLE);
         //判断是否为自己
         if (travelEntity.getUser_id().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
             //自己
@@ -273,8 +289,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         } else {
             commentLayout.setVisibility(View.GONE);
         }
-
-        commitLayout.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -306,16 +320,26 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         return params;
     }
 
+    /**
+     * 移除一条评论
+     *
+     * @param position 需要移除的评论的位置
+     */
     private void removeComment(int position) {
         travelEntity.removeComment(commentDatas.get(position));
         commentDatas.remove(position);
-        if (commentDatas.size() <= 0) {
-            commitLayout.setVisibility(View.GONE);
-        }
+//        if (commentDatas.size() <= 0) {
+//            commitLayout.setVisibility(View.GONE);
+//        }
         commentNum.setText(String.valueOf(commentDatas.size()));
         commentList.removeViewAt(position);
     }
 
+    /**
+     * 添加新的评论
+     *
+     * @param comment 新评论的实例
+     */
     private void addComment(TravelComment comment) {
         travelEntity.addComment(comment);
         commentDatas.add(comment);
@@ -326,6 +350,9 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         imm.hideSoftInputFromWindow(commitEdit.getWindowToken(), 0);
     }
 
+    /**
+     * 加载评论视图
+     */
     private void loadComments() {
         commentList.removeAllViews();
         for (int i = 0, j = commentDatas.size(); i < j; i++) {
@@ -333,7 +360,13 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
-    public View getCommentView(final int position) {
+    /**
+     * 创建评论item---------可以用listView替换
+     *
+     * @param position 位置
+     * @return 视图
+     */
+    private View getCommentView(final int position) {
         View rowView = getLayoutInflater().inflate(R.layout.row_path_comment, null);
         final TravelComment comment = commentDatas.get(position);
         ImageView userAvatar = (ImageView) rowView.findViewById(R.id.comment_user_avatar);
@@ -374,6 +407,11 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         return rowView;
     }
 
+    /**
+     * 点击回复某人
+     *
+     * @param comment 点击的评论实例
+     */
     private void replyOthers(final TravelComment comment) {
         replyUser = CacheHelper.getInstance().getUserInfo(comment.getUser_id());
         commitEdit.setText("");
@@ -398,6 +436,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                             commit.setClickable(true);
                             commitEdit.setText("");
                             commitEdit.setHint("");
+                            commentLayout.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -553,7 +592,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
-    // TODO Comments in English as well
+    // 分享
     private void showShare() {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
@@ -569,21 +608,30 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         oks.show(this);
     }
 
+    /**
+     * 根据MyScrollView的滚动距离，判断是否隐藏评论编辑
+     *
+     * @param scrollView1 控件MyScrollView的实例
+     * @param x           x轴的当前坐标
+     * @param y           y轴的当前坐标
+     * @param oldx        x轴的老坐标
+     * @param oldy        y轴的老坐标
+     */
     @Override
     public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
-        if (!LingoXApplication.getInstance().getSkip()) {
-            threeLayout.getLocationInWindow(startLocations);
-            travelLayout.getLocationInWindow(endLocations);
-            if (scrollViewHight <= endLocations[1]) {
-                scrollViewHight = endLocations[1];
-                commentHeight = startLocations[1];
-            }
-            if (Math.abs(commentHeight - height) <= y) {
-                commitLayout.setVisibility(View.VISIBLE);
-            } else {
-                commitLayout.setVisibility(View.GONE);
-            }
-        }
+//        if (!LingoXApplication.getInstance().getSkip()) {
+//            threeLayout.getLocationInWindow(startLocations);
+//            travelLayout.getLocationInWindow(endLocations);
+//            if (scrollViewHight <= endLocations[1]) {
+//                scrollViewHight = endLocations[1];
+//                commentHeight = startLocations[1];
+//            }
+//            if (Math.abs(commentHeight - height) <= y) {
+//                commitLayout.setVisibility(View.VISIBLE);
+//            } else {
+//                commitLayout.setVisibility(View.GONE);
+//            }
+//        }
     }
 
     @Override
@@ -601,6 +649,9 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
+    /**
+     * 删除评论是的提示框
+     */
     private class CommentDialog extends Dialog implements View.OnClickListener {
         private TravelComment comment;
 
@@ -638,6 +689,9 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
+    /**
+     * 加载评论用户的信息
+     */
     private class LoadCommentUser extends AsyncTask<Void, Void, Boolean> {
         private TextView userNickname;
         private ImageView userAvatar;
@@ -697,6 +751,9 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
+    /**
+     * 加载回复评论的用户信息
+     */
     private class LoadReplyUser extends AsyncTask<String, Void, User> {
         private String userTar;
         private TextView tarName;

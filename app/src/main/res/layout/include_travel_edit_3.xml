@@ -16,36 +16,52 @@
         android:textSize="22sp" />
     <!-- 选择时间*****开始时间-->
     <LinearLayout
-        style="@style/match_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            style="@style/wrap_wrap"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
             android:text="From:"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/travel_page_3_from"
-            style="@style/wrap_wrap"
-            android:hint="选择时间"
+            style="@style/match_match"
+            android:gravity="center_vertical"
+            android:hint="Select Time"
+            android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </LinearLayout>
     <!-- 选择时间*****结束时间-->
     <LinearLayout
-        style="@style/match_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            style="@style/wrap_wrap"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
             android:text="To:"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/travel_page_3_to"
-            style="@style/wrap_wrap"
-            android:hint="选择时间"
+            style="@style/match_match"
+            android:gravity="center_vertical"
+            android:hint="Select Time"
+            android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </LinearLayout>
 </LinearLayout>

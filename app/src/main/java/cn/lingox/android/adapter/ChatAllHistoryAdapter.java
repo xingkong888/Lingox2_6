@@ -267,6 +267,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
                 uiHelper.textViewSetPossiblyNullString(holder.message, context.getString(R.string.indent_prompt));
                 break;
+            case LingoNotification.TYPE_TRAVEL_LIKED://liked旅行者发布的
+                uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
+                uiHelper.textViewSetPossiblyNullString(holder.message, context.getString(R.string.liked_travel));
+                break;
         }
     }
 

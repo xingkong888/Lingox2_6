@@ -1720,9 +1720,8 @@ public class ServerHelper {
      * @throws Exception 抛出异常
      */
     public TravelEntity getTravel(String id) throws Exception {
-
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", id);
+        params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GET, params);
         Log.d(LOG_TAG, "getTravel " + jsonStr);

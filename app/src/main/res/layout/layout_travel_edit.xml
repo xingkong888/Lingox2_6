@@ -12,7 +12,7 @@
         android:id="@+id/travel_xingqi"
         style="@style/match_wrap">
 
-    <ImageView
+        <ImageView
             android:id="@+id/travel_edit_close"
             android:layout_width="40dp"
             android:layout_height="40dp"

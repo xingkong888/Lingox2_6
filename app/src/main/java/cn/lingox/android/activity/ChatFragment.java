@@ -357,6 +357,15 @@ public class ChatFragment extends Fragment {
                 }
                 new LoadUserReferences(mIntent3).execute(notify.getUser_src());
                 break;
+            case LingoNotification.TYPE_TRAVEL_LIKED://liked旅行者发布的问题
+                Intent mIntent10 = new Intent(getActivity(), TravelViewActivity.class);
+                mIntent10.putExtra(TravelViewActivity.TRAVEL_ID,
+                        notify.getDemand_id());
+                if (!notify.getRead()) {
+                    new ReadNotification().execute(notify);
+                }
+                startActivity(mIntent10);
+                break;
         }
     }
 

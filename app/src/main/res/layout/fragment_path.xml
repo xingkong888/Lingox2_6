@@ -2,20 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_match">
 
-    <FrameLayout
-        android:id="@+id/path_framelayout"
-        style="@style/match_match" />
-
     <LinearLayout
+        android:id="@+id/xxx"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_height="40dp">
 
         <Button
             android:id="@+id/path_local"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:text="local" />
 
         <Button
@@ -23,6 +20,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/three_c7"
             android:text="travel" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/path_framelayout"
+        style="@style/match_match"
+        android:layout_below="@+id/xxx" />
+
 </RelativeLayout>

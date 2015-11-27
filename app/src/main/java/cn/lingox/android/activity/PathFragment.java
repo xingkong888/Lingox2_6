@@ -56,14 +56,14 @@ public class PathFragment extends Fragment implements View.OnClickListener {
                 newFragment = LocalFragment.newInstance();
                 switchContent(newFragment);
                 local.setBackgroundColor(Color.WHITE);
-                travel.setBackgroundColor(0Xc7c7c7);
+                travel.setBackgroundColor(getResources().getColor(R.color.three_c7));
 
                 break;
             case R.id.path_travel:
                 newFragment = TravelFragment.newInstance();
                 switchContent(newFragment);
                 travel.setBackgroundColor(Color.WHITE);
-                local.setBackgroundColor(0Xc7c7c7);
+                local.setBackgroundColor(getResources().getColor(R.color.three_c7));
                 break;
         }
     }

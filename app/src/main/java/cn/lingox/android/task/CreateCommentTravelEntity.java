@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import java.util.HashMap;
 
@@ -22,10 +21,10 @@ public class CreateCommentTravelEntity extends AsyncTask<Void, String, Boolean> 
     private TravelComment comment;
     private ProgressDialog pd;
 
-    public CreateCommentTravelEntity(Context context,HashMap<String, String> map, Callback callback) {
+    public CreateCommentTravelEntity(Context context, HashMap<String, String> map, Callback callback) {
         this.callback = callback;
         this.map = map;
-        pd=new ProgressDialog(context);
+        pd = new ProgressDialog(context);
         pd.setMessage("Uploading...");
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);

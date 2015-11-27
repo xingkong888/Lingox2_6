@@ -16,6 +16,7 @@ public class LingoNotification implements Parcelable {
     public static final int TYPE_PATH_CHANGE = 4;
     public static final int TYPE_USER_COMMENT = 5;
     public static final int TYPE_INDENT_FINISH = 6;
+    public static final int TYPE_TRAVEL_LIKED = 10;
 
     public static final Creator<LingoNotification> CREATOR = new Creator<LingoNotification>() {
         public LingoNotification createFromParcel(Parcel in) {
@@ -33,7 +34,8 @@ public class LingoNotification implements Parcelable {
     private boolean read;
     private boolean seen;
     private boolean deleted;
-    private String path_id;
+    private String path_id;//local的活动id
+    private String demand_id;//travel的活动id
     private String comment_id;
     private String createdAt;
 
@@ -46,11 +48,12 @@ public class LingoNotification implements Parcelable {
         this.seen = false;
         this.deleted = false;
         this.path_id = "";
+        this.demand_id = "";
         this.comment_id = "";
         this.createdAt = "";
     }
 
-    public LingoNotification(String id, String user_id, String user_src, int type, boolean read, boolean seen, boolean deleted, String path_id, String comment_id, String createdAt) {
+    public LingoNotification(String id, String user_id, String user_src, int type, boolean read, boolean seen, boolean deleted, String path_id, String demand_id, String comment_id, String createdAt) {
         this.id = id;
         this.user_id = user_id;
         this.user_src = user_src;
@@ -59,6 +62,7 @@ public class LingoNotification implements Parcelable {
         this.seen = seen;
         this.deleted = deleted;
         this.path_id = path_id;
+        this.demand_id = demand_id;
         this.comment_id = comment_id;
         this.createdAt = createdAt;
     }
@@ -73,6 +77,7 @@ public class LingoNotification implements Parcelable {
         this.seen = in.readByte() != 0;
         this.deleted = in.readByte() != 0;
         this.path_id = in.readString();
+        this.demand_id = in.readString();
         this.comment_id = in.readString();
         this.createdAt = in.readString();
     }
@@ -141,6 +146,14 @@ public class LingoNotification implements Parcelable {
         this.path_id = path_id;
     }
 
+    public String getDemand_id() {
+        return demand_id;
+    }
+
+    public void setDemand_id(String demand_id) {
+        this.demand_id = demand_id;
+    }
+
     public String getComment_id() {
         return comment_id;
     }
@@ -168,6 +181,7 @@ public class LingoNotification implements Parcelable {
                 + ", seen=" + seen
                 + ", deleted=" + deleted
                 + ", path_id=" + path_id
+                + ", demand_id=" + demand_id
                 + ", comment_id=" + comment_id
                 + ", createdAt=" + createdAt
                 + "]";
@@ -188,6 +202,7 @@ public class LingoNotification implements Parcelable {
         dest.writeByte((byte) (this.seen ? 1 : 0));
         dest.writeByte((byte) (this.deleted ? 1 : 0));
         dest.writeString(this.path_id);
+        dest.writeString(this.demand_id);
         dest.writeString(this.comment_id);
         dest.writeString(this.createdAt);
     }

@@ -14,6 +14,7 @@ import java.util.List;
 import cn.lingox.android.R;
 import cn.lingox.android.activity.LocalViewActivity;
 import cn.lingox.android.activity.ReferenceActivity;
+import cn.lingox.android.activity.TravelViewActivity;
 import cn.lingox.android.activity.UserInfoActivity;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.LingoNotification;
@@ -149,6 +150,13 @@ public class NotificationService extends Service {
 //                        getApplicationContext(), type, intent6, PendingIntent.FLAG_UPDATE_CURRENT);
 //                mBuilder.setContentIntent(pendIntent6);
 //                break;
+            case 10://like了travel的活动
+                Intent intent10 = new Intent(this, TravelViewActivity.class);
+                intent10.putExtra(TravelViewActivity.TRAVEL_ID, notification.getPath_id());
+                PendingIntent pendIntent10 =
+                        PendingIntent.getActivity(this, type, intent10, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pendIntent10);
+                break;
         }
         type++;
         Notification noti = mBuilder.build();
@@ -184,6 +192,10 @@ public class NotificationService extends Service {
 //                notifiText = notificationUser.getNickname() + " " + getString(R.string.indent_notification);
 //                notiType = 6;
 //                break;
+            case LingoNotification.TYPE_TRAVEL_LIKED:
+                notifiText = notificationUser.getNickname() + " liked your sk questions.";
+                notiType = 10;
+                break;
         }
         return notifiText;
     }

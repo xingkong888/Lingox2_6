@@ -42,36 +42,36 @@ public class TimeHelper {
             long time = new Date().getTime() - d1.getTime();// 得出的时间间隔是毫秒
             if (time / 1000 <= 0) {
                 // 如果时间间隔小于等于0秒则显示“刚刚”time/10得出的时间间隔的单位是秒
-                result = "刚刚";
+                result = "1 Second ago";
+//                result = "刚刚";
             } else if (time / 1000 < 60) {
                 // 如果时间间隔小于60秒则显示多少秒前
                 int se = (int) ((time % 60000) / 1000);
-                result = se + "秒前";
+                result = se + " Seconds ago";
             } else if (time / 60000 < 60) {
                 // 如果时间间隔小于60分钟则显示多少分钟前
                 int m = (int) ((time % 3600000) / 60000);// 得出的时间间隔的单位是分钟
-                result = m + "分钟前";
+                if (m == 1) {
+                    result = m + " Minute ago";
+                } else {
+                    result = m + " Minutes ago";
+                }
             } else if (time / 3600000 < 24) {
                 // 如果时间间隔小于24小时则显示多少小时前
                 int h = (int) (time / 3600000);// 得出的时间间隔的单位是小时
-                result = h + "小时前";
+                if (h == 1) {
+                    result = h + " Hour ago";
+                } else {
+                    result = h + " Hours ago";
+                }
             } else if (time / 86400000 < 2) {
                 // 如果时间间隔小于2天则显示昨天
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 result = sdf.format(d1.getTime());
-                result = "昨天" + result;
-            } else if (time / 86400000 < 3) {
-                // 如果时间间隔小于3天则显示前天
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                result = sdf.format(d1.getTime());
-                result = "前天" + result;
-            } else if (time / 86400000 < 30) {
-                // 如果时间间隔小于30天则显示多少天前
-                SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH:mm");
-                result = sdf.format(d1.getTime());
+                result = "Yesterday:" + result;
             } else if (time / 2592000000l < 12) {
                 // 如果时间间隔小于12个月则显示多少月前
-                SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd");
                 result = sdf.format(d1.getTime());
             } else {
                 // 大于1年，显示年月日时间

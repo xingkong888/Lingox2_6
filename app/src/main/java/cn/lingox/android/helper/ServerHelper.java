@@ -1387,13 +1387,13 @@ public class ServerHelper {
             case "create"://创建
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "CreateTravelEntity>>>>" + jsonStr.toString());
+//                Log.d(LOG_TAG, "CreateTravelEntity>>>>" + jsonStr.toString());
                 break;
 
             case "edit"://修改
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-                Log.d(LOG_TAG, "EditTravelEntity>>>>" + jsonStr.toString());
+//                Log.d(LOG_TAG, "EditTravelEntity>>>>" + jsonStr.toString());
                 break;
         }
 

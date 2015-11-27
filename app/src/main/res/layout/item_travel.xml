@@ -45,7 +45,6 @@
             <!-- 地点-->
             <LinearLayout
                 style="@style/wrap_wrap"
-                android:layout_marginTop="5dp"
                 android:gravity="center_vertical">
                 <!-- 地点-->
                 <TextView

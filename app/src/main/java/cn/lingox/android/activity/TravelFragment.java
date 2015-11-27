@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -145,6 +146,18 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("TravelFragment");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("TravelFragment");
+    }
+
     /**
      * 数据改变，刷新界面
      *
@@ -161,7 +174,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
                 break;
             case 3:
                 travelDatas.remove(clickPosition);
-//                travelDatas.remove(travelEntity);
                 break;
         }
         adapter.notifyDataSetChanged();

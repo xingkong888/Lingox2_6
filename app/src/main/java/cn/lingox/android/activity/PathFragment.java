@@ -1,6 +1,5 @@
 package cn.lingox.android.activity;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,6 +56,8 @@ public class PathFragment extends Fragment implements View.OnClickListener {
                 switchContent(newFragment);
                 local.setBackgroundColor(Color.WHITE);
                 travel.setBackgroundColor(getResources().getColor(R.color.three_c7));
+                local.setTextColor(Color.BLACK);
+                travel.setTextColor(Color.rgb(153, 153, 153));
 
                 break;
             case R.id.path_travel:
@@ -64,6 +65,8 @@ public class PathFragment extends Fragment implements View.OnClickListener {
                 switchContent(newFragment);
                 travel.setBackgroundColor(Color.WHITE);
                 local.setBackgroundColor(getResources().getColor(R.color.three_c7));
+                travel.setTextColor(Color.BLACK);
+                local.setTextColor(Color.rgb(153, 153, 153));
                 break;
         }
     }

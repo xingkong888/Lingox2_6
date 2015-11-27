@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/three_c7"
-            android:text="travel" />
+            android:text="traveler"
+            android:textColor="#999" />
     </LinearLayout>
 
     <FrameLayout

@@ -23,7 +23,7 @@ public class DeleteTravelEntity extends AsyncTask<Void, String, Boolean> {
         this.callback = callback;
         this.id = id;
         pd = new ProgressDialog(context);
-        pd.setMessage("正在删除。。。");
+        pd.setMessage("Deleting...");
         pd.show();
     }
 

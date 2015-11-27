@@ -75,8 +75,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private TextView userInsterest, time, userName, userIdAndPlace, userSexAndAge, userFollow, userFollowing, userReference, userFollow_, userFollowing_, userReference_,
             userEdit, userAddFollow, userSpeak, userAge, userSex, userLocal, userMeal, userStay,
             availableLocal, availableMeal, availableStay, localTitle, travelTitle, localNothing1, travelNothing1, localNothing2, travelNothing2,
-            aboutSelf1, aboutSelf2, userInfoPlaces, about;
-    private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit, jiantou1, jiantou2, jiantou3;
+            aboutSelf1, aboutSelf2, userInfoProfessional, userInfoPlaces, about;
+    private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit,
+            jiantou0, jiantou1, jiantou2, jiantou3;
     private ProgressBar photosProgressBar;
     private RelativeLayout layout_photo, layout_travel, layout_tag;
     private UserPhotosAdapter photoAdapter;
@@ -160,6 +161,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         aboutEdit = (ImageView) v.findViewById(R.id.about_edit);
         aboutEdit.setOnClickListener(this);
         line = (TextView) v.findViewById(R.id.userinfo_line);
+        jiantou0 = (ImageView) v.findViewById(R.id.jiantou_0);
         jiantou1 = (ImageView) v.findViewById(R.id.jiantou_1);
         jiantou2 = (ImageView) v.findViewById(R.id.jiantou_2);
         jiantou3 = (ImageView) v.findViewById(R.id.jiantou_3);
@@ -205,6 +207,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userMeal = (TextView) v.findViewById(R.id.userinfo_tag1);
         userStay = (TextView) v.findViewById(R.id.userinfo_tag3);
         userInfoPlaces = (TextView) v.findViewById(R.id.userinfo_places_info);
+        userInfoProfessional = (TextView) v.findViewById(R.id.userinfo_professional_info);
 
         v.findViewById(R.id.layout_available_local).setOnClickListener(this);
         v.findViewById(R.id.layout_available_meal).setOnClickListener(this);
@@ -259,6 +262,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             photoAdd.setVisibility(View.INVISIBLE);
             travelAdd.setVisibility(View.INVISIBLE);
             aboutEdit.setVisibility(View.INVISIBLE);
+            jiantou0.setVisibility(View.INVISIBLE);
             jiantou1.setVisibility(View.INVISIBLE);
             jiantou2.setVisibility(View.INVISIBLE);
             jiantou3.setVisibility(View.INVISIBLE);
@@ -349,7 +353,22 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userSpeak.setHint("");
             userInsterest.setHint("");
             userInfoPlaces.setHint("");
+            userInfoProfessional.setHint("");
         }
+        //职业
+        userInfoProfessional.setOnClickListener(this);
+        if (requestingOthersData && user.getProfession().isEmpty()) {
+            userInfoProfessional.setOnClickListener(this);
+            userInfoProfessional.setTextColor(Color.rgb(25, 143, 153));
+        } else if (requestingOthersData && !user.getProfession().isEmpty()) {
+            userInfoProfessional.setOnClickListener(this);
+            userInfoProfessional.setTextColor(Color.rgb(25, 143, 153));
+        } else if (!user.getProfession().isEmpty()) {
+            userInfoProfessional.setHint("");
+            userInfoProfessional.setEnabled(false);
+        }
+        userInfoProfessional.setText(user.getProfession());
+        //speak
         userSpeak.setOnClickListener(this);
         if (requestingOthersData && "".equals(user.getSpeak())) {
             layoutSpeak.setVisibility(View.VISIBLE);
@@ -444,6 +463,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         Intent mIntent;
         switch (v.getId()) {
+            case R.id.userinfo_professional_info:
+                SelectDialog.newInstance
+                        ("professional", getActivity(), user, userInfoProfessional, "professional").show(getFragmentManager(), "professional");
+                break;
             case R.id.userinfo_interest_info:
                 PhotoTagsSelectDialog.newInstance("interest", getActivity(), user, handler).show(getFragmentManager(), "interest");
                 break;
@@ -475,7 +498,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 }
                 break;
             case R.id.userinfo_speak_info:
-                SelectDialog.newInstance("speak", getActivity(), user, userSpeak, handler1).show(getFragmentManager(), "speak");
+                SelectDialog.newInstance
+                        ("speak", getActivity(), user, userSpeak, "speak").show(getFragmentManager(), "speak");
                 break;
             case R.id.layout_follow:
                 MobclickAgent.onEvent(getActivity(), "members_follower");

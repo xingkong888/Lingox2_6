@@ -11,6 +11,7 @@ public class StringConstant {
     public static final String emailStr = "email";
     public static final String passwordStr = "password";
     public static final String genderStr = "gender";
+    public static final String professionStr = "profession";
     public static final String interestsStr = "interests";
     public static final String visitedStr = "visited";
     public static final String countryStr = "country";

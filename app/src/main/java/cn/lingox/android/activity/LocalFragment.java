@@ -40,7 +40,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
     // Request Codes
     public static final int ADD_PATH = 101;
     public static final int EDIT_PATH = 102;
-    static final String LOG_TAG = "PathFragment";
+    static final String LOG_TAG = "LocalFragment";
     // Bundle Args
     static final String USER = "USER";
     private static LocalFragment fragment;
@@ -207,7 +207,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 } else {
                     MobclickAgent.onEvent(getActivity(), "add_discover");
                     Intent intent = new Intent(getActivity(), LocalEditActivity.class);
-                    intent.putExtra("PathFragment", 0);
+                    intent.putExtra("LocalFragment", 0);
                     startActivityForResult(intent, ADD_PATH);
                 }
                 break;
@@ -220,13 +220,13 @@ public class LocalFragment extends Fragment implements OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("pathFragment");
+        MobclickAgent.onPageEnd("LocalFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("pathFragment");
+        MobclickAgent.onPageStart("LocalFragment");
     }
 
     private class GetPaths extends AsyncTask<Void, String, Boolean> {

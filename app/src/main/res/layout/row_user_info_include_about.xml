@@ -108,7 +108,41 @@
             android:layout_height="1dp"
             android:background="#c7c7c7" />
     </LinearLayout>
+    <!-- 职业-->
+    <LinearLayout
+        android:id="@+id/layout_professional"
+        style="@style/row_user_info_include_about_linear">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="-1dp"
+            android:background="#c7c7c7" />
+
+        <RelativeLayout style="@style/row_user_info_include_about_relative">
+
+            <TextView
+                android:id="@+id/userinfo_professional"
+                style="@style/row_user_info_include_about_tv_l"
+                android:text="@string/nearby_professional" />
+
+            <TextView
+                android:id="@+id/userinfo_professional_info"
+                style="@style/row_user_info_include_about_tv_r"
+                android:layout_toRightOf="@+id/userinfo_professional"
+                android:hint="@string/user_professional" />
+
+            <ImageView
+                android:id="@+id/jiantou_0"
+                style="@style/right_arrows_iv" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c7c7c7" />
+    </LinearLayout>
+    <!-- speak-->
     <LinearLayout
         android:id="@+id/layout_speak"
         style="@style/row_user_info_include_about_linear">

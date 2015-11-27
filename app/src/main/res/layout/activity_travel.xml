@@ -138,8 +138,7 @@
 
                 <TextView
                     style="@style/wrap_wrap"
-                    android:text="Time:"
-                    android:textColor="@color/main_color" />
+                    android:text="Time:" />
 
                 <TextView
                     android:id="@+id/travel_view_time"
@@ -166,16 +165,14 @@
 
                 <TextView
                     style="@style/wrap_wrap"
-                    android:text="Want to do:"
-                    android:textColor="@color/main_color" />
+                    android:text="Want to do:" />
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/travel_view_tag"
                     style="@style/wrap_wrap"
+                    android:orientation="vertical"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="标签"
-                    android:textColor="@color/black_deep" />
+                    android:paddingRight="5dp" />
 
             </LinearLayout>
             <!-- 描述-->
@@ -184,9 +181,7 @@
                 style="@style/wrap_wrap"
                 android:layout_below="@+id/tag"
                 android:layout_marginLeft="10dp"
-                android:padding="2dp"
-                android:text="ddadadfasf"
-                android:textColor="@color/black_deep" />
+                android:padding="2dp" />
 
             <View
                 android:id="@+id/line_2"
@@ -206,8 +201,7 @@
 
                 <TextView
                     style="@style/wrap_wrap"
-                    android:text="I can offer:"
-                    android:textColor="@color/main_color" />
+                    android:text="I can offer:" />
 
                 <TextView
                     android:id="@+id/travel_view_provide"

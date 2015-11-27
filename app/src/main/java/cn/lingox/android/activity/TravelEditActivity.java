@@ -31,12 +31,14 @@ import cn.lingox.android.activity.select_area.SelectCountry;
 import cn.lingox.android.adapter.MyAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.PathTags;
+import cn.lingox.android.entity.Travel;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CreateTravelEntity;
 import cn.lingox.android.task.EditTravelEntity;
+import cn.lingox.android.task.TravelPlanAsynTask;
 
 /**
  * 创建travel数据
@@ -340,6 +342,9 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 break;
         }
     }
+    //todo 添加和修改旅行计划
+//        new TravelPlanAsynTask(this, travel, "edit").execute();
+//        new TravelPlanAsynTask(this, travel, "create").execute();
 
     /**
      * 创建
@@ -362,12 +367,16 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 setResult(RESULT_OK, intent);
                 finish();
                 pd.dismiss();
-
+                Travel travel = new Travel();
+                travel.setStartTime(entity.getStartTime());
+                travel.setEndTime(entity.getEndTime());
+                travel.setLocation(entity.getLocation());
+                new TravelPlanAsynTask(TravelEditActivity.this, travel, "create").execute();
             }
 
             @Override
             public void onFail() {
-                Toast.makeText(TravelEditActivity.this, "创建失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TravelEditActivity.this, "Create a failure", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         }).execute();
@@ -397,7 +406,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
 
             @Override
             public void onFail() {
-                Toast.makeText(TravelEditActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TravelEditActivity.this, "Modify the failure", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         }).execute();

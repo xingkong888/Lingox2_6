@@ -28,11 +28,11 @@ import cn.lingox.android.utils.SkipDialog;
 /**
  * 展示travel数据
  */
-public class TravelFragment extends Fragment implements View.OnClickListener {
+public class TravelFragmentUserInfo extends Fragment implements View.OnClickListener {
     private static final int ADD_TRAVEL = 1101;//添加的请求码
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
 
-    private static TravelFragment fragment;
+    private static TravelFragmentUserInfo fragment;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private PullToRefreshListView mListView;
@@ -45,9 +45,9 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     private String userId;
 
 
-    public static synchronized TravelFragment newInstance() {
+    public static synchronized TravelFragmentUserInfo newInstance() {
         if (fragment == null) {
-            fragment = new TravelFragment();
+            fragment = new TravelFragmentUserInfo();
         }
         return fragment;
     }
@@ -75,7 +75,7 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
 
                 Intent intent = new Intent(getActivity(), TravelViewActivity.class);
                 intent.putExtra(TravelViewActivity.TRAVEL_VIEW, travelDatas.get(position - 1));
-                startActivityForResult(intent, TravelFragment.EDIT_TRAVEL);
+                startActivityForResult(intent, TravelFragmentUserInfo.EDIT_TRAVEL);
             }
         });
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {

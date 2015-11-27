@@ -12,19 +12,34 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import cn.lingox.android.R;
+import cn.lingox.android.entity.User;
 
-public class PathFragment extends Fragment implements View.OnClickListener {
+public class PathFragmentUserInfo extends Fragment implements View.OnClickListener {
 
     private int fragmentContainerId;
     private Fragment mContent;
     private Button local, travel;
+    private User user;
+    private LocalFragmentUserInfo localFragment;
+    private TravelFragmentUserInfo travelFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_path, container, false);
         FrameLayout fragmentContainer = (FrameLayout) view.findViewById(R.id.path_framelayout);
-
+        if (getArguments() != null) {
+            user = getArguments().getParcelable("USER");
+            localFragment = LocalFragmentUserInfo.newInstance();
+            travelFragment = TravelFragmentUserInfo.newInstance();
+            mContent = localFragment;
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("USER", user);
+            localFragment.setArguments(bundle);
+            travelFragment.setArguments(bundle);
+        } else {
+            mContent = LocalFragmentUserInfo.newInstance();
+        }
         fragmentContainerId = R.id.path_framelayout;
         fragmentContainer.setId(fragmentContainerId);
 
@@ -34,7 +49,7 @@ public class PathFragment extends Fragment implements View.OnClickListener {
         if (oldFragment != null) {
             ft.remove(oldFragment);
         }
-        mContent = LocalFragment.newInstance();
+
         ft.add(fragmentContainerId, mContent);
         ft.commit();
         //本地人
@@ -52,7 +67,7 @@ public class PathFragment extends Fragment implements View.OnClickListener {
         Fragment newFragment;
         switch (v.getId()) {
             case R.id.path_local:
-                newFragment = LocalFragment.newInstance();
+                newFragment = LocalFragmentUserInfo.newInstance();
                 switchContent(newFragment);
                 local.setBackgroundColor(Color.WHITE);
                 travel.setBackgroundColor(getResources().getColor(R.color.three_c7));
@@ -60,7 +75,7 @@ public class PathFragment extends Fragment implements View.OnClickListener {
                 travel.setTextColor(Color.rgb(153, 153, 153));
                 break;
             case R.id.path_travel:
-                newFragment = TravelFragment.newInstance();
+                newFragment = TravelFragmentUserInfo.newInstance();
                 switchContent(newFragment);
                 travel.setBackgroundColor(Color.WHITE);
                 local.setBackgroundColor(getResources().getColor(R.color.three_c7));

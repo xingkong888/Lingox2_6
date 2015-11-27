@@ -67,21 +67,21 @@ public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local, container, false);
-
+        initView(view);
         if (getArguments() != null) {
             User user = getArguments().getParcelable(USER);
             userId = user != null ? user.getId() : null;
         } else {
             userId = null;
         }
-        initView(view);
-        pathList.clear();
-        refreshList();
         if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
             addPathButton.setVisibility(View.GONE);
         } else {
             addPathButton.setVisibility(View.VISIBLE);
         }
+
+        pathList.clear();
+        refreshList();
         return view;
     }
 

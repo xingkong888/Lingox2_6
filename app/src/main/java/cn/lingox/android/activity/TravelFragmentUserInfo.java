@@ -22,6 +22,8 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.TravelEntity;
+import cn.lingox.android.entity.User;
+import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.task.GetAllTravelEntity;
 import cn.lingox.android.utils.SkipDialog;
 
@@ -96,17 +98,17 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
             }
         });
         refreshList();
-//        if (getArguments() != null) {
-//            User user = getArguments().getParcelable(USER);
-//            userId = user != null ? user.getId() : null;
-//        } else {
-//            userId = null;
-//        }
-//        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
-//            addPathButton.setVisibility(View.GONE);
-//        } else {
-//            addPathButton.setVisibility(View.VISIBLE);
-//        }
+        if (getArguments() != null) {
+            User user = getArguments().getParcelable("USER");
+            userId = user != null ? user.getId() : null;
+        } else {
+            userId = null;
+        }
+        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
+            add.setVisibility(View.GONE);
+        } else {
+            add.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 

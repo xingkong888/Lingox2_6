@@ -69,7 +69,6 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
     private int searchLocalOrTravel = 0;//1 Local 2 Travel
     private boolean searchLocal = false, searchMeal = false, searchStay = false;
-
     //活动
     private ArrayList<Path> pathList = new ArrayList<>();
     private ArrayList<User> userList = new ArrayList<>();

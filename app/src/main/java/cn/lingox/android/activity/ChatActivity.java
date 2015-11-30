@@ -274,7 +274,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void initView() {
+    /**
+     * 初始化控件
+     */
+    private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.chat_activity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -391,16 +394,17 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         });
     }
 
+    /**
+     * 设置视图
+     */
     private void setUpView() {
         activityInstance = this;
         iv_emoticons_normal.setOnClickListener(this);
         iv_emoticons_checked.setOnClickListener(this);
         clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        wakeLock = ((PowerManager) getSystemService(POWER_SERVICE))
-                .newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "demo");
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        wakeLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "demo");
         if (chatType == CHATTYPE_SINGLE) {
             toChatUsername = getIntent().getStringExtra("username");
             User toChatUser = CacheHelper.getInstance().getUserInfoFromUsername(toChatUsername);
@@ -411,8 +415,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             EMGroup group = EMGroupManager.getInstance().getGroup(toChatUsername);
             getSupportActionBar().setTitle(group.getGroupName());
         }
-        conversation = EMChatManager.getInstance().getConversation(
-                toChatUsername);
+        conversation = EMChatManager.getInstance().getConversation(toChatUsername);
         conversation.resetUnsetMsgCount();
         adapter = new MessageAdapter(this, toChatUsername, chatType);
         listView.setAdapter(adapter);
@@ -436,22 +439,17 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             }
         });
         receiver = new NewMessageBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter(EMChatManager
-                .getInstance().getNewMessageBroadcastAction());
+        IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
         intentFilter.setPriority(5);
         registerReceiver(receiver, intentFilter);
 
-        IntentFilter ackMessageIntentFilter = new IntentFilter(EMChatManager
-                .getInstance().getAckMessageBroadcastAction());
+        IntentFilter ackMessageIntentFilter = new IntentFilter(EMChatManager.getInstance().getAckMessageBroadcastAction());
         ackMessageIntentFilter.setPriority(5);
         registerReceiver(ackMessageReceiver, ackMessageIntentFilter);
 
-        IntentFilter deliveryAckMessageIntentFilter = new IntentFilter(
-                EMChatManager.getInstance()
-                        .getDeliveryAckMessageBroadcastAction());
+        IntentFilter deliveryAckMessageIntentFilter = new IntentFilter(EMChatManager.getInstance().getDeliveryAckMessageBroadcastAction());
         deliveryAckMessageIntentFilter.setPriority(5);
-        registerReceiver(deliveryAckMessageReceiver,
-                deliveryAckMessageIntentFilter);
+        registerReceiver(deliveryAckMessageReceiver, deliveryAckMessageIntentFilter);
 
         groupListener = new GroupListener();
         EMGroupManager.getInstance().addGroupChangeListener(groupListener);
@@ -464,18 +462,15 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     }
 
     protected void forwardMessage(String forward_msg_id) {
-        EMMessage forward_msg = EMChatManager.getInstance().getMessage(
-                forward_msg_id);
+        EMMessage forward_msg = EMChatManager.getInstance().getMessage(forward_msg_id);
         EMMessage.Type type = forward_msg.getType();
         switch (type) {
             case TXT:
-                String content = ((TextMessageBody) forward_msg.getBody())
-                        .getMessage();
+                String content = ((TextMessageBody) forward_msg.getBody()).getMessage();
                 sendText(content);
                 break;
             case IMAGE:
-                String filePath = ((ImageMessageBody) forward_msg.getBody())
-                        .getLocalUrl();
+                String filePath = ((ImageMessageBody) forward_msg.getBody()).getLocalUrl();
                 if (filePath != null) {
                     File file = new File(filePath);
                     if (!file.exists()) {
@@ -487,6 +482,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CODE_EXIT_GROUP) {
@@ -716,13 +712,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
 
         cameraFile = new File(PathUtil.getInstance().getImagePath(),
-                CacheHelper.getInstance().getSelfInfo().getUsername()
-                        + System.currentTimeMillis() + ".jpg");
+                CacheHelper.getInstance().getSelfInfo().getUsername() + System.currentTimeMillis() + ".jpg");
         cameraFile.getParentFile().mkdirs();
         startActivityForResult(
                 new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(
-                        MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
-                REQUEST_CODE_CAMERA);
+                        MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)), REQUEST_CODE_CAMERA);
     }
 
     private void selectFileFromLocal() {
@@ -732,9 +726,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             intent.setType("*/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
         } else {
-            intent = new Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
     }
@@ -745,9 +737,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
         } else {
-            intent = new Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
@@ -762,8 +752,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private void sendText(String content) {
         if (content.length() > 0) {
             EMMessage message = EMMessage.createSendMessage(EMMessage.Type.TXT);
-            if (chatType == CHATTYPE_GROUP)
+            if (chatType == CHATTYPE_GROUP) {
                 message.setChatType(ChatType.GroupChat);
+            }
             TextMessageBody txtBody = new TextMessageBody(content);
             message.addBody(txtBody);
             message.setReceipt(toChatUsername);
@@ -782,14 +773,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             return;
         }
         try {
-            final EMMessage message = EMMessage
-                    .createSendMessage(EMMessage.Type.VOICE);
-            if (chatType == CHATTYPE_GROUP)
+            final EMMessage message = EMMessage.createSendMessage(EMMessage.Type.VOICE);
+            if (chatType == CHATTYPE_GROUP) {
                 message.setChatType(ChatType.GroupChat);
+            }
             message.setReceipt(toChatUsername);
             int len = Integer.parseInt(length);
-            VoiceMessageBody body = new VoiceMessageBody(new File(filePath),
-                    len);
+            VoiceMessageBody body = new VoiceMessageBody(new File(filePath), len);
             message.addBody(body);
 
             conversation.addMessage(message);
@@ -808,8 +798,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         // create and add image message in view
         final EMMessage message = EMMessage
                 .createSendMessage(EMMessage.Type.IMAGE);
-        if (chatType == CHATTYPE_GROUP)
+        if (chatType == CHATTYPE_GROUP) {
             message.setChatType(ChatType.GroupChat);
+        }
         message.setReceipt(to);
         ImageMessageBody body = new ImageMessageBody(new File(filePath));
         // body.setSendOriginalImage(true);

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/edit_page_0"
     style="@style/match_match"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/i_am"

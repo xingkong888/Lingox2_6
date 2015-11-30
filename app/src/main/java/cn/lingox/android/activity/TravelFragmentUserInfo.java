@@ -44,9 +44,6 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
 
     private int page = 1;//分页加载页码
 
-    private String userId;
-
-
     public static synchronized TravelFragmentUserInfo newInstance() {
         if (fragment == null) {
             fragment = new TravelFragmentUserInfo();
@@ -98,6 +95,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
             }
         });
         refreshList();
+        String userId;
         if (getArguments() != null) {
             User user = getArguments().getParcelable("USER");
             userId = user != null ? user.getId() : null;

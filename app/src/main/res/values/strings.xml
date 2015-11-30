@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--********************************* travel发布***********************************************-->
-    <string name="travel_one">Where are you traveling?</string>
-    <string name="travel_two">How would you like to be hosted by locals?</string>
-    <string name="travel_three">What\'s you time available for this?</string>
-    <string name="travel_four">To be hosted, what would you provide back to the local(s)?</string>
+    <!-- 第一页内容-->
+    <string name="travel_one_country_title">Where are you traveling?</string>
+    <string name="travel_one_country_content">Choose Destination</string>
+    <string name="travel_one_time_title">When are you visiting?</string>
+    <string name="travel_one_time_from">From:</string>
+    <string name="travel_one_time_to">To:</string>
+    <!-- 第二页内容-->
+    <string name="travel_two_title">What do you want to experience with locals?</string>
+    <string name="travel_two_hint">Please describe the detailes that you want to do with locals here.</string>
+    <!-- 第三页内容-->
+    <string name="travel_three_title">Please shoos the type(s) of the experience.</string>
+    <!-- 第四页内容-->
+    <string name="travel_four_title">To be hosted, what would you provide back now or in future?</string>
+    <string name="travel_four_hint">i.e. I can tell my stories/show them around my city in future/teach them how to cook traditional food of my country....</string>
     <!-- ******************************************************************************************-->
     <!--LocalEditActivity-->
     <!-- 创建活动的提示语-->

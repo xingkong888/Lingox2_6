@@ -165,7 +165,7 @@
 
                 <TextView
                     android:id="@+id/search_member_meal"
-                    style="@style/match_match"
+                    style="@style/wrap_wrap"
                     android:layout_below="@id/search_member_stay"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"

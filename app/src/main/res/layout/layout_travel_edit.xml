@@ -19,8 +19,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/active_off_61dp"
-            android:visibility="gone" />
+            android:background="@drawable/active_off_61dp" />
 
         <ImageView
             android:id="@+id/travel_edit_back"
@@ -33,7 +32,7 @@
         <TextView
             android:id="@+id/travel_edit_num"
             style="@style/wrap_wrap"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="14dp"
             android:text="1/4"
             android:textColor="@color/white"
@@ -42,7 +41,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="400dp"
         android:layout_below="@+id/travel_xingqi">
         <!--要去的地方-->
         <include
@@ -52,7 +51,7 @@
         <include
             style="@style/match_match"
             layout="@layout/include_travel_edit_2" />
-        <!--时间段-->
+        <!--选择标签-->
         <include
             style="@style/match_match"
             layout="@layout/include_travel_edit_3" />

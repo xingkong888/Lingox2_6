@@ -95,6 +95,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         super.onStart();
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         setContentView(R.layout.activity_main);
         // ----- TOOLBAR -----
@@ -202,6 +205,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         });
     }
 
+    /**
+     * 设置数据
+     */
     private void initDate() {
         if (!LingoXApplication.getInstance().getSkip()) {//如果是登录进来的，显示名字
             ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
@@ -252,7 +258,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 }
                 break;
             case R.id.search:
-                //TODO 获取当前fragment的位置
                 Intent intent = new Intent(this, SearchActivity.class);
                 switch (viewPager.getCurrentItem()) {
                     case 1://活动
@@ -265,12 +270,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.show_num:
-                //TODO 获取当前fragment的位置
+                //获取当前fragment的位置
                 viewPager.setCurrentItem(0);
                 break;
         }
     }
 
+    /**
+     * 设置头像及国旗
+     */
     private void setAvatar() {
         if (!LingoXApplication.getInstance().getSkip()) {
             tabAdapter.notifyDataSetChanged();
@@ -287,13 +295,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         switch (requestCode) {
             case REQUEST_CODE_SETTINGS:
                 switch (resultCode) {
-                    case RESULT_CODE_LOGOUT:
+                    case RESULT_CODE_LOGOUT://退出登录
                         Intent logoutIntent = new Intent(this, LoginActivity.class);
                         logoutIntent.putExtra(LoginActivity.LOGOUT_REQUESTED, true);
                         startActivity(logoutIntent);
                         finish();
                         break;
-                    case RESULT_CODE_RESET_LANGUAGE:
+                    case RESULT_CODE_RESET_LANGUAGE://重置语言----已停用
                         Intent resetLanguage = new Intent(this, SplashActivity.class);
                         startActivity(resetLanguage);
                         finish();
@@ -333,17 +341,26 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         }
     }
 
+    /**
+     * 键盘按键事件
+     *
+     * @param keyCode 按键码
+     * @param event   事件
+     * @return boolean
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            exitSystem();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    //退出应用
-    private void exit() {
+    /**
+     * 退出应用
+     */
+    private void exitSystem() {
         if ((System.currentTimeMillis() - clickTime) > 2000) {
             Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program", Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
@@ -356,7 +373,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         Thread.sleep(700);
                         MainActivity.this.finish();
                     } catch (Exception e) {
-
+                        Log.e("MainActivity", e.getMessage());
                     }
                 }
             }.start();
@@ -366,7 +383,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     /**
      * 展示chatfragment页面未读信息的条数
      *
-     * @param unread
+     * @param unread 未读信息数量
      */
     @Override
     public void showMessageNum(int unread) {
@@ -387,6 +404,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         }
     }
 
+    /**
+     * Viewpager的适配器
+     */
     private class MainActivityFragmentAdapter extends FragmentPagerAdapter {
         public MainActivityFragmentAdapter(FragmentManager fm) {
             super(fm);

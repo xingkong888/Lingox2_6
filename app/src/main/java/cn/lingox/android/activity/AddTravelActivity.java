@@ -38,7 +38,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     private Calendar calendar = Calendar.getInstance();
 
     private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
-
+    /**
+     * 日期选择监听器
+     */
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 0, 0, 0);
@@ -53,7 +55,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
             }
         }
     };
-
+    /**
+     * 日期选择监听器
+     */
     private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 23, 59, 59);
@@ -79,6 +83,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         }
     }
 
+    /**
+     * 设置数据
+     */
     private void initData() {
         locationInfo.setText(LingoXApplication.getInstance().getLocation(
                 travel.getCountry(), travel.getProvince(), travel.getCity()
@@ -91,6 +98,9 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                 endTimeInfo, JsonHelper.getInstance().parseTimestamp(end, 1));
     }
 
+    /**
+     * 初始化控件
+     */
     private void initView() {
         setContentView(R.layout.row_travel_experiences);
 
@@ -239,8 +249,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new DatePickerDialog(getActivity(), onDateSet, year, month,
-                    day);
+            return new DatePickerDialog(getActivity(), onDateSet, year, month, day);
         }
     }
 }

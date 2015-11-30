@@ -64,18 +64,34 @@ public class AlertDialog1 extends BaseActivity {
         }
     }
 
+    /**
+     * 点击事件
+     *
+     * @param view 被点击的控件
+     */
     public void ok(View view) {
-        setResult(RESULT_OK, new Intent().putExtra("position", position).
-                putExtra("edittext", editText.getText().toString()));
-        if (position != -1)
+        setResult(RESULT_OK, new Intent().putExtra("position", position).putExtra("edittext", editText.getText().toString()));
+        if (position != -1) {
             ChatActivity.resendPos = position;
+        }
         finish();
     }
 
+    /**
+     * 点击事件
+     *
+     * @param view 被点击的控件
+     */
     public void cancel(View view) {
         finish();
     }
 
+    /**
+     * 触摸事件
+     *
+     * @param event 事件
+     * @return boolean
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         finish();

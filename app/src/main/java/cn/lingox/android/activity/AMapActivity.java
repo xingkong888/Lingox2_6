@@ -37,7 +37,9 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 
-
+/**
+ * 高德地图
+ */
 public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener, Inputtips.InputtipsListener {
     //声明变量
     private MapView mapView;
@@ -79,6 +81,11 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         }
     }
 
+    /**
+     * 设置地图
+     *
+     * @param savedInstanceState ""
+     */
     private void setMapView(Bundle savedInstanceState) {
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 必须要写
@@ -98,6 +105,9 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         getAddress(new LatLonPoint(lat, lng));
     }
 
+    /**
+     * 初始化控件
+     */
     private void initView() {
 
         ok = (Button) findViewById(R.id.map_ok);
@@ -173,6 +183,11 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         });
     }
 
+    /**
+     * 发起请求
+     *
+     * @param str ""
+     */
     private void request(String str) {
         if (listView.getVisibility() == View.GONE) {
             listView.setVisibility(View.VISIBLE);
@@ -278,8 +293,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     //地理编码是将中文地址(或地名描述)转换为地理坐标 的回调接口
 
     /**
-     * @param result
-     * @param rCode
+     * @param result 返回结果
+     * @param rCode  ""
      */
     @Override
     public void onGeocodeSearched(GeocodeResult result, int rCode) {

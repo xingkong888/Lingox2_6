@@ -871,12 +871,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
     private void sendLocationMsg(double latitude, double longitude,
                                  String imagePath, String locationAddress) {
-        EMMessage message = EMMessage
-                .createSendMessage(EMMessage.Type.LOCATION);
-        if (chatType == CHATTYPE_GROUP)
+        EMMessage message = EMMessage.createSendMessage(EMMessage.Type.LOCATION);
+        if (chatType == CHATTYPE_GROUP) {
             message.setChatType(ChatType.GroupChat);
-        LocationMessageBody locBody = new LocationMessageBody(locationAddress,
-                latitude, longitude);
+        }
+        LocationMessageBody locBody = new LocationMessageBody(locationAddress, latitude, longitude);
         message.addBody(locBody);
         message.setReceipt(toChatUsername);
         conversation.addMessage(message);
@@ -927,8 +926,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
 
         message.setReceipt(toChatUsername);
-        NormalFileMessageBody body = new NormalFileMessageBody(new File(
-                filePath));
+        NormalFileMessageBody body = new NormalFileMessageBody(new File(filePath));
         message.addBody(body);
 
         conversation.addMessage(message);
@@ -1016,8 +1014,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             list.addAll(reslist.subList(20, reslist.size()));
         }
         list.add("delete_expression");
-        final ExpressionAdapter expressionAdapter = new ExpressionAdapter(this,
-                1, list);
+        final ExpressionAdapter expressionAdapter = new ExpressionAdapter(this, 1, list);
         gv.setAdapter(expressionAdapter);
         gv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -1028,37 +1025,25 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 try {
                     if (buttonSetModeKeyboard.getVisibility() != View.VISIBLE) {
                         if (!filename.equals("delete_expression")) {
-                            Class clz = Class
-                                    .forName(LingoXApplication.PACKAGE_NAME + ".utils.SmileUtils");
+                            Class clz = Class.forName(LingoXApplication.PACKAGE_NAME + ".utils.SmileUtils");
                             Field field = clz.getField(filename);
-                            mEditTextContent.append(SmileUtils.getSmiledText(
-                                    ChatActivity.this, (String) field.get(null)));
+                            mEditTextContent.append(SmileUtils.getSmiledText(ChatActivity.this, (String) field.get(null)));
                         } else {
                             if (!TextUtils.isEmpty(mEditTextContent.getText())) {
-
-                                int selectionStart = mEditTextContent
-                                        .getSelectionStart();
+                                int selectionStart = mEditTextContent.getSelectionStart();
                                 if (selectionStart > 0) {
-                                    String body = mEditTextContent.getText()
-                                            .toString();
-                                    String tempStr = body.substring(0,
-                                            selectionStart);
+                                    String body = mEditTextContent.getText().toString();
+                                    String tempStr = body.substring(0, selectionStart);
                                     int i = tempStr.lastIndexOf("[");
                                     if (i != -1) {
-                                        CharSequence cs = tempStr.substring(i,
-                                                selectionStart);
-                                        if (SmileUtils.containsKey(cs
-                                                .toString()))
-                                            mEditTextContent.getEditableText()
-                                                    .delete(i, selectionStart);
-                                        else
-                                            mEditTextContent.getEditableText()
-                                                    .delete(selectionStart - 1,
-                                                            selectionStart);
+                                        CharSequence cs = tempStr.substring(i, selectionStart);
+                                        if (SmileUtils.containsKey(cs.toString())) {
+                                            mEditTextContent.getEditableText().delete(i, selectionStart);
+                                        } else {
+                                            mEditTextContent.getEditableText().delete(selectionStart - 1, selectionStart);
+                                        }
                                     } else {
-                                        mEditTextContent.getEditableText()
-                                                .delete(selectionStart - 1,
-                                                        selectionStart);
+                                        mEditTextContent.getEditableText().delete(selectionStart - 1, selectionStart);
                                     }
                                 }
                             }
@@ -1072,6 +1057,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         return view;
     }
 
+    //获取图标名
     public List<String> getExpressionRes(int getSum) {
         List<String> reslist = new ArrayList<>();
         for (int x = 1; x <= getSum; x++) {
@@ -1120,8 +1106,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         super.onPause();
         if (wakeLock.isHeld())
             wakeLock.release();
-        if (VoicePlayClickListener.isPlaying
-                && VoicePlayClickListener.currentPlayListener != null) {
+        if (VoicePlayClickListener.isPlaying && VoicePlayClickListener.currentPlayListener != null) {
             VoicePlayClickListener.currentPlayListener.stopPlayVoice();
         }
         try {
@@ -1137,8 +1122,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private void hideKeyboard() {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getCurrentFocus() != null)
-                manager.hideSoftInputFromWindow(getCurrentFocus()
-                        .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

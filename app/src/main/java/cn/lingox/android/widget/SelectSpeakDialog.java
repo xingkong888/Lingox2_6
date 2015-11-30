@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,33 +25,31 @@ import cn.lingox.android.entity.SpeakAndInterest;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.JsonHelper;
 
-public class PhotoTagsSelectDialog extends DialogFragment {
+/**
+ * Created by wuyou on 2015/1/29.
+ */
+public class SelectSpeakDialog extends DialogFragment {
 
+    private static TextView text;
     private static Context context;
-    private static String title;
     private static User user;
-
-    private static ArrayList<String> tags;
+    private static ArrayList<String> speakDatas = new ArrayList<>();
     private static Handler handler;
     private ListView listView;
     private MySelcetAdapter adapter;
     private ArrayList<SpeakAndInterest> datas;
-    private int checkedInterest = 0;
 
-    public static PhotoTagsSelectDialog newInstance(String title1, Context context1, Object obj,
-                                                    Handler handler1) {
-        title = title1;
+    public static SelectSpeakDialog newInstance(Context context1, User user1, TextView text1, Handler handler1) {
+
         context = context1;
-        if (title.contentEquals("interest")) {
-            user = (User) obj;
-        }
+        user = user1;
+        text = text1;
         handler = handler1;
-        tags = new ArrayList<>();
-        tags.clear();
+        speakDatas.clear();
 
-        PhotoTagsSelectDialog editer = new PhotoTagsSelectDialog();
+        SelectSpeakDialog editer = new SelectSpeakDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("title", "speak");
         editer.setArguments(bundle);
         return editer;
     }
@@ -60,26 +59,25 @@ public class PhotoTagsSelectDialog extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate view
         View view = inflater.inflate(R.layout.select_dialog, null);
-
         listView = (ListView) view.findViewById(R.id.listview);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
 
         Button ok = (Button) view.findViewById(R.id.select_ok);
         ok.setVisibility(View.VISIBLE);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!title.contentEquals("photo")) {
-                    user.setInterests(null);
-                    user.setInterests(tags);
+                user.setSpeak(speakDatas.toString().replace("[", "").replace("]", ""));
+                text.setTextColor(Color.rgb(25, 143, 153));
+                text.setText("");
+                text.setText(speakDatas.toString().replace("[", "").replace("]", ""));
 
-                    Message msg = new Message();
-                    msg.what = 1;
-                    msg.obj = user.getInterests().toString().replace("[", "").replace("]", "");
-                    handler.sendMessage(msg);
-                    dismiss();
-                }
+                Message msg = new Message();
+                msg.obj = speakDatas.toString().replace("[", "").replace("]", "");
+                handler.sendMessage(msg);
+                dismiss();
             }
         });
         Button cancel = (Button) view.findViewById(R.id.select_cancel);
@@ -96,70 +94,37 @@ public class PhotoTagsSelectDialog extends DialogFragment {
 
     private void initData() {
         datas = new ArrayList<>();
-        if (!title.contentEquals("photo")) {
-            if (user.getInterests().size() > 0) {
-                for (int i = 0, j = user.getInterests().size(); i < j; i++) {
-                    if (!user.getInterests().get(i).isEmpty()) {
-                        tags.add(user.getInterests().get(i));
-                    }
-                }
+        String[] strs = text.getText().toString().split(",");
+        for (String str : strs) {
+            if (!str.isEmpty()) {
+                speakDatas.add(str.trim());
             }
         }
-
-        String str;
-        for (int i = 0, a = JsonHelper.getInstance().getAllTags().size(); i < a; i++) {
-            str = JsonHelper.getInstance().getAllTags().get(i);
+        for (String str : JsonHelper.getInstance().getLanguages()) {
             SpeakAndInterest speakAndInterest = new SpeakAndInterest();
             speakAndInterest.setStr(str);
             speakAndInterest.setFlg(1);
-            if (title.contentEquals("photo")) {
-                for (int j = 0, b = tags.size(); j < b; j++) {
-                    if (Integer.valueOf(tags.get(j)) == i) {
-                        speakAndInterest.setFlg(2);
-                    }
-                }
-            } else {
-                for (int j = 0, b = tags.size(); j < b; j++) {
-                    if (tags.get(j).contentEquals(str)) {
-                        speakAndInterest.setFlg(2);
-                    }
+            for (int i = 0; i < speakDatas.size(); i++) {
+                if (speakDatas.get(i).contentEquals(str)) {
+                    speakAndInterest.setFlg(2);
                 }
             }
             datas.add(speakAndInterest);
         }
+
         adapter = new MySelcetAdapter();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (title.contentEquals("photo")) {
-                    //无用
-                    if (datas.get(position).getFlg() == 1) {
-                        if (checkedInterest < 3) {
-                            tags.add(String.valueOf(position));
-                            checkedInterest++;
-                            datas.get(position).setFlg(2);
-                            adapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        tags.remove(String.valueOf(position));
-                        checkedInterest--;
-                        datas.get(position).setFlg(1);
-                        adapter.notifyDataSetChanged();
-                    }
+                if (datas.get(position).getFlg() == 2) {
+                    speakDatas.remove(datas.get(position).getStr());
+                    datas.get(position).setFlg(1);
                 } else {
-                    if (datas.get(position).getFlg() == 1) {
-                        if (checkedInterest < 3) {
-                            tags.add(datas.get(position).getStr());
-                            datas.get(position).setFlg(2);
-                            adapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        tags.remove(datas.get(position).getStr());
-                        datas.get(position).setFlg(1);
-                        adapter.notifyDataSetChanged();
-                    }
+                    speakDatas.add(datas.get(position).getStr());
+                    datas.get(position).setFlg(2);
                 }
+                adapter.notifyDataSetChanged();
             }
         });
     }

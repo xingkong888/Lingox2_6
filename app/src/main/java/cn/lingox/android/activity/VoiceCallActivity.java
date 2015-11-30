@@ -97,7 +97,7 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
 
             comingBtnContainer.setVisibility(View.INVISIBLE);
             hangupBtn.setVisibility(View.VISIBLE);
-            // TODO English
+
             callStateTextView.setText("...");
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -108,7 +108,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                 EMChatManager.getInstance().makeVoiceCall(username);
             } catch (EMServiceNotReadyException e) {
                 e.printStackTrace();
-                // TODO English
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(VoiceCallActivity.this, "...", Toast.LENGTH_SHORT).show();
@@ -142,7 +141,6 @@ public class VoiceCallActivity extends BaseActivity implements OnClickListener {
                         });
                         break;
                     case CONNECTED:
-                        // TODO English
                         VoiceCallActivity.this.runOnUiThread(new Runnable() {
 
                             @Override

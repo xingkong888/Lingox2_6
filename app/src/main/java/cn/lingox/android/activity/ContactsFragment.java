@@ -60,8 +60,7 @@ public class ContactsFragment extends Fragment {
     }
 
     public void onListItemClick(int position) {
-        Intent intent = new Intent(getActivity(),
-                UserInfoActivity.class);
+        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
         intent.putExtra(UserInfoActivity.INTENT_USER_ID, adapter.getItem(position).getId());
         startActivity(intent);
     }

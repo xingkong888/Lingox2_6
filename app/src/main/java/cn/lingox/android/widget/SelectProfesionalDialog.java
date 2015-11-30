@@ -24,31 +24,25 @@ import cn.lingox.android.R;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 
-/**
- * Created by wuyou on 2015/1/29.
- */
-public class SelectDialog extends DialogFragment implements View.OnClickListener {
+public class SelectProfesionalDialog extends DialogFragment implements View.OnClickListener {
 
-    private static String which;//标识是哪一个选项
     private static TextView text;
     private static Context context;
     private static User user;
     private ListView listView;
     private ArrayList<String> datas;
 
-    public static SelectDialog newInstance(String title, Context context1, User user1, TextView text1, String which1) {
+    public static SelectProfesionalDialog newInstance(Context context1, User user1, TextView text1) {
 
         context = context1;
         user = user1;
-        which = which1;
         text = text1;
 
-        SelectDialog editer = new SelectDialog();
+        SelectProfesionalDialog editer = new SelectProfesionalDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("title", "professional");
         editer.setArguments(bundle);
         return editer;
     }
@@ -62,8 +56,6 @@ public class SelectDialog extends DialogFragment implements View.OnClickListener
 
         Button cancel = (Button) view.findViewById(R.id.select_cancel);
         cancel.setOnClickListener(this);
-        Button ok = (Button) view.findViewById(R.id.select_cancel);
-        ok.setOnClickListener(this);
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -77,48 +69,25 @@ public class SelectDialog extends DialogFragment implements View.OnClickListener
             case R.id.select_cancel:
                 dismiss();
                 break;
-            case R.id.select_ok:
-                new UpdateUserInfo("speak").execute();
-                break;
         }
     }
 
     private void initData() {
         datas = new ArrayList<>();
-        switch (which) {
-            case "speak":
-                for (String str : JsonHelper.getInstance().getLanguages()) {
-                    datas.add(str);
-                }
-                break;
-            case "professional":
-                for (String str : getResources().getStringArray(R.array.major)) {
-                    datas.add(str);
-                }
-                break;
+        for (String str : getResources().getStringArray(R.array.major)) {
+            datas.add(str);
         }
         MySelcetAdapter adapter = new MySelcetAdapter();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (which) {
-                    case "speak":
-                        if (position != 0) {
-                            user.setSpeak("" + datas.get(position));
-                            text.setTextColor(Color.rgb(25, 143, 153));
-                            text.setText("" + datas.get(position));
-                        }
-                        break;
-                    case "professional":
-                        if (position != 0) {
-                            user.setProfession("" + datas.get(position));
-                            text.setTextColor(Color.rgb(25, 143, 153));
-                            text.setText("" + datas.get(position));
-                        }
-                        break;
+                if (position != 0) {
+                    user.setProfession(datas.get(position));
+                    text.setTextColor(Color.rgb(25, 143, 153));
+                    text.setText(datas.get(position));
                 }
-                new UpdateUserInfo(which).execute();
+                new UpdateUserInfo("professional").execute();
                 dismiss();
             }
         });
@@ -161,7 +130,6 @@ public class SelectDialog extends DialogFragment implements View.OnClickListener
                 CacheHelper.getInstance().setSelfInfo(returnUser);
                 return true;
             } catch (final Exception e) {
-//                Log.e(LOG_TAG, "UpdateUserInfo exception caught: " + e.toString());
                 publishProgress(null, "Error updating account information");
                 return false;
             }

@@ -25,6 +25,7 @@ public class ContactsActivity extends ActionBarActivity implements OnClickListen
         initView();
     }
 
+    //初始化控件实例
     private void initView() {
         ImageView back = (ImageView) findViewById(R.id.back_button);
         back.setOnClickListener(this);

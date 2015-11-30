@@ -98,7 +98,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private TextView pathJoinedUserNum;
 
     private HListView joinedUsersListView;
-    private LinearLayout commentsListView, commentsSend;
+    private LinearLayout commentsSend, commentsListView;
     private RelativeLayout layout;
     private EditText commentEditText;
     private Button commentSendButton;
@@ -120,7 +120,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private int scrollViewHight;
     private int commentHeight;
     private LinearLayout pathView, pathTime, likeLayout, commitLayout, layoutThree;
-
     private boolean isApply = false;
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
     private int[] startLocations = new int[2];
@@ -231,6 +230,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
 
         commentsListView = (LinearLayout) findViewById(R.id.path_view_comments_list);
+
         commentsSend = (LinearLayout) findViewById(R.id.path_view_comment_bar);
         //包含like、chat和share的layout
         layoutThree = (LinearLayout) findViewById(R.id.path_view_like_chat_share);
@@ -684,7 +684,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    public View getCommentView(final int position) {
+    private View getCommentView(final int position) {
         View rowView = getLayoutInflater().inflate(R.layout.row_path_comment, null);
         final Comment comment = commentsList.get(position);
 

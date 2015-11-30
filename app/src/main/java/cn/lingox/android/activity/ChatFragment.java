@@ -161,8 +161,7 @@ public class ChatFragment extends Fragment {
         try {
             show = (showNum) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement showNum");
+            throw new ClassCastException(activity.toString() + " must implement showNum");
         }
         super.onAttach(activity);
     }
@@ -187,8 +186,7 @@ public class ChatFragment extends Fragment {
             cmdMessageIntentFilter.setPriority(3);
             getActivity().registerReceiver(cmdMessageReceiver, cmdMessageIntentFilter);
 
-            EMChatManager.getInstance().addConnectionListener(
-                    new MyConnectionListener());
+            EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
             EMChat.getInstance().setAppInited();
             new ConnectToHuanXin(CacheHelper.getInstance().getSelfInfo().getUsername(), CacheHelper.getInstance().getPassword()).execute();
         }
@@ -213,7 +211,6 @@ public class ChatFragment extends Fragment {
         }
 
         listView = (ListView) view.findViewById(R.id.chat_list);
-
         datas = new ArrayList<>();
         //下载通知
         if (!isSkip) {
@@ -274,7 +271,6 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
-
         registerForContextMenu(listView);
 
         //  there's a better way to do this most likely using manifest or something
@@ -283,12 +279,10 @@ public class ChatFragment extends Fragment {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (getActivity().getWindow().getAttributes().softInputMode
-                        != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+                if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
                     if (getActivity().getCurrentFocus() != null)
                         inputMethodManager.hideSoftInputFromWindow(
-                                getActivity().getCurrentFocus().getWindowToken(),
-                                InputMethodManager.HIDE_NOT_ALWAYS);
+                                getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 return false;
             }
@@ -296,8 +290,7 @@ public class ChatFragment extends Fragment {
         if (!isFirst) {
             refresh();
         }
-        if (getActivity().getIntent().getBooleanExtra("conflict", false)
-                && !isConflictDialogShow) {
+        if (getActivity().getIntent().getBooleanExtra("conflict", false) && !isConflictDialogShow) {
             showConflictDialog();
         }
         return view;
@@ -348,10 +341,8 @@ public class ChatFragment extends Fragment {
                 break;
             case LingoNotification.TYPE_INDENT_FINISH://申请完成---暂时有问题
                 Intent mIntent3 = new Intent(getActivity(), ReferenceActivity.class);
-                mIntent3.putExtra(UserInfoFragment.TARGET_USER_ID,
-                        notify.getUser_src());
-                mIntent3.putExtra(UserInfoFragment.TARGET_USER_NAME,
-                        CacheHelper.getInstance().getSelfInfo().getNickname());
+                mIntent3.putExtra(UserInfoFragment.TARGET_USER_ID, notify.getUser_src());
+                mIntent3.putExtra(UserInfoFragment.TARGET_USER_NAME, CacheHelper.getInstance().getSelfInfo().getNickname());
                 if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
                 }
@@ -359,8 +350,7 @@ public class ChatFragment extends Fragment {
                 break;
             case LingoNotification.TYPE_TRAVEL_LIKED://liked旅行者发布的问题
                 Intent mIntent10 = new Intent(getActivity(), TravelViewActivity.class);
-                mIntent10.putExtra(TravelViewActivity.TRAVEL_ID,
-                        notify.getDemand_id());
+                mIntent10.putExtra(TravelViewActivity.TRAVEL_ID, notify.getDemand_id());
                 if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
                 }
@@ -505,7 +495,7 @@ public class ChatFragment extends Fragment {
         } else {
             stopAnim();
         }
-        //TODO 向activity传递数据
+        //向activity传递数据
         show.showMessageNum(unreadMSG + unreadNotify);
         loading.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
@@ -645,6 +635,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    //接口--向MainActivity传递未读数据的个数
     public interface showNum {
         void showMessageNum(int unread);
     }

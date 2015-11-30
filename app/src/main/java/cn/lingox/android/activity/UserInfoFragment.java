@@ -46,7 +46,8 @@ import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.widget.PhotoTagsSelectDialog;
 import cn.lingox.android.widget.PlacesDialog;
-import cn.lingox.android.widget.SelectDialog;
+import cn.lingox.android.widget.SelectProfesionalDialog;
+import cn.lingox.android.widget.SelectSpeakDialog;
 import it.sephiroth.android.library.widget.HListView;
 
 public class UserInfoFragment extends Fragment implements OnClickListener {
@@ -72,7 +73,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private boolean stay = false;
     private View v;
     // UI Elements
-    private TextView userInsterest, time, userName, userIdAndPlace, userSexAndAge, userFollow, userFollowing, userReference, userFollow_, userFollowing_, userReference_,
+    private TextView userInsterest, time, userName, userIdAndPlace, userSexAndAge, userFollow, userFollowing, userReference,
             userEdit, userAddFollow, userSpeak, userAge, userSex, userLocal, userMeal, userStay,
             availableLocal, availableMeal, availableStay, localTitle, travelTitle, localNothing1, travelNothing1, localNothing2, travelNothing2,
             aboutSelf1, aboutSelf2, userInfoProfessional, userInfoPlaces, about;
@@ -134,11 +135,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         if (getArguments().containsKey(USER)) {
             user = getArguments().getParcelable(USER);
         }
-        if (LingoXApplication.getInstance().getSkip()) {
-            requestingOthersData = false;
-        } else {
-            requestingOthersData = user != null && user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
-        }
+        requestingOthersData =
+                !LingoXApplication.getInstance().getSkip() &&
+                        user != null &&
+                        user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
         initView();
         initData();
     }
@@ -278,12 +278,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
 
         //设置登录和注册时间
         if (user.getLoginTime().isEmpty()) {
-            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")
-            );
+            time.setText(new StringBuilder().append("Member Since ").append(
+                    TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")));
         } else {
-            time.setText("Member Since\t" + TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")
-                            + "\tActive:" + TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)
-            );
+            time.setText(new StringBuilder().append("Member Since ")
+                    .append(TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo"))
+                    .append(" Active:")
+                    .append(TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)));
         }
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values
@@ -292,10 +293,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
-                            userSexAndAge.setText(getString(R.string.userinfo_male) + ", " + user.getUserAge());
+                            userSexAndAge.setText(
+                                    new StringBuilder().append(getString(R.string.userinfo_male)).append(", ").append(
+                                            user.getUserAge()));
                             break;
                         case "Female":
-                            userSexAndAge.setText(getString(R.string.userinfo_female) + ", " + user.getUserAge());
+                            userSexAndAge.setText(new StringBuilder().append(getString(R.string.userinfo_female)).append(", ").append(
+                                    user.getUserAge()));
                             break;
                     }
                 } else {
@@ -342,9 +346,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
 
         UIHelper uiHelper = UIHelper.getInstance();
-        if (requestingOthersData && "".equals(user.getSignature())) {
+        if (requestingOthersData && user.getSignature().isEmpty()) {
             layoutSelf.setVisibility(View.VISIBLE);
-        } else if (requestingOthersData && !"".equals(user.getSignature())) {
+        } else if (requestingOthersData && !user.getSignature().isEmpty()) {
             layoutSelf.setVisibility(View.VISIBLE);
         } else if (!"".equals(user.getSignature())) {
             layoutSelf.setVisibility(View.VISIBLE);
@@ -356,11 +360,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userInfoProfessional.setHint("");
         }
         //职业
-        userInfoProfessional.setOnClickListener(this);
-        if (requestingOthersData && user.getProfession().isEmpty()) {
-            userInfoProfessional.setOnClickListener(this);
-            userInfoProfessional.setTextColor(Color.rgb(25, 143, 153));
-        } else if (requestingOthersData && !user.getProfession().isEmpty()) {
+        if (requestingOthersData) {
             userInfoProfessional.setOnClickListener(this);
             userInfoProfessional.setTextColor(Color.rgb(25, 143, 153));
         } else if (!user.getProfession().isEmpty()) {
@@ -369,24 +369,19 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         }
         userInfoProfessional.setText(user.getProfession());
         //speak
-        userSpeak.setOnClickListener(this);
-        if (requestingOthersData && "".equals(user.getSpeak())) {
-            layoutSpeak.setVisibility(View.VISIBLE);
-        } else if (requestingOthersData && !"".equals(user.getSpeak())) {
+        if (requestingOthersData) {
+            userSpeak.setOnClickListener(this);
             layoutSpeak.setVisibility(View.VISIBLE);
             userSpeak.setTextColor(Color.rgb(25, 143, 153));
-            userSpeak.setText(user.getSpeak());
-        } else if (!"".equals(user.getSpeak())) {
+        } else if (!user.getSpeak().isEmpty()) {
             userSpeak.setHint("");
             userSpeak.setEnabled(false);
             layoutSpeak.setVisibility(View.VISIBLE);
-            userSpeak.setText(user.getSpeak());
         }
+        userSpeak.setText(user.getSpeak());
+
         String str2;
-        if (requestingOthersData && user.getInterests().isEmpty()) {
-            userInsterest.setOnClickListener(this);
-            userInsterest.setTextColor(Color.rgb(25, 143, 153));
-        } else if (requestingOthersData && !user.getInterests().isEmpty()) {
+        if (requestingOthersData) {
             userInsterest.setTextColor(Color.rgb(25, 143, 153));
             str2 = user.getInterests().toString().substring(1, user.getInterests().toString().length() - 1);
             userInsterest.setText(str2);
@@ -400,19 +395,17 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 userInsterest.setHint("");
             }
         }
-        if (requestingOthersData && user.getVisited().isEmpty()) {
-            userInfoPlaces.setOnClickListener(this);
-            userInfoPlaces.setTextColor(Color.rgb(25, 143, 153));
-        } else if (requestingOthersData && !user.getVisited().isEmpty()) {
+        if (requestingOthersData) {
             userInfoPlaces.setOnClickListener(this);
             userInfoPlaces.setTextColor(Color.rgb(25, 143, 153));
         } else if (!user.getVisited().isEmpty()) {
             userInfoPlaces.setHint("");
             userInfoPlaces.setEnabled(false);
         }
-        userIdAndPlace.setText("ID:" + user.getUsername());
+        userIdAndPlace.setText(new StringBuilder().append("ID:").append(user.getUsername()));
         if (!user.getLocation().isEmpty()) {
-            userIdAndPlace.setText(userIdAndPlace.getText() + ",\t" + user.getLocation());
+            userIdAndPlace.setText(new StringBuilder().
+                    append(userIdAndPlace.getText()).append(", ").append(user.getLocation()));
         }
         if (user.getHomeMeal()) {
             userMeal.setVisibility(View.VISIBLE);
@@ -464,8 +457,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         Intent mIntent;
         switch (v.getId()) {
             case R.id.userinfo_professional_info:
-                SelectDialog.newInstance
-                        ("professional", getActivity(), user, userInfoProfessional, "professional").show(getFragmentManager(), "professional");
+                SelectProfesionalDialog.newInstance(getActivity(), user, userInfoProfessional).show(getFragmentManager(), "professional");
                 break;
             case R.id.userinfo_interest_info:
                 PhotoTagsSelectDialog.newInstance("interest", getActivity(), user, handler).show(getFragmentManager(), "interest");
@@ -498,8 +490,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 }
                 break;
             case R.id.userinfo_speak_info:
-                SelectDialog.newInstance
-                        ("speak", getActivity(), user, userSpeak, "speak").show(getFragmentManager(), "speak");
+                SelectSpeakDialog.newInstance(getActivity(), user, userSpeak, handler1).show(getFragmentManager(), "speak");
                 break;
             case R.id.layout_follow:
                 MobclickAgent.onEvent(getActivity(), "members_follower");
@@ -549,13 +540,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.layout_available_local:
                 if (!local) {
-                    user.setLocalGuide(local);
+                    user.setLocalGuide(false);
                     local = true;
                     userLocal.setVisibility(View.VISIBLE);
                     availableLocal.setTextColor(Color.rgb(25, 143, 153));
                     availableLocal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
-                    user.setLocalGuide(local);
+                    user.setLocalGuide(true);
                     local = false;
                     userLocal.setVisibility(View.INVISIBLE);
                     availableLocal.setTextColor(Color.rgb(171, 171, 171));
@@ -565,13 +556,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.layout_available_meal:
                 if (!meal) {
-                    user.setHomeMeal(meal);
+                    user.setHomeMeal(false);
                     meal = true;
                     userMeal.setVisibility(View.VISIBLE);
                     availableMeal.setTextColor(Color.rgb(25, 143, 153));
                     availableMeal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
-                    user.setHomeMeal(meal);
+                    user.setHomeMeal(true);
                     meal = false;
                     userMeal.setVisibility(View.INVISIBLE);
                     availableMeal.setTextColor(Color.rgb(171, 171, 171));
@@ -581,13 +572,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.layout_available_stay:
                 if (!stay) {
-                    user.setHomeStay(stay);
+                    user.setHomeStay(false);
                     stay = true;
                     userStay.setVisibility(View.VISIBLE);
                     availableStay.setTextColor(Color.rgb(25, 143, 153));
                     availableStay.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
-                    user.setHomeStay(stay);
+                    user.setHomeStay(true);
                     stay = false;
                     userStay.setVisibility(View.INVISIBLE);
                     availableStay.setTextColor(Color.rgb(171, 171, 171));
@@ -604,7 +595,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(LOG_TAG, "onActivityResult():");
         switch (requestCode) {
             case EDIT_USER:
                 //FIXME The check for result code is commented out so that even when we change avatar, we still reload user info

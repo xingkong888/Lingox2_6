@@ -46,8 +46,7 @@ public class UserPhotosAdapter extends BaseAdapter {
         Photo photo = photoList.get(position);
 
         if (gridView == null) {
-            gridView = LayoutInflater.from(context).inflate(
-                    R.layout.item_published_grida, null);
+            gridView = LayoutInflater.from(context).inflate(R.layout.item_published_grida, null);
             holder = new ViewHolder();
             holder.photo = (ImageView) gridView.findViewById(R.id.item_grida_image);
             holder.photo.setFocusableInTouchMode(true);

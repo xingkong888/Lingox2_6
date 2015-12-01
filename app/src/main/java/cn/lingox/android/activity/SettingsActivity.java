@@ -75,7 +75,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
         iv_switch_close_speaker = (ImageView) findViewById(R.id.iv_switch_close_speaker);
         Button logoutBtn = (Button) findViewById(R.id.btn_logout);
         LinearLayout back = (LinearLayout) findViewById(R.id.layout_back);
-        logoutBtn.setText(getString(R.string.button_logout) + "(" + CacheHelper.getInstance().getSelfInfo().getUsername() + ")");
+        logoutBtn.setText(new StringBuilder().append(getString(R.string.button_logout)).append("(").append(CacheHelper.getInstance().getSelfInfo().getUsername()).append(")"));
 
         textview1 = (TextView) findViewById(R.id.textview1);
         textview2 = (TextView) findViewById(R.id.textview2);

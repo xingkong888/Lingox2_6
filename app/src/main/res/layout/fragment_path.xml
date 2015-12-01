@@ -30,4 +30,9 @@
         style="@style/match_match"
         android:layout_below="@+id/xxx" />
 
+    <cn.lingox.android.widget.MyViewPager
+        android:id="@+id/path_view_pager"
+        style="@style/match_match"
+        android:layout_below="@+id/xxx" />
+
 </RelativeLayout>

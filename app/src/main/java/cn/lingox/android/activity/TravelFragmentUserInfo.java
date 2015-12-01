@@ -34,7 +34,6 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
     private static final int ADD_TRAVEL = 1101;//添加的请求码
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
 
-    private static TravelFragmentUserInfo fragment;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private PullToRefreshListView mListView;
@@ -43,13 +42,6 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
     private ArrayList<TravelEntity> travelDatas;
 
     private int page = 1;//分页加载页码
-
-    public static synchronized TravelFragmentUserInfo newInstance() {
-        if (fragment == null) {
-            fragment = new TravelFragmentUserInfo();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

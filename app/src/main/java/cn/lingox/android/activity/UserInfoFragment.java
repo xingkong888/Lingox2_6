@@ -44,6 +44,7 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.LoadUserReferences;
 import cn.lingox.android.widget.PhotoTagsSelectDialog;
 import cn.lingox.android.widget.PlacesDialog;
 import cn.lingox.android.widget.SelectProfesionalDialog;
@@ -96,6 +97,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private EditText tagsView = null;//about
     private TextView line;
     private boolean editOrOk = false;//表示标签状态 false：完成 true：编辑
+
+    private LinearLayout follow, following, reference;
 
     private ArrayList<String> placesList = new ArrayList<>();
     private ArrayList<String> list = new ArrayList<>();
@@ -182,14 +185,19 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userIdAndPlace = (TextView) v.findViewById(R.id.userinfo_id);
         userSexAndAge = (TextView) v.findViewById(R.id.userinfo_sex);
 
-        v.findViewById(R.id.layout_follow).setOnClickListener(this);
-        v.findViewById(R.id.layout_following).setOnClickListener(this);
-        v.findViewById(R.id.layout_reference).setOnClickListener(this);
+        follow = (LinearLayout) v.findViewById(R.id.layout_follow);
+        follow.setOnClickListener(this);
+        follow.setClickable(false);
+        following = (LinearLayout) v.findViewById(R.id.layout_following);
+        following.setOnClickListener(this);
+        following.setClickable(false);
+        reference = (LinearLayout) v.findViewById(R.id.layout_reference);
+        reference.setOnClickListener(this);
+        reference.setClickable(false);
 
-        userFollow = (TextView) v.findViewById(R.id.userinfo_follow);
-        userFollowing = (TextView) v.findViewById(R.id.userinfo_following);
+        userFollowing = (TextView) v.findViewById(R.id.userinfo_follow);
+        userFollow = (TextView) v.findViewById(R.id.userinfo_following);
         userReference = (TextView) v.findViewById(R.id.userinfo_reference);
-
         userAddFollow = (TextView) v.findViewById(R.id.userinfo_add_follow);
         userAddFollow.setOnClickListener(this);
         v.findViewById(R.id.userinfo_chat).setOnClickListener(this);
@@ -311,7 +319,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 }
             }
         } else {
-            if (!"".equals(user.getGender())) {
+            if (!user.getGender().isEmpty()) {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
@@ -350,7 +358,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             layoutSelf.setVisibility(View.VISIBLE);
         } else if (requestingOthersData && !user.getSignature().isEmpty()) {
             layoutSelf.setVisibility(View.VISIBLE);
-        } else if (!"".equals(user.getSignature())) {
+        } else if (!user.getSignature().isEmpty()) {
             layoutSelf.setVisibility(View.VISIBLE);
         }
         if (!requestingOthersData) {
@@ -448,7 +456,29 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         super.onResume();
         new LoadUserFollowing().execute();
         new LoadFollowUser().execute();
-        new LoadUserReferences().execute();
+
+        new LoadUserReferences(user.getId(), new LoadUserReferences.Callback() {
+            @Override
+            public void onSuccess(ArrayList<Reference> list) {
+                referenceList.clear();
+                referenceList.addAll(list);
+                for (int i = 0, j = referenceList.size(); i < j; i++) {
+                    try {
+                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
+                        CacheHelper.getInstance().addUserInfo(user);
+                    } catch (Exception e2) {
+                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
+                    }
+                }
+                userReference.setText(String.valueOf(referenceList.size()));
+                reference.setClickable(true);
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(getActivity(), getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
+            }
+        }).execute();
         MobclickAgent.onPageStart("UserInfoFragment");
     }
 
@@ -876,7 +906,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             final int newRelationCode = user.getRelation() == 1 ? 2 : 1;
             try {
                 // If we are already Following them, set relationCode to unfollow and vice versa
-                // TODO Extract to constants somewhere
                 user.setRelation(newRelationCode);
                 ServerHelper.getInstance().userRelationChange(CacheHelper.getInstance().getSelfInfo().getId(), user.getId(), newRelationCode);
                 CacheHelper.getInstance().addUserInfo(user);
@@ -992,7 +1021,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            userFollowing.setClickable(false);
             userFollowingList.clear();
         }
 
@@ -1012,8 +1040,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPostExecute(success);
             if (isAdded()) {
                 if (success) {
-                    userFollow.setText(String.valueOf(userFollowingList.size()));
-                    userFollow.setClickable(true);
+                    userFollowing.setText(String.valueOf(userFollowingList.size()));
+                    following.setClickable(true);
                 } else {
                     Toast.makeText(getActivity(), "Failed to get User's Contacts", Toast.LENGTH_LONG).show();
                 }
@@ -1026,7 +1054,6 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            userFollow.setClickable(false);
             followUserList.clear();
         }
 
@@ -1046,52 +1073,10 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPostExecute(success);
             if (isAdded()) {
                 if (success) {
-                    userFollowing.setText(String.valueOf(followUserList.size()));
-                    userFollowing.setClickable(true);
+                    userFollow.setText(String.valueOf(followUserList.size()));
+                    follow.setClickable(true);
                 } else {
                     Toast.makeText(getActivity(), "Failed to get User's Followers", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
-
-    private class LoadUserReferences extends AsyncTask<Void, String, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            userReference.setClickable(false);
-            referenceList.clear();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            boolean success = false;
-            try {
-                referenceList.addAll(ServerHelper.getInstance().getUsersReferences(user.getId()));
-                success = true;
-                for (int i = 0, j = referenceList.size(); i < j; i++) {
-                    try {
-                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
-                        CacheHelper.getInstance().addUserInfo(user);
-                    } catch (Exception e2) {
-                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception caught: " + e.toString());
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (isAdded()) {
-                if (success) {
-                    userReference.setText(String.valueOf(referenceList.size()));
-                    userReference.setClickable(true);
-                } else {
-                    Toast.makeText(getActivity(), getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
                 }
             }
         }

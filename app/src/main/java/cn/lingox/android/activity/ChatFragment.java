@@ -59,6 +59,7 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.service.NotificationService;
 import cn.lingox.android.task.GetUser;
+import cn.lingox.android.task.LoadUserReferences;
 
 public class ChatFragment extends Fragment {
     private static final String LOG_TAG = "ChatFragment";
@@ -331,13 +332,13 @@ public class ChatFragment extends Fragment {
                 startActivity(mIntent1);
                 break;
             case LingoNotification.TYPE_USER_COMMENT://用户评论
-                Intent mIntent2 = new Intent(getActivity(), ReferenceActivity.class);
+                final Intent mIntent2 = new Intent(getActivity(), ReferenceActivity.class);
                 mIntent2.putExtra(UserInfoFragment.TARGET_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
                 mIntent2.putExtra(UserInfoFragment.TARGET_USER_NAME, user.getNickname());
                 if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
                 }
-                new LoadUserReferences(mIntent2).execute(user.getId());
+                getReferences(user.getId(), mIntent2);
                 break;
             case LingoNotification.TYPE_INDENT_FINISH://申请完成---暂时有问题
                 Intent mIntent3 = new Intent(getActivity(), ReferenceActivity.class);
@@ -346,7 +347,7 @@ public class ChatFragment extends Fragment {
                 if (!notify.getRead()) {
                     new ReadNotification().execute(notify);
                 }
-                new LoadUserReferences(mIntent3).execute(notify.getUser_src());
+                getReferences(notify.getUser_src(), mIntent3);
                 break;
             case LingoNotification.TYPE_TRAVEL_LIKED://liked旅行者发布的问题
                 Intent mIntent10 = new Intent(getActivity(), TravelViewActivity.class);
@@ -357,6 +358,37 @@ public class ChatFragment extends Fragment {
                 startActivity(mIntent10);
                 break;
         }
+    }
+
+    /**
+     * 获取用户的评论
+     *
+     * @param userId 用户id
+     * @param intent 完成后的意图
+     */
+    private void getReferences(String userId, final Intent intent) {
+        new LoadUserReferences(userId, new LoadUserReferences.Callback() {
+            @Override
+            public void onSuccess(ArrayList<Reference> list) {
+                referenceList.addAll(list);
+//                success = true;
+                for (int i = 0, j = referenceList.size(); i < j; i++) {
+                    try {
+                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
+                        CacheHelper.getInstance().addUserInfo(user);
+                    } catch (Exception e2) {
+                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
+                    }
+                }
+                intent.putParcelableArrayListExtra(UserInfoFragment.REFERENCES, referenceList);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(getActivity(), getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
+            }
+        }).execute();
     }
 
     @Override
@@ -903,55 +935,6 @@ public class ChatFragment extends Fragment {
                 }
             });
             return null;
-        }
-    }
-
-    //获取用户评论
-    private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
-        private Intent intent;
-
-        public LoadUserReferences(Intent mIntent) {
-            intent = mIntent;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            referenceList.clear();
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
-            try {
-                referenceList.addAll(ServerHelper.getInstance().getUsersReferences(
-                        CacheHelper.getInstance().getSelfInfo().getId()));
-                success = true;
-                for (int i = 0, j = referenceList.size(); i < j; i++) {
-                    try {
-                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
-                        CacheHelper.getInstance().addUserInfo(user);
-                    } catch (Exception e2) {
-                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception caught: " + e.toString());
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (isAdded()) {
-                if (success) {
-                    intent.putParcelableArrayListExtra(UserInfoFragment.REFERENCES, referenceList);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
-                }
-            }
         }
     }
 }

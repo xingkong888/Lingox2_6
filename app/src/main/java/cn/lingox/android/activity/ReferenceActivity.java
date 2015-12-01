@@ -27,6 +27,7 @@ import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
+import cn.lingox.android.task.LoadUserReferences;
 
 public class ReferenceActivity extends Activity implements OnClickListener {
     public static final String INTENT_USER_REFERENCE = LingoXApplication.PACKAGE_NAME + ".USER_REFERENCE";
@@ -60,7 +61,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            new LoadUserReferences().execute(userId);
+            getReference(userId);
         }
     };
 
@@ -80,7 +81,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         } else {
             referenceList = new ArrayList<>();
             pb.setVisibility(View.VISIBLE);
-            new LoadUserReferences().execute(userId);
+            getReference(userId);
         }
     }
 
@@ -121,6 +122,36 @@ public class ReferenceActivity extends Activity implements OnClickListener {
 
     private void updateList() {
         arrayAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 获取用户的评论
+     *
+     * @param id 用户id
+     */
+    private void getReference(String id) {
+        new LoadUserReferences(id, new LoadUserReferences.Callback() {
+            @Override
+            public void onSuccess(ArrayList<Reference> list) {
+                referenceList.clear();
+                referenceList.addAll(list);
+                for (int i = 0, j = referenceList.size(); i < j; i++) {
+                    try {
+                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
+                        CacheHelper.getInstance().addUserInfo(user);
+                    } catch (Exception e2) {
+                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
+                    }
+                }
+                pb.setVisibility(View.INVISIBLE);
+                initData();
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(getApplicationContext(), "Failed to get User's References", Toast.LENGTH_LONG).show();
+            }
+        }).execute();
     }
 
     @Override
@@ -246,47 +277,6 @@ public class ReferenceActivity extends Activity implements OnClickListener {
                 new AlertDialog.Builder(ReferenceActivity.this)
                         .setMessage("You two need to follow each other")
                         .create().show();
-            }
-        }
-    }
-
-    //下载评论
-    private class LoadUserReferences extends AsyncTask<String, String, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            referenceList.clear();
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
-            try {
-                referenceList.addAll(ServerHelper.getInstance().getUsersReferences(params[0]));
-                success = true;
-                for (int i = 0, j = referenceList.size(); i < j; i++) {
-                    try {
-                        User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
-                        CacheHelper.getInstance().addUserInfo(user);
-                    } catch (Exception e2) {
-                        Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception caught: " + e.toString());
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            pb.setVisibility(View.INVISIBLE);
-            if (success) {
-                initData();
-            } else {
-                Toast.makeText(getApplicationContext(), "Failed to get User's References", Toast.LENGTH_LONG).show();
             }
         }
     }

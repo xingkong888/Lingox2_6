@@ -135,7 +135,6 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                                                         content);
 
                                         Intent returnIntent = new Intent();
-                                        // TODO we dont need both of these
                                         returnIntent.putExtra(REFERENCE_BEFORE_EDIT,
                                                 reference);
                                         returnIntent.putExtra(REFERENCE_AFTER_EDIT,

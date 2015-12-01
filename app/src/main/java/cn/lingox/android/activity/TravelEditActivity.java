@@ -51,7 +51,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     private static final int SELECT_LOCATION = 2013;
 
 
-    private ImageView bg, close, back;
+    private ImageView bg, back;
     private LinearLayout page1, page2, page3, page4;
     private EditText describe;//traveling
     private MyAdapter adapter;
@@ -149,7 +149,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         next.setOnClickListener(this);
         back = (ImageView) findViewById(R.id.travel_edit_back);
         back.setOnClickListener(this);
-        close = (ImageView) findViewById(R.id.travel_edit_close);
+        ImageView close = (ImageView) findViewById(R.id.travel_edit_close);
         close.setOnClickListener(this);
         pageNum = (TextView) findViewById(R.id.travel_edit_num);
 //        第一页

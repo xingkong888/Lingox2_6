@@ -43,7 +43,6 @@ public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
     static final String LOG_TAG = "LocalFragment";
     // Bundle Args
     static final String USER = "USER";
-    private static LocalFragmentUserInfo fragment;
     // Data Elements
     private ArrayList<Path> pathList = new ArrayList<>();
     private String userId;
@@ -55,13 +54,6 @@ public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
     private ImageView img, refresh;
     private AnimationDrawable animationDrawable;
     private int clickPosition = -1;
-
-    public static synchronized LocalFragmentUserInfo newInstance() {
-        if (fragment == null) {
-            fragment = new LocalFragmentUserInfo();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -4,54 +4,50 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import cn.lingox.android.R;
-import cn.lingox.android.entity.User;
+import cn.lingox.android.widget.MyViewPager;
 
+/**
+ * 显示在个人信息中的活动
+ */
 public class PathFragmentUserInfo extends Fragment implements View.OnClickListener {
 
-    private int fragmentContainerId;
-    private Fragment mContent;
     private Button local, travel;
-    private User user;
     private LocalFragmentUserInfo localFragment;
     private TravelFragmentUserInfo travelFragment;
+    private MyViewPager viewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_path, container, false);
-        FrameLayout fragmentContainer = (FrameLayout) view.findViewById(R.id.path_framelayout);
-        if (getArguments() != null) {
-            user = getArguments().getParcelable("USER");
-            localFragment = LocalFragmentUserInfo.newInstance();
-            travelFragment = TravelFragmentUserInfo.newInstance();
-            mContent = localFragment;
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("USER", user);
-            localFragment.setArguments(bundle);
-            travelFragment.setArguments(bundle);
-        } else {
-            mContent = LocalFragmentUserInfo.newInstance();
-        }
-        fragmentContainerId = R.id.path_framelayout;
-        fragmentContainer.setId(fragmentContainerId);
+        initView(view);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment oldFragment = fm.findFragmentById(fragmentContainerId);
-        if (oldFragment != null) {
-            ft.remove(oldFragment);
-        }
+        return view;
+    }
 
-        ft.add(fragmentContainerId, mContent);
-        ft.commit();
+    /**
+     * 实例化控件
+     *
+     * @param view 布局
+     */
+    private void initView(View view) {
+        view.findViewById(R.id.xxx).setVisibility(View.GONE);
+        viewPager = (MyViewPager) view.findViewById(R.id.path_view_pager);
+        viewPager.setScrollable(false);
+        localFragment = new LocalFragmentUserInfo();
+        travelFragment = new TravelFragmentUserInfo();
+        FragmentAdapter adapter = new FragmentAdapter(getActivity().getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        // (Number of fragments - 1) This prevents the edge tabs being recreated
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setCurrentItem(0);
         //本地人
         local = (Button) view.findViewById(R.id.path_local);
         local.setOnClickListener(this);
@@ -59,24 +55,26 @@ public class PathFragmentUserInfo extends Fragment implements View.OnClickListen
         travel = (Button) view.findViewById(R.id.path_travel);
         travel.setOnClickListener(this);
 
-        return view;
+        if (getArguments() != null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("USER", getArguments().getParcelable("USER"));
+            localFragment.setArguments(bundle);
+            travelFragment.setArguments(bundle);
+        }
     }
 
     @Override
     public void onClick(View v) {
-        Fragment newFragment;
         switch (v.getId()) {
             case R.id.path_local:
-                newFragment = LocalFragmentUserInfo.newInstance();
-                switchContent(newFragment);
+                viewPager.setCurrentItem(0);
                 local.setBackgroundColor(Color.WHITE);
                 travel.setBackgroundColor(getResources().getColor(R.color.three_c7));
                 local.setTextColor(Color.BLACK);
                 travel.setTextColor(Color.rgb(153, 153, 153));
                 break;
             case R.id.path_travel:
-                newFragment = TravelFragmentUserInfo.newInstance();
-                switchContent(newFragment);
+                viewPager.setCurrentItem(1);
                 travel.setBackgroundColor(Color.WHITE);
                 local.setBackgroundColor(getResources().getColor(R.color.three_c7));
                 travel.setTextColor(Color.BLACK);
@@ -86,15 +84,27 @@ public class PathFragmentUserInfo extends Fragment implements View.OnClickListen
     }
 
     /**
-     * 修改fragment 不会重新加载
-     **/
-    public void switchContent(Fragment to) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        if (!to.isAdded()) { // 先判断是否被add过
-            transaction.hide(mContent).add(fragmentContainerId, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
-        } else {
-            transaction.hide(mContent).show(to).commit(); // 隐藏当前的fragment，显示下一个
+     * Viewpager的适配器
+     */
+    private class FragmentAdapter extends FragmentPagerAdapter {
+        public FragmentAdapter(FragmentManager fm) {
+            super(fm);
         }
-        mContent = to;
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return localFragment;
+                case 1:
+                    return travelFragment;
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 }

@@ -2,7 +2,6 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +22,12 @@ import cn.lingox.android.R;
 import cn.lingox.android.activity.NearByFragment;
 import cn.lingox.android.activity.UserInfoActivity;
 import cn.lingox.android.app.LingoXApplication;
+import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
-import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.LoadUserReferences;
 import cn.lingox.android.utils.SkipDialog;
 
 public class NearbyAdapter extends BaseAdapter {
@@ -95,7 +95,17 @@ public class NearbyAdapter extends BaseAdapter {
         ), 1);
         holder.name.setText(user.getNickname());
         //加载用户评论数
-        new LoadUserReferences(holder.comment).executeOnExecutor(pool, user);
+        new LoadUserReferences(user.getId(), new LoadUserReferences.Callback() {
+            @Override
+            public void onSuccess(ArrayList<Reference> list) {
+                holder.comment.setText(String.valueOf(list.size()));
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(context, context.getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
+            }
+        }).executeOnExecutor(pool);
         //判断语言是否为空
         if (!TextUtils.isEmpty(user.getSpeak())) {
             //不为空
@@ -169,36 +179,5 @@ public class NearbyAdapter extends BaseAdapter {
         TextView tag1, tag2, tag3, line, commentNum, comment, speak_, speak, countryAndCity, name, lalala;
         ImageView point, flag, avatar;
         LinearLayout info, info2;
-    }
-
-    private class LoadUserReferences extends AsyncTask<User, String, Boolean> {
-        private TextView textView;
-        private int num = 0;
-
-        public LoadUserReferences(TextView textView) {
-            this.textView = textView;
-        }
-
-        @Override
-        protected Boolean doInBackground(User... params) {
-            boolean success = false;
-            try {
-                num = (ServerHelper.getInstance().getUsersReferences(params[0].getId())).size();
-                success = true;
-            } catch (Exception e) {
-//                Log.e("user", "Exception caught: " + e.toString());
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success) {
-                textView.setText(String.valueOf(num));
-            } else {
-                Toast.makeText(context, context.getString(R.string.fail_get_reference), Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

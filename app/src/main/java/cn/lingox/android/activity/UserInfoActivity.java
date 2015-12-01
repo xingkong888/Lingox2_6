@@ -134,7 +134,6 @@ public class UserInfoActivity extends ActionBarActivity {
             return null;
         }
 
-        // TODO When we add a photos tab, change to 3
         @Override
         public int getCount() {
             return 2;

@@ -42,9 +42,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
 
     private int page = 1;//分页加载页码
 
-    private String userId;
-
-
     public static synchronized TravelFragment newInstance() {
         if (fragment == null) {
             fragment = new TravelFragment();
@@ -96,17 +93,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
             }
         });
         refreshList();
-//        if (getArguments() != null) {
-//            User user = getArguments().getParcelable(USER);
-//            userId = user != null ? user.getId() : null;
-//        } else {
-//            userId = null;
-//        }
-//        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
-//            addPathButton.setVisibility(View.GONE);
-//        } else {
-//            addPathButton.setVisibility(View.VISIBLE);
-//        }
         return view;
     }
 
@@ -118,6 +104,8 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<TravelEntity> list) {
                 travelDatas.addAll(list);
+                //将数据倒序
+//                Collections.reverse(travelDatas);
                 refershView(4, null);
                 mListView.onRefreshComplete();
 

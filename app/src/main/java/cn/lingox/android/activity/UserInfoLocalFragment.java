@@ -36,7 +36,7 @@ import cn.lingox.android.utils.SkipDialog;
 /**
  * 活动展示
  */
-public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
+public class UserInfoLocalFragment extends Fragment implements OnClickListener {
     // Request Codes
     public static final int ADD_PATH = 101;
     public static final int EDIT_PATH = 102;
@@ -99,7 +99,7 @@ public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
 
                 Intent intent = new Intent(getActivity(), LocalViewActivity.class);
                 intent.putExtra(LocalViewActivity.PATH_TO_VIEW, pathList.get(position - 1));
-                startActivityForResult(intent, LocalFragmentUserInfo.EDIT_PATH);
+                startActivityForResult(intent, UserInfoLocalFragment.EDIT_PATH);
             }
         });
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -213,13 +213,13 @@ public class LocalFragmentUserInfo extends Fragment implements OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("LocalFragment");
+        MobclickAgent.onPageEnd("UserInfoLocalFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("LocalFragment");
+        MobclickAgent.onPageStart("UserInfoLocalFragment");
     }
 
     private class GetPaths extends AsyncTask<Void, String, Boolean> {

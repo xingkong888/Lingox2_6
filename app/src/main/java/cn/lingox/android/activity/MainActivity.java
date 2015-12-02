@@ -65,7 +65,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private ActionBarDrawerToggle sideDrawerToggle;
     private RelativeLayout showNumLayout;
     private TextView num;
-    private boolean rightSideDrawerOpen = false;
     private ImageView search;
     private int unread = -1;
 
@@ -110,25 +109,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         search = (ImageView) findViewById(R.id.search);
         search.setOnClickListener(this);
         sideDrawers = (DrawerLayout) findViewById(R.id.drawer_layout);
-        sideDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                sideDrawers,
-                toolbar,
-                R.string.drawer_open,
-                R.string.drawer_closed
-        ) {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                switch (drawerView.getId()) {
-                    case R.id.left_drawer:
-                        if (rightSideDrawerOpen) {
-                            rightSideDrawerOpen = false;
-                            sideDrawers.closeDrawer(Gravity.RIGHT);
-                        }
-                        super.onDrawerSlide(drawerView, slideOffset);
-                        break;
-                }
-            }
+        sideDrawerToggle = new ActionBarDrawerToggle(this, sideDrawers, toolbar, R.string.drawer_open, R.string.drawer_closed) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -152,16 +133,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         // ----- LEFT MENU -----
-        TextView contact_list = (TextView) findViewById(R.id.layout_contact_list);
-        contact_list.setOnClickListener(this);
-        TextView set = (TextView) findViewById(R.id.layout_set);
-        set.setOnClickListener(this);
+        //follow/following
+        findViewById(R.id.layout_contact_list).setOnClickListener(this);
+        //set
+        findViewById(R.id.layout_set).setOnClickListener(this);
         photo = (ImageView) findViewById(R.id.avatar_info);
         photo.setOnClickListener(this);
-        TextView feedback = (TextView) findViewById(R.id.layout_feedback);
-        feedback.setOnClickListener(this);
-        TextView info = (TextView) findViewById(R.id.layout_info);
-        info.setOnClickListener(this);
+        //feedback
+        findViewById(R.id.layout_feedback).setOnClickListener(this);
+        //info
+        findViewById(R.id.layout_info).setOnClickListener(this);
         flag = (ImageView) findViewById(R.id.iv_flag);
         // ----- MAIN VIEW -----
         chatFragment = new ChatFragment();
@@ -171,6 +152,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         viewPager = (ViewPager) findViewById(R.id.fragment_container);
         viewPager.setAdapter(tabAdapter);
         // (Number of fragments - 1) This prevents the edge tabs being recreated
+        // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(1);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -211,7 +193,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private void initDate() {
         if (!LingoXApplication.getInstance().getSkip()) {//如果是登录进来的，显示名字
             ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
-            ((TextView) findViewById(R.id.tv_username)).setText("ID:" + CacheHelper.getInstance().getSelfInfo().getUsername());
+            ((TextView) findViewById(R.id.tv_username)).setText(
+                    new StringBuilder().append("ID:").append(CacheHelper.getInstance().getSelfInfo().getUsername()));
         } else {
             ((TextView) findViewById(R.id.tv_nickname)).setText("");
             ((TextView) findViewById(R.id.tv_username)).setText("");
@@ -334,7 +317,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 
     @Override
     public void onBackPressed() {
-        if (sideDrawers.isDrawerOpen(Gravity.LEFT)) {
+        if (sideDrawers.isDrawerOpen(Gravity.START)) {
             sideDrawers.closeDrawers();
         } else {
             super.onBackPressed();
@@ -458,8 +441,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                PackageManager packageManager = getPackageManager();
-                PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+                PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 int versionCode = packInfo.versionCode;
                 checkUpdata = ServerHelper.getInstance().requireUpdate(versionCode);
                 return checkUpdata;

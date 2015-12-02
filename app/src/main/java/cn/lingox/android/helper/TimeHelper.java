@@ -33,7 +33,7 @@ public class TimeHelper {
         }
         String result;
         try {
-            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale);
             ParsePosition pos = new ParsePosition(0);
             Date d1 = sd.parse(inputTime, pos);
             // 用现在距离1970年的时间间隔new
@@ -66,16 +66,16 @@ public class TimeHelper {
                 }
             } else if (time / 86400000 < 2) {
                 // 如果时间间隔小于2天则显示昨天
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", locale);
                 result = sdf.format(d1.getTime());
                 result = "Yesterday:" + result;
             } else if (time / 2592000000l < 12) {
                 // 如果时间间隔小于12个月则显示多少月前
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd", locale);
                 result = sdf.format(d1.getTime());
             } else {
                 // 大于1年，显示年月日时间
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
                 result = sdf.format(d1.getTime());
             }
         } catch (Exception e) {

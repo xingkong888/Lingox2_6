@@ -24,13 +24,13 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.task.GetAllTravelEntity;
+import cn.lingox.android.task.GetUserTravelEntity;
 import cn.lingox.android.utils.SkipDialog;
 
 /**
  * 展示travel数据
  */
-public class TravelFragmentUserInfo extends Fragment implements View.OnClickListener {
+public class UserInfoTravelFragment extends Fragment implements View.OnClickListener {
     private static final int ADD_TRAVEL = 1101;//添加的请求码
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
 
@@ -42,7 +42,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
     private ArrayList<TravelEntity> travelDatas;
 
     private int page = 1;//分页加载页码
-
+    private String userId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_travel, null);
@@ -66,7 +66,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
 
                 Intent intent = new Intent(getActivity(), TravelViewActivity.class);
                 intent.putExtra(TravelViewActivity.TRAVEL_VIEW, travelDatas.get(position - 1));
-                startActivityForResult(intent, TravelFragmentUserInfo.EDIT_TRAVEL);
+                startActivityForResult(intent, UserInfoTravelFragment.EDIT_TRAVEL);
             }
         });
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -86,8 +86,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
                 refreshList();
             }
         });
-        refreshList();
-        String userId;
+
         if (getArguments() != null) {
             User user = getArguments().getParcelable("USER");
             userId = user != null ? user.getId() : null;
@@ -99,6 +98,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
         } else {
             add.setVisibility(View.VISIBLE);
         }
+        refreshList();
         return view;
     }
 
@@ -106,7 +106,7 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
      * 下载
      */
     private void refreshList() {
-        new GetAllTravelEntity(page, new GetAllTravelEntity.Callback() {
+        new GetUserTravelEntity(userId, page, new GetUserTravelEntity.Callback() {
             @Override
             public void onSuccess(ArrayList<TravelEntity> list) {
                 travelDatas.addAll(list);
@@ -155,13 +155,13 @@ public class TravelFragmentUserInfo extends Fragment implements View.OnClickList
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("TravelFragment");
+        MobclickAgent.onPageEnd("UserInfoTravelFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("TravelFragment");
+        MobclickAgent.onPageStart("UserInfoTravelFragment");
     }
 
     /**

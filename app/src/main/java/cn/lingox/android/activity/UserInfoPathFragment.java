@@ -16,11 +16,11 @@ import cn.lingox.android.widget.MyViewPager;
 /**
  * 显示在个人信息中的活动
  */
-public class PathFragmentUserInfo extends Fragment implements View.OnClickListener {
+public class UserInfoPathFragment extends Fragment implements View.OnClickListener {
 
     private Button local, travel;
-    private LocalFragmentUserInfo localFragment;
-    private TravelFragmentUserInfo travelFragment;
+    private UserInfoLocalFragment localFragment;
+    private UserInfoTravelFragment travelFragment;
     private MyViewPager viewPager;
 
     @Override
@@ -38,11 +38,11 @@ public class PathFragmentUserInfo extends Fragment implements View.OnClickListen
      * @param view 布局
      */
     private void initView(View view) {
-        view.findViewById(R.id.xxx).setVisibility(View.GONE);
+//        view.findViewById(R.id.xxx).setVisibility(View.GONE);
         viewPager = (MyViewPager) view.findViewById(R.id.path_view_pager);
         viewPager.setScrollable(false);
-        localFragment = new LocalFragmentUserInfo();
-        travelFragment = new TravelFragmentUserInfo();
+        localFragment = new UserInfoLocalFragment();
+        travelFragment = new UserInfoTravelFragment();
         FragmentAdapter adapter = new FragmentAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         // (Number of fragments - 1) This prevents the edge tabs being recreated

@@ -98,7 +98,7 @@ public class TravelAdapter extends BaseAdapter {
         //显示时间段
         String startTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime());
         String endTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime());
-        holder.time.setText(startTime + " - " + endTime);
+        holder.time.setText(new StringBuilder().append(startTime).append(" ~ ").append(endTime));
         //问题
         holder.describe.setText(travelEntity.getText());
         //显示省份
@@ -108,7 +108,8 @@ public class TravelAdapter extends BaseAdapter {
         //comment的人数
         holder.commentNum.setText(String.valueOf(travelEntity.getComments().size()));
         //发布时间距离当前时间
-        holder.createTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
+        holder.createTime.setText(
+                TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
         return convertView;
     }
 

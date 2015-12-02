@@ -32,7 +32,7 @@ public class UserInfoActivity extends ActionBarActivity {
     // UI Elements
     private ProgressBar progressBar;
     private UserInfoFragment infoFragment;
-    private PathFragmentUserInfo pathFragment;
+    private UserInfoPathFragment pathFragment;
 
     private TextView name;
 
@@ -87,7 +87,7 @@ public class UserInfoActivity extends ActionBarActivity {
     private void afterUserLoaded() {
         progressBar.setVisibility(View.GONE);
         infoFragment = new UserInfoFragment();
-        pathFragment = new PathFragmentUserInfo();
+        pathFragment = new UserInfoPathFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(USER, user);
         infoFragment.setArguments(bundle);

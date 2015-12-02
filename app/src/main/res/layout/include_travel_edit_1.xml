@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_border_blue"
-        android:text="@string/travel_one_country_content"
+        android:hint="@string/travel_one_country_content"
         android:textAllCaps="false"
-        android:textColor="#C7C7C7" />
+        android:textColorHint="#C7C7C7" />
     <!--时间段-->
 
     <TextView

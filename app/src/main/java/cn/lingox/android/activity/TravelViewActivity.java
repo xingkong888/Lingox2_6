@@ -131,7 +131,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
 
                 @Override
                 public void onFail() {
-
+                    Toast.makeText(TravelViewActivity.this, "Download failed", Toast.LENGTH_SHORT).show();
                 }
             }).execute();
         } else {
@@ -150,7 +150,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         width = dm.widthPixels;
         //用于判断评论编辑栏是否隐藏，获取屏幕高度----暂时屏蔽掉，不使用
 //        height = dm.heightPixels;
-
         //包含like、chat和share的layout
 //        threeLayout = (LinearLayout) findViewById(R.id.like_chat_share);
 //        travelLayout = (RelativeLayout) findViewById(R.id.travel_layout);
@@ -203,11 +202,11 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         }
     }
 
-    /********************************
+    /*********************************
      * tags
      **************************************************/
 
-    public void addTagView(ArrayList<String> tags) {
+    private void addTagView(ArrayList<String> tags) {
         /**
          * 标签之间的间距 px
          */
@@ -279,7 +278,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     }
     /****************************************************************************************/
 /*****************************************comment*******************************************/
-
     /**
      * 设置数据
      */
@@ -338,8 +336,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         //设置地点
         location.setText(travelEntity.getLocation());
         //设置时间段
-        travelingTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime())
-                + "-" + TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()));
+        travelingTime.setText(
+                new StringBuilder().append(
+                        TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime())).append("-")
+                        .append(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime())));
         //设置问题
         describe.setText(travelEntity.getText());
         //设置可提供
@@ -449,7 +449,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     }
 
     /**
-     * 创建评论item---------可以用listView替换
+     * 创建评论item---------可以用listView替换，与ScrollView冲突
      *
      * @param position 位置
      * @return 视图
@@ -860,12 +860,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         @Override
         protected User doInBackground(String... params) {
             User targetUser;
-            boolean isTargetUs;
-            if (LingoXApplication.getInstance().getSkip()) {
-                isTargetUs = false;
-            } else {
-                isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
-            }
+            boolean isTargetUs = !LingoXApplication.getInstance().getSkip() &&
+                    CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
             if (isTargetUs) {
                 targetUser = CacheHelper.getInstance().getSelfInfo();
             } else {

@@ -1713,6 +1713,41 @@ public class ServerHelper {
     }
 
     /**
+     * 获取指定用户的travel
+     *
+     * @param userId 用户id
+     * @param page   页码
+     * @return travel的实例集合
+     * @throws Exception 抛出异常
+     */
+    public ArrayList<TravelEntity> getUserTravel(String userId, int page) throws Exception {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+        params.put("userId", userId);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_USER_TRAVEL_GET, params);
+        Log.d(LOG_TAG, "getUserTravel " + jsonStr);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getUserTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray jsonArray = jsonObject.getJSONArray("demands");
+        ArrayList<TravelEntity> list = new ArrayList<>();
+
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            list.add((TravelEntity) JsonHelper.getInstance().jsonToBean(jsonObject1.toString(), TravelEntity.class));
+        }
+        return list;
+    }
+    /**
      * 获取某一指定的travel
      *
      * @param id 指定travel的id

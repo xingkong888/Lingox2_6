@@ -97,6 +97,7 @@ public class URLConstant {
     public static final String URL_TRAVEL_EDIT = URL_TRAVEL_BASE + "editDemand";//修改
     public static final String URL_TRAVEL_DELETE = URL_TRAVEL_BASE + "deleteDemand";//删除
     public static final String URL_TRAVEL_GET = URL_TRAVEL_BASE + "getDemand";//获取单个
+    public static final String URL_USER_TRAVEL_GET = URL_TRAVEL_BASE + "getUsersDemands";//获取指定用户的
     public static final String URL_TRAVEL_GETALL = URL_TRAVEL_BASE + "getAllDemands";//获取所有
     public static final String URL_TRAVEL_LIKE = URL_TRAVEL_BASE + "likeDemand";//添加like
     public static final String URL_TRAVEL_UNLIKE = URL_TRAVEL_BASE + "unLikeDemand";//移除like

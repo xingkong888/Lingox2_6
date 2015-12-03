@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:id="@+id/travel_xingqi"
-        style="@style/match_wrap">
+        style="@style/match_wrap"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/travel_edit_close"

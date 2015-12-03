@@ -53,6 +53,17 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_travel, null);
 
+        initView(view);
+        refreshList();
+        return view;
+    }
+
+    /**
+     * 初始化控件
+     *
+     * @param view 容器布局
+     */
+    private void initView(View view) {
         anim = (ImageView) view.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
 
@@ -61,6 +72,7 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
 
         mListView = (PullToRefreshListView) view.findViewById(R.id.travel_listview);
         travelDatas = new ArrayList<>();
+        page=1;
         adapter = new TravelAdapter(getActivity(), travelDatas);
         mListView.setAdapter(adapter);
         mListView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -92,8 +104,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
                 refreshList();
             }
         });
-        refreshList();
-        return view;
     }
 
     /**
@@ -104,8 +114,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<TravelEntity> list) {
                 travelDatas.addAll(list);
-                //将数据倒序
-//                Collections.reverse(travelDatas);
                 refershView(4, null);
                 mListView.onRefreshComplete();
 

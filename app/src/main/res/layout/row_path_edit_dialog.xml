@@ -6,17 +6,17 @@
 
     <ImageView
         android:id="@+id/temp"
-        style="@style/match_wrap"
+        style="@style/wrap_wrap"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:gravity="center_horizontal"
         android:src="@drawable/active_exit_icon_30dp94dp" />
 
     <TextView
         android:id="@+id/temp1"
         style="@style/shadow_style"
         android:layout_below="@+id/temp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:gravity="center_horizontal"
         android:text="@string/path_dialog_title"
         android:textColor="@color/white"
         android:textSize="22sp" />

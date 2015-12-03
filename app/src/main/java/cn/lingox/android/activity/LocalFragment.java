@@ -45,7 +45,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
     static final String USER = "USER";
     private static LocalFragment fragment;
     // Data Elements
-    private ArrayList<Path> pathList = new ArrayList<>();
+    private ArrayList<Path> pathList;
     private String userId;
     // UI Elements
     private ImageView addPathButton;
@@ -89,7 +89,8 @@ public class LocalFragment extends Fragment implements OnClickListener {
         animationDrawable = (AnimationDrawable) img.getBackground();
         refresh = (ImageView) v.findViewById(R.id.refresh_view);
         refresh.setOnClickListener(this);
-
+        pathList = new ArrayList<>();
+        page = 1;
         adapter = new LocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);

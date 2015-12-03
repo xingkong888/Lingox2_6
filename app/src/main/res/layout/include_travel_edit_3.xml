@@ -20,5 +20,6 @@
         style="@style/match_wrap"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_border_blue" />
 </LinearLayout>

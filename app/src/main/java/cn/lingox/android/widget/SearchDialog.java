@@ -56,7 +56,6 @@ public class SearchDialog extends DialogFragment {
 
     private void initData() {
         datas = new ArrayList<>();
-//        datas.addAll();
         for (String str : JsonHelper.getInstance().getLanguages()) {
             datas.add(str);
         }

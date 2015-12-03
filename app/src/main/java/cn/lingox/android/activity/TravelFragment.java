@@ -116,7 +116,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
                 travelDatas.addAll(list);
                 refershView(4, null);
                 mListView.onRefreshComplete();
-
             }
 
             @Override

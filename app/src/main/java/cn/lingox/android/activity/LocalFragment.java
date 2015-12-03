@@ -41,12 +41,9 @@ public class LocalFragment extends Fragment implements OnClickListener {
     public static final int ADD_PATH = 101;
     public static final int EDIT_PATH = 102;
     static final String LOG_TAG = "LocalFragment";
-    // Bundle Args
-    static final String USER = "USER";
     private static LocalFragment fragment;
     // Data Elements
     private ArrayList<Path> pathList;
-    private String userId;
     // UI Elements
     private ImageView addPathButton;
     private PullToRefreshListView listView;
@@ -68,19 +65,8 @@ public class LocalFragment extends Fragment implements OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local, container, false);
 
-        if (getArguments() != null) {
-            User user = getArguments().getParcelable(USER);
-            userId = user != null ? user.getId() : null;
-        } else {
-            userId = null;
-        }
         initView(view);
         refreshList();
-        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
-            addPathButton.setVisibility(View.GONE);
-        } else {
-            addPathButton.setVisibility(View.VISIBLE);
-        }
         return view;
     }
 
@@ -244,11 +230,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                if (userId == null) {
                     tempPathList.addAll(ServerHelper.getInstance().getAllPaths(page));
-                } else {
-                    tempPathList.addAll(ServerHelper.getInstance().getUsersPaths(userId, page));
-                }
                 if (!LingoXApplication.getInstance().getSkip()) {
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());

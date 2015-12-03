@@ -529,9 +529,9 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
-                if (resultCode != RESULT_OK)
+                if (resultCode != RESULT_OK) {
                     Log.d(LOG_TAG, "onActivityResult -> PHOTO_RESULT -> not RESULT_OK");
-                else {
+                } else {
                     if (data.hasExtra(PhotoDialog.SELECTED_SINGLE_IMAGE)) {
                         imageUri = data.getParcelableExtra(PhotoDialog.SELECTED_SINGLE_IMAGE);
                         addPathImage.setImageBitmap(FileUtil.getImg(imageUri.getPath(), this));
@@ -559,7 +559,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      * page2-->标题
      * page3-->标签
      * page4-->选择图片
-     * <p/>
      * 注意：现在只提供local发布活动的流程
      *
      * @param nextOrBack on behalf of the page number

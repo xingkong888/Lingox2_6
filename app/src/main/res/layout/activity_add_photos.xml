@@ -23,7 +23,8 @@
         android:id="@+id/add_photos_activity_photo_list"
         style="@style/match_match"
         android:layout_below="@+id/add_photos_activity_toolbar"
-        android:divider="@null"
+        android:divider="@color/three_c7"
+        android:dividerHeight="1dp"
         android:listSelector="@android:color/transparent"
         android:scrollbarStyle="outsideOverlay"
         android:transcriptMode="normal" />

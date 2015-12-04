@@ -56,8 +56,7 @@ public class AlbumActivity extends ActionBarActivity {
 
         GridView gridView = (GridView) findViewById(R.id.album_activity_grid_view);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ImageGridAdapter(AlbumActivity.this,
-                dataList, selectMultiple,
+        adapter = new ImageGridAdapter(AlbumActivity.this, dataList, selectMultiple,
                 new ImageGridAdapter.SelectionListener() {
                     @Override
                     public void onSingleItemSelected(String path) {

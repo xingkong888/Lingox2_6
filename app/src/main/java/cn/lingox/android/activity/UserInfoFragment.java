@@ -87,14 +87,14 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     // Data Elements
     private User user;
     private ArrayList<User> userFollowingList = new ArrayList<>();
-    private ArrayList<User> followUserList = new ArrayList<>();
+    private ArrayList<User> userFollowList = new ArrayList<>();
     private ArrayList<Reference> referenceList = new ArrayList<>();
     private ArrayList<Photo> photoList = new ArrayList<>();
     //旅行计划
     private ArrayList<Travel> travelList;
     //个人标签
     private Boolean requestingOthersData;
-    private EditText tagsView = null;//about
+    private EditText tagsView;//about
     private TextView line;
     private boolean editOrOk = false;//表示标签状态 false：完成 true：编辑
 
@@ -200,7 +200,9 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userReference = (TextView) v.findViewById(R.id.userinfo_reference);
         userAddFollow = (TextView) v.findViewById(R.id.userinfo_add_follow);
         userAddFollow.setOnClickListener(this);
+        //“Chat”按钮
         v.findViewById(R.id.userinfo_chat).setOnClickListener(this);
+        //“+Reference”按钮
         v.findViewById(R.id.userinfo_add_reference).setOnClickListener(this);
         userEdit = (TextView) v.findViewById(R.id.userinfo_edit);
         userEdit.setOnClickListener(this);
@@ -255,11 +257,19 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         });
     }
 
+    /**
+     * 在其他地方有调用
+     *
+     * @param user 用户实例
+     */
     public void setUser(User user) {
         this.user = user;
         initData();
     }
 
+    /**
+     * 设置数据
+     */
     private void initData() {
         if (requestingOthersData) {
             editOrChat.setVisibility(View.INVISIBLE);
@@ -532,7 +542,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             case R.id.layout_following:
                 MobclickAgent.onEvent(getActivity(), "members_following");
                 mIntent = new Intent(getActivity(), UserListActivity.class);
-                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, followUserList);
+                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowList);
                 mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_followers));
                 startActivity(mIntent);
                 break;
@@ -1054,13 +1064,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            followUserList.clear();
+            userFollowList.clear();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                followUserList.addAll(ServerHelper.getInstance().getUserFollowing(user.getId()));
+                userFollowList.addAll(ServerHelper.getInstance().getUserFollowing(user.getId()));
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception caught: " + e.toString());
@@ -1073,7 +1083,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPostExecute(success);
             if (isAdded()) {
                 if (success) {
-                    userFollow.setText(String.valueOf(followUserList.size()));
+                    userFollow.setText(String.valueOf(userFollowList.size()));
                     follow.setClickable(true);
                 } else {
                     Toast.makeText(getActivity(), "Failed to get User's Followers", Toast.LENGTH_LONG).show();

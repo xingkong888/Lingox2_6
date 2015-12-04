@@ -230,7 +230,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                    tempPathList.addAll(ServerHelper.getInstance().getAllPaths(page));
+                tempPathList.addAll(ServerHelper.getInstance().getAllPaths(page));
                 if (!LingoXApplication.getInstance().getSkip()) {
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());

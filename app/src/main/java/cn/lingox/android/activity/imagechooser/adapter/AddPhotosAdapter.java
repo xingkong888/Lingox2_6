@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.entity.Photo;
+import cn.lingox.android.utils.DpToPx;
 
 public class AddPhotosAdapter extends BaseAdapter {
     private Activity context;
@@ -61,19 +62,17 @@ public class AddPhotosAdapter extends BaseAdapter {
             holder = (ViewHolder) gridView.getTag();
         }
 
-        if (holder.textWatcher != null)
+        if (holder.textWatcher != null) {
             holder.description.removeTextChangedListener(holder.textWatcher);
-
+        }
         holder.textWatcher = new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 photo.setDescription(s.toString());
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -85,8 +84,7 @@ public class AddPhotosAdapter extends BaseAdapter {
         holder.description.addTextChangedListener(holder.textWatcher);
         holder.description.setText(photo.getDescription());
         if (!isScroll) {
-            holder.photo.setImageBitmap(getImageThumbnail
-                    (photo.getUrl(), 90, 90));
+            holder.photo.setImageBitmap(getImageThumbnail(photo.getUrl(), DpToPx.dip2px(context, 90), DpToPx.dip2px(context, 90)));
         }
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

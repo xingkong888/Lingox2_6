@@ -1,6 +1,7 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -87,7 +88,7 @@ public class ChatFragment extends Fragment {
     private boolean hidden;
     private boolean isConflictDialogShow;
     private boolean isConflict = false;
-    private android.app.AlertDialog.Builder conflictBuilder;
+    private AlertDialog.Builder conflictBuilder;
     //是否为正常登录 true 跳过 false正常登录
     private boolean isSkip = LingoXApplication.getInstance().getSkip();
     // 用于存储数据
@@ -126,8 +127,7 @@ public class ChatFragment extends Fragment {
             }
         }
     };
-    // English
-    // is this required?
+    // English is this required?
     private BroadcastReceiver cmdMessageReceiver = new BroadcastReceiver() {
 
         @Override
@@ -371,7 +371,6 @@ public class ChatFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<Reference> list) {
                 referenceList.addAll(list);
-//                success = true;
                 for (int i = 0, j = referenceList.size(); i < j; i++) {
                     try {
                         User user = ServerHelper.getInstance().getUserInfo(referenceList.get(i).getUserSrcId());
@@ -415,7 +414,7 @@ public class ChatFragment extends Fragment {
                     } else {
                         stopAnim();
                     }
-                    //TODO 向activity传递数据
+                    //向activity传递数据
                     show.showMessageNum(unreadMSG + unreadNotify);
                     loading.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
@@ -484,15 +483,13 @@ public class ChatFragment extends Fragment {
                                 break;
                             } else {
                                 isExist = 0;
+                                i++;
                             }
                         }
                     }
-                    //根据isExist值判断是否先移除数据
-                    if (isExist == 0) {
-                        i++;
-                    }
                     if (isExist == 0 || isExist == 1) {
-                        //TODO 记录未读的信息
+//                    if (isExist !=3) {
+                        //记录未读的信息
                         unreadMSG += c.getUnreadMsgCount();
                         can = new ChatAndNotify();
                         can.setType(0);
@@ -601,7 +598,7 @@ public class ChatFragment extends Fragment {
             // clear up global variables
             try {
                 if (conflictBuilder == null) {
-                    conflictBuilder = new android.app.AlertDialog.Builder(getActivity());
+                    conflictBuilder = new AlertDialog.Builder(getActivity());
                 }
                 conflictBuilder.setTitle("Account Conflict");
                 conflictBuilder.setMessage("You have been logged in elsewhere");
@@ -640,7 +637,7 @@ public class ChatFragment extends Fragment {
                     LingoNotification notify = (LingoNotification) datas.get(i).getObj();
                     if ((notify.getType() == n.getType()) && (notify.getUser_src().equals(n.getUser_src()))) {
                         //同一个用户的同一类型的通知
-                        isExist = 1;
+                        isExist = 1;//可以删除---不确定
                         datas.remove(i);
                         if (!notify.getId().equals(n.getId())) {//用户相同，id不同，表示不是同一个通知
                             try {
@@ -650,14 +647,16 @@ public class ChatFragment extends Fragment {
                             }
                         }
                         break;
-                    } else if (i == datas.size() - 1) {
+                    }
+                    //可以删除---不确定
+                    else if (i == datas.size() - 1) {
                         //集合中不存在该通知
                         isExist = 0;
                         break;
                     }
                 }
             }
-            //根据isExist值判断是否添加数据
+            //可以删除-----不确定
             if (isExist == 0) {
                 i++;
             }
@@ -667,7 +666,9 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    //接口--向MainActivity传递未读数据的个数
+    /**
+     * 接口--向MainActivity传递未读数据的个数
+     */
     public interface showNum {
         void showMessageNum(int unread);
     }
@@ -755,11 +756,13 @@ public class ChatFragment extends Fragment {
             // 2014-10-22 修复在某些机器上，在聊天页面对方发消息过来时不立即显示内容的bug
             if (ChatActivity.activityInstance != null) {
                 if (message.getChatType() == EMMessage.ChatType.GroupChat) {
-                    if (message.getTo().equals(ChatActivity.activityInstance.getToChatUsername()))
+                    if (message.getTo().equals(ChatActivity.activityInstance.getToChatUsername())) {
                         return;
+                    }
                 } else {
-                    if (from.equals(ChatActivity.activityInstance.getToChatUsername()))
+                    if (from.equals(ChatActivity.activityInstance.getToChatUsername())) {
                         return;
+                    }
                 }
             }
             // 注销广播接收者，否则在ChatActivity中会收到这个广播

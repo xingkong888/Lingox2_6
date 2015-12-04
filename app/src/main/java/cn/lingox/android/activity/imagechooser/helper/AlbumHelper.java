@@ -134,8 +134,7 @@ public class AlbumHelper {
             int photoNameIndex = cur.getColumnIndexOrThrow(Media.DISPLAY_NAME);
             int photoTitleIndex = cur.getColumnIndexOrThrow(Media.TITLE);
             int photoSizeIndex = cur.getColumnIndexOrThrow(Media.SIZE);
-            int bucketDisplayNameIndex = cur
-                    .getColumnIndexOrThrow(Media.BUCKET_DISPLAY_NAME);
+            int bucketDisplayNameIndex = cur.getColumnIndexOrThrow(Media.BUCKET_DISPLAY_NAME);
             int bucketIdIndex = cur.getColumnIndexOrThrow(Media.BUCKET_ID);
             int picasaIdIndex = cur.getColumnIndexOrThrow(Media.PICASA_ID);
             int totalNum = cur.getCount();

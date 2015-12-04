@@ -20,8 +20,7 @@ public class FileUtil {
             + "/formats/";
 
     public static boolean isMounted() {
-        return Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState());
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
     public static void saveImg(String url, Bitmap bitmap, Context context) {

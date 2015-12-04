@@ -258,10 +258,14 @@ public class LingoXApplication extends Application {
                 break;
         }
         if (indent.getFreeTime().isEmpty()) {
-            timeAndNum.setText(TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime())
-                            + "—" +
-                            TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()) + ", " +
-                            indent.getParticipants() + " people"
+            timeAndNum.setText(
+                    new StringBuilder().append(
+                            TimeHelper.getInstance().parseTimestampToDate(indent.getStartTime()))
+                            .append("—")
+                            .append(
+                                    TimeHelper.getInstance().parseTimestampToDate(indent.getEndTime()))
+                            .append(", ")
+                            .append(indent.getParticipants()).append(" people")
             );
         } else {
             timeAndNum.setText(indent.getFreeTime());

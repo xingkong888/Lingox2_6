@@ -33,8 +33,7 @@ public class ClipImageLayout extends RelativeLayout {
 
         // 计算padding的px
         mHorizontalPadding = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, mHorizontalPadding, getResources()
-                        .getDisplayMetrics());
+                TypedValue.COMPLEX_UNIT_DIP, mHorizontalPadding, getResources().getDisplayMetrics());
         mZoomImageView.setHorizontalPadding(mHorizontalPadding);
         mClipImageView.setHorizontalPadding(mHorizontalPadding);
     }
@@ -42,7 +41,7 @@ public class ClipImageLayout extends RelativeLayout {
     /**
      * 对外公布设置图片的方法,drawable
      *
-     * @param drawable
+     * @param drawable 资源
      */
     public void setDrawable(Drawable drawable) {
         mZoomImageView.setImageDrawable(drawable);
@@ -50,8 +49,9 @@ public class ClipImageLayout extends RelativeLayout {
 
     /**
      * 对外公布设置边距的方法,单位为dp
+     * 默认为0dp
      *
-     * @param mHorizontalPadding
+     * @param mHorizontalPadding 内边距
      */
     public void setHorizontalPadding(int mHorizontalPadding) {
         this.mHorizontalPadding = mHorizontalPadding;
@@ -60,7 +60,7 @@ public class ClipImageLayout extends RelativeLayout {
     /**
      * 裁切图片
      *
-     * @return
+     * @return 裁切后的图片
      */
     public Bitmap clip() {
         return mZoomImageView.clip();

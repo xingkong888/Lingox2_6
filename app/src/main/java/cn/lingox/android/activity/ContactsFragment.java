@@ -30,7 +30,7 @@ import cn.lingox.android.helper.ServerHelper;
 public class ContactsFragment extends Fragment {
     private static final String LOG_TAG = "ContactsFragment";
 
-    private ArrayList<User> datas;
+    private ArrayList<User> data;
     private FollowersAdapter adapter;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
@@ -43,10 +43,10 @@ public class ContactsFragment extends Fragment {
         animationDrawable = (AnimationDrawable) anim.getBackground();
 
         ListView listView = (ListView) view.findViewById(R.id.followers_list);
-        datas = new ArrayList<>();
+        data = new ArrayList<>();
         new LoadUserFollowing().execute();
 
-        adapter = new FollowersAdapter(getActivity(), R.layout.row_contact, datas);
+        adapter = new FollowersAdapter(getActivity(), R.layout.row_contact, data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class ContactsFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            datas.clear();
+            data.clear();
             pd = new ProgressDialog(getActivity());
             pd.setMessage("Load...");
             pd.show();
@@ -106,7 +106,7 @@ public class ContactsFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                datas.addAll(ServerHelper.getInstance().getContactList(CacheHelper.getInstance().getSelfInfo().getId()));
+                data.addAll(ServerHelper.getInstance().getContactList(CacheHelper.getInstance().getSelfInfo().getId()));
                 return true;
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "ERROR:" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -120,10 +120,10 @@ public class ContactsFragment extends Fragment {
             super.onPostExecute(success);
             pd.dismiss();
             if (success) {
-                if (datas.size() > 0) {
+                if (data.size() > 0) {
                     stopAnim();
                     //判断两用户的用户名首字母是否相同
-                    Collections.sort(datas, new Comparator<User>() {
+                    Collections.sort(data, new Comparator<User>() {
                         @Override
                         public int compare(User lhs, User rhs) {
                             return lhs.getHeader().compareTo(rhs.getHeader());

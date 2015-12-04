@@ -217,8 +217,7 @@ public class ServerHelper {
      */
     public String uploadAvatar(String user_id, Bitmap avatar) throws Exception {
 
-        String jsonStr = MsgSender.postAvatarToNet(URLConstant.URL_UPLOAD_AVATAR,
-                user_id, avatar);
+        String jsonStr = MsgSender.postAvatarToNet(URLConstant.URL_UPLOAD_AVATAR, user_id, avatar);
 
         Log.d(LOG_TAG, "uploadAvatar: " + jsonStr);
 
@@ -1747,6 +1746,7 @@ public class ServerHelper {
         }
         return list;
     }
+
     /**
      * 获取某一指定的travel
      *

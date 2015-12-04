@@ -92,8 +92,7 @@ public class ImageGridAdapter extends BaseAdapter {
         final ImageItem item = dataList.get(position);
 
         holder.iv.setTag(item.imagePath);
-        cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,
-                callback);
+        cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath, callback);
         holder.selected.setImageResource(R.drawable.icon_data_select);
         if (item.isSelected) {
             holder.selected.setVisibility(View.VISIBLE);

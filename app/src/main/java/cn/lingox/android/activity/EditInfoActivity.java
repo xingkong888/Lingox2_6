@@ -39,7 +39,7 @@ import cn.lingox.android.utils.FileUtil;
 
 public class EditInfoActivity extends FragmentActivity implements OnClickListener {
     private static final String LOG_TAG = "EditInfoActivity";
-    private static final int SELECTLOCATION = 147;
+    private static final int SELECTLOCATION = 147;//选择地址
 
     // Data Elements
     private User user;
@@ -111,8 +111,8 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
 
         xiaoyuandian_male = (ImageView) findViewById(R.id.xiaoyuandian);
         xiaoyuandian_female = (ImageView) findViewById(R.id.xiaoyuandian2);
-
-        findViewById(R.id.userinfo_edit).setOnClickListener(this);
+        //名字后边的笔图片
+        findViewById(R.id.userinfo_name_edit).setOnClickListener(this);
     }
 
     private void initData() {
@@ -147,13 +147,12 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.userinfo_edit:
+            case R.id.userinfo_name_edit:
                 editNicknameInfo.setFocusable(true);
                 editNicknameInfo.setFocusableInTouchMode(true);
                 editNicknameInfo.clearFocus();
                 editNicknameInfo.requestFocus();
                 break;
-
             case R.id.edit_avatar:
                 //选择头像
                 Intent intent = new Intent(this, PhotoDialog.class);

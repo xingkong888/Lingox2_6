@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import cn.lingox.android.task.TravelPlanAsynTask;
 
 
 public class AddTravelActivity extends ActionBarActivity implements OnClickListener {
-    private static final int SELECTLOCATION = 124;
+    private static final int SELECTLOCATION = 124;//选择地地址
 
     private TextView locationInfo, startTimeInfo, endTimeInfo;
 
@@ -113,17 +114,14 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         locationInfo = (TextView) findViewById(R.id.travel_location);
         locationInfo.setOnClickListener(this);
 
-        TextView startTime = (TextView) findViewById(R.id.start_time);
+        RelativeLayout startTime = (RelativeLayout) findViewById(R.id.start_time);
         startTime.setOnClickListener(this);
-
         startTimeInfo = (TextView) findViewById(R.id.start_time_info);
-        startTimeInfo.setOnClickListener(this);
 
-        TextView endTime = (TextView) findViewById(R.id.end_time);
+        RelativeLayout endTime = (RelativeLayout) findViewById(R.id.end_time);
         endTime.setOnClickListener(this);
-
         endTimeInfo = (TextView) findViewById(R.id.end_time_info);
-        endTimeInfo.setOnClickListener(this);
+
     }
 
     @Override
@@ -150,12 +148,10 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                 startActivityForResult(intent, SELECTLOCATION);
                 break;
             case R.id.start_time:
-            case R.id.start_time_info:
                 //选择开始时间
                 startDatePickerDialog();
                 break;
             case R.id.end_time:
-            case R.id.end_time_info:
                 //选择结束时间
                 endDatePickerDialog();
                 break;

@@ -395,7 +395,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                                 view.setText(context.getString(R.string.time_out));//时间过
                         }
                     } else {
-                        view.setText(tempData.size() + " applications");//接收者
+                        view.setText(new StringBuilder().append(tempData.size()).append(" applications"));//接收者
                     }
                 }
             }

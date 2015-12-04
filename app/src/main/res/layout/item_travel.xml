@@ -22,13 +22,14 @@
 
             <ImageView
                 android:id="@+id/travel_country_flg"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignBottom="@+id/travel_avatar"
                 android:layout_alignRight="@+id/travel_avatar" />
         </RelativeLayout>
         <!-- 内容-->
         <LinearLayout
+            android:id="@+id/content_content"
             style="@style/match_wrap"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/avatar_flg"
@@ -79,52 +80,58 @@
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
-            <!-- 描述-->
-            <TextView
-                android:id="@+id/travel_describe"
-                style="@style/match_wrap"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="@color/black_deep" />
-
-            <RelativeLayout
-                style="@style/match_wrap"
-                android:layout_marginTop="10dp">
-                <!-- 发布时间-->
-                <TextView
-                    android:id="@+id/travel_create_time"
-                    style="@style/wrap_wrap"
-                    android:textColor="@color/black_deep" />
-                <!-- like人数-->
-                <ImageView
-                    style="@style/wrap_wrap"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/travel_like_num"
-                    android:src="@drawable/active_like_24dp" />
-
-                <TextView
-                    android:id="@+id/travel_like_num"
-                    style="@style/wrap_wrap"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/like" />
-                <!--like人数 -->
-                <ImageView
-                    android:id="@+id/like"
-                    style="@style/wrap_wrap"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/travel_comment_num"
-                    android:src="@drawable/activity_reply_color_24dp" />
-
-                <TextView
-                    android:id="@+id/travel_comment_num"
-                    style="@style/wrap_wrap"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp" />
-
-            </RelativeLayout>
         </LinearLayout>
+        <!-- 描述-->
+        <TextView
+            android:id="@+id/travel_describe"
+            style="@style/match_wrap"
+            android:layout_below="@+id/content_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/black_deep" />
+
+        <RelativeLayout
+            style="@style/match_wrap"
+            android:layout_below="@+id/travel_describe"
+            android:layout_marginTop="10dp">
+            <!-- 发布时间-->
+            <TextView
+                android:id="@+id/travel_create_time"
+                style="@style/wrap_wrap"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_deep" />
+            <!-- like人数-->
+            <ImageView
+                style="@style/wrap_wrap"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/travel_like_num"
+                android:src="@drawable/active_like_24dp" />
+
+            <TextView
+                android:id="@+id/travel_like_num"
+                style="@style/wrap_wrap"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/like" />
+            <!--like人数 -->
+            <ImageView
+                android:id="@+id/like"
+                style="@style/wrap_wrap"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/travel_comment_num"
+                android:src="@drawable/activity_reply_color_24dp" />
+
+            <TextView
+                android:id="@+id/travel_comment_num"
+                style="@style/wrap_wrap"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <TextView

@@ -72,7 +72,7 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
 
         mListView = (PullToRefreshListView) view.findViewById(R.id.travel_listview);
         travelDatas = new ArrayList<>();
-        page=1;
+        page = 1;
         adapter = new TravelAdapter(getActivity(), travelDatas);
         mListView.setAdapter(adapter);
         mListView.setMode(PullToRefreshBase.Mode.BOTH);

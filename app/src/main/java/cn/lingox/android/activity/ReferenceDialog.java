@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -66,8 +65,8 @@ public class ReferenceDialog extends Activity implements OnClickListener {
         cancel.setOnClickListener(this);
         TextView title = (TextView) findViewById(R.id.title_reference_dialog);
         switch (requestCode) {
-            case ReferenceActivity.ADD_REFERENCE:
-                break;
+//            case ReferenceActivity.ADD_REFERENCE:
+//                break;
             case ReferenceActivity.EDIT_REFERENCE:
                 TextView delete = (TextView) findViewById(R.id.tv_delete);
                 delete.setOnClickListener(this);
@@ -96,10 +95,7 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                             new Thread() {
                                 public void run() {
                                     try {
-//                                        Reference returnReference = ServerHelper.getInstance()
-//                                                .createReference(
-//                                                        CacheHelper.getInstance().getSelfInfo().getId(),
-//                                                        userId, title, content);
+                                        //将创建和修改合并，第一个参数为评论id，创建时为空
                                         Reference returnReference = ServerHelper.getInstance()
                                                 .reference("",
                                                         CacheHelper.getInstance().getSelfInfo().getId(),
@@ -127,18 +123,12 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                             new Thread() {
                                 public void run() {
                                     try {
-//                                        Reference editedReference = ServerHelper.getInstance()
-//                                                .editReference(reference.getId(), title,
-//                                                        content);
                                         Reference editedReference = ServerHelper.getInstance()
                                                 .reference(reference.getId(), "", "", title,
                                                         content);
-
                                         Intent returnIntent = new Intent();
-                                        returnIntent.putExtra(REFERENCE_BEFORE_EDIT,
-                                                reference);
-                                        returnIntent.putExtra(REFERENCE_AFTER_EDIT,
-                                                editedReference);
+                                        returnIntent.putExtra(REFERENCE_BEFORE_EDIT, reference);
+                                        returnIntent.putExtra(REFERENCE_AFTER_EDIT, editedReference);
                                         setResult(SUCCESS_EDIT, returnIntent);
                                         finish();
                                     } catch (Exception e) {
@@ -163,13 +153,11 @@ public class ReferenceDialog extends Activity implements OnClickListener {
                 new Thread() {
                     public void run() {
                         try {
+                            //删除评论
                             Reference deletedReference = ServerHelper.getInstance()
                                     .deleteReference(reference.getId());
-                            Log.d("Dialog_Reference", "Deleted reference result : "
-                                    + deletedReference);
                             Intent returnIntent = new Intent();
-                            returnIntent.putExtra(DELETED_REFERENCE,
-                                    deletedReference);
+                            returnIntent.putExtra(DELETED_REFERENCE, deletedReference);
                             setResult(SUCCESS_DELETE, returnIntent);
                             finish();
                         } catch (Exception e) {

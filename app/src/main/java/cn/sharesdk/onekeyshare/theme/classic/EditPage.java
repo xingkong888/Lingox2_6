@@ -250,7 +250,7 @@ public class EditPage extends EditPageFakeActivity implements OnClickListener, T
 
         // share content editor
         etContent = new EditText(getContext());
-        etContent.setGravity(Gravity.LEFT | Gravity.TOP);
+        etContent.setGravity(Gravity.START | Gravity.TOP);
         etContent.setBackgroundDrawable(null);
         etContent.setText(String.valueOf(shareParamMap.get("text")));
         etContent.addTextChangedListener(this);
@@ -381,7 +381,7 @@ public class EditPage extends EditPageFakeActivity implements OnClickListener, T
         LayoutParams lpAt = new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lpAt.rightMargin = dipToPx(getContext(), 4);
-        lpAt.gravity = Gravity.LEFT | Gravity.BOTTOM;
+        lpAt.gravity = Gravity.START | Gravity.BOTTOM;
         lpAt.weight = 1;
         llAt.setLayoutParams(lpAt);
         llAt.setOnClickListener(new OnClickListener() {
@@ -583,7 +583,7 @@ public class EditPage extends EditPageFakeActivity implements OnClickListener, T
         lpItem.setMargins(0, 0, dp_9, 0);
         FrameLayout.LayoutParams lpMask = new FrameLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        lpMask.gravity = Gravity.LEFT | Gravity.TOP;
+        lpMask.gravity = Gravity.START | Gravity.TOP;
         int selection = 0;
         for (int i = 0; i < size; i++) {
             FrameLayout fl = new FrameLayout(getContext());

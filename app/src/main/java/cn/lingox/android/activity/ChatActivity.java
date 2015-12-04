@@ -179,8 +179,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         public void onReceive(Context context, Intent intent) {
             String msgid = intent.getStringExtra("msgid");
             String from = intent.getStringExtra("from");
-            EMConversation conversation = EMChatManager.getInstance()
-                    .getConversation(from);
+            EMConversation conversation = EMChatManager.getInstance().getConversation(from);
             if (conversation != null) {
                 EMMessage msg = conversation.getMessage(msgid);
                 if (msg != null) {
@@ -373,8 +372,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         });
         mEditTextContent.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s)) {
                     btnMore.setVisibility(View.GONE);
                     buttonSend.setVisibility(View.VISIBLE);
@@ -517,8 +515,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 EMChatManager.getInstance().clearConversation(toChatUsername);
                 adapter.refresh();
             } else if (requestCode == REQUEST_CODE_CAMERA) {
-                if (cameraFile != null && cameraFile.exists())
+                if (cameraFile != null && cameraFile.exists()) {
                     sendPicture(cameraFile.getAbsolutePath());
+                }
             } else if (requestCode == REQUEST_CODE_SELECT_VIDEO) {
 
                 int duration = data.getIntExtra("dur", 0);
@@ -570,8 +569,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                     }
                 }
             } else if (requestCode == REQUEST_CODE_MAP) {
-                double latitude = data.getDoubleExtra("latitude", 0);
-                double longitude = data.getDoubleExtra("longitude", 0);
+                double latitude = data.getDoubleExtra("latitude", 0);//纬度
+                double longitude = data.getDoubleExtra("longitude", 0);//经度
                 String locationAddress = data.getStringExtra("address");
                 if (locationAddress != null && !locationAddress.equals("")) {
                     more(more);
@@ -579,16 +578,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 } else {
                     Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
                 }
-            } else if (requestCode == REQUEST_CODE_TEXT) {
-                resendMessage();
-            } else if (requestCode == REQUEST_CODE_VOICE) {
-                resendMessage();
-            } else if (requestCode == REQUEST_CODE_PICTURE) {
-                resendMessage();
-            } else if (requestCode == REQUEST_CODE_LOCATION) {
-                resendMessage();
-            } else if (requestCode == REQUEST_CODE_VIDEO
-                    || requestCode == REQUEST_CODE_FILE) {
+            } else if (requestCode == REQUEST_CODE_TEXT//文本
+                    || requestCode == REQUEST_CODE_VOICE//录音
+                    || requestCode == REQUEST_CODE_PICTURE//图片
+                    || requestCode == REQUEST_CODE_LOCATION//位置
+                    || requestCode == REQUEST_CODE_VIDEO//视频
+                    || requestCode == REQUEST_CODE_FILE//文件
+                    ) {
                 resendMessage();
             } else if (requestCode == REQUEST_CODE_COPY_AND_PASTE) {
                 if (!TextUtils.isEmpty(clipboard.getText())) {
@@ -643,7 +639,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_file:
                 selectFileFromLocal();
                 break;
-            case R.id.btn_location://发送位置信息
+            case R.id.btn_location://选择位置
                 selectLocation();
                 break;
             case R.id.btn_voice_call:
@@ -666,13 +662,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                                 editIndent(indent.getId(), "2", edit.getText().toString());
                             }
                         })
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .create().show();
+                        .setNegativeButton("NO", null).create().show();
                 break;
             case R.id.decline:
                 editIndent(indentDatas.get(0).getId(), "4", "");
@@ -694,6 +684,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    /**
+     * 提交indent
+     *
+     * @param id    indent的id
+     * @param state 状态
+     * @param reson 取消原因
+     */
     private void editIndent(String id, String state, String reson) {
         HashMap<String, String> map = new HashMap<>();
         map.clear();
@@ -742,13 +739,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
 
-    //发送位置
+    //选择location
     private void selectLocation() {
         Intent intent = new Intent(this, AMapActivity.class);
         intent.putExtra("LOCATION", "");
         startActivityForResult(intent, REQUEST_CODE_MAP);
     }
 
+    //发送文本
     private void sendText(String content) {
         if (content.length() > 0) {
             EMMessage message = EMMessage.createSendMessage(EMMessage.Type.TXT);
@@ -767,6 +765,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    //发送录音
     private void sendVoice(String filePath, String fileName, String length,
                            boolean isResend) {
         if (!(new File(filePath).exists())) {
@@ -793,6 +792,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    //发送图片
     private void sendPicture(final String filePath) {
         String to = toChatUsername;
         // create and add image message in view
@@ -803,7 +803,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
         message.setReceipt(to);
         ImageMessageBody body = new ImageMessageBody(new File(filePath));
-        // body.setSendOriginalImage(true);
         message.addBody(body);
         conversation.addMessage(message);
 
@@ -811,9 +810,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         adapter.refresh();
         listView.setSelection(listView.getCount() - 1);
         setResult(RESULT_OK);
-        // more(more);
     }
 
+    //发送视频
     private void sendVideo(final String filePath, final String thumbPath,
                            final int length) {
         final File videoFile = new File(filePath);
@@ -823,8 +822,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         try {
             EMMessage message = EMMessage
                     .createSendMessage(EMMessage.Type.VIDEO);
-            if (chatType == CHATTYPE_GROUP)
+            if (chatType == CHATTYPE_GROUP) {
                 message.setChatType(ChatType.GroupChat);
+            }
             String to = toChatUsername;
             message.setReceipt(to);
             VideoMessageBody body = new VideoMessageBody(videoFile, thumbPath,
@@ -869,6 +869,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    //发送位置---貌似没用
     private void sendLocationMsg(double latitude, double longitude,
                                  String imagePath, String locationAddress) {
         EMMessage message = EMMessage.createSendMessage(EMMessage.Type.LOCATION);
@@ -885,6 +886,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         setResult(RESULT_OK);
     }
 
+    //发送文件
     private void sendFile(Uri uri) {
         String filePath = null;
         if ("content".equalsIgnoreCase(uri.getScheme())) {
@@ -900,8 +902,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (cursor != null)
+                if (cursor != null) {
                     cursor.close();
+                }
             }
         } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             filePath = uri.getPath();
@@ -1104,8 +1107,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         MobclickAgent.onPause(this);
         MobclickAgent.onPageEnd("ChatActivity");
         super.onPause();
-        if (wakeLock.isHeld())
+        if (wakeLock.isHeld()) {
             wakeLock.release();
+        }
         if (VoicePlayClickListener.isPlaying && VoicePlayClickListener.currentPlayListener != null) {
             VoicePlayClickListener.currentPlayListener.stopPlayVoice();
         }
@@ -1119,6 +1123,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    //隐藏软键盘
     private void hideKeyboard() {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getCurrentFocus() != null)
@@ -1195,8 +1200,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     if (!CommonUtils.isExitsSdcard()) {
-                        Toast.makeText(ChatActivity.this, "",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChatActivity.this, "", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                     try {
@@ -1270,6 +1274,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    /**
+     * list的滚动事件监听器
+     */
     private class ListScrollListener implements OnScrollListener {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -1394,7 +1401,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         break;
                     default:
                         showWaiting.setVisibility(View.VISIBLE);
-                        showWaiting.setText(indentDatas.size() + " applications");
+                        showWaiting.setText(new StringBuilder().append(indentDatas.size()).append(" applications"));
                         break;
                 }
             } else {

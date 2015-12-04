@@ -43,6 +43,7 @@ public class UserInfoTravelFragment extends Fragment implements View.OnClickList
 
     private int page = 1;//分页加载页码
     private String userId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_travel, null);

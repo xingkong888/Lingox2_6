@@ -96,8 +96,7 @@ public class BitmapCache extends Activity {
     }
 
     public Bitmap revisionImageSize(String path) throws IOException {
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(
-                new File(path)));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(path)));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(in, null, options);
@@ -105,10 +104,8 @@ public class BitmapCache extends Activity {
         int i = 0;
         Bitmap bitmap;
         while (true) {
-            if ((options.outWidth >> i <= 256)
-                    && (options.outHeight >> i <= 256)) {
-                in = new BufferedInputStream(
-                        new FileInputStream(new File(path)));
+            if ((options.outWidth >> i <= 256) && (options.outHeight >> i <= 256)) {
+                in = new BufferedInputStream(new FileInputStream(new File(path)));
                 options.inSampleSize = (int) Math.pow(2.0D, i);
                 options.inJustDecodeBounds = false;
                 bitmap = BitmapFactory.decodeStream(in, null, options);

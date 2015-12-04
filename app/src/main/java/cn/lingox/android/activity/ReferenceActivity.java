@@ -54,6 +54,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     private ReferenceAdapter arrayAdapter;
 
     private ImageView anim;
+    private ImageView addReference;
     private AnimationDrawable animationDrawable;
 
     private ProgressBar pb;
@@ -85,20 +86,22 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
     }
 
+    /**
+     * 初始化控件实例
+     */
     private void initView() {
         anim = (ImageView) findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
         pb = (ProgressBar) findViewById(R.id.progress);
-        ImageView addReference = (ImageView) findViewById(R.id.iv_add_reference);
-
+        addReference = (ImageView) findViewById(R.id.iv_add_reference);
+        addReference.setOnClickListener(this);
         // If we are viewing our own references
         // TODO implement reference managing for own reference page
         if (ownReferencesPage) {
-            addReference.setVisibility(View.INVISIBLE);
+            addReference.setVisibility(View.GONE);
         } else {
             addReference.setVisibility(View.VISIBLE);
         }
-        addReference.setOnClickListener(this);
         //返回按钮
         findViewById(R.id.layout_back).setOnClickListener(this);
         //添加按钮
@@ -107,6 +110,9 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         listView = (ListView) findViewById(R.id.list);
     }
 
+    /**
+     * 设置数据
+     */
     private void initData() {
         if (referenceList.size() == 0) {
             startAnim();
@@ -120,6 +126,9 @@ public class ReferenceActivity extends Activity implements OnClickListener {
         }
     }
 
+    /**
+     * 刷新适配器
+     */
     private void updateList() {
         arrayAdapter.notifyDataSetChanged();
     }
@@ -254,6 +263,12 @@ public class ReferenceActivity extends Activity implements OnClickListener {
     //获取双方是否相互
     private class GetBothFollowed extends AsyncTask<Void, Void, Boolean> {
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            addReference.setClickable(false);
+        }
+
+        @Override
         protected Boolean doInBackground(Void... params) {
             try {
                 isBothFollowed = ServerHelper.getInstance().getBothFollowed(
@@ -266,6 +281,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            addReference.setClickable(true);
             if (aBoolean) {
                 //相互follow
                 Intent intent = new Intent(ReferenceActivity.this, ReferenceDialog.class);
@@ -276,6 +292,7 @@ public class ReferenceActivity extends Activity implements OnClickListener {
             } else {
                 new AlertDialog.Builder(ReferenceActivity.this)
                         .setMessage("You two need to follow each other")
+                        .setPositiveButton("Cancel", null)
                         .create().show();
             }
         }

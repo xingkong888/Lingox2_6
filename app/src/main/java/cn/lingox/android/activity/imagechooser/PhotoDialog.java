@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.lingox.android.R;
 import cn.lingox.android.activity.PathCardImgDialog;
@@ -80,12 +81,16 @@ public class PhotoDialog extends Activity implements OnClickListener {
         initView();
     }
 
+    /**
+     * 初始化控件实例
+     */
     private void initView() {
         setContentView(R.layout.dialog_image);
-        TextView camera = (TextView) findViewById(R.id.camera);
-        camera.setOnClickListener(this);
-        TextView photo = (TextView) findViewById(R.id.photo);
-        photo.setOnClickListener(this);
+        //相机
+        findViewById(R.id.camera).setOnClickListener(this);
+        //本地图片
+        findViewById(R.id.photo).setOnClickListener(this);
+        //应用提供的图片
         TextView photoRecommend = (TextView) findViewById(R.id.photo_recommend);
         photoRecommend.setOnClickListener(this);
         photoRecommend.setVisibility(requestedImageType == REQUEST_CARD_IMAGE ? View.VISIBLE : View.GONE);
@@ -94,6 +99,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
         cancel.setOnClickListener(this);
 
         // TODO Check if this is still required now that the layout is an activity instead of a dialog
+        //设置页面的启动方式---从下往上
         Window dialogWindow = getWindow();
         dialogWindow.setGravity(Gravity.BOTTOM);
         DisplayMetrics dm = new DisplayMetrics();
@@ -208,7 +214,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
             }
         }
         // Create a media file name
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhMMss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhMMss", Locale.CHINA);
         String timeStamp = format.format(new Date());
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
         if (!mediaFile.createNewFile()) {
@@ -219,9 +225,14 @@ public class PhotoDialog extends Activity implements OnClickListener {
         return Uri.fromFile(mediaFile);
     }
 
+    /**
+     * 裁切图片
+     *
+     * @param data 图片的uri
+     */
     public void startPhotoZoom(final Uri data) {
         setContentView(R.layout.dialog_image_crop);
-        final TextView cropImageButton = (TextView) findViewById(R.id.image_crop_button);
+        TextView cropImageButton = (TextView) findViewById(R.id.image_crop_button);
         final TextView confirmButton = (TextView) findViewById(R.id.image_confirm_button);
 
         final ClipImageLayout cropImageView = (ClipImageLayout) findViewById(R.id.id_clipImageLayout);
@@ -235,7 +246,6 @@ public class PhotoDialog extends Activity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 croppedImage = cropImageView.clip();
-                FileUtil.saveImg(data.getPath(), croppedImage, PhotoDialog.this);
                 croppedImageView.setImageBitmap(croppedImage);
                 croppedImageView.setVisibility(View.VISIBLE);
                 confirmButton.setVisibility(View.VISIBLE);
@@ -250,7 +260,10 @@ public class PhotoDialog extends Activity implements OnClickListener {
         });
     }
 
-    private class CropImage extends AsyncTask<String, String, Boolean> {
+    /**
+     * 图片裁切异步任务
+     */
+    private class CropImage extends AsyncTask<Void, String, Boolean> {
         private ProgressDialog pd = new ProgressDialog(PhotoDialog.this);
         private Uri photoUri;
 
@@ -263,14 +276,12 @@ public class PhotoDialog extends Activity implements OnClickListener {
             super.onPreExecute();
             pd.setCancelable(false);
             pd.setCanceledOnTouchOutside(false);
-            //Todo set onCancelListener
             pd.setMessage("Cropping Image...");
             pd.show();
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            Log.d(LOG_TAG, "Cropping Image started");
+        protected Boolean doInBackground(Void... params) {
             try {
                 //压缩图片
                 CompressImageUtil.compressImage(croppedImage);

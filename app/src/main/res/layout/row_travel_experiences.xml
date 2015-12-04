@@ -78,19 +78,20 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/start_time"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp">
 
             <TextView
-                android:id="@+id/start_time"
+                android:id="@+id/start_time_l"
                 style="@style/row_travel_experiences_tv_l"
                 android:text="Start Time" />
 
             <TextView
                 android:id="@+id/start_time_info"
                 style="@style/row_travel_experiences_tv_r"
-                android:layout_toRightOf="@+id/start_time"
+                android:layout_toRightOf="@+id/start_time_l"
                 android:hint="Start Time" />
 
             <ImageView style="@style/right_arrows_iv" />
@@ -104,19 +105,20 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/end_time"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp">
 
             <TextView
-                android:id="@+id/end_time"
+                android:id="@+id/end_time_l"
                 style="@style/row_travel_experiences_tv_l"
                 android:text="End Time" />
 
             <TextView
                 android:id="@+id/end_time_info"
                 style="@style/row_travel_experiences_tv_r"
-                android:layout_toRightOf="@+id/end_time"
+                android:layout_toRightOf="@+id/end_time_l"
                 android:hint="End Time" />
 
             <ImageView style="@style/right_arrows_iv" />

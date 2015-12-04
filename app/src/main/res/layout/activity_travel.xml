@@ -61,7 +61,6 @@
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"
         style="@style/match_wrap"
-        android:layout_above="@+id/path_view_comment_bar"
         android:layout_below="@id/travel_view_top">
 
         <RelativeLayout
@@ -109,7 +108,6 @@
 
                 <TextView
                     style="@style/wrap_wrap"
-                    android:layout_toRightOf="@id/avatar_flg"
                     android:text="Visting:" />
 
                 <TextView

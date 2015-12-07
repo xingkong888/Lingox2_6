@@ -81,7 +81,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
         listView.setMode(PullToRefreshBase.Mode.BOTH);
-        listView.setRefreshing(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -222,6 +221,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             tempPathList = new ArrayList<>();
+            listView.setRefreshing();
             if (listView.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_START) {
                 listView.setMode(PullToRefreshBase.Mode.DISABLED);
             }

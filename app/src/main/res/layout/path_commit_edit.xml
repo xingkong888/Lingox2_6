@@ -5,7 +5,7 @@
     android:layout_alignParentBottom="true"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="5dp"
-    android:background="#4cc7c7c7"
+    android:background="#c7c7c7"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:visibility="gone">

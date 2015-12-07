@@ -81,11 +81,13 @@ public class FileUtil {
         long size = 0;
         File f = new File(CACHE_DIR);
         File flist[] = f.listFiles();
-        for (File file : flist) {
-            size = size + file.length();
-        }
-        if (size > 1024 * 1024 * 1024) {//1M
-            deleteDir();
+        if (flist != null && flist.length > 0) {
+            for (File file : flist) {
+                size = size + file.length();
+            }
+            if (size > 1024 * 1024 * 1024) {//1M
+                deleteDir();
+            }
         }
     }
 

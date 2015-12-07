@@ -102,7 +102,8 @@
                 android:id="@+id/travel_create_time"
                 style="@style/wrap_wrap"
                 android:layout_marginLeft="15dp"
-                android:textColor="@color/black_deep" />
+                android:textColor="#7F000000"
+                android:textSize="10sp" />
             <!-- like人数-->
             <ImageView
                 style="@style/wrap_wrap"

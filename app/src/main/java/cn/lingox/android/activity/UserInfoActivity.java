@@ -69,6 +69,9 @@ public class UserInfoActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         setContentView(R.layout.activity_user_info);
 
@@ -146,8 +149,10 @@ public class UserInfoActivity extends ActionBarActivity {
                     return getString(R.string.personal_info);
                 case 1:
                     if (user.getId().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
+                        //进入的是自己的信息
                         return "PERSONAL DISCOVERY";
                     } else {
+                        //进入他人信息
                         return getString(R.string.personal_activity);
                     }
             }

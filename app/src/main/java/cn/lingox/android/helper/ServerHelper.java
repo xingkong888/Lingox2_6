@@ -78,7 +78,7 @@ public class ServerHelper {
      * 版本更新
      *
      * @param currentVer 版本号
-     * @return true或false
+     * @return true 有新版本 false 没有新版本
      */
     public boolean requireUpdate(int currentVer) {
         int minVer;

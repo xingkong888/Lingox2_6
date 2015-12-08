@@ -49,8 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     public static final String SEARCH = "Search";
     private static final String LOG_TAG = "MainActivity";
     private static MainActivity mainActivity;
-    int a = 0;
-    //两次返回退出
+    //两次点击返回键的时间间隔
     private long clickTime;
     // UI Elements
     private ChatFragment chatFragment;
@@ -77,9 +76,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         super.onCreate(savedInstanceState);
 
         UmengUpdateAgent.update(this);
+        /****************获取屏幕的宽度************/
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         LingoXApplication.getInstance().setWidth(dm.widthPixels);
+        /************************************/
         mainActivity = this;
         initView();
         if (LingoXApplication.getInstance().getSkip()) {
@@ -89,7 +90,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 
     @Override
     protected void onStart() {
-        // TODO Move to onResume?
         setAvatar();
         super.onStart();
     }
@@ -132,17 +132,20 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         sideDrawers.setDrawerListener(sideDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        // ----- LEFT MENU -----
+        /*----- LEFT MENU -----*/
         //follow/following
         findViewById(R.id.layout_contact_list).setOnClickListener(this);
         //set
         findViewById(R.id.layout_set).setOnClickListener(this);
-        photo = (ImageView) findViewById(R.id.avatar_info);
-        photo.setOnClickListener(this);
         //feedback
         findViewById(R.id.layout_feedback).setOnClickListener(this);
         //info
         findViewById(R.id.layout_info).setOnClickListener(this);
+        /*********************************************************************/
+        //头像
+        photo = (ImageView) findViewById(R.id.avatar_info);
+        photo.setOnClickListener(this);
+        //国旗
         flag = (ImageView) findViewById(R.id.iv_flag);
         // ----- MAIN VIEW -----
         chatFragment = new ChatFragment();
@@ -192,7 +195,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     private void initDate() {
         if (!LingoXApplication.getInstance().getSkip()) {//如果是登录进来的，显示名字
-            ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
+            //用户昵称
+            ((TextView) findViewById(R.id.tv_nickname)).setText(
+                    CacheHelper.getInstance().getSelfInfo().getNickname());
+            //用户id
             ((TextView) findViewById(R.id.tv_username)).setText(
                     new StringBuilder().append("ID:").append(CacheHelper.getInstance().getSelfInfo().getUsername()));
         } else {
@@ -224,7 +230,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 FeedbackAgent agent = new FeedbackAgent(this);
                 agent.startFeedbackActivity();
                 break;
-            case R.id.layout_info:
+            case R.id.layout_info://about us
                 Uri uri = Uri.parse("http://lingox.cn");
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
@@ -232,9 +238,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             case R.id.avatar_info:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
-                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper
-                            .getInstance().getSelfInfo().getId());
+                    userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
                     startActivity(userInfoIntent);
+                    //activity跳转动画
                     overridePendingTransition(R.anim.push_top_in, R.anim.push_bottom_out);
                 } else {
                     SkipDialog.getDialog(this).show();
@@ -253,7 +259,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.show_num:
-                //获取当前fragment的位置
+                //设置界面显示为“Chat”界面
                 viewPager.setCurrentItem(0);
                 break;
         }
@@ -315,15 +321,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         super.onPostCreate(savedInstanceState);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (sideDrawers.isDrawerOpen(Gravity.START)) {
-            sideDrawers.closeDrawers();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     /**
      * 键盘按键事件
      *
@@ -334,7 +331,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exitSystem();
+            if (sideDrawers.isDrawerOpen(Gravity.START)) {
+                sideDrawers.closeDrawers();
+            } else {
+                exitSystem();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -356,7 +357,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         Thread.sleep(700);
                         MainActivity.this.finish();
                     } catch (Exception e) {
-                        Log.e("MainActivity", e.getMessage());
+                        Log.e(LOG_TAG, e.getMessage());
                     }
                 }
             }.start();
@@ -380,7 +381,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 showNumLayout.setEnabled(false);
             }
             if (this.unread > 99) {
-                num.setText("99+");
+                num.setText(getString(R.string.ninety_nine));
             } else {
                 num.setText(String.valueOf(this.unread));
             }
@@ -401,16 +402,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 case 0:
                     return chatFragment;
                 case 1:
-                    switch (a) {
-                        case 0:
-                            return pathFragment;
-                        case 1:
-                            return new TravelFragment();
-                    }
+                    return pathFragment;
                 case 2:
                     return nearByFragment;
+                default:
+                    return null;
             }
-            return null;
         }
 
         @Override
@@ -436,15 +433,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      * 检查APP版本更新
      */
     private class CheckForUpdates extends AsyncTask<Void, Void, Boolean> {
-        private boolean checkUpdata = false;
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
                 PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 int versionCode = packInfo.versionCode;
-                checkUpdata = ServerHelper.getInstance().requireUpdate(versionCode);
-                return checkUpdata;
+                return ServerHelper.getInstance().requireUpdate(versionCode);
             } catch (PackageManager.NameNotFoundException e) {
                 Log.e(LOG_TAG, e.toString());
                 return false;

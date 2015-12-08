@@ -11,9 +11,7 @@
         android:id="@+id/scrollview"
         style="@style/match_wrap"
         android:layout_above="@id/layout_bottom"
-        android:layout_below="@id/layout_title_bar"
-        android:orientation="vertical"
-        android:scrollbars="vertical">
+        android:layout_below="@id/layout_title_bar">
 
         <LinearLayout
             style="@style/match_wrap"
@@ -42,7 +40,7 @@
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/black_deep"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -80,7 +78,7 @@
                     android:hint="@string/username"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/black_deep"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -118,7 +116,7 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/black_deep"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -156,7 +154,7 @@
                     android:hint="@string/re_password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/black_deep"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -212,5 +210,4 @@
             android:textSize="14sp"
             android:textStyle="bold" />
     </RelativeLayout>
-
 </RelativeLayout>

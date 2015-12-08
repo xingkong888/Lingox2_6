@@ -267,8 +267,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
      *********************************/
     private void resetTextViewMarginsRight(ViewGroup viewGroup) {
         final TextView tempTextView = (TextView) viewGroup.getChildAt(viewGroup.getChildCount() - 1);
-        tempTextView
-                .setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        tempTextView.setLayoutParams(
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     private void addItemView(LayoutInflater inflater, ViewGroup viewGroup, ViewGroup.LayoutParams params, final String text) {
@@ -331,7 +331,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 list.add(tags.get(Integer.valueOf(travelEntity.getTags().get(i))).getTag());
             }
             addTagView(list);
-//            tag.setText(list.toString().replace("[", "").replace("]", ""));
         }
         //设置地点
         location.setText(travelEntity.getLocation());
@@ -359,7 +358,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 like.setImageResource(R.drawable.active_likepeople_24dp);
                 like.setTag(1);
             } else {
-
                 like.setImageResource(
                         travelEntity.hasUserLiked(CacheHelper.getInstance().getSelfInfo().getId())
                                 ? R.drawable.active_like_24dp : R.drawable.active_dislike_24dp);

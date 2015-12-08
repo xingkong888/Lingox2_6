@@ -25,7 +25,9 @@ public class AppUpdateActivity extends Activity implements OnClickListener {
     }
 
     private void initView() {
+        //update now
         findViewById(R.id.umeng_update_id_ok).setOnClickListener(this);
+        //not now
         findViewById(R.id.umeng_update_id_cancel).setOnClickListener(this);
     }
 

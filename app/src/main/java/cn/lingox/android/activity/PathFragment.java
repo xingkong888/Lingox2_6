@@ -71,7 +71,7 @@ public class PathFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * 修改fragment 不会重新加载
+     * 修改fragment的可见度，不会导致fragment重新加载
      **/
     public void switchContent(Fragment to) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

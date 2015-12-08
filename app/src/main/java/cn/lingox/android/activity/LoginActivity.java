@@ -43,8 +43,10 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initView();
 
-        pd = new ProgressDialog(LoginActivity.this);
+        pd = new ProgressDialog(this);
         pd.setCanceledOnTouchOutside(false);
         pd.setCancelable(false);
 
@@ -74,8 +76,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         } else if (getIntent().hasExtra(REGISTRATION_COMPLETE)) {
             Toast.makeText(this, "Registration Complete!", Toast.LENGTH_SHORT).show();
         }
-        setContentView(R.layout.activity_login);
-        initView();
     }
 
     private void initView() {
@@ -139,7 +139,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
         switch (v.getId()) {
             case R.id.login_button:
                 String username = usernameEditText.getText().toString().trim().toLowerCase();
-                String password = passwordEditText.getText().toString();
+                String password = passwordEditText.getText().toString().trim();
                 if (TextUtils.isEmpty(username)) {
                     Toast.makeText(this, "Please enter your Username or Email address", Toast.LENGTH_SHORT).show();
                     usernameEditText.requestFocus();
@@ -164,7 +164,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener 
                 }
                 break;
             case R.id.register_button:
-                // FIXME revert this test
                 startActivity(new Intent(this, RegisterActivity.class));
                 finish();
                 break;

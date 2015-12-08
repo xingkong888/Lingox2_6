@@ -180,7 +180,7 @@
                 style="@style/wrap_wrap"
                 android:layout_below="@+id/tag"
                 android:layout_marginLeft="10dp"
-                android:padding="2dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/black_deep" />
 
             <View
@@ -206,7 +206,7 @@
                 <TextView
                     android:id="@+id/travel_view_provide"
                     style="@style/wrap_wrap"
-                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
                     android:textColor="@color/black_deep" />
             </LinearLayout>
             <!--like、chat、share -->

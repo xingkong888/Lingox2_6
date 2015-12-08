@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ninety_nine">99+</string>
     <!--********************************* travel发布***********************************************-->
     <!-- 第一页内容-->
     <string name="travel_one_country_title">Where are you visiting?</string>

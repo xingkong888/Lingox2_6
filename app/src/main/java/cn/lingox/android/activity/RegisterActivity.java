@@ -71,7 +71,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!userNameEditText.getText().toString().equals("")) {
+                if (!"".equals(userNameEditText.getText().toString())) {
                     clearName.setVisibility(View.VISIBLE);
                 } else {
                     clearName.setVisibility(View.INVISIBLE);
@@ -89,7 +89,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!emailEditText.getText().toString().equals("")) {
+                if (!"".equals(emailEditText.getText().toString())) {
                     clearEmail.setVisibility(View.VISIBLE);
                 } else {
                     clearEmail.setVisibility(View.INVISIBLE);
@@ -107,7 +107,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!passwordEditText.getText().toString().equals("")) {
+                if (!"".equals(passwordEditText.getText().toString())) {
                     clearPassword.setVisibility(View.VISIBLE);
                 } else {
                     clearPassword.setVisibility(View.INVISIBLE);
@@ -125,7 +125,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!passwordConfirmEditText.getText().toString().equals("")) {
+                if (!"".equals(passwordConfirmEditText.getText().toString())) {
                     clearPasswordConfirm.setVisibility(View.VISIBLE);
                 } else {
                     clearPasswordConfirm.setVisibility(View.INVISIBLE);
@@ -138,10 +138,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_button:
-                final String username = userNameEditText.getText().toString().toLowerCase().trim();
-                final String password = passwordEditText.getText().toString();
-                final String confirm_pwd = passwordConfirmEditText.getText().toString();
-                final String email = emailEditText.getText().toString().toLowerCase().trim();
+                String username = userNameEditText.getText().toString().toLowerCase().trim();
+                String password = passwordEditText.getText().toString().trim();
+                String confirm_pwd = passwordConfirmEditText.getText().toString().trim();
+                String email = emailEditText.getText().toString().toLowerCase().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(this, "Please enter an Email address!", Toast.LENGTH_SHORT).show();
@@ -156,7 +156,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                     userNameEditText.requestFocus();
                     return;
                 } else if (!isUsernameValid(username)) {
-                    //TODO Make a method to determine why the username is invalid, length, special characters, etc
+                    //提示用户正确的用户名格式
                     Toast.makeText(this, "Username must contain only letters and numbers, and be between 6-15 characters!",
                             Toast.LENGTH_LONG).show();
                     userNameEditText.requestFocus();
@@ -201,16 +201,31 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    /**
+     * 返回登录页面
+     */
     private void goBack() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * 判断是否为正确的Email格式
+     *
+     * @param email 输入的字符串
+     * @return true 正确的email格式 false 错误的email格式
+     */
     private boolean isEmailValid(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    /**
+     * 判断用户名是否合法
+     *
+     * @param username 输入的用户名
+     * @return true 合法 false 不合法
+     */
     private boolean isUsernameValid(String username) {
         String regEx = "^[a-z0-9_-]{6,15}$";
         Matcher matcherObj = Pattern.compile(regEx).matcher(username.toLowerCase());
@@ -261,14 +276,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-//            Log.d(LOG_TAG, "Registering the new user on LingoXServer");
             try {
                 // LingoX server: Register the new user
-                final User user = ServerHelper.getInstance().register(email, username, password);
+                User user = ServerHelper.getInstance().register(email, username, password);
                 // Store user in Cache
                 CacheHelper.getInstance().setSelfInfo(user);
                 CacheHelper.getInstance().setPassword(password);
-//                Log.d(LOG_TAG, "The returned User data is: " + user.toString());
                 return true;
             } catch (final Exception e) {
 //                Log.e("Register", "Other Exception caught: " + e.toString());

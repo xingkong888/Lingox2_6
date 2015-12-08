@@ -45,7 +45,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
     // Data Elements
     private ArrayList<Path> pathList;
     // UI Elements
-    private ImageView addPathButton;
     private PullToRefreshListView listView;
     private LocalAdapter adapter;
     private int page = 1;
@@ -112,10 +111,13 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 refreshList();
             }
         });
-        addPathButton = (ImageView) v.findViewById(R.id.iv_add_path);
+        ImageView addPathButton = (ImageView) v.findViewById(R.id.iv_add_path);
         addPathButton.setOnClickListener(this);
     }
 
+    /**
+     * 开始动画
+     */
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
             img.setVisibility(View.VISIBLE);
@@ -123,6 +125,9 @@ public class LocalFragment extends Fragment implements OnClickListener {
         }
     }
 
+    /**
+     * 结束动画
+     */
     private void stopAnim() {
         if (animationDrawable.isRunning()) {
             img.setVisibility(View.GONE);
@@ -130,6 +135,9 @@ public class LocalFragment extends Fragment implements OnClickListener {
         }
     }
 
+    /**
+     * 调用path下载异步任务
+     */
     private void refreshList() {
         new GetPaths().execute();
     }
@@ -146,6 +154,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
                         @Override
                         public void run() {
                             try {
+                                //创建群聊id
                                 EMGroupManager.getInstance().createPublicGroup(path.getTitle().equals("") ? CacheHelper.getInstance().getSelfInfo().getNickname() :
                                         path.getTitle(), path.getText(), null, true);
                             } catch (EaseMobException e) {
@@ -167,12 +176,21 @@ public class LocalFragment extends Fragment implements OnClickListener {
         }
     }
 
+    /**
+     * 添加一个新建的path
+     *
+     * @param path 新建的path实例
+     */
     private void addPath(Path path) {
-        //TODO Scroll so that the view is visible
         pathList.add(0, path);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * 删除path
+     *
+     * @param path 删除的path实例
+     */
     private void removePath(Path path) {
         pathList.remove(path);
         adapter.notifyDataSetChanged();
@@ -235,8 +253,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
                     for (Path path : tempPathList) {
                         User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
                         if (tempUser == null) {
-                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()
-                            ));
+                            CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()));
                         }
                     }
                 }

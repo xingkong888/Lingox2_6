@@ -79,6 +79,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         adapter = new LocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
+        listView.setRefreshing();
         listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -239,7 +240,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             tempPathList = new ArrayList<>();
-            listView.setRefreshing();
             if (listView.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_START) {
                 listView.setMode(PullToRefreshBase.Mode.DISABLED);
             }
@@ -259,6 +259,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 }
                 // 将数据添加到集合中
                 pathList.addAll(tempPathList);
+                Log.d("星期", page + "=page" + pathList.size() + "><><");
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

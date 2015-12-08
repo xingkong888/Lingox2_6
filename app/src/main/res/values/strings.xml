@@ -315,7 +315,7 @@
     <string name="country_flag">UserCountryFlag</string>
     <string name="check_internet_connection">Please check your internet connection</string>
     <string name="reply_comment">reply</string>
-    <string name="replied_to">replied to</string>
+    <string name="replied_to">\\nreplied to %1$s</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_closed">Drawer Closed</string>
     <string name="return_default">DEFAULT</string>

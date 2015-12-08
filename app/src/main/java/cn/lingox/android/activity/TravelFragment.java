@@ -76,7 +76,7 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         adapter = new TravelAdapter(getActivity(), travelDatas);
         mListView.setAdapter(adapter);
         mListView.setMode(PullToRefreshBase.Mode.BOTH);
-        mListView.setRefreshing(true);
+        mListView.setRefreshing();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

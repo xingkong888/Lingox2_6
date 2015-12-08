@@ -81,8 +81,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private TextView pathGroudSizeInfo;
     private TextView pathLocationInfo;
     private InputMethodManager manager;
-    private TextView pathTraveler;
-    private TextView pathLocal;
     private ImageView pathAcceptButton;
     private ImageView pathGroupChat;
 
@@ -107,7 +105,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
     private ImageView delete, edit;
 
-    private int width;
     private int height;
     private int scrollViewHight;
     private int commentHeight;
@@ -177,7 +174,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         pathBackground = (ImageView) findViewById(R.id.path_background);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;
+        int width = dm.widthPixels;
         height = dm.heightPixels;
         ViewGroup.LayoutParams params1 = pathBackground.getLayoutParams();
         params1.height = width;
@@ -202,8 +199,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         pathCommentsNum = (TextView) findViewById(R.id.path_comments_num);
         pathJoinedUserNum = (TextView) findViewById(R.id.path_particpants_num);
 
-        pathTraveler = (TextView) findViewById(R.id.path_traveler);
-        pathLocal = (TextView) findViewById(R.id.path_local);
         //显示参加活动的人的评论----屏蔽了
         findViewById(R.id.path_show_reference).setOnClickListener(this);
 
@@ -290,14 +285,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         Picasso.with(this).load(path.getImage11()).into(pathBackground);
         uiHelper.textViewSetPossiblyNullString(pathUserNickname, user.getNickname());
 
-        switch (path.getType()) {
-            case 1://本地人
-                pathLocal.setVisibility(View.VISIBLE);
-                break;
-            case 2://旅行者
-                pathTraveler.setVisibility(View.VISIBLE);
-                break;
-        }
         if (path.getDateTime() > 0 || path.getEndDateTime() > 0) {
             pathTime.setVisibility(View.VISIBLE);
             availableTime.setVisibility(View.GONE);
@@ -350,16 +337,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
      */
     private void pathEdited() {
         pathTitle.setText(path.getTitle());
-        switch (path.getType()) {
-            case 1://本地人
-                pathLocal.setVisibility(View.VISIBLE);
-                pathTraveler.setVisibility(View.INVISIBLE);
-                break;
-            case 2://旅行者
-                pathLocal.setVisibility(View.INVISIBLE);
-                pathTraveler.setVisibility(View.VISIBLE);
-                break;
-        }
         Picasso.with(this).load(path.getImage()).into(pathBackground);
         uiHelper.textViewSetPossiblyNullString(pathActivity, path.getText());
         if (path.getDateTime() != 0 || path.getEndDateTime() != 0) {
@@ -462,7 +439,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             case R.id.iv_chat:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "chat"));
-                    new GetExist().execute(map);
+                    new GetExist(map).execute();
                 } else {
                     SkipDialog.getDialog(this).show();
                 }
@@ -1080,12 +1057,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         @Override
         protected User doInBackground(String... params) {
             User targetUser;
-            boolean isTargetUs;
-            if (LingoXApplication.getInstance().getSkip()) {
-                isTargetUs = false;
-            } else {
-                isTargetUs = CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
-            }
+            boolean isTargetUs = !LingoXApplication.getInstance().getSkip()
+                    && CacheHelper.getInstance().getSelfInfo().getId().equals(userTar);
             if (isTargetUs) {
                 targetUser = CacheHelper.getInstance().getSelfInfo();
             } else {
@@ -1104,7 +1077,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         @Override
         protected void onPostExecute(User user) {
             if (user != null) {
-                tarName.setText(" " + getString(R.string.replied_to) + " " + user.getNickname());
+                tarName.setText(String.format(getString(R.string.replied_to), user.getNickname()));
                 tarName.setVisibility(View.VISIBLE);
             }
             super.onPostExecute(user);
@@ -1145,12 +1118,16 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    private class GetExist extends AsyncTask<HashMap<String, String>, Void, Boolean> {
+    private class GetExist extends AsyncTask<Void, Void, Boolean> {
+        private HashMap<String, String> maps;
 
+        public GetExist(HashMap<String, String> map) {
+            this.maps = map;
+        }
         @Override
-        protected Boolean doInBackground(HashMap<String, String>... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
-                isApply = ServerHelper.getInstance().existApplication(params[0]);
+                isApply = ServerHelper.getInstance().existApplication(maps);
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());

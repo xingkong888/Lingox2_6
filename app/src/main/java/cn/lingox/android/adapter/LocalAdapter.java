@@ -100,7 +100,6 @@ public class LocalAdapter extends BaseAdapter {
         }
         final User user = CacheHelper.getInstance().getUserInfo(path.getUserId());
         if (user == null) {
-//        if (LingoXApplication.getInstance().getSkip()) {
             new GetUser(path.getUserId(), new GetUser.Callback() {
                 @Override
                 public void onSuccess(User cbUser) {
@@ -136,7 +135,6 @@ public class LocalAdapter extends BaseAdapter {
                     Double.valueOf(path.getLatitude()),
                     Double.valueOf(path.getLongitude())
                     , results);
-
             holder.distance = results[0];
             if (holder.distance < 1000) {
                 //小于1km

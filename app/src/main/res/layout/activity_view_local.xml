@@ -123,42 +123,6 @@
                             android:layout_marginBottom="4dp"
                             android:textColor="#868686"
                             android:textSize="18sp" />
-                        <!--不显示local或travel-->
-                        <RelativeLayout
-                            style="@style/wrap_wrap"
-                            android:layout_below="@id/path_title"
-                            android:layout_marginLeft="12dp"
-                            android:layout_toRightOf="@id/path_user_name"
-                            android:gravity="right"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:id="@+id/path_traveler"
-                                android:layout_width="80dp"
-                                android:layout_height="20dp"
-                                android:layout_marginBottom="4dp"
-                                android:background="@drawable/path_travel_bg"
-                                android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:text="@string/path_traveler"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:id="@+id/path_local"
-                                android:layout_width="80dp"
-                                android:layout_height="20dp"
-                                android:background="@drawable/path_local_bg"
-                                android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:text="@string/path_local"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                android:visibility="gone" />
-                        </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
 

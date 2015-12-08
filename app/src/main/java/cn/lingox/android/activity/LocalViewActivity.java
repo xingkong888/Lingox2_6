@@ -5,17 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +31,6 @@ import com.easemob.exceptions.EaseMobException;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,7 +48,7 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
-import cn.lingox.android.utils.DpToPx;
+import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.MyScrollView;
 import cn.lingox.android.widget.ScrollViewListener;
@@ -126,7 +118,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private int[] endLocations = new int[2];
 
     private ArrayList<PathTags> datas;
-    private String[] tags;
+    //    private String[] tags;
+    private ArrayList<String> tags;
     private ViewGroup tagsView = null;
     private UIHelper uiHelper = UIHelper.getInstance();
     private HashMap<String, String> map = new HashMap<>();
@@ -155,7 +148,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             } else if (!intent.getStringExtra(PATH_TO_VIEW_ID).isEmpty()) {
                 map.put("pathId", intent.getStringExtra(PATH_TO_VIEW_ID));
             }
-            new CreateAppIconFile().execute();
             new GetPathInfo().execute(intent.getStringExtra(PATH_TO_VIEW_ID));
         }
     }
@@ -212,7 +204,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
         pathTraveler = (TextView) findViewById(R.id.path_traveler);
         pathLocal = (TextView) findViewById(R.id.path_local);
-
+        //显示参加活动的人的评论----屏蔽了
         findViewById(R.id.path_show_reference).setOnClickListener(this);
 
         pathAcceptButton = (ImageView) findViewById(R.id.path_accept_button);
@@ -220,6 +212,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         pathAcceptButton.setTag(0);
         pathGroupChat = (ImageView) findViewById(R.id.group_chat);
         pathGroupChat.setOnClickListener(this);
+        //分享按钮
         findViewById(R.id.path_share_button).setOnClickListener(this);
 
         joinedUsersListView = (HListView) findViewById(R.id.path_view_joined_user_list);
@@ -332,89 +325,16 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             pathGroupChat.setVisibility(View.GONE);
         }
         if (path.getTags().size() > 0) {
-            tags = new String[path.getTags().size()];
+            tags = new ArrayList<>();
             for (int a = 0, b = path.getTags().size(); a < b; a++) {
-                tags[a] = path.getTags().get(a);
+                tags.add(datas.get(Integer.valueOf(path.getTags().get(a))).getTag());
             }
         }
-        addTagView(tags);
+        //添加标签
+        CreateTagView.addTagView(tags, tagsView, this);
     }
 
-    public void addTagView(String[] tags) {
-        /**
-         * 标签之间的间距 px
-         */
-        final int itemMargins = 25;
-        /**
-         * 标签的行间距 px
-         */
-        final int lineMargins = 25;
-        tagsView.removeAllViews();
-        final int containerWidth = width - DpToPx.dip2px(this, 100);
-        final LayoutInflater inflater = this.getLayoutInflater();
-        /** 用来测量字符的宽度 */
-        final Paint paint = new Paint();
-        TextView textView = (TextView) inflater.inflate(R.layout.row_tag_include, null);
-        int itemPadding = textView.getCompoundPaddingLeft() + textView.getCompoundPaddingRight();
-        final LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        tvParams.setMargins(0, 0, itemMargins, 0);
-        paint.setTextSize(textView.getTextSize());
-        LinearLayout layout = new LinearLayout(this);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        tagsView.addView(layout);
-        final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, lineMargins, 0, 0);
-        /** 一行剩下的空间 **/
-        int remainWidth = containerWidth;
-        // 表示数组长度
-        int length = path.getTags().size();
-        String text;
-        float itemWidth;
-        for (int i = 0; i < length; ++i) {
-            try {
-                text = datas.get(Integer.valueOf(tags[i])).getTag();
-            } catch (Exception e) {
-                text = tags[i];
-            }
-
-            itemWidth = paint.measureText(text) + itemPadding;
-            if (remainWidth - itemWidth > 25) {
-                addItemView(inflater, layout, tvParams, text);
-            } else {
-                resetTextViewMarginsRight(layout);
-                layout = new LinearLayout(this);
-                layout.setLayoutParams(params);
-                layout.setOrientation(LinearLayout.HORIZONTAL);
-                /** 将前面那一个textview加入新的一行 */
-                addItemView(inflater, layout, tvParams, text);
-                tagsView.addView(layout);
-                remainWidth = containerWidth;
-            }
-            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
-        }
-        if (length > 0) {
-            resetTextViewMarginsRight(layout);
-        }
-    }
-
-    /*****************
-     * 将每行最后一个textview的MarginsRight去掉
-     *********************************/
-    private void resetTextViewMarginsRight(ViewGroup viewGroup) {
-        final TextView tempTextView = (TextView) viewGroup.getChildAt(viewGroup.getChildCount() - 1);
-        tempTextView
-                .setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-    }
-
-    private void addItemView(LayoutInflater inflater, ViewGroup viewGroup, ViewGroup.LayoutParams params, final String text) {
-        final TextView tvItem = (TextView) inflater.inflate(R.layout.row_tag_include, null);
-        tvItem.setText(text);
-        viewGroup.addView(tvItem, params);
-    }
-
+    //设置键盘的显示与隐藏
     public void setModeKeyboard(View view) {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getCurrentFocus() != null)
@@ -425,6 +345,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    /**
+     * 活动修改后，重新设置界面上的数据
+     */
     private void pathEdited() {
         pathTitle.setText(path.getTitle());
         switch (path.getType()) {
@@ -478,31 +401,26 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             case R.id.iv_delete:
                 new AlertDialog.Builder(this)
                         .setTitle("Are you sure to delete?")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            path = ServerHelper.getInstance().deletePath(path.getId());
+                                            Intent intent = new Intent();
+                                            intent.putExtra(LocalViewActivity.DELETED_PATH, path);
+                                            setResult(RESULT_OK, intent);
+                                            finish();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }.start();
                             }
-                        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                try {
-                                    path = ServerHelper.getInstance().deletePath(path.getId());
-                                    Intent intent = new Intent();
-                                    intent.putExtra(LocalViewActivity.DELETED_PATH, path);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }.start();
-
-                    }
-                }).create().show();
+                        }).create().show();
                 break;
             case R.id.back_button:
                 finishedViewing();
@@ -529,7 +447,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 }
                 break;
             case R.id.group_chat:
-                new joinGroupChat().execute();
+                new JoinGroupChat().execute();
                 break;
             case R.id.path_user_avatar:
                 if (!LingoXApplication.getInstance().getSkip()) {
@@ -607,11 +525,14 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
      */
     private void finishedViewing() {
         if (layout.isShown()) {
+            //若群聊引导页显示，则隐藏
             layout.setVisibility(View.GONE);
         } else if (!replyEveryOne) {
+            //若正在回复某人，则清空回复框
             replyEveryOne = true;
             commentEditText.setHint("");
         } else {
+            //返回上一页
             Intent editedIntent = new Intent();
             editedIntent.putExtra(EDITED_PATH, path);
             setResult(RESULT_OK, editedIntent);
@@ -657,6 +578,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    /**
+     * 移除评论
+     *
+     * @param position 移除评论的位置
+     */
     private void removeComment(int position) {
         path.removeComment(commentsList.get(position));
         commentsList.remove(position);
@@ -667,6 +593,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         commentsListView.removeViewAt(position);
     }
 
+    /**
+     * 添加评论
+     *
+     * @param comment 添加评论的实例
+     */
     private void addComment(Comment comment) {
         path.addComment(comment);
         commentsList.add(comment);
@@ -677,6 +608,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         imm.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
     }
 
+    /**
+     * 加载所以的评论----为评论创建展示控件
+     */
     private void loadComments() {
         commentsListView.removeAllViews();
         for (int i = 0, j = commentsList.size(); i < j; i++) {
@@ -684,6 +618,12 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    /**
+     * 创建评论展示控件
+     *
+     * @param position 评论的位置
+     * @return 控件
+     */
     private View getCommentView(final int position) {
         View rowView = getLayoutInflater().inflate(R.layout.row_path_comment, null);
         final Comment comment = commentsList.get(position);
@@ -727,6 +667,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         return rowView;
     }
 
+    /**
+     * 回复某人
+     *
+     * @param comment “”
+     */
     private void replyOthers(final Comment comment) {
         replyUser = CacheHelper.getInstance().getUserInfo(comment.getUserId());
         commentEditText.setHint((getString(R.string.reply_comment)) + " " + replyUser.getNickname() + ":");
@@ -765,6 +710,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    /**
+     * 下载活动数据
+     */
     private class GetPathInfo extends AsyncTask<String, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -839,7 +787,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    // TODO do we need a loading bar or similar indicator?
+    /**
+     * 上传活动的评论
+     */
     private class PostComment extends AsyncTask<Void, Void, Comment> {
         private String str;
 
@@ -1161,44 +1111,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    private class CreateAppIconFile extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if (Environment.MEDIA_MOUNTED.equals(Environment
-                    .getExternalStorageState())
-                    && Environment.getExternalStorageDirectory().exists()) {
-                appIconImagePath = Environment.getExternalStorageDirectory().
-                        getAbsolutePath() + FILE_NAME;
-            } else {
-                appIconImagePath = getApplication().getFilesDir().getAbsolutePath()
-                        + FILE_NAME;
-            }
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                File file = new File(appIconImagePath);
-                if (!file.exists()) {
-                    file.createNewFile();
-                    Bitmap pic = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.app_share_icon);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    pic.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.flush();
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                appIconImagePath = null;
-                Log.e(LOG_TAG, e.toString());
-            }
-            return null;
-        }
-    }
-
-    private class joinGroupChat extends AsyncTask<Void, Void, Void> {
+    private class JoinGroupChat extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();

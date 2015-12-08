@@ -48,7 +48,6 @@ public class LocalReferenceActivity extends Activity implements OnClickListener 
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private String pathId, userId;
-    private int type = 0;
     private Path path;
 
     private boolean isSelf = false;
@@ -78,7 +77,6 @@ public class LocalReferenceActivity extends Activity implements OnClickListener 
             path = getIntent().getParcelableExtra(PATH);
             pathId = path.getId();
             userId = path.getUserId();
-            type = path.getType();
         } else {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             finish();
@@ -222,7 +220,6 @@ public class LocalReferenceActivity extends Activity implements OnClickListener 
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
             try {
                 ServerHelper.getInstance().createPathReference(map);
                 return true;

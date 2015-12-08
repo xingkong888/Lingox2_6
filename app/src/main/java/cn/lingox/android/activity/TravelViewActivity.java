@@ -6,11 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -47,7 +44,7 @@ import cn.lingox.android.task.GetUser;
 import cn.lingox.android.task.LikeTravelEntity;
 import cn.lingox.android.task.UnLikeTravelEntity;
 import cn.lingox.android.utils.CircularImageView;
-import cn.lingox.android.utils.DpToPx;
+import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.MyScrollView;
 import cn.lingox.android.widget.ScrollViewListener;
@@ -68,13 +65,14 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private ImageView delete, edit;
     private ImageView like, chat;
     private ImageView flg;
-    private int width;
+
     /*用于判断评论编辑栏是否隐藏----暂时屏蔽掉，不使用
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
     private int[] startLocations = new int[2];
     private int[] endLocations = new int[2];
     private int scrollViewHight;
     private int commentHeight;
+    private int width;
     private int height;
 
     private RelativeLayout travelLayout;
@@ -145,10 +143,11 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private void initView() {
         ImageView back = (ImageView) findViewById(R.id.travel_view_back);
         back.setOnClickListener(this);
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;
+
         //用于判断评论编辑栏是否隐藏，获取屏幕高度----暂时屏蔽掉，不使用
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        width = dm.widthPixels;
 //        height = dm.heightPixels;
         //包含like、chat和share的layout
 //        threeLayout = (LinearLayout) findViewById(R.id.like_chat_share);
@@ -201,82 +200,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             likeList.setClickable(false);
         }
     }
-
-    /*********************************
-     * tags
-     **************************************************/
-
-    private void addTagView(ArrayList<String> tags) {
-        /**
-         * 标签之间的间距 px
-         */
-        final int itemMargins = 25;
-        /**
-         * 标签的行间距 px
-         */
-        final int lineMargins = 25;
-        tagsView.removeAllViews();
-        final int containerWidth = width - DpToPx.dip2px(this, 100);
-        final LayoutInflater inflater = this.getLayoutInflater();
-        /** 用来测量字符的宽度 */
-        final Paint paint = new Paint();
-        TextView textView = (TextView) inflater.inflate(R.layout.row_tag_include, null);
-        int itemPadding = textView.getCompoundPaddingLeft() + textView.getCompoundPaddingRight();
-        final LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        tvParams.setMargins(0, 0, itemMargins, 0);
-        paint.setTextSize(textView.getTextSize());
-        LinearLayout layout = new LinearLayout(this);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        tagsView.addView(layout);
-        final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, lineMargins, 0, 0);
-        /** 一行剩下的空间 **/
-        int remainWidth = containerWidth;
-        // 表示数组长度
-        int length = tags.size();
-        String text;
-        float itemWidth;
-        for (int i = 0; i < length; ++i) {
-            text = tags.get(i);
-
-            itemWidth = paint.measureText(text) + itemPadding;
-            if (remainWidth - itemWidth > 25) {
-                addItemView(inflater, layout, tvParams, text);
-            } else {
-                resetTextViewMarginsRight(layout);
-                layout = new LinearLayout(this);
-                layout.setLayoutParams(params);
-                layout.setOrientation(LinearLayout.HORIZONTAL);
-                /** 将前面那一个textview加入新的一行 */
-                addItemView(inflater, layout, tvParams, text);
-                tagsView.addView(layout);
-                remainWidth = containerWidth;
-            }
-            remainWidth = (int) (remainWidth - itemWidth + 0.5f) - itemMargins;
-        }
-        if (length > 0) {
-            resetTextViewMarginsRight(layout);
-        }
-    }
-
-    /*****************
-     * 将每行最后一个textview的MarginsRight去掉
-     *********************************/
-    private void resetTextViewMarginsRight(ViewGroup viewGroup) {
-        final TextView tempTextView = (TextView) viewGroup.getChildAt(viewGroup.getChildCount() - 1);
-        tempTextView.setLayoutParams(
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-    }
-
-    private void addItemView(LayoutInflater inflater, ViewGroup viewGroup, ViewGroup.LayoutParams params, final String text) {
-        final TextView tvItem = (TextView) inflater.inflate(R.layout.row_tag_include, null);
-        tvItem.setText(text);
-        viewGroup.addView(tvItem, params);
-    }
-    /****************************************************************************************/
 /*****************************************comment*******************************************/
     /**
      * 设置数据
@@ -330,7 +253,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
                 list.add(tags.get(Integer.valueOf(travelEntity.getTags().get(i))).getTag());
             }
-            addTagView(list);
+            //添加标签
+            CreateTagView.addTagView(list, tagsView, this);
         }
         //设置地点
         location.setText(travelEntity.getLocation());
@@ -341,6 +265,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                         .append(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime())));
         //设置问题
         describe.setText(travelEntity.getText());
+        /*TextView分散对齐------效果不怎么好看
+        NewTextView.justify(describe, describe.getWidth());
+        */
+
         //设置可提供
         provide.setText(travelEntity.getProvide());
         //设置like

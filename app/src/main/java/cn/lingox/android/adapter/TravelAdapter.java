@@ -73,32 +73,32 @@ public class TravelAdapter extends BaseAdapter {
         }
         TravelEntity travelEntity = datas.get(position);
         if (!loading) {
-        User user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
-        if (user == null) {
-            new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
-                @Override
-                public void onSuccess(User user) {
-                    //头像
-                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
-                    //名字
-                    holder.name.setText(user.getNicknameOrUsername());
-                    //国旗
-                    ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
-                }
+            User user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
+            if (user == null) {
+                new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
+                    @Override
+                    public void onSuccess(User user) {
+                        //头像
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+                        //名字
+                        holder.name.setText(user.getNicknameOrUsername());
+                        //国旗
+                        ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
+                    }
 
-                @Override
-                public void onFail() {
+                    @Override
+                    public void onFail() {
 
-                }
-            }).execute();
-        } else {
-            //头像
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
-            //名字
-            holder.name.setText(user.getNicknameOrUsername());
-            //国旗
-            ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
-        }
+                    }
+                }).execute();
+            } else {
+                //头像
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+                //名字
+                holder.name.setText(user.getNicknameOrUsername());
+                //国旗
+                ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
+            }
         } else {
             holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
         }

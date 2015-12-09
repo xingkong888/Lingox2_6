@@ -132,21 +132,22 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         sideDrawers.setDrawerListener(sideDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        /*----- LEFT MENU -----*/
+        /***********************- LEFT MENU *******************************/
         //follow/following
         findViewById(R.id.layout_contact_list).setOnClickListener(this);
         //set
-        findViewById(R.id.layout_set).setOnClickListener(this);
         //feedback
+        findViewById(R.id.layout_set).setOnClickListener(this);
         findViewById(R.id.layout_feedback).setOnClickListener(this);
         //info
         findViewById(R.id.layout_info).setOnClickListener(this);
-        /*********************************************************************/
         //头像
         photo = (ImageView) findViewById(R.id.avatar_info);
         photo.setOnClickListener(this);
         //国旗
         flag = (ImageView) findViewById(R.id.iv_flag);
+
+        /*********************************************************************/
         // ----- MAIN VIEW -----
         chatFragment = new ChatFragment();
         pathFragment = new PathFragment();
@@ -196,8 +197,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private void initDate() {
         if (!LingoXApplication.getInstance().getSkip()) {//如果是登录进来的，显示名字
             //用户昵称
-            ((TextView) findViewById(R.id.tv_nickname)).setText(
-                    CacheHelper.getInstance().getSelfInfo().getNickname());
+            ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
             //用户id
             ((TextView) findViewById(R.id.tv_username)).setText(
                     new StringBuilder().append("ID:").append(CacheHelper.getInstance().getSelfInfo().getUsername()));
@@ -240,8 +240,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
                     userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
                     startActivity(userInfoIntent);
-                    //activity跳转动画
+                    /*activity跳转动画
+                    原因：暂时只有这一处添加了动画
                     overridePendingTransition(R.anim.push_top_in, R.anim.push_bottom_out);
+                    */
                 } else {
                     SkipDialog.getDialog(this).show();
                 }
@@ -346,6 +348,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     private void exitSystem() {
         if ((System.currentTimeMillis() - clickTime) > 2000) {
+            //再次按下返回按钮,退出程序
             Toast.makeText(getApplicationContext(), "Press the back button once again and exit the program", Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {

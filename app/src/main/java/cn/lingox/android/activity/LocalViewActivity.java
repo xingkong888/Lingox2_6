@@ -1124,6 +1124,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         public GetExist(HashMap<String, String> map) {
             this.maps = map;
         }
+
         @Override
         protected Boolean doInBackground(Void... params) {
             try {

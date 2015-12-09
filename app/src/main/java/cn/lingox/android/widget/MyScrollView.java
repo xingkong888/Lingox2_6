@@ -7,22 +7,18 @@ import android.widget.ScrollView;
 public class MyScrollView extends ScrollView {
 
     private ScrollViewListener scrollViewListener = null;
-    private Context context;
 
     public MyScrollView(Context context) {
         super(context);
-        this.context = context;
     }
 
     public MyScrollView(Context context, AttributeSet attrs,
                         int defStyle) {
         super(context, attrs, defStyle);
-        this.context = context;
     }
 
     public MyScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
     }
 
     public void setScrollViewListener(ScrollViewListener scrollViewListener) {

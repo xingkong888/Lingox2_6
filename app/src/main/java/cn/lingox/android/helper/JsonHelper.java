@@ -33,31 +33,38 @@ import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Travel;
 import cn.lingox.android.entity.location.Country1;
 import cn.lingox.android.entity.location.Provinces;
-import cn.lingox.android.widget.locationpicker.Country;
 
 public class JsonHelper {
     private static final String LOG_TAG = "JsonHelper";
 
-    private static final String COUNTRIES_AND_CITIES_JSON = "json/countries_and_cities.json";
+    //    private static final String COUNTRIES_AND_CITIES_JSON = "json/countries_and_cities.json";
     private static final String LANGUAGES_JSON = "json/languages.json";
     private static final String PATHTAGS_JSON = "json/pathTags.json";
 
     private static JsonHelper instance = null;
     private Context context;
     private Gson gson = null;
-    private ArrayList<Country> allCountriesList = null;
     private ArrayList<Country1> countriesList = null;
     private ArrayList<String> pathImgList = new ArrayList<>();
     private String[] allLanguagesList;
     private Locale locale;
     private ArrayList<String> allTags = null;
 
+    /**
+     * 创建JsonHelper的实例
+     * 同时创建Gson的实例
+     */
     private JsonHelper() {
         if (null == gson) {
             gson = new Gson();
         }
     }
 
+    /**
+     * 单例模式
+     *
+     * @return JsonHelper的实例
+     */
     public static JsonHelper getInstance() {
         if (instance == null) {
             instance = new JsonHelper();
@@ -66,22 +73,26 @@ public class JsonHelper {
     }
 
     /**
-     * @param url
-     * @return
+     * @param url url
+     * @return JSONObject
      * @throws IOException
      * @throws JSONException
      */
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            return new JSONObject(jsonText);
-        } finally {
-            is.close();
-        }
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        String jsonText = readAll(rd);
+        is.close();
+        return new JSONObject(jsonText);
     }
 
+    /**
+     * 读取输入流中的数据
+     *
+     * @param rd ""
+     * @return String
+     * @throws IOException
+     */
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -91,6 +102,14 @@ public class JsonHelper {
         return sb.toString();
     }
 
+    /**
+     * 将文件转换成String
+     *
+     * @param context  上下文
+     * @param fileName 文件名
+     * @return String
+     * @throws IOException
+     */
     private static String readFileAsString(Context context, String fileName)
             throws IOException {
         InputStream is = context.getAssets().open(fileName);
@@ -105,6 +124,14 @@ public class JsonHelper {
         this.context = context;
     }
 
+    /**
+     * 将json解析成实体类
+     *
+     * @param jsonStr json字符串
+     * @param cl      实体类（不知道如何描述）
+     * @param <T>     实体类（不知道如何描述）
+     * @return 实体类（不知道如何描述）
+     */
     @SuppressWarnings("unchecked")
     public <T> T jsonToBean(String jsonStr, Class<?> cl) {
         Object obj = null;
@@ -119,6 +146,12 @@ public class JsonHelper {
         }
     }
 
+    /**
+     * 将json解析成Travel实体类
+     *
+     * @param jsonStr json字符串
+     * @return Travel实例的集合
+     */
     public ArrayList<Travel> jsonToTravel(String jsonStr) {
         ArrayList<Travel> list = new ArrayList<>();
         Travel travel;
@@ -151,6 +184,13 @@ public class JsonHelper {
         }
     }
 
+    /**
+     * 获取用户id
+     * （没看到干嘛要这样）
+     *
+     * @param data json字符串
+     * @return String
+     */
     public String getUserId(JSONObject data) {
         try {
             return data.getString(StringConstant.userIdStr);
@@ -162,9 +202,9 @@ public class JsonHelper {
     /**
      * 根据给定的long类型格式化时间
      *
-     * @param timestamp
+     * @param timestamp long类型的时间
      * @param type      1：带时、分 2：不带时、分
-     * @return
+     * @return 格式化后的时间
      */
     public String parseTimestamp(long timestamp, int type) {
         if (locale == null) {
@@ -178,35 +218,39 @@ public class JsonHelper {
                 format = new SimpleDateFormat("yyyy-MM-dd kk:mm EEE", locale == null ? Locale.CHINA : locale);
                 break;
             case 2://
-                format = new SimpleDateFormat("yyyy-MM-dd");
+                format = new SimpleDateFormat("yyyy-MM-dd", locale == null ? Locale.CHINA : locale);
                 break;
         }
-        return format.format(c.getTime());
+        return format == null ? "DateTime Parse Error!" : format.format(c.getTime());
     }
 
+    /**
+     * 格式化时间
+     *
+     * @param date yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+     * @return 格式化后的时间
+     */
     public String parseSailsJSDate(String date) {
         try {
             // Locale is the servers location (ie China)
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
             df.setTimeZone(TimeZone.getTimeZone("Zulu"));
             Date parsedDate;
-
             parsedDate = df.parse(date);
-
             Calendar c = Calendar.getInstance();
             c.setTime(parsedDate);
-
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm", locale == null ? Locale.CHINA : locale);
-
             return (format.format(c.getTime()));
         } catch (ParseException e) {
             Log.e(LOG_TAG, "parseSailsJSDate(): Error: " + e.getMessage());
-            // TODO make this return null, and all fields that use this to use UIHelper (because of possible null value)
             return "DateTime Parse Error!";
         }
     }
 
-    public void getLocal() {
+    /**
+     * 获取语言设置
+     */
+    private void getLocal() {
         if (CacheHelper.getInstance().getSettingLanguage() != null) {
             locale = new Locale(CacheHelper.getInstance().getSettingLanguage());
         } else {
@@ -215,6 +259,13 @@ public class JsonHelper {
         }
     }
 
+    /**
+     * 根据时间，判断距当前时间的间隔
+     *
+     * @param date yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+     * @param type 无用，为了与parseSailsJSDate(String date)区别
+     * @return 距当前时间的间隔（描述的不恰当）
+     */
     public String parseSailsJSDate(String date, int type) {
         getLocal();
         try {
@@ -242,7 +293,6 @@ public class JsonHelper {
             return null;
         } catch (ParseException e) {
             Log.e(LOG_TAG, "parseSailsJSDate(): Error: " + e.getMessage());
-            // TODO make this return null, and all fields that use this to use UIHelper (because of possible null value)
             return "DateTime Parse Error!";
         }
     }
@@ -270,12 +320,9 @@ public class JsonHelper {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
         df.setTimeZone(TimeZone.getTimeZone("Zulu"));
         Date parsedDate;
-
         parsedDate = df.parse(date);
-
         Calendar c = Calendar.getInstance();
         c.setTime(parsedDate);
-
         return (c.getTimeInMillis());
     }
 
@@ -283,7 +330,12 @@ public class JsonHelper {
         return "[" + String.valueOf(longNlat[0]) + "," + String.valueOf(longNlat[1]) + "]";
     }
 
-    // TODO maybe make this split with more than just semicolon
+    /**
+     * 通过给定的条件，分割字符串
+     *
+     * @param interests 待分割的字符串
+     * @return 分割后的字符串
+     */
     public String getInterestsJson(String interests) {
         JSONArray jsonArray = new JSONArray();
         String[] interestSplit = interests.split(",");
@@ -293,6 +345,12 @@ public class JsonHelper {
         return jsonArray.toString();
     }
 
+    /**
+     * 获取所有的图片链接
+     * 应该是提供的默认图片的链接
+     *
+     * @return 链接的集合
+     */
     public ArrayList<String> getAllPathImg() {
         if (pathImgList.isEmpty()) {
             try {
@@ -307,35 +365,11 @@ public class JsonHelper {
         return pathImgList;
     }
 
-    // TODO make us retrieve this JSON file from the server, this will allow
-    // TODO us to keep the countries/cities list up to date even if the user doesn't update their app
-    public ArrayList<Country> getAllCountries() {
-        if (allCountriesList == null) {
-            try {
-                allCountriesList = new ArrayList<>();
-                // Read from local file
-                String allCountriesString = readFileAsString(context, COUNTRIES_AND_CITIES_JSON);
-                //Log.d(LOG_TAG, "All countries: " + allCountriesString);
-                JSONObject jsonObject = new JSONObject(allCountriesString);
-                Iterator<?> keys = jsonObject.keys();
-                // Add the data to all countries list
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    Country country = new Country();
-                    country.setCode(key);
-                    country.setName(jsonObject.getJSONObject(key).getString("name"));
-                    country.setCities(jsonObject.getJSONObject(key).getJSONArray("cities"));
-                    allCountriesList.add(country);
-                }
-
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "getAllCountries() Exception Caught");
-                e.printStackTrace();
-            }
-        }
-        return allCountriesList;
-    }
-
+    /**
+     * 获取所有国家和城市
+     *
+     * @return 国家、城市集合
+     */
     public ArrayList<Country1> getCountries() {
         if (countriesList == null) {
             try {
@@ -376,6 +410,11 @@ public class JsonHelper {
         return countriesList;
     }
 
+    /**
+     * 获取标签
+     *
+     * @return 标签集合
+     */
     public ArrayList<String> getAllTags() {
         if (allTags == null) {
             try {
@@ -397,6 +436,12 @@ public class JsonHelper {
     // TODO make us retrieve this JSON file from the server,
     // this will allow us to keep the countries/cities list up to date even if
     // the user doesn't update their app
+
+    /**
+     * 获取语言
+     *
+     * @return 语言的集合
+     */
     public String[] getLanguages() {
         if (allLanguagesList == null) {
             try {
@@ -405,7 +450,7 @@ public class JsonHelper {
                 JSONObject jsonObject = new JSONObject(allLanguagesString);
                 JSONArray jsonArray = jsonObject.getJSONArray("languages");
 
-                ArrayList<String> tempList = new ArrayList<String>();
+                ArrayList<String> tempList = new ArrayList<>();
                 for (int i = 0, j = jsonArray.length(); i < j; i++) {
                     tempList.add(jsonArray.getString(i).trim());
                 }
@@ -419,9 +464,14 @@ public class JsonHelper {
         return allLanguagesList;
     }
 
+    /**
+     * 通过国家名，获取对应的代码，用于查找国家国旗
+     *
+     * @param country 国家名
+     * @return 国家代码
+     */
     public String getCodeFromCountry(String country) {
         if (TextUtils.isEmpty(country)) {
-            Log.d(LOG_TAG, "getCountryFromCode(): empty countryCode");
             return null;
         }
         getCountries();
@@ -429,7 +479,6 @@ public class JsonHelper {
             if (country1.getCountry().contentEquals(country))
                 return country1.getCountryCode();
         }
-        Log.d(LOG_TAG, "getCodeFromCountry(): Country1 not found!");
         return null;
     }
 }

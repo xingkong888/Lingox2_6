@@ -76,25 +76,22 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
         // children asynchronously
         mImageResizer = new ImageResizer(getActivity(), mImageThumbSize);
         mImageResizer.setLoadingImage(R.drawable.empty_photo);
-        mImageResizer.addImageCache(getActivity().getSupportFragmentManager(),
-                cacheParams);
+        mImageResizer.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_image_grid,
-                container, false);
+        final View v = inflater.inflate(R.layout.fragment_image_grid, container, false);
         final GridView mGridView = (GridView) v.findViewById(R.id.gridView);
         mGridView.setAdapter(mAdapter);
         mGridView.setOnItemClickListener(this);
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView absListView,
-                                             int scrollState) {
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
                 // Pause fetcher to ensure smoother scrolling when flinging
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                if (scrollState == SCROLL_STATE_FLING) {
                     // Before Honeycomb pause image loading on scroll to help
                     // with performance
                     if (!Utils.hasHoneycomb()) {
@@ -159,8 +156,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View v, final int position,
-                            long id) {
+    public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
 
         mImageResizer.setPauseWork(true);
 

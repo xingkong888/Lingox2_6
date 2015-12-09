@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -75,7 +76,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         refresh = (ImageView) v.findViewById(R.id.refresh_view);
         refresh.setOnClickListener(this);
         pathList = new ArrayList<>();
-        page = 1;
         adapter = new LocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
@@ -110,6 +110,23 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 //上拉加载更多
                 page++;
                 refreshList();
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    //闲置状态，加载数据
+                    adapter.setLoading(false);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    adapter.setLoading(true);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
         ImageView addPathButton = (ImageView) v.findViewById(R.id.iv_add_path);
@@ -259,7 +276,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 }
                 // 将数据添加到集合中
                 pathList.addAll(tempPathList);
-                Log.d("星期", page + "=page" + pathList.size() + "><><");
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

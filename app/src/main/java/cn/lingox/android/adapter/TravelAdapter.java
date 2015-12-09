@@ -1,6 +1,7 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,9 @@ import cn.lingox.android.utils.CircularImageView;
 public class TravelAdapter extends BaseAdapter {
     private Activity context;
     private ArrayList<TravelEntity> datas;
+
+    //标识listview是否滑动 true滑动  false未滑动
+    private boolean loading = false;
 
     public TravelAdapter(Activity context, ArrayList<TravelEntity> list) {
         this.context = context;
@@ -68,7 +72,7 @@ public class TravelAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         TravelEntity travelEntity = datas.get(position);
-
+        if (!loading) {
         User user = CacheHelper.getInstance().getUserInfo(travelEntity.getUser_id());
         if (user == null) {
             new GetUser(travelEntity.getUser_id(), new GetUser.Callback() {
@@ -95,6 +99,9 @@ public class TravelAdapter extends BaseAdapter {
             //国旗
             ImageHelper.getInstance().loadFlag(holder.flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
         }
+        } else {
+            holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+        }
         //显示时间段
         String startTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime());
         String endTime = TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime());
@@ -111,6 +118,15 @@ public class TravelAdapter extends BaseAdapter {
         holder.createTime.setText(
                 TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
         return convertView;
+    }
+
+    /**
+     * 设置listview是否在滑动
+     *
+     * @param loading true滑动 false空闲
+     */
+    public void setLoading(boolean loading) {
+        this.loading = loading;
     }
 
     static class ViewHolder {

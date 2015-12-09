@@ -1,6 +1,7 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ public class LocalAdapter extends BaseAdapter {
     //    private boolean isFling = false;
     private ArrayList<PathTags> tags;
     private float[] results = new float[1];
+    //标识listview是否滑动 true滑动  false未滑动
+    private boolean loading = false;
 
     public LocalAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
@@ -98,25 +101,27 @@ public class LocalAdapter extends BaseAdapter {
                 holder.tag3.setVisibility(View.VISIBLE);
                 break;
         }
-        final User user = CacheHelper.getInstance().getUserInfo(path.getUserId());
-        if (user == null) {
-            new GetUser(path.getUserId(), new GetUser.Callback() {
-                @Override
-                public void onSuccess(User cbUser) {
-                    CacheHelper.getInstance().addUserInfo(cbUser);
-                    //设置头像
-                    UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, cbUser.getAvatar(), "circular");
-                }
+        if (!loading) {
+            final User user = CacheHelper.getInstance().getUserInfo(path.getUserId());
+            if (user == null) {
+                new GetUser(path.getUserId(), new GetUser.Callback() {
+                    @Override
+                    public void onSuccess(User cbUser) {
+                        CacheHelper.getInstance().addUserInfo(cbUser);
+                        //设置头像
+                        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, cbUser.getAvatar(), "circular");
+                    }
 
-                @Override
-                public void onFail() {
-                    Toast.makeText(context, "User information download fail", Toast.LENGTH_SHORT).show();
-                }
-            }).execute();
+                    @Override
+                    public void onFail() {
+                        Toast.makeText(context, "User information download fail", Toast.LENGTH_SHORT).show();
+                    }
+                }).execute();
+            } else {
+                UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
+            }
         } else {
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
-                    context, holder.avatar,
-                    CacheHelper.getInstance().getUserInfo(path.getUserId()).getAvatar(), "circular");
+            holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
         }
         //只显示国家城市和距离；如果距离超过多少米，那么就无需显示
         //显示活动与自己位置的距离
@@ -170,6 +175,15 @@ public class LocalAdapter extends BaseAdapter {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21(), "original");
         }
         return convertView;
+    }
+
+    /**
+     * 设置listview是否在滑动
+     *
+     * @param loading true滑动 false空闲
+     */
+    public void setLoading(boolean loading) {
+        this.loading = loading;
     }
 
     static class ViewHolder {

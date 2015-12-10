@@ -3,9 +3,6 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Andrew on 07/02/2015.
- */
 public class Comment implements Parcelable {
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         public Comment createFromParcel(Parcel in) {

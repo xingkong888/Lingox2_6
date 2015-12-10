@@ -1,8 +1,5 @@
 package cn.lingox.android.entity;
 
-/**
- * Created by Administrator on 2015/6/25.
- */
 public class ChatAndNotify {
 
     private int type;

@@ -58,12 +58,12 @@ public class PathEditDialog {
                 if (!newPath.getAvailableTime().isEmpty()) {
                     CachePath.getInstance().setAvabilableTime(newPath.getAvailableTime());
                 }
-                if (newPath.getCapacity() != 0) {
-                    CachePath.getInstance().setGroupSize(newPath.getCapacity());
-                }
-                if (!newPath.getCost().isEmpty()) {
-                    CachePath.getInstance().setBudget(newPath.getCost());
-                }
+//                if (newPath.getCapacity() != 0) {
+//                    CachePath.getInstance().setGroupSize(newPath.getCapacity());
+//                }
+//                if (!newPath.getCost().isEmpty()) {
+//                    CachePath.getInstance().setBudget(newPath.getCost());
+//                }
                 if (!newPath.getDetailAddress().isEmpty()) {
                     CachePath.getInstance().setAddress(newPath.getDetailAddress());
                 }

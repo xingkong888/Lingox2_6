@@ -16,8 +16,8 @@ public class CachePath {
     private long endTime = 0;
     private String avabilableTime = "";
     private String address = "";
-    private int groupSize = 0;
-    private String budget = "";
+//    private int groupSize = 0;
+//    private String budget = "";
 
     public static synchronized CachePath getInstance() {
         if (instance == null) {
@@ -37,8 +37,8 @@ public class CachePath {
         endTime = 0;
         avabilableTime = "";
         address = "";
-        groupSize = 0;
-        budget = "";
+//        groupSize = 0;
+//        budget = "";
         image = "";
     }
 
@@ -50,13 +50,13 @@ public class CachePath {
         this.image = image;
     }
 
-    public int getGroupSize() {
-        return groupSize;
-    }
-
-    public void setGroupSize(int groupSize) {
-        this.groupSize = groupSize;
-    }
+//    public int getGroupSize() {
+//        return groupSize;
+//    }
+//
+//    public void setGroupSize(int groupSize) {
+//        this.groupSize = groupSize;
+//    }
 
     public long getEndTime() {
         return endTime;
@@ -90,13 +90,13 @@ public class CachePath {
         this.address = address;
     }
 
-    public String getBudget() {
-        return budget;
-    }
-
-    public void setBudget(String budget) {
-        this.budget = budget;
-    }
+//    public String getBudget() {
+//        return budget;
+//    }
+//
+//    public void setBudget(String budget) {
+//        this.budget = budget;
+//    }
 
     public String getLocation() {
         return location;

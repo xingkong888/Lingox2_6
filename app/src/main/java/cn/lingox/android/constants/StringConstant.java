@@ -2,7 +2,6 @@ package cn.lingox.android.constants;
 
 public class StringConstant {
     public static final String verStr = "ver";
-
     // User
     public static final String userInfoStr = "userInfo";
     public static final String userIdStr = "userId";

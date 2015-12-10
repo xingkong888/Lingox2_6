@@ -105,7 +105,7 @@ public class URLConstant {
     //评论
     private static final String URL_TRAVEL_COMMENT_BASE = MAIN_URL + "demandComment/";
     public static final String URL_TRAVEL_COMMENT_CREATE = URL_TRAVEL_COMMENT_BASE + "createComment";//创建
-    public static final String URL_TRAVEL_COMMENT_EDIT = URL_TRAVEL_COMMENT_BASE + "editComment";//修改
+    //    public static final String URL_TRAVEL_COMMENT_EDIT = URL_TRAVEL_COMMENT_BASE + "editComment";//修改
     public static final String URL_TRAVEL_COMMENT_DELETE = URL_TRAVEL_COMMENT_BASE + "deleteComment";//删除
 /******************************************************************************************************************/
 }

@@ -3,9 +3,6 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Andrew on 08/02/2015.
- */
 public class LingoNotification implements Parcelable {
     // Constants
     public static final int NUMBER_OF_NOTIFICATION_TYPES = 11;

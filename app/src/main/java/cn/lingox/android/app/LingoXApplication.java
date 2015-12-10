@@ -66,8 +66,6 @@ public class LingoXApplication extends Application {
             pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
             pathTag.setType(0);
             datas.add(pathTag);
-            //加速GC回收
-            pathTag = null;
         }
     }
 
@@ -102,12 +100,11 @@ public class LingoXApplication extends Application {
     }
 
     public String getLocation(String country, String province, String city) {
-        location = "";
-        readLocation(country, province, city);
-        return location;
+        return readLocation(country, province, city);
     }
 
-    private void readLocation(String country, String province, String city) {
+    private String readLocation(String country, String province, String city) {
+        String location = "";
         if (!country.isEmpty()) {
             if (!province.isEmpty()) {
                 if (!city.isEmpty()) {
@@ -123,6 +120,7 @@ public class LingoXApplication extends Application {
                 }
             }
         }
+        return location;
     }
 
     public ArrayList<Country1> getCountryDatas() {
@@ -213,7 +211,7 @@ public class LingoXApplication extends Application {
      * @param cancel 拒绝
      * @param layout 拒绝和同意的布局
      * @param state  状态
-     * @param indent
+     * @param indent 申请实例
      */
     public void setIndent(
             TextView cancel, LinearLayout layout, TextView state,

@@ -17,6 +17,9 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
 
+/**
+ * 参加了体验的用户的适配器
+ */
 public class LocalJoinedUsersAdapter extends BaseAdapter {
     private static final String LOG_TAG = "LocalJoinedUsersAdapter";
 
@@ -45,14 +48,29 @@ public class LocalJoinedUsersAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * 添加一个用户
+     *
+     * @param user 用户实例
+     */
     public void addItem(User user) {
         userList.add(user);
     }
 
+    /**
+     * 删除一个用户
+     *
+     * @param position 用户位置
+     */
     public void removeItem(int position) {
         userList.remove(position);
     }
 
+    /**
+     * 删除一个用户
+     *
+     * @param user 用户实例
+     */
     public void removeItem(User user) {
         int i = -1;
         for (User u : userList) {
@@ -70,18 +88,17 @@ public class LocalJoinedUsersAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View listView = convertView;
         ViewHolder holder;
         User user = userList.get(position);
-        if (listView == null) {
-            listView = inflater.inflate(R.layout.row_path_joined_user_avatar, parent, false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.row_path_joined_user_avatar, parent, false);
             holder = new ViewHolder();
-            holder.photo = (CircularImageView) listView.findViewById(R.id.path_joined_user_avatar);
-            listView.setTag(holder);
+            holder.photo = (CircularImageView) convertView.findViewById(R.id.path_joined_user_avatar);
+            convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) listView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
-        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar(), "");
+        UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.photo, user.getAvatar(), "circular");
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +109,7 @@ public class LocalJoinedUsersAdapter extends BaseAdapter {
                 }
             }
         });
-
-        return listView;
+        return convertView;
     }
 
     static class ViewHolder {

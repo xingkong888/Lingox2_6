@@ -10,8 +10,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import cn.lingox.android.R;
 import cn.lingox.android.entity.Photo;
 
+/**
+ * 浏览用户信息里图片时的ViewPager的适配器
+ */
 public class UserPhotoPagerAdapter extends PagerAdapter {
 
     private ArrayList<Photo> photoList;
@@ -35,7 +39,7 @@ public class UserPhotoPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView img = new ImageView(context);
-        img.setBackgroundColor(0xff000000);
+        img.setBackgroundColor(context.getResources().getColor(R.color.black_deep));
         Picasso.with(context).load(photoList.get(position).getUrl()).into(img);
         img.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

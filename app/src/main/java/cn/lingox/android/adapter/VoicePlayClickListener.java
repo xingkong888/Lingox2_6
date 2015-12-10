@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -21,6 +22,9 @@ import java.io.File;
 
 import cn.lingox.android.R;
 
+/**
+ * 视频点击播放监听器
+ */
 public class VoicePlayClickListener implements View.OnClickListener {
 
     public static boolean isPlaying = false;
@@ -33,26 +37,24 @@ public class VoicePlayClickListener implements View.OnClickListener {
     ImageView iv_read_status;
     Activity activity;
     private AnimationDrawable voiceAnimation = null;
-    //    private String username;
     private ChatType chatType;
     private BaseAdapter adapter;
 
 
     /**
-     * @param message
-     * @param v
-     * @param iv_read_status
-     * @param activity
+     * @param message        聊天信息
+     * @param v              控件
+     * @param iv_read_status 控件
+     * @param activity       上下文
      */
-    public VoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity activity
-            , String username) {
+    public VoicePlayClickListener(
+            EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity activity) {
         this.message = message;
         voiceBody = (VoiceMessageBody) message.getBody();
         this.iv_read_status = iv_read_status;
         this.adapter = adapter;
         voiceIconView = v;
         this.activity = activity;
-//        this.username = username;
         this.chatType = message.getChatType();
     }
 
@@ -119,6 +121,7 @@ public class VoicePlayClickListener implements View.OnClickListener {
                 message.isAcked = false;
             }
         } catch (Exception e) {
+            Log.e("VoicePlayClickListener", e.getMessage());
         }
     }
 
@@ -154,18 +157,16 @@ public class VoicePlayClickListener implements View.OnClickListener {
 
             if (message.status == EMMessage.Status.SUCCESS) {
                 File file = new File(voiceBody.getLocalUrl());
-                if (file.exists() && file.isFile())
+                if (file.exists() && file.isFile()) {
                     playVoice(voiceBody.getLocalUrl());
-                else
+                } else {
                     System.err.println("file not exist");
-
+                }
             } else if (message.status == EMMessage.Status.INPROGRESS) {
-                // TODO English
+                // TODO 不知道Toast中应该写什么---看起来像是视频真正播放
                 Toast.makeText(activity, "...", Toast.LENGTH_SHORT).show();
-
-
             } else if (message.status == EMMessage.Status.FAIL) {
-                // TODO English
+                // TODO 不知道Toast中应该写什么---看起来像是视频下载失败了
                 Toast.makeText(activity, "...", Toast.LENGTH_SHORT).show();
                 new AsyncTask<Void, Void, Void>() {
 

@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 
+/**
+ * 选择区域
+ */
 public class ChooseAreaAdapter extends BaseAdapter {
 
     private Context context;

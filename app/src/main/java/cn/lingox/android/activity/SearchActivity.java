@@ -33,8 +33,8 @@ import java.util.regex.Pattern;
 import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
 import cn.lingox.android.adapter.LocalAdapter;
-import cn.lingox.android.adapter.MyAdapter;
 import cn.lingox.android.adapter.NearbyAdapter;
+import cn.lingox.android.adapter.PathTagsAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Path;
@@ -75,7 +75,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
 
     private int page = 1;
 
-    private MyAdapter adapter;
+    private PathTagsAdapter adapter;
     private ArrayList<PathTags> datas = new ArrayList<>();
     private int checkedNum = 0;
 
@@ -102,7 +102,7 @@ public class SearchActivity extends FragmentActivity implements OnClickListener 
         ListView listView1 = (ListView) findViewById(R.id.search_tage);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
-        adapter = new MyAdapter(this, datas, 1);
+        adapter = new PathTagsAdapter(this, datas, 1);
         listView1.setAdapter(adapter);
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -23,6 +23,9 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
+/**
+ * local的适配器
+ */
 public class LocalAdapter extends BaseAdapter {
     //格式化距离，保留小数点后两位
     private final DecimalFormat format = new DecimalFormat("##.00");
@@ -178,7 +181,7 @@ public class LocalAdapter extends BaseAdapter {
     }
 
     /**
-     * 设置listview是否在滑动
+     * 设置listView是否在滑动
      *
      * @param loading true滑动 false空闲
      */

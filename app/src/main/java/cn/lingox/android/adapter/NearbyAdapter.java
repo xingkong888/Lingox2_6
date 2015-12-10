@@ -30,6 +30,9 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.LoadUserReferences;
 import cn.lingox.android.utils.SkipDialog;
 
+/**
+ * 附近人的适配器
+ */
 public class NearbyAdapter extends BaseAdapter {
     //线程池
     private ExecutorService pool = Executors.newFixedThreadPool(5);
@@ -135,7 +138,6 @@ public class NearbyAdapter extends BaseAdapter {
             //设置分隔线长度
             holder.name.measure(0, 0);
             holder.line.setWidth(holder.name.getMeasuredWidth());
-
             holder.countryAndCity.setVisibility(View.GONE);
         }
 
@@ -156,8 +158,8 @@ public class NearbyAdapter extends BaseAdapter {
         }
         holder.info.setVisibility(View.VISIBLE);
         holder.info2.setVisibility(View.VISIBLE);
-
-        final View.OnClickListener userClickListener = new View.OnClickListener() {
+        //给控件设置点击监听器-----点击整个item都有响应
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (LingoXApplication.getInstance().getSkip()) {
@@ -170,8 +172,7 @@ public class NearbyAdapter extends BaseAdapter {
                     context.startActivityForResult(intent, NearByFragment.VIEW_USER);
                 }
             }
-        };
-        convertView.setOnClickListener(userClickListener);
+        });
         return convertView;
     }
 

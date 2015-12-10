@@ -22,6 +22,9 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 import cn.lingox.android.utils.CircularImageView;
 
+/**
+ * Travel的适配器
+ */
 public class TravelAdapter extends BaseAdapter {
     private Activity context;
     private ArrayList<TravelEntity> datas;
@@ -32,7 +35,6 @@ public class TravelAdapter extends BaseAdapter {
     public TravelAdapter(Activity context, ArrayList<TravelEntity> list) {
         this.context = context;
         datas = list;
-
     }
 
     @Override

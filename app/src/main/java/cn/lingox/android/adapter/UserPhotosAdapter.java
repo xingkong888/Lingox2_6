@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import cn.lingox.android.R;
 import cn.lingox.android.entity.Photo;
 
+/**
+ * 用户信息里的图片的适配器
+ */
 public class UserPhotosAdapter extends BaseAdapter {
     private Activity context;
     private ArrayList<Photo> photoList;
@@ -40,23 +43,21 @@ public class UserPhotosAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View gridView = convertView;
         ViewHolder holder;
-
         Photo photo = photoList.get(position);
 
-        if (gridView == null) {
-            gridView = LayoutInflater.from(context).inflate(R.layout.item_published_grida, null);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_published_grida, null);
             holder = new ViewHolder();
-            holder.photo = (ImageView) gridView.findViewById(R.id.item_grida_image);
+            holder.photo = (ImageView) convertView.findViewById(R.id.item_grida_image);
             holder.photo.setFocusableInTouchMode(true);
             holder.photo.setFocusable(false);
-            gridView.setTag(holder);
+            convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) gridView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         Picasso.with(context).load(photo.getUrl()).into(holder.photo);
-        return gridView;
+        return convertView;
     }
 
     static class ViewHolder {

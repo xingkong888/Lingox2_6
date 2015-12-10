@@ -30,7 +30,7 @@ import java.util.Set;
 
 import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
-import cn.lingox.android.adapter.MyAdapter;
+import cn.lingox.android.adapter.PathTagsAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.entity.Travel;
@@ -54,7 +54,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     private ImageView bg, back;
     private LinearLayout page1, page2, page3, page4;
     private EditText describe;//traveling
-    private MyAdapter adapter;
+    private PathTagsAdapter adapter;
     private ArrayList<PathTags> datas;
     private int checkedNum = 0;
     private HashMap<Integer, Integer> activityTags = new HashMap<>();
@@ -162,7 +162,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         ListView listView = (ListView) findViewById(R.id.travel_page_2_tags);
         datas = new ArrayList<>();
         datas.addAll(LingoXApplication.getInstance().getDatas());
-        adapter = new MyAdapter(this, datas, 0);
+        adapter = new PathTagsAdapter(this, datas, 0);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

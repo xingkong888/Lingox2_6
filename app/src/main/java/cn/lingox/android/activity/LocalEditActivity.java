@@ -46,7 +46,7 @@ import java.util.Set;
 import cn.lingox.android.R;
 import cn.lingox.android.activity.imagechooser.PhotoDialog;
 import cn.lingox.android.activity.select_area.SelectCountry;
-import cn.lingox.android.adapter.MyAdapter;
+import cn.lingox.android.adapter.PathTagsAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.CachePath;
 import cn.lingox.android.entity.Path;
@@ -91,7 +91,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     //第三页面
     private EditText title, description;
     //第四页面
-    private MyAdapter adapter;
+    private PathTagsAdapter adapter;
     private ArrayList<PathTags> datas;
     private int checkedNum = 0;
     private HashMap<Integer, Integer> activityTags;
@@ -266,7 +266,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         ListView listView = (ListView) findViewById(R.id.path_edit_listview);
         datas = new ArrayList<>();
         datas = LingoXApplication.getInstance().getDatas();
-        adapter = new MyAdapter(this, datas, 0);
+        adapter = new PathTagsAdapter(this, datas, 0);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

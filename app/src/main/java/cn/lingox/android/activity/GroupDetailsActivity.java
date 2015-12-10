@@ -10,7 +10,7 @@ import com.easemob.chat.EMGroupManager;
 import java.util.List;
 
 import cn.lingox.android.R;
-import cn.lingox.android.adapter.GroupAdapter;
+import cn.lingox.android.adapter.GroupChatAdapter;
 import it.sephiroth.android.library.widget.HListView;
 
 /**
@@ -43,7 +43,7 @@ public class GroupDetailsActivity extends Activity {
     private void initView() {
         HListView groupSize = (HListView) findViewById(R.id.group_detail);
         if (list != null) {
-            groupSize.setAdapter(new GroupAdapter(this, list));
+            groupSize.setAdapter(new GroupChatAdapter(this, list));
         }
     }
 

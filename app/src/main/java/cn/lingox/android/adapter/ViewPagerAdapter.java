@@ -6,6 +6,9 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+/**
+ * viewPager的适配器
+ */
 public class ViewPagerAdapter extends PagerAdapter {
 
     private ArrayList<View> views;
@@ -24,7 +27,6 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(View view, int position) {
-
         ((ViewPager) view).addView(views.get(position), 0);
 
         return views.get(position);

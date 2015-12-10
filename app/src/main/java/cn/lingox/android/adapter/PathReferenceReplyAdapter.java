@@ -24,6 +24,9 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.helper.WritePathReplayDialog;
 import cn.lingox.android.task.GetUser;
 
+/**
+ * 活动评论的回复-----使用的是可伸缩的控件（ExpandableListView）
+ */
 public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
 
     private Activity context;
@@ -105,7 +108,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
-                        .setMessage("Delete？")
+                        .setMessage("Delete?")
                         .setNegativeButton("NO", null)
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
@@ -159,6 +162,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
+        //TODO 提示不能强转---没想到怎么判断
         HashMap<String, String> map = (HashMap<String, String>) getChild(groupPosition, childPosition);
         //评论发起者
         User user = CacheHelper.getInstance().getUserInfo(groups.get(groupPosition).get("user_id"));
@@ -194,7 +198,7 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
                 }
             }).execute();
         } else {
-            childViewHolder.replyName.setText(user.getNickname());
+            childViewHolder.replyName.setText(replyUser.getNickname());
         }
         childViewHolder.content.setText(map.get("content"));
         return convertView;
@@ -225,6 +229,9 @@ public class PathReferenceReplyAdapter extends BaseExpandableListAdapter {
         TextView content, userName, replyName;
     }
 
+    /**
+     * 删除某条评论的异步任务
+     */
     private class DeletePathReference extends AsyncTask<Void, Void, Boolean> {
         private HashMap<String, String> map;
         private String referenceId;

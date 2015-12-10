@@ -103,7 +103,7 @@ public class JsonHelper {
     }
 
     /**
-     * 将文件转换成String
+     * 读取“assets”中的资源文件，转换成字符串
      *
      * @param context  上下文
      * @param fileName 文件名
@@ -248,7 +248,7 @@ public class JsonHelper {
     }
 
     /**
-     * 获取语言设置
+     * 获取地理位置
      */
     private void getLocal() {
         if (CacheHelper.getInstance().getSettingLanguage() != null) {
@@ -297,6 +297,12 @@ public class JsonHelper {
         }
     }
 
+    /**
+     * 判断给定时间距当前时间的间隔
+     *
+     * @param time 不知道什么格式
+     * @return 0当天的消息、1年份不同、2月份不同、3大于一天、4昨天的消息
+     */
     public int comparePathDate(Date time) {
         Calendar c1 = Calendar.getInstance();
         c1.setTimeInMillis(System.currentTimeMillis());
@@ -433,12 +439,9 @@ public class JsonHelper {
         return allTags;
     }
 
-    // TODO make us retrieve this JSON file from the server,
-    // this will allow us to keep the countries/cities list up to date even if
-    // the user doesn't update their app
-
     /**
      * 获取语言
+     * 从“assets”文件中获取
      *
      * @return 语言的集合
      */
@@ -468,7 +471,7 @@ public class JsonHelper {
      * 通过国家名，获取对应的代码，用于查找国家国旗
      *
      * @param country 国家名
-     * @return 国家代码
+     * @return 国家名对应的代码
      */
     public String getCodeFromCountry(String country) {
         if (TextUtils.isEmpty(country)) {

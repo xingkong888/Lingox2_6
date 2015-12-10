@@ -16,13 +16,17 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
 
-public class GroupAdapter extends BaseAdapter {
+/**
+ * 群组成员头像的适配器
+ * 群聊管理暂未实现
+ */
+public class GroupChatAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<String> list;
     private Context context;
 
-    public GroupAdapter(Context context, List<String> groups) {
+    public GroupChatAdapter(Context context, List<String> groups) {
         this.inflater = LayoutInflater.from(context);
         this.list = groups;
         this.context = context;

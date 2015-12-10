@@ -91,24 +91,24 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        //TODO 根据类型，强转数据
+        // 根据类型，强转数据
         switch (datas.get(position).getType()) {
             case 0://EMEMConversation
                 holder.state.setVisibility(View.GONE);
                 chat(position, holder);
                 break;
-            case 1:
+            case 1://通知
                 notifition(position, holder);
                 break;
         }
         return convertView;
     }
 
+    //聊天
     private void chat(int position, final ViewHolder holder) {
         EMConversation conversation = (EMConversation) datas.get(position).getObj();
         final String username = conversation.getUserName();
         boolean isGroup = false;
-        // TODO fix this
         List<EMGroup> groups = EMGroupManager.getInstance().getAllGroups();
         EMContact contact = null;
         for (EMGroup group : groups) {
@@ -122,7 +122,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         boolean loadUserdatasFromServer = (user == null);
 
         // --- Use datas we definitely have ---
-        // TODO can we just use conversation.isGroup()
         if (isGroup) {
             holder.avatar.setImageResource(R.drawable.group_icon);
             String str = contact.getNick() != null ? contact.getNick() : username;
@@ -157,7 +156,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         }
 
         // --- Set UI Elements that may require loading from Cache or Server ---
-        // TODO avatar loading gif?
         // --- Start loading datas from server if required ---
         if (loadUserdatasFromServer) {
             new Thread() {
@@ -204,7 +202,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     private void notifition(final int position, final ViewHolder holder) {
         final LingoNotification notify = (LingoNotification) datas.get(position).getObj();
         final User notificationUser = CacheHelper.getInstance().getUserInfo(notify.getUser_src());
-        // TODO Possible add a progress bar for each notification that is setVisibility(View.GONE) in loadView()
         if (notificationUser == null)
             new GetUser(notify.getUser_src(), new GetUser.Callback() {
                 @Override
@@ -263,7 +260,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
                 uiHelper.textViewSetPossiblyNullString(holder.message, context.getString(R.string.comment_notification));
                 break;
-            case LingoNotification.TYPE_INDENT_FINISH://TODO 填写逻辑
+            case LingoNotification.TYPE_INDENT_FINISH://填写逻辑
                 uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
                 uiHelper.textViewSetPossiblyNullString(holder.message, context.getString(R.string.indent_prompt));
                 break;
@@ -288,8 +285,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 break;
             case IMAGE:
                 ImageMessageBody imageBody = (ImageMessageBody) message.getBody();
-                digest = context.getString(R.string.picture)
-                        + imageBody.getFileName();
+                digest = context.getString(R.string.picture) + imageBody.getFileName();
                 break;
             case VOICE:
                 digest = context.getString(R.string.voice);
@@ -306,7 +302,6 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                     digest = context.getString(R.string.voice_call) + txtBody.getMessage();
                 }
                 break;
-
             case FILE:
                 digest = context.getString(R.string.file);
                 break;
@@ -322,14 +317,16 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         ImageView avatar;
     }
 
+    //获取聊天信息的异步任务
     private class GetMessage extends AsyncTask<String, Void, Boolean> {
         HashMap<String, String> map = new HashMap<>();
         private String userId;
         private TextView view;
-        private ArrayList<Indent> tempData = new ArrayList<>();
+        private ArrayList<Indent> tempData;
 
         public GetMessage(TextView view) {
             this.view = view;
+            tempData = new ArrayList<>();
         }
 
         @Override

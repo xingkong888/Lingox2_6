@@ -65,6 +65,9 @@ import cn.lingox.android.utils.ImageCache;
 import cn.lingox.android.utils.ImageUtils;
 import cn.lingox.android.utils.SmileUtils;
 
+/**
+ * 消息适配器
+ */
 public class MessageAdapter extends BaseAdapter {
 
     public static final String IMAGE_DIR = "chat/image/";
@@ -91,9 +94,9 @@ public class MessageAdapter extends BaseAdapter {
     // reference to conversation object in chatsdk
     private EMConversation conversation;
 
-    private Map<String, Timer> timers = new Hashtable<String, Timer>();
+    private Map<String, Timer> timers = new Hashtable<>();
 
-    public MessageAdapter(Context context, String username, int chatType) {
+    public MessageAdapter(Context context, String username) {
         this.context = context;
         this.username = username;
         this.inflater = LayoutInflater.from(context);
@@ -109,20 +112,24 @@ public class MessageAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    @Override
     public EMMessage getItem(int position) {
         return conversation.getMessage(position);
     }
 
+    @Override
     public long getItemId(int position) {
         return position;
     }
 
+    @Override
     public int getItemViewType(int position) {
         EMMessage message = conversation.getMessage(position);
 
         if (message.getType() == EMMessage.Type.TXT) {
-            if (!message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false))
+            if (!message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                 return message.direct == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_TXT : MESSAGE_TYPE_SENT_TXT;
+            }
             return message.direct == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL : MESSAGE_TYPE_SENT_VOICE_CALL;
         }
         if (message.getType() == EMMessage.Type.IMAGE) {
@@ -147,8 +154,14 @@ public class MessageAdapter extends BaseAdapter {
         return 14;
     }
 
+    /**
+     * 根据不同的消息类型，创建不同的布局
+     *
+     * @param message 消息
+     * @return view
+     */
     @SuppressLint("InflateParams")
-    private View createViewByMessage(EMMessage message, int position) {
+    private View createViewByMessage(EMMessage message) {
         switch (message.getType()) {
             case LOCATION:
                 return message.direct == EMMessage.Direct.RECEIVE ? inflater
@@ -187,62 +200,52 @@ public class MessageAdapter extends BaseAdapter {
         }
     }
 
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View rowView = convertView;
         final ViewHolder holder;
         final EMMessage message = getItem(position);
         ChatType chatType = message.getChatType();    // Single or Group
         final User user = CacheHelper.getInstance().getUserInfoFromUsername(chatType == ChatType.Chat ? username : message.getFrom());
-        if (rowView == null) {
+        if (convertView == null) {
             holder = new ViewHolder();
-            rowView = createViewByMessage(message, position);
+            convertView = createViewByMessage(message);
 
             if (message.getType() == EMMessage.Type.IMAGE) {
                 try {
-                    holder.iv = ((ImageView) rowView.findViewById(R.id.iv_sendPicture));
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
-                    holder.pb = (ProgressBar) rowView.findViewById(R.id.progressBar);
-                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
-                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                    holder.iv = ((ImageView) convertView.findViewById(R.id.iv_sendPicture));
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) convertView.findViewById(R.id.percentage);
+                    holder.pb = (ProgressBar) convertView.findViewById(R.id.progressBar);
+                    holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
+                    holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
                             break;
                     }
                 } catch (Exception e) {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
-
             } else if (message.getType() == EMMessage.Type.TXT) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.TXT");
                 try {
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView.findViewById(R.id.tv_chatcontent);
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) convertView.findViewById(R.id.tv_chatcontent);
                     if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
-                        holder.iv = (ImageView) rowView.findViewById(R.id.iv_call_icon);
+                        holder.iv = (ImageView) convertView.findViewById(R.id.iv_call_icon);
                     }
-
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
-                            holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                            holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
-                            holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
-                            holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                            holder.pb = (ProgressBar) convertView.findViewById(R.id.pb_sending);
+                            holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
                             break;
-
                         default:
                             throw new Exception("Neither SEND nor RECEIVE");
                     }
@@ -250,25 +253,20 @@ public class MessageAdapter extends BaseAdapter {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
             } else if (message.getType() == EMMessage.Type.VOICE) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.VOICE");
                 try {
-                    holder.iv = ((ImageView) rowView.findViewById(R.id.iv_voice));
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView.findViewById(R.id.tv_length);
-                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
-
+                    holder.iv = ((ImageView) convertView.findViewById(R.id.iv_voice));
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) convertView.findViewById(R.id.tv_length);
+                    holder.pb = (ProgressBar) convertView.findViewById(R.id.pb_sending);
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
-                            holder.iv_read_status = (ImageView) rowView.findViewById(R.id.iv_unread_voice);
-                            holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                            holder.iv_read_status = (ImageView) convertView.findViewById(R.id.iv_unread_voice);
+                            holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
-                            holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
+                            holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
                             break;
                     }
 
@@ -276,21 +274,17 @@ public class MessageAdapter extends BaseAdapter {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
             } else if (message.getType() == EMMessage.Type.LOCATION) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.LOCATION");
                 try {
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView.findViewById(R.id.tv_location);
-                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
-                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
-                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) convertView.findViewById(R.id.tv_location);
+                    holder.pb = (ProgressBar) convertView.findViewById(R.id.pb_sending);
+                    holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
+                    holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
                             break;
                     }
@@ -298,26 +292,22 @@ public class MessageAdapter extends BaseAdapter {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
             } else if (message.getType() == EMMessage.Type.VIDEO) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.VIDEO");
                 try {
-                    holder.iv = ((ImageView) rowView.findViewById(R.id.chatting_content_iv));
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
-                    holder.pb = (ProgressBar) rowView.findViewById(R.id.progressBar);
-                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
-                    holder.size = (TextView) rowView.findViewById(R.id.chatting_size_iv);
-                    holder.timeLength = (TextView) rowView.findViewById(R.id.chatting_length_iv);
-                    holder.playBtn = (ImageView) rowView.findViewById(R.id.chatting_status_btn);
-                    holder.container_status_btn = (LinearLayout) rowView.findViewById(R.id.container_status_btn);
-                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                    holder.iv = ((ImageView) convertView.findViewById(R.id.chatting_content_iv));
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv = (TextView) convertView.findViewById(R.id.percentage);
+                    holder.pb = (ProgressBar) convertView.findViewById(R.id.progressBar);
+                    holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
+                    holder.size = (TextView) convertView.findViewById(R.id.chatting_size_iv);
+                    holder.timeLength = (TextView) convertView.findViewById(R.id.chatting_length_iv);
+                    holder.playBtn = (ImageView) convertView.findViewById(R.id.chatting_status_btn);
+                    holder.container_status_btn = (LinearLayout) convertView.findViewById(R.id.container_status_btn);
+                    holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
                             break;
                     }
@@ -325,25 +315,21 @@ public class MessageAdapter extends BaseAdapter {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
             } else if (message.getType() == EMMessage.Type.FILE) {
-                Log.d("MessageAdapter", "getView: EMMessage.Type.FILE");
                 try {
-                    holder.head_iv = (ImageView) rowView.findViewById(R.id.iv_userhead);
-                    holder.tv_file_name = (TextView) rowView.findViewById(R.id.tv_file_name);
-                    holder.tv_file_size = (TextView) rowView.findViewById(R.id.tv_file_size);
-                    holder.pb = (ProgressBar) rowView.findViewById(R.id.pb_sending);
-                    holder.staus_iv = (ImageView) rowView.findViewById(R.id.msg_status);
-                    holder.tv_file_download_state = (TextView) rowView.findViewById(R.id.tv_file_state);
-                    holder.ll_container = (LinearLayout) rowView.findViewById(R.id.ll_file_container);
-                    holder.tv = (TextView) rowView.findViewById(R.id.percentage);
-                    holder.tv_userId = (TextView) rowView.findViewById(R.id.tv_userid);
+                    holder.head_iv = (ImageView) convertView.findViewById(R.id.iv_userhead);
+                    holder.tv_file_name = (TextView) convertView.findViewById(R.id.tv_file_name);
+                    holder.tv_file_size = (TextView) convertView.findViewById(R.id.tv_file_size);
+                    holder.pb = (ProgressBar) convertView.findViewById(R.id.pb_sending);
+                    holder.staus_iv = (ImageView) convertView.findViewById(R.id.msg_status);
+                    holder.tv_file_download_state = (TextView) convertView.findViewById(R.id.tv_file_state);
+                    holder.ll_container = (LinearLayout) convertView.findViewById(R.id.ll_file_container);
+                    holder.tv = (TextView) convertView.findViewById(R.id.percentage);
+                    holder.tv_userId = (TextView) convertView.findViewById(R.id.tv_userid);
                     switch (message.direct) {
                         case RECEIVE:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, user.getAvatar());
                             break;
-
                         case SEND:
-                            // TODO this next line should be in the handle method
                             ImageHelper.getInstance().loadAvatar(holder.head_iv, CacheHelper.getInstance().getSelfInfo().getAvatar());
                             break;
                     }
@@ -351,14 +337,14 @@ public class MessageAdapter extends BaseAdapter {
                     Log.e("MessageAdapter", "Error populating ViewHolder");
                 }
             }
-            rowView.setTag(holder);
+            convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) rowView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
         switch (message.getType()) {
             case IMAGE:
-                handleImageMessage(message, holder, position, rowView);
+                handleImageMessage(message, holder, position, convertView);
                 break;
             case TXT:
                 if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
@@ -368,21 +354,21 @@ public class MessageAdapter extends BaseAdapter {
                 }
                 break;
             case LOCATION:
-                handleLocationMessage(message, holder, position, rowView);
+                handleLocationMessage(message, holder, position, convertView);
                 break;
             case VOICE:
-                handleVoiceMessage(message, holder, position, rowView);
+                handleVoiceMessage(message, holder, position, convertView);
                 break;
             case VIDEO:
-                handleVideoMessage(message, holder, position, rowView);
+                handleVideoMessage(message, holder, position, convertView);
                 break;
             case FILE:
-                handleFileMessage(message, holder, position, rowView);
+                handleFileMessage(message, holder, position, convertView);
                 break;
         }
 
         if (message.direct == EMMessage.Direct.SEND) {
-            View statusView = rowView.findViewById(R.id.msg_status);
+            View statusView = convertView.findViewById(R.id.msg_status);
             statusView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -432,7 +418,7 @@ public class MessageAdapter extends BaseAdapter {
             });
         }
 
-        TextView timestamp = (TextView) rowView.findViewById(R.id.timestamp);
+        TextView timestamp = (TextView) convertView.findViewById(R.id.timestamp);
 
         if (position == 0) {
             timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
@@ -445,7 +431,7 @@ public class MessageAdapter extends BaseAdapter {
                 timestamp.setVisibility(View.VISIBLE);
             }
         }
-        return rowView;
+        return convertView;
     }
 
     private void handleTextMessage(EMMessage message, ViewHolder holder, final int position) {
@@ -489,7 +475,7 @@ public class MessageAdapter extends BaseAdapter {
         holder.tv.setText(txtBody.getMessage());
     }
 
-    private void handleImageMessage(final EMMessage message, final ViewHolder holder, final int position, View rowView) {
+    private void handleImageMessage(final EMMessage message, final ViewHolder holder, final int position, View convertView) {
         holder.pb.setTag(position);
         holder.iv.setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -650,8 +636,9 @@ public class MessageAdapter extends BaseAdapter {
                 holder.staus_iv.setVisibility(View.VISIBLE);
                 break;
             case INPROGRESS:
-                if (timers.containsKey(message.getMsgId()))
+                if (timers.containsKey(message.getMsgId())) {
                     return;
+                }
                 // set a timer
                 final Timer timer = new Timer();
                 timers.put(message.getMsgId(), timer);
@@ -699,7 +686,7 @@ public class MessageAdapter extends BaseAdapter {
 
         holder.tv.setText(voiceBody.getLength() + "\"");
         holder.iv.setOnClickListener(new VoicePlayClickListener(message,
-                holder.iv, holder.iv_read_status, this, activity, username));
+                holder.iv, holder.iv_read_status, this, activity));
         holder.iv.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -787,15 +774,14 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 File file = new File(filePath);
-                if (file != null && file.exists()) {
+                if (file.exists()) {
                     FileUtils.openFile(file, (Activity) context);
                 } else {
                     context.startActivity(new Intent(context,
                             ShowNormalFileActivity.class).putExtra("msgbody",
                             fileMessageBody));
                 }
-                if (message.direct == EMMessage.Direct.RECEIVE
-                        && !message.isAcked) {
+                if (message.direct == EMMessage.Direct.RECEIVE && !message.isAcked) {
                     try {
                         EMChatManager.getInstance().ackMessageRead(
                                 message.getFrom(), message.getMsgId());
@@ -806,10 +792,9 @@ public class MessageAdapter extends BaseAdapter {
                 }
             }
         });
-        //因为不知道乱码的汉字，所以注释掉
         if (message.direct == EMMessage.Direct.RECEIVE) {
             File file = new File(filePath);
-            if (file != null && file.exists()) {
+            if (file.exists()) {
                 holder.tv_file_download_state.setText("Have downloaded");
             } else {
                 holder.tv_file_download_state.setText("Did not download");
@@ -830,8 +815,9 @@ public class MessageAdapter extends BaseAdapter {
                 holder.staus_iv.setVisibility(View.VISIBLE);
                 break;
             case INPROGRESS:
-                if (timers.containsKey(message.getMsgId()))
+                if (timers.containsKey(message.getMsgId())) {
                     return;
+                }
                 // set a timer
                 final Timer timer = new Timer();
                 timers.put(message.getMsgId(), timer);
@@ -937,9 +923,7 @@ public class MessageAdapter extends BaseAdapter {
         });
     }
 
-    private void showDownloadImageProgress(final EMMessage message,
-                                           final ViewHolder holder) {
-//        System.err.println("!!! show download image progress");
+    private void showDownloadImageProgress(final EMMessage message, final ViewHolder holder) {
         final FileMessageBody msgbody = (FileMessageBody) message.getBody();
         holder.pb.setVisibility(View.VISIBLE);
         holder.tv.setVisibility(View.VISIBLE);
@@ -978,8 +962,7 @@ public class MessageAdapter extends BaseAdapter {
         });
     }
 
-    private void sendPictureMessage(final EMMessage message,
-                                    final ViewHolder holder) {
+    private void sendPictureMessage(final EMMessage message, final ViewHolder holder) {
         try {
             // before send, update ui
             holder.staus_iv.setVisibility(View.GONE);
@@ -1031,8 +1014,7 @@ public class MessageAdapter extends BaseAdapter {
         }
     }
 
-    private void updateSendedView(final EMMessage message,
-                                  final ViewHolder holder) {
+    private void updateSendedView(final EMMessage message, final ViewHolder holder) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -1040,9 +1022,10 @@ public class MessageAdapter extends BaseAdapter {
                 if (message.getType() == EMMessage.Type.VIDEO) {
                     holder.tv.setVisibility(View.GONE);
                 }
-                if (message.status == EMMessage.Status.SUCCESS) {
-
-                } else if (message.status == EMMessage.Status.FAIL) {
+//                if (message.status == EMMessage.Status.SUCCESS) {
+//                  没有事情要处理，删除掉
+//                } else
+                if (message.status == EMMessage.Status.FAIL) {
                     Toast.makeText(
                             activity,
                             activity.getString(R.string.send_fail)
@@ -1075,14 +1058,12 @@ public class MessageAdapter extends BaseAdapter {
                     if (file.exists()) {
                         Uri uri = Uri.fromFile(file);
                         intent.putExtra("uri", uri);
-                        System.err
-                                .println("here need to check why download everytime");
+                        System.err.println("here need to check why download everyTime");
                     } else {
                         // The local full size pic does not exist yet.
                         // ShowBigImage needs to download it from the server
                         // first
-                        ImageMessageBody body = (ImageMessageBody) message
-                                .getBody();
+                        ImageMessageBody body = (ImageMessageBody) message.getBody();
                         intent.putExtra("secret", body.getSecret());
                         intent.putExtra("remotepath", remote);
                     }
@@ -1120,16 +1101,15 @@ public class MessageAdapter extends BaseAdapter {
             iv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VideoMessageBody videoBody = (VideoMessageBody) message
-                            .getBody();
+                    VideoMessageBody videoBody = (VideoMessageBody) message.getBody();
                     System.err.println("video view is on click");
                     Intent intent = new Intent(activity,
                             ShowVideoActivity.class);
                     intent.putExtra("localpath", videoBody.getLocalUrl());
                     intent.putExtra("secret", videoBody.getSecret());
                     intent.putExtra("remotepath", videoBody.getRemoteUrl());
-                    if (message != null
-                            && message.direct == EMMessage.Direct.RECEIVE
+//                    if (message != null  上边方法里就没问题，fack
+                    if (message.direct == EMMessage.Direct.RECEIVE
                             && !message.isAcked
                             && message.getChatType() != ChatType.GroupChat) {
                         message.isAcked = true;
@@ -1144,8 +1124,7 @@ public class MessageAdapter extends BaseAdapter {
                 }
             });
         } else {
-            new LoadVideoImageTask().execute(localThumb, thumbnailUrl, iv,
-                    activity, message, this);
+            new LoadVideoImageTask().execute(localThumb, thumbnailUrl, iv, activity, message, this);
         }
     }
 
@@ -1153,7 +1132,7 @@ public class MessageAdapter extends BaseAdapter {
         ImageView iv, staus_iv, head_iv, playBtn, iv_read_status;
         ProgressBar pb;
         LinearLayout container_status_btn, ll_container;
-        TextView tv, tv_userId, timeLength, size, tv_ack, tv_delivered, tv_file_name, tv_file_size, tv_file_download_state;
+        TextView tv, tv_userId, timeLength, size, tv_file_name, tv_file_size, tv_file_download_state;
     }
 
     //获取自己的当前位置

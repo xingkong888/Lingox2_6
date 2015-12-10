@@ -415,7 +415,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         }
         conversation = EMChatManager.getInstance().getConversation(toChatUsername);
         conversation.resetUnsetMsgCount();
-        adapter = new MessageAdapter(this, toChatUsername, chatType);
+        adapter = new MessageAdapter(this, toChatUsername);
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new ListScrollListener());
         int count = listView.getCount();

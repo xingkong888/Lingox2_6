@@ -26,14 +26,18 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Indent;
 import cn.lingox.android.helper.ServerHelper;
 
+/**
+ * 展示申请单的适配器
+ */
 public class ShowIndentAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Indent> datas;
-    private String title = "";
+    private String title;
 
     public ShowIndentAdapter(Context context, ArrayList<Indent> datas) {
         this.context = context;
         this.datas = datas;
+        title = "";
     }
 
     @Override
@@ -77,11 +81,13 @@ public class ShowIndentAdapter extends BaseAdapter {
     }
 
     /**
+     * 设置点击事件
+     *
      * @param view1  取消
      * @param view2  同意
      * @param view3  拒绝
      * @param view4  活动标题
-     * @param indent
+     * @param indent 申请实例
      */
     private void setClick(final TextView view1, final TextView view2,
                           final TextView view3, TextView view4, final Indent indent) {
@@ -92,7 +98,7 @@ public class ShowIndentAdapter extends BaseAdapter {
             public void onClick(View v) {
                 final EditText edit = new EditText(context);
                 new AlertDialog.Builder(context)
-                        .setMessage("Do you really want to cancel your request? ")
+                        .setMessage("Do you really want to cancel your request?")
                         .setView(edit)
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
@@ -100,12 +106,7 @@ public class ShowIndentAdapter extends BaseAdapter {
                                 setIndent(indent, "2", edit.getText().toString());
                             }
                         })
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
+                        .setNegativeButton("NO", null)
                         .create().show();
             }
         });
@@ -142,7 +143,7 @@ public class ShowIndentAdapter extends BaseAdapter {
         if (!"".equals(reason)) {
             map.put("reason", reason);
         }
-        new EditIndent(indent).execute(map);
+        new EditIndent(indent, map).execute();
     }
 
     static class ViewHolder {
@@ -150,12 +151,14 @@ public class ShowIndentAdapter extends BaseAdapter {
         LinearLayout layout, declineAndAccept;
     }
 
-    private class EditIndent extends AsyncTask<HashMap<String, String>, Void, Boolean> {
+    private class EditIndent extends AsyncTask<Void, Void, Boolean> {
         private Indent indent;
         private ProgressDialog pd;
+        private HashMap<String, String> map;
 
-        public EditIndent(Indent indent) {
+        public EditIndent(Indent indent, HashMap<String, String> map) {
             this.indent = indent;
+            this.map = map;
         }
 
         @Override
@@ -167,9 +170,9 @@ public class ShowIndentAdapter extends BaseAdapter {
         }
 
         @Override
-        protected Boolean doInBackground(HashMap<String, String>... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
-                indent = ServerHelper.getInstance().editApplication(params[0]);
+                indent = ServerHelper.getInstance().editApplication(map);
                 indent.setPathTitle(title);
                 datas.add(indent);
                 Collections.reverse(datas);

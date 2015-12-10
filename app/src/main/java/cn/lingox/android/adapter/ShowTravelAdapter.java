@@ -20,6 +20,9 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.Travel;
 import cn.lingox.android.helper.JsonHelper;
 
+/**
+ * 展示用户的旅游计划适配器
+ */
 public class ShowTravelAdapter extends BaseAdapter {
 
     private Context context;
@@ -60,7 +63,6 @@ public class ShowTravelAdapter extends BaseAdapter {
             if (isSelf) {
                 viewHolder.editAndDel.setVisibility(View.VISIBLE);
             }
-
             viewHolder.delete = (ImageView) convertView.findViewById(R.id.show_travel_delete);
             viewHolder.edit = (ImageView) convertView.findViewById(R.id.show_travel_edit);
 
@@ -91,12 +93,7 @@ public class ShowTravelAdapter extends BaseAdapter {
                                 handler.sendMessage(msg);
                             }
                         })
-                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
+                        .setPositiveButton("No", null)
                         .create().show();
             }
         });

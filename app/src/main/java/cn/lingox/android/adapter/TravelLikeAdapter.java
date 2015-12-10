@@ -2,7 +2,6 @@ package cn.lingox.android.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,10 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CircularImageView;
 
+/**
+ * Travel的like的用户头像的适配器
+ */
 public class TravelLikeAdapter extends BaseAdapter {
-    private static final String LOG_TAG = "LocalJoinedUsersAdapter";
 
     private Activity context;
     private LayoutInflater inflater;
@@ -45,29 +46,6 @@ public class TravelLikeAdapter extends BaseAdapter {
         return position;
     }
 
-    public void addItem(User user) {
-        userList.add(user);
-    }
-
-    public void removeItem(int position) {
-        userList.remove(position);
-    }
-
-    public void removeItem(User user) {
-        int i = -1;
-        for (User u : userList) {
-            if (u.getId().equals(user.getId())) {
-                i = userList.indexOf(u);
-                break;
-            }
-        }
-        if (i != -1) {
-            removeItem(i);
-        } else {
-            Log.e(LOG_TAG, "removeItem(): User not found");
-        }
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View listView = convertView;
@@ -92,7 +70,6 @@ public class TravelLikeAdapter extends BaseAdapter {
                 }
             }
         });
-
         return listView;
     }
 

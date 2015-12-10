@@ -13,12 +13,15 @@ import java.util.ArrayList;
 import cn.lingox.android.R;
 import cn.lingox.android.entity.PathTags;
 
-public class MyAdapter extends BaseAdapter {
+/**
+ * 发布体验时的标签的适配器
+ */
+public class PathTagsAdapter extends BaseAdapter {
     private ArrayList<PathTags> datas;
     private Context context;
     private int type;
 
-    public MyAdapter(Context context, ArrayList datas, int type) {
+    public PathTagsAdapter(Context context, ArrayList<PathTags> datas, int type) {
         this.datas = datas;
         this.context = context;
         this.type = type;

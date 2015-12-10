@@ -27,6 +27,9 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.helper.WriteReplayDialog;
 
+/**
+ * 给用户的评论的适配器
+ */
 public class ReferenceAdapter extends ArrayAdapter<Reference> {
     // Intent Extras
     public static final String INTENT_TARGET_USER_ID = LingoXApplication.PACKAGE_NAME + ".TARGET_USER_ID";
@@ -68,25 +71,24 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = convertView;
         final ViewHolder holder;
 
         final Reference reference = referenceList.get(position);
-        if (rowView == null) {
-            rowView = LayoutInflater.from(context).inflate(R.layout.row_reference, parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.row_reference, parent, false);
             holder = new ViewHolder();
-            holder.layout = (RelativeLayout) rowView.findViewById(R.id.pdpdpd);
-            holder.avatar = (ImageView) rowView.findViewById(R.id.avatar_reference);
-            holder.replay = (ImageView) rowView.findViewById(R.id.refrence_replay);
-            holder.name = (TextView) rowView.findViewById(R.id.name_reference);
-            holder.replyName = (TextView) rowView.findViewById(R.id.name);
-            holder.time = (TextView) rowView.findViewById(R.id.time_reference);
-            holder.content = (TextView) rowView.findViewById(R.id.content_reference);
-            holder.replayContent = (TextView) rowView.findViewById(R.id.refrence_replay_content);
+            holder.layout = (RelativeLayout) convertView.findViewById(R.id.pdpdpd);
+            holder.avatar = (ImageView) convertView.findViewById(R.id.avatar_reference);
+            holder.replay = (ImageView) convertView.findViewById(R.id.refrence_replay);
+            holder.name = (TextView) convertView.findViewById(R.id.name_reference);
+            holder.replyName = (TextView) convertView.findViewById(R.id.name);
+            holder.time = (TextView) convertView.findViewById(R.id.time_reference);
+            holder.content = (TextView) convertView.findViewById(R.id.content_reference);
+            holder.replayContent = (TextView) convertView.findViewById(R.id.refrence_replay_content);
             holder.editText = new EditText(context);
-            rowView.setTag(holder);
+            convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) rowView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         final User user = CacheHelper.getInstance().getUserInfo(reference.getUserSrcId());
         if (user != null) {
@@ -142,7 +144,7 @@ public class ReferenceAdapter extends ArrayAdapter<Reference> {
                 }
             });
         }
-        return rowView;
+        return convertView;
     }
 
     static class ViewHolder {

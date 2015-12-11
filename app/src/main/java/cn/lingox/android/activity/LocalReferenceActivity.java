@@ -268,10 +268,10 @@ public class LocalReferenceActivity extends Activity implements OnClickListener 
                         group.put("referenceId", reference.getId());
                         group.put("content", reference.getContent());
                         groups.add(group);
-                        if (!reference.getReplys().isEmpty()) {
+                        if (!reference.getReplies().isEmpty()) {
                             PathReferenceReply reply;
-                            for (int a = 0, b = reference.getReplys().size(); a < b; a++) {
-                                reply = reference.getReplys().get(a);
+                            for (int a = 0, b = reference.getReplies().size(); a < b; a++) {
+                                reply = reference.getReplies().get(a);
                                 tempChildList = new ArrayList<>();
                                 child = new HashMap<>();
                                 child.put("user_id", reply.getUser_id());

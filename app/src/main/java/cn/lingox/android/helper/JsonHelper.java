@@ -34,6 +34,9 @@ import cn.lingox.android.entity.Travel;
 import cn.lingox.android.entity.location.Country1;
 import cn.lingox.android.entity.location.Provinces;
 
+/**
+ * 获取本地（assets）中的json资源
+ */
 public class JsonHelper {
     private static final String LOG_TAG = "JsonHelper";
 
@@ -186,7 +189,7 @@ public class JsonHelper {
 
     /**
      * 获取用户id
-     * （没看到干嘛要这样）
+     * （没看懂干嘛要这样）
      *
      * @param data json字符串
      * @return String
@@ -200,7 +203,7 @@ public class JsonHelper {
     }
 
     /**
-     * 根据给定的long类型格式化时间
+     * 根据给定的long类型的数据格式化时间
      *
      * @param timestamp long类型的时间
      * @param type      1：带时、分 2：不带时、分
@@ -321,6 +324,13 @@ public class JsonHelper {
         }
     }
 
+    /**
+     * 格式化给出的“yyyy-MM-dd'T'HH:mm:ss.SSS'Z'”类型的日期
+     *
+     * @param date 待格式化的日期
+     * @return long类型的日期
+     * @throws ParseException
+     */
     public long sailsJSDateToTimestamp(String date) throws ParseException {
         // Locale is the servers location (ie China)
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale == null ? Locale.CHINA : locale);
@@ -332,6 +342,11 @@ public class JsonHelper {
         return (c.getTimeInMillis());
     }
 
+    /**
+     * 将double类型的数据转换成String类型
+     * @param longNlat 保存经纬度的数组
+     * @return string类型的经纬度数组
+     */
     public String getLocationStr(double[] longNlat) {
         return "[" + String.valueOf(longNlat[0]) + "," + String.valueOf(longNlat[1]) + "]";
     }

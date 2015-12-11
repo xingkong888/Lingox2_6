@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Andrew on 23/01/2015.
+ * 图片----用户相册
  */
 public class Photo implements Parcelable {
     public static final Creator<Photo> CREATOR = new Creator<Photo>() {
@@ -16,9 +16,9 @@ public class Photo implements Parcelable {
             return new Photo[size];
         }
     };
-    private String id;            // DB id
-    private String description;
-    private String url;
+    private String id;//id---唯一标示
+    private String description;//对图片的描述
+    private String url;//图片链接
 
     public Photo() {
         this.id = "";

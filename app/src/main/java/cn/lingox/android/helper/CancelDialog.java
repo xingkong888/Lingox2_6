@@ -13,6 +13,9 @@ import android.widget.Button;
 import cn.lingox.android.R;
 import cn.lingox.android.activity.imagechooser.AddPhotosActivity;
 
+/**
+ * 取消确认弹框
+ */
 public class CancelDialog extends Activity {
 
     @Override
@@ -41,7 +44,8 @@ public class CancelDialog extends Activity {
             }
         });
 
-        // TODO Check if this is still required now that the layout is an activity instead of a dialog
+        //Check if this is still required now that the layout is an activity instead of a dialog
+        //设置弹出位置（从底部）及宽度
         Window dialogWindow = getWindow();
         dialogWindow.setGravity(Gravity.BOTTOM);
         DisplayMetrics dm = new DisplayMetrics();

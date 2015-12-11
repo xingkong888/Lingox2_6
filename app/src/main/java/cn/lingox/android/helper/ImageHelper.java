@@ -18,6 +18,10 @@ import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.utils.RotateImageView;
 
+/**
+ * 图片帮助类
+ * 对图片的尺寸、大小进行一定的操作
+ */
 public class ImageHelper {
     // Constants
     public static final int RESIZE_AVATAR = 1;

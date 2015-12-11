@@ -3,6 +3,9 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 回复评论活动的评论
+ */
 public class PathReferenceReply implements Parcelable {
     // Constants
     public static final Creator<PathReferenceReply> CREATOR = new Creator<PathReferenceReply>() {
@@ -21,7 +24,6 @@ public class PathReferenceReply implements Parcelable {
     public PathReferenceReply() {
         user_id = "";
         content = "";
-
     }
 
     public PathReferenceReply(String user_id, String content) {
@@ -50,7 +52,6 @@ public class PathReferenceReply implements Parcelable {
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
-
 
     @Override
     public String toString() {

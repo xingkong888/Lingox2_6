@@ -3,6 +3,9 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 通知实体类
+ */
 public class LingoNotification implements Parcelable {
     // Constants
     public static final int NUMBER_OF_NOTIFICATION_TYPES = 11;
@@ -24,7 +27,7 @@ public class LingoNotification implements Parcelable {
             return new LingoNotification[size];
         }
     };
-    private String id;
+    private String id;//通知id
     private String user_id;
     private String user_src;
     private int type;
@@ -204,6 +207,12 @@ public class LingoNotification implements Parcelable {
         dest.writeString(this.createdAt);
     }
 
+    /**
+     * 重写的比较相等的方法
+     *
+     * @param obj 待比较的对象
+     * @return true相等 false不相等
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof LingoNotification) {

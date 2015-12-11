@@ -10,6 +10,9 @@ import cn.lingox.android.R;
 import cn.lingox.android.entity.CachePath;
 import cn.lingox.android.entity.Path;
 
+/**
+ * local发布体验时退出询问是否保存已填写数据的弹框
+ */
 public class PathEditDialog {
     private static PathEditDialog instance = null;
     private static Dialog dialog;
@@ -58,12 +61,6 @@ public class PathEditDialog {
                 if (!newPath.getAvailableTime().isEmpty()) {
                     CachePath.getInstance().setAvabilableTime(newPath.getAvailableTime());
                 }
-//                if (newPath.getCapacity() != 0) {
-//                    CachePath.getInstance().setGroupSize(newPath.getCapacity());
-//                }
-//                if (!newPath.getCost().isEmpty()) {
-//                    CachePath.getInstance().setBudget(newPath.getCost());
-//                }
                 if (!newPath.getDetailAddress().isEmpty()) {
                     CachePath.getInstance().setAddress(newPath.getDetailAddress());
                 }

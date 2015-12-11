@@ -17,6 +17,10 @@ import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.LingoNotification;
 import cn.lingox.android.entity.User;
 
+/**
+ * 缓存帮助类
+ * 将相关信息保存到共享参数中
+ */
 public class CacheHelper {
     private static final String LOG_TAG = "CacheHelper";
 
@@ -76,8 +80,9 @@ public class CacheHelper {
     }
 
     public void removeContact(User user) {
-        if (!contactList.remove(user))
+        if (!contactList.remove(user)) {
             Log.d(LOG_TAG, "Tried to remove contact from contact list that wasn't there");
+        }
     }
 
     public void addContact(User user) {
@@ -100,17 +105,23 @@ public class CacheHelper {
         this.notificationList.addAll(notificationList);
     }
 
-    // Cache Data
+    //从本地获取密码
     public String getPassword() {
         return spSelf.getString(StringConstant.passwordStr, null);
     }
 
+    //将密码写入本地共享参数
     public void setPassword(String password) {
         if (password != null) {
             spSelfEditor.putString(StringConstant.passwordStr, password).apply();
         }
     }
 
+    /**
+     * 获取自己的信息
+     *
+     * @return 用户本人的信息
+     */
     public User getSelfInfo() {
         Gson gson = new Gson();
         String json = spSelf.getString(StringConstant.userInfoStr, "");
@@ -122,6 +133,10 @@ public class CacheHelper {
         }
     }
 
+    /**
+     * 设置自己的信息
+     * @param user 用户的实例
+     */
     public void setSelfInfo(User user) {
         if (user != null) {
             Gson gson = new Gson();
@@ -132,6 +147,10 @@ public class CacheHelper {
         }
     }
 
+    /**
+     * 添加用户信息
+     * @param user 用户实例
+     */
     public void addUserInfo(User user) {
         if (user != null) {
             // This is so we can also get users by their username
@@ -224,9 +243,9 @@ public class CacheHelper {
 
     public boolean isLoggedIn() {
         try {
-            if (getSelfInfo() != null && getPassword() != null)
+            if (getSelfInfo() != null && getPassword() != null) {
                 return true;
-            else {
+            }else {
                 logout();
                 return false;
             }

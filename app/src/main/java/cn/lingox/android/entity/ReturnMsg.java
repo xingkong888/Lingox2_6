@@ -2,12 +2,16 @@ package cn.lingox.android.entity;
 
 import org.json.JSONObject;
 
-// TODO this should be moved either to the Helper folder as as an inner class in ServerHelper
+//this should be moved either to the Helper folder as as an inner class in ServerHelper
 // the Entity folder is just for major Data Entities (ie server entities)
+
+/**
+ * 解析服务器返回数据
+ */
 public class ReturnMsg {
-    private int code;
-    private JSONObject data;
-    private String remark;
+    private int code;//返回码
+    private JSONObject data;//数据主体
+    private String remark;//注释
 
     public ReturnMsg(int code, JSONObject data, String remark) {
         super();

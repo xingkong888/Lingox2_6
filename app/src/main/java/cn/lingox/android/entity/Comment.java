@@ -3,6 +3,9 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 对local的活动的评论
+ */
 public class Comment implements Parcelable {
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         public Comment createFromParcel(Parcel in) {
@@ -13,12 +16,12 @@ public class Comment implements Parcelable {
             return new Comment[size];
         }
     };
-    private String id;
-    private String path_id;
-    private String user_id;
-    private String user_tar;
-    private String text;
-    private String createdAt;
+    private String id;//id---唯一标示
+    private String path_id;//活动的id
+    private String user_id;//评论人的id
+    private String user_tar;//被回复人的id
+    private String text;//内容
+    private String createdAt;//创建日期
 
     //删除会造成后续错误
     public Comment() {

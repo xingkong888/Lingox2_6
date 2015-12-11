@@ -2,6 +2,9 @@ package cn.lingox.android.entity;
 
 import java.util.ArrayList;
 
+/**
+ * 缓存local
+ */
 public class CachePath {
 
     private static CachePath instance = null;

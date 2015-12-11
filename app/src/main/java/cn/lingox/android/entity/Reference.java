@@ -3,6 +3,9 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 评论------对用户
+ */
 public class Reference implements Parcelable {
 
     public static final Creator<Reference> CREATOR = new Creator<Reference>() {
@@ -14,14 +17,14 @@ public class Reference implements Parcelable {
             return new Reference[size];
         }
     };
-    private String id;
-    private String title;
-    private String content;
-    private String user_src;
-    private String user_tar;
-    private String createAt;
-    private String updatedAt;
-    private String reply;
+    private String id;//id---唯一标识
+    private String title;//标题---没什么用，内容跟content一样
+    private String content;//内容
+    private String user_src;//评论人的id
+    private String user_tar;//被回复人的id
+    private String createAt;//创建日期
+    private String updatedAt;//更新日期
+    private String reply;//回复内容
 
     public Reference(String id, String title, String content, String userSrcId,
                      String userTarId, String createAt, String updatedAt, String reply) {

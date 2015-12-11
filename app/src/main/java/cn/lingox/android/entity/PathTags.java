@@ -1,5 +1,8 @@
 package cn.lingox.android.entity;
 
+/**
+ * 活动标签
+ */
 public class PathTags {
     private String tag;
     private int type; // 0 未选择 1选中

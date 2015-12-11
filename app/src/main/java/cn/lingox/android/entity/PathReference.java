@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+/**
+ * 活动的评论
+ */
 public class PathReference implements Parcelable {
     // Constants
     public static final Creator<PathReference> CREATOR = new Creator<PathReference>() {
@@ -19,27 +22,25 @@ public class PathReference implements Parcelable {
 
     private String id;//评论id
     private String user_id;//发起评论的用户id
-    //    private String user_tar;//被评论的用户id
     private String path_id;//活动id
     private String content;//评论内容
-    private ArrayList<PathReferenceReply> replys;
+    private ArrayList<PathReferenceReply> replies;//该条评论的回复评论
 
     public PathReference() {
         id = "";
         user_id = "";
         path_id = "";
         content = "";
-        replys = new ArrayList<>();
+        replies = new ArrayList<>();
     }
 
     // Parcelable
     public PathReference(Parcel in) {
         this.id = in.readString();
         this.user_id = in.readString();
-//        this.user_tar = in.readString();
         this.path_id = in.readString();
         this.content = in.readString();
-        this.replys = in.createTypedArrayList(PathReferenceReply.CREATOR);
+        this.replies = in.createTypedArrayList(PathReferenceReply.CREATOR);
     }
 
     public String getId() {
@@ -66,12 +67,12 @@ public class PathReference implements Parcelable {
         this.path_id = path_id;
     }
 
-    public ArrayList<PathReferenceReply> getReplys() {
-        return replys;
+    public ArrayList<PathReferenceReply> getReplies() {
+        return replies;
     }
 
-    public void setReplys(ArrayList<PathReferenceReply> replys) {
-        this.replys = replys;
+    public void setReplies(ArrayList<PathReferenceReply> replies) {
+        this.replies = replies;
     }
 
     public String getUser_id() {
@@ -88,7 +89,7 @@ public class PathReference implements Parcelable {
         return "[ user_id=" + user_id +
                 ", path_id=" + path_id +
                 ", content=" + content +
-                ", replys=" + replys +
+                ", replies=" + replies +
                 ", id=" + id +
                 "]";
     }
@@ -99,7 +100,7 @@ public class PathReference implements Parcelable {
         dest.writeString(user_id);
         dest.writeString(path_id);
         dest.writeString(content);
-        dest.writeTypedList(replys);
+        dest.writeTypedList(replies);
     }
 
     @Override

@@ -3,6 +3,9 @@ package cn.lingox.android.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 申请参加活动
+ */
 public class Indent implements Parcelable {
     public static final Creator<Indent> CREATOR = new Creator<Indent>() {
         public Indent createFromParcel(Parcel in) {

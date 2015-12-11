@@ -1,10 +1,15 @@
 package cn.lingox.android.entity;
 
+/**
+ * 用户数据---用于第三方登录时使用
+ * 第三方登录没实现
+ */
 public class UserInfo {
-    private String userIcon;
-    private String userName;
-    private Gender userGender;
-    private String userNote;
+    //从第三方获取到的用户数据
+    private String userIcon;//用户头像链接
+    private String userName;//用户名
+    private Gender userGender;//用户性别
+    private String userNote;//（没看懂什么含义）
 
     public String getUserIcon() {
         return userIcon;

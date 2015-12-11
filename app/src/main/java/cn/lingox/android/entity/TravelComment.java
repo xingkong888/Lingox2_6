@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Andrew on 07/02/2015.
+ * 旅行者发布的活动的评论实体类
  */
 public class TravelComment implements Parcelable {
     public static final Creator<TravelComment> CREATOR = new Creator<TravelComment>() {
@@ -16,12 +16,12 @@ public class TravelComment implements Parcelable {
             return new TravelComment[size];
         }
     };
-    private String id;
-    private String demand_id;
-    private String user_id;
-    private String user_tar;
-    private String text;
-    private String createdAt;
+    private String id; //评论的id
+    private String demand_id;//活动的id
+    private String user_id;//用户的id
+    private String user_tar;//被回复人的id
+    private String text;//内容
+    private String createdAt;//创建时间
 
     //删除会造成后续错误
     public TravelComment() {

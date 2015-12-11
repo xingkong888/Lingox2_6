@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import cn.lingox.android.app.LingoXApplication;
 
 /**
- * 旅行者发布内容类
+ * 旅行者发布内容实体类
  */
 public class TravelEntity implements Parcelable {
 
@@ -187,8 +187,8 @@ public class TravelEntity implements Parcelable {
     /**
      * 查找用户是否已like
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return “”
      */
     public boolean hasUserLiked(String userId) {
         for (User users : likedUsers) {

@@ -15,6 +15,9 @@ import java.util.Locale;
 import cn.lingox.android.Constant;
 import cn.lingox.android.app.LingoXApplication;
 
+/**
+ * 用户信息实体类
+ */
 public class User implements Parcelable {
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -28,30 +31,30 @@ public class User implements Parcelable {
     };
     private static final String LOG_TAG = "User";
 
-    private String id;
-    private String username;
-    private String nickname;
-    private String email;
-    private String country;
-    private String province;
-    private String city;
-    private String speak;
-    private String avatar;
-    private String dateOfBirth;
-    private String gender;
-    private String profession;
-    private ArrayList<String> interests = new ArrayList<>();
-    private String signature;
-    private double[] loc;
-    private String locString;
-    private String loginTime;
-    private boolean online;
-    private boolean homeStay;
-    private boolean homeMeal;
-    private boolean localGuide;
+    private String id;//用户id---用户的唯一标示
+    private String username;//登录账户-----也可用作唯一标示
+    private String nickname;//用户昵称
+    private String email;//用户邮箱----未做邮箱有效验证
+    private String country;//国家
+    private String province;//省份
+    private String city;//城市
+    private String speak;//语言
+    private String avatar;//头像链接
+    private String dateOfBirth;//生日
+    private String gender;//性别
+    private String profession;//职业
+    private ArrayList<String> interests = new ArrayList<>();//兴趣
+    private String signature;//自我介绍
+    private double[] loc;//地理位置-----
+    private String locString;//纬度
+    private String loginTime;//经度
+    private boolean online;//是否在线
+    private boolean homeStay;//提供家庭住宿
+    private boolean homeMeal;//提供家庭餐
+    private boolean localGuide;//本地向导
     private int relation;
 
-    private String createdAt;
+    private String createdAt;//注册时间
     private String visited;
 
     public User() {
@@ -344,7 +347,15 @@ public class User implements Parcelable {
         this.relation = relation;
     }
 
-    // This is a safety net method, it shouldn't be required, but we use it just in case the nickname is null or empty
+    // This is a safety net method, it shouldn't be required,
+    // but we use it just in case the nickname is null or empty
+
+    /**
+     * 预防昵称为空
+     * 为空时返回账户
+     *
+     * @return 昵称或账户
+     */
     public String getNicknameOrUsername() {
         if (TextUtils.isEmpty(nickname)) {
             return username;
@@ -352,10 +363,19 @@ public class User implements Parcelable {
         return nickname;
     }
 
+    /**
+     * 获取该用户的国家、省份、城市
+     * @return 地址
+     */
     public String getLocation() {
         return LingoXApplication.getInstance().getLocation(getCountry(), getProvince(), getCity());
     }
 
+    /**
+     * 作用：设置用户的地址
+     * 功能：将包含有国家、省份、城市的字符串通过“,”分割开来，分别存储到相应的字段
+     * @param location 包含国家、省份、城市的字符串
+     */
     public void setLocation(String location) {
         String[] str = location.split(", ");
         switch (str.length) {
@@ -405,6 +425,11 @@ public class User implements Parcelable {
     }
 
     // TODO Can be further improved to check for valid day and month values
+
+    /**
+     * 判断生日是否合法
+     *
+     */
     public boolean hasProperlyFormedBirthDate() {
         if (TextUtils.isEmpty(dateOfBirth) || (dateOfBirth.length() != 8))
             return false;
@@ -418,8 +443,13 @@ public class User implements Parcelable {
         return true;
     }
 
+    /**
+     * 获取用户年龄
+     * @return 用户年龄
+     */
     public int getUserAge() {
-        if (!"Select Birthdate".contentEquals(dateOfBirth.trim()) && !dateOfBirth.trim().isEmpty()
+        if (!"Select Birthdate".contentEquals(dateOfBirth.trim())
+                && !dateOfBirth.trim().isEmpty()
                 && !"null".contentEquals(dateOfBirth.trim())) {
             GregorianCalendar cal = new GregorianCalendar();
             int y, m, d, a;
@@ -432,18 +462,23 @@ public class User implements Parcelable {
             cal.set(_year, _month, _day);
             a = y - cal.get(Calendar.YEAR);
             if ((m < cal.get(Calendar.MONTH))
-                    || ((m == cal.get(Calendar.MONTH)) && (d < cal
-                    .get(Calendar.DAY_OF_MONTH)))) {
+                    || ((m == cal.get(Calendar.MONTH))
+                    && (d < cal.get(Calendar.DAY_OF_MONTH)))) {
                 --a;
             }
-            if (a < 0)
+            if (a < 0) {
                 return 0;
+            }
             return a;
         } else {
             return 0;
         }
     }
 
+    /**
+     *
+     * @return 生日---天
+     */
     public String getBirthDateDay() {
         try {
             return dateOfBirth.substring(0, 2);
@@ -453,6 +488,10 @@ public class User implements Parcelable {
         }
     }
 
+    /**
+     *
+     * @return 生日---月
+     */
     public String getBirthDateMonth() {
         try {
             return dateOfBirth.substring(2, 4);
@@ -462,6 +501,10 @@ public class User implements Parcelable {
         }
     }
 
+    /**
+     *
+     * @return 生日---年
+     */
     public String getBirthDateYear() {
         try {
             return dateOfBirth.substring(4, 8);
@@ -480,6 +523,10 @@ public class User implements Parcelable {
         return super.equals(obj);
     }
 
+    /**
+     * 获取用户名的首字母，用户排序
+     * @return 用户名的首字母
+     */
     public String getHeader() {
         String headerName = TextUtils.isEmpty(nickname) ? username : nickname;
 

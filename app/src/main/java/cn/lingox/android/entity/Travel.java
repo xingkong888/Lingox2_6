@@ -21,15 +21,15 @@ public class Travel implements Parcelable {
         }
     };
 
-    private String country;
-    private String province;
-    private String city;
-    private long startTime;
-    private long endTime;
-    private String id;
-    private String createTime;
-    private String updateTime;
-    private String tags;
+    private String country;//国家
+    private String province;//省份
+    private String city;//城市
+    private long startTime;//开始时间
+    private long endTime;//结束时间
+    private String id;//id---唯一标示
+    private String createTime;//创建时间
+    private String updateTime;//更新时间
+    private String tags;//标签
 
     public Travel() {
         country = "";
@@ -135,12 +135,21 @@ public class Travel implements Parcelable {
 
     }
 
+    /**
+     * 获取地址
+     *
+     * @return 包含有国家、省份、城市的
+     */
     public String getLocation() {
         return LingoXApplication.getInstance().getLocation(
                 getCountry(), getProvince(), getCity()
         );
     }
 
+    /**
+     * 设置地址
+     * @param location 包含有国家、省份、城市的
+     */
     public void setLocation(String location) {
         String[] str = location.split(", ");
         switch (str.length) {

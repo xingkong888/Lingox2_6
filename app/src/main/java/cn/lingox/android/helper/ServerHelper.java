@@ -59,10 +59,10 @@ public class ServerHelper {
             JSONObject jobj;
             try {
                 jobj = new JSONObject(jsonStr);
-                ReturnMsg rmsg = new ReturnMsg(jobj.getInt("code"),
-                        jobj.getJSONObject("data"), jobj.getString("remark"));
-                Log.d(LOG_TAG, "Return message remark: " + jobj.getString("remark"));
-                return rmsg;
+//                ReturnMsg rmsg = new ReturnMsg(jobj.getInt("code"),
+//                        jobj.getJSONObject("data"), jobj.getString("remark"));
+//                Log.d(LOG_TAG, "Return message remark: " + jobj.getString("remark"));
+                return new ReturnMsg(jobj.getInt("code"), jobj.getJSONObject("data"), jobj.getString("remark"));
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "checkReturnMessage(): Error happened: " + e.getMessage());
                 return null;
@@ -120,8 +120,7 @@ public class ServerHelper {
             throw new Exception(rmsg.getRemark());
         }
 //        Log.d(LOG_TAG, "register: User Info: " + user);
-        return JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(), User.class);
+        return JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), User.class);
     }
 
     /**
@@ -129,7 +128,7 @@ public class ServerHelper {
      *
      * @param userId1 当前用户id
      * @param userId2
-     * @return true 或false
+     * @return true两者已相互关注 false没有相互关注
      * @throws Exception
      */
     public boolean getBothFollowed(String userId1, String userId2) throws Exception {
@@ -980,12 +979,6 @@ public class ServerHelper {
             throw new Exception("Failed to unAccept Path!");
         }
 
-//        Path returnPath = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Path.class);
-//
-//        Log.d(LOG_TAG, "unAcceptPath: Path unAccepted: " + returnPath);
-
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Path.class);
     }
@@ -1070,6 +1063,8 @@ public class ServerHelper {
 //    }
 
     /**
+     * 创建local的活动评论
+     *
      * @param user_id   用户id
      * @param userTarId 目标用户id
      * @param path_id   活动id
@@ -1082,13 +1077,13 @@ public class ServerHelper {
         params.put(StringConstant.userIdStr, user_id);
         params.put(StringConstant.pathId, path_id);
         params.put(StringConstant.commentText, text);
-        if (userTarId != null)
+        if (userTarId != null) {
             params.put(StringConstant.commentReplyUser, userTarId);
+        }
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_COMMENT, params);
-
-        Log.d(LOG_TAG, "createComment: " + jsonStr);
+//        Log.d(LOG_TAG, "createComment: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1114,7 +1109,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_COMMENT, params);
 
-        Log.d(LOG_TAG, "deleteComment: " + jsonStr);
+//        Log.d(LOG_TAG, "deleteComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1136,11 +1131,9 @@ public class ServerHelper {
      */
     public String uploadPhoto(String user_id, String description, Bitmap image) throws Exception {
 
-        String jsonStr = MsgSender.postPhotoToNet(
-                URLConstant.URL_UPLOAD_PHOTO, user_id, description, image);
+        String jsonStr = MsgSender.postPhotoToNet(URLConstant.URL_UPLOAD_PHOTO, user_id, description, image);
 
-        Log.d(LOG_TAG, "uploadPhoto: " + jsonStr);
-
+//        Log.d(LOG_TAG, "uploadPhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1165,8 +1158,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PHOTOS, params);
 
-        Log.d(LOG_TAG, "getUsersPhotos: " + jsonStr);
-
+//        Log.d(LOG_TAG, "getUsersPhotos: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1204,8 +1196,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PHOTO, params);
 
-        Log.d(LOG_TAG, "editPhoto: " + jsonStr);
-
+//        Log.d(LOG_TAG, "editPhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1230,8 +1221,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_PHOTO, params);
 
-        Log.d(LOG_TAG, "deletePhoto: " + jsonStr);
-
+//        Log.d(LOG_TAG, "deletePhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1256,8 +1246,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_NOTIFICATIONS, params);
 
-        Log.d(LOG_TAG, "getAllNotifications: " + jsonStr);
-
+//        Log.d(LOG_TAG, "getAllNotifications: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1291,8 +1280,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_NEW_NOTIFICATIONS, params);
 
-        Log.d(LOG_TAG, "getAllNewNotifications: " + jsonStr);
-
+//        Log.d(LOG_TAG, "getAllNewNotifications: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1329,8 +1317,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_NOTIFICATION, params);
 
-        Log.d(LOG_TAG, "deleteNotification: " + jsonStr);
-
+//        Log.d(LOG_TAG, "deleteNotification: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1354,7 +1341,7 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_READ_NOTIFICATIONS, params);
-        Log.d(LOG_TAG, "readNotification: " + jsonStr);
+//        Log.d(LOG_TAG, "readNotification: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1441,7 +1428,7 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_DELETE, params);
-        Log.d(LOG_TAG, "deleteExperiences " + jsonStr);
+//        Log.d(LOG_TAG, "deleteExperiences " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1455,7 +1442,7 @@ public class ServerHelper {
     public Indent createApplication(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_APPLICATION, params);
-        Log.d(LOG_TAG, "createApplication " + jsonStr);
+//        Log.d(LOG_TAG, "createApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1476,7 +1463,7 @@ public class ServerHelper {
     public ArrayList<Indent> getApplication(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_APPLICATION, params);
-        Log.d(LOG_TAG, "getApplication " + jsonStr);
+//        Log.d(LOG_TAG, "getApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1501,7 +1488,7 @@ public class ServerHelper {
     //同意、拒绝、取消等状态的改变
     public Indent editApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_APPLICATION, params);
-        Log.d(LOG_TAG, "editApplication " + jsonStr);
+//        Log.d(LOG_TAG, "editApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1521,7 +1508,7 @@ public class ServerHelper {
     //判断是否已存在申请
     public boolean existApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXIST_APPLICATION, params);
-        Log.d(LOG_TAG, "existApplication " + jsonStr);
+//        Log.d(LOG_TAG, "existApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1545,7 +1532,7 @@ public class ServerHelper {
     public PathReference createPathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_CREATE, params);
-        Log.d(LOG_TAG, "createPathReference " + jsonStr);
+//        Log.d(LOG_TAG, "createPathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1568,7 +1555,7 @@ public class ServerHelper {
     public PathReference deletePathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETE, params);
-        Log.d(LOG_TAG, "deletePathReference " + jsonStr);
+//        Log.d(LOG_TAG, "deletePathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1599,7 +1586,7 @@ public class ServerHelper {
         params.put("content", content);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
-        Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
+//        Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1626,7 +1613,7 @@ public class ServerHelper {
     public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
-        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
+//        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1653,7 +1640,7 @@ public class ServerHelper {
     public ArrayList<PathReference> getPathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_GETREFERENCE, params);
-        Log.d(LOG_TAG, "getPathReference " + jsonStr);
+//        Log.d(LOG_TAG, "getPathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1690,7 +1677,7 @@ public class ServerHelper {
         params.put("page", String.valueOf(page));
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GETALL, params);
-        Log.d(LOG_TAG, "getAllTravel " + jsonStr);
+//        Log.d(LOG_TAG, "getAllTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1726,7 +1713,7 @@ public class ServerHelper {
         params.put("userId", userId);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_USER_TRAVEL_GET, params);
-        Log.d(LOG_TAG, "getUserTravel " + jsonStr);
+//        Log.d(LOG_TAG, "getUserTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1759,7 +1746,7 @@ public class ServerHelper {
         params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GET, params);
-        Log.d(LOG_TAG, "getTravel " + jsonStr);
+//        Log.d(LOG_TAG, "getTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1786,7 +1773,7 @@ public class ServerHelper {
     public TravelEntity createTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_CREATE, params);
-        Log.d(LOG_TAG, "createTravel " + jsonStr);
+//        Log.d(LOG_TAG, "createTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1813,7 +1800,7 @@ public class ServerHelper {
     public TravelEntity editTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_EDIT, params);
-        Log.d(LOG_TAG, "editTravel " + jsonStr);
+//        Log.d(LOG_TAG, "editTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1842,7 +1829,7 @@ public class ServerHelper {
         params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_DELETE, params);
-        Log.d(LOG_TAG, "deleteTravel " + jsonStr);
+//        Log.d(LOG_TAG, "deleteTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1869,7 +1856,7 @@ public class ServerHelper {
     public TravelEntity likeTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_LIKE, params);
-        Log.d(LOG_TAG, "likeTravel " + jsonStr);
+//        Log.d(LOG_TAG, "likeTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1893,7 +1880,7 @@ public class ServerHelper {
     public TravelEntity unLikeTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_UNLIKE, params);
-        Log.d(LOG_TAG, "unLikeTravel " + jsonStr);
+//        Log.d(LOG_TAG, "unLikeTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
@@ -1916,8 +1903,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_CREATE, params);
 
-        Log.d(LOG_TAG, "createTravelComment: " + jsonStr);
-
+//        Log.d(LOG_TAG, "createTravelComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1942,7 +1928,7 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_DELETE, params);
 
-        Log.d(LOG_TAG, "deleteTravelComment: " + jsonStr);
+//        Log.d(LOG_TAG, "deleteTravelComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
 
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
@@ -1952,7 +1938,5 @@ public class ServerHelper {
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), TravelComment.class);
     }
-
-
     /**********************************************************************************************/
 }

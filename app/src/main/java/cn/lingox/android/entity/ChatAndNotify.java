@@ -1,9 +1,12 @@
 package cn.lingox.android.entity;
 
+/**
+ * 聊天和通知
+ */
 public class ChatAndNotify {
 
-    private int type;
-    private Object obj;
+    private int type;//类型
+    private Object obj;//实例
 
     public int getType() {
         return type;

@@ -21,33 +21,33 @@ public class Path implements Parcelable {
     };
 
     private static final String LOG_TAG = "Path";
-    private String id;                    // DB id
-    private String user_id;
-    private String text;
-    private String cost;
-    private String title;
-    private long dateTime;
-    private long createdTime;
-    private String availableTime;
-    private long endDateTime;
-    private int capacity;
+    private String id;//id---唯一标示
+    private String user_id;//创建用户的id
+    private String text;//内容
+    private String cost;//花费---已弃用
+    private String title;//标题
+    private long dateTime;//开始时间
+    private long createdTime;//不知道什么时间
+    private String availableTime;//可举办活动的时间
+    private long endDateTime;//结束时间
+    private int capacity;//可接待人数
     private String image;    // ArrayList of image URLs
     private String image11;    // ArrayList of image URLs---1:1
     private String image21;    // ArrayList of image URLs---2:1
-    private String chosenCountry;
-    private String province;
-    private String chosenCity;
-    private ArrayList<User> acceptedUsers;
-    private ArrayList<Comment> comments;
-    private String createdAt;
-    private int type;//local：1 or travel:2
-    private String hxGroupId;
+    private String chosenCountry;//国家
+    private String province;//省份
+    private String chosenCity;//城市
+    private ArrayList<User> acceptedUsers;//参加活动的用户
+    private ArrayList<Comment> comments;//评论
+    private String createdAt;//创建时间
+    private int type;//local：1 or travel:2（已将local和travel分开）
+    private String hxGroupId;//环信id---群聊
     // Variables that are not linked to the Server
     private String nonDBLocationString;
-    private String detailAddress;
-    private String latitude = "";
-    private String longitude = "";
-    private ArrayList<String> tags;
+    private String detailAddress;//地址----如新中东街3号
+    private String latitude = "";//经度
+    private String longitude = "";//纬度
+    private ArrayList<String> tags;//标签
 
     public Path() {
         this.id = "";
@@ -389,6 +389,12 @@ public class Path implements Parcelable {
                 + "]";
     }
 
+    /**
+     * 判断给定用户是否参加了本活动
+     *
+     * @param userId 待核对用户
+     * @return true参加 false未参加
+     */
     public boolean hasUserAccepted(String userId) {
         for (User users : acceptedUsers) {
             if (users.getId().equals(userId))
@@ -397,6 +403,10 @@ public class Path implements Parcelable {
         return false;
     }
 
+    /**
+     * 获取位置
+     * @return 位置
+     */
     public String getLocationString() {
         nonDBLocationString = getLocation();
         if (!nonDBLocationString.isEmpty()) {

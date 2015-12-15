@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import com.easemob.chat.EMMessage;
 import com.easemob.util.EMLog;
 
+/**
+ * 下载图片的异步任务
+ */
 public class DownloadImageTask extends AsyncTask<EMMessage, Integer, Bitmap> {
     private DownloadFileCallback callback;
 
@@ -13,6 +16,12 @@ public class DownloadImageTask extends AsyncTask<EMMessage, Integer, Bitmap> {
         this.callback = callback;
     }
 
+    /**
+     * 环信聊天的图片----将图片的地址转换成环信下的地址
+     *
+     * @param imagePath 图片原地址
+     * @return 环信地址
+     */
     public static String getThumbnailImagePath(String imagePath) {
         String path = imagePath.substring(0, imagePath.lastIndexOf("/") + 1);
         path += "th" + imagePath.substring(imagePath.lastIndexOf("/") + 1, imagePath.length());
@@ -23,7 +32,6 @@ public class DownloadImageTask extends AsyncTask<EMMessage, Integer, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(EMMessage... params) {
-        // todo: need to implement
         return null;
     }
 

@@ -18,13 +18,10 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
     private Callback callback;
     private HashMap<String, String> map;
     private TravelEntity travelEntity;
-//    private ProgressDialog pd;
 
     public UnLikeTravelEntity(Context context, HashMap<String, String> map, Callback callback) {
         this.callback = callback;
         this.map = map;
-//        pd=new ProgressDialog(context);
-//        pd.setMessage("");
     }
 
     @Override
@@ -38,6 +35,7 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
@@ -47,6 +45,9 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(TravelEntity entity);
 

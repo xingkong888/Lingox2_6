@@ -14,6 +14,9 @@ import com.squareup.picasso.Transformation;
 import cn.lingox.android.R;
 import cn.lingox.android.utils.DpToPx;
 
+/**
+ * UI帮助工具类
+ */
 public class UIHelper {
     private static UIHelper instance = null;
 
@@ -27,6 +30,11 @@ public class UIHelper {
         return instance;
     }
 
+    /**
+     * 设置TextView内容
+     * @param tv TextView
+     * @param s 内容
+     */
     public void textViewSetPossiblyNullString(TextView tv, String s) {
         if (s == null) {
             tv.setText("");
@@ -67,6 +75,9 @@ public class UIHelper {
         }
     }
 
+    /**
+     * 裁切图片的接口实例化
+     */
     private class CropSquareTransformation implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {

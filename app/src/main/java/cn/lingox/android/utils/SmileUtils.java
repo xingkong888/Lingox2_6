@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 
 import cn.lingox.android.R;
 
+/**
+ * 聊天的表情
+ */
 public class SmileUtils {
     public static final String ee_1 = "[):]";
     public static final String ee_2 = "[:D]";

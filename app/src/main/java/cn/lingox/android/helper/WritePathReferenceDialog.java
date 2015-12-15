@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import cn.lingox.android.R;
 
+/**
+ * 写活动评论的dialog
+ */
 public class WritePathReferenceDialog extends DialogFragment implements View.OnClickListener {
     private static Context context;
 

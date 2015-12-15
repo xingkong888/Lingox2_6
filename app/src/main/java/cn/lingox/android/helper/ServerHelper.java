@@ -52,16 +52,13 @@ public class ServerHelper {
      * json数据解析
      *
      * @param jsonStr 待解析的json数据
-     * @return true或false
+     * @return ReturnMsg的实例：解析成功；null：解析失败
      */
     private ReturnMsg checkReturnMsg(String jsonStr) {
         if (jsonStr != null && !"".equals(jsonStr)) {
             JSONObject jobj;
             try {
                 jobj = new JSONObject(jsonStr);
-//                ReturnMsg rmsg = new ReturnMsg(jobj.getInt("code"),
-//                        jobj.getJSONObject("data"), jobj.getString("remark"));
-//                Log.d(LOG_TAG, "Return message remark: " + jobj.getString("remark"));
                 return new ReturnMsg(jobj.getInt("code"), jobj.getJSONObject("data"), jobj.getString("remark"));
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "checkReturnMessage(): Error happened: " + e.getMessage());
@@ -69,8 +66,7 @@ public class ServerHelper {
             }
         } else {
             Log.e(LOG_TAG, "checkReturnMessage(): jsonStr is null or empty");
-            return new ReturnMsg(StatusCodeConstant.STATUS_JSON_ERR, null,
-                    "Received no data from the server");
+            return new ReturnMsg(StatusCodeConstant.STATUS_JSON_ERR, null, "Received no data from the server");
         }
     }
 
@@ -114,7 +110,10 @@ public class ServerHelper {
 //        Log.d(LOG_TAG, "register: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "register:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "register: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -127,7 +126,7 @@ public class ServerHelper {
      * 获取双方关系
      *
      * @param userId1 当前用户id
-     * @param userId2
+     * @param userId2 目标用户id
      * @return true两者已相互关注 false没有相互关注
      * @throws Exception
      */
@@ -139,10 +138,11 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_RELATION, params);
 
-//        Log.d(LOG_TAG, "getBothFollowed: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getBothFollowed:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getBothFollowed: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -166,16 +166,15 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_LOGIN, params);
-
-//        Log.d(LOG_TAG, "login: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "login:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "login: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
-//        Log.d(LOG_TAG, "login: User Info: " + user);
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), User.class);
     }
@@ -193,17 +192,16 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_FORGOT_PASSWORD, params);
-
-//        Log.d(LOG_TAG, "forgotPassword: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "forgotPassword:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "forgotPassword: Return message code not positive");
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
             throw new Exception(rmsg.getRemark());
         }
-//        Log.d(LOG_TAG, "forgotPassword: password successfully recovered");
     }
 
     /**
@@ -217,21 +215,17 @@ public class ServerHelper {
     public String uploadAvatar(String user_id, Bitmap avatar) throws Exception {
 
         String jsonStr = MsgSender.postAvatarToNet(URLConstant.URL_UPLOAD_AVATAR, user_id, avatar);
-
-        Log.d(LOG_TAG, "uploadAvatar: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "uploadAvatar:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "uploadAvatar: Return message code not positive");
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
             throw new Exception("Failed to upload Avatar!");
         }
-
-        String avatarPath = rmsg.getData().getString(StringConstant.avatarStr);
-        Log.d(LOG_TAG, "uploadAvatar: Avatar path: " + avatarPath);
-
-        return avatarPath;
+        return rmsg.getData().getString(StringConstant.avatarStr);
     }
 
     /**
@@ -245,17 +239,15 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_UPDATE_INFO, params);
-
-        Log.d(LOG_TAG, "updateUserInfo: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "updateUserInfo:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "updateUserInfo: Return message code not positive");
             throw new Exception("Failed to update User info!");
         }
-
-//        Log.d(LOG_TAG, "updateUserInfo: User Info: " + user);
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), User.class);
     }
@@ -272,21 +264,17 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CHANGE_RELATION, params);
-
-        Log.d(LOG_TAG, "userRelationChange: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "userRelationChange:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "userRelationChange: Return message code not positive");
             throw new Exception("Failed to change User relation!");
         }
 
-        int relationCode = rmsg.getData().getInt(StringConstant.userRelationStr);
-
-        Log.d(LOG_TAG, "userRelationChange: New relation code: " + relationCode);
-
-        return relationCode;
+        return rmsg.getData().getInt(StringConstant.userRelationStr);
     }
 
     /**
@@ -302,19 +290,18 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_CONTACT_LIST, params);
-
-        Log.d(LOG_TAG, "getContactList: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getContactList:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getContactList: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Contact List!");
         }
 
         ArrayList<User> contactList = new ArrayList<>();
-        JSONArray jsonArray = rmsg.getData().getJSONArray(
-                "contacts");
+        JSONArray jsonArray = rmsg.getData().getJSONArray("contacts");
         for (int i = 0, j = jsonArray.length(); i < j; i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             User user = JsonHelper
@@ -324,7 +311,6 @@ public class ServerHelper {
             contactList.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
-        Log.d(LOG_TAG, "getContactList: Contact List: " + contactList);
         return contactList;
     }
 
@@ -359,11 +345,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_INFO, params);
-
-        Log.d(LOG_TAG, "getUserInfo: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUserInfo:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUserInfo: Return message code not positive");
             throw new Exception("Failed to get User's info!");
@@ -372,7 +358,6 @@ public class ServerHelper {
         User returnUser = JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), User.class);
         CacheHelper.getInstance().addUserInfo(returnUser);
 
-        Log.d(LOG_TAG, "getUserInfo: User's info: " + returnUser);
         return returnUser;
     }
 
@@ -391,11 +376,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_FOLLOWING, params);
-
-        Log.d(LOG_TAG, "getUserFollowing: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUserFollowing:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUserFollowing: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get User's Followers!");
@@ -410,7 +395,6 @@ public class ServerHelper {
                     .getInstance().jsonToBean(
                             jsonObject.toString(),
                             User.class);
-            jsonObject = null;
             contactList.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
@@ -446,20 +430,20 @@ public class ServerHelper {
      * @throws Exception
      */
     public ArrayList<User> searchUser(String user_id, int searchType, Map<String, String> params, int page) throws Exception {
-        if (params == null)
+        if (params == null) {
             params = new HashMap<>();
+        }
         params.put(StringConstant.userIdStr, user_id);
         params.put(StringConstant.searchType, String.valueOf(searchType));
         params.put("page", String.valueOf(page));
         params.put(StringConstant.verStr, APPVERSION);
 
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_SEARCH_USER, params);
-
-        Log.d(LOG_TAG, "searchUser: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "searchUser:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "searchUser: Return message code not positive");
             throw new Exception("Failed to search for users!");
@@ -481,9 +465,6 @@ public class ServerHelper {
             searchResult.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
-
-        Log.d(LOG_TAG, "searchUser: Found users: " + searchResult);
-
         return searchResult;
     }
     // References
@@ -496,10 +477,11 @@ public class ServerHelper {
      */
     public ArrayList<User> searchUserDefault() throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DEFAULT_USER);
-//        Log.d(LOG_TAG, "searchUser: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "searchUser:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "searchUser: Return message code not positive");
             throw new Exception("Failed to search for users!");
@@ -518,8 +500,6 @@ public class ServerHelper {
             searchResult.add(user);
             CacheHelper.getInstance().addUserInfo(user);
         }
-        Log.d(LOG_TAG, "searchUser: Found users: " + searchResult);
-
         return searchResult;
     }
 
@@ -553,18 +533,15 @@ public class ServerHelper {
             jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
             Log.d(LOG_TAG, "EditReference: " + jsonStr);
         }
-        Log.d(LOG_TAG, "Reference: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createReference: Return message code not positive");
             throw new Exception("Failed to create Reference!");
         }
-
-//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Reference.class);
-//        Log.d(LOG_TAG, "createReference: Reference created: " + returnReference);
 
         return JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), Reference.class);
     }
@@ -584,20 +561,15 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_REFERENCE, params);
-
-        Log.d(LOG_TAG, "replyReference: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "replyReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "replyReference: Return message code not positive");
             throw new Exception("Failed to reply Reference!");
         }
-
-//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Reference.class);
-//        Log.d(LOG_TAG, "replyReference: Reference edited: " + returnReference);
 
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Reference.class);
@@ -617,19 +589,15 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_REFERENCE, params);
 
-        Log.d(LOG_TAG, "deleteReference: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deleteReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteReference: Return message code not positive");
             throw new Exception("Failed to delete Reference!");
         }
-
-//        Reference returnReference = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Reference.class);
-//        Log.d(LOG_TAG, "deleteReference: Reference deleted: " + returnReference);
 
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Reference.class);
@@ -648,11 +616,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_REFERENCES, params);
-
-        Log.d(LOG_TAG, "getUsersReferences: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUsersReferences:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUsersReferences: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Reference items!");
@@ -668,9 +636,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             Reference.class));
         }
-
-        Log.d(LOG_TAG, "getUsersReferences: References: " + referenceArray);
-
         return referenceArray;
     }
 
@@ -687,11 +652,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATH, params);
-
-        Log.d(LOG_TAG, "getPath: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getPath:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPath: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Path!");
@@ -713,10 +678,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_PATHS, params);
-        Log.d(LOG_TAG, "getAllPaths: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getAllPaths:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getAllPaths: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Path items!");
@@ -769,10 +735,11 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);
 
-        Log.d(LOG_TAG, "getPathsByLocation: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getPathsByLocation:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPathsByLocation: Return message code not positive: " + rmsg.getRemark());
             throw new Exception("Failed to get Path items!");
@@ -787,9 +754,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             Path.class));
         }
-
-        Log.d(LOG_TAG, "getPathsByLocation: Paths: " + pathArray);
-
         return pathArray;
     }
 
@@ -809,10 +773,11 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PATHS, params);
 
-        Log.d(LOG_TAG, "getUsersPaths: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUsersPaths:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUsersPaths: Return message code not positive");
             throw new Exception("Failed to get Path items!");
@@ -827,7 +792,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             Path.class));
         }
-        Log.d(LOG_TAG, "getUsersPaths: Paths: " + pathArray);
         return pathArray;
     }
 
@@ -867,18 +831,17 @@ public class ServerHelper {
             case "create"://创建
                 params.put(StringConstant.userIdStr, path.getUserId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_PATH, params);
-                Log.d(LOG_TAG, "createPath: " + jsonStr);
-
                 break;
             case "edit"://修改
                 params.put(StringConstant.pathId, path.getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PATH, params);
-                Log.d(LOG_TAG, "editPath: " + jsonStr);
-
                 break;
         }
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "path:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "path: Return message code not positive");
             throw new Exception("Failed to create Path!");
@@ -901,21 +864,16 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_PATH, params);
-        Log.d(LOG_TAG, "deletePath: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deletePath:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deletePath: Return message code not positive");
             throw new Exception("Failed to delete Path!");
         }
-
-//        Path returnPath = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Path.class);
-//
-//        Log.d(LOG_TAG, "deletePath: Path deleted: " + returnPath);
-
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Path.class);
     }
@@ -936,20 +894,15 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_ACCEPT_PATH, params);
 
-        Log.d(LOG_TAG, "acceptPath: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "acceptPath:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "acceptPath: Return message code not positive");
             throw new Exception("Failed to accept Path!");
         }
-
-//        Path returnPath = JsonHelper.getInstance().jsonToBean(
-//                rmsg.getData().toString(),
-//                Path.class);
-
-//        Log.d(LOG_TAG, "acceptPath: Path accepted: " + returnPath);
         return JsonHelper.getInstance().jsonToBean(
                 rmsg.getData().toString(), Path.class);
     }
@@ -969,11 +922,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_UNACCEPT_PATH, params);
-
-        Log.d(LOG_TAG, "unAcceptPath: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "unAcceptPath:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "unAcceptPath: Return message code not positive");
             throw new Exception("Failed to unAccept Path!");
@@ -994,10 +947,11 @@ public class ServerHelper {
     public ArrayList<String> uploadPathImage(String path_id, Bitmap image) throws Exception {
         String jsonStr = MsgSender.postPathImageToNet(URLConstant.URL_UPLOAD_PATH_IMAGE, path_id, image);
 
-        Log.d(LOG_TAG, "uploadPathImage: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "uploadPathImage:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "uploadPathImage: Return message code not positive");
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
@@ -1011,56 +965,9 @@ public class ServerHelper {
         list.add(imageUrl);
         list.add(image11);
         list.add(image21);
-        Log.d(LOG_TAG, "uploadPathImage: Path image path: " + list.toString());
 
         return list;
     }
-    //TODO 使用七牛上传图片的方法，暂未完成
-//    public String uploadPathImage(String path_id, Bitmap image,int i) throws Exception {
-//        Configuration config = new Configuration.Builder()
-//                .chunkSize(256 * 1024)  //分片上传时，每片的大小。 默认 256K
-//                .putThreshhold(1024 * 1024)  // 启用分片上传阀值。默认 512K
-//                .connectTimeout(10) // 链接超时。默认 10秒
-//                .responseTimeout(60) // 服务器响应超时。默认 60秒
-////                .recorder(null)  // recorder 分片上传时，已上传片记录器。默认 null
-////                .recorder(new Recorder() {
-////                    @Override
-////                    public void set(String s, byte[] bytes) {
-////
-////                    }
-////
-////                    @Override
-////                    public byte[] get(String s) {
-////                        return new byte[0];
-////                    }
-////
-////                    @Override
-////                    public void del(String s) {
-////
-////                    }
-////                }, new KeyGenerator() {
-////                    @Override
-////                    public String gen(String s, File file) {
-////                        return null;
-////                    }
-////                })  // keyGen 分片上传时，生成标识符，用于片记录器区分是那个文件的上传记录
-//                .zone(Zone.zone0) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。默认 Zone.zone0
-//                .build();
-//// 重用 uploadManager。一般地，只需要创建一个 uploadManager 对象
-//        UploadManager uploadManager = new UploadManager(config);
-//        String data=image.toString();
-//        String key = null;
-//        String token = "";
-//        uploadManager.put(data, key, token,
-//                new UpCompletionHandler() {
-//                    @Override
-//                    public void complete(String key, ResponseInfo info, JSONObject res) {
-//                        //  res 包含hash、key等信息，具体字段取决于上传策略的设置。
-//                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
-//                    }
-//                }, null);
-//        return "";
-//    }
 
     /**
      * 创建local的活动评论
@@ -1083,10 +990,12 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_COMMENT, params);
-//        Log.d(LOG_TAG, "createComment: " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createComment:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createComment: Return message code not positive");
             throw new Exception("Failed to create Comment!");
@@ -1108,10 +1017,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_COMMENT, params);
-
-//        Log.d(LOG_TAG, "deleteComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deleteComment:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteComment: Return message code not positive");
             throw new Exception("Failed to delete Comment!");
@@ -1132,10 +1042,11 @@ public class ServerHelper {
     public String uploadPhoto(String user_id, String description, Bitmap image) throws Exception {
 
         String jsonStr = MsgSender.postPhotoToNet(URLConstant.URL_UPLOAD_PHOTO, user_id, description, image);
-
-//        Log.d(LOG_TAG, "uploadPhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "uploadImage:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "uploadImage: Return message code not positive");
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
@@ -1157,10 +1068,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USERS_PHOTOS, params);
-
-//        Log.d(LOG_TAG, "getUsersPhotos: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUsersPhotos:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUsersPhotos: Return message code not positive");
             throw new Exception("Failed to get User's Photos!");
@@ -1175,8 +1087,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             Photo.class));
         }
-
-        Log.d(LOG_TAG, "getUsersPhotos: Photos: " + photoArray);
 
         return photoArray;
     }
@@ -1195,10 +1105,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PHOTO, params);
-
-//        Log.d(LOG_TAG, "editPhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "editPhoto:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "editPhoto: Return message code not positive");
             throw new Exception("Failed to edit Photo!");
@@ -1221,9 +1132,11 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_PHOTO, params);
 
-//        Log.d(LOG_TAG, "deletePhoto: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deletePhoto:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deletePhoto: Return message code not positive");
             throw new Exception("Failed to delete Photo!");
@@ -1245,10 +1158,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_NOTIFICATIONS, params);
-
-//        Log.d(LOG_TAG, "getAllNotifications: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getAllNotifications:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getAllNotifications: Return message code not positive");
             throw new Exception("Failed to get all Notifications");
@@ -1263,7 +1177,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             LingoNotification.class));
         }
-
         return notificationArray;
     }
 
@@ -1279,10 +1192,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_ALL_NEW_NOTIFICATIONS, params);
-
-//        Log.d(LOG_TAG, "getAllNewNotifications: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getAllNewNotifications:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getAllNewNotifications: Return message code not positive");
             throw new Exception("Failed to get all Notifications");
@@ -1297,8 +1211,6 @@ public class ServerHelper {
                             jsonObject.toString(),
                             LingoNotification.class));
         }
-
-        Log.d(LOG_TAG, "getAllNewNotifications: Notifications: " + notificationArray);
 
         return notificationArray;
     }
@@ -1316,10 +1228,11 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_DELETE_NOTIFICATION, params);
-
-//        Log.d(LOG_TAG, "deleteNotification: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deleteNotification:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteNotification: Return message code not positive");
             throw new Exception("Failed to delete Notification!");
@@ -1341,15 +1254,15 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_READ_NOTIFICATIONS, params);
-//        Log.d(LOG_TAG, "readNotification: " + jsonStr);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "readNotification:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "readNotification: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
         }
-        Log.d(LOG_TAG, "readNotification: Notification read");
     }
 
     /**
@@ -1373,18 +1286,19 @@ public class ServerHelper {
             case "create"://创建
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-//                Log.d(LOG_TAG, "CreateTravelEntity>>>>" + jsonStr.toString());
                 break;
 
             case "edit"://修改
                 params.put(StringConstant.createExperienceUserIdStr, CacheHelper.getInstance().getSelfInfo().getId());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_CREATE, params);
-//                Log.d(LOG_TAG, "EditTravelEntity>>>>" + jsonStr.toString());
                 break;
         }
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "Travel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "Travel: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
@@ -1428,10 +1342,12 @@ public class ServerHelper {
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXPERIENCES_DELETE, params);
-//        Log.d(LOG_TAG, "deleteExperiences " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "readNotification:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "readNotification: Return message code not positive");
             throw new Exception("Failed to mark Notification as read!");
@@ -1442,10 +1358,12 @@ public class ServerHelper {
     public Indent createApplication(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_APPLICATION, params);
-//        Log.d(LOG_TAG, "createApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createApplication:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createApplication: Return message code not positive");
             throw new Exception("Failed to  createApplication");
@@ -1463,10 +1381,12 @@ public class ServerHelper {
     public ArrayList<Indent> getApplication(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_APPLICATION, params);
-//        Log.d(LOG_TAG, "getApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getApplication:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getApplication: Return message code not positive");
             throw new Exception("Failed to getApplication");
@@ -1488,10 +1408,12 @@ public class ServerHelper {
     //同意、拒绝、取消等状态的改变
     public Indent editApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_APPLICATION, params);
-//        Log.d(LOG_TAG, "editApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "editApplication:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "editApplication: Return message code not positive");
             throw new Exception("Failed to editApplication");
@@ -1508,10 +1430,12 @@ public class ServerHelper {
     //判断是否已存在申请
     public boolean existApplication(HashMap<String, String> params) throws Exception {
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EXIST_APPLICATION, params);
-//        Log.d(LOG_TAG, "existApplication " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "existApplication:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "existApplication: Return message code not positive");
             throw new Exception("Failed to existApplication");
@@ -1532,10 +1456,12 @@ public class ServerHelper {
     public PathReference createPathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_CREATE, params);
-//        Log.d(LOG_TAG, "createPathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createPathReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createPathReference: Return message code not positive");
             throw new Exception("Failed to  createPathReference");
@@ -1555,10 +1481,12 @@ public class ServerHelper {
     public PathReference deletePathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETE, params);
-//        Log.d(LOG_TAG, "deletePathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deletePathReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deletePathReference: Return message code not positive");
             throw new Exception("Failed to  deletePathReference");
@@ -1586,10 +1514,12 @@ public class ServerHelper {
         params.put("content", content);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_REPLY, params);
-//        Log.d(LOG_TAG, "createPathReplyReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createPathReplyReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createPathReplyReference: Return message code not positive");
             throw new Exception("Failed to  createPathReplyReference");
@@ -1605,30 +1535,32 @@ public class ServerHelper {
 
     /**
      * 删除一条活动评论的回复
-     *
+     *暂时没用
      * @param params 数据
      * @return 活动的评论
      * @throws Exception
      */
-    public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
-
-        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
-//        Log.d(LOG_TAG, "deletePathReplyReference " + jsonStr);
-
-        ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
-        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "deletePathReplyReference: Return message code not positive");
-            throw new Exception("Failed to  deletePathReplyReference");
-        }
-        //解析
-        String json = rmsg.getData().toString();
-        JSONObject jsonObject = new JSONObject(json);
-        return (PathReference) JsonHelper
-                .getInstance().jsonToBean(
-                        jsonObject.toString(),
-                        PathReference.class);
-    }
+//    public PathReference deletePathReplyReference(HashMap<String, String> params) throws Exception {
+//
+//        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_DELETEREPLY, params);
+//
+//        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+//        if (rmsg==null){
+//            Log.e(LOG_TAG, "deletePathReplyReference:Parse failure");
+//            throw new Exception("Parse failure");
+//        }
+//        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+//            Log.e(LOG_TAG, "deletePathReplyReference: Return message code not positive");
+//            throw new Exception("Failed to  deletePathReplyReference");
+//        }
+//        //解析
+//        String json = rmsg.getData().toString();
+//        JSONObject jsonObject = new JSONObject(json);
+//        return (PathReference) JsonHelper
+//                .getInstance().jsonToBean(
+//                        jsonObject.toString(),
+//                        PathReference.class);
+//    }
 
     /**
      * 获取一个活动的评论
@@ -1640,10 +1572,12 @@ public class ServerHelper {
     public ArrayList<PathReference> getPathReference(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_PATHREFERENCE_GETREFERENCE, params);
-//        Log.d(LOG_TAG, "getPathReference " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getPathReference:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getPathReference: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1677,10 +1611,12 @@ public class ServerHelper {
         params.put("page", String.valueOf(page));
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GETALL, params);
-//        Log.d(LOG_TAG, "getAllTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getAllTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getAllTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1713,10 +1649,12 @@ public class ServerHelper {
         params.put("userId", userId);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_USER_TRAVEL_GET, params);
-//        Log.d(LOG_TAG, "getUserTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUserTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUserTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1746,10 +1684,12 @@ public class ServerHelper {
         params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GET, params);
-//        Log.d(LOG_TAG, "getTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1773,12 +1713,14 @@ public class ServerHelper {
     public TravelEntity createTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_CREATE, params);
-//        Log.d(LOG_TAG, "createTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
-            Log.e(LOG_TAG, "getTravel: Return message code not positive");
+            Log.e(LOG_TAG, "createTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
         //解析
@@ -1800,10 +1742,12 @@ public class ServerHelper {
     public TravelEntity editTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_EDIT, params);
-//        Log.d(LOG_TAG, "editTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "editTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "editTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1829,10 +1773,12 @@ public class ServerHelper {
         params.put("demandId", id);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_DELETE, params);
-//        Log.d(LOG_TAG, "deleteTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deleteTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1856,10 +1802,12 @@ public class ServerHelper {
     public TravelEntity likeTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_LIKE, params);
-//        Log.d(LOG_TAG, "likeTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "likeTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "likeTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1880,10 +1828,12 @@ public class ServerHelper {
     public TravelEntity unLikeTravel(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_UNLIKE, params);
-//        Log.d(LOG_TAG, "unLikeTravel " + jsonStr);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "unLikeTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "unLikeTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
@@ -1902,10 +1852,11 @@ public class ServerHelper {
     public TravelComment createTravelComment(HashMap<String, String> params) throws Exception {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_CREATE, params);
-
-//        Log.d(LOG_TAG, "createTravelComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "createTravelComment:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "createTravelComment: Return message code not positive");
             throw new Exception("Failed to create TravelComment!");
@@ -1928,15 +1879,16 @@ public class ServerHelper {
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_COMMENT_DELETE, params);
 
-//        Log.d(LOG_TAG, "deleteTravelComment: " + jsonStr);
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
-
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "deleteTravelComment:Parse failure");
+            throw new Exception("Parse failure");
+        }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "deleteTravelComment: Return message code not positive");
             throw new Exception("Failed to delete TravelComment!");
         }
-        return JsonHelper.getInstance().jsonToBean(
-                rmsg.getData().toString(), TravelComment.class);
+        return JsonHelper.getInstance().jsonToBean(rmsg.getData().toString(), TravelComment.class);
     }
     /**********************************************************************************************/
 }

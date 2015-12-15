@@ -7,6 +7,9 @@ import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
 
+/**
+ * 根据给定的id，获取对应的用户信息
+ */
 public class GetUser extends AsyncTask<Void, String, Boolean> {
     private static final String LOG_TAG = "GetUser";
 
@@ -40,6 +43,9 @@ public class GetUser extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(User user);
 

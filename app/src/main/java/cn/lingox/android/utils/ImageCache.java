@@ -3,6 +3,9 @@ package cn.lingox.android.utils;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
+/**
+ * 图片缓存工具类
+ */
 public class ImageCache {
 
     private static ImageCache imageCache = null;
@@ -28,8 +31,8 @@ public class ImageCache {
     /**
      * put bitmap to image cache
      *
-     * @param key
-     * @param value
+     * @param key 图片url
+     * @param value 图片的Bitmap实例
      * @return the puts bitmap
      */
     public Bitmap put(String key, Bitmap value) {
@@ -39,8 +42,8 @@ public class ImageCache {
     /**
      * return the bitmap
      *
-     * @param key
-     * @return
+     * @param key 图片url
+     * @return the puts bitmap
      */
     public Bitmap get(String key) {
         return cache.get(key);

@@ -12,6 +12,10 @@ import cn.lingox.android.R;
 import cn.lingox.android.activity.LoginActivity;
 import cn.lingox.android.activity.RegisterActivity;
 
+/**
+ * 跳过登录时，使用某些功能时的弹框提醒
+ */
+
 public class SkipDialog {
     private static Dialog dialog;
 

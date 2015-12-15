@@ -49,11 +49,19 @@ public class CircularImageView extends ImageView {
         paintBorder.setAntiAlias(true);
     }
 
+    /**
+     * 设置描边宽度
+     * @param borderWidth 宽度
+     */
     public void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
         this.invalidate();
     }
 
+    /**
+     * 设置描边颜色
+     * @param borderColor 颜色值
+     */
     public void setBorderColor(int borderColor) {
         if (paintBorder != null)
             paintBorder.setColor(borderColor);
@@ -62,8 +70,9 @@ public class CircularImageView extends ImageView {
 
     private void loadBitmap() {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
-        if (bitmapDrawable != null)
+        if (bitmapDrawable != null) {
             image = bitmapDrawable.getBitmap();
+        }
     }
 
     @SuppressLint("DrawAllocation")

@@ -34,6 +34,7 @@ public class GetAllTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
@@ -43,6 +44,9 @@ public class GetAllTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(ArrayList<TravelEntity> list);
 

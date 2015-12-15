@@ -7,6 +7,7 @@ import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
+ * 删除旅行者的体验的评论的异步任务
  * deletecomment
  */
 public class DelCommentTravelEntity extends AsyncTask<Void, String, Boolean> {
@@ -32,6 +33,7 @@ public class DelCommentTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
@@ -41,6 +43,9 @@ public class DelCommentTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(TravelComment comment);
 

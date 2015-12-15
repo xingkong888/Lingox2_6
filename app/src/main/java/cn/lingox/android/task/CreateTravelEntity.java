@@ -9,7 +9,7 @@ import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 创建
+ * 创建旅行者体验的异步任务
  */
 public class CreateTravelEntity extends AsyncTask<Void, String, Boolean> {
     private static final String LOG_TAG = "CreateTravelEntity";
@@ -34,6 +34,7 @@ public class CreateTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {
@@ -43,6 +44,9 @@ public class CreateTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(TravelEntity entity);
 

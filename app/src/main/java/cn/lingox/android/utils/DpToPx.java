@@ -2,6 +2,9 @@ package cn.lingox.android.utils;
 
 import android.content.Context;
 
+/**
+ * 将像素与dp相互转化
+ */
 public class DpToPx {
 
     /**

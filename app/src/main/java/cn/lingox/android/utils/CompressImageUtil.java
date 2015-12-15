@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * 图片压缩工具类
+ * 质量压缩
  */
 public class CompressImageUtil {
     /**

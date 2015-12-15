@@ -9,6 +9,7 @@ import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
+ * 删除旅行者发布的体验的异步任务
  * 删除
  */
 public class DeleteTravelEntity extends AsyncTask<Void, String, Boolean> {
@@ -38,6 +39,7 @@ public class DeleteTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         pd.dismiss();
@@ -48,6 +50,9 @@ public class DeleteTravelEntity extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(TravelEntity entity);
 

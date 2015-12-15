@@ -11,6 +11,7 @@ import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
+ * 创建评论的异步任务
  * createcomment
  */
 public class CreateCommentTravelEntity extends AsyncTask<Void, String, Boolean> {
@@ -42,6 +43,7 @@ public class CreateCommentTravelEntity extends AsyncTask<Void, String, Boolean> 
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         pd.dismiss();
@@ -52,6 +54,9 @@ public class CreateCommentTravelEntity extends AsyncTask<Void, String, Boolean> 
         }
     }
 
+    /**
+     * 回调接口
+     */
     public interface Callback {
         void onSuccess(TravelComment comment);
 

@@ -11,6 +11,9 @@ import java.util.Locale;
 
 import cn.lingox.android.R;
 
+/**
+ * 时间格式化工具类
+ */
 public class TimeHelper {
     private static TimeHelper instance;
     private Context context;
@@ -24,7 +27,7 @@ public class TimeHelper {
 
     /**
      * @param inputTime 传入的时间格式必须类似于“yyyy-MM-dd HH:mm:ss”这样的格式
-     * @return 结果
+     * @return 时间间隔
      */
     private String getInterval(String inputTime) {
 

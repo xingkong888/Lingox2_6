@@ -47,8 +47,9 @@ public class AlertDialog1 extends BaseActivity {
         if (isCanceShow)
             mButton.setVisibility(View.VISIBLE);
         if (path != null) {
-            if (!new File(path).exists())
+            if (!new File(path).exists()) {
                 path = DownloadImageTask.getThumbnailImagePath(path);
+            }
             imageView.setVisibility(View.VISIBLE);
             findViewById(R.id.alert_message).setVisibility(View.GONE);
             if (ImageCache.getInstance().get(path) != null) {

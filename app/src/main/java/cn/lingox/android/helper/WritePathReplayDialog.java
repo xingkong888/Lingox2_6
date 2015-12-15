@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import cn.lingox.android.R;
 
+/**
+ * 回复活动评论的dialog
+ */
 public class WritePathReplayDialog extends DialogFragment implements View.OnClickListener {
 
     private static Context context;

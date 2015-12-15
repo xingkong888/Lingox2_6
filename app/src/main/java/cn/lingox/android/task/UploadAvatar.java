@@ -15,6 +15,9 @@ import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.FileUtil;
 
+/**
+ * 上传头像
+ */
 public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
     private static final String LOG_TAG = "UploadAvatar";
     private Context context;
@@ -44,6 +47,7 @@ public class UploadAvatar extends AsyncTask<Void, String, Boolean> {
         }
     }
 
+    @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
         if (success) {

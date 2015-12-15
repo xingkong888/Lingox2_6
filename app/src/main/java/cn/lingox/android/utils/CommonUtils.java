@@ -107,6 +107,11 @@ public class CommonUtils {
         return context.getString(resId);
     }
 
+    /**
+     * 获取栈顶的activity的名字
+     * @param context 上下文
+     * @return
+     */
     public static String getTopActivity(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);

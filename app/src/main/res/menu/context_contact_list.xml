@@ -6,5 +6,4 @@
     <item
         android:id="@+id/add_to_blacklist"
         android:title="移入黑名单" />
-
 </menu>

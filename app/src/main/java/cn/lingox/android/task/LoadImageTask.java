@@ -19,6 +19,9 @@ import cn.lingox.android.activity.ShowBigImage;
 import cn.lingox.android.utils.CommonUtils;
 import cn.lingox.android.utils.ImageCache;
 
+/**
+ * 加载图片的异步任务
+ */
 public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
     String localFullSizePath = null;
     String thumbnailPath = null;
@@ -49,6 +52,7 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
         }
     }
 
+    @Override
     protected void onPostExecute(Bitmap image) {
         if (image != null) {
             iv.setImageBitmap(image);
@@ -69,9 +73,6 @@ public class LoadImageTask extends AsyncTask<Object, Void, Bitmap> {
                             // ShowBigImage needs to download it from the server
                             // first
                             intent.putExtra("remotepath", remotePath);
-                        }
-                        if (message.getChatType() != ChatType.Chat) {
-                            // delete the image from server after download
                         }
                         if (message.direct == EMMessage.Direct.RECEIVE && !message.isAcked) {
                             message.isAcked = true;

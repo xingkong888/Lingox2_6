@@ -83,7 +83,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 
         switch (mode) {
             case PULL_FROM_END:
-                lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.TOP : Gravity.LEFT;
+                lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.TOP : Gravity.START;
 
                 // Load in labels
                 mPullLabel = context.getString(R.string.pull_to_refresh_from_bottom_pull_label);
@@ -92,7 +92,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
                 break;
             case PULL_FROM_START:
             default:
-                lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.BOTTOM : Gravity.RIGHT;
+                lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.BOTTOM : Gravity.END;
 
                 // Load in labels
                 mPullLabel = context.getString(R.string.pull_to_refresh_pull_label);

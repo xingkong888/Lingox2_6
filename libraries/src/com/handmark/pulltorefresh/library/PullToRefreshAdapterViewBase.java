@@ -337,7 +337,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             params.rightMargin = getResources().getDimensionPixelSize(R.dimen.indicator_right_padding);
-            params.gravity = Gravity.TOP | Gravity.RIGHT;
+            params.gravity = Gravity.TOP | Gravity.END;
             refreshableViewWrapper.addView(mIndicatorIvTop, params);
 
         } else if (!mode.showHeaderLoadingLayout() && null != mIndicatorIvTop) {
@@ -352,7 +352,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             params.rightMargin = getResources().getDimensionPixelSize(R.dimen.indicator_right_padding);
-            params.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+            params.gravity = Gravity.BOTTOM | Gravity.END;
             refreshableViewWrapper.addView(mIndicatorIvBottom, params);
 
         } else if (!mode.showFooterLoadingLayout() && null != mIndicatorIvBottom) {

@@ -17,6 +17,9 @@ import android.widget.Toast;
 import cn.lingox.android.R;
 import cn.lingox.android.entity.Reference;
 
+/**
+ * 给用户的评论的回复的dialog
+ */
 public class WriteReplayDialog extends DialogFragment implements View.OnClickListener {
     private static Context context;
 

@@ -52,8 +52,8 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     private ImageView xiaoyuandian_male, xiaoyuandian_female;
 
     private HashMap<String, String> updateParams = new HashMap<>();
-    private String age = "";
-    private String gender = "";
+    private String age = "";//年龄
+    private String gender = "";//性别
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -75,6 +75,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         initData();
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         //back
         findViewById(R.id.layout_back).setOnClickListener(this);
@@ -115,6 +118,9 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
         findViewById(R.id.userinfo_name_edit).setOnClickListener(this);
     }
 
+    /**
+     * 设置数据
+     */
     private void initData() {
         UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, editAvatar, user.getAvatar(), "circular");
         if (!user.getNickname().isEmpty()) {
@@ -147,49 +153,43 @@ public class EditInfoActivity extends FragmentActivity implements OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.userinfo_name_edit:
+            case R.id.userinfo_name_edit://编辑名字
                 editNicknameInfo.setFocusable(true);
                 editNicknameInfo.setFocusableInTouchMode(true);
                 editNicknameInfo.clearFocus();
                 editNicknameInfo.requestFocus();
                 break;
-            case R.id.edit_avatar:
-                //选择头像
+            case R.id.edit_avatar: //选择头像
                 Intent intent = new Intent(this, PhotoDialog.class);
                 intent.putExtra(PhotoDialog.REQUESTED_IMAGE, PhotoDialog.REQUEST_AVATAR);
                 startActivityForResult(intent, PhotoDialog.REQUEST_AVATAR);
                 break;
-            case R.id.male_layout:
-                //设置性别
+            case R.id.male_layout://设置性别--男
                 gender = "Male";
                 editMale.setTextColor(Color.rgb(25, 143, 153));
                 editFemale.setTextColor(Color.rgb(0, 0, 0));
                 xiaoyuandian_male.setImageResource(R.drawable.edit_open);
                 xiaoyuandian_female.setImageResource(R.drawable.edit_off);
                 break;
-            case R.id.female_layout:
-                //设置性别
+            case R.id.female_layout://设置性别--女
                 gender = "Female";
                 editMale.setTextColor(Color.rgb(0, 0, 0));
                 editFemale.setTextColor(Color.rgb(25, 143, 153));
                 xiaoyuandian_male.setImageResource(R.drawable.edit_off);
                 xiaoyuandian_female.setImageResource(R.drawable.edit_open);
                 break;
-            case R.id.edit_age_info:
-                //年龄
+            case R.id.edit_age_info://年龄
                 chooseBirthDate();
                 break;
-            case R.id.edit_country_info:
-                //国家
+            case R.id.edit_country_info://国家
                 Intent intent1 = new Intent(this, SelectCountry.class);
                 intent1.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
                 startActivityForResult(intent1, SELECTLOCATION);
                 break;
-            case R.id.edit_ok:
-                //提交数据
+            case R.id.edit_ok://提交数据
                 new UpdateUserInfo().execute();
                 break;
-            case R.id.layout_back:
+            case R.id.layout_back://返回
                 finish();
                 break;
         }

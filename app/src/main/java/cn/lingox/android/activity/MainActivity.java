@@ -36,6 +36,7 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
+import cn.lingox.android.task.CheckForUpdates;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
@@ -99,7 +100,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     private void initView() {
         setContentView(R.layout.activity_main);
-        // ----- TOOLBAR -----
+        /********************************* TOOLBAR **********************************/
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(toolbar);
 
@@ -148,7 +149,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         flag = (ImageView) findViewById(R.id.iv_flag);
 
         /*********************************************************************/
-        // ----- MAIN VIEW -----
+        /************************ MAIN VIEW ********************/
         chatFragment = new ChatFragment();
         pathFragment = new PathFragment();
         nearByFragment = new NearByFragment();
@@ -195,7 +196,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      * 设置数据
      */
     private void initDate() {
-        if (!LingoXApplication.getInstance().getSkip()) {//如果是登录进来的，显示名字
+        //如果是登录进来的，显示名字，否则，显示为空
+        if (!LingoXApplication.getInstance().getSkip()) {
             //用户昵称
             ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
             //用户id
@@ -210,7 +212,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.layout_contact_list:
+            case R.id.layout_contact_list://follow/following
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent contactListIntent = new Intent(this, ContactsActivity.class);
                     startActivity(contactListIntent);
@@ -218,7 +220,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.layout_set:
+            case R.id.layout_set://设置
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent settingsIntent = new Intent(this, SettingsActivity.class);
                     startActivityForResult(settingsIntent, MainActivity.REQUEST_CODE_SETTINGS);
@@ -226,7 +228,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.layout_feedback:
+            case R.id.layout_feedback://反馈
                 FeedbackAgent agent = new FeedbackAgent(this);
                 agent.startFeedbackActivity();
                 break;
@@ -235,7 +237,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-            case R.id.avatar_info:
+            case R.id.avatar_info://头像
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
                     userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
@@ -248,7 +250,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.search:
+            case R.id.search://主页上方的搜索---活动和用户
                 Intent intent = new Intent(this, SearchActivity.class);
                 switch (viewPager.getCurrentItem()) {
                     case 1://活动
@@ -260,7 +262,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 }
                 startActivity(intent);
                 break;
-            case R.id.show_num:
+            case R.id.show_num://展示未读信息数量
                 //设置界面显示为“Chat”界面
                 viewPager.setCurrentItem(0);
                 break;
@@ -305,7 +307,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-        new CheckForUpdates().execute();
+        new CheckForUpdates(this).execute();
         MobclickAgent.onResume(this);
         MobclickAgent.onPageStart("MainActivity");
         initDate();
@@ -392,7 +394,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     }
 
     /**
-     * Viewpager的适配器
+     * ViewPager的适配器
      */
     private class MainActivityFragmentAdapter extends FragmentPagerAdapter {
         public MainActivityFragmentAdapter(FragmentManager fm) {
@@ -429,33 +431,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     return getString(R.string.nearby);
             }
             return null;
-        }
-    }
-
-    /**
-     * 检查APP版本更新
-     */
-    private class CheckForUpdates extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                int versionCode = packInfo.versionCode;
-                return ServerHelper.getInstance().requireUpdate(versionCode);
-            } catch (PackageManager.NameNotFoundException e) {
-                Log.e(LOG_TAG, e.toString());
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean requireUpdate) {
-            super.onPostExecute(requireUpdate);
-            if (requireUpdate) {
-                Intent intent = new Intent(MainActivity.this, AppUpdateActivity.class);
-                startActivity(intent);
-            }
         }
     }
 }

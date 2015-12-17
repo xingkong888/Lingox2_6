@@ -365,6 +365,7 @@ public class User implements Parcelable {
 
     /**
      * 获取该用户的国家、省份、城市
+     *
      * @return 地址
      */
     public String getLocation() {
@@ -374,6 +375,7 @@ public class User implements Parcelable {
     /**
      * 作用：设置用户的地址
      * 功能：将包含有国家、省份、城市的字符串通过“,”分割开来，分别存储到相应的字段
+     *
      * @param location 包含国家、省份、城市的字符串
      */
     public void setLocation(String location) {
@@ -428,7 +430,6 @@ public class User implements Parcelable {
 
     /**
      * 判断生日是否合法
-     *
      */
     public boolean hasProperlyFormedBirthDate() {
         if (TextUtils.isEmpty(dateOfBirth) || (dateOfBirth.length() != 8))
@@ -445,6 +446,7 @@ public class User implements Parcelable {
 
     /**
      * 获取用户年龄
+     *
      * @return 用户年龄
      */
     public int getUserAge() {
@@ -476,7 +478,6 @@ public class User implements Parcelable {
     }
 
     /**
-     *
      * @return 生日---天
      */
     public String getBirthDateDay() {
@@ -489,7 +490,6 @@ public class User implements Parcelable {
     }
 
     /**
-     *
      * @return 生日---月
      */
     public String getBirthDateMonth() {
@@ -502,7 +502,6 @@ public class User implements Parcelable {
     }
 
     /**
-     *
      * @return 生日---年
      */
     public String getBirthDateYear() {
@@ -525,6 +524,7 @@ public class User implements Parcelable {
 
     /**
      * 获取用户名的首字母，用户排序
+     *
      * @return 用户名的首字母
      */
     public String getHeader() {

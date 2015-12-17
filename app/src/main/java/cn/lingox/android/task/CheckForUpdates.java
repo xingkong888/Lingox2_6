@@ -1,26 +1,22 @@
 package cn.lingox.android.task;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import java.util.HashMap;
 
 import cn.lingox.android.activity.AppUpdateActivity;
-import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- *检查应用更新
+ * 检查应用更新
  */
 public class CheckForUpdates extends AsyncTask<Void, String, Boolean> {
     private Context context;
-    public CheckForUpdates(Context context){
-        this.context=context;
+
+    public CheckForUpdates(Context context) {
+        this.context = context;
     }
 
     @Override

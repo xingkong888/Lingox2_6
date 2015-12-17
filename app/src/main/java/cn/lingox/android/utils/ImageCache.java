@@ -31,7 +31,7 @@ public class ImageCache {
     /**
      * put bitmap to image cache
      *
-     * @param key 图片url
+     * @param key   图片url
      * @param value 图片的Bitmap实例
      * @return the puts bitmap
      */

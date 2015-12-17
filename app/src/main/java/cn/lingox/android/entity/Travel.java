@@ -148,6 +148,7 @@ public class Travel implements Parcelable {
 
     /**
      * 设置地址
+     *
      * @param location 包含有国家、省份、城市的
      */
     public void setLocation(String location) {

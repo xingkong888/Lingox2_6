@@ -405,6 +405,7 @@ public class Path implements Parcelable {
 
     /**
      * 获取位置
+     *
      * @return 位置
      */
     public String getLocationString() {

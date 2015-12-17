@@ -109,6 +109,7 @@ public class CommonUtils {
 
     /**
      * 获取栈顶的activity的名字
+     *
      * @param context 上下文
      * @return
      */

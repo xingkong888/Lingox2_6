@@ -80,9 +80,9 @@
 
             <Button
                 android:id="@+id/umeng_update_id_ok"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/umeng_update_button_ok_bg_selector"
@@ -94,9 +94,9 @@
 
             <Button
                 android:id="@+id/umeng_update_id_cancel"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/umeng_update_button_cancel_bg_selector"

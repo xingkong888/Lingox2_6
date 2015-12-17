@@ -135,8 +135,9 @@ public class PhotoDialog extends Activity implements OnClickListener {
                         intent.putExtra(AlbumListActivity.SELECT_MULTIPLE, false);
                         startActivityForResult(intent, PHOTO_SELECT);
                     }
-                } else
+                } else {
                     Toast.makeText(this, getString(R.string.unable_sd), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.photo_recommend:
                 startActivityForResult(new Intent(this, PathCardImgDialog.class), PHOTO_PRESET);

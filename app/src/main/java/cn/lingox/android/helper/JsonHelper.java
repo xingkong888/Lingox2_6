@@ -344,6 +344,7 @@ public class JsonHelper {
 
     /**
      * 将double类型的数据转换成String类型
+     *
      * @param longNlat 保存经纬度的数组
      * @return string类型的经纬度数组
      */

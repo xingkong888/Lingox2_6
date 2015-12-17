@@ -113,9 +113,10 @@ public class MsgSender {
 
     /**
      * 上传用户头像
-     * @param _url 链接
+     *
+     * @param _url    链接
      * @param user_id 用户id
-     * @param avatar 图片
+     * @param avatar  图片
      * @return 链接
      */
     public static String postAvatarToNet(String _url, String user_id, Bitmap avatar) {
@@ -234,6 +235,7 @@ public class MsgSender {
 
     /**
      * 从Map集合中将请求字段及数据取出
+     *
      * @param params map集合
      * @return string
      */
@@ -247,7 +249,7 @@ public class MsgSender {
             try {
                 sb.append(keys[i].toString())
                         .append("=")
-                        .append(URLEncoder.encode(params.get(keys[i].toString()),"UTF-8"));
+                        .append(URLEncoder.encode(params.get(keys[i].toString()), "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 Log.e(LOG_TAG, "getParamString" + e.getMessage());
             }
@@ -261,9 +263,10 @@ public class MsgSender {
 
     /**
      * 上传体验配图
-     * @param _url 链接
+     *
+     * @param _url    链接
      * @param path_id 体验id
-     * @param image 图片
+     * @param image   图片
      * @return 链接
      */
     public static String postPathImageToNet(String _url, String path_id, Bitmap image) {

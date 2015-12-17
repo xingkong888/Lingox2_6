@@ -93,10 +93,11 @@ public class CreateTagView {
 
     /**
      * 添加view到父容器控件中
-     * @param inflater 加载器
+     *
+     * @param inflater  加载器
      * @param viewGroup 父容器
-     * @param params 布局参数
-     * @param text 内容
+     * @param params    布局参数
+     * @param text      内容
      */
     private static void addItemView(LayoutInflater inflater, ViewGroup viewGroup, ViewGroup.LayoutParams params, final String text) {
         final TextView tvItem = (TextView) inflater.inflate(R.layout.row_tag_include, null);

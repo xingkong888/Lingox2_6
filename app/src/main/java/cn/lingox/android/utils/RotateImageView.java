@@ -8,7 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import cn.lingox.android.app.LingoXApplication;
 
 /**
- *倾斜图片----用于显示国旗
+ * 倾斜图片----用于显示国旗
  */
 public class RotateImageView {
     public static Bitmap rotateImage(Context context, String countryCode) {
@@ -18,15 +18,15 @@ public class RotateImageView {
                 (BitmapDrawable) context.getResources().getDrawable
                         (context.getResources().getIdentifier
                                 ("flag_cn", "drawable", LingoXApplication.PACKAGE_NAME))
-                :(BitmapDrawable) context.getResources().getDrawable(resource);
+                : (BitmapDrawable) context.getResources().getDrawable(resource);
 
         Bitmap bitmap = (bd != null) ? bd.getBitmap() : null;
         Matrix matrix = new Matrix();
         matrix.postRotate(-45);
 
         return Bitmap.createBitmap(bitmap, 0, 0,
-                (bitmap!=null)?bitmap.getWidth():DpToPx.dip2px(context, 50),
-                (bitmap!=null)?bitmap.getHeight():DpToPx.dip2px(context,50),
+                (bitmap != null) ? bitmap.getWidth() : DpToPx.dip2px(context, 50),
+                (bitmap != null) ? bitmap.getHeight() : DpToPx.dip2px(context, 50),
                 matrix, true);
     }
 }

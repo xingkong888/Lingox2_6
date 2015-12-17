@@ -22,7 +22,7 @@ import cn.lingox.android.helper.ServerHelper;
 
 /**
  * 高德定位
- *
+ * <p/>
  * 注意：签名打包后才可正常使用
  */
 public class GetLocationUtil implements AMapLocationListener {

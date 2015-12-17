@@ -32,8 +32,9 @@ public class UIHelper {
 
     /**
      * 设置TextView内容
+     *
      * @param tv TextView
-     * @param s 内容
+     * @param s  内容
      */
     public void textViewSetPossiblyNullString(TextView tv, String s) {
         if (s == null) {

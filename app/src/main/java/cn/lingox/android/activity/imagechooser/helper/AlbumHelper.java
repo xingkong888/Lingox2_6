@@ -74,7 +74,6 @@ public class AlbumHelper {
         Cursor cursor = cr.query(Albums.EXTERNAL_CONTENT_URI, projection, null,
                 null, null);
         getAlbumColumnData(cursor);
-
     }
 
     private void getAlbumColumnData(Cursor cur) {
@@ -128,7 +127,7 @@ public class AlbumHelper {
                 Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
                 Media.SIZE, Media.BUCKET_DISPLAY_NAME};
         Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null, null);
-        if (cur.moveToFirst()) {
+        if (cur != null && cur.moveToFirst()) {
             int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);
             int photoPathIndex = cur.getColumnIndexOrThrow(Media.DATA);
             int photoNameIndex = cur.getColumnIndexOrThrow(Media.DISPLAY_NAME);
@@ -138,7 +137,8 @@ public class AlbumHelper {
             int bucketIdIndex = cur.getColumnIndexOrThrow(Media.BUCKET_ID);
             int picasaIdIndex = cur.getColumnIndexOrThrow(Media.PICASA_ID);
             int totalNum = cur.getCount();
-
+            //清除原HashMap中的数据，防止数据重复
+            bucketList.clear();
             do {
                 String _id = cur.getString(photoIDIndex);
                 String name = cur.getString(photoNameIndex);
@@ -155,38 +155,46 @@ public class AlbumHelper {
                         + bucketName + "---");
 
                 ImageBucket bucket = bucketList.get(bucketId);
+                //如果有新的图片文件夹，添加到HashMap集合中去
                 if (bucket == null) {
                     bucket = new ImageBucket();
                     bucketList.put(bucketId, bucket);
                     bucket.imageList = new ArrayList<>();
                     bucket.bucketName = bucketName;
                 }
-                bucket.count++;
-                ImageItem imageItem = new ImageItem();
-                imageItem.imageId = _id;
-                imageItem.imagePath = path;
-                imageItem.thumbnailPath = thumbnailList.get(_id);
-                bucket.imageList.add(imageItem);
-
+                {//将图片加入到对应的文件夹下----未判断是否存在，重复添加
+                    bucket.count++;
+                    ImageItem imageItem = new ImageItem();
+                    imageItem.imageId = _id;
+                    imageItem.imagePath = path;
+                    imageItem.thumbnailPath = thumbnailList.get(_id);
+                    bucket.imageList.add(imageItem);
+                }
             } while (cur.moveToNext());
         }
 
         for (Entry<String, ImageBucket> entry : bucketList.entrySet()) {
             ImageBucket bucket = entry.getValue();
-            Log.d(TAG, entry.getKey() + ", " + bucket.bucketName + ", "
-                    + bucket.count + " ---------- ");
+            Log.d(TAG, entry.getKey() + ", " + bucket.bucketName + ", " + bucket.count + " ---------- ");
             for (int i = 0; i < bucket.imageList.size(); ++i) {
                 ImageItem image = bucket.imageList.get(i);
-                Log.d(TAG, "----- " + image.imageId + ", " + image.imagePath
-                        + ", " + image.thumbnailPath);
+                Log.d(TAG, "----- " + image.imageId + ", " + image.imagePath + ", " + image.thumbnailPath);
             }
         }
         hasBuildImagesBucketList = true;
-        cur.close();
+        if (cur != null) {
+            cur.close();
+        }
         long endTime = System.currentTimeMillis();
         Log.d(TAG, "use time: " + (endTime - startTime) + " ms");
     }
 
+    /**
+     * 获取本地图片路径
+     *
+     * @param refresh 是否重新获取 true：重新获取 false：不重新获取
+     * @return 图片路径集合
+     */
     public List<ImageBucket> getImagesBucketList(boolean refresh) {
         if (refresh || !hasBuildImagesBucketList) {
             buildImagesBucketList();

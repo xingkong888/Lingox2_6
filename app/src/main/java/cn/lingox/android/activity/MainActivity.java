@@ -1,10 +1,7 @@
 package cn.lingox.android.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,7 +31,6 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
-import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
 import cn.lingox.android.utils.FileUtil;

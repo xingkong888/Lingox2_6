@@ -71,7 +71,7 @@ public class AlbumListActivity extends ActionBarActivity {
 
     private void initData() {
         dataList.clear();
-        dataList.addAll(helper.getImagesBucketList(false));
+        dataList.addAll(helper.getImagesBucketList(true));
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_unfocused);
     }
 

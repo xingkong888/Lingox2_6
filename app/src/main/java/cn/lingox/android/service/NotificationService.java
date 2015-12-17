@@ -67,6 +67,7 @@ public class NotificationService extends Service {
 
     /**
      * 检测是否有新的通知
+     *
      * @throws Exception
      */
     private void checkNotification() throws Exception {
@@ -82,6 +83,7 @@ public class NotificationService extends Service {
 
     /**
      * 制作通知
+     *
      * @param lingoNotifications 通知实例的集合
      */
     private void showNotification(final ArrayList<LingoNotification> lingoNotifications) {
@@ -114,8 +116,9 @@ public class NotificationService extends Service {
 
     /**
      * 展示通知内容----手机通知栏
-     * @param user 用户
-     * @param tickerText 内容
+     *
+     * @param user         用户
+     * @param tickerText   内容
      * @param notification 通知
      * @return 通知
      */
@@ -185,8 +188,9 @@ public class NotificationService extends Service {
 
     /**
      * 制作通知
+     *
      * @param notificationUser 产生通知的用户
-     * @param notification 通知
+     * @param notification     通知
      * @return 通知内容
      */
     private String makeNotifiText(User notificationUser, LingoNotification notification) {

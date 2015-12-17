@@ -28,8 +28,7 @@ public class BitmapCache extends Activity {
         }
     }
 
-    public void displayBmp(final ImageView iv, final String thumbPath,
-                           final String sourcePath, final ImageCallback callback) {
+    public void displayBmp(final ImageView iv, final String thumbPath, final String sourcePath, final ImageCallback callback) {
         if (TextUtils.isEmpty(thumbPath) && TextUtils.isEmpty(sourcePath)) {
             Log.e(LOG_TAG, "no paths pass in");
             return;

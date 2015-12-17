@@ -135,6 +135,7 @@ public class CacheHelper {
 
     /**
      * 设置自己的信息
+     *
      * @param user 用户的实例
      */
     public void setSelfInfo(User user) {
@@ -149,6 +150,7 @@ public class CacheHelper {
 
     /**
      * 添加用户信息
+     *
      * @param user 用户实例
      */
     public void addUserInfo(User user) {
@@ -245,7 +247,7 @@ public class CacheHelper {
         try {
             if (getSelfInfo() != null && getPassword() != null) {
                 return true;
-            }else {
+            } else {
                 logout();
                 return false;
             }

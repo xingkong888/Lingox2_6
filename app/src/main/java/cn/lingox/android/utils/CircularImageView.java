@@ -51,6 +51,7 @@ public class CircularImageView extends ImageView {
 
     /**
      * 设置描边宽度
+     *
      * @param borderWidth 宽度
      */
     public void setBorderWidth(int borderWidth) {
@@ -60,6 +61,7 @@ public class CircularImageView extends ImageView {
 
     /**
      * 设置描边颜色
+     *
      * @param borderColor 颜色值
      */
     public void setBorderColor(int borderColor) {

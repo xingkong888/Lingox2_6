@@ -3,6 +3,7 @@ package cn.lingox.android.adapter;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ public class LocalAdapter extends BaseAdapter {
     private final DecimalFormat format = new DecimalFormat("##.00");
     private Activity context;
     private ArrayList<Path> datas;
-    //    private boolean isFling = false;
     private ArrayList<PathTags> tags;
     private float[] results = new float[1];
     //标识listview是否滑动 true滑动  false未滑动
@@ -81,6 +81,9 @@ public class LocalAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final Path path = datas.get(position);
+
+        Log.d("星期",path.toString());
+
         holder.tag1.setVisibility(View.GONE);
         holder.tag2.setVisibility(View.GONE);
         holder.tag3.setVisibility(View.GONE);

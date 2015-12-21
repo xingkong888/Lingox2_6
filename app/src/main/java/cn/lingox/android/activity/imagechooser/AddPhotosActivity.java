@@ -25,6 +25,9 @@ import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.ServerHelper;
 
+/**
+ * 选择添加图片的方式---相机、本地图片、应用提供图片
+ */
 public class AddPhotosActivity extends ActionBarActivity implements View.OnClickListener {
     // Constants
     public static final int MAX_ADD_PHOTO_COUNT = 9;
@@ -45,6 +48,9 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
         startActivityForResult(intent, SELECT_PHOTOS);
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         setContentView(R.layout.activity_add_photos);
 
@@ -96,7 +102,6 @@ public class AddPhotosActivity extends ActionBarActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            // TODO Add ability to add photos to this list by taking them using camera
             case R.id.add_photos_activity_add_photo_button:
                 Intent intent = new Intent(this, PhotoDialog.class);
                 intent.putExtra(PhotoDialog.REQUESTED_IMAGE, PhotoDialog.REQUEST_PHOTO);

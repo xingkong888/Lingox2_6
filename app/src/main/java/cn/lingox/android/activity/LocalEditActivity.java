@@ -88,6 +88,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private TextView text1, text2, text3;
     //第二页面
     private Button countryBtn, detailAddress;
+    private boolean isSelect=true;//标识经纬度是否选择 true:未选择 false：已选择
     //第三页面
     private EditText title, description;
     //第四页面
@@ -526,6 +527,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 if (doubles.length > 0) {
                     path.setLongitude(String.valueOf(doubles[0]));//经度
                     path.setLatitude(String.valueOf(doubles[1]));//纬度
+                    isSelect=false;
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
@@ -571,12 +573,12 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         }
         if (page > 0) {
             switch (page) {
-                case 1://country city address
+                case 1:
                     switch (path.getType()) {
-                        case 0:
-//                            showToast("请选择Local或Travel");
-                            page--;
-                            break;
+//                        case 0:
+////                            showToast("请选择Local或Travel");
+//                            page--;
+//                            break;
                         case 1://本地人
                             pageNum.setText("1/5");
                             oneTitle.setText(getString(R.string.local_one));
@@ -592,26 +594,9 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                             page5.setVisibility(View.INVISIBLE);
                             page1.setVisibility(View.INVISIBLE);
                             break;
-                        case 2://旅行者
-                            pageNum.setText("1/5");
-                            oneTitle.setText(getString(R.string.travel_one));
-                            twoTitle.setText(getString(R.string.travel_two));
-                            threeTitle.setText(getString(R.string.travel_three));
-                            fourTitle.setText(getString(R.string.travel_four));
-                            fiveTitle.setText(getString(R.string.travel_five));
-
-                            //page0  -->page1-->page5-->page2-->page3-->page4
-                            background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);
-                            page1.setVisibility(View.VISIBLE);
-                            page0.setVisibility(View.INVISIBLE);
-                            page5.setVisibility(View.INVISIBLE);
-                            page2.setVisibility(View.INVISIBLE);
-                            break;
                     }
                     break;
-                case 2://time
-                    switch (path.getType()) {
-                        case 1:
+                case 2://title text
                             if (path.getTitle().isEmpty()) {
                                 showToast("Please give a title to your local experience.");
                                 page--;
@@ -632,92 +617,39 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                                 page5.setVisibility(View.INVISIBLE);
                             }
                             break;
-                        case 2:
-                            if (path.getChosenCountry().isEmpty()) {
-                                showToast("Please  choose a location for this local experience.");
-                                page--;
-                            } else {
-                                pageNum.setText("2/5");
-                                availableTime.setVisibility(View.GONE);
-                                startTime.setVisibility(View.VISIBLE);
-                                endTime.setVisibility(View.VISIBLE);
-                                path.setAvailableTime("");
-                                //page0-->page1-->  page5  -->page2-->page3-->page4
-                                background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
-                                page5.setVisibility(View.VISIBLE);
-                                page1.setVisibility(View.INVISIBLE);
-                                page2.setVisibility(View.INVISIBLE);
-                            }
-                            break;
-                    }
-                    break;
-                case 3://title text
-                    switch (path.getType()) {
-                        case 1:
-                            if (path.getChosenCountry().isEmpty()) {
-                                showToast("Please  choose a location for this local experience.");
-                                page--;
-                            } else {
-                                pageNum.setText("3/5");
-                                availableTime.setVisibility(View.VISIBLE);
-                                startTime.setVisibility(View.GONE);
-                                endTime.setVisibility(View.GONE);
-                                path.setEndDateTime(0);
-                                path.setDateTime(0);
-                                //page0-->page2-->  page1  -->page5-->page3-->page4
-                                background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
-                                page5.setVisibility(View.VISIBLE);
-                                page1.setVisibility(View.INVISIBLE);
-                                page2.setVisibility(View.INVISIBLE);
-                                page3.setVisibility(View.INVISIBLE);
-                            }
-                            break;
-                        case 2:
-                            if ((path.getDateTime() == 0 || path.getEndDateTime() == 0)) {
-//                                showToast("请选择时间");
-                                page--;
-                            } else {
-                                pageNum.setText("3/5");
-                                //page0-->page1-->page5-->  page2  -->page3-->page4
-                                background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
-                                page2.setVisibility(View.VISIBLE);
-                                page3.setVisibility(View.INVISIBLE);
-                                page5.setVisibility(View.INVISIBLE);
-                            }
-                            break;
+                case 3://country city address
+                    if (path.getChosenCountry().isEmpty()) {
+                        showToast("Please choose a location for this local experience.");
+                        page--;
+                    } else if ("China".equals(path.getChosenCountry().trim()) && isSelect){
+                        showToast("Please select a location in the map.");
+                        page--;
+                    }else{
+                        pageNum.setText("3/5");
+                        availableTime.setVisibility(View.VISIBLE);
+                        startTime.setVisibility(View.GONE);
+                        endTime.setVisibility(View.GONE);
+                        path.setEndDateTime(0);
+                        path.setDateTime(0);
+                        //page0-->page2-->  page1  -->page5-->page3-->page4
+                        background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
+                        page5.setVisibility(View.VISIBLE);
+                        page1.setVisibility(View.INVISIBLE);
+                        page2.setVisibility(View.INVISIBLE);
+                        page3.setVisibility(View.INVISIBLE);
                     }
                     break;
                 case 4://tag
-                    switch (path.getType()) {
-                        case 1:
-                            if (path.getAvailableTime().isEmpty()) {
-                                showToast("Please choose your available time for this local experience.");
-                                page--;
-                            } else {
-                                pageNum.setText("4/5");
-                                background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
-                                page3.setVisibility(View.VISIBLE);
-                                page2.setVisibility(View.INVISIBLE);
-                                page4.setVisibility(View.INVISIBLE);
-                                page5.setVisibility(View.INVISIBLE);
-                            }
-                            break;
-                        case 2:
-                            if (path.getTitle().isEmpty()) {
-                                showToast("Please give a title to your local experience.");
-                                page--;
-                            } else if (path.getText().isEmpty()) {
-                                showToast("Please tell travelers more details about your local experience.");
-                                page--;
-                            } else {
-                                pageNum.setText("4/5");
-                                background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
-                                page3.setVisibility(View.VISIBLE);
-                                page2.setVisibility(View.INVISIBLE);
-                                page4.setVisibility(View.INVISIBLE);
-                                page5.setVisibility(View.INVISIBLE);
-                            }
-                            break;
+                    if (path.getAvailableTime().isEmpty()) {
+                        showToast("Please choose your available time for this local experience.");
+                        page--;
+                    } else {
+                        pageNum.setText("4/5");
+                        background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
+                        page3.setVisibility(View.VISIBLE);
+                        page2.setVisibility(View.INVISIBLE);
+                        page4.setVisibility(View.INVISIBLE);
+                        page5.setVisibility(View.INVISIBLE);
                     }
                     break;
                 //page0-->page1-->page5-->page2-->  page3  -->page4
@@ -1000,7 +932,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                     EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
                 }
                 newPath = ServerHelper.getInstance().path("edit", path);
-//                newPath = ServerHelper.getInstance().editPath(path.getId(), path);
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
                     list.addAll(ServerHelper.getInstance().uploadPathImage(newPath.getId(),

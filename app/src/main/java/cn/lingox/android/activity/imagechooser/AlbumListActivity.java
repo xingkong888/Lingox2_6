@@ -23,6 +23,9 @@ import cn.lingox.android.activity.imagechooser.entity.ImageBucket;
 import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
 
+/**
+ * 从本地读取图片文件夹
+ */
 public class AlbumListActivity extends ActionBarActivity {
     // INCOMING INTENT EXTRAS
     public static final String SELECT_MULTIPLE = LingoXApplication.PACKAGE_NAME + ".SELECT_MULTIPLE";
@@ -41,6 +44,9 @@ public class AlbumListActivity extends ActionBarActivity {
         initData();
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         setContentView(R.layout.activity_album_list);
 
@@ -68,9 +74,9 @@ public class AlbumListActivity extends ActionBarActivity {
             }
         });
     }
-
     private void initData() {
         dataList.clear();
+        //获取本地的图片的uri
         dataList.addAll(helper.getImagesBucketList(true));
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_unfocused);
     }

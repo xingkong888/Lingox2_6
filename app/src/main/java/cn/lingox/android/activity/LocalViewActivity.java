@@ -66,8 +66,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     // Outgoing Request Codes
     public static final int EDIT_PATH = 101;
     private static final String LOG_TAG = "LocalViewActivity";
-    private static final String FILE_NAME = "/app_icon.jpg";
-    private static String appIconImagePath;
     // UI Elements
     private ProgressBar loadingBar;
     private ImageView chat;
@@ -121,8 +119,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private UIHelper uiHelper = UIHelper.getInstance();
     private HashMap<String, String> map = new HashMap<>();
     private TextView availableTime, available;
-
-    //TODO Change all of the AsyncTasks (ie. getPathInfo getUserInfo getCommentUserInfo etc etc) into a better solution (maybe 1 big asynctask that loads them all in one go)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

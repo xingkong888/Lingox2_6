@@ -25,6 +25,9 @@ import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.utils.FileUtil;
 
+/**
+ * 展示图片，供用户选择
+ */
 public class AlbumActivity extends ActionBarActivity {
     // INCOMING INTENT EXTRAS
     public static final String ALBUM_IMAGE_LIST = LingoXApplication.PACKAGE_NAME + ".ALBUM_IMAGE_LIST";
@@ -45,6 +48,9 @@ public class AlbumActivity extends ActionBarActivity {
         initView();
     }
 
+    /**
+     * 实例化控件
+     */
     private void initView() {
         setContentView(R.layout.activity_album);
 
@@ -87,7 +93,8 @@ public class AlbumActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (selectMultiple) {
                     ArrayList<String> list = new ArrayList<>(adapter.map.values());
-                    ArrayList<String> imageURLs = new ArrayList<>();
+                 /*   打印图片的绝对路径-----开发时使用
+                 ArrayList<String> imageURLs = new ArrayList<>();
                     for (int i = 0, j = list.size(); i < j; i++) {
                         String Str = list.get(i).substring(
                                 list.get(i).lastIndexOf("/") + 1,
@@ -95,6 +102,7 @@ public class AlbumActivity extends ActionBarActivity {
                         imageURLs.add(FileUtil.SDPATH + Str + ".JPEG");
                         Log.d(LOG_TAG, imageURLs.toString());
                     }
+                    */
                     Intent intent = new Intent();
                     intent.putStringArrayListExtra(PhotoDialog.SELECTED_IMAGE_LIST, list);
                     intent.putExtra(PhotoDialog.SELECTED_SINGLE_IMAGE, list.get(0));

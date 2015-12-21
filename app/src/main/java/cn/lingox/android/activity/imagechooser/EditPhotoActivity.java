@@ -16,6 +16,9 @@ import cn.lingox.android.task.PostPhoto;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.ImageCache;
 
+/**
+ * 编辑图片
+ */
 public class EditPhotoActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ImageView showPhoto;

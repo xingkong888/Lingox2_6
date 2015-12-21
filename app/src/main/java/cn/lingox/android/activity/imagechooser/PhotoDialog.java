@@ -35,6 +35,9 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.utils.CompressImageUtil;
 import cn.lingox.android.utils.FileUtil;
 
+/**
+ * 选择图片的dialog
+ */
 public class PhotoDialog extends Activity implements OnClickListener {
     // INCOMING INTENT EXTRAS
     public static final String REQUESTED_IMAGE = LingoXApplication.PACKAGE_NAME + ".REQUESTED_IMAGE";
@@ -42,16 +45,18 @@ public class PhotoDialog extends Activity implements OnClickListener {
     public static final String SELECTED_IMAGE_LIST = LingoXApplication.PACKAGE_NAME + ".SELECTED_IMAGE_LIST";
     public static final String SELECTED_SINGLE_IMAGE = LingoXApplication.PACKAGE_NAME + ".SELECTED_SINGLE_IMAGE";
     // INCOMING REQUEST CODES
-    public static final int REQUEST_AVATAR = 101;
-    public static final int REQUEST_PHOTO = 102;
-    public static final int REQUEST_CARD_IMAGE = 103;
+    public static final int REQUEST_AVATAR = 101;//选择头像
+    public static final int REQUEST_PHOTO = 102;//选择图片
+    public static final int REQUEST_CARD_IMAGE = 103;//应用提供的图片
     // OUTGOING REQUEST CODES
-    static final int PHOTO_NEW = 201;
-    static final int PHOTO_SELECT = 202;
-    static final int PHOTO_SELECT_MULTIPLE = 203;
-    static final int PHOTO_PRESET = 204;
+   private static final int PHOTO_NEW = 201;
+    private static final int PHOTO_SELECT = 202;
+    private static final int PHOTO_SELECT_MULTIPLE = 203;
+    private static final int PHOTO_PRESET = 204;
     private static final String LOG_TAG = "PhotoDialog";
-    private int requestedImageType = REQUEST_AVATAR;  // Avatar is default if no intent passed
+    // Avatar is default if no intent passed
+    private int requestedImageType = REQUEST_AVATAR;
+
     private Uri imageUri;
     private boolean sdCardMounted = false;
     private Bitmap croppedImage;
@@ -113,7 +118,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.camera:
+            case R.id.camera://相机
                 try {
                     imageUri = getOutputMediaFileUri();
                     intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -124,7 +129,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.photo:
+            case R.id.photo://本地相册
                 if (sdCardMounted) {
                     if (requestedImageType == REQUEST_PHOTO) {
                         intent = new Intent(this, AlbumListActivity.class);
@@ -139,10 +144,10 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     Toast.makeText(this, getString(R.string.unable_sd), Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.photo_recommend:
+            case R.id.photo_recommend://我们提供的图片
                 startActivityForResult(new Intent(this, PathCardImgDialog.class), PHOTO_PRESET);
                 break;
-            case R.id.photo_cancel:
+            case R.id.photo_cancel://取消
                 setResult(111, new Intent(this, AddPhotosActivity.class));
                 finish();
                 break;
@@ -160,7 +165,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     }
                 }
                 break;
-            case PHOTO_SELECT:
+            case PHOTO_SELECT://选择单证图片
                 if (resultCode == AlbumListActivity.RESULT_OK) {
                     if (data.hasExtra(SELECTED_SINGLE_IMAGE)) {
                         try {
@@ -180,7 +185,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
                     }
                 }
                 break;
-            case PHOTO_SELECT_MULTIPLE:
+            case PHOTO_SELECT_MULTIPLE://选择多张图片
                 if (resultCode == AlbumListActivity.RESULT_OK) {
                     if (data.hasExtra(SELECTED_IMAGE_LIST)) {
                         setResult(RESULT_OK, data);
@@ -199,7 +204,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
         }
     }
 
-    // TODO Add file name dependant on requested image type (Eg. if request card: "Activity_timestamp.jpg"
+    // 为图片保存成一个新的文件名
     private Uri getOutputMediaFileUri() throws Exception {
         if (!sdCardMounted)
             throw new Exception("Unable to create new image: SD card is not mounted");

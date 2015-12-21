@@ -52,8 +52,8 @@ public class StringConstant {
     public static final String pathChosenProvince = "province";
     public static final String pathChosenCity = "pathChosenCity";
     public static final String pathDetailAddress = "pathDetailAddress";
-    public static final String pathLatitude = "pathLatitude";
-    public static final String pathLongitude = "pathLongitude";
+    public static final String pathLatitude = "latitude";
+    public static final String pathLongitude = "longitude";
     public static final String pathType = "pathType";
     public static final String pathImageUrl = "pathImageUrl";
     public static final String pathHXGroupId = "pathHXGroupId";

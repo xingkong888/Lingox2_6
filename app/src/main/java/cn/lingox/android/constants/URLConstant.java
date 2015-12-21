@@ -5,9 +5,8 @@ public class URLConstant {
 //    http://www.lingox.cn/json/activity_tags.json 活动标签
 
     public static final String MAIN_URL = "http://182.92.239.194:1337/";//正式版接口
-//    public static final String MAIN_URL = "http://192.168.1.222:1338/";//测试接口
+//    public static final String MAIN_URL = "http://192.168.0.110:1338/";//测试接口
 
-    // TODO implement these two functionalities into the server (maybe? for the apk it might cause trouble with the qr code)
     public static final String APK_URL = "http://182.92.239.194/app/LingoX.apk";
     public static final String VER_URL = "http://182.92.239.194/app/minVer.txt";
     public static final String URL_DEFAULT_USER = MAIN_URL + "recommend/getRecommendUsers";

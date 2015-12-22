@@ -266,7 +266,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         //四
         ListView listView = (ListView) findViewById(R.id.path_edit_listview);
         datas = new ArrayList<>();
-        datas = LingoXApplication.getInstance().getDatas();
+        datas.addAll(LingoXApplication.getInstance().getDatas());
         adapter = new PathTagsAdapter(this, datas, 0);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

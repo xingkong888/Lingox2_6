@@ -42,7 +42,7 @@ public class LingoXApplication extends Application {
     public static DemoHXSDKHelper hxSDKHelper = new DemoHXSDKHelper();
     // Constants
     private static LingoXApplication instance;
-    private static ArrayList<PathTags> datas = new ArrayList<>();
+    private static ArrayList<PathTags> tagsData = new ArrayList<>();
     protected NotificationManager notificationManager;
     private boolean isSkip = false;//标识应用是否为跳过注册进入true 跳过 false正常登录
     private int width = 0;//屏幕宽度
@@ -52,7 +52,6 @@ public class LingoXApplication extends Application {
     private ArrayList<Country1> countryDatas = null;
 
     private String verNum = "";
-    private String location = "";
     private String latitude = "";//纬度
     private String longitude = "";//经度
 
@@ -60,15 +59,22 @@ public class LingoXApplication extends Application {
         return instance;
     }
 
-    private void getAllTag() {
-        for (int i = 0, j = JsonHelper.getInstance().getAllTags().size(); i < j; i++) {
-            PathTags pathTag = new PathTags();
-            pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
-            pathTag.setType(0);
-            datas.add(pathTag);
-        }
+    private ArrayList<PathTags> getAllTag() {
+        tagsData.clear();
+        PathTags pathTag;
+            for (int i = 0, j = JsonHelper.getInstance().getAllTags().size(); i < j; i++) {
+                pathTag = new PathTags();
+                pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
+                pathTag.setType(0);
+                tagsData.add(pathTag);
+            }
+        return tagsData;
     }
 
+    /**
+     * 获取app版本
+     * @return 版本
+     */
     public String getAppVersion() {
         if (verNum.isEmpty()) {
             getVersion();
@@ -134,7 +140,7 @@ public class LingoXApplication extends Application {
     }
 
     public ArrayList<PathTags> getDatas() {
-        return datas;
+        return  getAllTag();
     }
 
     public boolean getSkip() {
@@ -175,7 +181,7 @@ public class LingoXApplication extends Application {
 
         startService(new Intent(getApplicationContext(), NotificationService.class));
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        getAllTag();
+
     }
 
     public void notifyNewMessage(EMMessage message) {

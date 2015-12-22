@@ -81,9 +81,6 @@ public class LocalAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final Path path = datas.get(position);
-
-        Log.d("星期",path.toString());
-
         holder.tag1.setVisibility(View.GONE);
         holder.tag2.setVisibility(View.GONE);
         holder.tag3.setVisibility(View.GONE);

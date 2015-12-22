@@ -25,6 +25,6 @@ public class PathTags {
 
     @Override
     public String toString() {
-        return "tag=" + tag;
+        return "tag=" + tag+", type="+type;
     }
 }

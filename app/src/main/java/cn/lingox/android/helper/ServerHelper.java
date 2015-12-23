@@ -1,9 +1,7 @@
 package cn.lingox.android.helper;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -845,7 +843,7 @@ public class ServerHelper {
         }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "path: Return message code not positive");
-            throw new Exception("Failed to create Path!"+ rmsg.getRemark());
+            throw new Exception("Failed to create Path!" + rmsg.getRemark());
         }
 
         return JsonHelper.getInstance().jsonToBean(

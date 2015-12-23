@@ -49,7 +49,7 @@ public class PhotoDialog extends Activity implements OnClickListener {
     public static final int REQUEST_PHOTO = 102;//选择图片
     public static final int REQUEST_CARD_IMAGE = 103;//应用提供的图片
     // OUTGOING REQUEST CODES
-   private static final int PHOTO_NEW = 201;
+    private static final int PHOTO_NEW = 201;
     private static final int PHOTO_SELECT = 202;
     private static final int PHOTO_SELECT_MULTIPLE = 203;
     private static final int PHOTO_PRESET = 204;

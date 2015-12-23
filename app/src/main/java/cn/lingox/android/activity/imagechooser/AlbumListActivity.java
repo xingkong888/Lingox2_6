@@ -74,6 +74,7 @@ public class AlbumListActivity extends ActionBarActivity {
             }
         });
     }
+
     private void initData() {
         dataList.clear();
         //获取本地的图片的uri

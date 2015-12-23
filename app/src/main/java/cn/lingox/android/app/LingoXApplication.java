@@ -62,17 +62,18 @@ public class LingoXApplication extends Application {
     private ArrayList<PathTags> getAllTag() {
         tagsData.clear();
         PathTags pathTag;
-            for (int i = 0, j = JsonHelper.getInstance().getAllTags().size(); i < j; i++) {
-                pathTag = new PathTags();
-                pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
-                pathTag.setType(0);
-                tagsData.add(pathTag);
-            }
+        for (int i = 0, j = JsonHelper.getInstance().getAllTags().size(); i < j; i++) {
+            pathTag = new PathTags();
+            pathTag.setTag(JsonHelper.getInstance().getAllTags().get(i));
+            pathTag.setType(0);
+            tagsData.add(pathTag);
+        }
         return tagsData;
     }
 
     /**
      * 获取app版本
+     *
      * @return 版本
      */
     public String getAppVersion() {
@@ -140,7 +141,7 @@ public class LingoXApplication extends Application {
     }
 
     public ArrayList<PathTags> getDatas() {
-        return  getAllTag();
+        return getAllTag();
     }
 
     public boolean getSkip() {

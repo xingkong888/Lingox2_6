@@ -88,7 +88,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private TextView text1, text2, text3;
     //第二页面
     private Button countryBtn, detailAddress;
-    private boolean isSelect=true;//标识经纬度是否选择 true:未选择 false：已选择
+    private boolean isSelect = true;//标识经纬度是否选择 true:未选择 false：已选择
     //第三页面
     private EditText title, description;
     //第四页面
@@ -527,7 +527,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 if (doubles.length > 0) {
                     path.setLongitude(String.valueOf(doubles[0]));//经度
                     path.setLatitude(String.valueOf(doubles[1]));//纬度
-                    isSelect=false;
+                    isSelect = false;
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
@@ -597,34 +597,34 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                     }
                     break;
                 case 2://title text
-                            if (path.getTitle().isEmpty()) {
-                                showToast("Please give a title to your local experience.");
-                                page--;
-                            } else if (path.getText().isEmpty()) {
-                                showToast("Please tell travelers more details about your local experience.");
-                                page--;
-                            } else {
-                                if (path.getText().length() < 100) {
-                                    showToast("Please enter a description no less than 100 letters");
-                                    page--;
-                                    return;
-                                }
-                                pageNum.setText("2/5");
-                                //page0-->  page2  -->page1-->page5-->page3-->page4
-                                background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
-                                page1.setVisibility(View.VISIBLE);
-                                page2.setVisibility(View.INVISIBLE);
-                                page5.setVisibility(View.INVISIBLE);
-                            }
-                            break;
+                    if (path.getTitle().isEmpty()) {
+                        showToast("Please give a title to your local experience.");
+                        page--;
+                    } else if (path.getText().isEmpty()) {
+                        showToast("Please tell travelers more details about your local experience.");
+                        page--;
+                    } else {
+                        if (path.getText().length() < 100) {
+                            showToast("Please enter a description no less than 100 letters");
+                            page--;
+                            return;
+                        }
+                        pageNum.setText("2/5");
+                        //page0-->  page2  -->page1-->page5-->page3-->page4
+                        background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
+                        page1.setVisibility(View.VISIBLE);
+                        page2.setVisibility(View.INVISIBLE);
+                        page5.setVisibility(View.INVISIBLE);
+                    }
+                    break;
                 case 3://country city address
                     if (path.getChosenCountry().isEmpty()) {
                         showToast("Please choose a location for this local experience.");
                         page--;
-                    } else if ("China".equals(path.getChosenCountry().trim()) && isSelect){
+                    } else if ("China".equals(path.getChosenCountry().trim()) && isSelect) {
                         showToast("Please select a location in the map.");
                         page--;
-                    }else{
+                    } else {
                         pageNum.setText("3/5");
                         availableTime.setVisibility(View.VISIBLE);
                         startTime.setVisibility(View.GONE);

@@ -2,7 +2,6 @@ package cn.lingox.android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ public class PathTagsAdapter extends BaseAdapter {
     private int type;
 
     public PathTagsAdapter(Context context, ArrayList<PathTags> datas, int type) {
-        this.datas=new ArrayList<>();
+        this.datas = new ArrayList<>();
         this.datas.addAll(datas);
         this.context = context;
         this.type = type;

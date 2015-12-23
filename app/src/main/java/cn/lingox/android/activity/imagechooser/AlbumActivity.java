@@ -23,7 +23,6 @@ import cn.lingox.android.activity.imagechooser.adapter.ImageGridAdapter;
 import cn.lingox.android.activity.imagechooser.entity.ImageItem;
 import cn.lingox.android.activity.imagechooser.helper.AlbumHelper;
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.utils.FileUtil;
 
 /**
  * 展示图片，供用户选择

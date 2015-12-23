@@ -20,7 +20,7 @@ import cn.lingox.android.activity.imagechooser.entity.ImageItem;
  */
 public class AlbumHelper {
     private static AlbumHelper instance;
-   private final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private Context context;
     private HashMap<String, String> thumbnailList = new HashMap<>();
     private HashMap<String, ImageBucket> bucketList = new HashMap<>();
@@ -52,6 +52,7 @@ public class AlbumHelper {
 
     /**
      * 获取相册下图片的信息
+     *
      * @param cur Cursor
      */
     private void getThumbnailColumnData(Cursor cur) {

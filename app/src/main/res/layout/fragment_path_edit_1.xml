@@ -40,10 +40,11 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_border_blue"
+            android:hint="Detail Address"
             android:padding="5dp"
-            android:text="Detail Address"
             android:textAllCaps="false"
             android:textColor="@color/white"
+            android:textColorHint="#c7c7c7"
             android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

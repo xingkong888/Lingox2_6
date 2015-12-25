@@ -70,6 +70,11 @@ public class LocalFragment extends Fragment implements OnClickListener {
         return view;
     }
 
+    /**
+     * 实例化控件
+     *
+     * @param v 父容器
+     */
     private void initView(View v) {
         img = (ImageView) v.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) img.getBackground();

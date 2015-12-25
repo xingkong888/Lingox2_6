@@ -2,14 +2,10 @@ package cn.lingox.android.activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +32,7 @@ import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.entity.Travel;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.DatePickerFragment;
 import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CreateTravelEntity;
@@ -49,7 +46,6 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     public static final String TRAVEL_EDIT = "TravelEdit";
     public static final String TRAVEL_CREATE = "TravelCreate";
     private static final int SELECT_LOCATION = 2013;
-
 
     private ImageView bg, back;
     private LinearLayout page1, page2, page3, page4;
@@ -467,52 +463,5 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         newFragment.setCallback(endDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public static class DatePickerFragment extends DialogFragment {
-        private DatePickerDialog.OnDateSetListener onDateSet;
-        private int year;
-        private int month;
-        private int day;
-
-        public void setCallback(DatePickerDialog.OnDateSetListener ods) {
-            onDateSet = ods;
-        }
-
-        public void setValues(Calendar c) {
-            this.year = c.get(Calendar.YEAR);
-            this.month = c.get(Calendar.MONTH);
-            this.day = c.get(Calendar.DAY_OF_MONTH);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new DatePickerDialog(getActivity(), onDateSet, year, month,
-                    day);
-        }
-    }
-
-    public static class TimePickerFragment extends DialogFragment {
-        private TimePickerDialog.OnTimeSetListener onTimeSet;
-        private int hour;
-        private int minute;
-
-        public void setCallback(TimePickerDialog.OnTimeSetListener ots) {
-            onTimeSet = ots;
-        }
-
-        public void setValues(Calendar c) {
-            this.hour = c.get(Calendar.HOUR_OF_DAY);
-            this.minute = c.get(Calendar.MINUTE);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            //  true states that we do want 24 hour format
-            return new TimePickerDialog(getActivity(), onTimeSet, hour, minute,
-                    true);
-        }
     }
 }

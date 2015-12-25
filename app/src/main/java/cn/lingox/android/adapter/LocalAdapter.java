@@ -34,6 +34,7 @@ public class LocalAdapter extends BaseAdapter {
     private ArrayList<PathTags> tags;
     private float[] results = new float[1];
     //标识listview是否滑动 true滑动  false未滑动
+    // 用于数据加载的控制
     private boolean loading = false;
 
     public LocalAdapter(Activity context, ArrayList<Path> list) {
@@ -123,6 +124,7 @@ public class LocalAdapter extends BaseAdapter {
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.avatar, user.getAvatar(), "circular");
             }
         } else {
+            //设置默认头像
             holder.avatar.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
         }
         //只显示国家城市和距离；如果距离超过多少米，那么就无需显示
@@ -164,17 +166,18 @@ public class LocalAdapter extends BaseAdapter {
                 holder.location.setText(holder.address);
             }
         }
-        //TODO 暂时实现，TextView省略显示有问题
+        //暂时实现，TextView省略显示有问题
         String str = path.getTitle();
         if (str.length() > 27) {
-            str = str.substring(0, 24) + "...";
+            str = str.substring(0, 25) + "…";
         }
         holder.title.setText(str);
         holder.acceptNumber.setText(String.valueOf(path.getAcceptedUsers().size()));
         holder.commentNumber.setText(String.valueOf(path.getComments().size()));
         holder.pathImg.setTag(path.getImage());
         if (holder.pathImg.getTag().equals(path.getImage())) {
-            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(context, holder.pathImg, path.getImage21(), "original");
+            UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
+                    context, holder.pathImg, path.getImage21(), "original");
         }
         return convertView;
     }

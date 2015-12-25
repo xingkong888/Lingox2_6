@@ -22,7 +22,6 @@ import java.util.HashMap;
 
 import cn.lingox.android.R;
 import cn.lingox.android.activity.ChatActivity;
-import cn.lingox.android.activity.LocalEditActivity;
 import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Indent;
 
@@ -170,14 +169,14 @@ public class CreateIndentDialog extends DialogFragment implements View.OnClickLi
     }
 
     public void startDatePickerDialog() {
-        LocalEditActivity.DatePickerFragment newFragment = new LocalEditActivity.DatePickerFragment();
+        DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(startDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
     public void endDatePickerDialog() {
-        LocalEditActivity.DatePickerFragment newFragment = new LocalEditActivity.DatePickerFragment();
+        DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(endDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");

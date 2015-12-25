@@ -132,12 +132,11 @@ public class ServerHelper {
      */
     public boolean getBothFollowed(String userId1, String userId2) throws Exception {
         Map<String, String> params = new HashMap<>();
-        params.put("user_id", userId1);
-        params.put("user_tar", userId2);
+        params.put("userId", userId1);
+        params.put("userTar", userId2);
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_USER_RELATION, params);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
         if (rmsg == null) {
             Log.e(LOG_TAG, "getBothFollowed:Parse failure");

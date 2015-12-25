@@ -16,6 +16,7 @@ import cn.lingox.android.utils.DpToPx;
 
 /**
  * UI帮助工具类
+ * 设置文本、图片
  */
 public class UIHelper {
     private static UIHelper instance = null;

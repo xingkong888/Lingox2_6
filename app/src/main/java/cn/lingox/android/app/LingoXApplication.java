@@ -96,6 +96,9 @@ public class LingoXApplication extends Application {
         return longitude;
     }
 
+    /**
+     * 获取app版本号
+     */
     private void getVersion() {
         PackageManager manager = this.getPackageManager();
         try {
@@ -106,10 +109,27 @@ public class LingoXApplication extends Application {
         }
     }
 
+    /**
+     * 获取地理位置
+     * 将国家、省份、城市拼接在一起
+     *
+     * @param country  国家
+     * @param province 省份
+     * @param city     城市
+     * @return 拼接后的地址
+     */
     public String getLocation(String country, String province, String city) {
         return readLocation(country, province, city);
     }
 
+    /**
+     * 拼接国家、省份、城市
+     *
+     * @param country  国家
+     * @param province 省份
+     * @param city     城市
+     * @return 拼接后的地址
+     */
     private String readLocation(String country, String province, String city) {
         String location = "";
         if (!country.isEmpty()) {
@@ -130,6 +150,12 @@ public class LingoXApplication extends Application {
         return location;
     }
 
+    /**
+     * 获取国家、省份、城市的信息
+     * 从本地的“assets”文件夹下读取的json文件
+     *
+     * @return
+     */
     public ArrayList<Country1> getCountryDatas() {
         if (countryDatas == null) {
             countryDatas = new ArrayList<>();

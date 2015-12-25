@@ -2,12 +2,9 @@ package cn.lingox.android.activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,6 +22,7 @@ import cn.lingox.android.R;
 import cn.lingox.android.activity.select_area.SelectCountry;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Travel;
+import cn.lingox.android.helper.DatePickerFragment;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.TravelPlanAsynTask;
@@ -224,28 +222,5 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         newFragment.setCallback(endDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public static class DatePickerFragment extends DialogFragment {
-        private DatePickerDialog.OnDateSetListener onDateSet;
-        private int year;
-        private int month;
-        private int day;
-
-        public void setCallback(DatePickerDialog.OnDateSetListener ods) {
-            onDateSet = ods;
-        }
-
-        public void setValues(Calendar c) {
-            this.year = c.get(Calendar.YEAR);
-            this.month = c.get(Calendar.MONTH);
-            this.day = c.get(Calendar.DAY_OF_MONTH);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new DatePickerDialog(getActivity(), onDateSet, year, month, day);
-        }
     }
 }

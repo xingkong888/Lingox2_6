@@ -446,5 +446,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!-- popupwindow的样式-->
+    <style name="mypopwindow_anim_style">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/pop_show</item>
+        <!-- 指定消失的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pop_hidden</item>
 
+    </style>
 </resources>

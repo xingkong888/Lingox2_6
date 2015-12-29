@@ -8,23 +8,25 @@
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white" />
 
-    <ImageView
-        android:id="@+id/search"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="13dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@color/three_c7"
         android:padding="5dp"
-        android:src="@drawable/topbar_search_white_24dp" />
+        android:text="BeiJing"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
 
     <RelativeLayout
         android:id="@+id/show_num"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/search"
-        android:visibility="gone">
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/num"
@@ -38,12 +40,13 @@
             android:textSize="10sp" />
 
         <ImageView
-            android:id="@+id/notify"
-            style="@style/wrap_wrap"
+            android:id="@+id/chat"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_notifications_none_white_48dp" />
-
+            android:src="@drawable/chat" />
     </RelativeLayout>
 
     <android.support.v4.widget.DrawerLayout
@@ -65,109 +68,18 @@
                 android:background="@color/main_color"
                 android:textAppearance="@style/PagerTabStripText" />
         </android.support.v4.view.ViewPager>
-
-        <LinearLayout
-            android:id="@+id/left_drawer"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@android:color/white"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/layout_top"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/bac_left_drawer2">
-
-                <cn.lingox.android.utils.CircularImageView
-                    android:id="@+id/avatar_info"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="24dp"
-                    android:src="@drawable/nearby_nopic_137dp" />
-
-                <ImageView
-                    android:id="@+id/iv_flag"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignBottom="@+id/avatar_info"
-                    android:layout_alignRight="@+id/avatar_info" />
-
-                <TextView
-                    android:id="@+id/tv_nickname"
-                    style="@style/wrap_wrap"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="45dp"
-                    android:layout_toRightOf="@+id/avatar_info"
-                    android:text="@string/nickname"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_username"
-                    style="@style/wrap_wrap"
-                    android:layout_below="@+id/tv_nickname"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/avatar_info"
-                    android:text="@string/nickname"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
-            <!-- follow/following-->
-            <TextView
-                android:id="@+id/layout_contact_list"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginLeft="24dp"
-                android:drawableLeft="@drawable/ic_people_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"
-                android:text="@string/friends"
-                android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp" />
-            <!-- setting-->
-            <TextView
-                android:id="@+id/layout_set"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginLeft="24dp"
-                android:drawableLeft="@drawable/ic_settings_applications_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"
-                android:text="@string/setting"
-                android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp" />
-            <!-- feedback-->
-            <TextView
-                android:id="@+id/layout_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginLeft="24dp"
-                android:drawableLeft="@drawable/ic_question_answer_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"
-                android:text="@string/feedback"
-                android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp" />
-            <!-- about us-->
-            <TextView
-                android:id="@+id/layout_info"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginLeft="24dp"
-                android:drawableLeft="@drawable/ic_info_outline_black_24dp"
-                android:drawablePadding="12dp"
-                android:gravity="center_vertical"
-                android:text="@string/about_us"
-                android:textColor="@color/left_drawer_text_color"
-                android:textSize="16sp" />
-        </LinearLayout>
+        <!-- 左侧边栏-->
+        <include layout="@layout/left_drawer" />
+        <!-- 右侧边栏-->
+        <include layout="@layout/right_drawer" />
     </android.support.v4.widget.DrawerLayout>
 
+    <ImageView
+        android:id="@+id/add_experience"
+        style="@style/wrap_wrap"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="17dp"
+        android:paddingRight="15dp"
+        android:src="@drawable/follow" />
 </RelativeLayout>

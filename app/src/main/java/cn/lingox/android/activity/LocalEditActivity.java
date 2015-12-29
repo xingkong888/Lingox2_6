@@ -1,8 +1,6 @@
 package cn.lingox.android.activity;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,14 +16,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.easemob.chat.EMGroup;
@@ -35,7 +31,6 @@ import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -49,11 +44,8 @@ import cn.lingox.android.entity.CachePath;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.DatePickerFragment;
-import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.PathEditDialog;
 import cn.lingox.android.helper.ServerHelper;
-import cn.lingox.android.helper.TimePickerFragment;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.utils.CompressImageUtil;
 import cn.lingox.android.utils.FileUtil;
@@ -71,7 +63,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private static final String LOG_TAG = "LocalEditActivity";
     private static final int SELECTLOCATION = 123;
     private int page = 0;//当前页面
-    private RelativeLayout page0, page1, page2, page3, page4, page5;
+    private RelativeLayout page0, page1, page2, page3, page4, page5, page6;
     private Button next;
     private ImageView background, img, back;
     private TextView pageNum, oneTitle, twoTitle, threeTitle, fourTitle, fiveTitle;
@@ -87,7 +79,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private TextView text1, text2, text3;
     //第二页面
     private Button countryBtn, detailAddress;
-    private boolean isSelect = true;//标识经纬度是否选择 true:未选择 false：已选择
+    private boolean isSelected = false;//标识经纬度是否选择 false:未选择 true：已选择
     //第三页面
     private EditText title, description;
     //第四页面
@@ -99,51 +91,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private ImageView addPathImage;
     private Uri imageUri = null;
     //第六页面
-    private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
-    private Calendar calendar = Calendar.getInstance();
-    private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
-            startTimePickerDialog();
-        }
-    };
-    private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            calendar.set(year, month, day);
-            endTimePickerDialog();
-        }
-    };
-    TimePickerDialog.OnTimeSetListener endTimePicked = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int h, int m) {
-            calendar.set(Calendar.HOUR_OF_DAY, h);
-            calendar.set(Calendar.MINUTE, m);
-            end = calendar.getTimeInMillis() / 1000L;
-            if (end - now >= 0 && (start == 0 || end >= start)) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(endTime, JsonHelper.getInstance().parseTimestamp((int) end, 1));
-                path.setEndDateTime((int) end);
-            } else {
-                Toast.makeText(LocalEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
-                endDatePickerDialog();
-            }
-        }
-    };
-    private Button startTime, endTime;
-    TimePickerDialog.OnTimeSetListener startTimePicked = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int h, int m) {
-            calendar.set(Calendar.HOUR_OF_DAY, h);
-            calendar.set(Calendar.MINUTE, m);
-            start = calendar.getTimeInMillis() / 1000L;
-            if (end == 0 || end >= start) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(startTime, JsonHelper.getInstance().parseTimestamp((int) start, 1));
-                path.setDateTime((int) start);
-            } else {
-                Toast.makeText(LocalEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
-                startDatePickerDialog();
-            }
-        }
-    };
     //第七页面
     private EditText availableTime;
 
@@ -189,6 +136,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
         page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
         page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
+        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//花费问题
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);
@@ -285,19 +233,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             }
         });
         //五
-        addPathImage = (ImageView) findViewById(R.id.path_edit_choose_photo);
-        addPathImage.measure(0, 0);
-        ViewGroup.LayoutParams lp = addPathImage.getLayoutParams();
-        lp.height = (int) (LingoXApplication.getInstance().getWidth() * 0.6);
-        lp.width = (int) (LingoXApplication.getInstance().getWidth() * 0.6);
-        addPathImage.setLayoutParams(lp);
-        addPathImage.setOnClickListener(this);
-        //六
-        startTime = (Button) findViewById(R.id.path_edit_start_time);
-        endTime = (Button) findViewById(R.id.path_edit_end_time);
         availableTime = (EditText) findViewById(R.id.availavle_time);
-        startTime.setOnClickListener(this);
-        endTime.setOnClickListener(this);
         availableTime.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -313,6 +249,14 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             public void afterTextChanged(Editable s) {
             }
         });
+        //图片
+        addPathImage = (ImageView) findViewById(R.id.path_edit_choose_photo);
+        addPathImage.measure(0, 0);
+        ViewGroup.LayoutParams lp = addPathImage.getLayoutParams();
+        lp.height = (int) (LingoXApplication.getInstance().getWidth() * 0.6);
+        lp.width = (int) (LingoXApplication.getInstance().getWidth() * 0.6);
+        addPathImage.setLayoutParams(lp);
+        addPathImage.setOnClickListener(this);
     }
 
     /**
@@ -326,8 +270,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             imageSelected = !TextUtils.isEmpty(path.getImage());
 
             oldTitle = path.getTitle();
-            start = path.getDateTime();
-            end = path.getEndDateTime();
         } else {
             addingNewPath = true;
             path = new Path();
@@ -354,16 +296,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                     path.setImage(CachePath.getInstance().getImage());
                     UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage(), "circular");
                 }
-                if (CachePath.getInstance().getStartTime() != 0) {
-                    path.setDateTime(CachePath.getInstance().getStartTime());
-                    UIHelper.getInstance().textViewSetPossiblyNullString(startTime,
-                            JsonHelper.getInstance().parseTimestamp(path.getDateTime(), 1));
-                }
-                if (CachePath.getInstance().getEndTime() != 0) {
-                    path.setEndDateTime(CachePath.getInstance().getEndTime());
-                    UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
-                            JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
-                }
                 if (CachePath.getInstance().getAvabilableTime().isEmpty()) {
                     path.setAvailableTime(CachePath.getInstance().getAvabilableTime());
                     UIHelper.getInstance().textViewSetPossiblyNullString(availableTime,
@@ -388,6 +320,11 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             //四
             UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
             UIHelper.getInstance().textViewSetPossiblyNullString(countryBtn, path.getLocation());
+            if ("China".equals(path.getChosenCountry())) {
+                detailAddress.setVisibility(View.VISIBLE);
+                detailAddress.setText(path.getDetailAddress());
+                isSelected = true;
+            }
             UIHelper.getInstance().textViewSetPossiblyNullString(description, path.getText());
             //五
             if (FileUtil.getImg(path.getImage(), this) != null) {
@@ -396,10 +333,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, addPathImage, path.getImage(), "original");
             }
             //六
-            UIHelper.getInstance().textViewSetPossiblyNullString(startTime,
-                    JsonHelper.getInstance().parseTimestamp(path.getDateTime(), 1));
-            UIHelper.getInstance().textViewSetPossiblyNullString(endTime,
-                    JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
             UIHelper.getInstance().textViewSetPossiblyNullString(availableTime, path.getAvailableTime());
         }
     }
@@ -485,12 +418,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 intent4.putExtra(PhotoDialog.REQUESTED_IMAGE, PhotoDialog.REQUEST_CARD_IMAGE);
                 startActivityForResult(intent4, PhotoDialog.REQUEST_CARD_IMAGE);
                 break;
-            case R.id.path_edit_start_time:
-                startDatePickerDialog();
-                break;
-            case R.id.path_edit_end_time:
-                endDatePickerDialog();
-                break;
         }
     }
 
@@ -525,7 +452,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 if (doubles.length > 0) {
                     path.setLongitude(String.valueOf(doubles[0]));//经度
                     path.setLatitude(String.valueOf(doubles[1]));//纬度
-                    isSelect = false;
+                    isSelected = false;
                 }
                 break;
             case PhotoDialog.REQUEST_CARD_IMAGE:
@@ -560,6 +487,10 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      * page2-->标题
      * page3-->标签
      * page4-->选择图片
+     * page6-->花费问题
+     * <p/>
+     * page0-->page2-->page1-->page5-->page3-->page6-->page4
+     * <p/>
      * 注意：现在只提供local发布活动的流程
      *
      * @param nextOrBack on behalf of the page number
@@ -572,22 +503,26 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         }
         if (page > 0) {
             switch (page) {
-                case 1://显示本地人
-                    pageNum.setText("1/5");
+                case 1://显示本地人  page0
+                    //page0  -->page2-->page1-->page5-->page3-->page6-->page4
+
+                    pageNum.setText("1/6");
                     oneTitle.setText(getString(R.string.local_one));
                     twoTitle.setText(getString(R.string.local_two));
                     threeTitle.setText(getString(R.string.local_three));
                     fourTitle.setText(getString(R.string.local_four));
                     fiveTitle.setText(getString(R.string.local_five));
 
-                    //page0  -->page2-->page1-->page5-->page3-->page4
                     background.setBackgroundResource(R.drawable.active_map_01_320dp520dp);
                     page2.setVisibility(View.VISIBLE);
                     page0.setVisibility(View.INVISIBLE);
                     page5.setVisibility(View.INVISIBLE);
                     page1.setVisibility(View.INVISIBLE);
+                    page6.setVisibility(View.INVISIBLE);
                     break;
-                case 2://title text
+                case 2://title text  page2
+                    //page0-->page2  -->page1-->page5-->page3-->page6-->page4
+
                     if (path.getTitle().isEmpty()) {
                         showToast("Please give a title to your local experience.");
                         page--;
@@ -599,63 +534,82 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                         showToast("Please enter a description no less than 100 letters");
                         page--;
                     } else {
-                        pageNum.setText("2/5");
-                        //page0-->  page2  -->page1-->page5-->page3-->page4
+                        pageNum.setText("2/6");
                         background.setBackgroundResource(R.drawable.active_map_02_320dp520dp);
                         page1.setVisibility(View.VISIBLE);
                         page2.setVisibility(View.INVISIBLE);
                         page5.setVisibility(View.INVISIBLE);
+                        page6.setVisibility(View.INVISIBLE);
+
                     }
                     break;
-                case 3://country city address
+                case 3://country city address  page1
+                    //page0-->page2-->page1  -->page5-->page3-->page6-->page4
+
                     if (path.getChosenCountry().isEmpty()) {
                         showToast("Please choose a location for this local experience.");
                         page--;
-                    } else if ("China".equals(path.getChosenCountry().trim()) && isSelect) {
+                    } else if ("China".equals(path.getChosenCountry().trim()) && !isSelected) {
                         showToast("Please select a location in the map.");
                         page--;
                     } else {
-                        pageNum.setText("3/5");
+                        pageNum.setText("3/6");
                         availableTime.setVisibility(View.VISIBLE);
-                        startTime.setVisibility(View.GONE);
-                        endTime.setVisibility(View.GONE);
                         path.setEndDateTime(0);
                         path.setDateTime(0);
-                        //page0-->page2-->  page1  -->page5-->page3-->page4
                         background.setBackgroundResource(R.drawable.active_map_05_320dp520dp);
                         page5.setVisibility(View.VISIBLE);
                         page1.setVisibility(View.INVISIBLE);
                         page2.setVisibility(View.INVISIBLE);
                         page3.setVisibility(View.INVISIBLE);
+                        page6.setVisibility(View.INVISIBLE);
+
                     }
                     break;
-                case 4://tag
+                case 4://tag  page3
+                    //page0-->page2-->page1-->page5  -->page3-->page6-->page4
+
                     if (path.getAvailableTime().isEmpty()) {
                         showToast("Please choose your available time for this local experience.");
                         page--;
                     } else {
-                        pageNum.setText("4/5");
+                        pageNum.setText("4/6");
                         background.setBackgroundResource(R.drawable.active_map_03_320dp520dp);
                         page3.setVisibility(View.VISIBLE);
                         page2.setVisibility(View.INVISIBLE);
                         page4.setVisibility(View.INVISIBLE);
                         page5.setVisibility(View.INVISIBLE);
+                        page6.setVisibility(View.INVISIBLE);
+
                     }
                     break;
-                //page0-->page1-->page5-->page2-->  page3  -->page4
-                case 5://photo
+                case 5://花费问题 page6
+                    //page0-->page2-->page1-->page5-->page3  -->page6-->page4
                     if (!saveTags()) {
                         showToast("Please choose the type(s) of your local experience.");
                         page--;
                     } else {
-                        pageNum.setText("5/5");
-                        //page0-->page1-->page5-->page2-->page3-->  page4
-                        background.setBackgroundResource(R.drawable.active_map_04_320dp520dp);
-                        page4.setVisibility(View.VISIBLE);
+                        pageNum.setText("5/6");
+                        background.setBackgroundResource(R.drawable.active_map_06_320dp520dp);
+                        page6.setVisibility(View.VISIBLE);
+                        page4.setVisibility(View.INVISIBLE);
                         page3.setVisibility(View.INVISIBLE);
                     }
                     break;
-                case 6:
+                case 6://photo  page4
+                    //page0-->page1-->page5-->page2-->page3-->page6  -->page4
+
+                    if (false) {//暂时未定判断条件
+                        showToast("Please choose the type(s) of your local experience.");
+                        page--;
+                    } else {
+                        pageNum.setText("6/6");
+                        background.setBackgroundResource(R.drawable.active_map_04_320dp520dp);
+                        page4.setVisibility(View.VISIBLE);
+                        page6.setVisibility(View.INVISIBLE);
+                    }
+                    break;
+                case 7:
                     if (imageSelected) {
                         if (addingNewPath) {
                             new AddPath().execute();
@@ -673,7 +627,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 back.setVisibility(View.VISIBLE);
                 pageNum.setVisibility(View.VISIBLE);
             }
-            if (page >= 5) {
+            if (page >= 6) {
                 next.setText(getString(R.string.create));
             } else {
                 next.setText(getString(R.string.path_edit_next));
@@ -720,34 +674,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    public void startDatePickerDialog() {
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.setCallback(startDateListener);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public void endDatePickerDialog() {
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.setCallback(endDateListener);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    public void startTimePickerDialog() {
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setCallback(startTimePicked);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), getResources().getString(R.string.time_picker));
-    }
-
-    public void endTimePickerDialog() {
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setCallback(endTimePicked);
-        newFragment.setValues(calendar);
-        newFragment.show(getFragmentManager(), getResources().getString(R.string.time_picker));
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -783,7 +709,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         protected Boolean doInBackground(Void... params) {
             /*Create Huan Xin Group Chat*/
             try {
-                //TODO 环信群————创建
+                //环信群————创建
                 EMGroup emGroup = EMGroupManager.getInstance().createPublicGroup
                         (path.getTitle(), path.getText(), null, false);
                 if (emGroup != null) {
@@ -861,10 +787,9 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                //TODO 环信群————创建
                 if (TextUtils.isEmpty(path.getHxGroupId())) {
-                    EMGroup emGroup = EMGroupManager.getInstance().
-                            createPublicGroup(path.getTitle(), path.getText(), null, false);
+                    EMGroup emGroup = EMGroupManager.getInstance().createPublicGroup
+                            (path.getTitle(), path.getText(), null, false);
                     if (emGroup != null) {
                         String groupId = emGroup.getGroupId();
                         path.setHxGroupId(groupId);
@@ -872,8 +797,13 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 } else if (!oldTitle.contentEquals(path.getTitle())) {
                     //groupId 需要改变名称的群组的id
                     //changedGroupName 改变后的群组名称
-                    EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());//需异步处理
+                    //需异步处理
+                    EMGroupManager.getInstance().changeGroupName(path.getHxGroupId(), path.getTitle());
                 }
+            } catch (EaseMobException e) {
+                e.printStackTrace();
+            }
+            try {
                 newPath = ServerHelper.getInstance().path("edit", path);
                 if (imageUri != null) {
                     ArrayList<String> list = new ArrayList<>();
@@ -888,7 +818,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 return true;
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.toString());
-                publishProgress(null, "Error modifying Activity");
+                publishProgress(null, "Error modifying Activity " + e.toString());
                 return false;
             }
         }

@@ -21,7 +21,8 @@
         android:layout_alignParentRight="true"
         android:paddingBottom="17dp"
         android:paddingRight="15dp"
-        android:src="@drawable/follow" />
+        android:src="@drawable/follow"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/refresh_view"

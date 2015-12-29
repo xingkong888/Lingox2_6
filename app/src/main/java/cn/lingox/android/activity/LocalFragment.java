@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.easemob.chat.EMGroupManager;
-import com.easemob.exceptions.EaseMobException;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.umeng.analytics.MobclickAgent;
@@ -32,17 +30,14 @@ import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ServerHelper;
-import cn.lingox.android.utils.SkipDialog;
 
 /**
  * 活动展示
  */
 public class LocalFragment extends Fragment implements OnClickListener {
     // Request Codes
-    public static final int ADD_PATH = 101;
     public static final int EDIT_PATH = 102;
     static final String LOG_TAG = "LocalFragment";
-    private static LocalFragment fragment;
     // Data Elements
     private ArrayList<Path> pathList;
     // UI Elements
@@ -52,13 +47,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
     private ImageView img, refresh;
     private AnimationDrawable animationDrawable;
     private int clickPosition = -1;
-
-    public static synchronized LocalFragment newInstance() {
-        if (fragment == null) {
-            fragment = new LocalFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,8 +122,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
 
             }
         });
-        ImageView addPathButton = (ImageView) v.findViewById(R.id.iv_add_path);
-        addPathButton.setOnClickListener(this);
     }
 
     /**
@@ -169,24 +155,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case ADD_PATH:
-                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
-                    final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
-                    addPath(path);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                //创建群聊id
-                                EMGroupManager.getInstance().createPublicGroup(path.getTitle().equals("") ? CacheHelper.getInstance().getSelfInfo().getNickname() :
-                                        path.getTitle(), path.getText(), null, true);
-                            } catch (EaseMobException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
-                }
-                break;
             case EDIT_PATH:
                 if (resultCode == LocalViewActivity.RESULT_OK) {
                     if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
@@ -204,7 +172,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
      *
      * @param path 新建的path实例
      */
-    private void addPath(Path path) {
+    public void addPath(Path path) {
         pathList.add(0, path);
         adapter.notifyDataSetChanged();
     }
@@ -228,16 +196,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_add_path:
-                if (LingoXApplication.getInstance().getSkip()) {
-                    SkipDialog.getDialog(getActivity()).show();
-                } else {
-                    MobclickAgent.onEvent(getActivity(), "add_discover");
-                    Intent intent = new Intent(getActivity(), LocalEditActivity.class);
-                    intent.putExtra("LocalFragment", 0);
-                    startActivityForResult(intent, ADD_PATH);
-                }
-                break;
             case R.id.refresh_view:
                 refreshList();
                 break;

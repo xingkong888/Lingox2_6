@@ -1,11 +1,13 @@
 package cn.lingox.android.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -17,17 +19,24 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easemob.chat.EMGroupManager;
+import com.easemob.exceptions.EaseMobException;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
+import cn.lingox.android.entity.Path;
+import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
@@ -37,21 +46,25 @@ import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
 
-public class MainActivity extends ActionBarActivity implements OnClickListener, ChatFragment.showNum {
+public class MainActivity extends ActionBarActivity implements OnClickListener, ChatFragment.ShowNum {
     // REQUEST CODES
     public static final int REQUEST_CODE_SETTINGS = 101;
     // RESULT CODES
     public static final int RESULT_CODE_LOGOUT = 201;
     public static final int RESULT_CODE_RESET_LANGUAGE = 202;
+    //travel的添加的请求码
+    public static final int ADD_TRAVEL = 1101;
+    //local的添加的请求码
+    public static final int ADD_PATH = 1102;
+
     public static final String SEARCH = "Search";
     private static final String LOG_TAG = "MainActivity";
     private static MainActivity mainActivity;
     //两次点击返回键的时间间隔
     private long clickTime;
     // UI Elements
-    private ChatFragment chatFragment;
-    private PathFragment pathFragment;
-    private NearByFragment nearByFragment;
+    private LocalFragment localFragment;
+    private TravelFragment travelFragment;
     // UI Elements
     private ImageView photo;
     private ImageView flag;
@@ -61,8 +74,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private ActionBarDrawerToggle sideDrawerToggle;
     private RelativeLayout showNumLayout;
     private TextView num;
-    private ImageView search;
-    private int unread = -1;
+    //标识右侧边栏是否打开；true打开、false未打开
+    private boolean rightSildOpen = false;
+    private LinearLayout rightSild;
+    //用于添加新的体验
+    private ImageView add;
+    private PopupWindow popWin;
 
     public static MainActivity getObj() {
         return mainActivity;
@@ -98,38 +115,56 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         setContentView(R.layout.activity_main);
         /********************************* TOOLBAR **********************************/
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
+        toolbar.setTitle("");//默认使用清单文件中的lable
         setSupportActionBar(toolbar);
-
+/***********************************************************************************/
         showNumLayout = (RelativeLayout) findViewById(R.id.show_num);
         showNumLayout.setOnClickListener(this);
         num = (TextView) findViewById(R.id.num);
-        search = (ImageView) findViewById(R.id.search);
-        search.setOnClickListener(this);
         sideDrawers = (DrawerLayout) findViewById(R.id.drawer_layout);
-        sideDrawerToggle = new ActionBarDrawerToggle(this, sideDrawers, toolbar, R.string.drawer_open, R.string.drawer_closed) {
+        sideDrawerToggle = new ActionBarDrawerToggle(
+                this, sideDrawers, toolbar, R.string.drawer_open, R.string.drawer_closed) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                //打开抽屉----drawerView为要打开的抽屉
                 switch (drawerView.getId()) {
-                    case R.id.left_drawer:
-                        super.onDrawerOpened(drawerView);
+                    case R.id.left_drawer://左侧边
+                        if (rightSildOpen) {
+                            sideDrawers.closeDrawer(rightSild);
+                            rightSildOpen = false;
+                        }
+                        break;
+                    case R.id.right_drawer://右侧边
+                        rightSildOpen = true;
                         break;
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
+                //关闭抽屉----drawerView为要关闭的抽屉
                 switch (drawerView.getId()) {
-                    case R.id.left_drawer:
+                    case R.id.left_drawer://左侧边
                         super.onDrawerClosed(drawerView);
                         break;
+                    case R.id.right_drawer://右侧边
+                        rightSildOpen = false;
+                        break;
+                }
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if (drawerView.getId() == R.id.left_drawer) {
+                    super.onDrawerSlide(drawerView, slideOffset);
                 }
             }
         };
         sideDrawers.setDrawerListener(sideDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        /***********************- LEFT MENU *******************************/
+        /*********************** LEFT MENU *******************************/
         //follow/following
         findViewById(R.id.layout_contact_list).setOnClickListener(this);
         //set
@@ -145,47 +180,46 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         flag = (ImageView) findViewById(R.id.iv_flag);
 
         /*********************************************************************/
+        /*************************RIGHT MENU*********************************/
+        rightSild = (LinearLayout) findViewById(R.id.right_drawer);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment mContent = new ChatFragment();
+        ft.add(R.id.reply, mContent);
+        ft.commit();
+        /***********************************************************/
         /************************ MAIN VIEW ********************/
-        chatFragment = new ChatFragment();
-        pathFragment = new PathFragment();
-        nearByFragment = new NearByFragment();
-        tabAdapter = new MainActivityFragmentAdapter(getSupportFragmentManager());
+
+        add = (ImageView) findViewById(R.id.add_experience);
+        add.setOnClickListener(this);
+
+        localFragment = new LocalFragment();
+        travelFragment = new TravelFragment();
+        tabAdapter = new MainActivityFragmentAdapter(fm);
         viewPager = (ViewPager) findViewById(R.id.fragment_container);
         viewPager.setAdapter(tabAdapter);
         // (Number of fragments - 1) This prevents the edge tabs being recreated
         // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setCurrentItem(1);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setCurrentItem(0);
 
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0://chat界面
-                        search.setClickable(false);
-                        search.setVisibility(View.INVISIBLE);
-                        showNumLayout.setEnabled(false);
-                        showNumLayout.setVisibility(View.INVISIBLE);
-                        break;
-                    case 1://活动
-                    case 2://个人
-                        search.setClickable(true);
-                        search.setVisibility(View.VISIBLE);
-                        if (unread > 0) {
-                            showNumLayout.setEnabled(true);
-                            showNumLayout.setVisibility(View.VISIBLE);
-                        }
-                        break;
-                }
-            }
+        chooseExperience();
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
+    }
+
+    // 这个是自定义打开抽屉的方法，可以在需要的时候调用，
+    // 定义两个整型变量作为参数来决定打开哪一个抽屉
+    //---用于控制右边栏
+    private void rightDrawer() {
+        if (!rightSildOpen) {
+            //打开侧边栏
+            rightSildOpen = false;
+            sideDrawers.openDrawer(rightSild);
+        } else {
+            //关闭侧边栏
+            rightSildOpen = true;
+            sideDrawers.closeDrawer(rightSild);
+        }
     }
 
     /**
@@ -246,23 +280,49 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.search://主页上方的搜索---活动和用户
-                Intent intent = new Intent(this, SearchActivity.class);
-                switch (viewPager.getCurrentItem()) {
-                    case 1://活动
-                        intent.putExtra(SEARCH, 1);
-                        break;
-                    case 2://个人
-                        intent.putExtra(SEARCH, 2);
-                        break;
-                }
-                startActivity(intent);
-                break;
             case R.id.show_num://展示未读信息数量
-                //设置界面显示为“Chat”界面
-                viewPager.setCurrentItem(0);
+                rightDrawer();
+                break;
+            case R.id.add_experience://添加体验
+                popWin.showAtLocation(add, Gravity.BOTTOM, 0, 0);
                 break;
         }
+    }
+
+    /**
+     * 选择发布local或travel
+     */
+    private void chooseExperience() {
+        View view = LinearLayout.inflate(this, R.layout.experience_choose, null);
+
+        view.findViewById(R.id.t1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LocalEditActivity.class);
+                startActivityForResult(intent, ADD_PATH);
+                popWin.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.t2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TravelEditActivity.class);
+                startActivityForResult(intent, ADD_TRAVEL);
+                popWin.dismiss();
+            }
+        });
+
+        popWin = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        // 需要设置一下此参数，点击外边可消失
+        popWin.setBackgroundDrawable(new BitmapDrawable());
+        // 设置点击窗口外边窗口消失
+        popWin.setOutsideTouchable(true);
+        // 设置此参数获得焦点，否则无法点击
+        popWin.setFocusable(true);
+        //设置弹出、淡出的动画效果
+        popWin.setAnimationStyle(R.style.mypopwindow_anim_style);
     }
 
     /**
@@ -295,6 +355,29 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         startActivity(resetLanguage);
                         finish();
                         break;
+                }
+                break;
+            case ADD_TRAVEL://添加新的travel的问题
+                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
+                    travelFragment.refershView((TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
+                }
+                break;
+            case ADD_PATH://添加新的local的体验
+                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
+                    final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
+                    localFragment.addPath(path);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //创建群聊id
+                                EMGroupManager.getInstance().createPublicGroup(path.getTitle().equals("") ? CacheHelper.getInstance().getSelfInfo().getNickname() :
+                                        path.getTitle(), path.getText(), null, true);
+                            } catch (EaseMobException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
                 }
                 break;
         }
@@ -333,6 +416,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (sideDrawers.isDrawerOpen(Gravity.START)) {
                 sideDrawers.closeDrawers();
+            } else if (popWin.isShowing()) {
+                popWin.dismiss();
             } else {
                 exitSystem();
             }
@@ -372,8 +457,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     @Override
     public void showMessageNum(int unread) {
-        this.unread = unread;
-        if (this.unread > 0) {
+        if (unread > 0) {
             if (viewPager.getCurrentItem() != 0) {
                 showNumLayout.setEnabled(true);
                 showNumLayout.setVisibility(View.VISIBLE);
@@ -381,10 +465,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 showNumLayout.setVisibility(View.INVISIBLE);
                 showNumLayout.setEnabled(false);
             }
-            if (this.unread > 99) {
+            if (unread > 99) {
                 num.setText(getString(R.string.ninety_nine));
             } else {
-                num.setText(String.valueOf(this.unread));
+                num.setText(String.valueOf(unread));
             }
         }
     }
@@ -401,11 +485,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return chatFragment;
+                    return localFragment;
                 case 1:
-                    return pathFragment;
-                case 2:
-                    return nearByFragment;
+                    return travelFragment;
                 default:
                     return null;
             }
@@ -413,18 +495,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.chats);
+                    return "Loacl";
                 case 1:
-                    return getString(R.string.discover);
-                case 2:
-                    return getString(R.string.nearby);
+                    return "Traveler";
             }
             return null;
         }

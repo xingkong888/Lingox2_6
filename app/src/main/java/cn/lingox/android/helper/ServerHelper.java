@@ -835,6 +835,7 @@ public class ServerHelper {
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_EDIT_PATH, params);
                 break;
         }
+
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
         if (rmsg == null) {
             Log.e(LOG_TAG, "path:Parse failure");
@@ -944,7 +945,6 @@ public class ServerHelper {
      */
     public ArrayList<String> uploadPathImage(String path_id, Bitmap image) throws Exception {
         String jsonStr = MsgSender.postPathImageToNet(URLConstant.URL_UPLOAD_PATH_IMAGE, path_id, image);
-
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
         if (rmsg == null) {
             Log.e(LOG_TAG, "uploadPathImage:Parse failure");
@@ -953,7 +953,7 @@ public class ServerHelper {
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "uploadPathImage: Return message code not positive");
             Log.e(LOG_TAG, "Remark: " + rmsg.getRemark());
-            throw new Exception("Failed to upload Activity image!");
+            throw new Exception("Failed to upload Activity image!" + rmsg.getRemark());
         }
 
         String image21 = rmsg.getData().getString("image21");

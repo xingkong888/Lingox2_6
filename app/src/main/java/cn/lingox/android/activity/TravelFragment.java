@@ -21,34 +21,21 @@ import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelAdapter;
-import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.task.GetAllTravelEntity;
-import cn.lingox.android.utils.SkipDialog;
 
 /**
  * 展示travel数据
  */
-public class TravelFragment extends Fragment implements View.OnClickListener {
-    private static final int ADD_TRAVEL = 1101;//添加的请求码
+public class TravelFragment extends Fragment {
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
-
-    private static TravelFragment fragment;
+    public ArrayList<TravelEntity> travelDatas;
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private PullToRefreshListView mListView;
     private int clickPosition = 0;
     private TravelAdapter adapter;
-    private ArrayList<TravelEntity> travelDatas;
-
     private int page = 1;//分页加载页码
-
-    public static synchronized TravelFragment newInstance() {
-        if (fragment == null) {
-            fragment = new TravelFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,9 +54,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
         anim = (ImageView) view.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) anim.getBackground();
-
-        ImageView add = (ImageView) view.findViewById(R.id.iv_add_travel);
-        add.setOnClickListener(this);
 
         mListView = (PullToRefreshListView) view.findViewById(R.id.travel_listview);
         travelDatas = new ArrayList<>();
@@ -159,21 +143,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_add_travel:
-                if (LingoXApplication.getInstance().getSkip()) {
-                    SkipDialog.getDialog(getActivity()).show();
-                } else {
-                    //添加新的 Travel
-                    Intent intent = new Intent(getActivity(), TravelEditActivity.class);
-                    startActivityForResult(intent, ADD_TRAVEL);
-                }
-                break;
-        }
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("TravelFragment");
@@ -186,9 +155,19 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * 数据改变，刷新界面
+     * 为MainActivity提供的公共方法
      *
-     * @param flg 1:添加 2:修改 3:删除 4:刷新适配器
+     * @param travelEntity 实例
+     */
+    public void refershView(TravelEntity travelEntity) {
+        refershView(1, travelEntity);
+    }
+
+    /**
+     * 数据更新，界面更新
+     *
+     * @param flg          1:添加 2:修改 3:删除 4:刷新适配器
+     * @param travelEntity 实例
      */
     private void refershView(int flg, TravelEntity travelEntity) {
         switch (flg) {
@@ -216,11 +195,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK) {
             switch (requestCode) {
-                case ADD_TRAVEL:
-                    if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
-                        refershView(1, (TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
-                    }
-                    break;
                 case EDIT_TRAVEL:
                     if (data.hasExtra(TravelViewActivity.EDIT)) {
                         refershView(2, (TravelEntity) data.getParcelableExtra(TravelViewActivity.EDIT));

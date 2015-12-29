@@ -953,7 +953,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
         @Override
         protected void onPostExecute(Boolean success) {
-            //FIXME
             if (success) {
                 uiHelper.textViewSetPossiblyNullString(userNickname, commentUser.getNickname());
                 uiHelper.imageViewSetPossiblyEmptyUrl(LocalViewActivity.this, userAvatar, commentUser.getAvatar(), "");
@@ -1080,7 +1079,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
-    private class JoinGroupChat extends AsyncTask<Void, Void, Void> {
+    private class JoinGroupChat extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1088,29 +1087,36 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
-                if (!TextUtils.isEmpty(path.getHxGroupId()) && !EMGroupManager.getInstance()
-                        .getGroupFromServer(path.getHxGroupId())
-                        .getMembers().contains(
-                                EMChatManager.getInstance().getCurrentUser())
-                        )
+                if (!TextUtils.isEmpty(path.getHxGroupId()) &&
+                        !EMGroupManager.getInstance()
+                                .getGroupFromServer(path.getHxGroupId())
+                                .getMembers()
+                                .contains(EMChatManager.getInstance().getCurrentUser())
+                        ) {
                     EMGroupManager.getInstance().joinGroup(path.getHxGroupId());
+                }
+                return true;
             } catch (EaseMobException e) {
                 e.printStackTrace();
+                return false;
             }
-            return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Boolean aVoid) {
             super.onPostExecute(aVoid);
-            MobclickAgent.onEvent(LocalViewActivity.this, "discover_group_chat");
-            Intent intent = new Intent(LocalViewActivity.this, ChatActivity.class);
-            intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
-            intent.putExtra("groupId", path.getHxGroupId());
-            startActivity(intent);
-            pathGroupChat.setClickable(true);
+            if (aVoid) {
+                MobclickAgent.onEvent(LocalViewActivity.this, "discover_group_chat");
+                Intent intent = new Intent(LocalViewActivity.this, ChatActivity.class);
+                intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
+                intent.putExtra("groupId", path.getHxGroupId());
+                startActivity(intent);
+                pathGroupChat.setClickable(true);
+            } else {
+                Toast.makeText(LocalViewActivity.this, "Sorry,there is no group.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

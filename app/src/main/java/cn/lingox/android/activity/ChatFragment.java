@@ -147,7 +147,7 @@ public class ChatFragment extends Fragment {
             Toast.makeText(getActivity(), st9 + action, Toast.LENGTH_SHORT).show();
         }
     };
-    private showNum show;
+    private ShowNum show;
 
     public static ChatFragment getObj() {
         return chatFragment;
@@ -160,7 +160,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         try {
-            show = (showNum) activity;
+            show = (ShowNum) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement showNum");
         }
@@ -189,7 +189,8 @@ public class ChatFragment extends Fragment {
 
             EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
             EMChat.getInstance().setAppInited();
-            new ConnectToHuanXin(CacheHelper.getInstance().getSelfInfo().getUsername(), CacheHelper.getInstance().getPassword()).execute();
+            new ConnectToHuanXin(CacheHelper.getInstance().getSelfInfo().getUsername(),
+                    CacheHelper.getInstance().getPassword()).execute();
         }
     }
 
@@ -669,7 +670,7 @@ public class ChatFragment extends Fragment {
     /**
      * 接口--向MainActivity传递未读数据的个数
      */
-    public interface showNum {
+    public interface ShowNum {
         void showMessageNum(int unread);
     }
 
@@ -894,8 +895,9 @@ public class ChatFragment extends Fragment {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 Toast.makeText(getActivity(), values[0], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

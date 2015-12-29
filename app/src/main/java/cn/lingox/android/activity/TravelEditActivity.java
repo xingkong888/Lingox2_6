@@ -359,9 +359,6 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 break;
         }
     }
-    //todo 添加和修改旅行计划
-//        new TravelPlanAsynTask(this, travel, "edit").execute();
-//        new TravelPlanAsynTask(this, travel, "create").execute();
 
     /**
      * 创建

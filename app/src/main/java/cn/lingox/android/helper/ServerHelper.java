@@ -794,6 +794,44 @@ public class ServerHelper {
     }
 
     /**
+     * 获取某一用户收藏的local
+     *
+     * @param userId 用户id
+     * @param page   页码
+     * @return 活动实例的集合
+     * @throws Exception
+     */
+    public ArrayList<Path> getUsersFavouritePaths(String userId, int page) throws Exception {
+        Map<String, String> params = new HashMap<>();
+        params.put(StringConstant.userIdStr, userId);
+        params.put("page", String.valueOf(page));
+        params.put(StringConstant.verStr, APPVERSION);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_FAVOURITE_LOCAL, params);
+
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUsersFavouritePaths:Parse failure");
+            throw new Exception("Parse failure");
+        }
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getUsersFavouritePaths: Return message code not positive");
+            throw new Exception("Failed to get Path items!");
+        }
+
+        ArrayList<Path> pathArray = new ArrayList<>();
+        JSONArray jsonArray = rmsg.getData().getJSONArray(StringConstant.paths);
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            pathArray.add((Path) JsonHelper
+                    .getInstance().jsonToBean(
+                            jsonObject.toString(),
+                            Path.class));
+        }
+        return pathArray;
+    }
+
+    /**
      * 创建和修改活动
      *
      * @param flag 标识是创建“create”、修改“edit”
@@ -1655,6 +1693,43 @@ public class ServerHelper {
         }
         if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
             Log.e(LOG_TAG, "getUserTravel: Return message code not positive");
+            throw new Exception(rmsg.getRemark());
+        }
+        //解析
+        String json = rmsg.getData().toString();
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray jsonArray = jsonObject.getJSONArray("demands");
+        ArrayList<TravelEntity> list = new ArrayList<>();
+
+        for (int i = 0, j = jsonArray.length(); i < j; i++) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            list.add((TravelEntity) JsonHelper.getInstance().jsonToBean(jsonObject1.toString(), TravelEntity.class));
+        }
+        return list;
+    }
+
+    /**
+     * 获取指定用户的收藏的travel
+     *
+     * @param userId 用户id
+     * @param page   页码
+     * @return travel的实例集合
+     * @throws Exception 抛出异常
+     */
+    public ArrayList<TravelEntity> getUserFavouriteTravel(String userId, int page) throws Exception {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+        params.put("userId", userId);
+
+        String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_FAVOURITE_TRAVEL, params);
+        ReturnMsg rmsg = checkReturnMsg(jsonStr);
+        if (rmsg == null) {
+            Log.e(LOG_TAG, "getUserTravel:Parse failure");
+            throw new Exception("Parse failure");
+        }
+        if (rmsg.getCode() != StatusCodeConstant.STATUS_POSITIVE) {
+            Log.e(LOG_TAG, "getUserFavouriteTravel: Return message code not positive");
             throw new Exception(rmsg.getRemark());
         }
         //解析

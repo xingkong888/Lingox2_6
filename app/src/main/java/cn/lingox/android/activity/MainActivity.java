@@ -90,15 +90,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     /**
      * 搜索的回调接口
      */
-    private SearchPathTask.Callback callback=new SearchPathTask.Callback() {
+    private SearchPathTask.Callback callback = new SearchPathTask.Callback() {
         @Override
         public void onSuccess(ArrayList<Path> list) {
-        localFragment.refershPath(list);
+            localFragment.refershPath(list);
         }
 
         @Override
         public void onFail() {
-            Toast.makeText(MainActivity.this,"失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "失败", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -188,7 +188,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         /*********************** LEFT MENU *******************************/
         //follow/following
         findViewById(R.id.layout_contact_list).setOnClickListener(this);
-        //set
+        //favourite收藏
+        findViewById(R.id.layout_favourite).setOnClickListener(this);
+        //setting
         //feedback
         findViewById(R.id.layout_set).setOnClickListener(this);
         findViewById(R.id.layout_feedback).setOnClickListener(this);
@@ -211,7 +213,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         /***********************************************************/
         /************************ MAIN VIEW ********************/
 
-        mySpinner=(Spinner)findViewById(R.id.spinner);
+        mySpinner = (Spinner) findViewById(R.id.spinner);
         initSpinner();
 
         add = (ImageView) findViewById(R.id.add_experience);
@@ -274,6 +276,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
+            case R.id.layout_favourite://收藏
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    Intent intent = new Intent(this, FavouriteActivity.class);
+                    startActivity(intent);
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
+
             case R.id.layout_set://设置
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent settingsIntent = new Intent(this, SettingsActivity.class);
@@ -502,21 +513,21 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     /**
      * 实例化spinner，并做点击事件处理
      */
-    private void initSpinner(){
+    private void initSpinner() {
         //可将数据源做成json文件
-        final String[] select= new String[]{"Beijing","Shanghai","Guangzhou"};
-       ArrayAdapter adapter_spinner = new ArrayAdapter<>
-                (this, R.layout.simple_spinner_item,select);
+        final String[] select = new String[]{"Beijing", "Shanghai", "Guangzhou"};
+        ArrayAdapter adapter_spinner = new ArrayAdapter<>
+                (this, R.layout.simple_spinner_item, select);
         adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapter_spinner);
         mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int position, long id) {
-                if (position==2) {
-                    new SearchPathTask("", "", select[position],callback).execute();
-                }else{
-                    new SearchPathTask("", select[position], "",callback ).execute();
+                if (position == 2) {
+                    new SearchPathTask("", "", select[position], callback).execute();
+                } else {
+                    new SearchPathTask("", select[position], "", callback).execute();
                 }
             }
 
@@ -562,5 +573,4 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             return null;
         }
     }
-
 }

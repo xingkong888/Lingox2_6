@@ -107,4 +107,14 @@ public class URLConstant {
     //    public static final String URL_TRAVEL_COMMENT_EDIT = URL_TRAVEL_COMMENT_BASE + "editComment";//修改
     public static final String URL_TRAVEL_COMMENT_DELETE = URL_TRAVEL_COMMENT_BASE + "deleteComment";//删除
 /******************************************************************************************************************/
+
+    /*********************************
+     * 收藏
+     *********************************************************/
+    private static final String URL_FAVOURITE_BASE = MAIN_URL + "favourite/";
+    public static final String URL_FAVOURITE_TRAVEL = URL_FAVOURITE_BASE + "getUsersDemands";
+    public static final String URL_FAVOURITE_LOCAL = URL_FAVOURITE_BASE + "getUsersPaths";
+
+
+/***************************************************************************************************/
 }

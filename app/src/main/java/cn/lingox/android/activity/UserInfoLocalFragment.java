@@ -66,11 +66,13 @@ public class UserInfoLocalFragment extends Fragment implements OnClickListener {
         } else {
             userId = null;
         }
-        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
-            addPathButton.setVisibility(View.GONE);
-        } else {
-            addPathButton.setVisibility(View.VISIBLE);
-        }
+        addPathButton.setVisibility(View.GONE);
+//
+//        if (userId != null && !userId.equals(CacheHelper.getInstance().getSelfInfo().getId())) {
+//            addPathButton.setVisibility(View.GONE);
+//        } else {
+//            addPathButton.setVisibility(View.VISIBLE);
+//        }
 
         pathList.clear();
         refreshList();

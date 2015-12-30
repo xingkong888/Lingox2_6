@@ -65,6 +65,18 @@
         android:text="@string/friends"
         android:textColor="@color/left_drawer_text_color"
         android:textSize="16sp" />
+    <!--收藏 -->
+    <TextView
+        android:id="@+id/layout_favourite"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginLeft="24dp"
+        android:drawableLeft="@drawable/ic_people_black_24dp"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:text="Favourite"
+        android:textColor="@color/left_drawer_text_color"
+        android:textSize="16sp" />
     <!-- setting-->
     <TextView
         android:id="@+id/layout_set"

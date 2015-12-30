@@ -52,6 +52,12 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".activity.FavouriteActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name="com.umeng.fb.ConversationActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
 

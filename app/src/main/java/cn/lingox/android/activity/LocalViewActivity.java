@@ -405,10 +405,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             case R.id.path_accept_button:
                 if (!LingoXApplication.getInstance().getSkip()) {
                     if (!ownPath) {
-                        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId()))
+                        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
                             new UnAcceptPath().execute();
-                        else
+                        } else {
                             new AcceptPath().execute();
+                        }
                     } else {
                         Intent mIntent = new Intent(this, UserListActivity.class);
                         mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, joinedUsersList);

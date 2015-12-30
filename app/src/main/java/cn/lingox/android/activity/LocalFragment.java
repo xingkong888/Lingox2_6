@@ -151,22 +151,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         new GetPaths().execute();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case EDIT_PATH:
-                if (resultCode == LocalViewActivity.RESULT_OK) {
-                    if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
-                        modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
-                    } else if (data.hasExtra(LocalViewActivity.DELETED_PATH)) {
-                        removePath((Path) data.getParcelableExtra(LocalViewActivity.DELETED_PATH));
-                    }
-                }
-                break;
-        }
-    }
-
     /**
      * 添加一个新建的path
      *
@@ -189,7 +173,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         if (pathList.size() <= 0) {
             //数据为空
             startAnim();
-            Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Temporarily no data.", Toast.LENGTH_SHORT).show();
         }
         adapter.notifyDataSetChanged();
     }
@@ -199,13 +183,13 @@ public class LocalFragment extends Fragment implements OnClickListener {
      *
      * @param path 删除的path实例
      */
-    private void removePath(Path path) {
+    public void removePath(Path path) {
         pathList.remove(path);
         adapter.notifyDataSetChanged();
     }
 
     // If this becomes problematic just replace the view with a newly generated one from getPathView()
-    private void modifyPath(Path path) {
+    public void modifyPath(Path path) {
         pathList.set(clickPosition, path);
         adapter.notifyDataSetChanged();
     }

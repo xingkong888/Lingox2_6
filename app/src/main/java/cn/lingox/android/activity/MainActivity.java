@@ -417,6 +417,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     }).start();
                 }
                 break;
+            case LocalFragment.EDIT_PATH:
+                if (resultCode == LocalViewActivity.RESULT_OK) {
+                    if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
+                        localFragment.modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
+                    } else if (data.hasExtra(LocalViewActivity.DELETED_PATH)) {
+                        localFragment.removePath((Path) data.getParcelableExtra(LocalViewActivity.DELETED_PATH));
+                    }
+                }
+                break;
         }
     }
 

@@ -3,11 +3,13 @@ package cn.lingox.android.adapter;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.PathTags;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
+import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
@@ -59,15 +62,17 @@ public class LocalAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.row_path_fragment, parent, false);
             holder = new ViewHolder();
+            holder.layout = (RelativeLayout) convertView.findViewById(R.id.path_layout_main);
             holder.avatar = (ImageView) convertView.findViewById(R.id.path_user_avatar);
             holder.acceptNumber = (TextView) convertView.findViewById(R.id.path_people_num);
             holder.title = (TextView) convertView.findViewById(R.id.path_title);
             holder.pathImg = (ImageView) convertView.findViewById(R.id.path_bag);
+            holder.favourite = (ImageView) convertView.findViewById(R.id.path_favourite);
             holder.commentNumber = (TextView) convertView.findViewById(R.id.path_comment_num);
             holder.location = (TextView) convertView.findViewById(R.id.path_location);
             holder.lalala = (TextView) convertView.findViewById(R.id.asdfasdfasdf);
@@ -179,6 +184,33 @@ public class LocalAdapter extends BaseAdapter {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
                     context, holder.pathImg, path.getImage21(), "original");
         }
+
+//        holder.layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, LocalViewActivity.class);
+//                intent.putExtra(LocalViewActivity.PATH_TO_VIEW, datas.get(position));
+//                context.startActivityForResult(intent, LocalFragment.EDIT_PATH);
+//            }
+//        });
+        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
+            holder.favourite.setImageResource(R.drawable.active_like_24dp);
+            holder.favourite.setTag(1);
+        } else {
+            holder.favourite.setImageResource(R.drawable.active_dislike_24dp);
+            holder.favourite.setTag(0);
+        }
+        holder.favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((int) holder.favourite.getTag() == 1) {
+                    new UnAcceptPath(holder.favourite, holder.acceptNumber, path).execute();
+                } else {
+                    new AcceptPath(holder.favourite, holder.acceptNumber, path).execute();
+                }
+            }
+        });
+
         return convertView;
     }
 
@@ -192,9 +224,96 @@ public class LocalAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        RelativeLayout layout;
         String address;
         float distance;
-        ImageView pathImg, avatar;
+        ImageView pathImg, avatar, favourite;
         TextView title, acceptNumber, commentNumber, location, tag1, tag2, tag3, lalala;
     }
+
+    private class AcceptPath extends AsyncTask<Void, Void, Boolean> {
+        private ImageView view;
+        private TextView num;
+        private Path path;
+
+        public AcceptPath(ImageView view, TextView num, Path path) {
+            this.view = view;
+            this.num = num;
+            this.path = path;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            view.setClickable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                ServerHelper.getInstance().acceptPath(path.getId(), CacheHelper.getInstance().getSelfInfo().getId());
+                return true;
+            } catch (final Exception e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
+                num.setText(String.valueOf((Integer.parseInt(num.getText().toString()) + 1)));
+                view.setImageResource(R.drawable.active_like_24dp);
+                view.setTag(1);
+            } else {
+                Toast.makeText(context, context.getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+            }
+            view.setClickable(true);
+        }
+    }
+
+    private class UnAcceptPath extends AsyncTask<Void, Void, Boolean> {
+
+        private ImageView view;
+        private TextView num;
+        private Path path;
+
+        public UnAcceptPath(ImageView view, TextView num, Path path) {
+            this.view = view;
+            this.num = num;
+            this.path = path;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            view.setClickable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                ServerHelper.getInstance().unAcceptPath(path.getId(), CacheHelper.getInstance().getSelfInfo().getId());
+                return true;
+            } catch (final Exception e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (success) {
+                path.removeAcceptedUser(CacheHelper.getInstance().getSelfInfo());
+                view.setImageResource(R.drawable.active_dislike_24dp);
+                view.setTag(0);
+                num.setText(String.valueOf(path.getAcceptedUsers().size()));
+            } else {
+                Toast.makeText(context, context.getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
+            }
+            view.setClickable(true);
+        }
+    }
+
 }

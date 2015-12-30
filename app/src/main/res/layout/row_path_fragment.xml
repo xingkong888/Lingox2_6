@@ -175,4 +175,14 @@
         android:layout_height="13dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/gradient_black_1" />
+    <!-- 收藏-->
+    <ImageView
+        android:id="@+id/path_favourite"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="center"
+        android:src="@drawable/active_dislike_24dp" />
 </RelativeLayout>

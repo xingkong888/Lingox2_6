@@ -8,17 +8,14 @@
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white" />
 
-    <TextView
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@color/three_c7"
-        android:padding="5dp"
-        android:text="BeiJing"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
+        android:background="@drawable/button_border_blue_cyc"
+        android:padding="5dp" />
 
     <RelativeLayout
         android:id="@+id/show_num"
@@ -27,6 +24,15 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:src="@drawable/chat" />
 
         <TextView
             android:id="@+id/num"
@@ -39,14 +45,6 @@
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
-        <ImageView
-            android:id="@+id/chat"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:src="@drawable/chat" />
     </RelativeLayout>
 
     <android.support.v4.widget.DrawerLayout

@@ -176,6 +176,22 @@ public class LocalFragment extends Fragment implements OnClickListener {
         pathList.add(0, path);
         adapter.notifyDataSetChanged();
     }
+    /**
+     * 通过搜索地点获取到的数据
+     *
+     * @param list “”
+     */
+    public void refershPath(ArrayList<Path> list) {
+        pathList.clear();
+        //如果数据为空，则显示动画，并Toast
+        pathList.addAll(list);
+        if (pathList.size()<=0){
+            //数据为空
+            startAnim();
+            Toast.makeText(getActivity(),"暂无数据",Toast.LENGTH_SHORT).show();
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     /**
      * 删除path

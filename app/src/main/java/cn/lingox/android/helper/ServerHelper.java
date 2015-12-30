@@ -722,13 +722,13 @@ public class ServerHelper {
         if (!city.isEmpty()) {
             params.put(StringConstant.pathChosenCity, city);
         }
-        if (localOrTravel != 0) {
-            params.put("type", String.valueOf(localOrTravel));
-        }
-        params.put("page", String.valueOf(page));
-        if (postJson.size() > 0) {
-            params.put("tags", postJson.toString());
-        }
+//        if (localOrTravel != 0) {
+//            params.put("type", String.valueOf(localOrTravel));
+//        }
+//        params.put("page", String.valueOf(page));
+//        if (postJson.size() > 0) {
+//            params.put("tags", postJson.toString());
+//        }
         params.put(StringConstant.verStr, APPVERSION);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);

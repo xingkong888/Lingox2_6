@@ -20,10 +20,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ import com.easemob.exceptions.EaseMobException;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
+
+import java.util.ArrayList;
 
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
@@ -42,6 +47,7 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
+import cn.lingox.android.task.SearchPathTask;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
@@ -80,6 +86,21 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     //用于添加新的体验
     private ImageView add;
     private PopupWindow popWin;
+    private Spinner mySpinner;
+    /**
+     * 搜索的回调接口
+     */
+    private SearchPathTask.Callback callback=new SearchPathTask.Callback() {
+        @Override
+        public void onSuccess(ArrayList<Path> list) {
+        localFragment.refershPath(list);
+        }
+
+        @Override
+        public void onFail() {
+            Toast.makeText(MainActivity.this,"失败",Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public static MainActivity getObj() {
         return mainActivity;
@@ -190,6 +211,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         /***********************************************************/
         /************************ MAIN VIEW ********************/
 
+        mySpinner=(Spinner)findViewById(R.id.spinner);
+        initSpinner();
+
         add = (ImageView) findViewById(R.id.add_experience);
         add.setOnClickListener(this);
 
@@ -281,9 +305,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 }
                 break;
             case R.id.show_num://展示未读信息数量
+                //打开右侧栏
                 rightDrawer();
                 break;
             case R.id.add_experience://添加体验
+                //展示PopupWindow
                 popWin.showAtLocation(add, Gravity.BOTTOM, 0, 0);
                 break;
         }
@@ -474,6 +500,33 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     }
 
     /**
+     * 实例化spinner，并做点击事件处理
+     */
+    private void initSpinner(){
+        //可将数据源做成json文件
+        final String[] select= new String[]{"Beijing","Shanghai","Guangzhou"};
+       ArrayAdapter adapter_spinner = new ArrayAdapter<>
+                (this, R.layout.simple_spinner_item,select);
+        adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(adapter_spinner);
+        mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int position, long id) {
+                if (position==2) {
+                    new SearchPathTask("", "", select[position],callback).execute();
+                }else{
+                    new SearchPathTask("", select[position], "",callback ).execute();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+    }
+
+    /**
      * ViewPager的适配器
      */
     private class MainActivityFragmentAdapter extends FragmentPagerAdapter {
@@ -509,4 +562,5 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             return null;
         }
     }
+
 }

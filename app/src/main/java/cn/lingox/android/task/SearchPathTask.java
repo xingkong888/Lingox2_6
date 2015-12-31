@@ -2,15 +2,10 @@ package cn.lingox.android.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 
-import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.constants.StringConstant;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
@@ -20,37 +15,41 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
     private String country = "", province = "", city = "";
     private Callback callback;
     private ArrayList<Path> tempPathList = new ArrayList<>();
-    public SearchPathTask(String country,String province,String city,Callback callback){
-        this.country=country;this.province=province;this.city=city;
-        this.callback=callback;
+
+    public SearchPathTask(String country, String province, String city, Callback callback) {
+        this.country = country;
+        this.province = province;
+        this.city = city;
+        this.callback = callback;
     }
-// todo 建议加一个数据加载时的动画效果
+
+    // todo 建议加一个数据加载时的动画效果
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-        tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(
-                country, province, city, 0, 0, null));
+            tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(
+                    country, province, city, 0, 0, null));
 
-        if (!LingoXApplication.getInstance().getSkip()) {
-            for (Path path : tempPathList) {
-                User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
-                if (tempUser == null)
-                    CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()));
+            if (!LingoXApplication.getInstance().getSkip()) {
+                for (Path path : tempPathList) {
+                    User tempUser = CacheHelper.getInstance().getUserInfo(path.getUserId());
+                    if (tempUser == null)
+                        CacheHelper.getInstance().addUserInfo(ServerHelper.getInstance().getUserInfo(path.getUserId()));
+                }
             }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Search", "getData() error:" + e.toString());
+            return false;
         }
-        return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-        Log.e("Search", "getData() error:" + e.toString());
-        return false;
-    }
     }
 
     @Override
     protected void onPostExecute(Boolean aBoolean) {
-        if (aBoolean){
+        if (aBoolean) {
             callback.onSuccess(tempPathList);
-        }else{
+        } else {
             callback.onFail();
         }
     }
@@ -58,9 +57,10 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
     /**
      * 回调接口
      */
-    public interface Callback{
+    public interface Callback {
         //成功
         void onSuccess(ArrayList<Path> list);
+
         //失败
         void onFail();
     }

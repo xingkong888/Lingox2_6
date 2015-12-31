@@ -102,6 +102,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         }
     };
 
+    //welcome
+    private LinearLayout welcome;
+
     public static MainActivity getObj() {
         return mainActivity;
     }
@@ -212,6 +215,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         ft.commit();
         /***********************************************************/
         /************************ MAIN VIEW ********************/
+        if (getIntent().hasExtra("welcome")) {
+            welcome = (LinearLayout) findViewById(R.id.welcome);
+            welcome.setVisibility(View.VISIBLE);
+            //选择local
+            findViewById(R.id.local).setOnClickListener(this);
+            //选择travel
+            findViewById(R.id.travel).setOnClickListener(this);
+        }
 
         mySpinner = (Spinner) findViewById(R.id.spinner);
         initSpinner();
@@ -322,6 +333,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             case R.id.add_experience://添加体验
                 //展示PopupWindow
                 popWin.showAtLocation(add, Gravity.BOTTOM, 0, 0);
+                break;
+            case R.id.local://选择local
+                welcome.setVisibility(View.GONE);
+                break;
+            case R.id.travel://选择travel
+                viewPager.setCurrentItem(1);
+                welcome.setVisibility(View.GONE);
                 break;
         }
     }

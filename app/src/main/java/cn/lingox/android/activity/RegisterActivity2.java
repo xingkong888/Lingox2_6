@@ -214,6 +214,7 @@ public class RegisterActivity2 extends FragmentActivity implements OnClickListen
             pd.dismiss();
             if (success) {
                 Intent mIntent = new Intent(RegisterActivity2.this, MainActivity.class);
+                mIntent.putExtra("welcome", "welcome");
                 RegisterActivity2.this.startActivity(mIntent);
                 finish();
             }

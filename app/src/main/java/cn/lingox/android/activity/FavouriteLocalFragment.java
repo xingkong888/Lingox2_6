@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.lingox.android.R;
-import cn.lingox.android.adapter.LocalAdapter;
+import cn.lingox.android.adapter.FavouriteLocalAdapter;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.task.GetFavouriteLocal;
@@ -34,7 +34,7 @@ public class FavouriteLocalFragment extends Fragment {
     private ArrayList<Path> pathList;
     // UI Elements
     private PullToRefreshListView listView;
-    private LocalAdapter adapter;
+    private FavouriteLocalAdapter adapter;
     private int page = 1;
     private ImageView img;
     private AnimationDrawable animationDrawable;
@@ -58,7 +58,7 @@ public class FavouriteLocalFragment extends Fragment {
         img = (ImageView) v.findViewById(R.id.anim);
         animationDrawable = (AnimationDrawable) img.getBackground();
         pathList = new ArrayList<>();
-        adapter = new LocalAdapter(getActivity(), pathList);
+        adapter = new FavouriteLocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
         listView.setRefreshing();

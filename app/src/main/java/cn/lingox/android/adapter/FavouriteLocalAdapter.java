@@ -26,9 +26,9 @@ import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.GetUser;
 
 /**
- * local的适配器
+ * 收藏local的适配器
  */
-public class LocalAdapter extends BaseAdapter {
+public class FavouriteLocalAdapter extends BaseAdapter {
     //格式化距离，保留小数点后两位
     private final DecimalFormat format = new DecimalFormat("##.00");
     private Activity context;
@@ -39,7 +39,7 @@ public class LocalAdapter extends BaseAdapter {
     // 用于数据加载的控制
     private boolean loading = false;
 
-    public LocalAdapter(Activity context, ArrayList<Path> list) {
+    public FavouriteLocalAdapter(Activity context, ArrayList<Path> list) {
         this.context = context;
         this.datas = list;
         tags = LingoXApplication.getInstance().getDatas();
@@ -185,17 +185,12 @@ public class LocalAdapter extends BaseAdapter {
         if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
             holder.favourite.setImageResource(R.drawable.active_like_24dp);
             holder.favourite.setTag(1);
-        } else {
-            holder.favourite.setImageResource(R.drawable.active_dislike_24dp);
-            holder.favourite.setTag(0);
         }
         holder.favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ((int) holder.favourite.getTag() == 1) {
-                    new UnAcceptPath(holder.favourite, holder.acceptNumber, path).execute();
-                } else {
-                    new AcceptPath(holder.favourite, holder.acceptNumber, path).execute();
+                    new UnAcceptPath(holder.favourite, position, path).execute();
                 }
             }
         });
@@ -219,58 +214,16 @@ public class LocalAdapter extends BaseAdapter {
         TextView title, acceptNumber, commentNumber, location, tag1, tag2, tag3, lalala;
     }
 
-    private class AcceptPath extends AsyncTask<Void, Void, Boolean> {
-        private ImageView view;
-        private TextView num;
-        private Path path;
-
-        public AcceptPath(ImageView view, TextView num, Path path) {
-            this.view = view;
-            this.num = num;
-            this.path = path;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            view.setClickable(false);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                ServerHelper.getInstance().acceptPath(path.getId(), CacheHelper.getInstance().getSelfInfo().getId());
-                return true;
-            } catch (final Exception e) {
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-            if (success) {
-                path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
-                num.setText(String.valueOf((Integer.parseInt(num.getText().toString()) + 1)));
-                view.setImageResource(R.drawable.active_like_24dp);
-                view.setTag(1);
-            } else {
-                Toast.makeText(context, context.getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
-            }
-            view.setClickable(true);
-        }
-    }
-
     private class UnAcceptPath extends AsyncTask<Void, Void, Boolean> {
 
         private ImageView view;
-        private TextView num;
         private Path path;
+        private int position;
 
-        public UnAcceptPath(ImageView view, TextView num, Path path) {
+        public UnAcceptPath(ImageView view, int position, Path path) {
             this.view = view;
-            this.num = num;
             this.path = path;
+            this.position = position;
         }
 
         @Override
@@ -294,14 +247,12 @@ public class LocalAdapter extends BaseAdapter {
             super.onPostExecute(success);
             if (success) {
                 path.removeAcceptedUser(CacheHelper.getInstance().getSelfInfo());
-                view.setImageResource(R.drawable.active_dislike_24dp);
-                view.setTag(0);
-                num.setText(String.valueOf(path.getAcceptedUsers().size()));
+                datas.remove(position);
+                notifyDataSetChanged();
             } else {
                 Toast.makeText(context, context.getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
             view.setClickable(true);
         }
     }
-
 }

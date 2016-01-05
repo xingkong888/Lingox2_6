@@ -526,7 +526,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 showNumLayout.setEnabled(true);
                 showNumLayout.setVisibility(View.VISIBLE);
             } else {
-                showNumLayout.setVisibility(View.INVISIBLE);
+                showNumLayout.setVisibility(View.GONE);
                 showNumLayout.setEnabled(false);
             }
             if (unread > 99) {

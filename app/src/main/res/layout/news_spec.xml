@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_spec_layout"
     style="@style/match_wrap"
     android:background="@color/white"
     android:orientation="horizontal">
@@ -60,5 +61,4 @@
             android:singleLine="true"
             android:textColor="#cc8c0c" />
     </RelativeLayout>
-
 </LinearLayout>

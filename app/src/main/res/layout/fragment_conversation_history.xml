@@ -17,8 +17,7 @@
             style="@style/match_match"
             android:cacheColorHint="@color/black_deep"
             android:divider="@drawable/line1"
-            android:dividerHeight="1dp"
-            android:transcriptMode="normal" />
+            android:dividerHeight="1dp" />
     </LinearLayout>
 
     <ImageView

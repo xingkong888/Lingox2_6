@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.easemob.chat.EMContact;
@@ -79,7 +80,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.news_spec, parent, false);
             holder = new ViewHolder();
-
+            holder.layout = (LinearLayout) convertView.findViewById(R.id.news_spec_layout);
             holder.avatar = (ImageView) convertView.findViewById(R.id.chat_user_avatar);
             holder.name = (TextView) convertView.findViewById(R.id.chat_user_name);
             holder.unreadLabel = (TextView) convertView.findViewById(R.id.chat_message_num);
@@ -313,6 +314,7 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        LinearLayout layout;
         TextView name, unreadLabel, message, time, state;
         ImageView avatar;
     }

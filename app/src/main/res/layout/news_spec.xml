@@ -61,4 +61,5 @@
             android:singleLine="true"
             android:textColor="#cc8c0c" />
     </RelativeLayout>
+
 </LinearLayout>

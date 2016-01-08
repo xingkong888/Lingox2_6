@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 
         @Override
         public void onFail() {
-            Toast.makeText(MainActivity.this, "失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -210,7 +210,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         rightSild = (LinearLayout) findViewById(R.id.right_drawer);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment mContent = new ChatFragment();
+        final Fragment mContent = new ChatFragment();
         ft.add(R.id.reply, mContent);
         ft.commit();
         /***********************************************************/
@@ -239,6 +239,26 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(0);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    mySpinner.setVisibility(View.VISIBLE);
+                } else {
+                    mySpinner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         chooseExperience();
 
@@ -522,17 +542,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     @Override
     public void showMessageNum(int unread) {
         if (unread > 0) {
-            if (viewPager.getCurrentItem() != 0) {
-                showNumLayout.setEnabled(true);
-                showNumLayout.setVisibility(View.VISIBLE);
-            } else {
-                showNumLayout.setVisibility(View.GONE);
-                showNumLayout.setEnabled(false);
-            }
-            if (unread > 99) {
-                num.setText(getString(R.string.ninety_nine));
-            } else {
+            if (unread <= 0) {
+                num.setVisibility(View.GONE);
+            } else if (unread <= 99) {
+                num.setVisibility(View.VISIBLE);
                 num.setText(String.valueOf(unread));
+            } else if (unread > 99) {
+                num.setVisibility(View.VISIBLE);
+                num.setText(getString(R.string.ninety_nine));
             }
         }
     }
@@ -552,9 +569,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int position, long id) {
                 if (position == 2) {
-                    new SearchPathTask("", "", select[position], callback).execute();
+                    new SearchPathTask("", "", select[position], callback, MainActivity.this).execute();
                 } else {
-                    new SearchPathTask("", select[position], "", callback).execute();
+                    new SearchPathTask("", select[position], "", callback, MainActivity.this).execute();
                 }
             }
 

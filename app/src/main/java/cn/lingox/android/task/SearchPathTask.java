@@ -1,5 +1,7 @@
 package cn.lingox.android.task;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,15 +17,28 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
     private String country = "", province = "", city = "";
     private Callback callback;
     private ArrayList<Path> tempPathList = new ArrayList<>();
+    private ProgressDialog pd;
+    private Context context;
 
-    public SearchPathTask(String country, String province, String city, Callback callback) {
+    public SearchPathTask(String country, String province, String city, Callback callback,Context context) {
         this.country = country;
         this.province = province;
         this.city = city;
         this.callback = callback;
+        this.context=context;
     }
 
     // todo 建议加一个数据加载时的动画效果
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd=new ProgressDialog(context);
+        pd.setMessage("Loading...");
+        pd.setCancelable(false);
+        pd.show();
+    }
+
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
@@ -47,6 +62,7 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean aBoolean) {
+        pd.dismiss();
         if (aBoolean) {
             callback.onSuccess(tempPathList);
         } else {

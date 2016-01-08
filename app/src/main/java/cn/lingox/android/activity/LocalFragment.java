@@ -72,7 +72,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         adapter = new LocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
-        listView.setRefreshing();
         listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -174,6 +173,8 @@ public class LocalFragment extends Fragment implements OnClickListener {
             //数据为空
             startAnim();
             Toast.makeText(getActivity(), "Temporarily no data.", Toast.LENGTH_SHORT).show();
+        } else {
+            stopAnim();
         }
         adapter.notifyDataSetChanged();
     }

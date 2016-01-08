@@ -560,8 +560,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private void initSpinner() {
         //可将数据源做成json文件
         final String[] select = new String[]{"Beijing", "Shanghai", "Guangzhou"};
-        ArrayAdapter adapter_spinner = new ArrayAdapter<>
-                (this, R.layout.simple_spinner_item, select);
+        ArrayAdapter adapter_spinner = new ArrayAdapter<>(this, R.layout.simple_spinner_item, select);
         adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapter_spinner);
         mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {

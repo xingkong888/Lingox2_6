@@ -20,8 +20,6 @@ public class FavouriteActivity extends ActionBarActivity implements OnClickListe
     // UI Elements
     private FavouriteLocalFragment localFragment;
     private FavouriteTravelFragment travelFragment;
-    private MainActivityFragmentAdapter tabAdapter;
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +38,28 @@ public class FavouriteActivity extends ActionBarActivity implements OnClickListe
         /************************ MAIN VIEW ********************/
         localFragment = new FavouriteLocalFragment();
         travelFragment = new FavouriteTravelFragment();
-        tabAdapter = new MainActivityFragmentAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.fragment_container);
+        MainActivityFragmentAdapter tabAdapter = new MainActivityFragmentAdapter(getSupportFragmentManager());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_container);
         viewPager.setAdapter(tabAdapter);
         // (Number of fragments - 1) This prevents the edge tabs being recreated
         // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(0);
+
+        //返回按键
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.favourite_bar).setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_back:
+            case R.id.favourite_bar:
+                finish();
+                break;
+        }
     }
 
     /**

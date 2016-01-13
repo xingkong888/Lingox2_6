@@ -54,7 +54,7 @@ public class FavouriteActivity extends ActionBarActivity implements OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_back:
             case R.id.favourite_bar:
                 finish();

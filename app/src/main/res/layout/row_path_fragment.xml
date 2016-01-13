@@ -181,8 +181,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:scaleType="center"
         android:src="@drawable/active_dislike_24dp" />
 </RelativeLayout>

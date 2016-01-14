@@ -63,7 +63,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     private ArrayAdapter adapter;
 
     private boolean focus = false;//标识edit是否获取焦点，false 失去焦点 true 得到焦点
-
+    //键盘管理器
     private InputMethodManager imm;
 
     private boolean isChat = false;//标识是否为聊天页获取位置
@@ -117,7 +117,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
                 returnResult();
             }
         });
-
+        //用于搜索
         editText = (EditText) findViewById(R.id.map_search);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -186,7 +186,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     /**
      * 发起请求
      *
-     * @param str ""
+     * @param str 关键字
      */
     private void request(String str) {
         if (listView.getVisibility() == View.GONE) {
@@ -200,7 +200,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
             // 发送输入提示请求
             Inputtips inputtips = new Inputtips(AMapActivity.this, AMapActivity.this);
             try {
-                // newText表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+                // 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
                 inputtips.requestInputtips(str.trim(), "");
             } catch (Exception e) {
                 Toast.makeText(AMapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -208,6 +208,10 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         }
     }
 
+    /**
+     * 点击系统返回键，若搜索结果显示，则关闭显示；
+     * 否则返回上一界面
+     */
     @Override
     public void onBackPressed() {
         if (listView.getVisibility() == View.VISIBLE) {
@@ -223,8 +227,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
 
     //根据坐标，获取地址描述
     private void getAddress(LatLonPoint latLonPoint) {
-//        latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
-//        GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
+    //    latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
+    //      GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
         geocoderSearch.getFromLocationAsyn(query);
     }
@@ -294,7 +298,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
 
     /**
      * @param result 返回结果
-     * @param rCode  ""
+     * @param rCode  返回码
      */
     @Override
     public void onGeocodeSearched(GeocodeResult result, int rCode) {

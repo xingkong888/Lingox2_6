@@ -76,4 +76,5 @@
     <color name="gray_light">#EFEFF4</color>
     <color name="shadow_color">#55000000</color>
     <color name="three_c7">#7FC7C7C7</color>
+    <color name="c7">#C7C7C7</color>
 </resources>

@@ -27,16 +27,19 @@ import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.TravelPlanAsynTask;
 
-
+/**
+ * 用户添加旅行计划
+ * 通过“UserInfoFragment”中跳转过来
+ */
 public class AddTravelActivity extends ActionBarActivity implements OnClickListener {
-    private static final int SELECTLOCATION = 124;//选择地地址
+    private static final int SELECTLOCATION = 124;//选择地址的请求码
 
     private TextView locationInfo, startTimeInfo, endTimeInfo;
 
     private Travel travel = new Travel();
     private Calendar calendar = Calendar.getInstance();
 
-    private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
+    private long start = 0, end = 0;
     /**
      * 日期选择监听器
      */
@@ -61,6 +64,8 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         public void onDateSet(DatePicker view, int year, int month, int day) {
             calendar.set(year, month, day, 23, 59, 59);
             end = calendar.getTimeInMillis() / 1000L;
+            //获取系统当前时间
+           long now = System.currentTimeMillis() / 1000L;
             if (end - now >= 0 && (start == 0 || end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
                         endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end, 2));
@@ -76,6 +81,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        //如果是编辑，则将数据设置到对应的控件
         if (getIntent().hasExtra("edit")) {
             travel = getIntent().getParcelableExtra("edit");
             initData();
@@ -102,22 +108,18 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
      */
     private void initView() {
         setContentView(R.layout.row_travel_experiences);
-
-        TextView cancel = (TextView) findViewById(R.id.travel_cancel);
-        cancel.setOnClickListener(this);
-
-        TextView done = (TextView) findViewById(R.id.travel_done);
-        done.setOnClickListener(this);
+        //“CANCEL”
+        findViewById(R.id.travel_cancel).setOnClickListener(this);
+        //“DONE”
+        findViewById(R.id.travel_done).setOnClickListener(this);
 
         locationInfo = (TextView) findViewById(R.id.travel_location);
         locationInfo.setOnClickListener(this);
-
-        RelativeLayout startTime = (RelativeLayout) findViewById(R.id.start_time);
-        startTime.setOnClickListener(this);
+        //选择开始时间
+        findViewById(R.id.start_time).setOnClickListener(this);
         startTimeInfo = (TextView) findViewById(R.id.start_time_info);
-
-        RelativeLayout endTime = (RelativeLayout) findViewById(R.id.end_time);
-        endTime.setOnClickListener(this);
+        //选择结束时间
+        findViewById(R.id.end_time).setOnClickListener(this);
         endTimeInfo = (TextView) findViewById(R.id.end_time_info);
 
     }
@@ -125,10 +127,10 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.travel_cancel:
+            case R.id.travel_cancel://取消
                 showCancel();
                 break;
-            case R.id.travel_done:
+            case R.id.travel_done://提交
                 if (locationInfo.getText().toString().isEmpty() || startTimeInfo.getText().toString().isEmpty()
                         || endTimeInfo.getText().toString().isEmpty()) {
                     Toast.makeText(this, "Please complete the information", Toast.LENGTH_SHORT).show();
@@ -140,17 +142,15 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
                     }
                 }
                 break;
-            case R.id.travel_location:
+            case R.id.travel_location://选择地点
                 Intent intent = new Intent(this, SelectCountry.class);
                 intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
                 startActivityForResult(intent, SELECTLOCATION);
                 break;
-            case R.id.start_time:
-                //选择开始时间
+            case R.id.start_time://选择开始时间
                 startDatePickerDialog();
                 break;
-            case R.id.end_time:
-                //选择结束时间
+            case R.id.end_time://选择结束时间
                 endDatePickerDialog();
                 break;
         }
@@ -160,7 +160,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case SELECTLOCATION:
+            case SELECTLOCATION://选择地点
                 String str = data.getStringExtra(SelectCountry.SELECTED);
                 if (!str.isEmpty()) {
                     travel.setLocation(str);
@@ -209,14 +209,14 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         super.onPause();
         MobclickAgent.onPause(this);
     }
-
+    //时间选择器------开始
     private void startDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(startDateListener);
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
     }
-
+    //时间选择器------结束
     private void endDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setCallback(endDateListener);

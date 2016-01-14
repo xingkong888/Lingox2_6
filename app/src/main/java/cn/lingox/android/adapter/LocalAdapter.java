@@ -1,6 +1,7 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -223,6 +224,7 @@ public class LocalAdapter extends BaseAdapter {
         private ImageView view;
         private TextView num;
         private Path path;
+        private ProgressDialog pd;
 
         public AcceptPath(ImageView view, TextView num, Path path) {
             this.view = view;
@@ -234,6 +236,10 @@ public class LocalAdapter extends BaseAdapter {
         protected void onPreExecute() {
             super.onPreExecute();
             view.setClickable(false);
+            pd=new ProgressDialog(context);
+            pd.setMessage("Are being added to the favorite.");
+            pd.show();
+            pd.setCancelable(false);
         }
 
         @Override
@@ -249,6 +255,7 @@ public class LocalAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 num.setText(String.valueOf((Integer.parseInt(num.getText().toString()) + 1)));
@@ -266,6 +273,7 @@ public class LocalAdapter extends BaseAdapter {
         private ImageView view;
         private TextView num;
         private Path path;
+        private ProgressDialog pd;
 
         public UnAcceptPath(ImageView view, TextView num, Path path) {
             this.view = view;
@@ -277,6 +285,10 @@ public class LocalAdapter extends BaseAdapter {
         protected void onPreExecute() {
             super.onPreExecute();
             view.setClickable(false);
+            pd=new ProgressDialog(context);
+            pd.setMessage("Favorite is cancelled.");
+            pd.show();
+            pd.setCancelable(false);
         }
 
         @Override
@@ -292,6 +304,7 @@ public class LocalAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 path.removeAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 view.setImageResource(R.drawable.active_dislike_24dp);
@@ -303,5 +316,4 @@ public class LocalAdapter extends BaseAdapter {
             view.setClickable(true);
         }
     }
-
 }

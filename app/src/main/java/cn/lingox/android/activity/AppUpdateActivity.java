@@ -13,7 +13,7 @@ import cn.lingox.android.R;
 import cn.lingox.android.constants.URLConstant;
 
 /**
- * 软件更新
+ * 检查更新
  */
 public class AppUpdateActivity extends Activity implements OnClickListener {
 
@@ -34,10 +34,10 @@ public class AppUpdateActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.umeng_update_id_ok:
+            case R.id.umeng_update_id_ok://更新
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URLConstant.APK_URL)));
                 break;
-            case R.id.umeng_update_id_cancel:
+            case R.id.umeng_update_id_cancel://取消
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);

@@ -62,6 +62,9 @@ import cn.lingox.android.service.NotificationService;
 import cn.lingox.android.task.GetUser;
 import cn.lingox.android.task.LoadUserReferences;
 
+/**
+ * 消息通知
+ */
 public class ChatFragment extends Fragment {
     private static final String LOG_TAG = "ChatFragment";
     //是否为第一次进去该页面
@@ -297,14 +300,14 @@ public class ChatFragment extends Fragment {
         }
         return view;
     }
-
+    //开始动画
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
             anim.setVisibility(View.VISIBLE);
             animationDrawable.start();
         }
     }
-
+    //停止动画
     private void stopAnim() {
         if (animationDrawable.isRunning()) {
             anim.setVisibility(View.GONE);
@@ -518,7 +521,7 @@ public class ChatFragment extends Fragment {
             Log.e(LOG_TAG, e.toString());
         }
     }
-
+    //数据改变时用于通知适配器
     private void notifyChange() {
         if (datas.size() <= 0) {
             startAnim();

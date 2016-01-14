@@ -32,7 +32,6 @@
     <!--<string name="travel_three">Please choose the type(s) of the experience</string>-->
     <!--<string name="travel_four">Please upload a cover photo of your experience or yourself</string>-->
     <!--<string name="travel_five">Set a time frame for your travel</string>-->
-    <!--****************************************-->
     <!--*******************************************************************************************-->
     <!-- 活动申请-->
     <string name="wait_confirm">Waiting for confirm</string>
@@ -85,6 +84,7 @@
     <string name="group_size">Group Size</string>
     <string name="budget">Budget</string>
 
+    <string name="you_going">Where are you going?</string>
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
     <string name="country">Country</string>

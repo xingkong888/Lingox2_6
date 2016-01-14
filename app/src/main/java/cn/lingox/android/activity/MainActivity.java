@@ -78,7 +78,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private ViewPager viewPager;
     private DrawerLayout sideDrawers;
     private ActionBarDrawerToggle sideDrawerToggle;
-    private RelativeLayout showNumLayout;
     private TextView num;
     //标识右侧边栏是否打开；true打开、false未打开
     private boolean rightSildOpen = false;
@@ -142,8 +141,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         toolbar.setTitle("");//默认使用清单文件中的lable
         setSupportActionBar(toolbar);
 /***********************************************************************************/
-        showNumLayout = (RelativeLayout) findViewById(R.id.show_num);
-        showNumLayout.setOnClickListener(this);
+        //未读信息数据展示
+        findViewById(R.id.show_num).setOnClickListener(this);
         num = (TextView) findViewById(R.id.num);
         sideDrawers = (DrawerLayout) findViewById(R.id.drawer_layout);
         sideDrawerToggle = new ActionBarDrawerToggle(
@@ -239,26 +238,26 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(0);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    mySpinner.setVisibility(View.VISIBLE);
-                } else {
-                    mySpinner.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                if (position == 0) {
+//                    mySpinner.setVisibility(View.VISIBLE);
+//                } else {
+//                    mySpinner.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
         chooseExperience();
 

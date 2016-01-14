@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--用户添加旅行计划-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_wrap"
     android:background="@color/gray_light">
@@ -26,8 +27,7 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:paddingRight="20dp"
-            android:text="Done"
-            android:textAllCaps="true"
+            android:text="@string/done"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -64,7 +64,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/location_img"
                 android:gravity="center_vertical"
-                android:hint="Where are you going?"
+                android:hint="@string/you_going"
                 android:textColor="@color/main_color" />
 
             <ImageView style="@style/right_arrows_iv" />
@@ -74,7 +74,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="30dp"
-                android:background="#c7c7c7" />
+                android:background="@color/c7" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -86,13 +86,13 @@
             <TextView
                 android:id="@+id/start_time_l"
                 style="@style/row_travel_experiences_tv_l"
-                android:text="Start Time" />
+                android:text="@string/start_time" />
 
             <TextView
                 android:id="@+id/start_time_info"
                 style="@style/row_travel_experiences_tv_r"
                 android:layout_toRightOf="@+id/start_time_l"
-                android:hint="Start Time" />
+                android:hint="@string/start_time" />
 
             <ImageView style="@style/right_arrows_iv" />
 
@@ -101,7 +101,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
-                android:background="#c7c7c7" />
+                android:background="@color/c7" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -113,13 +113,13 @@
             <TextView
                 android:id="@+id/end_time_l"
                 style="@style/row_travel_experiences_tv_l"
-                android:text="End Time" />
+                android:text="@string/end_time" />
 
             <TextView
                 android:id="@+id/end_time_info"
                 style="@style/row_travel_experiences_tv_r"
                 android:layout_toRightOf="@+id/end_time_l"
-                android:hint="End Time" />
+                android:hint="@string/end_time" />
 
             <ImageView style="@style/right_arrows_iv" />
 
@@ -128,7 +128,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="30dp"
-                android:background="#c7c7c7" />
+                android:background="@color/c7" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

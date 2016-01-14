@@ -18,6 +18,9 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.ContactAdapter;
 import cn.lingox.android.helper.CacheHelper;
 
+/**
+ *
+ */
 public class ContactListActivity extends ActionBarActivity implements OnClickListener {
     // UI Elements
     private ContactAdapter contactAdapter;

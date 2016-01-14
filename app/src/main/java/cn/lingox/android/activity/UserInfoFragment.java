@@ -145,11 +145,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         initView();
         initData();
     }
-
+    //实例化控件
     private void initView() {
 
         if (requestingOthersData) {
-            //如果不是自己的个人信息页面，将home meal等三个选项隐藏
+            //如果不是自己的个人信息页面，将home meal、home stay、local三个选项隐藏
             v.findViewById(R.id.userinfo_include_tag).setVisibility(View.VISIBLE);
         }
         tagsView = (EditText) v.findViewById(R.id.tags_layout);
@@ -218,9 +218,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         userStay = (TextView) v.findViewById(R.id.userinfo_tag3);
         userInfoPlaces = (TextView) v.findViewById(R.id.userinfo_places_info);
         userInfoProfessional = (TextView) v.findViewById(R.id.userinfo_professional_info);
-
+        //local--->本地人
         v.findViewById(R.id.layout_available_local).setOnClickListener(this);
+        //meal--->家庭餐
         v.findViewById(R.id.layout_available_meal).setOnClickListener(this);
+        //stay--->家庭住宿
         v.findViewById(R.id.layout_available_stay).setOnClickListener(this);
 
         editOrChat = (LinearLayout) v.findViewById(R.id.userinfo_edit_chat);

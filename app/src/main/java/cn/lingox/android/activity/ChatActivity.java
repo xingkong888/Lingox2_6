@@ -99,6 +99,9 @@ import cn.lingox.android.utils.SmileUtils;
 import cn.lingox.android.widget.ExpandGridView;
 import cn.lingox.android.widget.PasteEditText;
 
+/**
+ * 聊天页面
+ */
 public class ChatActivity extends BaseActivity implements OnClickListener {
     public static final int REQUEST_CODE_CONTEXT_MENU = 3;
     public static final int REQUEST_CODE_TEXT = 5;
@@ -154,9 +157,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private GroupListener groupListener;
     private ImageView iv_emoticons_normal;
     private ImageView iv_emoticons_checked;
-    private RelativeLayout edittext_layout;
-    private ProgressBar loadmorePB;
-    private boolean isloading;
+    private RelativeLayout editText_layout;
+    private ProgressBar loadMorePB;
+    private boolean isLoading;
     private boolean haveMoreData = true;
     private Button btnMore;
 
@@ -303,7 +306,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         listView = (ListView) findViewById(R.id.list);
         mEditTextContent = (PasteEditText) findViewById(R.id.et_sendmessage);
         buttonSetModeKeyboard = findViewById(R.id.btn_set_mode_keyboard);
-        edittext_layout = (RelativeLayout) findViewById(R.id.edittext_layout);
+        editText_layout = (RelativeLayout) findViewById(R.id.edittext_layout);
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
         buttonSend = findViewById(R.id.btn_send);
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
@@ -312,12 +315,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         btnContainer = (LinearLayout) findViewById(R.id.ll_btn_container);
         iv_emoticons_normal = (ImageView) findViewById(R.id.iv_emoticons_normal);
         iv_emoticons_checked = (ImageView) findViewById(R.id.iv_emoticons_checked);
-        loadmorePB = (ProgressBar) findViewById(R.id.pb_load_more);
+        loadMorePB = (ProgressBar) findViewById(R.id.pb_load_more);
         btnMore = (Button) findViewById(R.id.btn_more);
         iv_emoticons_normal.setVisibility(View.VISIBLE);
         iv_emoticons_checked.setVisibility(View.INVISIBLE);
         more = findViewById(R.id.more);
-        edittext_layout.setBackgroundResource(R.drawable.input_bar_bg_normal);
+        editText_layout.setBackgroundResource(R.drawable.input_bar_bg_normal);
 
         micImages = new Drawable[]{
                 getResources().getDrawable(R.drawable.record_animate_01),
@@ -341,7 +344,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         views.add(gv1);
         views.add(gv2);
         expressionViewpager.setAdapter(new ExpressionPagerAdapter(views));
-        edittext_layout.requestFocus();
+        editText_layout.requestFocus();
         voiceRecorder = new VoiceRecorder(micImageHandler);
         buttonPressToSpeak.setOnTouchListener(new PressToSpeakListen());
         mEditTextContent.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -349,10 +352,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edittext_layout
+                    editText_layout
                             .setBackgroundResource(R.drawable.input_bar_bg_active);
                 } else {
-                    edittext_layout
+                    editText_layout
                             .setBackgroundResource(R.drawable.input_bar_bg_normal);
                 }
             }
@@ -361,7 +364,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                edittext_layout
+                editText_layout
                         .setBackgroundResource(R.drawable.input_bar_bg_active);
                 more.setVisibility(View.GONE);
                 iv_emoticons_normal.setVisibility(View.VISIBLE);
@@ -950,7 +953,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
     public void setModeVoice(View view) {
         hideKeyboard();
-        edittext_layout.setVisibility(View.GONE);
+        editText_layout.setVisibility(View.GONE);
         more.setVisibility(View.GONE);
         view.setVisibility(View.GONE);
         buttonSetModeKeyboard.setVisibility(View.VISIBLE);
@@ -964,7 +967,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     }
 
     public void setModeKeyboard(View view) {
-        edittext_layout.setVisibility(View.VISIBLE);
+        editText_layout.setVisibility(View.VISIBLE);
         more.setVisibility(View.GONE);
         view.setVisibility(View.GONE);
         buttonSetModeVoice.setVisibility(View.VISIBLE);
@@ -1282,9 +1285,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             switch (scrollState) {
                 case OnScrollListener.SCROLL_STATE_IDLE:
-                    if (view.getFirstVisiblePosition() == 0 && !isloading && haveMoreData) {
+                    if (view.getFirstVisiblePosition() == 0 && !isLoading && haveMoreData) {
                         int pageSize = 20;
-                        loadmorePB.setVisibility(View.VISIBLE);
+                        loadMorePB.setVisibility(View.VISIBLE);
                         List<EMMessage> messages;
                         try {
                             if (chatType == CHATTYPE_SINGLE) {
@@ -1293,7 +1296,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                                 messages = conversation.loadMoreGroupMsgFromDB(adapter.getItem(0).getMsgId(), pageSize);
                             }
                         } catch (Exception e1) {
-                            loadmorePB.setVisibility(View.GONE);
+                            loadMorePB.setVisibility(View.GONE);
                             return;
                         }
                         try {
@@ -1310,8 +1313,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         } else {
                             haveMoreData = false;
                         }
-                        loadmorePB.setVisibility(View.GONE);
-                        isloading = false;
+                        loadMorePB.setVisibility(View.GONE);
+                        isLoading = false;
                     }
                     break;
             }
@@ -1432,7 +1435,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setMessage("Failure" + e.getMessage());
+                        pd.setMessage("Failure " + e.getMessage());
                     }
                 });
                 e.printStackTrace();

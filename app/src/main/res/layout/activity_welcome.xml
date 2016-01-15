@@ -1,24 +1,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/welcome"
     style="@style/match_match"
-    android:background="@color/gray_light"
+    android:background="@drawable/welcome_top"
     android:orientation="vertical"
     android:visibility="gone">
 
-    <TextView
-        android:id="@+id/local"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="local" />
+        android:contentDescription="欢迎界面"
+        android:scaleType="center"
+        android:src="@drawable/window_logo_135dp28dp" />
+    <!-- local-->
+    <RelativeLayout
+        android:id="@+id/welcome_local"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/travel"
+        <ImageView
+            android:id="@+id/local"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="本地人图标"
+            android:focusable="false"
+            android:scaleType="center"
+            android:src="@drawable/welcome_local" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/local"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="I AM A LOCAL HOST" />
+    </RelativeLayout>
+    <!-- traveler-->
+    <RelativeLayout
+        android:id="@+id/welcome_travel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="travel" />
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/travel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="旅行者图标"
+            android:scaleType="center"
+            android:src="@drawable/welcome_traveler" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/travel"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="I AM A TRAVELER" />
+    </RelativeLayout>
 
 </LinearLayout>

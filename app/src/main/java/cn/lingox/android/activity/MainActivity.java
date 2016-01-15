@@ -25,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -218,9 +217,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             welcome = (LinearLayout) findViewById(R.id.welcome);
             welcome.setVisibility(View.VISIBLE);
             //选择local
-            findViewById(R.id.local).setOnClickListener(this);
+            findViewById(R.id.welcome_local).setOnClickListener(this);
             //选择travel
-            findViewById(R.id.travel).setOnClickListener(this);
+            findViewById(R.id.welcome_travel).setOnClickListener(this);
         }
 
         mySpinner = (Spinner) findViewById(R.id.spinner);
@@ -353,10 +352,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 //展示PopupWindow
                 popWin.showAtLocation(add, Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.local://选择local
+            case R.id.welcome_local://选择local
                 welcome.setVisibility(View.GONE);
                 break;
-            case R.id.travel://选择travel
+            case R.id.welcome_travel://选择travel
                 viewPager.setCurrentItem(1);
                 welcome.setVisibility(View.GONE);
                 break;

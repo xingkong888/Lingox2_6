@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +64,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
             calendar.set(year, month, day, 23, 59, 59);
             end = calendar.getTimeInMillis() / 1000L;
             //获取系统当前时间
-           long now = System.currentTimeMillis() / 1000L;
+            long now = System.currentTimeMillis() / 1000L;
             if (end - now >= 0 && (start == 0 || end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(
                         endTimeInfo, JsonHelper.getInstance().parseTimestamp((int) end, 2));
@@ -209,6 +208,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
     //时间选择器------开始
     private void startDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();
@@ -216,6 +216,7 @@ public class AddTravelActivity extends ActionBarActivity implements OnClickListe
         newFragment.setValues(calendar);
         newFragment.show(getFragmentManager(), "datePicker");
     }
+
     //时间选择器------结束
     private void endDatePickerDialog() {
         DatePickerFragment newFragment = new DatePickerFragment();

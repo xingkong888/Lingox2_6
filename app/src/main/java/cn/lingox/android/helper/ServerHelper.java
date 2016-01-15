@@ -1642,9 +1642,26 @@ public class ServerHelper {
      * @throws Exception 抛出异常
      */
     public ArrayList<TravelEntity> getAllTravel(int page) throws Exception {
+        return getAllTravel("", "", "", page);
+    }
+
+    /**
+     * 获取travel数据--查询
+     *
+     * @param country  国家
+     * @param province 省份
+     * @param city     城市
+     * @param page     页码
+     * @return 集合
+     * @throws Exception
+     */
+    public ArrayList<TravelEntity> getAllTravel(String country, String province, String city, int page) throws Exception {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("page", String.valueOf(page));
+        params.put("country", country);
+        params.put("province", province);
+        params.put("city", city);
 
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GETALL, params);
 

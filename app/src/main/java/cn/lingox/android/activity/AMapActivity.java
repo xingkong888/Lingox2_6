@@ -227,8 +227,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
 
     //根据坐标，获取地址描述
     private void getAddress(LatLonPoint latLonPoint) {
-    //    latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
-    //      GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
+        //    latLonPoint参数表示一个Latlng，第二参数表示范围多少米，
+        //      GeocodeSearch.AMAP表示是国测局坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
         geocoderSearch.getFromLocationAsyn(query);
     }

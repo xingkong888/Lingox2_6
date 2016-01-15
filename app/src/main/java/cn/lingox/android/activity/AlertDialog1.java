@@ -17,6 +17,7 @@ import java.io.File;
 import cn.lingox.android.R;
 import cn.lingox.android.task.DownloadImageTask;
 import cn.lingox.android.utils.ImageCache;
+
 //自定义dialog
 public class AlertDialog1 extends BaseActivity {
     private int position;

@@ -145,6 +145,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         initView();
         initData();
     }
+
     //实例化控件
     private void initView() {
 

@@ -300,6 +300,7 @@ public class ChatFragment extends Fragment {
         }
         return view;
     }
+
     //开始动画
     private void startAnim() {
         if (!animationDrawable.isRunning()) {
@@ -307,6 +308,7 @@ public class ChatFragment extends Fragment {
             animationDrawable.start();
         }
     }
+
     //停止动画
     private void stopAnim() {
         if (animationDrawable.isRunning()) {
@@ -521,6 +523,7 @@ public class ChatFragment extends Fragment {
             Log.e(LOG_TAG, e.toString());
         }
     }
+
     //数据改变时用于通知适配器
     private void notifyChange() {
         if (datas.size() <= 0) {

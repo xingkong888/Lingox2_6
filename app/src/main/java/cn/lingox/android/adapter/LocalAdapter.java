@@ -236,7 +236,7 @@ public class LocalAdapter extends BaseAdapter {
         protected void onPreExecute() {
             super.onPreExecute();
             view.setClickable(false);
-            pd=new ProgressDialog(context);
+            pd = new ProgressDialog(context);
             pd.setMessage("Are being added to the favorite.");
             pd.show();
             pd.setCancelable(false);
@@ -285,7 +285,7 @@ public class LocalAdapter extends BaseAdapter {
         protected void onPreExecute() {
             super.onPreExecute();
             view.setClickable(false);
-            pd=new ProgressDialog(context);
+            pd = new ProgressDialog(context);
             pd.setMessage("Favorite is cancelled.");
             pd.show();
             pd.setCancelable(false);

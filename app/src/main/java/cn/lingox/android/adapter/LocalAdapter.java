@@ -261,6 +261,7 @@ public class LocalAdapter extends BaseAdapter {
                 num.setText(String.valueOf((Integer.parseInt(num.getText().toString()) + 1)));
                 view.setImageResource(R.drawable.active_like_24dp);
                 view.setTag(1);
+                Toast.makeText(context, "Added to favorite list", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, context.getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }

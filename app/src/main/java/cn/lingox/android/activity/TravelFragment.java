@@ -23,6 +23,7 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.TravelAdapter;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.task.GetAllTravelEntity;
+import cn.lingox.android.task.SearchTravelEntity;
 
 /**
  * 展示travel数据
@@ -30,19 +31,43 @@ import cn.lingox.android.task.GetAllTravelEntity;
 public class TravelFragment extends Fragment {
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
     public ArrayList<TravelEntity> travelDatas;
+    String[] select = new String[]{"All", "Beijing", "Shanghai", "Guangzhou"};
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private PullToRefreshListView mListView;
     private int clickPosition = 0;
     private TravelAdapter adapter;
     private int page = 1;//分页加载页码
+    private int position = 0;//表示获取全部数据还是获取地区数据
+    /**
+     * travel搜索的回调接口
+     */
+    private SearchTravelEntity.Callback travelCallback = new SearchTravelEntity.Callback() {
+        @Override
+        public void onSuccess(ArrayList<TravelEntity> list) {
+            travelDatas.clear();
+            travelDatas.addAll(list);
+            if (travelDatas.size() <= 0) {
+                startAnim();
+            } else {
+                stopAnim();
+            }
+            mListView.onRefreshComplete();
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onFail() {
+            mListView.onRefreshComplete();
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_travel, null);
 
         initView(view);
-        refreshList();
+        refreshList(0);
         return view;
     }
 
@@ -78,14 +103,14 @@ public class TravelFragment extends Fragment {
                 page = 1;
                 travelDatas.clear();
                 adapter.notifyDataSetChanged();
-                refreshList();
+                refreshList(position);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //上拉加载更多
                 page++;
-                refreshList();
+                refreshList(position);
             }
         });
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -110,7 +135,21 @@ public class TravelFragment extends Fragment {
     /**
      * 下载
      */
-    private void refreshList() {
+    public void refreshList(int position) {
+        this.position = position;
+        switch (position) {
+            case 0://搜索全部数据
+                getAll();
+                break;
+            default://搜索地区
+                getSelect(position);
+                break;
+        }
+    }
+
+    //获取所有的数据
+    private void getAll() {
+        mListView.setRefreshing();
         new GetAllTravelEntity(page, new GetAllTravelEntity.Callback() {
             @Override
             public void onSuccess(ArrayList<TravelEntity> list) {
@@ -124,7 +163,17 @@ public class TravelFragment extends Fragment {
                 mListView.onRefreshComplete();
                 Toast.makeText(getActivity(), "Download fail", Toast.LENGTH_SHORT).show();
             }
-        }).execute();
+        }, getActivity()).execute();
+    }
+
+    //获取搜索结果
+    private void getSelect(int position) {
+        mListView.setRefreshing();
+        if (position == 2) {
+            new SearchTravelEntity("", "", select[position], 1, travelCallback, getActivity()).execute();
+        } else {
+            new SearchTravelEntity("", select[position], "", 1, travelCallback, getActivity()).execute();
+        }
     }
 
     private void startAnim() {

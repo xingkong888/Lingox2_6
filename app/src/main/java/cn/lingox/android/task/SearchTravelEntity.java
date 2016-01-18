@@ -10,34 +10,45 @@ import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.ServerHelper;
 
 /**
- * 获取所有的旅行者发布的信息
+ * 根据国家、省份、城市搜索
  */
-public class GetAllTravelEntity extends AsyncTask<Void, String, Boolean> {
+public class SearchTravelEntity extends AsyncTask<Void, String, Boolean> {
     private static final String LOG_TAG = "GetAllTravelEntity";
 
     private Callback callback;
     private int page;
-    private ArrayList<TravelEntity> list = new ArrayList<>();
+    private ArrayList<TravelEntity> list;
+    private String country, province, city;
     private Context context;
+//    private ProgressDialog pd;
 
-    public GetAllTravelEntity(int page, Callback callback, Context context) {
+    public SearchTravelEntity(
+            String country, String province, String city, int page, Callback callback, Context context) {
         this.callback = callback;
         this.page = page;
+        list = new ArrayList<>();
+        this.country = country;
+        this.province = province;
+        this.city = city;
         this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+//        pd=new ProgressDialog(context);
+//        pd.setMessage("Loading...");
+//        pd.show();
+//        pd.setCancelable(false);
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
-            list.addAll(ServerHelper.getInstance().getAllTravel(page));
+            list.addAll(ServerHelper.getInstance().getAllTravel(country, province, city, page));
             return true;
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to get all TravelEntity: " + e.toString());
+            Log.e(LOG_TAG, "Failed to search TravelEntity: " + e.toString());
             return false;
         }
     }
@@ -45,6 +56,7 @@ public class GetAllTravelEntity extends AsyncTask<Void, String, Boolean> {
     @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
+//        pd.dismiss();
         if (success) {
             callback.onSuccess(list);
         } else {

@@ -35,8 +35,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-import java.util.ArrayList;
-
 import cn.lingox.android.R;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Path;
@@ -46,7 +44,6 @@ import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
-import cn.lingox.android.task.SearchPathTask;
 import cn.lingox.android.utils.FileUtil;
 import cn.lingox.android.utils.SkipDialog;
 
@@ -85,23 +82,11 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private ImageView add;
     private PopupWindow popWin;
     private Spinner mySpinner;
-    /**
-     * 搜索的回调接口
-     */
-    private SearchPathTask.Callback callback = new SearchPathTask.Callback() {
-        @Override
-        public void onSuccess(ArrayList<Path> list) {
-            localFragment.refershPath(list);
-        }
-
-        @Override
-        public void onFail() {
-            Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
-        }
-    };
 
     //welcome
     private LinearLayout welcome;
+    //表示viewpager当前页
+    private int page = 0;
 
     public static MainActivity getObj() {
         return mainActivity;
@@ -213,14 +198,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         ft.commit();
         /***********************************************************/
         /************************ MAIN VIEW ********************/
-        if (getIntent().hasExtra("welcome")) {
+//        if (getIntent().hasExtra("welcome")) {
             welcome = (LinearLayout) findViewById(R.id.welcome);
             welcome.setVisibility(View.VISIBLE);
             //选择local
             findViewById(R.id.welcome_local).setOnClickListener(this);
             //选择travel
             findViewById(R.id.welcome_travel).setOnClickListener(this);
-        }
+            //back
+            findViewById(R.id.welcome_back).setOnClickListener(this);
+//        }
 
         mySpinner = (Spinner) findViewById(R.id.spinner);
         initSpinner();
@@ -237,29 +224,24 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         // 除当前页外，预加载及保留的页面数   viewPager.setOffscreenPageLimit(2);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(0);
-//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                if (position == 0) {
-//                    mySpinner.setVisibility(View.VISIBLE);
-//                } else {
-//                    mySpinner.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                page = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         chooseExperience();
-
     }
 
     // 这个是自定义打开抽屉的方法，可以在需要的时候调用，
@@ -357,6 +339,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 break;
             case R.id.welcome_travel://选择travel
                 viewPager.setCurrentItem(1);
+                welcome.setVisibility(View.GONE);
+                break;
+            case R.id.welcome_back://back
                 welcome.setVisibility(View.GONE);
                 break;
         }
@@ -557,7 +542,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     private void initSpinner() {
         //可将数据源做成json文件
-        final String[] select = new String[]{"Beijing", "Shanghai", "Guangzhou"};
+        final String[] select = new String[]{"All", "Beijing", "Shanghai", "Guangzhou"};
         ArrayAdapter adapter_spinner = new ArrayAdapter<>(this, R.layout.simple_spinner_item, select);
         adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapter_spinner);
@@ -565,10 +550,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int position, long id) {
-                if (position == 2) {
-                    new SearchPathTask("", "", select[position], callback, MainActivity.this).execute();
-                } else {
-                    new SearchPathTask("", select[position], "", callback, MainActivity.this).execute();
+                switch (page) {
+                    case 0://local
+                        localFragment.refreshList(position);
+                        break;
+                    case 1://travel
+                        travelFragment.refreshList(position);
+                        break;
                 }
             }
 
@@ -607,9 +595,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Loacl";
+                    return "LOCAL EXPERIENCES";
                 case 1:
-                    return "Traveler";
+                    return "TRAVELER REQUESTS";
             }
             return null;
         }

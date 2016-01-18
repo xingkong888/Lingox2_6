@@ -8,14 +8,40 @@
         android:background="@color/main_color"
         android:titleTextAppearance="@android:color/white" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <!--<Spinner-->
+        <!--android:id="@+id/spinner"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:padding="5dp" />-->
+    <LinearLayout
+        android:id="@+id/my_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:padding="5dp" />
-
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="3dp"
+        >
+    <TextView
+        android:id="@+id/spinner_select_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BeiJing"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        />
+        <ImageView
+            android:id="@+id/spinner_drop_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/drop_down_down"
+            android:contentDescription="下拉列表的箭头"
+            android:layout_marginLeft="8dp"
+            />
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/show_num"
         android:layout_width="50dp"
@@ -82,5 +108,15 @@
         android:paddingRight="15dp"
         android:src="@drawable/follow" />
 
+    <!-- 欢迎界面-->
     <include layout="@layout/activity_welcome" />
+    <!-- 用于显示城市-->
+    <ListView
+        android:id="@+id/spinner_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/my_spinner"
+        android:visibility="gone"
+        android:dividerHeight="0dp"
+        />
 </RelativeLayout>

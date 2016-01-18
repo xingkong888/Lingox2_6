@@ -20,11 +20,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +39,11 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
+
+import java.util.ArrayList;
+
 import cn.lingox.android.R;
+import cn.lingox.android.adapter.MySpinnerAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.TravelEntity;
@@ -81,8 +89,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     //用于添加新的体验
     private ImageView add;
     private PopupWindow popWin;
-    private Spinner mySpinner;
-
+    //自定义下拉选择
+    private TextView showLocation;//显示选中地区
+    private ImageView dropDown;//箭头旋转动画
+    private ListView listView;//显示所有地区
     //welcome
     private LinearLayout welcome;
     //表示viewpager当前页
@@ -208,10 +218,35 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             //back
             findViewById(R.id.welcome_back).setOnClickListener(this);
         }
-
-        mySpinner = (Spinner) findViewById(R.id.spinner);
-        initSpinner();
-
+/****************************spinner*******************************/
+        findViewById(R.id.my_spinner).setOnClickListener(this);
+        showLocation=(TextView)findViewById(R.id.spinner_select_location);
+        dropDown=(ImageView)findViewById(R.id.spinner_drop_down);
+        listView=(ListView)findViewById(R.id.spinner_lv);
+        final ArrayList<String> list=new ArrayList<>();
+        list.add("All");
+        list.add("Beijing");
+        list.add("Shanghai");
+        list.add("Guangzhou");
+        MySpinnerAdapter adapter=new MySpinnerAdapter(this,list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (page) {
+                    case 0://local
+                    localFragment.refreshList(position);
+                    break;
+                    case 1://travel
+                    travelFragment.refreshList(position);
+                    break;
+                }
+                showLocation.setText(list.get(position));
+                dropDown.setImageResource(R.drawable.drop_down_down);
+                listView.setVisibility(View.GONE);
+            }
+        });
+/*****************************************************************/
         add = (ImageView) findViewById(R.id.add_experience);
         add.setOnClickListener(this);
 
@@ -236,9 +271,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(int state){
 
-            }
+                }
         });
 
         chooseExperience();
@@ -343,6 +378,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 break;
             case R.id.welcome_back://back
                 welcome.setVisibility(View.GONE);
+                break;
+            case R.id.my_spinner://自定义spinner
+                listView.setVisibility(View.VISIBLE);
+                dropDown.setImageResource(R.drawable.drop_down_up);
                 break;
         }
     }
@@ -535,35 +574,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 num.setText(getString(R.string.ninety_nine));
             }
         }
-    }
-
-    /**
-     * 实例化spinner，并做点击事件处理
-     */
-    private void initSpinner() {
-        //可将数据源做成json文件
-        final String[] select = new String[]{"All", "Beijing", "Shanghai", "Guangzhou"};
-        ArrayAdapter adapter_spinner = new ArrayAdapter<>(this, R.layout.simple_spinner_item, select);
-        adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(adapter_spinner);
-        mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int position, long id) {
-                switch (page) {
-                    case 0://local
-                        localFragment.refreshList(position);
-                        break;
-                    case 1://travel
-                        travelFragment.refreshList(position);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
     }
 
     /**

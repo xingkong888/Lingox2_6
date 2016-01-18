@@ -198,7 +198,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         ft.commit();
         /***********************************************************/
         /************************ MAIN VIEW ********************/
-//        if (getIntent().hasExtra("welcome")) {
+        if (getIntent().hasExtra("welcome")) {
             welcome = (LinearLayout) findViewById(R.id.welcome);
             welcome.setVisibility(View.VISIBLE);
             //选择local
@@ -207,7 +207,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             findViewById(R.id.welcome_travel).setOnClickListener(this);
             //back
             findViewById(R.id.welcome_back).setOnClickListener(this);
-//        }
+        }
 
         mySpinner = (Spinner) findViewById(R.id.spinner);
         initSpinner();

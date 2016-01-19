@@ -11,6 +11,7 @@
         android:textSize="20sp"
         android:gravity="center"
         android:padding="10dp"
+        android:text="dddd"
         android:textColor="@color/white"
         />
 </LinearLayout>

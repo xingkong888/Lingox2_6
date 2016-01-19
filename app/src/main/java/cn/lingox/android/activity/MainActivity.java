@@ -228,6 +228,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         list.add("Beijing");
         list.add("Shanghai");
         list.add("Guangzhou");
+        showLocation.setText(list.get(0));
         MySpinnerAdapter adapter=new MySpinnerAdapter(this,list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

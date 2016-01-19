@@ -1,5 +1,6 @@
 package cn.lingox.android.task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -18,10 +19,22 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
     private Callback callback;
     private HashMap<String, String> map;
     private TravelEntity travelEntity;
+    private ProgressDialog pd;
+    private Context context;
 
     public UnLikeTravelEntity(Context context, HashMap<String, String> map, Callback callback) {
         this.callback = callback;
         this.map = map;
+        this.context=context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd=new ProgressDialog(context);
+        pd.setMessage("Load...");
+        pd.show();
+        pd.setCancelable(false);
     }
 
     @Override
@@ -38,6 +51,7 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
     @Override
     protected void onPostExecute(Boolean success) {
         super.onPostExecute(success);
+        pd.dismiss();
         if (success) {
             callback.onSuccess(travelEntity);
         } else {

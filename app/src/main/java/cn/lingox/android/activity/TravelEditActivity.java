@@ -339,6 +339,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             }
         } else {
             if (page <= 0) {
+                //todo 若直接按返回键，未对返回结果做处理，在上一级的onActivityResult中产生NullPointerException
                 finish();
             } else {
                 back.setVisibility(View.VISIBLE);

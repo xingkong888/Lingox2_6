@@ -115,7 +115,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private TextView endDay;//结束时间---日
     private TextView endMonth;//结束时间----月
     private TextView travelingLocation;//旅行地点
-    private TextView request;//问题题目---貌似没有
+//    private TextView request;//问题题目---貌似没有
     private TextView detail;//问题描述
     private ImageView menu;//右上角菜单
     private LinearLayout favourite,delete,edit,share;
@@ -193,8 +193,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         flg = (ImageView) findViewById(R.id.travel_country_flg);
         //旅行者的地址
         location = (TextView) findViewById(R.id.travel_location);
-        //问题题目-----好像没有
-         request=(TextView)findViewById(R.id.travel_request);
+//        //问题题目-----好像没有
+//         request=(TextView)findViewById(R.id.travel_request);
         //描述
          detail=(TextView)findViewById(R.id.travel_detail);
         //标签

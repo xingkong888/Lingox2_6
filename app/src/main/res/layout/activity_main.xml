@@ -2,121 +2,117 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_match">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_activity_toolbar"
-        style="@style/match_wrap"
-        android:background="@color/main_color"
-        android:titleTextAppearance="@android:color/white" />
-
-    <!--<Spinner-->
-        <!--android:id="@+id/spinner"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="15dp"-->
-        <!--android:padding="5dp" />-->
-    <LinearLayout
-        android:id="@+id/my_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:padding="3dp"
-        >
-    <TextView
-        android:id="@+id/spinner_select_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BeiJing"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        />
-        <ImageView
-            android:id="@+id/spinner_drop_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drop_down_down"
-            android:contentDescription="下拉列表的箭头"
-            android:layout_marginLeft="8dp"
-            />
-    </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/show_num"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp">
-
-        <ImageView
-            android:id="@+id/chat"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="3dp"
-            android:padding="5dp"
-            android:src="@drawable/chat" />
-
-        <TextView
-            android:id="@+id/num"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp"
-            android:background="@drawable/message_point_28dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="10sp"
-            android:visibility="gone" />
-
-    </RelativeLayout>
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         style="@style/match_match"
-        android:layout_below="@id/main_activity_toolbar"
         android:background="@color/gray_light"
         android:orientation="vertical"
         android:touchscreenBlocksFocus="false">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/fragment_container"
-            style="@style/match_match"
-            android:background="@color/gray_light">
+        <RelativeLayout style="@style/wrap_match">
 
-            <android.support.v4.view.PagerTabStrip
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main_activity_toolbar"
                 style="@style/match_wrap"
-                android:layout_gravity="top"
                 android:background="@color/main_color"
-                android:textAppearance="@style/PagerTabStripText" />
-        </android.support.v4.view.ViewPager>
+                android:titleTextAppearance="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/my_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/spinner_select_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BeiJing"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/spinner_drop_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:contentDescription="下拉列表的箭头"
+                    android:src="@drawable/drop_down_down" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/show_num"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/chat"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="5dp"
+                    android:src="@drawable/chat" />
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/message_point_28dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/fragment_container"
+                style="@style/match_match"
+                android:layout_below="@+id/main_activity_toolbar"
+                android:background="@color/gray_light">
+
+                <android.support.v4.view.PagerTabStrip
+                    style="@style/match_wrap"
+                    android:layout_gravity="top"
+                    android:background="@color/main_color"
+                    android:textAppearance="@style/PagerTabStripText" />
+            </android.support.v4.view.ViewPager>
+
+
+            <ImageView
+                android:id="@+id/add_experience"
+                style="@style/wrap_wrap"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="17dp"
+                android:paddingRight="15dp"
+                android:src="@drawable/follow" />
+
+            <!-- 欢迎界面-->
+            <include layout="@layout/activity_welcome" />
+            <!-- 用于显示城市-->
+            <ListView
+                android:id="@+id/spinner_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/my_spinner"
+                android:dividerHeight="0dp"
+                android:visibility="gone" />
+        </RelativeLayout>
         <!-- 左侧边栏-->
         <include layout="@layout/left_drawer" />
         <!-- 右侧边栏-->
         <include layout="@layout/right_drawer" />
     </android.support.v4.widget.DrawerLayout>
-
-    <ImageView
-        android:id="@+id/add_experience"
-        style="@style/wrap_wrap"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:paddingBottom="17dp"
-        android:paddingRight="15dp"
-        android:src="@drawable/follow" />
-
-    <!-- 欢迎界面-->
-    <include layout="@layout/activity_welcome" />
-    <!-- 用于显示城市-->
-    <ListView
-        android:id="@+id/spinner_lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/my_spinner"
-        android:visibility="gone"
-        android:dividerHeight="0dp"
-        />
 </RelativeLayout>

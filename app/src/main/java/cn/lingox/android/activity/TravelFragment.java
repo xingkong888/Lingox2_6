@@ -31,7 +31,7 @@ import cn.lingox.android.task.SearchTravelEntity;
 public class TravelFragment extends Fragment {
     private static final int EDIT_TRAVEL = 1102;//修改的请求码
     public ArrayList<TravelEntity> travelDatas;
-    String[] select = new String[]{"All", "Beijing", "Shanghai", "Guangzhou"};
+    String[] select = new String[]{"Beijing", "Shanghai", "Guangzhou"};
     private ImageView anim;
     private AnimationDrawable animationDrawable;
     private PullToRefreshListView mListView;
@@ -137,17 +137,14 @@ public class TravelFragment extends Fragment {
      */
     public void refreshList(int position) {
         this.position = position;
-        switch (position) {
-            case 0://搜索全部数据
-                getAll();
-                break;
-            default://搜索地区
-                getSelect(position);
-                break;
-        }
+        //搜索地区
+        getSelect(position);
     }
 
-    //获取所有的数据
+    /**
+     * 获取所有数据
+     * 不要这个功能，直接获取某地的数据
+     */
     private void getAll() {
         mListView.setRefreshing();
         new GetAllTravelEntity(page, new GetAllTravelEntity.Callback() {

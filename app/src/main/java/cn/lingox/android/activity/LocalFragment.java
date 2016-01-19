@@ -39,7 +39,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
     // Request Codes
     public static final int EDIT_PATH = 102;
     static final String LOG_TAG = "LocalFragment";
-    String[] select = new String[]{"All", "Beijing", "Shanghai", "Guangzhou"};
+    String[] select = new String[]{"Beijing", "Shanghai", "Guangzhou"};
     // Data Elements
     private ArrayList<Path> pathList;
     // UI Elements
@@ -166,17 +166,14 @@ public class LocalFragment extends Fragment implements OnClickListener {
      */
     public void refreshList(int position) {
         this.position = position;
-        switch (position) {
-            case 0://获取所有数据
-                getAll();
-                break;
-            default://获取搜索数据
-                getSelect(position);
-                break;
-        }
+        //获取搜索数据
+        getSelect(position);
     }
 
-    //获取所有数据
+    /**
+     * 获取所有数据
+     * 不要这个功能，直接获取某地的数据
+     */
     private void getAll() {
         new GetPaths().execute();
     }

@@ -1,19 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?><!--用户选择发布哪一种的体验-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/match_match"
-    android:background="@color/three_e">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    >
+    <!-- local-->
+<LinearLayout
+    android:id="@+id/t1"
+    android:layout_width="0dp"
+    android:layout_height="150dp"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/welcome_local"
+        />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="HOST A LOCALEXPERENECE"
+    android:layout_marginTop="20dp"
+    android:textSize="13dp"
+    android:textColor="@color/black_deep"
+    />
 
-    <TextView
-        android:id="@+id/t1"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_weight="1"
-        android:text="local" />
-
-    <TextView
+</LinearLayout>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#000"
+        />
+    <!-- travel-->
+    <LinearLayout
         android:id="@+id/t2"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         android:layout_weight="1"
-        android:text="travel" />
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/welcome_traveler"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POST TRAVELER REQUEST"
+            android:layout_marginTop="20dp"
+            android:textSize="13dp"
+            android:textColor="@color/black_deep"
+            />
+        </LinearLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/t1"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawableTop="@drawable/welcome_local"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:text="dddddddd"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/t2"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:drawableTop="@drawable/welcome_traveler"-->
+        <!--android:text="dddddddddddddddddd"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
 </LinearLayout>

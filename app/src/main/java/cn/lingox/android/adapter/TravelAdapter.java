@@ -62,7 +62,7 @@ public class TravelAdapter extends BaseAdapter {
             holder.avatar = (CircularImageView) convertView.findViewById(R.id.travel_avatar);
             holder.flg = (ImageView) convertView.findViewById(R.id.travel_country_flg);
             holder.name = (TextView) convertView.findViewById(R.id.travel_user_name);
-            holder.location = (TextView) convertView.findViewById(R.id.travel_location);
+//            holder.location = (TextView) convertView.findViewById(R.id.travel_location);
             holder.describe = (TextView) convertView.findViewById(R.id.travel_describe);
             holder.createTime = (TextView) convertView.findViewById(R.id.travel_create_time);
             holder.commentNum = (TextView) convertView.findViewById(R.id.travel_comment_num);
@@ -110,8 +110,8 @@ public class TravelAdapter extends BaseAdapter {
         holder.time.setText(new StringBuilder().append(startTime).append(" ~ ").append(endTime));
         //问题
         holder.describe.setText(travelEntity.getText());
-        //显示省份
-        holder.location.setText(travelEntity.getProvince().isEmpty() ? travelEntity.getCountry() : travelEntity.getProvince());
+//        //显示省份
+//        holder.location.setText(travelEntity.getProvince().isEmpty() ? travelEntity.getCountry() : travelEntity.getProvince());
         //like的人数
         holder.likeNum.setText(String.valueOf(travelEntity.getLikeUsers().size()));
         //comment的人数
@@ -134,6 +134,7 @@ public class TravelAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView flg;
         CircularImageView avatar;
-        TextView name, location, describe, time, createTime, commentNum, likeNum;
+        TextView name, describe, time, createTime, commentNum, likeNum;
+//        location 去掉了
     }
 }

@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private TravelFragment travelFragment;
     // UI Elements
     private ImageView photo;
-    private ImageView flag;
+//    private ImageView flag;
     private MainActivityFragmentAdapter tabAdapter;
     private ViewPager viewPager;
     private DrawerLayout sideDrawers;
@@ -187,16 +187,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         //favourite收藏
         findViewById(R.id.layout_favourite).setOnClickListener(this);
         //setting
-        //feedback
         findViewById(R.id.layout_set).setOnClickListener(this);
+        //feedback
         findViewById(R.id.layout_feedback).setOnClickListener(this);
         //info
         findViewById(R.id.layout_info).setOnClickListener(this);
         //头像
         photo = (ImageView) findViewById(R.id.avatar_info);
         photo.setOnClickListener(this);
-        //国旗
-        flag = (ImageView) findViewById(R.id.iv_flag);
+//        //国旗
+//        flag = (ImageView) findViewById(R.id.iv_flag);
 
         /*********************************************************************/
         /*************************RIGHT MENU*********************************/
@@ -224,7 +224,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         dropDown=(ImageView)findViewById(R.id.spinner_drop_down);
         listView=(ListView)findViewById(R.id.spinner_lv);
         final ArrayList<String> list=new ArrayList<>();
-        list.add("All");
+//        list.add("All");
         list.add("Beijing");
         list.add("Shanghai");
         list.add("Guangzhou");
@@ -303,12 +303,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         if (!LingoXApplication.getInstance().getSkip()) {
             //用户昵称
             ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
-            //用户id
-            ((TextView) findViewById(R.id.tv_username)).setText(
-                    new StringBuilder().append("ID:").append(CacheHelper.getInstance().getSelfInfo().getUsername()));
+            //用户地址
+            ((TextView) findViewById(R.id.tv_user_add)).setText(
+                    CacheHelper.getInstance().getSelfInfo().getProvince().isEmpty()?
+            CacheHelper.getInstance().getSelfInfo().getProvince()+", "+CacheHelper.getInstance().getSelfInfo().getCountry():
+            CacheHelper.getInstance().getSelfInfo().getCountry());
         } else {
             ((TextView) findViewById(R.id.tv_nickname)).setText("");
-            ((TextView) findViewById(R.id.tv_username)).setText("");
+            ((TextView) findViewById(R.id.tv_user_add)).setText("");
         }
     }
 
@@ -431,8 +433,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             tabAdapter.notifyDataSetChanged();
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(MainActivity.this, photo,
                     CacheHelper.getInstance().getSelfInfo().getAvatar(), "circular");
-            ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
-                    CacheHelper.getInstance().getSelfInfo().getCountry()), 2);
+//            ImageHelper.getInstance().loadFlag(flag, JsonHelper.getInstance().getCodeFromCountry(
+//                    CacheHelper.getInstance().getSelfInfo().getCountry()), 2);
         }
     }
 

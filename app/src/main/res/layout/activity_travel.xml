@@ -169,38 +169,41 @@
                     android:layout_marginTop="5dp"
                     android:background="#c7c7c7" />
                 <!-- 问题及描述-->
-                <RelativeLayout
-                    android:id="@+id/time"
-                    style="@style/match_wrap"
-                    android:layout_below="@+id/line"
-                    android:layout_marginTop="8dp">
-                    <!-- 标题-->
-                    <TextView
-                        android:id="@+id/travel_request"
-                        style="@style/match_wrap"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="问题" />
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/time"-->
+                    <!--style="@style/match_wrap"-->
+                    <!--android:layout_below="@+id/line"-->
+                    <!--android:layout_marginTop="8dp">-->
+                    <!-- 标题  数据中没有，去掉-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/travel_request"-->
+                        <!--style="@style/match_wrap"-->
+                        <!--android:layout_marginLeft="50dp"-->
+                        <!--android:layout_marginRight="50dp"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="5dp"-->
+                        <!--android:text="问题"-->
+                        <!--android:textColor="@color/black_deep"-->
+                        <!--/>-->
                     <!-- 具体描述-->
                     <TextView
                         android:id="@+id/travel_detail"
                         style="@style/match_wrap"
-                        android:layout_below="@+id/travel_request"
+                        android:layout_below="@+id/line"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="描述"
-                        android:textColor="@color/black_deep" />
-                </RelativeLayout>
+                        android:textColor="#777" />
+                <!--</RelativeLayout>-->
 
                 <View
                     android:id="@+id/line_1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/time"
+                    android:layout_below="@+id/travel_detail"
                     android:layout_marginTop="5dp"
                     android:background="#c7c7c7" />
                 <!-- 标签-->
@@ -216,6 +219,7 @@
                         android:text="PREFRENCE"
                         android:background="#1000"
                         android:padding="15dp"
+                        android:textColor="#343434"
                         />
 
                     <LinearLayout

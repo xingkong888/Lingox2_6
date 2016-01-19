@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/news_spec_layout"
     style="@style/match_wrap"
-    android:background="@color/white"
     android:orientation="horizontal">
 
     <cn.lingox.android.utils.CircularImageView
@@ -19,8 +18,9 @@
         <TextView
             android:id="@+id/chat_user_name"
             style="@style/wrap_wrap"
-            android:textColor="@color/black_deep"
-            android:textSize="18.5sp" />
+            android:textColor="@color/white"
+            android:textSize="18.5sp"
+            />
 
         <TextView
             android:id="@+id/chat_message_num"
@@ -32,14 +32,21 @@
             android:background="@drawable/message_point_28dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp" />
-
+            android:textSize="14sp"
+            android:visibility="gone"
+            />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/"-->
+            <!--/>-->
 
         <TextView
             android:id="@+id/chat_date"
             style="@style/wrap_wrap"
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp"
+            android:text="ddddd"
             android:textColor="#ababab" />
 
         <TextView

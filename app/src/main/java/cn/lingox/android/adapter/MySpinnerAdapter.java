@@ -10,21 +10,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
-import cn.lingox.android.activity.BaseActivity;
 
 /**
  * Created by wangxinxing on 2016/1/18.
  * 自定义的spinner的适配器
  */
-public class MySpinnerAdapter extends BaseAdapter{
+public class MySpinnerAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<String> list;
 
 
-    public MySpinnerAdapter(Context context,ArrayList<String> list){
-        this.context=context;
-        this.list=list;
+    public MySpinnerAdapter(Context context, ArrayList<String> list) {
+        this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -45,19 +44,19 @@ public class MySpinnerAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if (convertView==null){
-            convertView= LayoutInflater.from(context).inflate(R.layout.myspinner_item,null);
-            viewHolder=new ViewHolder();
-            viewHolder.textView=(TextView)convertView.findViewById(R.id.my_spinner_item);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.myspinner_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.my_spinner_item);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder=(ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.textView.setText(list.get(position));
         return convertView;
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         TextView textView;
     }
 }

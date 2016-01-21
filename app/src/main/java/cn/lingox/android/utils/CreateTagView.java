@@ -52,7 +52,7 @@ public class CreateTagView {
         tagsView.addView(layout);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, lineMargins, 0, 0);
+        params.setMargins(0, lineMargins, DpToPx.dip2px(context, 20), 0);
         /** 一行剩下的空间 **/
         int remainWidth = containerWidth;
         // 表示数组长度

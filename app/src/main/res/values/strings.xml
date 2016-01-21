@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ninety_nine">99+</string>
+    <!--********************************** 花费，用于local的创建过程和详情展示*******************************-->
+    <!--一个礼物-->
+    <string name="gift">A gift</string>
+    <!--AA-->
+    <string name="aa">AA</string>
+    <!--将来作为当地人招待-->
+    <string name="being_hosted">Being hosted back by the traveler in future</string>
+    <!--分享旅行经历-->
+    <string name="share_experience">Traveler’s share about personal experience and story</string>
+
+    <!-- *******************************************************************************************-->
     <!--********************************* travel发布***********************************************-->
     <!-- 第一页内容-->
     <string name="travel_one_country_title">Where are you visiting?</string>

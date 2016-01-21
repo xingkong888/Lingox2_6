@@ -20,16 +20,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationSet;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +34,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-
 import java.util.ArrayList;
 
 import cn.lingox.android.R;
@@ -48,8 +42,6 @@ import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Path;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.ImageHelper;
-import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
 import cn.lingox.android.utils.FileUtil;
@@ -77,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private TravelFragment travelFragment;
     // UI Elements
     private ImageView photo;
-//    private ImageView flag;
+    //    private ImageView flag;
     private MainActivityFragmentAdapter tabAdapter;
     private ViewPager viewPager;
     private DrawerLayout sideDrawers;
@@ -220,27 +212,27 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         }
 /****************************spinner*******************************/
         findViewById(R.id.my_spinner).setOnClickListener(this);
-        showLocation=(TextView)findViewById(R.id.spinner_select_location);
-        dropDown=(ImageView)findViewById(R.id.spinner_drop_down);
-        listView=(ListView)findViewById(R.id.spinner_lv);
-        final ArrayList<String> list=new ArrayList<>();
+        showLocation = (TextView) findViewById(R.id.spinner_select_location);
+        dropDown = (ImageView) findViewById(R.id.spinner_drop_down);
+        listView = (ListView) findViewById(R.id.spinner_lv);
+        final ArrayList<String> list = new ArrayList<>();
 //        list.add("All");
         list.add("Beijing");
         list.add("Shanghai");
         list.add("Guangzhou");
         showLocation.setText(list.get(0));
-        MySpinnerAdapter adapter=new MySpinnerAdapter(this,list);
+        MySpinnerAdapter adapter = new MySpinnerAdapter(this, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (page) {
                     case 0://local
-                    localFragment.refreshList(position);
-                    break;
+                        localFragment.refreshList(position);
+                        break;
                     case 1://travel
-                    travelFragment.refreshList(position);
-                    break;
+                        travelFragment.refreshList(position);
+                        break;
                 }
                 showLocation.setText(list.get(position));
                 dropDown.setImageResource(R.drawable.drop_down_down);
@@ -272,9 +264,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             }
 
             @Override
-            public void onPageScrollStateChanged(int state){
+            public void onPageScrollStateChanged(int state) {
 
-                }
+            }
         });
 
         chooseExperience();
@@ -305,9 +297,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
             ((TextView) findViewById(R.id.tv_nickname)).setText(CacheHelper.getInstance().getSelfInfo().getNickname());
             //用户地址
             ((TextView) findViewById(R.id.tv_user_add)).setText(
-                    CacheHelper.getInstance().getSelfInfo().getProvince().isEmpty()?
-            CacheHelper.getInstance().getSelfInfo().getProvince()+", "+CacheHelper.getInstance().getSelfInfo().getCountry():
-            CacheHelper.getInstance().getSelfInfo().getCountry());
+                    CacheHelper.getInstance().getSelfInfo().getProvince().isEmpty() ?
+                            CacheHelper.getInstance().getSelfInfo().getProvince() + ", " + CacheHelper.getInstance().getSelfInfo().getCountry() :
+                            CacheHelper.getInstance().getSelfInfo().getCountry());
         } else {
             ((TextView) findViewById(R.id.tv_nickname)).setText("");
             ((TextView) findViewById(R.id.tv_user_add)).setText("");
@@ -566,17 +558,18 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
      */
     @Override
     public void showMessageNum(int unread) {
-        if (unread > 0) {
-            if (unread <= 0) {
-                num.setVisibility(View.GONE);
-            } else if (unread <= 99) {
-                num.setVisibility(View.VISIBLE);
-                num.setText(String.valueOf(unread));
-            } else if (unread > 99) {
-                num.setVisibility(View.VISIBLE);
-                num.setText(getString(R.string.ninety_nine));
-            }
+        if (unread <= 0) {
+            num.setVisibility(View.GONE);
+        } else {
+            num.setVisibility(View.VISIBLE);
         }
+//        if (unread <= 99) {
+//            num.setVisibility(View.VISIBLE);
+//            num.setText(String.valueOf(unread));
+//        } else if (unread > 99) {
+//            num.setVisibility(View.VISIBLE);
+//            num.setText(getString(R.string.ninety_nine));
+//        }
     }
 
     /**

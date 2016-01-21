@@ -2,6 +2,7 @@ package cn.lingox.android.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,7 +64,8 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private static final String LOG_TAG = "LocalEditActivity";
     private static final int SELECTLOCATION = 123;
     private int page = 0;//当前页面
-    private RelativeLayout page0, page1, page2, page3, page4, page5, page6;
+    private RelativeLayout page0, page1, page2, page3, page4, page5;
+    private LinearLayout page6;
     private Button next;
     private ImageView background, img, back;
     private TextView pageNum, oneTitle, twoTitle, threeTitle, fourTitle, fiveTitle;
@@ -90,7 +92,10 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     //第五页面
     private ImageView addPathImage;
     private Uri imageUri = null;
-    //第六页面
+    //第六页面---花费
+    private LinearLayout giftLayout, aaLayout, beingLayout, shareLayout;
+    private TextView aaTV;
+    private EditText aaET;
     //第七页面
     private EditText availableTime;
 
@@ -136,7 +141,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         page3 = (RelativeLayout) findViewById(R.id.edit_page_3);//标签
         page4 = (RelativeLayout) findViewById(R.id.edit_page_4);//图片
         page5 = (RelativeLayout) findViewById(R.id.edit_page_5);//选择时间
-        page6 = (RelativeLayout) findViewById(R.id.edit_page_6);//花费问题
+        page6 = (LinearLayout) findViewById(R.id.edit_page_6);//花费问题
         //一
         local = (Button) findViewById(R.id.path_edit_local);
         traveler = (Button) findViewById(R.id.path_edit_traveler);
@@ -247,6 +252,35 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        //花费
+        giftLayout = (LinearLayout) findViewById(R.id.local_edit_gift);
+        giftLayout.setOnClickListener(this);
+        aaLayout = (LinearLayout) findViewById(R.id.local_edit_aa);
+        aaLayout.setOnClickListener(this);
+        beingLayout = (LinearLayout) findViewById(R.id.local_edit_being);
+        beingLayout.setOnClickListener(this);
+        shareLayout = (LinearLayout) findViewById(R.id.local_edit_share);
+        shareLayout.setOnClickListener(this);
+
+        aaTV = (TextView) findViewById(R.id.local_edit_aa_tv);
+        aaET = (EditText) findViewById(R.id.local_edit_aa_et);
+        aaET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //改变前
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //改变
+                path.setCost(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //改变后
             }
         });
         //图片
@@ -389,23 +423,23 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             case R.id.path_edit_back:
                 nextClick(1);
                 break;
-            case R.id.path_edit_local:
+            case R.id.path_edit_local://选择本地人
                 MobclickAgent.onEvent(this, "add_discover_local");
                 path.setType(1);//本地人
                 setLocalOrTraveler();
                 break;
-            case R.id.path_edit_traveler:
-                MobclickAgent.onEvent(this, "add_discover_traveler");
-                path.setType(2);//旅行者
-                background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
-                setLocalOrTraveler();
-                break;
-            case R.id.path_edit_country:
+//            case R.id.path_edit_traveler:
+//                MobclickAgent.onEvent(this, "add_discover_traveler");
+//                path.setType(2);//旅行者
+//                background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
+//                setLocalOrTraveler();
+//                break;
+            case R.id.path_edit_country://选择城市
                 Intent intent = new Intent(this, SelectCountry.class);
                 intent.putExtra(SelectCountry.SELECTLOCATION, SELECTLOCATION);
                 startActivityForResult(intent, SELECTLOCATION);
                 break;
-            case R.id.path_detail_address:
+            case R.id.path_detail_address://根据地图
                 Intent intent1 = new Intent(this, AMapActivity.class);
                 if (!path.getLatitude().isEmpty() && !path.getLongitude().isEmpty()) {
                     String[] doubles = {path.getLatitude(), path.getLongitude()};
@@ -413,10 +447,41 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 }
                 startActivityForResult(intent1, SELECTDETIAL);
                 break;
-            case R.id.path_edit_choose_photo:
+            case R.id.path_edit_choose_photo://选择图片
                 Intent intent4 = new Intent(this, PhotoDialog.class);
                 intent4.putExtra(PhotoDialog.REQUESTED_IMAGE, PhotoDialog.REQUEST_CARD_IMAGE);
                 startActivityForResult(intent4, PhotoDialog.REQUEST_CARD_IMAGE);
+                break;
+            case R.id.local_edit_gift://一个礼物
+                path.setCost("gift");
+                aaTV.setVisibility(View.VISIBLE);
+                aaET.setVisibility(View.GONE);
+                giftLayout.setBackgroundColor(Color.rgb(0, 0, 0));
+                beingLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                shareLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case R.id.local_edit_aa://aa
+                aaTV.setVisibility(View.GONE);
+                aaET.setVisibility(View.VISIBLE);
+                giftLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                beingLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                shareLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case R.id.local_edit_being://将来做为本地人
+                aaTV.setVisibility(View.VISIBLE);
+                aaET.setVisibility(View.GONE);
+                path.setCost("hosted");
+                beingLayout.setBackgroundColor(Color.rgb(0, 0, 0));
+                giftLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                shareLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case R.id.local_edit_share://分享旅行经历
+                aaTV.setVisibility(View.VISIBLE);
+                aaET.setVisibility(View.GONE);
+                path.setCost("share");
+                shareLayout.setBackgroundColor(Color.rgb(0, 0, 0));
+                giftLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                beingLayout.setBackgroundColor(Color.rgb(255, 255, 255));
                 break;
         }
     }
@@ -598,9 +663,8 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                     break;
                 case 6://photo  page4
                     //page0-->page1-->page5-->page2-->page3-->page6  -->page4
-
-                    if (false) {//暂时未定判断条件
-                        showToast("Please choose the type(s) of your local experience.");
+                    if (path.getCost().isEmpty()) {//暂时未定判断条件
+                        showToast("Please select a consumption patterns");
                         page--;
                     } else {
                         pageNum.setText("6/6");

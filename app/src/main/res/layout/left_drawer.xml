@@ -22,12 +22,12 @@
             android:src="@drawable/nearby_nopic_137dp" />
 
         <!--<ImageView-->
-            <!--android:id="@+id/iv_flag"-->
-            <!--android:layout_width="24dp"-->
-            <!--android:layout_height="24dp"-->
-            <!--android:layout_alignBottom="@+id/avatar_info"-->
-            <!--android:layout_alignRight="@+id/avatar_info" />-->
-<!--名字-->
+        <!--android:id="@+id/iv_flag"-->
+        <!--android:layout_width="24dp"-->
+        <!--android:layout_height="24dp"-->
+        <!--android:layout_alignBottom="@+id/avatar_info"-->
+        <!--android:layout_alignRight="@+id/avatar_info" />-->
+        <!--名字-->
         <TextView
             android:id="@+id/tv_nickname"
             android:layout_width="110dp"
@@ -36,7 +36,7 @@
             android:layout_toRightOf="@+id/avatar_info"
             android:text="@string/nickname"
             android:textColor="@android:color/white" />
-<!--地址-->
+        <!--地址-->
         <TextView
             android:id="@+id/tv_user_add"
             android:layout_width="110dp"
@@ -45,18 +45,17 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/avatar_info"
-            android:text="China, Beijing"
             android:drawableLeft="@drawable/lift_point"
             android:drawablePadding="3dp"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_toRightOf="@+id/tv_user_add"
-    android:layout_marginLeft="10dp"
-    android:src="@drawable/lift_edit"
-    />
+            android:text="China, Beijing"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_user_add"
+            android:src="@drawable/lift_edit" />
     </RelativeLayout>
 
     <!--收藏 -->
@@ -77,12 +76,12 @@
         android:id="@+id/layout_contact_list"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:textAllCaps="true"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/lift_follow_following"
         android:drawablePadding="12dp"
         android:gravity="center_vertical"
         android:text="@string/friends"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="16sp" />
     <!-- setting-->
@@ -107,8 +106,8 @@
         android:drawableLeft="@drawable/ic_question_answer_black_24dp"
         android:drawablePadding="12dp"
         android:gravity="center_vertical"
+        android:text="@string/feedback"
         android:textAllCaps="true"
-    android:text="@string/feedback"
         android:textColor="@color/white"
         android:textSize="16sp" />
     <!-- about us-->

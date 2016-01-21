@@ -25,13 +25,13 @@ public class UnLikeTravelEntity extends AsyncTask<Void, String, Boolean> {
     public UnLikeTravelEntity(Context context, HashMap<String, String> map, Callback callback) {
         this.callback = callback;
         this.map = map;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd=new ProgressDialog(context);
+        pd = new ProgressDialog(context);
         pd.setMessage("Load...");
         pd.show();
         pd.setCancelable(false);

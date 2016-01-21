@@ -19,27 +19,29 @@
             android:id="@+id/chat_user_name"
             style="@style/wrap_wrap"
             android:textColor="@color/white"
-            android:textSize="18.5sp"
-            />
+            android:textSize="18.5sp" />
 
-        <TextView
-            android:id="@+id/chat_message_num"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="8dp"
+        <!--<TextView-->
+        <!--android:id="@+id/chat_message_num"-->
+        <!--android:layout_width="17dp"-->
+        <!--android:layout_height="17dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="3dp"-->
+        <!--android:layout_toRightOf="@id/chat_user_name"-->
+        <!--android:background="@drawable/message_point_28dp"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="14sp"-->
+        <!--android:visibility="gone"-->
+        <!--/>-->
+        <ImageView
+            android:id="@+id/chat_read_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/chat_user_name"
-            android:background="@drawable/message_point_28dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:visibility="gone"
-            />
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/"-->
-            <!--/>-->
+            android:layout_toLeftOf="@+id/chat_date"
+            android:src="@drawable/chat_read" />
 
         <TextView
             android:id="@+id/chat_date"

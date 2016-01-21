@@ -2,65 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_root"
     style="@style/match_match"
-    android:background="@color/gray_light">
-
-    <RelativeLayout
-        android:id="@+id/view_path_activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/main_color">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:src="@drawable/top_back_24dp" />
-
-        <TextView
-            style="@style/wrap_match"
-            android:layout_toRightOf="@id/back"
-            android:gravity="center"
-            android:text="View"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            style="@style/wrap_match"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:id="@+id/iv_delete"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="center"
-                android:src="@drawable/top_delete_18dp"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_edit"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="center"
-                android:src="@drawable/top_edit_18dp"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/group_chat"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:scaleType="center"
-                android:src="@drawable/active_groupchat_24dp"
-                android:visibility="gone" />
-        </LinearLayout>
-    </RelativeLayout>
+    android:background="@color/white">
 
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"
         style="@style/match_wrap"
-        android:layout_above="@+id/path_view_comment_bar"
-        android:layout_below="@+id/view_path_activity_toolbar">
+        android:layout_above="@+id/path_view_comment_bar">
 
         <LinearLayout
             android:id="@+id/path_view"
@@ -68,99 +15,155 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:orientation="vertical">
-
+            <!-- 背景图和标题-->
             <RelativeLayout
-                style="@style/match_match"
-                android:background="@color/three_fa">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/path_background"
+                    android:id="@+id/local_background"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp" />
-
+                    android:layout_height="300dp"
+                    android:contentDescription="背景图"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/travel_top" />
+                <!-- 活动标题-->
                 <TextView
+                    android:id="@+id/local_title"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/path_background"
-                    android:background="#c7c7c7" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
 
-                <LinearLayout
-                    android:id="@+id/lalala"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_below="@id/path_background"
-                    android:background="@color/three_fa"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <cn.lingox.android.utils.CircularImageView
-                        android:id="@+id/path_user_avatar"
-                        android:layout_width="59dp"
-                        android:layout_height="59dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:src="@drawable/app_icon" />
-
-                    <RelativeLayout style="@style/wrap_match">
-
-                        <TextView
-                            android:id="@+id/path_title"
-                            style="@style/match_wrap"
-                            android:layout_marginRight="12dp"
-                            android:ellipsize="end"
-                            android:gravity="center_vertical"
-                            android:lines="2"
-                            android:paddingBottom="2dp"
-                            android:textColor="@color/black_deep"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/path_user_name"
-                            style="@style/wrap_wrap"
-                            android:layout_below="@id/path_title"
-                            android:layout_marginBottom="4dp"
-                            android:textColor="#868686"
-                            android:textSize="18sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/lalala"
-                    android:background="@color/three_c7" />
             </RelativeLayout>
-
-            <include
-                layout="@layout/path_include"
+            <!-- 内容-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!-- 内容-->
+                <cn.lingox.android.widget.CheckOverSizeTextView
+                    android:id="@+id/local_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="#777"
+                    android:textSize="16sp" />
+                <!-- 更多-->
+                <TextView
+                    android:id="@+id/local_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/local_more_bg"
+                    android:padding="5dp"
+                    android:text="Read More"
+                    android:textColor="#0f0"
+                    android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/path_view_like_chat_share"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="15dp"
+                    android:background="#123" />
+            </LinearLayout>
+            <!-- 名字、地址-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/three_fa"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/local_avatar"
+                android:orientation="horizontal">
+                <!-- 头像-->
+                <cn.lingox.android.utils.CircularImageView
+                    android:id="@+id/local_avatar"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/default_avatar" />
+
+                <TextView
+                    android:id="@+id/local_name"
+                    style="@style/wrap_wrap"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/local_avatar"
+                    android:textColor="@color/black_deep"
+                    android:textSize="20sp" />
+                <!-- 聊天图标-->
+                <ImageView
+                    android:id="@+id/chat_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/travel_chat" />
+                <!--用户所在地-->
+                <LinearLayout
+                    style="@style/wrap_wrap"
+                    android:layout_below="@+id/local_name"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/local_avatar"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/location" />
+                    <!-- 本地人的地址-->
+                    <TextView
+                        android:id="@+id/local_location"
+                        style="@style/wrap_wrap"
+                        android:padding="5dp"
+                        android:textColor="#6000" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- 地址-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/three_c7" />
+
+                <TextView
+                    android:id="@+id/experience_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp" />
+            </LinearLayout>
+            <!-- INFO-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/three_fa" />
+                    android:layout_height="40dp"
+                    android:background="#EBEBEB"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="INFO" />
 
-                <include layout="@layout/path_like_chat_share" />
-
-                <TextView
+                <include
+                    layout="@layout/path_include"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/three_c7" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-
             <!--展示like-->
             <include layout="@layout/path_like_show" />
             <!-- 展示评论-->
@@ -203,4 +206,53 @@
             android:textColor="@color/main_color"
             android:textSize="15sp" />
     </RelativeLayout>
+    <!-- 标题栏-->
+    <RelativeLayout
+        android:id="@+id/travel_view_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#1000">
+
+        <ImageView
+            android:id="@+id/local_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/active_back_61dp" />
+
+        <TextView
+            android:id="@+id/local_toolbar"
+            style="@style/wrap_match"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Local Experiences"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <!-- 菜单 使用PopupWindow-->
+        <ImageView
+            android:id="@+id/local_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_menu_white_24dp" />
+    </RelativeLayout>
+    <!-- 加入体验-->
+    <LinearLayout
+        android:id="@+id/join_experience"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/three_c7"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join to experience."
+            android:textSize="17sp" />
+    </LinearLayout>
 </RelativeLayout>

@@ -15,9 +15,9 @@
         <ListView
             android:id="@+id/chat_list"
             style="@style/match_match"
+            android:background="@color/black_deep"
             android:cacheColorHint="@color/black_deep"
             android:divider="@color/c7"
-            android:background="@color/black_deep"
             android:dividerHeight="1dp" />
     </LinearLayout>
 

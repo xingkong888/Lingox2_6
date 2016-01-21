@@ -4,40 +4,40 @@
     android:background="@drawable/welcome_top"
     android:orientation="vertical"
     android:visibility="gone">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="#66171616"
-    >
-    <ImageView
-        android:id="@+id/welcome_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        android:padding="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="10dp"
-        android:contentDescription="返回"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Who Are You?"
-        android:textSize="20sp"
-        android:layout_marginTop="13dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="欢迎界面"
-        android:scaleType="center"
-        android:layout_centerInParent="true"
-        android:src="@drawable/window_logo_135dp28dp" />
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#66171616">
+
+        <ImageView
+            android:id="@+id/welcome_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="返回"
+            android:padding="5dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:text="Who Are You?"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="欢迎界面"
+            android:scaleType="center"
+            android:src="@drawable/window_logo_135dp28dp" />
+    </RelativeLayout>
     <!-- local-->
     <RelativeLayout
         android:id="@+id/welcome_local"
@@ -62,8 +62,8 @@
             android:layout_below="@+id/local"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
-            android:textColor="@color/black_deep"
-            android:text="I AM A LOCAL HOST" />
+            android:text="I AM A LOCAL HOST"
+            android:textColor="@color/black_deep" />
     </RelativeLayout>
     <!-- traveler-->
     <RelativeLayout
@@ -88,8 +88,8 @@
             android:layout_below="@+id/travel"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
-            android:textColor="@color/black_deep"
-            android:text="I AM A TRAVELER" />
+            android:text="I AM A TRAVELER"
+            android:textColor="@color/black_deep" />
     </RelativeLayout>
 
 </LinearLayout>

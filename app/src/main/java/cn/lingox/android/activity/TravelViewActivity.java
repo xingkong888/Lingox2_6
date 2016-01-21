@@ -34,7 +34,6 @@ import cn.lingox.android.entity.TravelComment;
 import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
 import cn.lingox.android.helper.TimeHelper;
@@ -66,7 +65,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     public static final String TRAVEL_ID = "demand_id";
     private static final int EDIT_TRAVEL = 2102;
     private ImageView chat;
-    private ImageView flg;
+//    private ImageView flg;
 
     /*用于判断评论编辑栏是否隐藏----暂时屏蔽掉，不使用
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
@@ -100,7 +99,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private TravelLikeAdapter likeAdapter;
 
     private CircularImageView avatar;
-    private TextView userName, location,provide;
+    private TextView userName, location, provide;
 
     private TravelEntity travelEntity;
     private User user;
@@ -115,10 +114,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private TextView endDay;//结束时间---日
     private TextView endMonth;//结束时间----月
     private TextView travelingLocation;//旅行地点
-//    private TextView request;//问题题目---貌似没有
+    //    private TextView request;//问题题目---貌似没有
     private TextView detail;//问题描述
     private ImageView menu;//右上角菜单
-    private LinearLayout favourite,delete,edit,share;
+    private LinearLayout favourite, delete, edit, share;
     private ImageView like;//是否已收藏
     private PopupWindow mPopupWindow;//弹出框
 
@@ -158,45 +157,45 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
      */
     private void initView() {
         //菜单
-        menu=(ImageView)findViewById(R.id.travel_menu);
+        menu = (ImageView) findViewById(R.id.travel_menu);
         menu.setOnClickListener(this);
 
-        View popupView = getLayoutInflater().inflate(R.layout.menu_travel, null);
-        favourite=(LinearLayout)popupView.findViewById(R.id.menu_travel_favourite);
+        View popupView = getLayoutInflater().inflate(R.layout.menu_pop, null);
+        favourite = (LinearLayout) popupView.findViewById(R.id.menu_favourite);
         favourite.setOnClickListener(this);
-        delete=(LinearLayout)popupView.findViewById(R.id.menu_travel_del);
+        delete = (LinearLayout) popupView.findViewById(R.id.menu_del);
         delete.setOnClickListener(this);
-        edit=(LinearLayout)popupView.findViewById(R.id.menu_travel_edit);
+        edit = (LinearLayout) popupView.findViewById(R.id.menu_edit);
         edit.setOnClickListener(this);
-        share=(LinearLayout)popupView.findViewById(R.id.menu_travel_share);
+        share = (LinearLayout) popupView.findViewById(R.id.menu_share);
         share.setOnClickListener(this);
-        like=(ImageView)popupView.findViewById(R.id.menu_iv_favourite);
-        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
+        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
         //开始时间
-         startDay=(TextView)findViewById(R.id.start_day);
-         startMonth=(TextView)findViewById(R.id.start_month);
-       //结束时间
-         endDay=(TextView)findViewById(R.id.end_day);
-         endMonth=(TextView)findViewById(R.id.end_month);
+        startDay = (TextView) findViewById(R.id.start_day);
+        startMonth = (TextView) findViewById(R.id.start_month);
+        //结束时间
+        endDay = (TextView) findViewById(R.id.end_day);
+        endMonth = (TextView) findViewById(R.id.end_month);
         //旅行地点
-         travelingLocation=(TextView)findViewById(R.id.traveling_location);
+        travelingLocation = (TextView) findViewById(R.id.traveling_location);
         //头像
         avatar = (CircularImageView) findViewById(R.id.travel_view_avatar);
         avatar.setOnClickListener(this);
         //名字
         userName = (TextView) findViewById(R.id.travel_view_name);
         userName.setOnClickListener(this);
-        //国旗
-        flg = (ImageView) findViewById(R.id.travel_country_flg);
+//        //国旗
+//        flg = (ImageView) findViewById(R.id.travel_country_flg);
         //旅行者的地址
         location = (TextView) findViewById(R.id.travel_location);
 //        //问题题目-----好像没有
 //         request=(TextView)findViewById(R.id.travel_request);
         //描述
-         detail=(TextView)findViewById(R.id.travel_detail);
+        detail = (TextView) findViewById(R.id.travel_detail);
         //标签
         tagsView = (ViewGroup) findViewById(R.id.travel_view_tag);
         tagLayout = (LinearLayout) findViewById(R.id.tag);
@@ -273,8 +272,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                     location.setText(user.getLocation());
                     //设置头像
                     UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(TravelViewActivity.this, avatar, user.getAvatar(), "circular");
-                    //国旗
-                    ImageHelper.getInstance().loadFlag(flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
+//                    //国旗
+//                    ImageHelper.getInstance().loadFlag(flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
                 }
 
                 @Override
@@ -289,8 +288,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             location.setText(user.getLocation());
             //设置头像
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(this, avatar, user.getAvatar(), "circular");
-            //国旗
-            ImageHelper.getInstance().loadFlag(flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
+//            //国旗
+//            ImageHelper.getInstance().loadFlag(flg, JsonHelper.getInstance().getCodeFromCountry(user.getCountry()), 2);
         }
         //设置标签
         if (travelEntity.getTags().size() > 0) {
@@ -301,12 +300,12 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             }
             //添加标签
             CreateTagView.addTagView(list, tagsView, this);
-        }else{
+        } else {
             tagLayout.setVisibility(View.GONE);
         }
         //设置旅游地点
-        travelingLocation.setText(travelEntity.getProvince().isEmpty()?
-                travelEntity.getCountry():travelEntity.getProvince()+", "+travelEntity.getCountry());
+        travelingLocation.setText(travelEntity.getProvince().isEmpty() ?
+                travelEntity.getCountry() : travelEntity.getProvince() + ", " + travelEntity.getCountry());
         //设置时间段
         startDay.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split("-")[1]);
         startMonth.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split("-")[0]);
@@ -333,7 +332,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 likeLayout.setVisibility(View.GONE);
             }
             if (ownTravel) {
-                like.setImageResource(R.drawable.active_likepeople_24dp);
+                like.setImageResource(R.drawable.active_dislike_24dp);
                 like.setTag(1);
             } else {
                 like.setImageResource(
@@ -531,13 +530,13 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 }
                 break;
             case R.id.travel_menu://菜单
-                mPopupWindow.showAsDropDown(menu,-100,0);
+                mPopupWindow.showAsDropDown(menu, -100, 0);
                 break;
-            case R.id.menu_travel_share://分享
+            case R.id.menu_share://分享
                 mPopupWindow.dismiss();
                 showShare();
                 break;
-            case R.id.menu_travel_edit://编辑
+            case R.id.menu_edit://编辑
                 mPopupWindow.dismiss();
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent editPathIntent = new Intent(this, TravelEditActivity.class);
@@ -547,7 +546,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.menu_travel_del://删除
+            case R.id.menu_del://删除
                 mPopupWindow.dismiss();
                 if (!LingoXApplication.getInstance().getSkip()) {
                     new AlertDialog.Builder(this)
@@ -583,7 +582,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 } else {
                     SkipDialog.getDialog(this).show();
                 }
-                break;case R.id.menu_travel_favourite://收藏
+                break;
+            case R.id.menu_favourite://收藏
                 mPopupWindow.dismiss();
                 if (!LingoXApplication.getInstance().getSkip()) {
                     HashMap<String, String> map = new HashMap<>();
@@ -613,7 +613,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                             }).execute();
                         } else {
                             //like成功，添加到数据源中，并刷新
-                            new LikeTravelEntity(this,map, new LikeTravelEntity.Callback() {
+                            new LikeTravelEntity(this, map, new LikeTravelEntity.Callback() {
                                 @Override
                                 public void onSuccess(TravelEntity entity) {
                                     likeDatas.add(CacheHelper.getInstance().getSelfInfo());

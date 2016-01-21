@@ -40,27 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="5dp"
                 android:textColor="@color/main_color"
                 android:textSize="20sp" />
-            <!-- 地点-->
-            <!--<LinearLayout-->
-                <!--style="@style/wrap_wrap"-->
-                <!--android:gravity="center_vertical">-->
-                <!--&lt;!&ndash; 地点&ndash;&gt;-->
-                <!--<TextView-->
-                    <!--style="@style/wrap_wrap"-->
-                    <!--android:text="Visiting: "-->
-                    <!--android:textColor="#34495e"-->
-                    <!--android:textSize="11sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/travel_location"-->
-                    <!--style="@style/wrap_wrap"-->
-                    <!--android:textColor="#34495e"-->
-                    <!--android:textSize="11sp"-->
-                    <!--android:textStyle="bold" />-->
-            <!--</LinearLayout>-->
             <!-- 时间段-->
             <LinearLayout
                 style="@style/wrap_wrap"

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -57,6 +58,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     private Intent intent = new Intent();
     private LatLonPoint point = null;
 
+    private LinearLayout layout;//搜索栏
+
     private ListView listView;
     private List<String> arrayList = new ArrayList<>();
     private ArrayList<Tip> tipList = new ArrayList<>();
@@ -78,6 +81,13 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         initView();
         if (getIntent().hasExtra("LOCATION")) {
             isChat = true;
+        }
+        if (getIntent().hasExtra("Latitude")) {
+            ok.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
+            lat = Double.valueOf(getIntent().getStringExtra("Latitude"));
+            lng = Double.valueOf(getIntent().getStringExtra("Longitude"));
+            makeMarker(getIntent().getStringExtra("address"));
         }
     }
 
@@ -109,7 +119,8 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
      * 初始化控件
      */
     private void initView() {
-
+        layout = (LinearLayout) findViewById(R.id.qwertyu);
+        //ok
         ok = (Button) findViewById(R.id.map_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override

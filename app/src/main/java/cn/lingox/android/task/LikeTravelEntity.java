@@ -23,16 +23,16 @@ public class LikeTravelEntity extends AsyncTask<Void, String, Boolean> {
     private Context context;
     private ProgressDialog pd;
 
-    public LikeTravelEntity(Context context,HashMap<String, String> map, Callback callback) {
+    public LikeTravelEntity(Context context, HashMap<String, String> map, Callback callback) {
         this.callback = callback;
         this.map = map;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd=new ProgressDialog(context);
+        pd = new ProgressDialog(context);
         pd.setMessage("Loading...");
         pd.show();
         pd.setCancelable(false);

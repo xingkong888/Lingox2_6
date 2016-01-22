@@ -107,7 +107,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     private Button commentSendButton;//评论提交按钮
 
     private int height;
-    private int scrollViewHight;
+    private int scrollViewHeight;
     private int commentHeight;
     private LinearLayout pathView;//整个视图
     //    private LinearLayout pathTime;
@@ -191,7 +191,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         share.setOnClickListener(this);
         groupChat = (LinearLayout) popupView.findViewById(R.id.menu_group_chat);
         groupChat.setOnClickListener(this);
-        groupChat.setVisibility(View.VISIBLE);
         like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
         mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
@@ -246,7 +245,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-//
+
         MyScrollView scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
         scrollView.setScrollViewListener(this);
         pathCommentsNum = (TextView) findViewById(R.id.path_comments_num);
@@ -319,16 +318,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
         if (path.getDateTime() > 0 || path.getEndDateTime() > 0) {
             availableTime.setVisibility(View.GONE);
-//            available.setVisibility(View.GONE);
-//            if (path.getDateTime() != 0 && path.getDateTime() != -1) {
-//                uiHelper.textViewSetPossiblyNullString(pathDateTimeInfo,
-//                        JsonHelper.getInstance().parseTimestamp(
-//                                path.getDateTime(), 1));
-//            }
-//            if (path.getEndDateTime() != 0) {
-//                uiHelper.textViewSetPossiblyNullString(pathEndTimeInfo,
-//                        JsonHelper.getInstance().parseTimestamp(path.getEndDateTime(), 1));
-//            }
         } else {
             availableTime.setVisibility(View.VISIBLE);
             availableTime.setText(path.getAvailableTime());
@@ -362,6 +351,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 tags.add(datas.get(Integer.valueOf(path.getTags().get(a))).getTag());
             }
         }
+
+
         //添加标签
         CreateTagView.addTagView(tags, tagLayout, this);
     }
@@ -398,13 +389,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 //            pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }
-//        if (path.getType() == 2) {
-//            uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString());
-//        } else {
-//            uiHelper.textViewSetPossiblyNullString(pathLocationInfo, path.getLocationString() + "," + path.getDetailAddress());
-//        }
         uiHelper.textViewSetPossiblyNullString(cost, path.getCost());
-//        uiHelper.textViewSetPossiblyNullString(pathGroudSizeInfo, String.valueOf(path.getCapacity()));
     }
 
     @Override
@@ -743,8 +728,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 //            pathCommentsNum.getLocationInWindow(startLocations);
             chat.getLocationInWindow(startLocations);
             pathView.getLocationInWindow(endLocations);
-            if (scrollViewHight <= endLocations[1]) {
-                scrollViewHight = endLocations[1];
+            if (scrollViewHeight <= endLocations[1]) {
+                scrollViewHeight = endLocations[1];
                 commentHeight = startLocations[1];
             }
             if (Math.abs(commentHeight - height) <= y) {
@@ -938,6 +923,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 likeLayout.setVisibility(View.VISIBLE);
                 like.setImageResource(R.drawable.active_like_24dp);
                 like.setTag(1);
+                if (!path.getHxGroupId().isEmpty()) {
+                    groupChat.setVisibility(View.VISIBLE);
+                }
             } else {
                 Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
@@ -983,6 +971,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 like.setImageResource(R.drawable.active_dislike_24dp);
                 like.setTag(0);
+                if (!path.getHxGroupId().isEmpty()) {
+                    groupChat.setVisibility(View.GONE);
+                }
             } else {
                 Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }

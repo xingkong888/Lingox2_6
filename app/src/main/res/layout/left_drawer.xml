@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/avatar_info"
+            android:ellipsize="end"
             android:text="@string/nickname"
             android:textColor="@android:color/white" />
         <!--地址-->
@@ -47,6 +48,7 @@
             android:layout_toRightOf="@+id/avatar_info"
             android:drawableLeft="@drawable/lift_point"
             android:drawablePadding="3dp"
+            android:ellipsize="end"
             android:text="China, Beijing"
             android:textColor="@color/white" />
 

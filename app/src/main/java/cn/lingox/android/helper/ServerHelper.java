@@ -725,12 +725,11 @@ public class ServerHelper {
 //        if (localOrTravel != 0) {
 //            params.put("type", String.valueOf(localOrTravel));
 //        }
-//        params.put("page", String.valueOf(page));
+        params.put("page", String.valueOf(page));
 //        if (postJson.size() > 0) {
 //            params.put("tags", postJson.toString());
 //        }
         params.put(StringConstant.verStr, APPVERSION);
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_GET_PATHS_BY_LOCATION, params);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);
@@ -1662,7 +1661,6 @@ public class ServerHelper {
         params.put("country", country);
         params.put("province", province);
         params.put("city", city);
-
         String jsonStr = MsgSender.postJsonToNet(URLConstant.URL_TRAVEL_GETALL, params);
 
         ReturnMsg rmsg = checkReturnMsg(jsonStr);

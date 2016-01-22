@@ -185,6 +185,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         //info
         findViewById(R.id.layout_info).setOnClickListener(this);
         //头像
+        findViewById(R.id.layout_top).setOnClickListener(this);
         photo = (ImageView) findViewById(R.id.avatar_info);
         photo.setOnClickListener(this);
 //        //国旗
@@ -343,7 +344,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(aboutUsIntent);
                 break;
-            case R.id.avatar_info://头像
+            case R.id.layout_top://头像
                 if (!LingoXApplication.getInstance().getSkip()) {
                     Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
                     userInfoIntent.putExtra(UserInfoActivity.INTENT_USER_ID, CacheHelper.getInstance().getSelfInfo().getId());
@@ -472,7 +473,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     }).start();
                 }
                 break;
-            case LocalFragment.EDIT_PATH:
+            case LocalFragment.EDIT_PATH://修改了数据
                 if (resultCode == LocalViewActivity.RESULT_OK) {
                     if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
                         localFragment.modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
@@ -517,8 +518,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (sideDrawers.isDrawerOpen(Gravity.START)) {
                 sideDrawers.closeDrawers();
+            } else if (sideDrawers.isDrawerOpen(Gravity.END)) {
+                sideDrawers.closeDrawers();
             } else if (popWin.isShowing()) {
                 popWin.dismiss();
+            } else if (listView.getVisibility() == View.VISIBLE) {
+                dropDown.setImageResource(R.drawable.drop_down_down);
+                listView.setVisibility(View.GONE);
             } else {
                 exitSystem();
             }
@@ -552,7 +558,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     }
 
     /**
-     * 展示chatfragment页面未读信息的条数
+     * 展示chatFragment页面未读信息的条数
      *
      * @param unread 未读信息数量
      */

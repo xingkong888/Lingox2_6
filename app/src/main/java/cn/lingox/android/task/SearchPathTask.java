@@ -18,13 +18,15 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
     private ArrayList<Path> tempPathList = new ArrayList<>();
     //    private ProgressDialog pd;
     private Context context;
+    private int page;
 
-    public SearchPathTask(String country, String province, String city, Callback callback, Context context) {
+    public SearchPathTask(String country, String province, String city, Callback callback, int page, Context context) {
         this.country = country;
         this.province = province;
         this.city = city;
         this.callback = callback;
         this.context = context;
+        this.page = page;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class SearchPathTask extends AsyncTask<Void, String, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             tempPathList.addAll(ServerHelper.getInstance().getPathsByLocation(
-                    country, province, city, 0, 0, null));
+                    country, province, city, 0, page, null));
 
             if (!LingoXApplication.getInstance().getSkip()) {
                 for (Path path : tempPathList) {

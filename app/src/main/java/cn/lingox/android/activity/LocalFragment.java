@@ -72,7 +72,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         View view = inflater.inflate(R.layout.fragment_local, container, false);
 
         initView(view);
-        refreshList(0);
+        getSelect(0);
         return view;
     }
 
@@ -90,6 +90,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
         adapter = new LocalAdapter(getActivity(), pathList);
         listView = (PullToRefreshListView) v.findViewById(R.id.path_pto_listview);
         listView.setAdapter(adapter);
+        listView.setRefreshing();
         listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,14 +113,14 @@ public class LocalFragment extends Fragment implements OnClickListener {
                 page = 1;
                 pathList.clear();
                 adapter.notifyDataSetChanged();
-                refreshList(position);
+                getSelect(position);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //上拉加载更多
                 page++;
-                refreshList(position);
+                getSelect(position);
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -165,9 +166,14 @@ public class LocalFragment extends Fragment implements OnClickListener {
      * 调用path下载异步任务
      */
     public void refreshList(int position) {
-        this.position = position;
-        //获取搜索数据
-        getSelect(position);
+        if (this.position != position) {
+            this.position = position;
+            pathList.clear();
+            page = 1;
+            listView.setRefreshing();
+            //搜索地区
+            getSelect(position);
+        }
     }
 
     /**
@@ -180,11 +186,10 @@ public class LocalFragment extends Fragment implements OnClickListener {
 
     //获取搜索数据
     private void getSelect(int position) {
-        listView.setRefreshing();
         if (position == 2) {
-            new SearchPathTask("", "", select[position], localCallback, getActivity()).execute();
+            new SearchPathTask("", "", select[position], localCallback, page, getActivity()).execute();
         } else {
-            new SearchPathTask("", select[position], "", localCallback, getActivity()).execute();
+            new SearchPathTask("", select[position], "", localCallback, page, getActivity()).execute();
         }
     }
 
@@ -204,7 +209,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
      * @param list “”
      */
     public void refershPath(ArrayList<Path> list) {
-        pathList.clear();
         //如果数据为空，则显示动画，并Toast
         pathList.addAll(list);
         if (pathList.size() <= 0) {
@@ -237,7 +241,7 @@ public class LocalFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.refresh_view:
-                refreshList(position);
+                getSelect(position);
                 break;
         }
     }
@@ -260,7 +264,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             tempPathList = new ArrayList<>();
-            listView.setRefreshing();
             if (listView.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_START) {
                 listView.setMode(PullToRefreshBase.Mode.DISABLED);
             }

@@ -45,7 +45,6 @@ public class TravelFragment extends Fragment {
     private SearchTravelEntity.Callback travelCallback = new SearchTravelEntity.Callback() {
         @Override
         public void onSuccess(ArrayList<TravelEntity> list) {
-            travelDatas.clear();
             travelDatas.addAll(list);
             if (travelDatas.size() <= 0) {
                 startAnim();
@@ -67,7 +66,7 @@ public class TravelFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_travel, null);
 
         initView(view);
-        refreshList(0);
+        getSelect(0);
         return view;
     }
 
@@ -85,6 +84,7 @@ public class TravelFragment extends Fragment {
         page = 1;
         adapter = new TravelAdapter(getActivity(), travelDatas);
         mListView.setAdapter(adapter);
+        mListView.setRefreshing();
         mListView.setMode(PullToRefreshBase.Mode.BOTH);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,14 +103,14 @@ public class TravelFragment extends Fragment {
                 page = 1;
                 travelDatas.clear();
                 adapter.notifyDataSetChanged();
-                refreshList(position);
+                getSelect(position);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //上拉加载更多
                 page++;
-                refreshList(position);
+                getSelect(position);
             }
         });
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -136,9 +136,14 @@ public class TravelFragment extends Fragment {
      * 下载
      */
     public void refreshList(int position) {
-        this.position = position;
-        //搜索地区
-        getSelect(position);
+        if (this.position != position) {
+            this.position = position;
+            travelDatas.clear();
+            page = 1;
+            mListView.setRefreshing();
+            //搜索地区
+            getSelect(position);
+        }
     }
 
     /**
@@ -165,11 +170,10 @@ public class TravelFragment extends Fragment {
 
     //获取搜索结果
     private void getSelect(int position) {
-        mListView.setRefreshing();
         if (position == 2) {
-            new SearchTravelEntity("", "", select[position], 1, travelCallback, getActivity()).execute();
+            new SearchTravelEntity("", "", select[position], page, travelCallback, getActivity()).execute();
         } else {
-            new SearchTravelEntity("", select[position], "", 1, travelCallback, getActivity()).execute();
+            new SearchTravelEntity("", select[position], "", page, travelCallback, getActivity()).execute();
         }
     }
 

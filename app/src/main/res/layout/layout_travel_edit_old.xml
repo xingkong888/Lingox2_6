@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match"
+    android:background="@color/main_color">
+
+    <ImageView
+        android:id="@+id/travel_bg"
+        style="@style/match_match"
+        android:src="@drawable/active_map_01_320dp520dp" />
+
+    <RelativeLayout
+        android:id="@+id/travel_xingqi"
+        style="@style/match_wrap"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/travel_edit_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/active_off_61dp" />
+
+        <ImageView
+            android:id="@+id/travel_edit_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/active_back_61dp" />
+
+        <TextView
+            android:id="@+id/travel_edit_num"
+            style="@style/wrap_wrap"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="14dp"
+            android:text="1/4"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/travel_xingqi">
+        <!--要去的地方-->
+        <include
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_1" />
+        <!--你到当地需要的服务及描述-->
+        <include
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_2" />
+        <!--选择标签-->
+        <include
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_3" />
+        <!--你作为本地人的时候能提供什么-->
+        <include
+            style="@style/match_match"
+            layout="@layout/include_travel_edit_4" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/travel_edit_next"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_border_blue_cyc"
+        android:text="@string/path_edit_next"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+</RelativeLayout>

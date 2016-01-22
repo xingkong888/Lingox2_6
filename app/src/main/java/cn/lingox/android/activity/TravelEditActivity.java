@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -47,19 +50,20 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     public static final String TRAVEL_CREATE = "TravelCreate";
     private static final int SELECT_LOCATION = 2013;
 
-    private ImageView bg, back;
-    private LinearLayout page1, page2, page3, page4;
-    private EditText describe;//traveling
+    private LinearLayout pageOne;//第一页
+    private TextView travelLocation;//旅行地址
+    private TextView showArriveTime;//到达时间
+    private TextView showLeaveTime;//离开时间
+    private EditText expect;//期待
+    private LinearLayout pageTwo;//第二页
+    private EditText offer;//提供
+
+    private Button post;//下一页及提交数据
+
     private PathTagsAdapter adapter;
     private ArrayList<PathTags> datas;
     private int checkedNum = 0;
     private HashMap<Integer, Integer> activityTags = new HashMap<>();
-
-    private TextView from, to;
-    private EditText provide;
-    private Button next;
-    private TextView pageNum;
-    private Button selectLocation;
 
     private TravelEntity travelEntity;
 
@@ -73,7 +77,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             calendar.set(year, month, day, 0, 0, 0);
             start = calendar.getTimeInMillis() / 1000L;
             if (end == 0 || end >= start) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(from, TimeHelper.getInstance().parseTimestampToDate(start));
+                UIHelper.getInstance().textViewSetPossiblyNullString(showArriveTime, TimeHelper.getInstance().parseTimestampToDate(start));
                 travelEntity.setStartTime(start);
             } else {
                 Toast.makeText(TravelEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
@@ -86,7 +90,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             calendar.set(year, month, day, 23, 59, 59);
             end = calendar.getTimeInMillis() / 1000L;
             if (end - now >= 0 && (start == 0 || end >= start)) {
-                UIHelper.getInstance().textViewSetPossiblyNullString(to, TimeHelper.getInstance().parseTimestampToDate(end));
+                UIHelper.getInstance().textViewSetPossiblyNullString(showLeaveTime, TimeHelper.getInstance().parseTimestampToDate(end));
                 travelEntity.setEndTime(end);
             } else {
                 Toast.makeText(TravelEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
@@ -112,55 +116,54 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     }
 
     /**
-     * 设置数据
-     * 若是修改，则将原数据设置到控件上
-     */
-    private void setData() {
-        selectLocation.setText(travelEntity.getLocation());
-        describe.setText(travelEntity.getText());
-        //设置tag
-        if (travelEntity.getTags().size() > 0) {
-            for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
-                activityTags.put(Integer.valueOf(travelEntity.getTags().get(i)), 1);
-                if (checkedNum < 3) {
-                    checkedNum++;
-                    datas.get(Integer.valueOf(travelEntity.getTags().get(i))).setType(1);
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-        /************************/
-        from.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()));
-        to.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()));
-
-        provide.setText(travelEntity.getProvide());
-    }
-
-    /**
      * 实例化控件
      */
     private void initView() {
-        bg = (ImageView) findViewById(R.id.travel_bg);
-        next = (Button) findViewById(R.id.travel_edit_next);
-        next.setOnClickListener(this);
-        back = (ImageView) findViewById(R.id.travel_edit_back);
+        /******************************菜单栏********************/
+        ImageView back = (ImageView) findViewById(R.id.travel_edit_back);
         back.setOnClickListener(this);
         ImageView close = (ImageView) findViewById(R.id.travel_edit_close);
         close.setOnClickListener(this);
-        pageNum = (TextView) findViewById(R.id.travel_edit_num);
-//        第一页
-        page1 = (LinearLayout) findViewById(R.id.travel_edit_page_1);
-        selectLocation = (Button) findViewById(R.id.travel_page_1_country);
-        selectLocation.setOnClickListener(this);
-//        第二页
-        page2 = (LinearLayout) findViewById(R.id.travel_edit_page_2);
-        describe = (EditText) findViewById(R.id.travel_page_2_describe);
-        ListView listView = (ListView) findViewById(R.id.travel_page_2_tags);
+        /******************************第一页*********************/
+        pageOne = (LinearLayout) findViewById(R.id.travel_edit_page_one);
+        //选择旅行地点
+        travelLocation = (TextView) findViewById(R.id.travel_edit_location);
+        travelLocation.setOnClickListener(this);
+        //到达时间
+        LinearLayout arriveTime = (LinearLayout) findViewById(R.id.travel_edit_arrive_time);
+        arriveTime.setOnClickListener(this);
+        showArriveTime = (TextView) findViewById(R.id.travel_arrive_time);
+        //离开时间
+        LinearLayout leaveTime = (LinearLayout) findViewById(R.id.travel_edit_leave_time);
+        leaveTime.setOnClickListener(this);
+        showLeaveTime = (TextView) findViewById(R.id.travel_leave_time);
+        //到当地期待或希望的活动
+        expect = (EditText) findViewById(R.id.travel_edit_expect);
+        expect.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                travelEntity.setText(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        /**********************************************第二页*************************/
+        pageTwo = (LinearLayout) findViewById(R.id.travel_edit_page_two);
+        //选择标签
+        ListView selectTag = (ListView) findViewById(R.id.travel_edit_tag);
         datas = new ArrayList<>();
         datas.addAll(LingoXApplication.getInstance().getDatas());
         adapter = new PathTagsAdapter(this, datas, 0);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        selectTag.setAdapter(adapter);
+        selectTag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (datas.get(position).getType() == 0) {
@@ -177,40 +180,74 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 adapter.notifyDataSetChanged();
             }
         });
-//        第三页
-        page3 = (LinearLayout) findViewById(R.id.travel_edit_page_3);
-        from = (TextView) findViewById(R.id.travel_page_3_from);
-        from.setOnClickListener(this);
-        to = (TextView) findViewById(R.id.travel_page_3_to);
-        to.setOnClickListener(this);
-//        第四页
-        page4 = (LinearLayout) findViewById(R.id.travel_edit_page_4);
-        provide = (EditText) findViewById(R.id.travel_page_4_edit);
+        //将来作为本地人能提供的
+        offer = (EditText) findViewById(R.id.travel_edit_offer);
+        offer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                travelEntity.setProvide(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        //下一页及最后的提交
+        post = (Button) findViewById(R.id.travel_edit_next);
+        post.setOnClickListener(this);
+    }
+
+    /**
+     * 设置数据
+     * 若是修改，则将原数据设置到控件上
+     */
+    private void setData() {
+        travelLocation.setText(travelEntity.getLocation());
+        expect.setText(travelEntity.getText());
+        //设置tag
+        if (travelEntity.getTags().size() > 0) {
+            for (int i = 0, j = travelEntity.getTags().size(); i < j; i++) {
+                activityTags.put(Integer.valueOf(travelEntity.getTags().get(i)), 1);
+                if (checkedNum < 3) {
+                    checkedNum++;
+                    datas.get(Integer.valueOf(travelEntity.getTags().get(i))).setType(1);
+                }
+            }
+            adapter.notifyDataSetChanged();
+        }
+        /************************/
+        showArriveTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()));
+        showLeaveTime.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()));
+
+        offer.setText(travelEntity.getProvide());
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.travel_edit_next:
+            case R.id.travel_edit_next://下一页及最后的提交
                 nextClick(0);
                 break;
-            case R.id.travel_page_3_from:
-                //选择时间
+            case R.id.travel_edit_arrive_time: //选择到达时间
                 startDatePickerDialog();
                 break;
-            case R.id.travel_page_3_to:
-                //选择时间
+            case R.id.travel_edit_leave_time://选择离开时间
                 endDatePickerDialog();
                 break;
-            //选择地点
-            case R.id.travel_page_1_country:
+            case R.id.travel_edit_location://选择旅行地点
                 Intent intent = new Intent(this, SelectCountry.class);
                 startActivityForResult(intent, SELECT_LOCATION);
                 break;
-            case R.id.travel_edit_back:
+            case R.id.travel_edit_back://返回
                 nextClick(1);
                 break;
-            case R.id.travel_edit_close:
+            case R.id.travel_edit_close://关闭
                 new AlertDialog.Builder(this)
                         .setMessage("Whether to give up the content you are editing?")
                         .setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -221,7 +258,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                         .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                finish();
+                                back();
                             }
                         })
                         .create().show();
@@ -253,99 +290,60 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     }
 
     /**
-     * 0 on behalf of the next
-     * 1 on behalf of the back
-     * page1-->填写要去的地方
-     * page2-->填写详细描述及选择类型
-     * page3-->选择时间
-     * page4-->填写当你作为本地人的时候，你能提供什么
-     *
-     * @param nextOrBack on behalf of the page number
+     * @param what 表示发出事件的控件
      */
-    private void nextClick(int nextOrBack) {
-        if (nextOrBack == 0) {
-            page++;
-        } else if (nextOrBack == 1) {
-            page--;
-        }
-        if (page > 0) {
-            switch (page) {
-                case 1://填写要去的地方、选择时间
-                    page1.setVisibility(View.VISIBLE);
-                    page2.setVisibility(View.GONE);
-                    page3.setVisibility(View.GONE);
-                    page4.setVisibility(View.GONE);
-                    pageNum.setText("1/4");
-                    bg.setImageResource(R.drawable.active_map_01_320dp520dp);
-                    break;
-                case 2://填写详细描述
-                    if (selectLocation.getText().toString().trim().isEmpty()
-                            || from.getText().toString().isEmpty() || to.getText().toString().isEmpty()) {
-                        page--;
-                        break;
-                    }
-                    page2.setVisibility(View.VISIBLE);
-                    page1.setVisibility(View.GONE);
-                    page3.setVisibility(View.GONE);
-                    page4.setVisibility(View.GONE);
-                    pageNum.setText("2/4");
-                    bg.setImageResource(R.drawable.active_map_02_320dp520dp);
-                    break;
-                case 3://选择类型
-                    if (describe.getText().toString().isEmpty()) {
-                        page--;
-                        break;
-                    }
-                    travelEntity.setText(describe.getText().toString().trim());//设置数据
-
-                    page3.setVisibility(View.VISIBLE);
-                    page2.setVisibility(View.GONE);
-                    page1.setVisibility(View.GONE);
-                    page4.setVisibility(View.GONE);
-                    pageNum.setText("3/4");
-                    bg.setImageResource(R.drawable.active_map_03_320dp520dp);
-                    break;
-                case 4://填写当你作为本地人的时候，你能提供什么
-                    if (!saveTags()) {
-                        page--;
-                        break;
-                    }
-                    page4.setVisibility(View.VISIBLE);
-                    page2.setVisibility(View.GONE);
-                    page3.setVisibility(View.GONE);
-                    page1.setVisibility(View.GONE);
-                    pageNum.setText("4/4");
-                    bg.setImageResource(R.drawable.active_map_04_320dp520dp);
-                    break;
-                case 5://提交数据
-                    if (provide.getText().toString().isEmpty()) {
-                        page--;
-                        break;
-                    }
-                    travelEntity.setProvide(provide.getText().toString().trim());
-                    if (!isEdit) {
-                        //创建
-                        create();
+    private void nextClick(int what) {
+        switch (what) {
+            case 0://“post”的事件
+                //首先判断当前显示的页面
+                if (pageOne.getVisibility() == View.VISIBLE) {
+                    //第一页显示，判断第一页内容是否填写完全
+                    if (travelEntity.getCountry().isEmpty() ||
+                            travelEntity.getStartTime() == -1 ||
+                            travelEntity.getEndTime() == -1 ||
+                            travelEntity.getText().isEmpty()) {
+                        Toast.makeText(this, "请填写完成", Toast.LENGTH_SHORT).show();
                     } else {
-                        //修改
-                        edit();
+                        //填写完成，显示第二页
+                        pageOne.setVisibility(View.GONE);
+                        pageTwo.setVisibility(View.VISIBLE);
+                        post.setText("POST");
                     }
-                    break;
-            }
-            if (page >= 4) {
-                next.setText("COMPLETE");
-            } else {
-                next.setText(getString(R.string.path_edit_next));
-            }
-        } else {
-            if (page <= 0) {
-                //todo 若直接按返回键，未对返回结果做处理，在上一级的onActivityResult中产生NullPointerException
-                finish();
-            } else {
-                back.setVisibility(View.VISIBLE);
-                pageNum.setVisibility(View.VISIBLE);
-            }
+                } else if (pageTwo.getVisibility() == View.VISIBLE) {
+                    //第二页显示，判断第一页内容是否填写完全
+                    if (travelEntity.getTags().size() < 0 ||
+                            travelEntity.getProvide().isEmpty() ||
+                            !saveTags()) {
+                        Toast.makeText(this, "请填写完成", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //填写完成，显示第二页
+                        if (!isEdit) {
+                            //创建
+                            create();
+                        } else {
+                            //修改
+                            edit();
+                        }
+                    }
+                }
+                break;
+            case 1://“back”和系统返回键的事件
+                if (pageOne.getVisibility() == View.GONE) {
+                    pageOne.setVisibility(View.VISIBLE);
+                    pageTwo.setVisibility(View.GONE);
+                    post.setText("NEXT");
+                } else {
+                    back();
+                }
+                break;
         }
+    }
+
+    //返回
+    private void back() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -354,7 +352,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             case SELECT_LOCATION://选择地点
                 String str = data.getStringExtra(SelectCountry.SELECTED);
                 if (!str.isEmpty()) {
-                    selectLocation.setText(str);
+                    travelLocation.setText(str);
                     travelEntity.setLocation(str);
                 }
                 break;
@@ -362,7 +360,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     }
 
     /**
-     * 创建
+     * 创建travel
      */
     private void create() {
         final ProgressDialog pd = new ProgressDialog(this);
@@ -370,7 +368,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
-        next.setClickable(false);
+        post.setClickable(false);
 
         HashMap<String, String> createParams = new HashMap<>();
         setParams(createParams, "create");
@@ -386,6 +384,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 travel.setStartTime(entity.getStartTime());
                 travel.setEndTime(entity.getEndTime());
                 travel.setLocation(entity.getLocation());
+                Log.d("星期", entity.toString());
                 new TravelPlanAsynTask(TravelEditActivity.this, travel, "create").execute();
             }
 
@@ -406,7 +405,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
-        next.setClickable(false);
+        post.setClickable(false);
         HashMap<String, String> editParams = new HashMap<>();
         setParams(editParams, "edit");
         new EditTravelEntity(editParams, new EditTravelEntity.Callback() {

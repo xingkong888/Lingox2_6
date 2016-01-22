@@ -1,7 +1,6 @@
 package cn.lingox.android.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,14 +49,6 @@ public class PathTagsAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.row_path_edit_3_item, null);
             viewHolder.box = (CheckBox) convertView.findViewById(R.id.path_edit_item);
-            switch (type) {
-                case 0://创建页面
-                    viewHolder.box.setTextColor(Color.WHITE);
-                    break;
-                case 1://搜索页面
-                    viewHolder.box.setTextColor(Color.BLACK);
-                    break;
-            }
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

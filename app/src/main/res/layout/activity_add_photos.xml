@@ -35,5 +35,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:padding="8dp"
-        android:src="@drawable/follow" />
+        android:src="@drawable/experiences_add" />
 </RelativeLayout>

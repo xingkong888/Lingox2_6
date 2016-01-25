@@ -38,7 +38,7 @@
             android:layout_marginTop="14dp"
             android:text="Traveler Request"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
     <!-- 正文-->
     <RelativeLayout
@@ -61,7 +61,7 @@
                 android:text="Traveling infomation"
                 android:textAllCaps="true"
                 android:textColor="#777"
-                android:textSize="15sp" />
+                android:textSize="11sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -87,13 +87,14 @@
                     android:gravity="center_vertical"
                     android:hint="Where Are You Traveling?"
                     android:textColor="@color/black_deep"
-                    android:textColorHint="#d9d9d9" />
+                    android:textColorHint="#d9d9d9"
+                    android:textSize="16sp" />
             </LinearLayout>
             <!-- 光荣的分隔线-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#d9d9d9" />
+                android:background="#eee" />
             <!-- 选择到达、离开时间-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,7 +117,8 @@
                         android:layout_height="wrap_content"
                         android:text="arrive from"
                         android:textAllCaps="true"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black_deep"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/travel_arrive_time"
@@ -145,7 +147,8 @@
                         android:layout_height="wrap_content"
                         android:text="leaving on"
                         android:textAllCaps="true"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black_deep"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/travel_leave_time"
@@ -170,16 +173,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="#f7f7f7"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="what will YOU DO in this trip"
-                    android:textAllCaps="true"
-                    android:textColor="#777"
-                    android:textSize="15sp" />
+                    android:background="#f7f7f7">
+
+                    <TextView
+                        android:id="@+id/dadaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="what will YOU DO in this trip"
+                        android:textAllCaps="true"
+                        android:textColor="#777"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30.5dp"
+                        android:layout_toRightOf="@+id/dadaa"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="100 Characters left"
+                        android:textColor="#c6c6c6"
+                        android:textSize="11sp" />
+
+                </RelativeLayout>
                 <!-- expect 期待的意思-->
                 <EditText
                     android:id="@+id/travel_edit_expect"
@@ -209,10 +230,10 @@
                     android:layout_height="50dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="选择本地人类型"
+                    android:text="@string/travel_three_title"
                     android:textAllCaps="true"
                     android:textColor="#777"
-                    android:textSize="15sp" />
+                    android:textSize="11sp" />
 
                 <ListView
                     android:id="@+id/travel_edit_tag"
@@ -232,10 +253,10 @@
                     android:background="#f7f7f7"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="将来作为本地人能提供的"
+                    android:text="@string/travel_four_title"
                     android:textAllCaps="true"
                     android:textColor="#777"
-                    android:textSize="15sp" />
+                    android:textSize="11sp" />
 
                 <EditText
                     android:id="@+id/travel_edit_offer"
@@ -275,13 +296,12 @@
 
     <Button
         android:id="@+id/travel_edit_next"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
         android:background="#c9c9c9"
         android:text="@string/path_edit_next"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="16sp" />
 </RelativeLayout>

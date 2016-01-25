@@ -376,8 +376,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 welcome.setVisibility(View.GONE);
                 break;
             case R.id.my_spinner://自定义spinner
-                listView.setVisibility(View.VISIBLE);
-                dropDown.setImageResource(R.drawable.drop_down_up);
+                if (listView.getVisibility() == View.GONE) {
+                    listView.setVisibility(View.VISIBLE);
+                    dropDown.setImageResource(R.drawable.drop_down_up);
+                } else {
+                    listView.setVisibility(View.GONE);
+                    dropDown.setImageResource(R.drawable.drop_down_down);
+                }
                 break;
         }
     }

@@ -17,7 +17,7 @@
             android:text="Availability"
             android:textAllCaps="true"
             android:textColor="#BABABA"
-            android:textSize="15sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/available_time"
@@ -26,7 +26,7 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="#2E332F"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
         <!-- 开始、结束时间-->
         <LinearLayout
             android:id="@+id/dududu"
@@ -142,6 +142,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
 
         <LinearLayout
@@ -159,21 +161,22 @@
                 android:text="prefrence"
                 android:textAllCaps="true"
                 android:textColor="#BABABA"
-                android:textSize="15sp" />
+                android:textSize="10sp" />
 
             <LinearLayout
                 android:id="@+id/local_tag_layout"
                 style="@style/match_wrap"
-                android:focusable="false"
-                android:gravity="right"
                 android:orientation="vertical"
                 android:paddingBottom="5dp"
+                android:paddingRight="10dp"
                 android:paddingTop="5dp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
     </LinearLayout>
     <!--无用-->
@@ -194,6 +197,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
     </LinearLayout>
     <!--花费-->
@@ -217,7 +222,8 @@
                 android:gravity="center_vertical"
                 android:text="cost"
                 android:textAllCaps="true"
-                android:textColor="#BABABA" />
+                android:textColor="#BABABA"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/local_cost"
@@ -227,12 +233,15 @@
                 android:focusable="false"
                 android:gravity="right"
                 android:paddingRight="20dp"
-                android:textColor="#6E6E6E" />
+                android:textColor="#6E6E6E"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
     </LinearLayout>
     <!--参与人数 弃用-->
@@ -271,6 +280,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
     </LinearLayout>
     <!--活动描述 弃用-->
@@ -294,6 +305,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#c7c7c7" />
     </LinearLayout>
 </LinearLayout>

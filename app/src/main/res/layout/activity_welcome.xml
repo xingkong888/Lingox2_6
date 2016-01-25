@@ -25,10 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="10dp"
             android:text="Who Are You?"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="16.5sp" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -49,21 +49,22 @@
 
         <ImageView
             android:id="@+id/local"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="63.5dp"
+            android:layout_height="63.5dp"
+            android:layout_centerHorizontal="true"
             android:contentDescription="本地人图标"
             android:focusable="false"
-            android:scaleType="center"
             android:src="@drawable/welcome_local" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/local"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="18dp"
             android:gravity="center_horizontal"
             android:text="I AM A LOCAL HOST"
-            android:textColor="@color/black_deep" />
+            android:textColor="@color/black_deep"
+            android:textSize="12sp" />
     </RelativeLayout>
     <!-- traveler-->
     <RelativeLayout
@@ -76,20 +77,21 @@
 
         <ImageView
             android:id="@+id/travel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="63.5dp"
+            android:layout_height="63.5dp"
+            android:layout_centerHorizontal="true"
             android:contentDescription="旅行者图标"
-            android:scaleType="center"
             android:src="@drawable/welcome_traveler" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/travel"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="18dp"
             android:gravity="center_horizontal"
             android:text="I AM A TRAVELER"
-            android:textColor="@color/black_deep" />
+            android:textColor="@color/black_deep"
+            android:textSize="12sp" />
     </RelativeLayout>
 
 </LinearLayout>

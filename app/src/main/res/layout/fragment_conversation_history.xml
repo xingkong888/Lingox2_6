@@ -17,7 +17,7 @@
             style="@style/match_match"
             android:background="@color/black_deep"
             android:cacheColorHint="@color/black_deep"
-            android:divider="@color/c7"
+            android:divider="#515151"
             android:dividerHeight="1dp" />
     </LinearLayout>
 

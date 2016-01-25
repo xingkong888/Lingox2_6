@@ -141,8 +141,6 @@ public class TravelFragment extends Fragment {
             travelDatas.clear();
             page = 1;
             mListView.setRefreshing();
-            //搜索地区
-            getSelect(position);
         }
     }
 

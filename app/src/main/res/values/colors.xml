@@ -67,7 +67,7 @@
     <color name="grid_state_focused">#80000000</color>
     <color name="voip_interface_text_color">#BABABA</color>
     <color name="black_deep">@android:color/black</color>
-    <color name="main_color">#00838F</color>
+    <color name="main_color">#1fd8a5</color>
     <color name="Proficient">#3949AB</color>
     <color name="Advanced">#42A5F5</color>
     <color name="Intermediate">#4FC3F7</color>

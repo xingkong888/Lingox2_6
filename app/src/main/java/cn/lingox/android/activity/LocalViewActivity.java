@@ -352,9 +352,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             }
         }
 
-
         //添加标签
-        CreateTagView.addTagView(tags, tagLayout, this);
+        CreateTagView.addTagView(tags, tagLayout, this, "local");
     }
 
     //设置键盘的显示与隐藏

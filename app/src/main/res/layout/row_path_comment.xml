@@ -12,12 +12,12 @@
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/comment_user_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:contentDescription="CommentUserAvatar"
             android:src="@drawable/default_avatar" />
 
@@ -33,13 +33,13 @@
                 style="@style/wrap_wrap"
                 android:padding="3dp"
                 android:textColor="#198f99"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/reply_tar_name"
                 style="@style/wrap_wrap"
                 android:padding="3dp"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
@@ -48,6 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="16dp"
             android:paddingRight="10dp"
+            android:textColor="#777"
             android:textSize="10sp" />
 
         <TextView
@@ -58,8 +59,8 @@
             android:layout_toRightOf="@+id/comment_user_avatar"
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
-            android:textColor="@color/black_deep"
-            android:textSize="16sp" />
+            android:textColor="#777"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/path_replay"

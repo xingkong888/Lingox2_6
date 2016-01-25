@@ -2,6 +2,7 @@ package cn.lingox.android.utils;
 
 import android.app.Activity;
 import android.graphics.Paint;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -31,8 +32,10 @@ public class CreateTagView {
      * @param tags     标签集合
      * @param tagsView 显示控件
      * @param context  上下文
+     * @param what     "local"表示"LocalViewActivity"
+     *                 "travel"表示"TravelViewActivity"
      */
-    public static void addTagView(ArrayList<String> tags, ViewGroup tagsView, Activity context) {
+    public static void addTagView(ArrayList<String> tags, ViewGroup tagsView, Activity context, String what) {
         int width = LingoXApplication.getInstance().getWidth();
 
         tagsView.removeAllViews();
@@ -49,10 +52,18 @@ public class CreateTagView {
         LinearLayout layout = new LinearLayout(context);
         layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         layout.setOrientation(LinearLayout.HORIZONTAL);
+        switch (what) {
+            case "local":
+                layout.setGravity(Gravity.RIGHT);
+                break;
+            case "travel":
+                break;
+        }
         tagsView.addView(layout);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, lineMargins, DpToPx.dip2px(context, 20), 0);
+
         /** 一行剩下的空间 **/
         int remainWidth = containerWidth;
         // 表示数组长度
@@ -70,6 +81,13 @@ public class CreateTagView {
                 layout = new LinearLayout(context);
                 layout.setLayoutParams(params);
                 layout.setOrientation(LinearLayout.HORIZONTAL);
+                switch (what) {
+                    case "local":
+                        layout.setGravity(Gravity.RIGHT);
+                        break;
+                    case "travel":
+                        break;
+                }
                 /** 将前面那一个textview加入新的一行 */
                 addItemView(inflater, layout, tvParams, text);
                 tagsView.addView(layout);

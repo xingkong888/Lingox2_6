@@ -27,7 +27,8 @@
                 android:paddingLeft="15dp"
                 android:text="@string/path_comments"
                 android:textAllCaps="true"
-                android:textColor="#777" />
+                android:textColor="#777"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/path_comments_num"
@@ -38,7 +39,8 @@
                 android:layout_toRightOf="@+id/lawu"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="20dp" />
+                android:paddingRight="20dp"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView

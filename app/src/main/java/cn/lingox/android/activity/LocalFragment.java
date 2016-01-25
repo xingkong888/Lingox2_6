@@ -171,8 +171,6 @@ public class LocalFragment extends Fragment implements OnClickListener {
             pathList.clear();
             page = 1;
             listView.setRefreshing();
-            //搜索地区
-            getSelect(position);
         }
     }
 

@@ -7,7 +7,7 @@
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"
         style="@style/match_wrap"
-        android:layout_above="@+id/path_view_comment_bar">
+        android:layout_above="@+id/bottom">
 
         <LinearLayout
             android:id="@+id/path_view"
@@ -61,14 +61,14 @@
                 <!-- 更多-->
                 <TextView
                     android:id="@+id/local_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="11dp"
                     android:background="@drawable/local_more_bg"
-                    android:padding="5dp"
+                    android:gravity="center"
                     android:text="Read More"
                     android:textColor="#0f0"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -81,13 +81,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/local_avatar"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <!-- 头像-->
                 <cn.lingox.android.utils.CircularImageView
                     android:id="@+id/local_avatar"
-                    android:layout_width="58dp"
-                    android:layout_height="58dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="21.5dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/default_avatar" />
@@ -95,15 +96,16 @@
                 <TextView
                     android:id="@+id/local_name"
                     style="@style/wrap_wrap"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="18dp"
                     android:layout_toRightOf="@+id/local_avatar"
+                    android:text="Name"
                     android:textColor="@color/black_deep"
-                    android:textSize="20sp" />
+                    android:textSize="10sp" />
                 <!-- 聊天图标-->
                 <ImageView
                     android:id="@+id/chat_local"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_alignParentRight="true"
                     android:layout_margin="15dp"
                     android:src="@drawable/travel_chat" />
@@ -117,15 +119,16 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="5.5dp"
+                        android:layout_height="9dp"
                         android:src="@drawable/location" />
                     <!-- 本地人的地址-->
                     <TextView
                         android:id="@+id/local_location"
                         style="@style/wrap_wrap"
-                        android:padding="5dp"
-                        android:textColor="#6000" />
+                        android:padding="4dp"
+                        android:textColor="#777"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </RelativeLayout>
             <!-- 地址-->
@@ -143,7 +146,8 @@
                     android:id="@+id/experience_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp" />
+                    android:padding="15dp"
+                    android:textSize="14sp" />
             </LinearLayout>
             <!-- INFO-->
             <LinearLayout
@@ -157,7 +161,9 @@
                     android:background="#EBEBEB"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="INFO" />
+                    android:text="INFO"
+                    android:textColor="#777"
+                    android:textSize="10sp" />
 
                 <include
                     layout="@layout/path_include"
@@ -170,8 +176,31 @@
             <include layout="@layout/path_comment_show" />
         </LinearLayout>
     </cn.lingox.android.widget.MyScrollView>
-    <!-- 编辑评论-->
-    <include layout="@layout/path_commit_edit" />
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
+        <!-- 编辑评论-->
+        <include layout="@layout/path_commit_edit" />
+        <!-- 加入体验-->
+        <LinearLayout
+            android:id="@+id/join_experience"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/three_c7"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join to experience."
+                android:textSize="17sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/loading_bar"
@@ -240,19 +269,4 @@
             android:scaleType="center"
             android:src="@drawable/ic_menu_white_24dp" />
     </RelativeLayout>
-    <!-- 加入体验-->
-    <LinearLayout
-        android:id="@+id/join_experience"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/three_c7"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Join to experience."
-            android:textSize="17sp" />
-    </LinearLayout>
 </RelativeLayout>

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -147,7 +146,11 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                travelEntity.setText(s.toString());
+                if (s.length() <= 100) {
+                    travelEntity.setText(s.toString());
+                } else {
+                    Toast.makeText(TravelEditActivity.this, "100 characters left", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -302,7 +305,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                             travelEntity.getStartTime() == -1 ||
                             travelEntity.getEndTime() == -1 ||
                             travelEntity.getText().isEmpty()) {
-                        Toast.makeText(this, "请填写完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Please fill out the complete.", Toast.LENGTH_SHORT).show();
                     } else {
                         //填写完成，显示第二页
                         pageOne.setVisibility(View.GONE);
@@ -314,7 +317,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                     if (travelEntity.getTags().size() < 0 ||
                             travelEntity.getProvide().isEmpty() ||
                             !saveTags()) {
-                        Toast.makeText(this, "请填写完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Please fill out the complete.", Toast.LENGTH_SHORT).show();
                     } else {
                         //填写完成，显示第二页
                         if (!isEdit) {
@@ -384,7 +387,6 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 travel.setStartTime(entity.getStartTime());
                 travel.setEndTime(entity.getEndTime());
                 travel.setLocation(entity.getLocation());
-                Log.d("星期", entity.toString());
                 new TravelPlanAsynTask(TravelEditActivity.this, travel, "create").execute();
             }
 

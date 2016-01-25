@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="63.5dp"
+            android:layout_height="63.5dp"
             android:src="@drawable/welcome_local" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_marginTop="20dp"
             android:text="HOST A LOCALEXPERENECE"
             android:textColor="@color/black_deep"
-            android:textSize="13dp" />
+            android:textSize="12dp" />
 
     </LinearLayout>
 
@@ -44,8 +44,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="63.5dp"
+            android:layout_height="63.5dp"
             android:src="@drawable/welcome_traveler" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_marginTop="20dp"
             android:text="POST TRAVELER REQUEST"
             android:textColor="@color/black_deep"
-            android:textSize="13dp" />
+            android:textSize="12dp" />
     </LinearLayout>
     <!--<TextView-->
     <!--android:id="@+id/t1"-->

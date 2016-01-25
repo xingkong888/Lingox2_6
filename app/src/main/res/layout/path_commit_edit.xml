@@ -3,8 +3,6 @@
     android:id="@+id/path_view_comment_bar"
     style="@style/match_wrap"
     android:layout_alignParentBottom="true"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="5dp"
     android:background="#c7c7c7"
     android:gravity="center_vertical"
     android:orientation="horizontal"

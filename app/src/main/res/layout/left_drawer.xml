@@ -36,7 +36,8 @@
             android:layout_toRightOf="@+id/avatar_info"
             android:ellipsize="end"
             android:text="@string/nickname"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
         <!--地址-->
         <TextView
             android:id="@+id/tv_user_add"
@@ -50,7 +51,8 @@
             android:drawablePadding="3dp"
             android:ellipsize="end"
             android:text="China, Beijing"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -67,12 +69,12 @@
         android:layout_height="64dp"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/ic_favorite"
-        android:drawablePadding="12dp"
+        android:drawablePadding="30dp"
         android:gravity="center_vertical"
         android:text="Favourite"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
     <!-- follow/following-->
     <TextView
         android:id="@+id/layout_contact_list"
@@ -80,12 +82,12 @@
         android:layout_height="64dp"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/lift_follow_following"
-        android:drawablePadding="12dp"
+        android:drawablePadding="30dp"
         android:gravity="center_vertical"
         android:text="@string/friends"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
     <!-- setting-->
     <TextView
         android:id="@+id/layout_set"
@@ -93,12 +95,12 @@
         android:layout_height="64dp"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/lift_setting"
-        android:drawablePadding="12dp"
+        android:drawablePadding="30dp"
         android:gravity="center_vertical"
         android:text="@string/setting"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
     <!-- feedback-->
     <TextView
         android:id="@+id/layout_feedback"
@@ -106,12 +108,12 @@
         android:layout_height="64dp"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/ic_question_answer_black_24dp"
-        android:drawablePadding="12dp"
+        android:drawablePadding="30dp"
         android:gravity="center_vertical"
         android:text="@string/feedback"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
     <!-- about us-->
     <TextView
         android:id="@+id/layout_info"
@@ -119,10 +121,10 @@
         android:layout_height="64dp"
         android:layout_marginLeft="24dp"
         android:drawableLeft="@drawable/lift_about"
-        android:drawablePadding="12dp"
+        android:drawablePadding="30dp"
         android:gravity="center_vertical"
         android:text="@string/about_us"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 </LinearLayout>

@@ -299,7 +299,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 list.add(tags.get(Integer.valueOf(travelEntity.getTags().get(i))).getTag());
             }
             //添加标签
-            CreateTagView.addTagView(list, tagsView, this);
+            CreateTagView.addTagView(list, tagsView, this, "travel");
         } else {
             tagLayout.setVisibility(View.GONE);
         }

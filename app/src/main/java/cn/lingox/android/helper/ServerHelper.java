@@ -865,7 +865,9 @@ public class ServerHelper {
         switch (flag) {
             case "create"://创建
                 params.put(StringConstant.userIdStr, path.getUserId());
+//                Log.d("星期",params.toString());
                 jsonStr = MsgSender.postJsonToNet(URLConstant.URL_CREATE_PATH, params);
+//                Log.d("星期",jsonStr);
                 break;
             case "edit"://修改
                 params.put(StringConstant.pathId, path.getId());

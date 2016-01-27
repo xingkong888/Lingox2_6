@@ -5,10 +5,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/three_c7" />
+        android:background="@color/color_separation_line" />
 
     <RelativeLayout
         android:id="@+id/path_view_social_layout"
@@ -39,11 +39,11 @@
             android:paddingRight="20dp"
             android:textSize="10sp" />
 
-        <TextView
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/three_c7" />
+            android:background="@color/color_separation_line" />
     </RelativeLayout>
 
     <view
@@ -54,8 +54,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp" />
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/three_c7" />
+        android:background="@color/color_separation_line" />
 </LinearLayout>

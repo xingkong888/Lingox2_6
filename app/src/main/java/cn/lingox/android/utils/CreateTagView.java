@@ -35,9 +35,9 @@ public class CreateTagView {
      * @param what     "local"表示"LocalViewActivity"
      *                 "travel"表示"TravelViewActivity"
      */
-    public static void addTagView(ArrayList<String> tags, ViewGroup tagsView, Activity context, String what) {
+    public static void addTagView(ArrayList<String> tags,
+                                  ViewGroup tagsView, Activity context, String what) {
         int width = LingoXApplication.getInstance().getWidth();
-
         tagsView.removeAllViews();
         int containerWidth = width - DpToPx.dip2px(context, 100);
         LayoutInflater inflater = context.getLayoutInflater();
@@ -117,7 +117,9 @@ public class CreateTagView {
      * @param params    布局参数
      * @param text      内容
      */
-    private static void addItemView(LayoutInflater inflater, ViewGroup viewGroup, ViewGroup.LayoutParams params, final String text) {
+    private static void addItemView(LayoutInflater inflater,
+                                    ViewGroup viewGroup, ViewGroup.LayoutParams params,
+                                    final String text) {
         final TextView tvItem = (TextView) inflater.inflate(R.layout.row_tag_include, null);
         tvItem.setText(text);
         viewGroup.addView(tvItem, params);

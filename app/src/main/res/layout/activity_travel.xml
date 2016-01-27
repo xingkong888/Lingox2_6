@@ -101,61 +101,72 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/top">
-                <!-- 头像-->
-                <cn.lingox.android.utils.CircularImageView
-                    android:id="@+id/travel_view_avatar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/default_avatar" />
-                <!-- 名字-->
-                <TextView
-                    android:id="@+id/travel_view_name"
-                    style="@style/wrap_wrap"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/travel_view_avatar"
-                    android:textColor="@color/black_deep"
-                    android:textSize="20sp" />
-                <!-- 聊天图标-->
-                <ImageView
-                    android:id="@+id/chat_travel"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/travel_chat" />
-                <!--用户所在地-->
-                <LinearLayout
-                    style="@style/wrap_wrap"
-                    android:layout_below="@+id/travel_view_name"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/travel_view_avatar"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                android:layout_below="@+id/top"
+                android:gravity="center_vertical">
 
+                <RelativeLayout
+                    android:id="@+id/pppppppp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <!-- 头像-->
+                    <cn.lingox.android.utils.CircularImageView
+                        android:id="@+id/travel_view_avatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/default_avatar" />
+                    <!-- 聊天图标-->
                     <ImageView
+                        android:id="@+id/chat_travel"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/travel_chat" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/location" />
-                    <!-- 旅行者的地址-->
-                    <TextView
-                        android:id="@+id/travel_location"
-                        style="@style/wrap_wrap"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="#6000" />
-                </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="18dp"
+                        android:layout_toRightOf="@+id/travel_view_avatar"
+                        android:orientation="vertical">
+                        <!-- 名字-->
+                        <TextView
+                            android:id="@+id/travel_view_name"
+                            style="@style/wrap_wrap"
+                            android:layout_marginBottom="8dp"
+                            android:textColor="@color/black_deep"
+                            android:textSize="10sp" />
+                        <!--用户所在地-->
+                        <LinearLayout
+                            style="@style/wrap_wrap"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/location" />
+                            <!-- 旅行者的地址-->
+                            <TextView
+                                android:id="@+id/travel_location"
+                                style="@style/wrap_wrap"
+                                android:layout_marginLeft="5dp"
+                                android:textColor="#6000"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/travel_view_avatar"
+                    android:layout_below="@+id/pppppppp"
                     android:layout_marginTop="5dp"
-                    android:background="#c7c7c7" />
+                    android:background="@color/color_separation_line" />
                 <!-- 问题及描述-->
                 <!--<RelativeLayout-->
                 <!--android:id="@+id/time"-->
@@ -222,13 +233,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/tag"
-                    android:background="#c7c7c7" />
-                <!-- 可提供-->
+                    android:background="@color/color_separation_line" />
+                <!-- 可提供  隐藏-->
                 <LinearLayout
                     android:id="@+id/provide"
                     style="@style/match_wrap"
                     android:layout_below="@+id/line_2"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"

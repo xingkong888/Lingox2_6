@@ -74,61 +74,65 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="15dp"
-                    android:background="#123" />
+                    android:background="@color/color_separation_line" />
             </LinearLayout>
             <!-- 名字、地址-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/local_avatar"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_toRightOf="@+id/local_avatar">
                 <!-- 头像-->
                 <cn.lingox.android.utils.CircularImageView
                     android:id="@+id/local_avatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_margin="10dp"
                     android:layout_marginLeft="21.5dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="10dp"
                     android:src="@drawable/default_avatar" />
 
-                <TextView
-                    android:id="@+id/local_name"
-                    style="@style/wrap_wrap"
-                    android:layout_marginTop="18dp"
-                    android:layout_toRightOf="@+id/local_avatar"
-                    android:text="Name"
-                    android:textColor="@color/black_deep"
-                    android:textSize="10sp" />
                 <!-- 聊天图标-->
                 <ImageView
                     android:id="@+id/chat_local"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:src="@drawable/travel_chat" />
-                <!--用户所在地-->
-                <LinearLayout
-                    style="@style/wrap_wrap"
-                    android:layout_below="@+id/local_name"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/local_avatar"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="5.5dp"
-                        android:layout_height="9dp"
-                        android:src="@drawable/location" />
-                    <!-- 本地人的地址-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_toRightOf="@+id/local_avatar"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:id="@+id/local_location"
+                        android:id="@+id/local_name"
                         style="@style/wrap_wrap"
-                        android:padding="4dp"
-                        android:textColor="#777"
-                        android:textSize="14sp" />
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/black_deep"
+                        android:textSize="10sp" />
+                    <!--用户所在地-->
+                    <LinearLayout
+                        style="@style/wrap_wrap"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="5.5dp"
+                            android:layout_height="9dp"
+                            android:src="@drawable/location" />
+                        <!-- 本地人的地址-->
+                        <TextView
+                            android:id="@+id/local_location"
+                            style="@style/wrap_wrap"
+                            android:padding="4dp"
+                            android:textColor="#777"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
             <!-- 地址-->
@@ -140,7 +144,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/three_c7" />
+                    android:background="@color/color_separation_line" />
 
                 <TextView
                     android:id="@+id/experience_location"
@@ -200,7 +204,6 @@
                 android:textSize="17sp" />
         </LinearLayout>
     </RelativeLayout>
-
 
     <ProgressBar
         android:id="@+id/loading_bar"

@@ -92,7 +92,16 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     //    private TextView pathDateTimeInfo, pathEndTimeInfo;//开始、结束时间
     private CheckOverSizeTextView details;//活动内容描述
     private TextView more;
-    private TextView cost;//活动花费
+    /**********************
+     * 活动花费
+     *************************/
+    private TextView cost;
+    private TextView giftTv;
+    private TextView shareTv;
+    private TextView beingTv;
+    private TextView AATv;
+    private TextView otherTv;
+
     //    private TextView pathGroudSizeInfo;//群组人数----弃用
     private TextView experienceLocation;//活动地址
     private InputMethodManager manager;//软键盘管理器
@@ -241,6 +250,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         tagLayout = (ViewGroup) findViewById(R.id.local_tag_layout);
         //花费
         cost = (TextView) findViewById(R.id.local_cost);
+        giftTv = (TextView) findViewById(R.id.local_gift);
+        shareTv = (TextView) findViewById(R.id.local_share);
+        beingTv = (TextView) findViewById(R.id.local_being);
+        AATv = (TextView) findViewById(R.id.local_aa);
+        otherTv = (TextView) findViewById(R.id.local_other);
         //软键盘管理器
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         getWindow().setSoftInputMode(
@@ -326,22 +340,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
         uiHelper.textViewSetPossiblyNullString(experienceLocation, path.getLocationString());
         //判断花费类型
-        String costStr = "";
-        switch (path.getCost()) {
-            case "gift"://礼物
-                costStr = getString(R.string.gift);
-                break;
-            case "AA"://AA
-                costStr = path.getCost();
-                break;
-            case "hosted"://将来做本地人
-                costStr = getString(R.string.being_hosted);
-                break;
-            case "share"://分享经历
-                costStr = getString(R.string.share_experience);
-                break;
-        }
-        uiHelper.textViewSetPossiblyNullString(cost, costStr);
+        setCost();
         if (TextUtils.isEmpty(path.getHxGroupId())) {
             groupChat.setVisibility(View.GONE);
         }
@@ -388,7 +387,64 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 //            pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }
-        uiHelper.textViewSetPossiblyNullString(cost, path.getCost());
+//        uiHelper.textViewSetPossiblyNullString(cost, path.getCost());
+        //判断花费类型
+        setCost();
+    }
+
+    private void setCost() {
+        //        costStr="gift?:%s@@@share?:%s@@@being?:%s@@@AA?:%s@@@others?:%s";
+        String costStr = path.getCost();
+//        String costStr = "gift?:false@@@share?:true@@@being?:false@@@AA?:23@@@others?:dddddadfsd dasdfa";
+        String[] cost1 = costStr.split("@@@");
+//        Log.d("星期",cost1.length+"");
+        if (cost1.length <= 1) {
+            cost.setText(costStr);
+            cost.setVisibility(View.VISIBLE);
+        } else {
+            for (String s : cost1) {
+//                Log.d("星期",s.split(":")[0]+"<><><>"+s.split(":")[1]);
+                switch (s.split(":")[0]) {
+                    case "gift?"://礼物
+                        if ("false".equals(s.split(":")[1])) {
+                            giftTv.setVisibility(View.GONE);
+                        } else {
+                            giftTv.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case "being?"://将来做本地人
+                        if ("false".equals(s.split(":")[1])) {
+                            beingTv.setVisibility(View.GONE);
+                        } else {
+                            beingTv.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case "share?"://分享经历
+                        if ("false".equals(s.split(":")[1])) {
+                            shareTv.setVisibility(View.GONE);
+                        } else {
+                            shareTv.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case "AA?"://AA
+                        if ("false".equals(s.split(":")[1])) {
+                            AATv.setVisibility(View.GONE);
+                        } else {
+                            AATv.setVisibility(View.VISIBLE);
+                            AATv.setText(s.split(":")[1]);
+                        }
+                        break;
+                    case "ohters?"://自己填写
+                        if ("false".equals(s.split(":")[1])) {
+                            otherTv.setVisibility(View.GONE);
+                        } else {
+                            otherTv.setVisibility(View.VISIBLE);
+                            otherTv.setText(s.split(":")[1]);
+                        }
+                        break;
+                }
+            }
+        }
     }
 
     @Override

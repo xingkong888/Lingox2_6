@@ -77,4 +77,6 @@
     <color name="shadow_color">#55000000</color>
     <color name="three_c7">#7FC7C7C7</color>
     <color name="c7">#C7C7C7</color>
+    <!-- 不确定分隔线的颜色值-->
+    <color name="color_separation_line">@color/three_c7</color>
 </resources>

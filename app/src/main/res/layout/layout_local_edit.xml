@@ -1,105 +1,506 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_match"
-    android:background="@color/main_color">
-
-    <ImageView
-        android:id="@+id/path_edit_background"
-        style="@style/match_match"
-        android:layout_margin="2dp"
-        android:background="@drawable/active_background_01_320dp520dp"
-        android:scaleType="fitXY" />
-
-    <ImageView
-        android:id="@+id/path_edit_img"
-        android:layout_width="match_parent"
-        android:layout_height="249dp"
-        android:layout_margin="2dp"
-        android:background="@drawable/active_color" />
-
+    android:background="#f7f7f7">
+    <!-- 标题栏-->
     <RelativeLayout
-        android:id="@+id/xingqi"
-        style="@style/match_wrap">
+        android:id="@+id/local_edit_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color">
+
+        <ImageView
+            android:id="@+id/path_edit_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/active_back_61dp"
+            android:contentDescription="返回" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Host Local Experence"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/path_edit_close"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/active_off_61dp" />
-
-        <ImageView
-            android:id="@+id/path_edit_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/active_back_61dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/path_edit_num"
-            style="@style/wrap_wrap"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:visibility="gone" />
+            android:background="@drawable/active_off_61dp"
+            android:contentDescription="关闭" />
     </RelativeLayout>
-
+    <!--正文-->
     <RelativeLayout
-        android:id="@+id/qwer"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_below="@+id/xingqi">
-        <!--local or traveler-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_0" />
-        <!--选择地点-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_1" />
-        <!--标题-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_2" />
-        <!--标签-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_3" />
-        <!--选择图片-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_4"
-            android:visibility="gone" />
-        <!--选择时间-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_5"
-            android:visibility="gone" />
-        <!-- 花费-->
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_6"
-            android:visibility="gone" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/local_edit_top_bar">
+        <!-- 第一页-->
+        <LinearLayout
+            android:id="@+id/local_edit_page_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--**************************标题*****************************-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ebebeb"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Traveling infomation"
+                android:textAllCaps="true"
+                android:textColor="#777"
+                android:textSize="11sp" />
 
-        <include
-            style="@style/match_match"
-            layout="@layout/fragment_path_edit_7" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/menu" />
+
+                <EditText
+                    android:id="@+id/local_edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="Request Title"
+                    android:textColor="@color/black_deep"
+                    android:textColorHint="#d9d9d9"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <!-- 光荣的分隔线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+            <!--**************************地址*****************************-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ebebeb"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Event's location"
+                android:textAllCaps="true"
+                android:textColor="#777"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/search" />
+
+                <TextView
+                    android:id="@+id/local_edit_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:hint="Address?"
+                    android:textColor="@color/black_deep"
+                    android:textColorHint="#d9d9d9"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <!-- 光荣的分隔线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+            <!--**************************时间*****************************-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ebebeb"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Availabilty"
+                android:textAllCaps="true"
+                android:textColor="#777"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/menu" />
+
+                <EditText
+                    android:id="@+id/local_edit_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="Allow time"
+                    android:textColor="@color/black_deep"
+                    android:textColorHint="#d9d9d9"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <!-- 光荣的分隔线-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_separation_line" />
+        </LinearLayout>
+        <!-- 第二页-->
+        <LinearLayout
+            android:id="@+id/local_edit_page_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <!-- 选择标签-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#ebebeb"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="add tags"
+                    android:textAllCaps="true"
+                    android:textColor="#777"
+                    android:textSize="11sp" />
+
+                <LinearLayout
+                    android:id="@+id/add_tags"
+                    style="@style/match_wrap"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#ebebeb">
+
+                    <TextView
+                        android:id="@+id/dadaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="what will YOU DO in this trip"
+                        android:textAllCaps="true"
+                        android:textColor="#777"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30.5dp"
+                        android:layout_toRightOf="@+id/dadaa"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="100 Characters left"
+                        android:textColor="#c6c6c6"
+                        android:textSize="11sp" />
+
+                </RelativeLayout>
+                <!-- describe 描述的意思-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/local_edit_describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:maxHeight="140dp"
+                        android:minHeight="100dp"
+                        android:padding="15dp" />
+                    <!-- prompt 提示的意思-->
+                    <TextView
+                        android:id="@+id/prompt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/menu"
+                        android:drawablePadding="5dp"
+                        android:hint="What will you do in this trip?"
+                        android:textColorHint="#d9d9d9" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 第三页-->
+        <LinearLayout
+            android:id="@+id/local_edit_page_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ebebeb"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="what are you charging for showing travelers?"
+                android:textAllCaps="true"
+                android:textColor="#777"
+                android:textSize="11sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/local_edit_cost_gift_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <ImageView
+                        android:id="@+id/local_edit_cost_gift"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/local_edit_cost_select"
+                        android:padding="2dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/chat_read" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/local_edit_cost_gift"
+                        android:text="A special gift" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/local_edit_cost_share_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <ImageView
+                        android:id="@+id/local_edit_cost_share"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/local_edit_cost_select"
+                        android:padding="2dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/chat_read" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/local_edit_cost_share"
+                        android:text="Share about personal experience and story" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/local_edit_cost_being_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <ImageView
+                        android:id="@+id/local_edit_cost_being"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/local_edit_cost_select"
+                        android:padding="2dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/chat_read" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/local_edit_cost_being"
+                        android:text="Being hosted back by traveler(s) in future" />
+                </RelativeLayout>
+                <!-- 标签选择有home meal时，显示-->
+                <RelativeLayout
+                    android:id="@+id/local_edit_cost_money_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/local_edit_cost_money"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/local_edit_cost_select"
+                        android:padding="2dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/chat_read" />
+
+                    <TextView
+                        android:id="@+id/tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/local_edit_cost_money"
+                        android:text="Share the food material fee " />
+
+                    <EditText
+                        android:id="@+id/cost"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tip"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/cost"
+                        android:text="RMB/person" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/local_edit_cost_others_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <ImageView
+                        android:id="@+id/local_edit_cost_others"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/local_edit_cost_select"
+                        android:padding="2dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/chat_read" />
+
+                    <TextView
+                        android:id="@+id/others_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/local_edit_cost_others"
+                        android:text="Others" />
+
+                    <EditText
+                        android:id="@+id/other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/others_tip"
+                        android:enabled="false"
+                        android:minWidth="180dp"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 第四页-->
+        <LinearLayout
+            android:id="@+id/local_edit_page_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ebebeb"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="upload event's photo"
+                android:textAllCaps="true"
+                android:textColor="#777"
+                android:textSize="11sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/local_edit_photo"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/local_edit_photo"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 
     <Button
         android:id="@+id/path_edit_next"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/button_border_blue_cyc"
+        android:background="#c9c9c9"
         android:text="@string/path_edit_next"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="16sp" />
+
 </RelativeLayout>

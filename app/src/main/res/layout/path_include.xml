@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/ddd"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="Availability"
@@ -42,7 +42,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#c7c7c7" />
+                    android:background="@color/color_separation_line" />
 
                 <TextView
                     android:id="@+id/path_datetime"
@@ -67,7 +67,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#c7c7c7c7" />
+                android:background="@color/color_separation_line" />
             <!--结束时间-->
             <RelativeLayout
                 style="@style/match_wrap"
@@ -144,7 +144,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
 
         <LinearLayout
             style="@style/match_wrap"
@@ -155,7 +155,7 @@
 
             <TextView
                 android:id="@+id/path_tag"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="prefrence"
@@ -177,7 +177,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--无用-->
     <LinearLayout
@@ -199,7 +199,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--花费-->
     <LinearLayout
@@ -216,7 +216,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
@@ -230,11 +230,130 @@
                 style="@style/match_wrap"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/path_cost"
-                android:focusable="false"
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="#6E6E6E"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone" />
+            <!--<LinearLayout-->
+            <!--android:id="@+id/local_edit_page_three"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="right"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/local_gift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="13dp"
+                    android:text="A special gift"
+                    android:textColor="#6e6e6e"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/local_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="13dp"
+                    android:text="Share about personal experience and story"
+                    android:textColor="#6e6e6e"
+                    android:textSize="10sp" />
+                <!--<RelativeLayout-->
+                <!--android:id="@+id/local_edit_cost_being_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp">-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/local_edit_cost_being"-->
+                <!--android:layout_width="13dp"-->
+                <!--android:layout_height="13dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@drawable/local_edit_cost_select"-->
+                <!--android:padding="2dp"-->
+                <!--android:scaleType="centerInside"-->
+                <!--android:src="@drawable/chat_read" />-->
+
+                <TextView
+                    android:id="@+id/local_being"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@+id/local_edit_cost_being"
+                    android:text="Being hosted back by traveler(s) in future"
+                    android:textColor="#6e6e6e"
+                    android:textSize="10sp" />
+                <!--</RelativeLayout>-->
+                <!-- 标签选择有home meal时，显示-->
+                <!--<RelativeLayout-->
+                <!--android:id="@+id/local_edit_cost_money_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp">-->
+
+                <TextView
+                    android:id="@+id/local_aa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="13dp"
+                    android:text="Share the food material fee 100 RMB/person"
+                    android:textColor="#6e6e6e"
+                    android:textSize="10sp" />
+
+                <!--<EditText-->
+                <!--android:id="@+id/cost"-->
+                <!--android:layout_width="35dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:enabled="false"-->
+                <!--android:inputType="number"-->
+                <!--android:textSize="12sp"-->
+                <!--android:layout_toRightOf="@+id/tip" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_toRightOf="@+id/cost"-->
+                <!--android:text="RMB/person" />-->
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                <!--android:id="@+id/local_edit_cost_others_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp">-->
+
+                <TextView
+                    android:id="@+id/local_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="13dp"
+                    android:text="Others"
+                    android:textColor="#6e6e6e"
+                    android:textSize="10sp" />
+
+                <!--<EditText-->
+                <!--android:id="@+id/other"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/others_tip"-->
+                <!--android:enabled="false"-->
+                <!--android:textSize="12sp"-->
+                <!--android:minWidth="180dp" />-->
+                <!--</RelativeLayout>-->
+            </LinearLayout>
+            <!--</LinearLayout>-->
         </LinearLayout>
 
         <View
@@ -242,7 +361,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--参与人数 弃用-->
     <LinearLayout
@@ -282,7 +401,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--活动描述 弃用-->
     <LinearLayout
@@ -307,6 +426,6 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#c7c7c7" />
+            android:background="@color/color_separation_line" />
     </LinearLayout>
 </LinearLayout>

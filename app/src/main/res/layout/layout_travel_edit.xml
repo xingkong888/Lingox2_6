@@ -35,7 +35,6 @@
         <TextView
             style="@style/wrap_wrap"
             android:layout_centerInParent="true"
-            android:layout_marginTop="14dp"
             android:text="Traveler Request"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -55,7 +54,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#f7f7f7"
+                android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="Traveling infomation"
@@ -66,7 +65,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#d9d9d9" />
+                android:background="@color/color_separation_line" />
             <!-- 选择旅行地点-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:src="@drawable/search_icon" />
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/search" />
 
                 <TextView
                     android:id="@+id/travel_edit_location"
@@ -94,7 +94,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#eee" />
+                android:background="@color/color_separation_line" />
             <!-- 选择到达、离开时间-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,7 +166,40 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#d9d9d9" />
+                android:background="@color/color_separation_line" />
+
+        </LinearLayout>
+        <!-- 第二页-->
+        <LinearLayout
+            android:id="@+id/travel_edit_page_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <!-- 选择标签-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#ebebeb"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="add tags"
+                    android:textAllCaps="true"
+                    android:textColor="#777"
+                    android:textSize="11sp" />
+
+                <LinearLayout
+                    android:id="@+id/add_tags"
+                    style="@style/match_wrap"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="10dp" />
+            </LinearLayout>
             <!-- 到当地需要的服务及描述-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,6 +215,7 @@
                         android:id="@+id/dadaa"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:background="#ebebeb"
                         android:gravity="center_vertical"
                         android:paddingLeft="15dp"
                         android:text="what will YOU DO in this trip"
@@ -202,55 +236,41 @@
 
                 </RelativeLayout>
                 <!-- expect 期待的意思-->
-                <EditText
-                    android:id="@+id/travel_edit_expect"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:maxHeight="140dp"
-                    android:minHeight="100dp"
-                    android:padding="15dp" />
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/travel_edit_expect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:maxHeight="140dp"
+                        android:minHeight="100dp"
+                        android:padding="15dp" />
+                    <!-- prompt 提示的意思-->
+                    <TextView
+                        android:id="@+id/prompt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/menu"
+                        android:drawablePadding="5dp"
+                        android:hint="What will you do in this trip?" />
+                </RelativeLayout>
             </LinearLayout>
-        </LinearLayout>
-        <!-- 第二页-->
-        <LinearLayout
-            android:id="@+id/travel_edit_page_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <!-- 选择标签-->
+            <!-- 将来作为本地人能提供的  隐藏，不再需要-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="@string/travel_three_title"
-                    android:textAllCaps="true"
-                    android:textColor="#777"
-                    android:textSize="11sp" />
-
-                <ListView
-                    android:id="@+id/travel_edit_tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/white" />
-            </LinearLayout>
-            <!-- 将来作为本地人能提供的-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#f7f7f7"
+                    android:background="#ebebeb"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:text="@string/travel_four_title"
@@ -270,29 +290,29 @@
         </LinearLayout>
     </RelativeLayout>
     <!-- 原来的布局-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@+id/travel_top"
-        android:visibility="gone">
-        <!--要去的地方-->
-        <include
-            style="@style/match_match"
-            layout="@layout/include_travel_edit_1" />
-        <!--你到当地需要的服务及描述-->
-        <include
-            style="@style/match_match"
-            layout="@layout/include_travel_edit_2" />
-        <!--选择标签-->
-        <include
-            style="@style/match_match"
-            layout="@layout/include_travel_edit_3" />
-        <!--你作为本地人的时候能提供什么-->
-        <include
-            style="@style/match_match"
-            layout="@layout/include_travel_edit_4" />
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="400dp"-->
+    <!--android:layout_below="@+id/travel_top"-->
+    <!--android:visibility="gone">-->
+    <!--&lt;!&ndash;要去的地方&ndash;&gt;-->
+    <!--<include-->
+    <!--style="@style/match_match"-->
+    <!--layout="@layout/include_travel_edit_1" />-->
+    <!--&lt;!&ndash;你到当地需要的服务及描述&ndash;&gt;-->
+    <!--<include-->
+    <!--style="@style/match_match"-->
+    <!--layout="@layout/include_travel_edit_2" />-->
+    <!--&lt;!&ndash;选择标签&ndash;&gt;-->
+    <!--<include-->
+    <!--style="@style/match_match"-->
+    <!--layout="@layout/include_travel_edit_3" />-->
+    <!--&lt;!&ndash;你作为本地人的时候能提供什么&ndash;&gt;-->
+    <!--<include-->
+    <!--style="@style/match_match"-->
+    <!--layout="@layout/include_travel_edit_4" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <Button
         android:id="@+id/travel_edit_next"

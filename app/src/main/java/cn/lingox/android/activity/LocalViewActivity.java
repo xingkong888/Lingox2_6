@@ -1,5 +1,6 @@
 package cn.lingox.android.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -10,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -57,7 +57,6 @@ import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.CheckOverSizeTextView;
 import cn.lingox.android.widget.MyScrollView;
-import cn.lingox.android.widget.ScrollViewListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import it.sephiroth.android.library.widget.HListView;
@@ -65,7 +64,7 @@ import it.sephiroth.android.library.widget.HListView;
 /**
  * 本地人发布的活动详情页
  */
-public class LocalViewActivity extends ActionBarActivity implements View.OnClickListener, ScrollViewListener {
+public class LocalViewActivity extends Activity implements View.OnClickListener {
     // Incoming Intent Extras
     public static final String PATH_TO_VIEW = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW";
     public static final String PATH_TO_VIEW_ID = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW_ID";
@@ -105,13 +104,14 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
     //    private TextView pathGroudSizeInfo;//群组人数----弃用
     private TextView experienceLocation;//活动地址
     private InputMethodManager manager;//软键盘管理器
+    private MyScrollView scrollView;
 
     private TextView pathCommentsNum;//评论者人数
     private TextView pathJoinedUserNum;//收藏人数
     //
     private HListView joinedUsersListView;//收藏用户头像
     private LinearLayout commentsSend, commentsListView;
-    private RelativeLayout layout;//申请成功后的群聊引导
+    //    private RelativeLayout layout;//申请成功后的群聊引导
     private EditText commentEditText;//评论编辑框
     private Button commentSendButton;//评论提交按钮
 
@@ -200,7 +200,6 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         share.setOnClickListener(this);
         groupChat = (LinearLayout) popupView.findViewById(R.id.menu_group_chat);
         groupChat.setOnClickListener(this);
-        like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
         mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
@@ -260,8 +259,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        MyScrollView scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
-        scrollView.setScrollViewListener(this);
+        scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
+//        scrollView.setScrollViewListener(this);
         pathCommentsNum = (TextView) findViewById(R.id.path_comments_num);
         pathJoinedUserNum = (TextView) findViewById(R.id.path_particpants_num);
         //收藏者
@@ -283,8 +282,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
 
         pathView = (LinearLayout) findViewById(R.id.path_view);
         //申请之后的引导
-        layout = (RelativeLayout) findViewById(R.id.path_view_yindao);
-        layout.setOnClickListener(this);
+//        layout = (RelativeLayout) findViewById(R.id.path_view_yindao);
+//        layout.setOnClickListener(this);
 
         datas = LingoXApplication.getInstance().getDatas();
     }
@@ -315,16 +314,15 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         } else {
             likeLayout.setVisibility(View.GONE);
         }
-
+        commentsList.clear();
+        commentsList.addAll(path.getComments());
+        pathCommentsNum.setText(String.valueOf(commentsList.size()));
         if (path.getComments().size() > 0) {
-            commitLayout.setVisibility(View.VISIBLE);
-            commentsList.clear();
-            commentsList.addAll(path.getComments());
-            pathCommentsNum.setText(String.valueOf(commentsList.size()));
             loadComments();
-        } else {
-            commitLayout.setVisibility(View.GONE);
         }
+//        else {
+//            commitLayout.setVisibility(View.GONE);
+//        }
         uiHelper.imageViewSetPossiblyEmptyUrl(this, avatar, user.getAvatar(), "circular");
         Picasso.with(this).load(path.getImage11()).into(background);
         uiHelper.textViewSetPossiblyNullString(userName, user.getNickname());
@@ -553,9 +551,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                     commentEditText.setHint("");
                 }
                 break;
-            case R.id.path_view_yindao://引导页
-                layout.setVisibility(View.GONE);
-                break;
+//            case R.id.path_view_yindao://引导页
+//                layout.setVisibility(View.GONE);
+//                break;
             case R.id.local_back://返回
                 finishedViewing();
                 break;
@@ -609,10 +607,11 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
      * 返回上一级
      */
     private void finishedViewing() {
-        if (layout.isShown()) {
-            //若群聊引导页显示，则隐藏
-            layout.setVisibility(View.GONE);
-        } else if (!replyEveryOne) {
+//        if (layout.isShown()) {
+//            //若群聊引导页显示，则隐藏
+//            layout.setVisibility(View.GONE);
+//        } else
+        if (!replyEveryOne) {
             //若正在回复某人，则清空回复框
             replyEveryOne = true;
             commentEditText.setHint("");
@@ -719,8 +718,10 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 ImageView delete = (ImageView) rowView.findViewById(R.id.path_del);
                 delete.setVisibility(View.VISIBLE);
             } else {
-                ImageView replay = (ImageView) rowView.findViewById(R.id.path_replay);
-                replay.setVisibility(View.VISIBLE);
+//                ImageView replay = (ImageView) rowView.findViewById(R.id.path_replay);
+//                replay.setVisibility(View.VISIBLE);
+                ImageView delete = (ImageView) rowView.findViewById(R.id.path_del);
+                delete.setVisibility(View.GONE);
             }
         }
         TextView userNickname = (TextView) rowView.findViewById(R.id.comment_user_nickname);
@@ -777,25 +778,25 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
         super.onPause();
     }
 
-    @Override
-    public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
-        if (!LingoXApplication.getInstance().getSkip()) {
-//            pathCommentsNum.getLocationInWindow(startLocations);
-            chat.getLocationInWindow(startLocations);
-            pathView.getLocationInWindow(endLocations);
-            if (scrollViewHeight <= endLocations[1]) {
-                scrollViewHeight = endLocations[1];
-                commentHeight = startLocations[1];
-            }
-            if (Math.abs(commentHeight - height) <= y) {
-                commentsSend.setVisibility(View.VISIBLE);
-                join.setVisibility(View.GONE);
-            } else {
-                commentsSend.setVisibility(View.GONE);
-                join.setVisibility(View.VISIBLE);
-            }
-        }
-    }
+//    @Override
+//    public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
+//        if (!LingoXApplication.getInstance().getSkip()) {
+////            pathCommentsNum.getLocationInWindow(startLocations);
+//            chat.getLocationInWindow(startLocations);
+//            pathView.getLocationInWindow(endLocations);
+//            if (scrollViewHeight <= endLocations[1]) {
+//                scrollViewHeight = endLocations[1];
+//                commentHeight = startLocations[1];
+//            }
+//            if (Math.abs(commentHeight - height) <= y) {
+//                commentsSend.setVisibility(View.VISIBLE);
+//                join.setVisibility(View.GONE);
+//            } else {
+//                commentsSend.setVisibility(View.GONE);
+//                join.setVisibility(View.VISIBLE);
+//            }
+//        }
+//    }
 
     /**
      * 下载活动数据
@@ -833,8 +834,8 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                     public void onSuccess(User cbUser) {
                         user = cbUser;
                         CacheHelper.getInstance().addUserInfo(user);
+                        loadingBar.setVisibility(View.GONE);
                         setData();
-                        loadingBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
@@ -869,7 +870,7 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
                 Toast.makeText(LocalViewActivity.this, getString(R.string.fail_down_user), Toast.LENGTH_SHORT).show();
                 finish();
             }
-            loadingBar.setVisibility(View.INVISIBLE);
+            loadingBar.setVisibility(View.GONE);
             setData();
         }
     }
@@ -967,9 +968,9 @@ public class LocalViewActivity extends ActionBarActivity implements View.OnClick
             pd.dismiss();
             if (success) {
                 MobclickAgent.onEvent(LocalViewActivity.this, "discover_like", new HashMap<String, String>().put("like", "dislike"));
-                if (!TextUtils.isEmpty(path.getHxGroupId())) {
-                    layout.setVisibility(View.VISIBLE);
-                }
+//                if (!TextUtils.isEmpty(path.getHxGroupId())) {
+//                    layout.setVisibility(View.VISIBLE);
+//                }
                 path.addAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 joinedUsersAdapter.addItem(CacheHelper.getInstance().getSelfInfo());
                 pathJoinedUserNum.setText(String.valueOf((Integer.parseInt(pathJoinedUserNum.getText().toString()) + 1)));

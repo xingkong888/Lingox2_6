@@ -28,10 +28,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.easemob.chat.EMGroupManager;
-import com.easemob.exceptions.EaseMobException;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
@@ -40,7 +37,6 @@ import cn.lingox.android.R;
 import cn.lingox.android.adapter.MySpinnerAdapter;
 import cn.lingox.android.app.LingoXApplication;
 import cn.lingox.android.entity.Path;
-import cn.lingox.android.entity.TravelEntity;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
@@ -85,6 +81,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
     private TextView showLocation;//显示选中地区
     private ImageView dropDown;//箭头旋转动画
     private ListView listView;//显示所有地区
+    private int position = 0;//表示第几项被选择
     //welcome
     private LinearLayout welcome;
     //表示viewpager当前页
@@ -181,7 +178,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         //setting
         findViewById(R.id.layout_set).setOnClickListener(this);
         //feedback
-        findViewById(R.id.layout_feedback).setOnClickListener(this);
+//        findViewById(R.id.layout_feedback).setOnClickListener(this);
         //info
         findViewById(R.id.layout_info).setOnClickListener(this);
         //头像
@@ -222,7 +219,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         list.add("Shanghai");
         list.add("Guangzhou");
         showLocation.setText(list.get(0));
-        MySpinnerAdapter adapter = new MySpinnerAdapter(this, list);
+        final MySpinnerAdapter adapter = new MySpinnerAdapter(this, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -235,11 +232,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         travelFragment.refreshList(position);
                         break;
                 }
+                MainActivity.this.position = position;
                 showLocation.setText(list.get(position));
                 dropDown.setImageResource(R.drawable.drop_down_down);
                 listView.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
             }
         });
+
 /*****************************************************************/
         add = (ImageView) findViewById(R.id.add_experience);
         add.setOnClickListener(this);
@@ -273,6 +273,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         chooseExperience();
     }
 
+    /**
+     * 获取选择的地点的位置
+     *
+     * @return 位置
+     */
+    public int getClickPosition() {
+        return position;
+    }
+
     // 这个是自定义打开抽屉的方法，可以在需要的时候调用，
     // 定义两个整型变量作为参数来决定打开哪一个抽屉
     //---用于控制右边栏
@@ -280,11 +289,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         if (!rightSildOpen) {
             //打开侧边栏
             rightSildOpen = false;
+            add.setVisibility(View.GONE);
             sideDrawers.openDrawer(rightSild);
         } else {
             //关闭侧边栏
             rightSildOpen = true;
             sideDrawers.closeDrawer(rightSild);
+            add.setVisibility(View.VISIBLE);
         }
     }
 
@@ -335,10 +346,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.layout_feedback://反馈
-                FeedbackAgent agent = new FeedbackAgent(this);
-                agent.startFeedbackActivity();
-                break;
+//            case R.id.layout_feedback://反馈
+//                FeedbackAgent agent = new FeedbackAgent(this);
+//                agent.startFeedbackActivity();
+//                break;
             case R.id.layout_info://about us
                 Uri uri = Uri.parse("http://lingox.cn");
                 Intent aboutUsIntent = new Intent(Intent.ACTION_VIEW, uri);
@@ -408,6 +419,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 Intent intent = new Intent(MainActivity.this, TravelEditActivity.class);
                 startActivityForResult(intent, ADD_TRAVEL);
                 popWin.dismiss();
+                viewPager.setCurrentItem(1);
             }
         });
 
@@ -455,29 +467,29 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         break;
                 }
                 break;
-            case ADD_TRAVEL://添加新的travel的问题
-                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
-                    travelFragment.refershView((TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
-                }
-                break;
-            case ADD_PATH://添加新的local的体验
-                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
-                    final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
-                    localFragment.addPath(path);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                //创建群聊id
-                                EMGroupManager.getInstance().createPublicGroup(path.getTitle().equals("") ? CacheHelper.getInstance().getSelfInfo().getNickname() :
-                                        path.getTitle(), path.getText(), null, true);
-                            } catch (EaseMobException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
-                }
-                break;
+//            case ADD_TRAVEL://添加新的travel的问题
+//                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
+//                    travelFragment.refershView((TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
+//                }
+//                break;
+//            case ADD_PATH://添加新的local的体验
+//                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
+//                    final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
+//                    localFragment.addPath(path);
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                //创建群聊id
+//                                EMGroupManager.getInstance().createPublicGroup(path.getTitle().equals("") ? CacheHelper.getInstance().getSelfInfo().getNickname() :
+//                                        path.getTitle(), path.getText(), null, true);
+//                            } catch (EaseMobException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }).start();
+//                }
+//                break;
             case LocalFragment.EDIT_PATH://修改了数据
                 if (resultCode == LocalViewActivity.RESULT_OK) {
                     if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {

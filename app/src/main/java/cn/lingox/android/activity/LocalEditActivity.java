@@ -105,7 +105,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
     private ImageView otherIv;//选择框
     private EditText others;//自己填写
 
-    private String costStr = "gift?:%s@@@share?:%s@@@being?:%s@@@AA?:%s@@@others?:%s";//用于标记选择了那个
+    private String costStr = "gift?:%s@@@share?:%1$s@@@being?:%2$s@@@AA?:%3$s@@@others?:%4$s";//用于标记选择了那个
     private String giftStr = "false";//礼物。false表示未选择
     private String shareStr = "false";
     private String beingStr = "false";
@@ -986,10 +986,12 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(LocalEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -998,12 +1000,16 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             pd.dismiss();
             next.setClickable(true);
             if (success) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(ADDED_PATH, newPath);
-                setResult(RESULT_OK, returnIntent);
-                finish();
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra(ADDED_PATH, newPath);
+//                setResult(RESULT_OK, returnIntent);
+//                finish();
+                //TODO 后期修改提示语
+                showToast("创建成功，正在审核中…");
             } else {
                 page--;
+                //TODO 后期修改提示语
+                showToast("创建失败");
             }
         }
     }
@@ -1063,10 +1069,12 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if (values[0] != null)
+            if (values[0] != null) {
                 pd.setMessage(values[0]);
-            if (values[1] != null)
+            }
+            if (values[1] != null) {
                 Toast.makeText(LocalEditActivity.this, values[1], Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -1075,12 +1083,16 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             pd.dismiss();
             next.setClickable(true);
             if (success) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(LocalViewActivity.EDITED_PATH, newPath);
-                setResult(RESULT_OK, returnIntent);
-                finish();
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra(LocalViewActivity.EDITED_PATH, newPath);
+//                setResult(RESULT_OK, returnIntent);
+//                finish();
+                //TODO 后期修改提示语
+                showToast("修改成功，正在审核中…");
             } else {
                 page--;
+                //TODO 后期修改提示语
+                showToast("修改失败");
             }
         }
     }

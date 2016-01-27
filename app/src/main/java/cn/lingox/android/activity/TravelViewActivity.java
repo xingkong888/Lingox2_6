@@ -49,7 +49,6 @@ import cn.lingox.android.utils.CircularImageView;
 import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.MyScrollView;
-import cn.lingox.android.widget.NewTextView;
 import cn.lingox.android.widget.ScrollViewListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -244,7 +243,7 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
      * 设置数据
      */
     private void setData() {
-        commitLayout.setVisibility(View.VISIBLE);
+//        commitLayout.setVisibility(View.VISIBLE);
         //判断是否为自己
         if (travelEntity.getUser_id().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
             //自己
@@ -307,13 +306,12 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         travelingLocation.setText(travelEntity.getProvince().isEmpty() ?
                 travelEntity.getCountry() : travelEntity.getProvince() + ", " + travelEntity.getCountry());
         //设置时间段
-        startDay.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split("-")[1]);
-        startMonth.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split("-")[0]);
-        endDay.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()).split("-")[1]);
-        endMonth.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()).split("-")[0]);
+        startDay.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split(" ")[1]);
+        startMonth.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getStartTime()).split(" ")[0]);
+        endDay.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()).split(" ")[1]);
+        endMonth.setText(TimeHelper.getInstance().parseTimestampToDate(travelEntity.getEndTime()).split(" ")[0]);
         //设置问题
         detail.setText(travelEntity.getText());
-        NewTextView.justify(detail, detail.getWidth());
         /*TextView分散对齐------效果不怎么好看
         NewTextView.justify(describe, describe.getWidth());
         */
@@ -344,14 +342,14 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
 
         //设置comment
         commentDatas.addAll(travelEntity.getComments());
+        commentNum.setText(String.valueOf(commentDatas.size()));
         if (commentDatas.size() > 0) {
             //有数据
-            commentLayout.setVisibility(View.VISIBLE);
-            commentNum.setText(String.valueOf(commentDatas.size()));
             loadComments();
-        } else {
-            commentLayout.setVisibility(View.GONE);
         }
+//        else {
+//            commentLayout.setVisibility(View.GONE);
+//        }
     }
 
     /**
@@ -438,8 +436,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 ImageView delete = (ImageView) rowView.findViewById(R.id.path_del);
                 delete.setVisibility(View.VISIBLE);
             } else {
-                ImageView replay = (ImageView) rowView.findViewById(R.id.path_replay);
-                replay.setVisibility(View.VISIBLE);
+//                ImageView replay = (ImageView) rowView.findViewById(R.id.path_replay);
+//                replay.setVisibility(View.VISIBLE);
+                ImageView delete = (ImageView) rowView.findViewById(R.id.path_del);
+                delete.setVisibility(View.GONE);
             }
         }
         TextView userNickname = (TextView) rowView.findViewById(R.id.comment_user_nickname);

@@ -2,23 +2,25 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/left_drawer"
-    android:layout_width="240dp"
+    android:layout_width="280dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="@android:color/black"
-    android:gravity="center"
+    android:background="@color/black_deep"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:layout_height="64dp"
+        android:layout_marginTop="80dp">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/avatar_info"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginLeft="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/nearby_nopic_137dp" />
 
         <!--<ImageView-->
@@ -27,104 +29,193 @@
         <!--android:layout_height="24dp"-->
         <!--android:layout_alignBottom="@+id/avatar_info"-->
         <!--android:layout_alignRight="@+id/avatar_info" />-->
-        <!--名字-->
-        <TextView
-            android:id="@+id/tv_nickname"
+
+        <LinearLayout
+            android:id="@+id/linshigong"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/avatar_info"
-            android:ellipsize="end"
-            android:text="@string/nickname"
-            android:textColor="@android:color/white"
-            android:textSize="11sp" />
-        <!--地址-->
-        <TextView
-            android:id="@+id/tv_user_add"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_nickname"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/avatar_info"
-            android:drawableLeft="@drawable/lift_point"
-            android:drawablePadding="3dp"
-            android:ellipsize="end"
-            android:text="China, Beijing"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:orientation="vertical">
+            <!--名字-->
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/nickname"
+                android:textColor="@android:color/white"
+                android:textSize="11sp" />
+            <!--地址-->
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_nickname"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginTop="8.5dp"
+                android:layout_toRightOf="@+id/avatar_info"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="8.5dp"
+                    android:src="@drawable/lift_point" />
+
+                <TextView
+                    android:id="@+id/tv_user_add"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4.5dp"
+                    android:ellipsize="end"
+                    android:text="China, Beijing"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tv_user_add"
+            android:layout_width="18.5dp"
+            android:layout_height="18.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/linshigong"
             android:src="@drawable/lift_edit" />
     </RelativeLayout>
 
     <!--收藏 -->
-    <TextView
+    <LinearLayout
         android:id="@+id/layout_favourite"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="24dp"
-        android:drawableLeft="@drawable/ic_favorite"
-        android:drawablePadding="30dp"
-        android:gravity="center_vertical"
-        android:text="Favourite"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37.5dp"
+        android:layout_marginTop="36dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_favorite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Favourite"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
     <!-- follow/following-->
-    <TextView
+    <LinearLayout
         android:id="@+id/layout_contact_list"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="24dp"
-        android:drawableLeft="@drawable/lift_follow_following"
-        android:drawablePadding="30dp"
-        android:gravity="center_vertical"
-        android:text="@string/friends"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37.5dp"
+        android:layout_marginTop="46.5dp">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="16dp"
+            android:src="@drawable/lift_follow_following" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Follow"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:layout_marginLeft="24dp"-->
+    <!--android:drawableLeft="@drawable/lift_follow_following"-->
+    <!--android:drawablePadding="30dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="Follow"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="13sp" />-->
     <!-- setting-->
-    <TextView
+    <LinearLayout
         android:id="@+id/layout_set"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="24dp"
-        android:drawableLeft="@drawable/lift_setting"
-        android:drawablePadding="30dp"
-        android:gravity="center_vertical"
-        android:text="@string/setting"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37.5dp"
+        android:layout_marginTop="43dp">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:src="@drawable/lift_setting" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="@string/setting"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/layout_set"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:layout_marginLeft="24dp"-->
+    <!--android:drawableLeft="@drawable/lift_setting"-->
+    <!--android:drawablePadding="30dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="@string/setting"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="13sp" />-->
     <!-- feedback-->
-    <TextView
-        android:id="@+id/layout_feedback"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="24dp"
-        android:drawableLeft="@drawable/ic_question_answer_black_24dp"
-        android:drawablePadding="30dp"
-        android:gravity="center_vertical"
-        android:text="@string/feedback"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+    <!--<TextView-->
+    <!--android:id="@+id/layout_feedback"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:layout_marginLeft="24dp"-->
+    <!--android:drawableLeft="@drawable/ic_question_answer_black_24dp"-->
+    <!--android:drawablePadding="30dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="@string/feedback"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="13sp" />-->
     <!-- about us-->
-    <TextView
+    <LinearLayout
         android:id="@+id/layout_info"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="24dp"
-        android:drawableLeft="@drawable/lift_about"
-        android:drawablePadding="30dp"
-        android:gravity="center_vertical"
-        android:text="@string/about_us"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37.5dp"
+        android:layout_marginTop="43dp">
+
+        <ImageView
+            android:layout_width="17.5dp"
+            android:layout_height="18dp"
+            android:src="@drawable/lift_about" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="@string/about_us"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/layout_info"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:layout_marginLeft="24dp"-->
+    <!--android:drawableLeft="@drawable/lift_about"-->
+    <!--android:drawablePadding="30dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="@string/about_us"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="13sp" />-->
 </LinearLayout>

@@ -14,17 +14,14 @@
             android:id="@+id/comment_user_avatar"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_margin="15dp"
             android:contentDescription="CommentUserAvatar"
             android:src="@drawable/default_avatar" />
 
         <LinearLayout
             android:id="@+id/aaaaaaaaaaaaaa"
             style="@style/wrap_wrap"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_toLeftOf="@+id/comment_date_time"
             android:layout_toRightOf="@+id/comment_user_avatar">
 
@@ -32,7 +29,7 @@
                 android:id="@+id/comment_user_nickname"
                 style="@style/wrap_wrap"
                 android:padding="3dp"
-                android:textColor="#198f99"
+                android:textColor="@color/black_deep"
                 android:textSize="10sp" />
 
             <TextView
@@ -58,6 +55,7 @@
             android:layout_toLeftOf="@+id/path_replay"
             android:layout_toRightOf="@+id/comment_user_avatar"
             android:paddingBottom="10dp"
+            android:paddingLeft="3dp"
             android:paddingRight="20dp"
             android:textColor="#777"
             android:textSize="14sp" />
@@ -85,10 +83,10 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
+    <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.8dp"
         android:layout_below="@+id/dula"
-        android:background="#ababab" />
+        android:background="@color/color_separation_line" />
 </RelativeLayout>

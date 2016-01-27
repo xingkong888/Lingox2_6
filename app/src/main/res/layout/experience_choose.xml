@@ -1,60 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?><!--用户选择发布哪一种的体验-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="horizontal">
-    <!-- local-->
+    android:layout_height="match_parent"
+    android:background="#7f000000">
+
     <LinearLayout
-        android:id="@+id/t1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <!-- local-->
+        <LinearLayout
+            android:id="@+id/t1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="63.5dp"
-            android:layout_height="63.5dp"
-            android:src="@drawable/welcome_local" />
+            <ImageView
+                android:layout_width="63.5dp"
+                android:layout_height="63.5dp"
+                android:src="@drawable/welcome_local" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="HOST A LOCALEXPERENECE"
+                android:textColor="@color/black_deep"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:text="HOST A LOCALEXPERENECE"
-            android:textColor="@color/black_deep"
-            android:textSize="12dp" />
+            android:background="#000" />
+        <!-- travel-->
+        <LinearLayout
+            android:id="@+id/t2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="63.5dp"
+                android:layout_height="63.5dp"
+                android:src="@drawable/welcome_traveler" />
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="#000" />
-    <!-- travel-->
-    <LinearLayout
-        android:id="@+id/t2"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="63.5dp"
-            android:layout_height="63.5dp"
-            android:src="@drawable/welcome_traveler" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="POST TRAVELER REQUEST"
-            android:textColor="@color/black_deep"
-            android:textSize="12dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="POST TRAVELER REQUEST"
+                android:textColor="@color/black_deep"
+                android:textSize="12dp" />
+        </LinearLayout>
     </LinearLayout>
     <!--<TextView-->
     <!--android:id="@+id/t1"-->
@@ -76,4 +83,4 @@
     <!--android:text="dddddddddddddddddd"-->
     <!--android:gravity="center"-->
     <!--/>-->
-</LinearLayout>
+</RelativeLayout>

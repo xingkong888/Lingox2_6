@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_match"
     android:background="@color/white"
+    android:focusable="false"
     android:orientation="vertical">
     <!--空闲时间/活动时间-->
     <RelativeLayout
@@ -13,7 +14,7 @@
             android:id="@+id/ddd"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:text="Availability"
             android:textAllCaps="true"
             android:textColor="#BABABA"
@@ -41,7 +42,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.8dp"
                     android:background="@color/color_separation_line" />
 
                 <TextView
@@ -66,7 +67,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.8dp"
                 android:background="@color/color_separation_line" />
             <!--结束时间-->
             <RelativeLayout
@@ -141,7 +142,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
@@ -157,7 +158,7 @@
                 android:id="@+id/path_tag"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:text="prefrence"
                 android:textAllCaps="true"
                 android:textColor="#BABABA"
@@ -166,6 +167,7 @@
             <LinearLayout
                 android:id="@+id/local_tag_layout"
                 style="@style/match_wrap"
+                android:focusable="false"
                 android:orientation="vertical"
                 android:paddingBottom="5dp"
                 android:paddingRight="10dp"
@@ -174,7 +176,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
@@ -196,7 +198,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
@@ -218,23 +220,13 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 android:text="cost"
                 android:textAllCaps="true"
                 android:textColor="#BABABA"
                 android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/local_cost"
-                style="@style/match_wrap"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/path_cost"
-                android:gravity="right"
-                android:paddingRight="20dp"
-                android:textColor="#6E6E6E"
-                android:textSize="10sp"
-                android:visibility="gone" />
             <!--<LinearLayout-->
             <!--android:id="@+id/local_edit_page_three"-->
             <!--android:layout_width="match_parent"-->
@@ -250,14 +242,27 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/local_cost"
+                    style="@style/match_wrap"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/path_cost"
+                    android:focusable="false"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textColor="#6E6E6E"
+                    android:textSize="10sp" />
+
+                <TextView
                     android:id="@+id/local_gift"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="13dp"
+                    android:focusable="false"
                     android:text="A special gift"
                     android:textColor="#6e6e6e"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/local_share"
@@ -265,9 +270,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="13dp"
+                    android:focusable="false"
                     android:text="Share about personal experience and story"
                     android:textColor="#6e6e6e"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
                 <!--<RelativeLayout-->
                 <!--android:id="@+id/local_edit_cost_being_layout"-->
                 <!--android:layout_width="match_parent"-->
@@ -290,9 +297,11 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="13dp"
                     android:layout_toRightOf="@+id/local_edit_cost_being"
+                    android:focusable="false"
                     android:text="Being hosted back by traveler(s) in future"
                     android:textColor="#6e6e6e"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
                 <!--</RelativeLayout>-->
                 <!-- 标签选择有home meal时，显示-->
                 <!--<RelativeLayout-->
@@ -306,9 +315,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="13dp"
+                    android:focusable="false"
                     android:text="Share the food material fee 100 RMB/person"
                     android:textColor="#6e6e6e"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
 
                 <!--<EditText-->
                 <!--android:id="@+id/cost"-->
@@ -339,9 +350,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="13dp"
+                    android:focusable="false"
                     android:text="Others"
                     android:textColor="#6e6e6e"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
 
                 <!--<EditText-->
                 <!--android:id="@+id/other"-->
@@ -358,10 +371,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/color_separation_line" />
+            android:background="@color/color_separation_line"
+            android:visibility="gone" />
     </LinearLayout>
     <!--参与人数 弃用-->
     <LinearLayout
@@ -398,7 +412,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
@@ -423,7 +437,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />

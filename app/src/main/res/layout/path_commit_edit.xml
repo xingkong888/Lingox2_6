@@ -5,8 +5,7 @@
     android:layout_alignParentBottom="true"
     android:background="#c7c7c7"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:visibility="gone">
+    android:orientation="horizontal">
 
     <Button
         android:layout_width="32dp"

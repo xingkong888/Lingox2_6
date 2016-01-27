@@ -3,11 +3,47 @@
     android:id="@+id/activity_root"
     style="@style/match_match"
     android:background="@color/white">
+    <!-- 标题栏-->
+    <RelativeLayout
+        android:id="@+id/travel_view_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/main_color">
+
+        <ImageView
+            android:id="@+id/local_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/active_back_61dp" />
+
+        <TextView
+            android:id="@+id/local_toolbar"
+            style="@style/wrap_match"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Local Experiences"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <!-- 菜单 使用PopupWindow-->
+        <ImageView
+            android:id="@+id/local_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_menu_white_24dp" />
+    </RelativeLayout>
 
     <cn.lingox.android.widget.MyScrollView
         android:id="@+id/path_view_scroll_view"
         style="@style/match_wrap"
-        android:layout_above="@+id/bottom">
+        android:layout_above="@+id/join_experience"
+        android:layout_below="@+id/travel_view_top">
 
         <LinearLayout
             android:id="@+id/path_view"
@@ -25,8 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:contentDescription="背景图"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/travel_top" />
+                    android:scaleType="fitXY" />
+
                 <!-- 活动标题-->
                 <TextView
                     android:id="@+id/local_title"
@@ -38,6 +74,11 @@
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_below="@+id/local_background"
+                    android:background="@color/color_separation_line" />
             </RelativeLayout>
             <!-- 内容-->
             <LinearLayout
@@ -52,8 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="3"
+                    android:maxLines="5"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textColor="#777"
@@ -67,12 +107,12 @@
                     android:background="@drawable/local_more_bg"
                     android:gravity="center"
                     android:text="Read More"
-                    android:textColor="#0f0"
+                    android:textColor="@color/main_color"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="0.8dp"
                     android:layout_marginTop="15dp"
                     android:background="@color/color_separation_line" />
             </LinearLayout>
@@ -88,8 +128,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:layout_marginLeft="21.5dp"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/default_avatar" />
+                    android:layout_marginRight="16dp" />
 
                 <!-- 聊天图标-->
                 <ImageView
@@ -106,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="18dp"
+                    android:layout_toLeftOf="@+id/chat_local"
                     android:layout_toRightOf="@+id/local_avatar"
                     android:orientation="vertical">
 
@@ -114,7 +154,7 @@
                         style="@style/wrap_wrap"
                         android:layout_marginBottom="8dp"
                         android:textColor="@color/black_deep"
-                        android:textSize="10sp" />
+                        android:textSize="14sp" />
                     <!--用户所在地-->
                     <LinearLayout
                         style="@style/wrap_wrap"
@@ -130,6 +170,7 @@
                             android:id="@+id/local_location"
                             style="@style/wrap_wrap"
                             android:padding="4dp"
+
                             android:textColor="#777"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -143,7 +184,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.8dp"
                     android:background="@color/color_separation_line" />
 
                 <TextView
@@ -157,7 +198,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -181,29 +223,27 @@
         </LinearLayout>
     </cn.lingox.android.widget.MyScrollView>
 
-    <RelativeLayout
-        android:id="@+id/bottom"
-        android:layout_width="wrap_content"
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/bottom"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_alignParentBottom="true">-->
+    <!-- 加入体验-->
+    <LinearLayout
+        android:id="@+id/join_experience"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true">
-        <!-- 编辑评论-->
-        <include layout="@layout/path_commit_edit" />
-        <!-- 加入体验-->
-        <LinearLayout
-            android:id="@+id/join_experience"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/three_c7"
-            android:gravity="center">
+        android:layout_alignParentBottom="true"
+        android:background="@color/three_c7"
+        android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Join to experience."
-                android:textSize="17sp" />
-        </LinearLayout>
-    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JOIN EXPERIENCE"
+            android:textSize="17sp" />
+    </LinearLayout>
+    <!--</RelativeLayout>-->
 
     <ProgressBar
         android:id="@+id/loading_bar"
@@ -237,39 +277,5 @@
             android:text="@string/path_group_chat"
             android:textColor="@color/main_color"
             android:textSize="15sp" />
-    </RelativeLayout>
-    <!-- 标题栏-->
-    <RelativeLayout
-        android:id="@+id/travel_view_top"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#1000">
-
-        <ImageView
-            android:id="@+id/local_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/active_back_61dp" />
-
-        <TextView
-            android:id="@+id/local_toolbar"
-            style="@style/wrap_match"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Local Experiences"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <!-- 菜单 使用PopupWindow-->
-        <ImageView
-            android:id="@+id/local_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:padding="10dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_menu_white_24dp" />
     </RelativeLayout>
 </RelativeLayout>

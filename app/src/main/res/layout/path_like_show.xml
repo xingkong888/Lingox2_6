@@ -3,11 +3,12 @@
     android:id="@+id/path_view_like"
     style="@style/match_wrap"
     android:background="@color/white"
+    android:focusable="false"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.8dp"
         android:background="@color/color_separation_line" />
 
     <RelativeLayout
@@ -41,7 +42,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:layout_alignParentBottom="true"
             android:background="@color/color_separation_line" />
     </RelativeLayout>
@@ -51,11 +52,11 @@
         style="@style/match_wrap"
         class="it.sephiroth.android.library.widget.HListView"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.8dp"
         android:background="@color/color_separation_line" />
 </LinearLayout>

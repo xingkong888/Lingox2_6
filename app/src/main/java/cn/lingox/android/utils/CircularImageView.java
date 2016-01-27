@@ -17,7 +17,7 @@ import android.widget.ImageView;
  */
 public class CircularImageView extends ImageView {
 
-    private int borderWidth = 2;//边框宽度
+    private int borderWidth = 0;//边框宽度
     private int viewWidth;
     private int viewHeight;
     private Bitmap image;

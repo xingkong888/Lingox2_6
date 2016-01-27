@@ -385,15 +385,25 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 travel.setStartTime(entity.getStartTime());
                 travel.setEndTime(entity.getEndTime());
                 travel.setLocation(entity.getLocation());
+                //在个人信息的旅行计划中添加
                 new TravelPlanAsynTask(TravelEditActivity.this, travel, "create").execute();
+                //TODO 后期修改提示语
+                showToast("创建成功，正在审核中…");
             }
 
             @Override
             public void onFail() {
-                Toast.makeText(TravelEditActivity.this, "Create a failure", Toast.LENGTH_SHORT).show();
+                //TODO 后期修改提示语
+                showToast("创建失败");
+//                Toast.makeText(TravelEditActivity.this, "Create a failure", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         }).execute();
+    }
+
+    //提示用户
+    private void showToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -416,12 +426,16 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 setResult(RESULT_OK, intent);
                 finish();
                 pd.dismiss();
+                //TODO 后期修改提示语
+                showToast("修改成功，正在审核中…");
             }
 
             @Override
             public void onFail() {
                 Toast.makeText(TravelEditActivity.this, "Modify the failure", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
+                //TODO 后期修改提示语
+                showToast("修改失败");
             }
         }).execute();
     }

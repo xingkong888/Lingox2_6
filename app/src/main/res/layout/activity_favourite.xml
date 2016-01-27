@@ -33,6 +33,7 @@
         android:background="@color/gray_light">
 
         <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pager_tab_strip"
             style="@style/match_wrap"
             android:layout_gravity="top"
             android:background="@color/main_color"

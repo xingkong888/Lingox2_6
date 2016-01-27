@@ -117,7 +117,7 @@ public class TravelAdapter extends BaseAdapter {
         //comment的人数
         holder.commentNum.setText(String.valueOf(travelEntity.getComments().size()));
         //发布时间距离当前时间
-        holder.createTime.setText(
+        holder.createTime.setText("Posted " +
                 TimeHelper.getInstance().parseTimestampToDate(travelEntity.getCreatedAt(), "TravelEntity"));
         return convertView;
     }

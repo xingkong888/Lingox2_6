@@ -74,11 +74,11 @@ public class TimeHelper {
                 result = "Yesterday:" + result;
             } else if (time / 2592000000l < 12) {
                 // 如果时间间隔小于12个月则显示多少月前
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd", locale);
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", locale);
                 result = sdf.format(d1.getTime());
             } else {
                 // 大于1年，显示年月日时间
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd", locale);
                 result = sdf.format(d1.getTime());
             }
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class TimeHelper {
     public String parseTimestampToDate(long timestamp) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timestamp * 1000L);
-        SimpleDateFormat format = new SimpleDateFormat("MMM-dd", locale);
+        SimpleDateFormat format = new SimpleDateFormat("MMM dd", locale);
         return (format.format(c.getTime()));
     }
 

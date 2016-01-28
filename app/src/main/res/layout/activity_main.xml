@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="BeiJing"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/spinner_drop_down"

@@ -486,7 +486,7 @@
                     android:layout_centerInParent="true"
                     android:layout_margin="20dp"
                     android:background="@drawable/local_edit_photo"
-                    android:scaleType="center"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_add_black_24dp" />
             </RelativeLayout>
         </LinearLayout>

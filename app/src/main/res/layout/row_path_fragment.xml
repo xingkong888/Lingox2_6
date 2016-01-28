@@ -13,8 +13,7 @@
             android:id="@+id/path_bag"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/discover_default" />
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,7 +50,8 @@
                 android:id="@+id/path_layout"
                 style="@style/wrap_match"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="5dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/path_people"
@@ -60,8 +60,9 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/icon_like" />
 
+
+                <!--android:id="@+id/path_people_num"-->
                 <TextView
-                    android:id="@+id/path_people_num"
                     style="@style/wrap_wrap"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="2dp"
@@ -75,7 +76,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/path_people_num"
                     android:src="@drawable/icon_coment" />
 
                 <TextView
@@ -176,13 +176,63 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/gradient_black_1" />
     <!-- 收藏-->
-    <ImageView
-        android:id="@+id/path_favourite"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:scaleType="center"
-        android:src="@drawable/active_dislike_24dp" />
-</RelativeLayout>
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="22.5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/path_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/active_dislike_24dp" />
+
+        <TextView
+            android:id="@+id/path_people_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout><!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/path_layout_main"--><!--android:layout_width="match_parent"--><!--android:layout_height="180dp">-->
+
+    <!--<RelativeLayout--><!--style="@style/match_match"--><!--android:layout_above="@+id/asdfasdfasdf"--><!--android:background="@drawable/path">-->
+
+    <!--<ImageView--><!--android:id="@+id/path_bag"--><!--android:layout_width="match_parent"--><!--android:layout_height="180dp"--><!--android:scaleType="fitXY" />-->
+
+    <!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="25dp"--><!--android:layout_above="@+id/plmokn">-->
+
+    <!--<LinearLayout--><!--android:id="@+id/abc"--><!--style="@style/match_match"--><!--android:gravity="center_vertical">--><!--&lt;!&ndash;android:background="@drawable/gradient_black"&ndash;&gt;-->
+
+    <!--<ImageView--><!--android:id="@+id/ddddddddddd"--><!--android:layout_width="15dp"--><!--android:layout_height="15dp"--><!--android:layout_marginLeft="10dp"--><!--android:scaleType="centerInside"--><!--android:src="@drawable/icon_location" />-->
+
+    <!--<TextView--><!--android:id="@+id/path_location"--><!--style="@style/wrap_wrap"--><!--android:layout_marginRight="8dp"--><!--android:ellipsize="end"--><!--android:gravity="end"--><!--android:lines="1"--><!--android:singleLine="true"--><!--android:textColor="@color/white"--><!--android:textSize="14sp" />--><!--</LinearLayout>-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/path_layout"--><!--style="@style/wrap_match"--><!--android:layout_alignParentRight="true"--><!--android:visibility="gone"--><!--android:layout_marginRight="5dp">-->
+
+    <!--<ImageView--><!--android:id="@+id/path_people"--><!--android:layout_width="15dp"--><!--android:layout_height="15dp"--><!--android:layout_centerVertical="true"--><!--android:src="@drawable/icon_like" />-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;--><!--&lt;!&ndash;android:id="@+id/path_people_num"&ndash;&gt;--><!--&lt;!&ndash;style="@style/wrap_wrap"&ndash;&gt;--><!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;--><!--&lt;!&ndash;android:layout_marginLeft="2dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_marginRight="8dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_toRightOf="@id/path_people"&ndash;&gt;--><!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;--><!--&lt;!&ndash;android:textSize="14sp" />&ndash;&gt;-->
+
+    <!--<ImageView--><!--android:id="@+id/path_comment"--><!--android:layout_width="15dp"--><!--android:layout_height="15dp"--><!--android:layout_centerVertical="true"--><!--android:src="@drawable/icon_coment" />-->
+
+    <!--<TextView--><!--android:id="@+id/path_comment_num"--><!--style="@style/wrap_wrap"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="2dp"--><!--android:layout_marginRight="20dp"--><!--android:layout_toRightOf="@id/path_comment"--><!--android:textColor="@color/white"--><!--android:textSize="14sp" />--><!--</RelativeLayout>--><!--</RelativeLayout>-->
+
+    <!--<LinearLayout--><!--android:id="@+id/plmokn"--><!--android:layout_width="match_parent"--><!--android:layout_height="80dp"--><!--android:layout_alignParentBottom="true"--><!--android:orientation="horizontal">-->
+
+    <!--<cn.lingox.android.utils.CircularImageView--><!--android:id="@+id/path_user_avatar"--><!--android:layout_width="58dp"--><!--android:layout_height="58dp"--><!--android:layout_marginLeft="14dp"--><!--android:layout_marginRight="8dp"--><!--android:layout_marginTop="10dp"--><!--android:src="@drawable/app_icon" />-->
+
+    <!--<RelativeLayout style="@style/wrap_match">--><!--&lt;!&ndash;活动标题&ndash;&gt;--><!--<TextView--><!--android:id="@+id/path_title"--><!--style="@style/match_wrap"--><!--android:layout_marginRight="5dp"--><!--android:layout_marginTop="10dp"--><!--android:paddingBottom="2dp"--><!--android:textColor="#34495e"--><!--android:textSize="18sp"--><!--android:textStyle="bold" />--><!--&lt;!&ndash;标签&ndash;&gt;--><!--<LinearLayout--><!--style="@style/wrap_wrap"--><!--android:layout_below="@+id/path_title"--><!--android:layout_marginTop="6dp"--><!--android:orientation="horizontal">-->
+
+    <!--<TextView--><!--android:id="@+id/path_tag_1"--><!--style="@style/wrap_wrap"--><!--android:layout_marginBottom="5dp"--><!--android:layout_marginRight="5dp"--><!--android:background="@drawable/path_tag"--><!--android:padding="4dp"--><!--android:textColor="@color/main_color"--><!--android:textSize="11sp"--><!--android:visibility="gone" />-->
+
+    <!--<TextView--><!--android:id="@+id/path_tag_2"--><!--style="@style/wrap_wrap"--><!--android:layout_marginBottom="5dp"--><!--android:layout_marginRight="5dp"--><!--android:background="@drawable/path_tag"--><!--android:padding="4dp"--><!--android:textColor="@color/main_color"--><!--android:textSize="11sp"--><!--android:visibility="gone" />-->
+
+    <!--<TextView--><!--android:id="@+id/path_tag_3"--><!--style="@style/wrap_wrap"--><!--android:background="@drawable/path_tag"--><!--android:padding="4dp"--><!--android:textColor="@color/main_color"--><!--android:textSize="11sp"--><!--android:visibility="gone" />--><!--</LinearLayout>--><!--&lt;!&ndash;用户名——————需求不显示&ndash;&gt;--><!--&lt;!&ndash;<TextView&ndash;&gt;--><!--&lt;!&ndash;android:id="@+id/path_user_name"&ndash;&gt;--><!--&lt;!&ndash;style="@style/wrap_wrap"&ndash;&gt;--><!--&lt;!&ndash;android:layout_below="@+id/path_title"&ndash;&gt;--><!--&lt;!&ndash;android:paddingBottom="2dp"&ndash;&gt;--><!--&lt;!&ndash;android:textColor="#868686"&ndash;&gt;--><!--&lt;!&ndash;android:textSize="15sp"&ndash;&gt;--><!--&lt;!&ndash;android:visibility="gone" />&ndash;&gt;-->
+
+    <!--</RelativeLayout>--><!--</LinearLayout>--><!--</RelativeLayout>--><!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@color/white"--><!--/>--><!--&lt;!&ndash;<TextView&ndash;&gt;--><!--&lt;!&ndash;android:id="@+id/asdfasdfasdf"&ndash;&gt;--><!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;--><!--&lt;!&ndash;android:layout_height="13dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;--><!--&lt;!&ndash;android:background="@drawable/gradient_black_1" />&ndash;&gt;--><!--&lt;!&ndash; 收藏&ndash;&gt;--><!--<LinearLayout--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentRight="true"--><!--android:layout_marginRight="20dp"--><!--android:layout_marginTop="22.5dp"--><!--android:orientation="vertical"--><!--android:gravity="center"--><!-->--><!--<ImageView--><!--android:id="@+id/path_favourite"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:scaleType="center"--><!--android:src="@drawable/active_dislike_24dp" />--><!--<TextView--><!--android:id="@+id/path_people_num"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="22"--><!--android:layout_marginTop="5dp"--><!--android:textColor="@color/white"--><!--/>--><!--</LinearLayout>--><!--</RelativeLayout>-->

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/wrap_wrap"
     android:layout_margin="24dp"
-    android:background="#198f98">
+    android:background="@color/main_color">
 
     <ImageView
         android:id="@+id/temp"

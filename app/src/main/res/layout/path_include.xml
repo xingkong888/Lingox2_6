@@ -251,7 +251,8 @@
                     android:gravity="right"
                     android:paddingRight="20dp"
                     android:textColor="#6E6E6E"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/local_gift"

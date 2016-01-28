@@ -1,7 +1,9 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -755,7 +757,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 break;
             case 5://提交数据
                 //判断图片是否选择
-                if (!changePageFour()) {
+                if (changePageFour()) {
                     if (addingNewPath) {
                         new AddPath().execute();
                     } else {
@@ -929,6 +931,19 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         viewGroup.addView(tvItem, params);
     }
 
+    //todo 创建成功后的弹框
+    private void myDialog(String msg) {
+        new AlertDialog.Builder(this)
+                .setMessage(msg)
+                .setNegativeButton("知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create().show();
+    }
+
     private class AddPath extends AsyncTask<Void, String, Boolean> {
         private ProgressDialog pd = new ProgressDialog(LocalEditActivity.this);
 
@@ -1005,11 +1020,13 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                setResult(RESULT_OK, returnIntent);
 //                finish();
                 //TODO 后期修改提示语
-                showToast("创建成功，正在审核中…");
+//                showToast("创建成功，正在审核中…");
+                myDialog("创建成功，正在审核中…");
             } else {
                 page--;
                 //TODO 后期修改提示语
-                showToast("创建失败");
+//                showToast("创建失败");
+                myDialog("创建失败");
             }
         }
     }

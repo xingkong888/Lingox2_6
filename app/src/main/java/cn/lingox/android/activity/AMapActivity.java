@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -48,6 +49,7 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
     private EditText editText;
     private ProgressBar pb;
     private Button ok;
+    private ImageView back;
 
     private String address = "";
 
@@ -85,9 +87,12 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         if (getIntent().hasExtra("Latitude")) {
             ok.setVisibility(View.GONE);
             layout.setVisibility(View.GONE);
+            back.setVisibility(View.VISIBLE);
             lat = Double.valueOf(getIntent().getStringExtra("Latitude"));
             lng = Double.valueOf(getIntent().getStringExtra("Longitude"));
             makeMarker(getIntent().getStringExtra("address"));
+        } else {
+            layout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -123,6 +128,13 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         //ok
         ok = (Button) findViewById(R.id.map_ok);
         ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnResult();
+            }
+        });
+        back = (ImageView) findViewById(R.id.map_back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 returnResult();
@@ -256,7 +268,11 @@ public class AMapActivity extends Activity implements GeocodeSearch.OnGeocodeSea
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(address).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).draggable(true));
         marker.showInfoWindow();// 设置默认显示一个infowinfow
-        ok.setVisibility(View.VISIBLE);
+        if (getIntent().hasExtra("Latitude")) {
+            ok.setVisibility(View.GONE);
+        } else {
+            ok.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

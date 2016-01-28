@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="#8c000000"
         android:gravity="center"
-        android:padding="10dp"
+        android:paddingTop="40dp"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="14sp" />

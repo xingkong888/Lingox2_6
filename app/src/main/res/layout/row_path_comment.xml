@@ -2,13 +2,12 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_wrap"
-    android:background="@color/three_fa"
     android:focusable="false">
 
     <RelativeLayout
         android:id="@+id/dula"
         style="@style/match_wrap"
-        android:background="@color/three_fa">
+        android:background="@color/white">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/comment_user_avatar"
@@ -28,8 +27,7 @@
             <TextView
                 android:id="@+id/comment_user_nickname"
                 style="@style/wrap_wrap"
-                android:padding="3dp"
-                android:textColor="@color/black_deep"
+                android:textColor="#171616"
                 android:textSize="10sp" />
 
             <TextView
@@ -55,8 +53,8 @@
             android:layout_toLeftOf="@+id/path_replay"
             android:layout_toRightOf="@+id/comment_user_avatar"
             android:paddingBottom="10dp"
-            android:paddingLeft="3dp"
             android:paddingRight="20dp"
+            android:paddingTop="3dp"
             android:textColor="#777"
             android:textSize="14sp" />
 

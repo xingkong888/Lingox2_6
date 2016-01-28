@@ -39,7 +39,10 @@ public class CreateTagView {
                                   ViewGroup tagsView, Activity context, String what) {
         int width = LingoXApplication.getInstance().getWidth();
         tagsView.removeAllViews();
-        int containerWidth = width - DpToPx.dip2px(context, 100);
+        int containerWidth = width;
+        if (!"travel".equals(what)) {
+            containerWidth -= -DpToPx.dip2px(context, 80);
+        }
         LayoutInflater inflater = context.getLayoutInflater();
         /** 用来测量字符的宽度 */
         Paint paint = new Paint();

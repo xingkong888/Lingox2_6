@@ -40,7 +40,7 @@
     </RelativeLayout>
 
     <cn.lingox.android.widget.MyScrollView
-        android:id="@+id/path_view_scroll_view"
+        android:id="@+id/local_view_scroll_view"
         style="@style/match_wrap"
         android:layout_above="@+id/join_experience"
         android:layout_below="@+id/travel_view_top">
@@ -55,6 +55,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:contentDescription="为了使焦点在最上边"
+                    android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/local_background"
@@ -170,7 +177,6 @@
                             android:id="@+id/local_location"
                             style="@style/wrap_wrap"
                             android:padding="4dp"
-
                             android:textColor="#777"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -198,8 +204,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -235,7 +240,8 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="@color/three_c7"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

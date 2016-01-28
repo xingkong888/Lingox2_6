@@ -259,7 +259,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        scrollView = (MyScrollView) findViewById(R.id.path_view_scroll_view);
+        scrollView = (MyScrollView) findViewById(R.id.local_view_scroll_view);
 //        scrollView.setScrollViewListener(this);
         pathCommentsNum = (TextView) findViewById(R.id.path_comments_num);
         pathJoinedUserNum = (TextView) findViewById(R.id.path_particpants_num);
@@ -381,7 +381,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
 //            }
 //        } else
         if (!path.getAvailableTime().isEmpty()) {
-            availableTime.setVisibility(View.VISIBLE);
+//            availableTime.setVisibility(View.VISIBLE);
 //            pathTime.setVisibility(View.GONE);
             availableTime.setText(path.getAvailableTime());
         }

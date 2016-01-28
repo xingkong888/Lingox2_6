@@ -1,6 +1,8 @@
 package cn.lingox.android.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -190,7 +192,7 @@ public class FavouriteLocalAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if ((int) holder.favourite.getTag() == 1) {
-                    new UnAcceptPath(holder.favourite, position, path).execute();
+                    new UnAcceptPath(holder.favourite, position, path, context).execute();
                 }
             }
         });
@@ -219,17 +221,24 @@ public class FavouriteLocalAdapter extends BaseAdapter {
         private ImageView view;
         private Path path;
         private int position;
+        private ProgressDialog pd;
+        private Context context;
 
-        public UnAcceptPath(ImageView view, int position, Path path) {
+        public UnAcceptPath(ImageView view, int position, Path path, Context context) {
             this.view = view;
             this.path = path;
             this.position = position;
+            this.context = context;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             view.setClickable(false);
+            pd = new ProgressDialog(context);
+            pd.setMessage("Loading…");
+            pd.show();
+            pd.setCancelable(false);
         }
 
         @Override
@@ -245,6 +254,7 @@ public class FavouriteLocalAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
+            pd.dismiss();
             if (success) {
                 path.removeAcceptedUser(CacheHelper.getInstance().getSelfInfo());
                 datas.remove(position);

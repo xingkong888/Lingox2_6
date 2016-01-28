@@ -1,14 +1,10 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -77,10 +72,11 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     // UI Elements
     private ProgressBar loadingBar;
 
-    private ImageView menu;
-    private LinearLayout favourite, delete, edit, share, groupChat;
+    //    private ImageView menu;
+//    private LinearLayout favourite, delete, edit, share, groupChat;
     private ImageView like;//是否已收藏
-    private PopupWindow mPopupWindow;//弹出框
+    private ImageView share;//分享
+//    private PopupWindow mPopupWindow;//弹出框
 
     private ImageView chat;//聊天图标
     private ImageView avatar;//用户头像
@@ -185,9 +181,15 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         //标题栏
         ImageView back = (ImageView) findViewById(R.id.local_back);
         back.setOnClickListener(this);
+        like = (ImageView) findViewById(R.id.local_bar_like);
+        like.setOnClickListener(this);
+        share = (ImageView) findViewById(R.id.local_bar_share);
+        share.setOnClickListener(this);
+    /*
         menu = (ImageView) findViewById(R.id.local_menu);
         menu.setOnClickListener(this);
 
+    不使用弹出菜单的形式
         View popupView = getLayoutInflater().inflate(R.layout.menu_pop, null);
         favourite = (LinearLayout) popupView.findViewById(R.id.menu_favourite);
         favourite.setOnClickListener(this);
@@ -204,6 +206,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        */
         //背景图和标题
         background = (ImageView) findViewById(R.id.local_background);
         DisplayMetrics dm = new DisplayMetrics();
@@ -294,14 +297,25 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
             if (ownPath) {
                 chat.setVisibility(View.GONE);
                 join.setVisibility(View.GONE);
-                delete.setVisibility(View.VISIBLE);
-                edit.setVisibility(View.VISIBLE);
-                groupChat.setVisibility(!TextUtils.isEmpty(path.getHxGroupId()) ? View.VISIBLE : View.GONE);
+                like.setVisibility(View.GONE);
+//                delete.setVisibility(View.VISIBLE);
+//                edit.setVisibility(View.VISIBLE);
+//                groupChat.setVisibility(!TextUtils.isEmpty(path.getHxGroupId()) ? View.VISIBLE : View.GONE);
             } else {
-                delete.setVisibility(View.GONE);
-                edit.setVisibility(View.GONE);
+//                delete.setVisibility(View.GONE);
+//                edit.setVisibility(View.GONE);
                 chat.setVisibility(View.VISIBLE);
                 join.setVisibility(View.VISIBLE);
+                like.setVisibility(View.VISIBLE);
+                for (User user : path.getAcceptedUsers()) {
+                    if (CacheHelper.getInstance().getSelfInfo().getId().equals(user.getId())) {
+                        like.setImageResource(R.drawable.active_like_24dp);
+                        like.setTag(1);
+                    } else {
+                        like.setImageResource(R.drawable.active_dislike_24dp);
+                        like.setTag(0);
+                    }
+                }
             }
         }
         title.setText(path.getTitle());
@@ -339,9 +353,9 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         uiHelper.textViewSetPossiblyNullString(experienceLocation, path.getLocationString());
         //判断花费类型
         setCost();
-        if (TextUtils.isEmpty(path.getHxGroupId())) {
-            groupChat.setVisibility(View.GONE);
-        }
+//        if (TextUtils.isEmpty(path.getHxGroupId())) {
+//            groupChat.setVisibility(View.GONE);
+//        }
         if (path.getTags().size() > 0) {
             tags = new ArrayList<>();
             for (int a = 0, b = path.getTags().size(); a < b; a++) {
@@ -459,38 +473,43 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.menu_del://删除
-                mPopupWindow.dismiss();
-                new AlertDialog.Builder(this)
-                        .setTitle("Are you sure to delete?")
-                        .setNegativeButton("Cancel", null)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                new Thread() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            path = ServerHelper.getInstance().deletePath(path.getId());
-                                            Intent intent = new Intent();
-                                            intent.putExtra(LocalViewActivity.DELETED_PATH, path);
-                                            setResult(RESULT_OK, intent);
-                                            finish();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }.start();
-                            }
-                        }).create().show();
-                break;
-            case R.id.menu_share://分享
-                mPopupWindow.dismiss();
+//            case R.id.menu_del://删除
+////                mPopupWindow.dismiss();
+//                new AlertDialog.Builder(this)
+//                        .setTitle("Are you sure to delete?")
+//                        .setNegativeButton("Cancel", null)
+//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                new Thread() {
+//                                    @Override
+//                                    public void run() {
+//                                        try {
+//                                            path = ServerHelper.getInstance().deletePath(path.getId());
+//                                            Intent intent = new Intent();
+//                                            intent.putExtra(LocalViewActivity.DELETED_PATH, path);
+//                                            setResult(RESULT_OK, intent);
+//                                            finish();
+//                                        } catch (Exception e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//                                }.start();
+//                            }
+//                        }).create().show();
+//                break;
+//            case R.id.menu_share://分享
+////                mPopupWindow.dismiss();
+//                MobclickAgent.onEvent(LocalViewActivity.this, "discover_share");
+//                showShare();
+//                break;
+            case R.id.local_bar_share://分享
+//                mPopupWindow.dismiss();
                 MobclickAgent.onEvent(LocalViewActivity.this, "discover_share");
                 showShare();
                 break;
-            case R.id.menu_favourite://收藏
-                mPopupWindow.dismiss();
+            case R.id.local_bar_like://收藏
+//                mPopupWindow.dismiss();
                 if (!LingoXApplication.getInstance().getSkip()) {
                     if (!ownPath) {
                         if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
@@ -508,10 +527,29 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.menu_group_chat://群聊
-                mPopupWindow.dismiss();
-                new JoinGroupChat().execute();
-                break;
+//            case R.id.menu_favourite://收藏
+////                mPopupWindow.dismiss();
+//                if (!LingoXApplication.getInstance().getSkip()) {
+//                    if (!ownPath) {
+//                        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
+//                            new UnAcceptPath().execute();
+//                        } else {
+//                            new AcceptPath().execute();
+//                        }
+//                    } else {
+//                        Intent mIntent = new Intent(this, UserListActivity.class);
+//                        mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, joinedUsersList);
+//                        mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.joined_users));
+//                        startActivity(mIntent);
+//                    }
+//                } else {
+//                    SkipDialog.getDialog(this).show();
+//                }
+//                break;
+//            case R.id.menu_group_chat://群聊
+////                mPopupWindow.dismiss();
+//                new JoinGroupChat().execute();
+//                break;
             case R.id.local_avatar://用户头像
                 if (!LingoXApplication.getInstance().getSkip()) {
                     MobclickAgent.onEvent(this, "discover_avatar");
@@ -522,24 +560,17 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-            case R.id.chat_local://聊天
-                Intent chatIntent = new Intent(LocalViewActivity.this, ChatActivity.class);
-                chatIntent.putExtra("username", user.getUsername());
-                chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
-                chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
-                startActivity(chatIntent);
-                break;
-            case R.id.menu_edit://编辑
-                mPopupWindow.dismiss();
-                if (!LingoXApplication.getInstance().getSkip()) {
-                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
-                    Intent editPathIntent = new Intent(this, LocalEditActivity.class);
-                    editPathIntent.putExtra(LocalEditActivity.PATH_TO_EDIT, path);
-                    startActivityForResult(editPathIntent, EDIT_PATH);
-                } else {
-                    SkipDialog.getDialog(this).show();
-                }
-                break;
+//            case R.id.menu_edit://编辑
+////                mPopupWindow.dismiss();
+//                if (!LingoXApplication.getInstance().getSkip()) {
+//                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
+//                    Intent editPathIntent = new Intent(this, LocalEditActivity.class);
+//                    editPathIntent.putExtra(LocalEditActivity.PATH_TO_EDIT, path);
+//                    startActivityForResult(editPathIntent, EDIT_PATH);
+//                } else {
+//                    SkipDialog.getDialog(this).show();
+//                }
+//                break;
             case R.id.btn_reply://回复评论
                 if (commentEditText.getText().toString().isEmpty()) {
                     Toast.makeText(this, getString(R.string.enter_comment), Toast.LENGTH_SHORT).show();
@@ -557,9 +588,9 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
             case R.id.local_back://返回
                 finishedViewing();
                 break;
-            case R.id.local_menu://菜单
-                mPopupWindow.showAsDropDown(menu, -100, 0);
-                break;
+//            case R.id.local_menu://菜单
+//                mPopupWindow.showAsDropDown(menu, -100, 0);
+//                break;
             case R.id.local_more://展示更多的介绍
                 details.displayAll();
                 break;
@@ -979,9 +1010,9 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                 likeLayout.setVisibility(View.VISIBLE);
                 like.setImageResource(R.drawable.active_like_24dp);
                 like.setTag(1);
-                if (!path.getHxGroupId().isEmpty()) {
-                    groupChat.setVisibility(View.VISIBLE);
-                }
+//                if (!path.getHxGroupId().isEmpty()) {
+//                    groupChat.setVisibility(View.VISIBLE);
+//                }
             } else {
                 Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }
@@ -1027,9 +1058,10 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                 pathJoinedUserNum.setText(String.valueOf(joinedUsersList.size()));
                 like.setImageResource(R.drawable.active_dislike_24dp);
                 like.setTag(0);
-                if (!path.getHxGroupId().isEmpty()) {
-                    groupChat.setVisibility(View.GONE);
-                }
+
+//                if (!path.getHxGroupId().isEmpty()) {
+//                    groupChat.setVisibility(View.GONE);
+//                }
             } else {
                 Toast.makeText(LocalViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
             }

@@ -236,6 +236,22 @@ public class LocalFragment extends Fragment implements OnClickListener {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case EDIT_PATH://修改了数据
+                if (resultCode == LocalViewActivity.RESULT_OK) {
+                    if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
+                        modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
+                    } else if (data.hasExtra(LocalViewActivity.DELETED_PATH)) {
+                        removePath((Path) data.getParcelableExtra(LocalViewActivity.DELETED_PATH));
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.refresh_view:

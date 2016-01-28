@@ -91,7 +91,7 @@ public class FavouriteActivity extends ActionBarActivity implements OnClickListe
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Loacl";
+                    return "Local";
                 case 1:
                     return "Traveler";
             }

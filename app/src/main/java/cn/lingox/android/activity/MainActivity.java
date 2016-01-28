@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import cn.lingox.android.R;
 import cn.lingox.android.adapter.MySpinnerAdapter;
 import cn.lingox.android.app.LingoXApplication;
-import cn.lingox.android.entity.Path;
 import cn.lingox.android.helper.CacheHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CheckForUpdates;
@@ -467,6 +466,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         break;
                 }
                 break;
+//            case LocalFragment.EDIT_PATH://修改了数据
+//                if (resultCode == LocalViewActivity.RESULT_OK) {
+//                    if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
+//                        localFragment.modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
+//                    } else if (data.hasExtra(LocalViewActivity.DELETED_PATH)) {
+//                        localFragment.removePath((Path) data.getParcelableExtra(LocalViewActivity.DELETED_PATH));
+//                    }
+//                }
+//                break;
+
 //            case ADD_TRAVEL://添加新的travel的问题
 //                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
 //                    travelFragment.refershView((TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
@@ -490,15 +499,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 //                    }).start();
 //                }
 //                break;
-            case LocalFragment.EDIT_PATH://修改了数据
-                if (resultCode == LocalViewActivity.RESULT_OK) {
-                    if (data.hasExtra(LocalViewActivity.EDITED_PATH)) {
-                        localFragment.modifyPath((Path) data.getParcelableExtra(LocalViewActivity.EDITED_PATH));
-                    } else if (data.hasExtra(LocalViewActivity.DELETED_PATH)) {
-                        localFragment.removePath((Path) data.getParcelableExtra(LocalViewActivity.DELETED_PATH));
-                    }
-                }
-                break;
         }
     }
 

@@ -11,31 +11,32 @@
 
     <RelativeLayout
         android:id="@+id/travel_top"
-        style="@style/match_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:background="@color/main_color"
         android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/travel_edit_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/active_off_61dp" />
+            android:layout_marginRight="20dp"
+            android:scaleType="center"
+            android:src="@drawable/close" />
 
         <ImageView
             android:id="@+id/travel_edit_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/active_back_61dp" />
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:scaleType="center"
+            android:src="@drawable/back_new" />
 
         <TextView
             style="@style/wrap_wrap"
             android:layout_centerInParent="true"
-            android:text="Traveler Request"
+            android:text="Post Traveler Request"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -53,7 +54,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
@@ -74,8 +75,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/search" />
@@ -115,7 +116,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="arrive from"
+                        android:text="Arriving"
                         android:textAllCaps="true"
                         android:textColor="@color/black_deep"
                         android:textSize="10sp" />
@@ -145,7 +146,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="leaving on"
+                        android:text="Departing"
                         android:textAllCaps="true"
                         android:textColor="@color/black_deep"
                         android:textSize="10sp" />
@@ -176,65 +177,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-            <!-- 选择标签-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#ebebeb"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="add tags"
-                    android:textAllCaps="true"
-                    android:textColor="#777"
-                    android:textSize="11sp" />
-
-                <LinearLayout
-                    android:id="@+id/add_tags"
-                    style="@style/match_wrap"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="10dp" />
-            </LinearLayout>
             <!-- 到当地需要的服务及描述-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/dadaa"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#f7f7f7">
+                    android:layout_height="40dp"
+                    android:background="#ebebeb"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="what will YOU DO in this trip"
+                    android:textAllCaps="true"
+                    android:textColor="#777"
+                    android:textSize="11sp" />
 
-                    <TextView
-                        android:id="@+id/dadaa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="#ebebeb"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:text="what will YOU DO in this trip"
-                        android:textAllCaps="true"
-                        android:textColor="#777"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="30.5dp"
-                        android:layout_toRightOf="@+id/dadaa"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:text="100 Characters left"
-                        android:textColor="#c6c6c6"
-                        android:textSize="11sp" />
-
-                </RelativeLayout>
                 <!-- expect 期待的意思-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -259,6 +219,30 @@
                         android:drawablePadding="5dp"
                         android:hint="What will you do in this trip?" />
                 </RelativeLayout>
+                <!-- 选择标签-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#ebebeb"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="add tags"
+                        android:textAllCaps="true"
+                        android:textColor="#777"
+                        android:textSize="11sp" />
+
+                    <LinearLayout
+                        android:id="@+id/add_tags"
+                        style="@style/match_wrap"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="10dp" />
+                </LinearLayout>
             </LinearLayout>
             <!-- 将来作为本地人能提供的  隐藏，不再需要-->
             <LinearLayout
@@ -289,30 +273,6 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
-    <!-- 原来的布局-->
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="400dp"-->
-    <!--android:layout_below="@+id/travel_top"-->
-    <!--android:visibility="gone">-->
-    <!--&lt;!&ndash;要去的地方&ndash;&gt;-->
-    <!--<include-->
-    <!--style="@style/match_match"-->
-    <!--layout="@layout/include_travel_edit_1" />-->
-    <!--&lt;!&ndash;你到当地需要的服务及描述&ndash;&gt;-->
-    <!--<include-->
-    <!--style="@style/match_match"-->
-    <!--layout="@layout/include_travel_edit_2" />-->
-    <!--&lt;!&ndash;选择标签&ndash;&gt;-->
-    <!--<include-->
-    <!--style="@style/match_match"-->
-    <!--layout="@layout/include_travel_edit_3" />-->
-    <!--&lt;!&ndash;你作为本地人的时候能提供什么&ndash;&gt;-->
-    <!--<include-->
-    <!--style="@style/match_match"-->
-    <!--layout="@layout/include_travel_edit_4" />-->
-
-    <!--</RelativeLayout>-->
 
     <Button
         android:id="@+id/travel_edit_next"
@@ -320,7 +280,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#c9c9c9"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_next"
         android:text="@string/path_edit_next"
         android:textColor="@color/white"
         android:textSize="16sp" />

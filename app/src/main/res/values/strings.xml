@@ -372,7 +372,7 @@
     <string name="about_us">About us</string>
     <string name="comment">Commented on your Activity</string>
     <string name="followed_you">Followed you</string>
-    <string name="joined_activity">Joined your Activity</string>
+    <string name="joined_activity">Liked your local experience</string>
     <string name="comment_text">comment</string>
     <string name="following">Followings\n</string>
     <string name="neteasemicroblog">Netease Microblog</string>
@@ -418,5 +418,5 @@
     <string name="apply_notification">apply your activity.</string>
     <string name="followed_notification">followed you.</string>
     <string name="failed_mark_read_notification">Failed mark notification as read.</string>
-    <string name="liked_travel">Liked Your Ask Questions</string>
+    <string name="liked_travel">Liked Your Request Post</string>
 </resources>

@@ -1,19 +1,27 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +43,7 @@ import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.CreateCommentTravelEntity;
 import cn.lingox.android.task.DelCommentTravelEntity;
+import cn.lingox.android.task.DeleteTravelEntity;
 import cn.lingox.android.task.GetTravelEntity;
 import cn.lingox.android.task.GetUser;
 import cn.lingox.android.task.LikeTravelEntity;
@@ -109,11 +118,13 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
     private TextView travelingLocation;//旅行地点
     //    private TextView request;//问题题目---貌似没有
     private TextView detail;//问题描述
-    //    private ImageView menu;//右上角菜单
-//    private LinearLayout favourite, delete, edit, share;
+    private TextView more;//
+    private ImageView menu;//右上角菜单
+    //    private LinearLayout favourite, delete, edit, share;
+    private LinearLayout delete, edit;
     private ImageView like;//是否已收藏
     private ImageView share;//分享
-//    private PopupWindow mPopupWindow;//弹出框
+    private PopupWindow mPopupWindow;//弹出框
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,23 +168,31 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
         share = (ImageView) findViewById(R.id.travel_bar_share);
         share.setOnClickListener(this);
 
-//        menu = (ImageView) findViewById(R.id.travel_menu);
-//        menu.setOnClickListener(this);
+        menu = (ImageView) findViewById(R.id.travel_menu);
+        Bitmap bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.ic_more_vert_white)))
+                .getBitmap();
 
-//        View popupView = getLayoutInflater().inflate(R.layout.menu_pop, null);
+        // 设置图片旋转的角度
+        Matrix matrix = menu.getMatrix();
+        matrix.setRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        menu.setImageBitmap(bitmap);
+        menu.setOnClickListener(this);
+
+        View popupView = getLayoutInflater().inflate(R.layout.menu_pop, null);
 //        favourite = (LinearLayout) popupView.findViewById(R.id.menu_favourite);
 //        favourite.setOnClickListener(this);
-//        delete = (LinearLayout) popupView.findViewById(R.id.menu_del);
-//        delete.setOnClickListener(this);
-//        edit = (LinearLayout) popupView.findViewById(R.id.menu_edit);
-//        edit.setOnClickListener(this);
+        delete = (LinearLayout) popupView.findViewById(R.id.menu_del);
+        delete.setOnClickListener(this);
+        edit = (LinearLayout) popupView.findViewById(R.id.menu_edit);
+        edit.setOnClickListener(this);
 //        share = (LinearLayout) popupView.findViewById(R.id.menu_share);
 //        share.setOnClickListener(this);
 //        like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
-//        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-//        mPopupWindow.setTouchable(true);
-//        mPopupWindow.setOutsideTouchable(true);
-//        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
         //开始时间
         startDay = (TextView) findViewById(R.id.start_day);
         startMonth = (TextView) findViewById(R.id.start_month);
@@ -196,6 +215,8 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
 //         request=(TextView)findViewById(R.id.travel_request);
         //描述
         detail = (TextView) findViewById(R.id.travel_detail);
+        more = (TextView) findViewById(R.id.travel_more);
+        more.setOnClickListener(this);
         //标签
         tagsView = (ViewGroup) findViewById(R.id.travel_view_tag);
         tagLayout = (LinearLayout) findViewById(R.id.tag);
@@ -244,6 +265,25 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
      * 设置数据
      */
     private void setData() {
+        if (travelEntity.getText().length() > 100) {
+            ViewTreeObserver vto = detail.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Layout layout = detail.getLayout();
+                    boolean isOverSize = layout.getEllipsisCount(detail.getMaxLines() - 1) > 0;
+                    if (isOverSize) {
+                        //有隐藏
+                        more.setVisibility(View.VISIBLE);
+                    } else {
+                        //无隐藏
+                        more.setVisibility(View.GONE);
+                    }
+                }
+            });
+        } else {
+            more.setVisibility(View.GONE);
+        }
 //        commitLayout.setVisibility(View.VISIBLE);
         //判断是否为自己
         if (travelEntity.getUser_id().equals(CacheHelper.getInstance().getSelfInfo().getId())) {
@@ -251,12 +291,14 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             ownTravel = true;
             chat.setVisibility(View.GONE);
             like.setVisibility(View.GONE);
+            menu.setVisibility(View.VISIBLE);
 //            edit.setVisibility(View.VISIBLE);
 //            delete.setVisibility(View.VISIBLE);
 //            favourite.setVisibility(View.GONE);
         } else {//不是自己的
             ownTravel = false;
             chat.setVisibility(View.VISIBLE);
+            menu.setVisibility(View.GONE);
 //            delete.setVisibility(View.GONE);
 //            edit.setVisibility(View.GONE);
 //            favourite.setVisibility(View.VISIBLE);
@@ -541,122 +583,59 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-//            case R.id.travel_menu://菜单
-//                mPopupWindow.showAsDropDown(menu, -100, 0);
-//                break;
-//            case R.id.menu_share://分享
-//                mPopupWindow.dismiss();
-//                showShare();
-//                break;
+            case R.id.travel_menu://菜单
+                mPopupWindow.showAsDropDown(menu, -100, 0);
+                break;
             case R.id.travel_bar_share://分享
                 showShare();
                 break;
-//            case R.id.menu_edit://编辑
-//                mPopupWindow.dismiss();
-//                if (!LingoXApplication.getInstance().getSkip()) {
-//                    Intent editPathIntent = new Intent(this, TravelEditActivity.class);
-//                    editPathIntent.putExtra(TravelEditActivity.TRAVEL_EDIT, travelEntity);
-//                    startActivityForResult(editPathIntent, EDIT_TRAVEL);
-//                } else {
-//                    SkipDialog.getDialog(this).show();
-//                }
-//                break;
-//            case R.id.menu_del://删除
-//                mPopupWindow.dismiss();
-//                if (!LingoXApplication.getInstance().getSkip()) {
-//                    new AlertDialog.Builder(this)
-//                            .setTitle("Are you sure to delete?")
-//                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//
-//                                }
-//                            }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            new DeleteTravelEntity(TravelViewActivity.this, travelEntity.getId(), new DeleteTravelEntity.Callback() {
-//                                @Override
-//                                public void onSuccess(TravelEntity entity) {
-//                                    try {
-//                                        Intent delIntent = new Intent();
-//                                        delIntent.putExtra(TravelViewActivity.DELETE, travelEntity);
-//                                        setResult(RESULT_OK, delIntent);
-//                                        finish();
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onFail() {
-//
-//                                }
-//                            }).execute();
-//                        }
-//                    }).create().show();
-//                } else {
-//                    SkipDialog.getDialog(this).show();
-//                }
-//                break;
-//            case R.id.menu_favourite://收藏
-//                mPopupWindow.dismiss();
-//                if (!LingoXApplication.getInstance().getSkip()) {
-//                    HashMap<String, String> map = new HashMap<>();
-//                    map.put("demandId", travelEntity.getId());
-//                    map.put("userId", CacheHelper.getInstance().getSelfInfo().getId());
-//                    if (!ownTravel) {//不是自己的
-//                        if (userAccepted()) {
-//                            new UnLikeTravelEntity(this, map, new UnLikeTravelEntity.Callback() {
-//                                @Override
-//                                public void onSuccess(TravelEntity entity) {
-//                                    likeDatas.remove(CacheHelper.getInstance().getSelfInfo());
-//                                    travelEntity.setLikeUsers(likeDatas);
-//                                    like.setImageResource(R.drawable.active_dislike_24dp);
-//                                    like.setTag(0);
-//                                    likeAdapter.notifyDataSetChanged();
-//                                    if (likeDatas.size() == 0) {
-//                                        likeList.setVisibility(View.GONE);
-//                                        likeLayout.setVisibility(View.GONE);
-//                                    }
-//                                    likeNum.setText(String.valueOf(likeDatas.size()));
-//                                }
-//
-//                                @Override
-//                                public void onFail() {
-//                                    Toast.makeText(TravelViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }).execute();
-//                        } else {
-//                            //like成功，添加到数据源中，并刷新
-//                            new LikeTravelEntity(this, map, new LikeTravelEntity.Callback() {
-//                                @Override
-//                                public void onSuccess(TravelEntity entity) {
-//                                    likeDatas.add(CacheHelper.getInstance().getSelfInfo());
-//                                    likeNum.setText(String.valueOf((Integer.parseInt(likeNum.getText().toString()) + 1)));
-//                                    likeAdapter.notifyDataSetChanged();
-//                                    travelEntity.setLikeUsers(likeDatas);
-//                                    like.setImageResource(R.drawable.active_like_24dp);
-//                                    like.setTag(1);
-//                                    likeList.setVisibility(View.VISIBLE);
-//                                    likeLayout.setVisibility(View.VISIBLE);
-//                                }
-//
-//                                @Override
-//                                public void onFail() {
-//                                    Toast.makeText(TravelViewActivity.this, getString(R.string.fail_jion), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }).execute();
-//                        }
-//                    } else {
-//                        Intent mIntent = new Intent(this, UserListActivity.class);
-//                        mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, travelEntity.getLikeUsers());
-//                        mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.joined_users));
-//                        startActivity(mIntent);
-//                    }
-//                } else {
-//                    SkipDialog.getDialog(this).show();
-//                }
-//                break;
+            case R.id.menu_edit://编辑
+                mPopupWindow.dismiss();
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    Intent editPathIntent = new Intent(this, TravelEditActivity.class);
+                    editPathIntent.putExtra(TravelEditActivity.TRAVEL_EDIT, travelEntity);
+                    startActivityForResult(editPathIntent, EDIT_TRAVEL);
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
+            case R.id.menu_del://删除
+                mPopupWindow.dismiss();
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Are you sure to delete?")
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new DeleteTravelEntity(TravelViewActivity.this, travelEntity.getId(), new DeleteTravelEntity.Callback() {
+                                @Override
+                                public void onSuccess(TravelEntity entity) {
+                                    try {
+                                        Intent delIntent = new Intent();
+                                        delIntent.putExtra(TravelViewActivity.DELETE, travelEntity);
+                                        setResult(RESULT_OK, delIntent);
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail() {
+
+                                }
+                            }).execute();
+                        }
+                    }).create().show();
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
             case R.id.travel_bar_like://收藏
                 if (!LingoXApplication.getInstance().getSkip()) {
                     HashMap<String, String> map = new HashMap<>();
@@ -715,6 +694,10 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
                 } else {
                     SkipDialog.getDialog(this).show();
                 }
+                break;
+            case R.id.travel_more://展示更多的介绍
+                detail.setMaxLines(Integer.MAX_VALUE);
+                detail.setEllipsize(null);
                 break;
         }
     }

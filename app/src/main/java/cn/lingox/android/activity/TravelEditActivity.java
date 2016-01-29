@@ -79,7 +79,6 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
 
     private boolean isEdit = false;//表示是否为修改 false创建、true修改
 
-    private int page = 1;
     private long start = 0, end = 0, now = System.currentTimeMillis() / 1000L;
     private Calendar calendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
@@ -89,6 +88,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             if (end == 0 || end >= start) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(showArriveTime, TimeHelper.getInstance().parseTimestampToDate(start));
                 travelEntity.setStartTime(start);
+                checkPageOne();
             } else {
                 Toast.makeText(TravelEditActivity.this, getString(R.string.start_end), Toast.LENGTH_SHORT).show();
                 startDatePickerDialog();
@@ -102,6 +102,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
             if (end - now >= 0 && (start == 0 || end >= start)) {
                 UIHelper.getInstance().textViewSetPossiblyNullString(showLeaveTime, TimeHelper.getInstance().parseTimestampToDate(end));
                 travelEntity.setEndTime(end);
+                checkPageOne();
             } else {
                 Toast.makeText(TravelEditActivity.this, getString(R.string.end_start), Toast.LENGTH_SHORT).show();
                 endDatePickerDialog();
@@ -159,10 +160,10 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() <= 100) {
+                if (!s.toString().isEmpty()) {
                     travelEntity.setText(s.toString());
                 } else {
-                    Toast.makeText(TravelEditActivity.this, "100 characters left", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TravelEditActivity.this, "Please fill out the content.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -244,6 +245,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 break;
             case R.id.travel_edit_location://选择旅行地点
                 Intent intent = new Intent(this, SelectCountry.class);
+                intent.putExtra("TravelEdit", "");
                 startActivityForResult(intent, SELECT_LOCATION);
                 break;
             case R.id.travel_edit_back://返回
@@ -262,8 +264,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 back();
                             }
-                        })
-                        .create().show();
+                        }).create().show();
                 break;
         }
     }
@@ -292,6 +293,40 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
     }
 
     /**
+     * 检查第一页是否填写完成
+     *
+     * @return
+     */
+    private boolean checkPageOne() {
+        if (travelEntity.getCountry().isEmpty() ||
+                travelEntity.getStartTime() == -1 ||
+                travelEntity.getEndTime() == -1) {
+            post.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next));
+            return false;
+        } else {
+            post.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next_main_color));
+            return true;
+        }
+    }
+
+    /**
+     * 检查第一页是否填写完成
+     *
+     * @return
+     */
+    private boolean checkPageTwo() {
+        if (travelEntity.getTags().size() < 0 ||
+                travelEntity.getText().isEmpty() ||
+                !saveTags()) {
+            post.setBackgroundColor(Color.rgb(201, 201, 201));
+            return false;
+        } else {
+            post.setBackgroundColor(getResources().getColor(R.color.main_color));
+            return true;
+        }
+    }
+
+    /**
      * @param what 表示发出事件的控件
      */
     private void nextClick(int what) {
@@ -300,9 +335,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                 //首先判断当前显示的页面
                 if (pageOne.getVisibility() == View.VISIBLE) {
                     //第一页显示，判断第一页内容是否填写完全
-                    if (travelEntity.getCountry().isEmpty() ||
-                            travelEntity.getStartTime() == -1 ||
-                            travelEntity.getEndTime() == -1) {
+                    if (!checkPageOne()) {
                         Toast.makeText(this, "Please fill out the complete.", Toast.LENGTH_SHORT).show();
                     } else {
                         //填写完成，显示第二页
@@ -312,9 +345,7 @@ public class TravelEditActivity extends FragmentActivity implements OnClickListe
                     }
                 } else if (pageTwo.getVisibility() == View.VISIBLE) {
                     //第二页显示，判断第一页内容是否填写完全
-                    if (travelEntity.getTags().size() < 0 ||
-                            travelEntity.getText().isEmpty() ||
-                            !saveTags()) {
+                    if (!checkPageTwo()) {
                         Toast.makeText(this, "Please fill out the complete.", Toast.LENGTH_SHORT).show();
                     } else {
                         //填写完成，显示第二页

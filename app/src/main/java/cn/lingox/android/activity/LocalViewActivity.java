@@ -1,16 +1,22 @@
 package cn.lingox.android.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +60,7 @@ import cn.lingox.android.utils.CircularImageView;
 import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
 import cn.lingox.android.widget.MyScrollView;
+import cn.lingox.android.widget.ScrollViewListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import it.sephiroth.android.library.widget.HListView;
@@ -60,7 +68,7 @@ import it.sephiroth.android.library.widget.HListView;
 /**
  * 本地人发布的活动详情页
  */
-public class LocalViewActivity extends Activity implements View.OnClickListener {
+public class LocalViewActivity extends Activity implements View.OnClickListener, ScrollViewListener {
     // Incoming Intent Extras
     public static final String PATH_TO_VIEW = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW";
     public static final String PATH_TO_VIEW_ID = LingoXApplication.PACKAGE_NAME + ".PATH_TO_VIEW_ID";
@@ -73,11 +81,12 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     // UI Elements
     private ProgressBar loadingBar;
 
-    //    private ImageView menu;
-//    private LinearLayout favourite, delete, edit, share, groupChat;
+    private ImageView menu;
+    //    private LinearLayout favourite, , share, groupChat;
+    private LinearLayout delete, edit;
     private ImageView like;//是否已收藏
     private ImageView share;//分享
-//    private PopupWindow mPopupWindow;//弹出框
+    private PopupWindow mPopupWindow;//弹出框
 
     private ImageView chat;//聊天图标
     private ImageView avatar;//用户头像
@@ -110,15 +119,16 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     private TextView pathJoinedUserNum;//收藏人数
     //
     private HListView joinedUsersListView;//收藏用户头像
-    private LinearLayout commentsSend, commentsListView;
+    //    private LinearLayout commentsSend;
+    private LinearLayout commentsListView;
     //    private RelativeLayout layout;//申请成功后的群聊引导
     private EditText commentEditText;//评论编辑框
     private Button commentSendButton;//评论提交按钮
 
-    private int height;
-    private int scrollViewHeight;
-    private int commentHeight;
-    private LinearLayout pathView;//整个视图
+    //    private int height;
+//    private int scrollViewHeight;
+//    private int commentHeight;
+//    private LinearLayout pathView;//整个视图
     //    private LinearLayout pathTime;
     private LinearLayout likeLayout;
     private LinearLayout commitLayout;
@@ -140,8 +150,8 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
 
     private boolean isApply = false;
     //数组长度必须为2 第一个为x坐标，第二个为y坐标
-    private int[] startLocations = new int[2];
-    private int[] endLocations = new int[2];
+//    private int[] startLocations = new int[2];
+//    private int[] endLocations = new int[2];
 
     private ArrayList<PathTags> datas;
     //    private String[] tags;
@@ -188,34 +198,42 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         like.setOnClickListener(this);
         share = (ImageView) findViewById(R.id.local_bar_share);
         share.setOnClickListener(this);
-    /*
+
         menu = (ImageView) findViewById(R.id.local_menu);
+        Bitmap bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.ic_more_vert_white)))
+                .getBitmap();
+
+        // 设置图片旋转的角度
+        Matrix matrix = menu.getMatrix();
+        matrix.setRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        menu.setImageBitmap(bitmap);
         menu.setOnClickListener(this);
 
-    不使用弹出菜单的形式
+//    不使用弹出菜单的形式
         View popupView = getLayoutInflater().inflate(R.layout.menu_pop, null);
-        favourite = (LinearLayout) popupView.findViewById(R.id.menu_favourite);
-        favourite.setOnClickListener(this);
-        like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
+//        favourite = (LinearLayout) popupView.findViewById(R.id.menu_favourite);
+//        favourite.setOnClickListener(this);
+//        like = (ImageView) popupView.findViewById(R.id.menu_iv_favourite);
         delete = (LinearLayout) popupView.findViewById(R.id.menu_del);
         delete.setOnClickListener(this);
         edit = (LinearLayout) popupView.findViewById(R.id.menu_edit);
         edit.setOnClickListener(this);
-        share = (LinearLayout) popupView.findViewById(R.id.menu_share);
-        share.setOnClickListener(this);
-        groupChat = (LinearLayout) popupView.findViewById(R.id.menu_group_chat);
-        groupChat.setOnClickListener(this);
+//        share = (LinearLayout) popupView.findViewById(R.id.menu_share);
+//        share.setOnClickListener(this);
+//        groupChat = (LinearLayout) popupView.findViewById(R.id.menu_group_chat);
+//        groupChat.setOnClickListener(this);
         mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
-        */
+
         //背景图和标题
         background = (ImageView) findViewById(R.id.local_background);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        height = dm.heightPixels;
+//        height = dm.heightPixels;
         ViewGroup.LayoutParams params1 = background.getLayoutParams();
         params1.height = width;
         background.setLayoutParams(params1);
@@ -256,7 +274,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         scrollView = (MyScrollView) findViewById(R.id.local_view_scroll_view);
-//        scrollView.setScrollViewListener(this);
+        scrollView.setScrollViewListener(this);
         pathCommentsNum = (TextView) findViewById(R.id.path_comments_num);
         pathJoinedUserNum = (TextView) findViewById(R.id.path_particpants_num);
         //收藏者
@@ -268,15 +286,25 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         }
         //comment
         commentsListView = (LinearLayout) findViewById(R.id.path_view_comments_list);
-        commentsSend = (LinearLayout) findViewById(R.id.path_view_comment_bar);
+//        commentsSend = (LinearLayout) findViewById(R.id.path_view_comment_bar);
         commentEditText = (EditText) findViewById(R.id.comment_text_box);
+        commentEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    join.setVisibility(View.GONE);
+                } else {
+                    join.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         commentSendButton = (Button) findViewById(R.id.btn_reply);
         commentSendButton.setOnClickListener(this);
         commitLayout = (LinearLayout) findViewById(R.id.path_view_commit);
         //like
         likeLayout = (LinearLayout) findViewById(R.id.path_view_like);
 
-        pathView = (LinearLayout) findViewById(R.id.path_view);
+//        pathView = (LinearLayout) findViewById(R.id.path_view);
         //申请之后的引导
 //        layout = (RelativeLayout) findViewById(R.id.path_view_yindao);
 //        layout.setOnClickListener(this);
@@ -296,7 +324,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                         //有隐藏
                         more.setVisibility(View.VISIBLE);
                     } else {
-                        //五隐藏
+                        //无隐藏
                         more.setVisibility(View.GONE);
                     }
                 }
@@ -312,8 +340,10 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                 like.setVisibility(View.GONE);
 //                delete.setVisibility(View.VISIBLE);
 //                edit.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.VISIBLE);
 //                groupChat.setVisibility(!TextUtils.isEmpty(path.getHxGroupId()) ? View.VISIBLE : View.GONE);
             } else {
+                menu.setVisibility(View.GONE);
 //                delete.setVisibility(View.GONE);
 //                edit.setVisibility(View.GONE);
                 chat.setVisibility(View.VISIBLE);
@@ -485,43 +515,36 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.menu_del://删除
-////                mPopupWindow.dismiss();
-//                new AlertDialog.Builder(this)
-//                        .setTitle("Are you sure to delete?")
-//                        .setNegativeButton("Cancel", null)
-//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                new Thread() {
-//                                    @Override
-//                                    public void run() {
-//                                        try {
-//                                            path = ServerHelper.getInstance().deletePath(path.getId());
-//                                            Intent intent = new Intent();
-//                                            intent.putExtra(LocalViewActivity.DELETED_PATH, path);
-//                                            setResult(RESULT_OK, intent);
-//                                            finish();
-//                                        } catch (Exception e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                    }
-//                                }.start();
-//                            }
-//                        }).create().show();
-//                break;
-//            case R.id.menu_share://分享
-////                mPopupWindow.dismiss();
-//                MobclickAgent.onEvent(LocalViewActivity.this, "discover_share");
-//                showShare();
-//                break;
-            case R.id.local_bar_share://分享
+            case R.id.menu_del://删除
 //                mPopupWindow.dismiss();
+                new AlertDialog.Builder(this)
+                        .setTitle("Are you sure to delete?")
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            path = ServerHelper.getInstance().deletePath(path.getId());
+                                            Intent intent = new Intent();
+                                            intent.putExtra(LocalViewActivity.DELETED_PATH, path);
+                                            setResult(RESULT_OK, intent);
+                                            finish();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }.start();
+                            }
+                        }).create().show();
+                break;
+            case R.id.local_bar_share://分享
                 MobclickAgent.onEvent(LocalViewActivity.this, "discover_share");
                 showShare();
                 break;
             case R.id.local_bar_like://收藏
-//                mPopupWindow.dismiss();
                 if (!LingoXApplication.getInstance().getSkip()) {
                     if (!ownPath) {
                         if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
@@ -539,29 +562,6 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-//            case R.id.menu_favourite://收藏
-////                mPopupWindow.dismiss();
-//                if (!LingoXApplication.getInstance().getSkip()) {
-//                    if (!ownPath) {
-//                        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
-//                            new UnAcceptPath().execute();
-//                        } else {
-//                            new AcceptPath().execute();
-//                        }
-//                    } else {
-//                        Intent mIntent = new Intent(this, UserListActivity.class);
-//                        mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, joinedUsersList);
-//                        mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.joined_users));
-//                        startActivity(mIntent);
-//                    }
-//                } else {
-//                    SkipDialog.getDialog(this).show();
-//                }
-//                break;
-//            case R.id.menu_group_chat://群聊
-////                mPopupWindow.dismiss();
-//                new JoinGroupChat().execute();
-//                break;
             case R.id.local_avatar://用户头像
                 if (!LingoXApplication.getInstance().getSkip()) {
                     MobclickAgent.onEvent(this, "discover_avatar");
@@ -572,17 +572,17 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                     SkipDialog.getDialog(this).show();
                 }
                 break;
-//            case R.id.menu_edit://编辑
-////                mPopupWindow.dismiss();
-//                if (!LingoXApplication.getInstance().getSkip()) {
-//                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
-//                    Intent editPathIntent = new Intent(this, LocalEditActivity.class);
-//                    editPathIntent.putExtra(LocalEditActivity.PATH_TO_EDIT, path);
-//                    startActivityForResult(editPathIntent, EDIT_PATH);
-//                } else {
-//                    SkipDialog.getDialog(this).show();
-//                }
-//                break;
+            case R.id.menu_edit://编辑
+                mPopupWindow.dismiss();
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    MobclickAgent.onEvent(LocalViewActivity.this, "discover_message", new HashMap<String, String>().put("message", "edit"));
+                    Intent editPathIntent = new Intent(this, LocalEditActivity.class);
+                    editPathIntent.putExtra(LocalEditActivity.PATH_TO_EDIT, path);
+                    startActivityForResult(editPathIntent, EDIT_PATH);
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
             case R.id.btn_reply://回复评论
                 if (commentEditText.getText().toString().isEmpty()) {
                     Toast.makeText(this, getString(R.string.enter_comment), Toast.LENGTH_SHORT).show();
@@ -600,11 +600,10 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
             case R.id.local_back://返回
                 finishedViewing();
                 break;
-//            case R.id.local_menu://菜单
-//                mPopupWindow.showAsDropDown(menu, -100, 0);
-//                break;
+            case R.id.local_menu://菜单
+                mPopupWindow.showAsDropDown(menu, -100, 0);
+                break;
             case R.id.local_more://展示更多的介绍
-//                details.displayAll();
                 details.setMaxLines(Integer.MAX_VALUE);
                 details.setEllipsize(null);
                 break;
@@ -627,6 +626,17 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                     startActivity(intent);
                 }
                 break;
+            case R.id.chat_local://聊天
+                if (!LingoXApplication.getInstance().getSkip()) {
+                    Intent chatIntent = new Intent(LocalViewActivity.this, ChatActivity.class);
+                    chatIntent.putExtra("username", user.getUsername());
+                    chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
+                    chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
+                    startActivity(chatIntent);
+                } else {
+                    SkipDialog.getDialog(this).show();
+                }
+                break;
         }
     }
 
@@ -646,6 +656,15 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         oks.setUrl("http://lingox.cn/viewActivity?" + StringConstant.pathId + "=" + path.getId());
         // 启动分享GUI
         oks.show(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Log.d("星期", "back");
+            finishedViewing();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**
@@ -675,14 +694,27 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         background.setImageDrawable(null);
         super.onDestroy();
     }
-
-    /*
-    *系统回退键
-     */
-    @Override
-    public void onBackPressed() {
-        finishedViewing();
-    }
+//    private boolean mKeyboardUp;
+//
+//    private void setListenerToRootView() {
+//        final View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+//        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                final int headerHeight = getActionBarHeight() + getStatusBarHeight();
+//                int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
+//                if (heightDiff > headerHeight) {
+//                    Log.e("keyboard", "keyboard is up");
+//                    if (!mKeyboardUp) {
+//                        mKeyboardUp = true;
+//                    }
+//                } else if (mOpen) {
+//                    Log.e("keyboard", "keyboard is hidden");
+//                    mKeyboardUp = false;
+//                }
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -823,8 +855,14 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         super.onPause();
     }
 
-//    @Override
-//    public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
+    @Override
+    public void onScrollChanged(final MyScrollView scrollView1, int x, int y, int oldx, int oldy) {
+//        if (Math.abs(oldy-y)>10){
+//            join.setVisibility(View.GONE);
+//            //滚动
+//        }else if (Math.abs(oldy-y)<=5){
+//            join.setVisibility(View.VISIBLE);
+//        }
 //        if (!LingoXApplication.getInstance().getSkip()) {
 ////            pathCommentsNum.getLocationInWindow(startLocations);
 //            chat.getLocationInWindow(startLocations);
@@ -841,7 +879,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
 //                join.setVisibility(View.VISIBLE);
 //            }
 //        }
-//    }
+    }
 
     /**
      * 下载活动数据
@@ -1187,7 +1225,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
 
         @Override
         protected void onPreExecute() {
-//            commentSendButton.setEnabled(false);
+            commentSendButton.setEnabled(false);
         }
 
         @Override
@@ -1209,9 +1247,9 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
             } else {
                 MobclickAgent.onEvent(LocalViewActivity.this, "discover_comment", new HashMap<String, String>().put("comment", "user"));
                 addComment(comment);
-//                commentEditText.setText("");
+                commentEditText.setText("");
             }
-//            commentSendButton.setEnabled(true);
+            commentSendButton.setEnabled(true);
         }
     }
 

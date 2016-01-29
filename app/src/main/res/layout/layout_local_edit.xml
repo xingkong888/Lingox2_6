@@ -6,35 +6,35 @@
     <RelativeLayout
         android:id="@+id/local_edit_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/path_edit_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/active_back_61dp"
-            android:contentDescription="返回" />
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:contentDescription="返回"
+            android:scaleType="center"
+            android:src="@drawable/back_new" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Host Local Experence"
+            android:text="Host Local Experience"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/path_edit_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/active_off_61dp"
-            android:contentDescription="关闭" />
+            android:layout_marginRight="20dp"
+            android:contentDescription="关闭"
+            android:scaleType="center"
+            android:src="@drawable/close" />
     </RelativeLayout>
     <!--正文-->
     <RelativeLayout
@@ -50,11 +50,11 @@
             <!--**************************标题*****************************-->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="Traveling infomation"
+                android:text="Experience Information"
                 android:textAllCaps="true"
                 android:textColor="#777"
                 android:textSize="11sp" />
@@ -71,8 +71,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/menu" />
@@ -97,11 +97,11 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="Event's location"
+                android:text="Location"
                 android:textAllCaps="true"
                 android:textColor="#777"
                 android:textSize="11sp" />
@@ -118,8 +118,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/search" />
@@ -143,7 +143,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
@@ -164,8 +164,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/menu" />
@@ -194,30 +194,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-            <!-- 选择标签-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#ebebeb"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="add tags"
-                    android:textAllCaps="true"
-                    android:textColor="#777"
-                    android:textSize="11sp" />
-
-                <LinearLayout
-                    android:id="@+id/add_tags"
-                    style="@style/match_wrap"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="10dp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -226,7 +202,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="#ebebeb">
 
                     <TextView
@@ -247,7 +223,7 @@
                         android:layout_toRightOf="@+id/dadaa"
                         android:gravity="center_vertical"
                         android:paddingLeft="15dp"
-                        android:text="100 Characters left"
+                        android:text="at least 100 characters"
                         android:textColor="#c6c6c6"
                         android:textSize="11sp" />
 
@@ -277,6 +253,30 @@
                         android:hint="What will you do in this trip?"
                         android:textColorHint="#d9d9d9" />
                 </RelativeLayout>
+                <!-- 选择标签-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#ebebeb"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="add tags"
+                        android:textAllCaps="true"
+                        android:textColor="#777"
+                        android:textSize="11sp" />
+
+                    <LinearLayout
+                        android:id="@+id/add_tags"
+                        style="@style/match_wrap"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="10dp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <!-- 第三页-->
@@ -289,7 +289,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
@@ -465,7 +465,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#ebebeb"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
@@ -498,7 +498,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#c9c9c9"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_next"
         android:text="@string/path_edit_next"
         android:textColor="@color/white"
         android:textSize="16sp" />

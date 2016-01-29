@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +40,7 @@ public class SelectCountry extends Activity {
     private ListView listView1;
     private ListView listView2;
     private ListView listView3;
+    private TextView title;//标题
     private LinearLayout layout;
     private ArrayList<Country1> datas = null;
     private ArrayList<String> countryDatas = new ArrayList<>();//存储国家数据，用于搜索
@@ -52,6 +54,8 @@ public class SelectCountry extends Activity {
     private int requestCode = 0;
     private InputMethodManager imm;
 
+    private boolean isTravelEdit = false;//是否是由“TravelEditActivity”跳转
+
     public static SelectCountry getObj() {
         return selectCountry;
     }
@@ -62,6 +66,9 @@ public class SelectCountry extends Activity {
         setContentView(R.layout.choose_location);
         if (getIntent().hasExtra(SELECTLOCATION)) {
             requestCode = getIntent().getIntExtra(SELECTLOCATION, 0);
+        }
+        if (getIntent().hasExtra("TravelEdit")) {
+            isTravelEdit = true;
         }
         selectCountry = this;
         datas = new ArrayList<>();
@@ -87,6 +94,7 @@ public class SelectCountry extends Activity {
                 isShow();
             }
         });
+        title = (TextView) findViewById(R.id.select_title);
         search = (EditText) findViewById(R.id.search_edit);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -132,6 +140,7 @@ public class SelectCountry extends Activity {
                             layout.setVisibility(View.GONE);
                             listView1.setVisibility(View.GONE);
                             listView2.setVisibility(View.VISIBLE);
+                            title.setText("Choose Provinces");
                             adapter2.notifyDataSetChanged();
                         }
                         break;
@@ -147,7 +156,7 @@ public class SelectCountry extends Activity {
                         for (Provinces p : c.getProvinces()) {
                             if (provincesData.get(position).contentEquals(p.getProvinces())) {
                                 softIsShow(listView2);
-                                if (p.getCity().isEmpty()) {
+                                if (p.getCity().isEmpty() || isTravelEdit) {
                                     //无数据
                                     close(p.getProvinces());
                                 } else {
@@ -156,6 +165,7 @@ public class SelectCountry extends Activity {
                                     cityData.addAll(p.getCity());
                                     Collections.sort(cityData);
                                     listView2.setVisibility(View.GONE);
+                                    title.setText("Choose City");
                                     listView3.setVisibility(View.VISIBLE);
                                     adapter3.notifyDataSetChanged();
                                 }
@@ -191,9 +201,11 @@ public class SelectCountry extends Activity {
             countryData.addAll(countryDatas);
             listView1.setVisibility(View.VISIBLE);
             search.setText("");
+            title.setText("Choose Country");
             layout.setVisibility(View.VISIBLE);
         } else if (listView3.getVisibility() == View.VISIBLE) {
             listView3.setVisibility(View.GONE);
+            title.setText("Choose Provinces");
             listView2.setVisibility(View.VISIBLE);
         }
     }
@@ -205,7 +217,7 @@ public class SelectCountry extends Activity {
         } else if (provincesData.isEmpty()) {
             //直接添加国家
             intent.putExtra(SELECTED, str);
-        } else if (cityData.isEmpty()) {
+        } else if (cityData.isEmpty() || isTravelEdit) {
             //添加国家、省份
             intent.putExtra(SELECTED, country + ", " + str);
         } else {

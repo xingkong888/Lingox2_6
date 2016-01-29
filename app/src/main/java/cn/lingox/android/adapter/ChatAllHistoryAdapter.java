@@ -83,7 +83,8 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
             holder.layout = (LinearLayout) convertView.findViewById(R.id.news_spec_layout);
             holder.avatar = (ImageView) convertView.findViewById(R.id.chat_user_avatar);
             holder.name = (TextView) convertView.findViewById(R.id.chat_user_name);
-            holder.readMsg = (ImageView) convertView.findViewById(R.id.chat_read_msg);
+            holder.unreadLabel = (TextView) convertView.findViewById(R.id.chat_message_num);
+//            holder.readMsg = (ImageView) convertView.findViewById(R.id.chat_read_msg);
             holder.message = (TextView) convertView.findViewById(R.id.chat_message);
             holder.time = (TextView) convertView.findViewById(R.id.chat_date);
             holder.state = (TextView) convertView.findViewById(R.id.msg_state);
@@ -141,14 +142,11 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
                 holder.name.setText(conversation.getUserName());
             }
         }
-
         if (conversation.getUnreadMsgCount() > 0) {
-//            holder.unreadLabel.setText(String.valueOf(conversation.getUnreadMsgCount()));
-            holder.readMsg.setVisibility(View.GONE);
-//            holder.message.setTextColor(Color.rgb(204, 140, 12));
+            holder.unreadLabel.setText(String.valueOf(conversation.getUnreadMsgCount()));
+            holder.unreadLabel.setVisibility(View.VISIBLE);
         } else {
-            holder.readMsg.setVisibility(View.VISIBLE);
-//            holder.message.setTextColor(Color.rgb(171, 171, 171));
+            holder.unreadLabel.setVisibility(View.INVISIBLE);
         }
 
         if (conversation.getMsgCount() != 0) {
@@ -224,16 +222,10 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
         // --- Use data we definitely have ---
         // We should have User info due to the MainActivity getNotifications AsyncTask
         UIHelper uiHelper = UIHelper.getInstance();
-        holder.readMsg.setVisibility(View.VISIBLE);
-
         if (notification.getRead()) {
-//            holder.name.setTextColor(Color.rgb(171, 171, 171));
-//            holder.message.setTextColor(Color.rgb(171, 171, 171));
-            holder.readMsg.setVisibility(View.VISIBLE);
+            holder.unreadLabel.setVisibility(View.GONE);
         } else {
-            holder.readMsg.setVisibility(View.GONE);
-//            holder.name.setTextColor(Color.rgb(204, 140, 12));
-//            holder.message.setTextColor(Color.rgb(204, 140, 12));
+            holder.unreadLabel.setVisibility(View.VISIBLE);
         }
         uiHelper.textViewSetPossiblyNullString(holder.name, user.getNickname());
 
@@ -319,7 +311,9 @@ public class ChatAllHistoryAdapter extends BaseAdapter {
     static class ViewHolder {
         LinearLayout layout;
         TextView name, message, time, state;
-        ImageView avatar, readMsg;
+        ImageView avatar;//, readMsg
+        TextView unreadLabel;
+
     }
 
     //获取聊天信息的异步任务

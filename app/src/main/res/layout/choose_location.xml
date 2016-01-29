@@ -3,19 +3,29 @@
     style="@style/match_match"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ppp"
-        style="@style/match_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
             android:scaleType="center"
             android:src="@drawable/back_new" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/select_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Choose Country"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ppppppp"
@@ -25,6 +35,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:src="@drawable/search_icon" />
 

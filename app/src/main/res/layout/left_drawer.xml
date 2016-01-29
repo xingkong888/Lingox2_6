@@ -12,7 +12,7 @@
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="60dp">
 
         <cn.lingox.android.utils.CircularImageView
             android:id="@+id/avatar_info"
@@ -45,7 +45,7 @@
                 android:ellipsize="end"
                 android:text="@string/nickname"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
             <!--地址-->
             <LinearLayout
                 android:layout_width="110dp"
@@ -68,7 +68,7 @@
                     android:layout_marginLeft="4.5dp"
                     android:ellipsize="end"
                     android:text="China, Beijing"
-                    android:textColor="@color/white"
+                    android:textColor="@color/c7"
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
@@ -81,18 +81,18 @@
             android:layout_toRightOf="@+id/linshigong"
             android:src="@drawable/lift_edit" />
     </RelativeLayout>
-
     <!--收藏 -->
     <LinearLayout
         android:id="@+id/layout_favourite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="37.5dp"
-        android:layout_marginTop="36dp">
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="16dp"
             android:layout_height="15dp"
+            android:layout_marginLeft="39dp"
             android:src="@drawable/ic_favorite" />
 
         <TextView
@@ -108,13 +108,14 @@
     <LinearLayout
         android:id="@+id/layout_contact_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="37.5dp"
-        android:layout_marginTop="46.5dp">
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="16dp"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="39dp"
             android:src="@drawable/lift_follow_following" />
 
         <TextView
@@ -141,13 +142,14 @@
     <LinearLayout
         android:id="@+id/layout_set"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="37.5dp"
-        android:layout_marginTop="43dp">
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="17dp"
+            android:layout_width="16dp"
             android:layout_height="15dp"
+            android:layout_marginLeft="39dp"
             android:src="@drawable/lift_setting" />
 
         <TextView
@@ -188,13 +190,14 @@
     <LinearLayout
         android:id="@+id/layout_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="37.5dp"
-        android:layout_marginTop="43dp">
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="17.5dp"
-            android:layout_height="18dp"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="39dp"
             android:src="@drawable/lift_about" />
 
         <TextView

@@ -11,9 +11,11 @@
 
         <ImageView
             android:id="@+id/travel_view_back"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@drawable/active_back_61dp" />
+            android:layout_marginLeft="20dp"
+            android:scaleType="center"
+            android:src="@drawable/back_new" />
 
         <TextView
             android:id="@+id/travel_view_toolbar"
@@ -50,7 +52,7 @@
         <!--android:padding="5dp"-->
         <!--android:src="@drawable/share" />-->
         <!--</RelativeLayout>-->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -59,31 +61,31 @@
 
             <ImageView
                 android:id="@+id/travel_bar_like"
-                android:layout_width="17.5dp"
-                android:layout_height="16.5dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
+                android:scaleType="center"
                 android:src="@drawable/like" />
 
             <ImageView
                 android:id="@+id/travel_bar_share"
-                android:layout_width="14dp"
-                android:layout_height="17dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
-                android:layout_toRightOf="@+id/travel_bar_like"
+                android:scaleType="center"
                 android:src="@drawable/share" />
-        </RelativeLayout>
-        <!-- 菜单 使用PopupWindow-->
-        <ImageView
-            android:id="@+id/travel_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:padding="10dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_menu_white_24dp"
-            android:visibility="gone" />
+            <!-- 菜单 使用PopupWindow-->
+            <ImageView
+                android:id="@+id/travel_menu"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerInside"
+                android:visibility="gone" />
+        </LinearLayout>
+
     </RelativeLayout>
 
     <cn.lingox.android.widget.MyScrollView
@@ -193,7 +195,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
-                        android:layout_margin="10dp" />
+                        android:layout_margin="20dp" />
                     <!-- 聊天图标-->
                     <ImageView
                         android:id="@+id/chat_travel"
@@ -226,15 +228,15 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="5.5dp"
-                                android:layout_height="9dp"
+                                android:layout_width="7dp"
+                                android:layout_height="11dp"
                                 android:src="@drawable/location" />
                             <!-- 旅行者的地址-->
                             <TextView
                                 android:id="@+id/travel_location"
                                 style="@style/wrap_wrap"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="#6000"
+                                android:padding="4dp"
+                                android:textColor="#777"
                                 android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -245,45 +247,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
                     android:layout_below="@+id/pppppppp"
-                    android:layout_marginTop="5dp"
                     android:background="@color/color_separation_line" />
-                <!-- 问题及描述-->
-                <!--<RelativeLayout-->
-                <!--android:id="@+id/time"-->
-                <!--style="@style/match_wrap"-->
-                <!--android:layout_below="@+id/line"-->
-                <!--android:layout_marginTop="8dp">-->
-                <!-- 标题  数据中没有，去掉-->
-                <!--<TextView-->
-                <!--android:id="@+id/travel_request"-->
-                <!--style="@style/match_wrap"-->
-                <!--android:layout_marginLeft="50dp"-->
-                <!--android:layout_marginRight="50dp"-->
-                <!--android:gravity="center"-->
-                <!--android:padding="5dp"-->
-                <!--android:text="问题"-->
-                <!--android:textColor="@color/black_deep"-->
-                <!--/>-->
                 <!-- 具体描述-->
-                <TextView
-                    android:id="@+id/travel_detail"
-                    style="@style/match_wrap"
+                <LinearLayout
+                    android:id="@+id/detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/line"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:padding="5dp"
-                    android:textColor="#777"
-                    android:textSize="18sp" />
-                <!--</RelativeLayout>-->
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <!-- 内容-->
+                    <TextView
+                        android:id="@+id/travel_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="5"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="#777"
+                        android:textSize="16sp" />
+                    <!-- 更多-->
+                    <TextView
+                        android:id="@+id/travel_more"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/local_more_bg"
+                        android:gravity="center"
+                        android:text="Read More"
+                        android:textColor="@color/main_color"
+                        android:textSize="16sp" />
+
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.8dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:background="@color/color_separation_line" />-->
+                </LinearLayout>
 
                 <View
                     android:id="@+id/line_1"
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
-                    android:layout_below="@+id/travel_detail"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/color_separation_line" />
+                    android:layout_below="@+id/detail"
+                    android:layout_marginTop="15dp" />
                 <!-- 标签-->
                 <LinearLayout
                     android:id="@+id/tag"
@@ -293,9 +302,10 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#1000"
-                        android:padding="15dp"
+                        android:layout_height="40dp"
+                        android:background="#ebebeb"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
                         android:text="PREFRENCE"
                         android:textColor="#777"
                         android:textSize="10sp" />

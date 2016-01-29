@@ -157,7 +157,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 path.setTitle(s.toString());
                 //todo 判断当前页数据是否填写完成，完成则按钮变成绿色
-                changePageOne();
+                checkPageOne();
             }
 
             @Override
@@ -177,7 +177,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 path.setAvailableTime(s.toString());
                 //todo 判断当前页数据是否填写完成，完成则按钮变成绿色
-                changePageOne();
+                checkPageOne();
             }
 
             @Override
@@ -228,7 +228,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 path.setText(s.toString());
-                changePageTwo();
+                checkPageTwo();
             }
 
             @Override
@@ -376,11 +376,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
             UIHelper.getInstance().textViewSetPossiblyNullString(title, path.getTitle());
             //地址
             UIHelper.getInstance().textViewSetPossiblyNullString(address, path.getLocation());
-//            if ("China".equals(path.getChosenCountry())) {
-//                detailAddress.setVisibility(View.VISIBLE);
-//                detailAddress.setText(path.getDetailAddress());
-//                isSelected = true;
-//            }
             UIHelper.getInstance().textViewSetPossiblyNullString(describe, path.getText());
             //图片
             if (FileUtil.getImg(path.getImage(), this) != null) {
@@ -398,14 +393,14 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      *
      * @return false表示当前页数据未完成
      */
-    private boolean changePageOne() {
+    private boolean checkPageOne() {
         if (path.getTitle().isEmpty() ||
                 path.getChosenCountry().isEmpty() ||
                 path.getAvailableTime().isEmpty()) {
-            next.setBackgroundColor(Color.rgb(201, 201, 201));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next));
             return false;
         } else {
-            next.setBackgroundColor(getResources().getColor(R.color.main_color));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next_main_color));
             return true;
         }
     }
@@ -415,14 +410,14 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      *
      * @return false表示当前页数据未完成
      */
-    private boolean changePageTwo() {
+    private boolean checkPageTwo() {
         if (!saveTags() ||
                 path.getText().isEmpty() ||
                 path.getText().length() < 100) {
-            next.setBackgroundColor(Color.rgb(201, 201, 201));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next));
             return false;
         } else {
-            next.setBackgroundColor(getResources().getColor(R.color.main_color));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next_main_color));
             return true;
         }
     }
@@ -432,17 +427,17 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      *
      * @return false表示当前页数据未完成
      */
-    private boolean changePageThree() {
+    private boolean checkPageThree() {
         if ("false".equals(giftStr) &&
                 "false".equals(shareStr) &&
                 "false".equals(beingStr) &&
                 "false".equals(AAStr) &&
                 "false".equals(othersStr)) {
-            next.setBackgroundColor(Color.rgb(201, 201, 201));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next));
             return false;
         } else {
             path.setCost(String.format(costStr, giftStr, shareStr, beingStr, AAStr, othersStr));
-            next.setBackgroundColor(getResources().getColor(R.color.main_color));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next_main_color));
             return true;
         }
     }
@@ -452,12 +447,12 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
      *
      * @return false表示当前页数据未完成
      */
-    private boolean changePageFour() {
+    private boolean checkPageFour() {
         if (!imageSelected) {
-            next.setBackgroundColor(Color.rgb(201, 201, 201));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next));
             return false;
         } else {
-            next.setBackgroundColor(getResources().getColor(R.color.main_color));
+            next.setBackgroundDrawable(getResources().getDrawable(R.drawable.edit_next_main_color));
             return true;
         }
     }
@@ -479,28 +474,6 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
         }
         addTagView(datas, tags, this);
     }
-
-    /**
-     * 设置本地人和旅行者相应显示内容
-     * 已经不需要了
-     * private void setLocalOrTraveler() {
-     * layout.setVisibility(View.VISIBLE);
-     * if (path.getType() == 1) {
-     * local.setBackgroundResource(R.drawable.button_border_orange);
-     * traveler.setBackgroundResource(R.drawable.button_border_blue);
-     * text1.setText(getString(R.string.path_edit_0_local_1));
-     * text2.setText(getString(R.string.path_edit_0_local_2));
-     * text3.setText(getString(R.string.path_edit_0_local_3));
-     * } else {
-     * background.setBackgroundResource(R.drawable.active_background_02_320dp520dp);
-     * traveler.setBackgroundResource(R.drawable.button_border_orange);
-     * local.setBackgroundResource(R.drawable.button_border_blue);
-     * text1.setText(getString(R.string.path_edit_0_traveler_1));
-     * text2.setText(getString(R.string.path_edit_0_traveler_2));
-     * text3.setText(getString(R.string.path_edit_0_traveler_3));
-     * }
-     * }
-     */
 
     @Override
     public void onClick(View v) {
@@ -548,7 +521,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                    path.setCost("");
                     giftStr = "false";
                 }
-                changePageThree();
+                checkPageThree();
                 break;
             case R.id.local_edit_cost_money_layout://人均花费
                 //todo 在输入人均花费的地方存入path。要考虑选择和取消不同状态
@@ -565,7 +538,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                    path.setCost("");
                     AAStr = "false";
                 }
-                changePageThree();
+                checkPageThree();
                 break;
             case R.id.local_edit_cost_being_layout://将来做为本地人
                 if ((int) beingIv.getTag() == 0) {
@@ -580,7 +553,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                    path.setCost("");
                     beingStr = "false";
                 }
-                changePageThree();
+                checkPageThree();
                 break;
             case R.id.local_edit_cost_share_layout://分享旅行经历
                 if ((int) shareIv.getTag() == 0) {
@@ -595,7 +568,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                    path.setCost("");
                     shareStr = "false";
                 }
-                changePageThree();
+                checkPageThree();
                 break;
             case R.id.local_edit_cost_others_layout://自己填写
                 //todo 在输入的地方存入path。要考虑选择和取消不同状态
@@ -612,7 +585,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
 //                    path.setCost("");
                     othersStr = "false";
                 }
-                changePageThree();
+                checkPageThree();
                 break;
         }
     }
@@ -628,7 +601,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                     CachePath.getInstance().setLocation(str);
                     address.setText(str);
                     //todo 判断当前页数据是否填写完成，完成则按钮变成绿色
-                    changePageOne();
+                    checkPageOne();
                     if ("China".equals(path.getChosenCountry())) {
                         //如果选择的是中国，跳转到地图
                         Intent intent1 = new Intent(this, AMapActivity.class);
@@ -674,7 +647,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                         path.setImage(presetImageUrl);
                         imageSelected = true;
                     }
-                    changePageFour();
+                    checkPageFour();
                 }
                 //将新建的活动缓存
                 CachePath.getInstance().setPhoto(true);
@@ -704,15 +677,15 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 pageTwo.setVisibility(View.GONE);
                 pageThree.setVisibility(View.GONE);
                 pageFour.setVisibility(View.GONE);
-                changePageOne();
+                checkPageOne();
                 break;
             case 2://第二页
                 //判断标题、地点、时间是否填写完整
-                if (!changePageOne()) {
+                if (!checkPageOne()) {
                     showToast("请将信息填写完整----2");
                     page--;
                 } else {
-                    changePageTwo();
+                    checkPageTwo();
                     pageTwo.setVisibility(View.VISIBLE);
                     pageOne.setVisibility(View.GONE);
                     pageThree.setVisibility(View.GONE);
@@ -721,7 +694,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 break;
             case 3://第三页
                 //判断标签是否选择、介绍是否填写完整
-                if (!changePageTwo()) {
+                if (!checkPageTwo()) {
                     showToast("请将信息填写完整------3");
                     page--;
                 } else {
@@ -734,7 +707,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                             moneyLayout.setVisibility(View.GONE);
                         }
                     }
-                    changePageThree();
+                    checkPageThree();
                     pageThree.setVisibility(View.VISIBLE);
                     pageTwo.setVisibility(View.GONE);
                     pageOne.setVisibility(View.GONE);
@@ -743,11 +716,11 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 break;
             case 4://第四页
                 //判断花费是否选择
-                if (!changePageThree()) {
+                if (!checkPageThree()) {
                     showToast("请将信息填写完整------4");
                     page--;
                 } else {
-                    changePageFour();
+                    checkPageFour();
                     pageFour.setVisibility(View.VISIBLE);
                     pageTwo.setVisibility(View.GONE);
                     pageOne.setVisibility(View.GONE);
@@ -757,7 +730,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                 break;
             case 5://提交数据
                 //判断图片是否选择
-                if (changePageFour()) {
+                if (checkPageFour()) {
                     if (addingNewPath) {
                         new AddPath().execute();
                     } else {
@@ -925,7 +898,7 @@ public class LocalEditActivity extends FragmentActivity implements OnClickListen
                         tvItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.tag_cyc_selected));
                     }
                 }
-                changePageTwo();
+                checkPageTwo();
             }
         });
         viewGroup.addView(tvItem, params);

@@ -28,7 +28,7 @@
             android:textSize="20sp"
             android:visibility="gone" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -48,23 +48,19 @@
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
-                android:layout_toRightOf="@+id/local_bar_like"
                 android:scaleType="center"
                 android:src="@drawable/share" />
-        </RelativeLayout>
 
-        <!-- 菜单 使用PopupWindow-->
-        <ImageView
-            android:id="@+id/local_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:padding="10dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_menu_white_24dp"
-            android:visibility="gone" />
+            <!-- 菜单 使用PopupWindow-->
+            <ImageView
+                android:id="@+id/local_menu"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerInside" />
+        </LinearLayout>
     </RelativeLayout>
 
     <cn.lingox.android.widget.MyScrollView
@@ -161,9 +157,7 @@
                     android:id="@+id/local_avatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="21.5dp"
-                    android:layout_marginRight="16dp" />
+                    android:layout_margin="20dp" />
 
                 <!-- 聊天图标-->
                 <ImageView

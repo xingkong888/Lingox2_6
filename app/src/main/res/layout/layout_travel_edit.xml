@@ -104,7 +104,7 @@
                 <!-- 到达时间-->
                 <LinearLayout
                     android:id="@+id/travel_edit_arrive_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="75dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/travel_post"
@@ -134,7 +134,7 @@
                 <!-- 离开时间-->
                 <LinearLayout
                     android:id="@+id/travel_edit_leave_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="75dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/travel_post"

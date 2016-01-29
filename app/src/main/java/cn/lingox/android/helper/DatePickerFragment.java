@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 
 import java.util.Calendar;
 
+import cn.lingox.android.widget.MyDatePickerDialog;
+
 /**
  * Created by wangxinxing on 2015/12/25.
  * <p/>
@@ -32,6 +34,6 @@ public class DatePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new DatePickerDialog(getActivity(), onDateSet, year, month, day);
+        return new MyDatePickerDialog(getActivity(), onDateSet, year, month, day);
     }
 }

@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -50,7 +52,6 @@ import cn.lingox.android.task.GetUser;
 import cn.lingox.android.utils.CircularImageView;
 import cn.lingox.android.utils.CreateTagView;
 import cn.lingox.android.utils.SkipDialog;
-import cn.lingox.android.widget.CheckOverSizeTextView;
 import cn.lingox.android.widget.MyScrollView;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -85,7 +86,10 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     private TextView location;//用户地址
     private TextView title;//活动标题
     //    private TextView pathDateTimeInfo, pathEndTimeInfo;//开始、结束时间
-    private CheckOverSizeTextView details;//活动内容描述
+//    private CheckOverSizeTextView details;//活动内容描述
+    private TextView details;//活动内容描述
+    private boolean isOverSize;//标识是否有隐藏行数
+
     private TextView more;
     /**********************
      * 活动花费
@@ -123,7 +127,6 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     //标签
     private ViewGroup tagLayout = null;
     //加入
-
     private LinearLayout join;
     // Data Elements
     private Path path = null;
@@ -222,20 +225,26 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, width / 2, 0, 0);
         title.setLayoutParams(params);
+        more = (TextView) findViewById(R.id.local_more);
+        more.setOnClickListener(this);
         //内容和更多
-        details = (CheckOverSizeTextView) findViewById(R.id.local_details);
-        details.setOnOverLineChangedListener(new CheckOverSizeTextView.OnOverSizeChangedListener() {
+        details = (TextView) findViewById(R.id.local_details);
+        ViewTreeObserver vto = details.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onChanged(boolean isOverSize) {
+            public void onGlobalLayout() {
+                Layout layout = details.getLayout();
+                isOverSize = layout.getEllipsisCount(details.getMaxLines() - 1) > 0;
                 if (isOverSize) {
+                    //有隐藏
                     more.setVisibility(View.VISIBLE);
                 } else {
+                    //五隐藏
                     more.setVisibility(View.GONE);
                 }
             }
         });
-        more = (TextView) findViewById(R.id.local_more);
-        more.setOnClickListener(this);
+
         //个人信息
         avatar = (CircularImageView) findViewById(R.id.local_avatar);
         avatar.setOnClickListener(this);
@@ -592,7 +601,9 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
 //                mPopupWindow.showAsDropDown(menu, -100, 0);
 //                break;
             case R.id.local_more://展示更多的介绍
-                details.displayAll();
+//                details.displayAll();
+                details.setMaxLines(Integer.MAX_VALUE);
+                details.setEllipsize(null);
                 break;
             case R.id.join_experience://加入
                 if (!LingoXApplication.getInstance().getSkip()) {

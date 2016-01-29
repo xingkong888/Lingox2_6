@@ -137,6 +137,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                     case R.id.left_drawer://左侧边
                         if (rightSildOpen) {
                             sideDrawers.closeDrawer(rightSild);
+                            add.setVisibility(View.VISIBLE);
                             rightSildOpen = false;
                         }
                         break;
@@ -155,6 +156,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                         break;
                     case R.id.right_drawer://右侧边
                         rightSildOpen = false;
+                        add.setVisibility(View.VISIBLE);
                         break;
                 }
             }

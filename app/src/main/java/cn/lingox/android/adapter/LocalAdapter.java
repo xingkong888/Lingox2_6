@@ -183,7 +183,8 @@ public class LocalAdapter extends BaseAdapter {
             UIHelper.getInstance().imageViewSetPossiblyEmptyUrl(
                     context, holder.pathImg, path.getImage21(), "original");
         }
-        if (path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
+
+        if (!LingoXApplication.getInstance().getSkip() && path.hasUserAccepted(CacheHelper.getInstance().getSelfInfo().getId())) {
             holder.favourite.setImageResource(R.drawable.active_like_24dp);
             holder.favourite.setTag(1);
         } else {

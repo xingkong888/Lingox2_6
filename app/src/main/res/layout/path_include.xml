@@ -143,8 +143,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
 
         <LinearLayout
@@ -177,8 +175,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--无用-->
@@ -199,8 +195,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--花费-->
@@ -374,8 +368,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line"
             android:visibility="gone" />
     </LinearLayout>
@@ -415,8 +407,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
     </LinearLayout>
     <!--活动描述 弃用-->
@@ -440,8 +430,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@color/color_separation_line" />
     </LinearLayout>
 </LinearLayout>

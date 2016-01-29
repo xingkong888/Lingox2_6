@@ -57,7 +57,7 @@ public class MySpinnerAdapter extends BaseAdapter {
         if (position == MainActivity.getObj().getClickPosition()) {
             //字体设为主色，背景加深
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.main_color));
-            viewHolder.textView.setBackgroundColor(Color.argb(178, 0, 0, 0));
+            viewHolder.textView.setBackgroundColor(Color.argb(229, 0, 0, 0));
         } else {
             //字体白色，背景不变
             viewHolder.textView.setTextColor(Color.WHITE);

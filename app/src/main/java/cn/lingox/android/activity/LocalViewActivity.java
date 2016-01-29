@@ -229,22 +229,6 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
         more.setOnClickListener(this);
         //内容和更多
         details = (TextView) findViewById(R.id.local_details);
-        ViewTreeObserver vto = details.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Layout layout = details.getLayout();
-                isOverSize = layout.getEllipsisCount(details.getMaxLines() - 1) > 0;
-                if (isOverSize) {
-                    //有隐藏
-                    more.setVisibility(View.VISIBLE);
-                } else {
-                    //五隐藏
-                    more.setVisibility(View.GONE);
-                }
-            }
-        });
-
         //个人信息
         avatar = (CircularImageView) findViewById(R.id.local_avatar);
         avatar.setOnClickListener(this);
@@ -301,6 +285,25 @@ public class LocalViewActivity extends Activity implements View.OnClickListener 
     }
 
     private void setData() {
+        if (path.getText().length() > 100) {
+            ViewTreeObserver vto = details.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Layout layout = details.getLayout();
+                    isOverSize = layout.getEllipsisCount(details.getMaxLines() - 1) > 0;
+                    if (isOverSize) {
+                        //有隐藏
+                        more.setVisibility(View.VISIBLE);
+                    } else {
+                        //五隐藏
+                        more.setVisibility(View.GONE);
+                    }
+                }
+            });
+        } else {
+            more.setVisibility(View.GONE);
+        }
         if (!LingoXApplication.getInstance().getSkip()) {
             ownPath = (CacheHelper.getInstance().getSelfInfo().getId().equals(user.getId()));
             if (ownPath) {

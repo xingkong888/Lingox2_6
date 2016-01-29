@@ -2,9 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_wrap">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/three_c7" />
+
     <RelativeLayout
         android:id="@+id/content"
-        style="@style/wrap_wrap">
+        style="@style/wrap_wrap"
+        android:layout_marginTop="1px">
         <!-- 头像-->
         <RelativeLayout
             android:id="@+id/avatar_flg"
@@ -87,8 +93,8 @@
                 android:textSize="10sp" />
             <!-- like人数-->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/travel_like_num"
                 android:src="@drawable/active_like_24dp" />
@@ -98,12 +104,13 @@
                 style="@style/wrap_wrap"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/like" />
+                android:layout_toLeftOf="@+id/like"
+                android:textSize="10sp" />
             <!--like人数 -->
             <ImageView
                 android:id="@+id/like"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/travel_comment_num"
                 android:src="@drawable/activity_reply_color_24dp" />
@@ -113,7 +120,8 @@
                 style="@style/wrap_wrap"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp" />
+                android:layout_marginRight="15dp"
+                android:textSize="10sp" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -123,5 +131,6 @@
         android:layout_width="match_parent"
         android:layout_height="13dp"
         android:layout_below="@+id/content"
-        android:background="@drawable/gradient_black_1" />
+        android:background="@drawable/gradient_black_1"
+        android:visibility="gone" />
 </RelativeLayout>

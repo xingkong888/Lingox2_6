@@ -7,7 +7,7 @@
         android:id="@+id/my_spinner_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8c000000"
+        android:background="#99000000"
         android:gravity="center"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"

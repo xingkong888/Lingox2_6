@@ -12,9 +12,11 @@
 
         <ImageView
             android:id="@+id/local_back"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@drawable/active_back_61dp" />
+            android:layout_marginLeft="20dp"
+            android:scaleType="center"
+            android:src="@drawable/back_new" />
 
         <TextView
             android:id="@+id/local_toolbar"
@@ -35,17 +37,19 @@
 
             <ImageView
                 android:id="@+id/local_bar_like"
-                android:layout_width="17.5dp"
-                android:layout_height="16.5dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
+                android:scaleType="center"
                 android:src="@drawable/like" />
 
             <ImageView
                 android:id="@+id/local_bar_share"
-                android:layout_width="14dp"
-                android:layout_height="17dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/local_bar_like"
+                android:scaleType="center"
                 android:src="@drawable/share" />
         </RelativeLayout>
 
@@ -193,8 +197,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="5.5dp"
-                            android:layout_height="9dp"
+                            android:layout_width="7dp"
+                            android:layout_height="11dp"
                             android:src="@drawable/location" />
                         <!-- 本地人的地址-->
                         <TextView
@@ -263,7 +267,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/main_color"
+        android:background="#ff9966"
         android:gravity="center">
 
         <TextView

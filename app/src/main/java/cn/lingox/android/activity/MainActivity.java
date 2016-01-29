@@ -225,14 +225,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (page) {
-                    case 0://local
-                        localFragment.refreshList(position);
-                        break;
-                    case 1://travel
-                        travelFragment.refreshList(position);
-                        break;
-                }
+                //选择城市后，两个页面都刷新
+//                switch (page) {
+//                    case 0://local
+                localFragment.refreshList(position);
+//                        break;
+//                    case 1://travel
+                travelFragment.refreshList(position);
+//                        break;
+//                }
                 MainActivity.this.position = position;
                 showLocation.setText(list.get(position));
                 dropDown.setImageResource(R.drawable.drop_down_down);
@@ -381,7 +382,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 welcome.setVisibility(View.GONE);
                 break;
             case R.id.welcome_travel://选择travel
-                viewPager.setCurrentItem(1);
+//                viewPager.setCurrentItem(1);
                 welcome.setVisibility(View.GONE);
                 break;
             case R.id.welcome_back://back

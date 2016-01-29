@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:scaleType="center"
-            android:src="@drawable/back" />
+            android:src="@drawable/back_new" />
     </LinearLayout>
 
     <LinearLayout

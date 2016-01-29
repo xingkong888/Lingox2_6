@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="HOST A LOCALEXPERENECE"
+                android:text="HOST A LOCAL EXPERENECE"
                 android:textColor="@color/black_deep"
                 android:textSize="12dp" />
 
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="POST TRAVELER REQUEST"
+                android:text="POST A TRAVELER REQUEST"
                 android:textColor="@color/black_deep"
                 android:textSize="12dp" />
         </LinearLayout>

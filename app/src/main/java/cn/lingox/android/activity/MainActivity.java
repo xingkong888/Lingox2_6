@@ -421,7 +421,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
                 Intent intent = new Intent(MainActivity.this, TravelEditActivity.class);
                 startActivityForResult(intent, ADD_TRAVEL);
                 popWin.dismiss();
-                viewPager.setCurrentItem(1);
+//                viewPager.setCurrentItem(1);
+            }
+        });
+        //背景
+        view.findViewById(R.id.add_bg).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popWin.dismiss();
             }
         });
 
@@ -479,14 +486,16 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 //                }
 //                break;
 
-//            case ADD_TRAVEL://添加新的travel的问题
-//                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
+            case ADD_TRAVEL://添加新的travel的问题
+                if (data.hasExtra(TravelEditActivity.TRAVEL_CREATE)) {
+                    viewPager.setCurrentItem(1);
 //                    travelFragment.refershView((TravelEntity) data.getParcelableExtra(TravelEditActivity.TRAVEL_CREATE));
-//                }
-//                break;
-//            case ADD_PATH://添加新的local的体验
-//                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
-//                    final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
+                }
+                break;
+            case ADD_PATH://添加新的local的体验
+                if (resultCode == LocalEditActivity.RESULT_OK && data.hasExtra(LocalEditActivity.ADDED_PATH)) {
+                    viewPager.setCurrentItem(0);
+// final Path path = data.getParcelableExtra(LocalEditActivity.ADDED_PATH);
 //                    localFragment.addPath(path);
 //                    new Thread(new Runnable() {
 //                        @Override
@@ -500,8 +509,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener, 
 //                            }
 //                        }
 //                    }).start();
-//                }
-//                break;
+                }
+                break;
         }
     }
 

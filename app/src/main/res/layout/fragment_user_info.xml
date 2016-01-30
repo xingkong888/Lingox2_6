@@ -1,218 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollview"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:orientation="vertical"
-    android:scrollbars="vertical"
-    android:touchscreenBlocksFocus="false">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/info_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="45dp"
+        android:background="@color/main_color">
 
-        <include
-            layout="@layout/row_user_info_include"
-            android:focusable="true" />
+        <ImageView
+            android:id="@+id/info_back"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:scaleType="center"
+            android:src="@drawable/back_new" />
+
+        <TextView
+            android:id="@+id/info_toolbar"
+            style="@style/wrap_match"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Profile"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/three_fa"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c7c7c7" />
+                android:id="@+id/info_like"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/black_deep"
+                android:contentDescription="表示被多少人加过好友"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/main_color">
-
-                <TextView
-                    android:id="@+id/userinfo_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:background="@color/transparent"
-                    android:gravity="center"
-                    android:text="@string/edit"
-                    android:textColor="@color/white"
-                    android:textSize="28sp" />
-
-                <LinearLayout
-                    android:id="@+id/userinfo_edit_chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:background="@color/transparent"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/userinfo_add_follow"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/user_follow"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="1dp"
-                        android:layout_height="30dp"
-                        android:background="@color/white" />
-
-                    <TextView
-                        android:id="@+id/userinfo_chat"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/chat"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="1dp"
-                        android:layout_height="30dp"
-                        android:background="@color/white" />
-
-                    <TextView
-                        android:id="@+id/userinfo_add_reference"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/user_reference"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/shade" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#c7c7c7" />
+            <ImageView
+                android:id="@+id/info_share"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:contentDescription="图片表示的是加好友，实心表示加过，空心表示没加过"
+                android:scaleType="center"
+                android:src="@drawable/menu_like" />
         </LinearLayout>
+    </RelativeLayout>
 
-        <include
-            android:id="@+id/userinfo_include_tag"
-            layout="@layout/row_user_info_include_available"
-            android:visibility="gone" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:touchscreenBlocksFocus="false">
 
-        <RelativeLayout
-            android:id="@+id/layout_pic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/three_fa">
-
-            <RelativeLayout
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="28dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#c7c7c7" />
-
-                <TextView
-                    android:id="@+id/userinfo_local_title"
-                    style="@style/wrap_wrap"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="My Album" />
-
-                <ImageView
-                    android:id="@+id/local_add"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="15dp"
-                    android:src="@drawable/personal_add_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="#c7c7c7" />
-            </RelativeLayout>
-
-            <view
-                android:id="@+id/user_photo_hlist"
-                class="it.sephiroth.android.library.widget.HListView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line" />
-
-            <RelativeLayout
-                android:id="@+id/userinfo_photo"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_below="@+id/line">
-
-                <TextView
-                    android:id="@+id/userinfo_local_nothing1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#e5e5e9"
-                    android:gravity="center"
-                    android:paddingTop="2dp"
-                    android:text="@string/post_photo"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/userinfo_local_nothing2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/post_photo"
-                    android:textColor="#ababab" />
-            </RelativeLayout>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/shade" />
-        </RelativeLayout>
-        <!-- 旅游记录-->
         <LinearLayout
-            android:id="@+id/travel_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include
+                layout="@layout/row_user_info_include"
+                android:focusable="true" />
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:background="@color/three_fa"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#c7c7c7" />-->
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/main_color">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/userinfo_edit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="53dp"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/edit"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="28sp" />-->
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/userinfo_edit_chat"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="53dp"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:gravity="center_vertical">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/userinfo_add_follow"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/user_follow"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18sp" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:background="@color/white" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/userinfo_chat"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/chat"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18sp" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:background="@color/white" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/userinfo_add_reference"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/user_reference"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18sp" />-->
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="@drawable/shade" />-->
+            <!--</RelativeLayout>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#c7c7c7" />-->
+            <!--</LinearLayout>-->
+
+            <include
+                android:id="@+id/userinfo_include_tag"
+                layout="@layout/row_user_info_include_available" />
+            <!--android:visibility="gone"-->
+
             <RelativeLayout
+                android:id="@+id/layout_pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@color/three_fa">
 
                 <RelativeLayout
-                    android:id="@+id/line_1"
+                    android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="28dp">
 
@@ -222,15 +190,14 @@
                         android:background="#c7c7c7" />
 
                     <TextView
-                        android:id="@+id/userinfo_travel_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/userinfo_local_title"
+                        style="@style/wrap_wrap"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:text="@string/travel_plans_self" />
+                        android:text="My Album" />
 
                     <ImageView
-                        android:id="@+id/travel_add"
+                        android:id="@+id/local_add"
                         android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true"
@@ -245,38 +212,43 @@
                         android:background="#c7c7c7" />
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/travel_content"
-                    android:layout_width="match_parent"
+                <view
+                    android:id="@+id/user_photo_hlist"
+                    class="it.sephiroth.android.library.widget.HListView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/line_1"
-                    android:layout_marginTop="-1dp"
-                    android:orientation="vertical" />
+                    android:layout_below="@+id/line" />
 
                 <RelativeLayout
-                    android:id="@+id/userinfo_travel"
+                    android:id="@+id/userinfo_photo"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/line_1">
+                    android:layout_below="@+id/line">
 
                     <TextView
-                        android:id="@+id/userinfo_travel_nothing1"
+                        android:id="@+id/userinfo_local_nothing1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#e5e5e9"
                         android:gravity="center"
                         android:paddingTop="2dp"
-                        android:text="@string/travel_experience"
+                        android:text="@string/post_photo"
                         android:textColor="@color/white" />
 
                     <TextView
-                        android:id="@+id/userinfo_travel_nothing2"
+                        android:id="@+id/userinfo_local_nothing2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/travel_experience"
+                        android:text="@string/post_photo"
                         android:textColor="#ababab" />
                 </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -284,12 +256,177 @@
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/shade" />
             </RelativeLayout>
-
-            <include
-                layout="@layout/row_user_info_include_about"
-                android:layout_width="wrap_content"
+            <!-- 旅游记录-->
+            <LinearLayout
+                android:id="@+id/travel_about"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" />
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/three_fa">
+
+                    <RelativeLayout
+                        android:id="@+id/line_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#c7c7c7" />
+
+                        <TextView
+                            android:id="@+id/userinfo_travel_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/travel_plans_self" />
+
+                        <ImageView
+                            android:id="@+id/travel_add"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="15dp"
+                            android:src="@drawable/personal_add_24dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="#c7c7c7" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/travel_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line_1"
+                        android:layout_marginTop="-1dp"
+                        android:orientation="vertical" />
+
+                    <RelativeLayout
+                        android:id="@+id/userinfo_travel"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_below="@+id/line_1">
+
+                        <TextView
+                            android:id="@+id/userinfo_travel_nothing1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#e5e5e9"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:text="@string/travel_experience"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/userinfo_travel_nothing2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/travel_experience"
+                            android:textColor="#ababab" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/shade" />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/row_user_info_include_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout><!--原布局--><!--<?xml version="1.0" encoding="utf-8"?>--><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/scrollview"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:fillViewport="true"--><!--android:orientation="vertical"--><!--android:scrollbars="vertical"--><!--android:touchscreenBlocksFocus="false">-->
+
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="vertical">-->
+
+    <!--<include--><!--layout="@layout/row_user_info_include"--><!--android:focusable="true" />-->
+
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="55dp"--><!--android:layout_marginTop="12dp"--><!--android:background="@color/three_fa"--><!--android:orientation="vertical">-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="#c7c7c7" />-->
+
+    <!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:background="@color/main_color">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_edit"--><!--android:layout_width="match_parent"--><!--android:layout_height="53dp"--><!--android:background="@color/transparent"--><!--android:gravity="center"--><!--android:text="@string/edit"--><!--android:textColor="@color/white"--><!--android:textSize="28sp" />-->
+
+    <!--<LinearLayout--><!--android:id="@+id/userinfo_edit_chat"--><!--android:layout_width="match_parent"--><!--android:layout_height="53dp"--><!--android:background="@color/transparent"--><!--android:gravity="center_vertical">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_add_follow"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginRight="10dp"--><!--android:layout_weight="1"--><!--android:gravity="center"--><!--android:text="@string/user_follow"--><!--android:textColor="@color/white"--><!--android:textSize="18sp" />-->
+
+    <!--<TextView--><!--android:layout_width="1dp"--><!--android:layout_height="30dp"--><!--android:background="@color/white" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_chat"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="1"--><!--android:gravity="center"--><!--android:text="@string/chat"--><!--android:textColor="@color/white"--><!--android:textSize="18sp" />-->
+
+    <!--<TextView--><!--android:layout_width="1dp"--><!--android:layout_height="30dp"--><!--android:background="@color/white" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_add_reference"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginRight="10dp"--><!--android:layout_weight="1"--><!--android:gravity="center"--><!--android:text="@string/user_reference"--><!--android:textColor="@color/white"--><!--android:textSize="18sp" />--><!--</LinearLayout>-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="2dp"--><!--android:layout_alignParentBottom="true"--><!--android:background="@drawable/shade" />--><!--</RelativeLayout>-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="#c7c7c7" />--><!--</LinearLayout>-->
+
+    <!--<include--><!--android:id="@+id/userinfo_include_tag"--><!--layout="@layout/row_user_info_include_available"--><!--android:visibility="gone" />-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/layout_pic"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="12dp"--><!--android:background="@color/three_fa">-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/line"--><!--android:layout_width="match_parent"--><!--android:layout_height="28dp">-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="#c7c7c7" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_local_title"--><!--style="@style/wrap_wrap"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="20dp"--><!--android:text="My Album" />-->
+
+    <!--<ImageView--><!--android:id="@+id/local_add"--><!--android:layout_width="50dp"--><!--android:layout_height="40dp"--><!--android:layout_alignParentRight="true"--><!--android:layout_centerVertical="true"--><!--android:paddingRight="15dp"--><!--android:src="@drawable/personal_add_24dp" />-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_alignParentBottom="true"--><!--android:background="#c7c7c7" />--><!--</RelativeLayout>-->
+
+    <!--<view--><!--android:id="@+id/user_photo_hlist"--><!--class="it.sephiroth.android.library.widget.HListView"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_below="@+id/line" />-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/userinfo_photo"--><!--android:layout_width="match_parent"--><!--android:layout_height="55dp"--><!--android:layout_below="@+id/line">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_local_nothing1"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="#e5e5e9"--><!--android:gravity="center"--><!--android:paddingTop="2dp"--><!--android:text="@string/post_photo"--><!--android:textColor="@color/white" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_local_nothing2"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:gravity="center"--><!--android:text="@string/post_photo"--><!--android:textColor="#ababab" />--><!--</RelativeLayout>-->
+
+    <!--<ProgressBar--><!--android:id="@+id/progressBar"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_centerInParent="true" />-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="2dp"--><!--android:layout_alignParentBottom="true"--><!--android:background="@drawable/shade" />--><!--</RelativeLayout>--><!--&lt;!&ndash; 旅游记录&ndash;&gt;--><!--<LinearLayout--><!--android:id="@+id/travel_about"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="vertical">-->
+
+    <!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="12dp"--><!--android:background="@color/three_fa">-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/line_1"--><!--android:layout_width="match_parent"--><!--android:layout_height="28dp">-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="#c7c7c7" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_travel_title"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="20dp"--><!--android:text="@string/travel_plans_self" />-->
+
+    <!--<ImageView--><!--android:id="@+id/travel_add"--><!--android:layout_width="50dp"--><!--android:layout_height="40dp"--><!--android:layout_alignParentRight="true"--><!--android:layout_centerVertical="true"--><!--android:paddingRight="15dp"--><!--android:src="@drawable/personal_add_24dp" />-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:layout_alignParentBottom="true"--><!--android:background="#c7c7c7" />--><!--</RelativeLayout>-->
+
+    <!--<LinearLayout--><!--android:id="@+id/travel_content"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_below="@+id/line_1"--><!--android:layout_marginTop="-1dp"--><!--android:orientation="vertical" />-->
+
+    <!--<RelativeLayout--><!--android:id="@+id/userinfo_travel"--><!--android:layout_width="match_parent"--><!--android:layout_height="55dp"--><!--android:layout_below="@+id/line_1">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_travel_nothing1"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="#e5e5e9"--><!--android:gravity="center"--><!--android:paddingTop="2dp"--><!--android:text="@string/travel_experience"--><!--android:textColor="@color/white" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_travel_nothing2"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:gravity="center"--><!--android:text="@string/travel_experience"--><!--android:textColor="#ababab" />--><!--</RelativeLayout>-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="2dp"--><!--android:layout_alignParentBottom="true"--><!--android:background="@drawable/shade" />--><!--</RelativeLayout>-->
+
+    <!--<include--><!--layout="@layout/row_user_info_include_about"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="12dp" />--><!--</LinearLayout>--><!--</LinearLayout>--><!--</ScrollView>-->

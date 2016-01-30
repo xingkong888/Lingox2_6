@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,10 +37,8 @@ import cn.lingox.android.entity.Reference;
 import cn.lingox.android.entity.Travel;
 import cn.lingox.android.entity.User;
 import cn.lingox.android.helper.CacheHelper;
-import cn.lingox.android.helper.ImageHelper;
 import cn.lingox.android.helper.JsonHelper;
 import cn.lingox.android.helper.ServerHelper;
-import cn.lingox.android.helper.TimeHelper;
 import cn.lingox.android.helper.UIHelper;
 import cn.lingox.android.task.LoadUserReferences;
 import cn.lingox.android.widget.PhotoTagsSelectDialog;
@@ -74,16 +70,20 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private boolean stay = false;
     private View v;
     // UI Elements
-    private TextView userInsterest, time, userName, userIdAndPlace, userSexAndAge, userFollow, userFollowing, userReference,
-            userEdit, userAddFollow, userSpeak, userAge, userSex, userLocal, userMeal, userStay,
-            availableLocal, availableMeal, availableStay, localTitle, travelTitle, localNothing1, travelNothing1, localNothing2, travelNothing2,
+    private TextView userInsterest, userSpeak, userAge, userSex,
+            availableLocal, availableMeal, availableStay, localTitle,
+            travelTitle, localNothing1, travelNothing1, localNothing2, travelNothing2,
             aboutSelf1, aboutSelf2, userInfoProfessional, userInfoPlaces, about;
-    private ImageView userAvatar, flag, photoAdd, travelAdd, aboutEdit,
-            jiantou0, jiantou1, jiantou2, jiantou3;
+    //    private TextView time, userName, userIdAndPlace,
+//            userSexAndAge, userFollow, userFollowing, userReference,
+//             userLocal, userMeal, userStay, userEdit, userAddFollow;
+    private ImageView photoAdd, travelAdd, aboutEdit, jiantou0, jiantou1, jiantou2, jiantou3;
+    //    private ImageView userAvatar, flag;
     private ProgressBar photosProgressBar;
     private RelativeLayout layout_photo, layout_travel, layout_tag;
     private UserPhotosAdapter photoAdapter;
-    private LinearLayout travelContent, layoutSelf, layoutSpeak, layoutAge, layoutSex, editOrChat;
+    private LinearLayout travelContent, layoutSelf, layoutSpeak, layoutAge, layoutSex;
+    //    private LinearLayout editOrChat;
     // Data Elements
     private User user;
     private ArrayList<User> userFollowingList = new ArrayList<>();
@@ -98,7 +98,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
     private TextView line;
     private boolean editOrOk = false;//表示标签状态 false：完成 true：编辑
 
-    private LinearLayout follow, following, reference;
+//    private LinearLayout follow, following, reference;
 
     private ArrayList<String> placesList = new ArrayList<>();
     private ArrayList<String> list = new ArrayList<>();
@@ -143,7 +143,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                         user != null &&
                         user.getId().contentEquals(CacheHelper.getInstance().getSelfInfo().getId());
         initView();
-        initData();
+//        initData();
     }
 
     //实例化控件
@@ -156,8 +156,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         tagsView = (EditText) v.findViewById(R.id.tags_layout);
 
         layout_tag = (RelativeLayout) v.findViewById(R.id.userinfo_self);
-        userAvatar = (ImageView) v.findViewById(R.id.userinfo_avatar);
-        flag = (ImageView) v.findViewById(R.id.userinfo_countryImg);
+//        userAvatar = (ImageView) v.findViewById(R.id.userinfo_avatar);
+//        flag = (ImageView) v.findViewById(R.id.userinfo_countryImg);
         photoAdd = (ImageView) v.findViewById(R.id.local_add);
         photoAdd.setOnClickListener(this);
         travelAdd = (ImageView) v.findViewById(R.id.travel_add);
@@ -178,45 +178,45 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         aboutSelf1 = (TextView) v.findViewById(R.id.userinfo_about_self1);
         aboutSelf2 = (TextView) v.findViewById(R.id.userinfo_about_self2);
         about = (TextView) v.findViewById(R.id.userinfo_about);
-        time = (TextView) v.findViewById(R.id.userinfo_time);
         availableMeal = (TextView) v.findViewById(R.id.userinfo_available_meal);
         availableLocal = (TextView) v.findViewById(R.id.userinfo_available_local);
         availableStay = (TextView) v.findViewById(R.id.userinfo_available_stay);
-        userName = (TextView) v.findViewById(R.id.userinfo_name);
-        userIdAndPlace = (TextView) v.findViewById(R.id.userinfo_id);
-        userSexAndAge = (TextView) v.findViewById(R.id.userinfo_sex);
-
-        follow = (LinearLayout) v.findViewById(R.id.layout_follow);
-        follow.setOnClickListener(this);
-        follow.setClickable(false);
-        following = (LinearLayout) v.findViewById(R.id.layout_following);
-        following.setOnClickListener(this);
-        following.setClickable(false);
-        reference = (LinearLayout) v.findViewById(R.id.layout_reference);
-        reference.setOnClickListener(this);
-        reference.setClickable(false);
-
-        userFollowing = (TextView) v.findViewById(R.id.userinfo_follow);
-        userFollow = (TextView) v.findViewById(R.id.userinfo_following);
-        userReference = (TextView) v.findViewById(R.id.userinfo_reference);
-        userAddFollow = (TextView) v.findViewById(R.id.userinfo_add_follow);
-        userAddFollow.setOnClickListener(this);
+//        userName = (TextView) v.findViewById(R.id.userinfo_name);
+//        userIdAndPlace = (TextView) v.findViewById(R.id.userinfo_id);
+//        userSexAndAge = (TextView) v.findViewById(R.id.userinfo_sex);
+//        time = (TextView) v.findViewById(R.id.userinfo_time);
+//
+//        follow = (LinearLayout) v.findViewById(R.id.layout_follow);
+//        follow.setOnClickListener(this);
+//        follow.setClickable(false);
+//        following = (LinearLayout) v.findViewById(R.id.layout_following);
+//        following.setOnClickListener(this);
+//        following.setClickable(false);
+//        reference = (LinearLayout) v.findViewById(R.id.layout_reference);
+//        reference.setOnClickListener(this);
+//        reference.setClickable(false);
+//
+//        userFollowing = (TextView) v.findViewById(R.id.userinfo_follow);
+//        userFollow = (TextView) v.findViewById(R.id.userinfo_following);
+//        userReference = (TextView) v.findViewById(R.id.userinfo_reference);
+//        userAddFollow = (TextView) v.findViewById(R.id.userinfo_add_follow);
+//        userAddFollow.setOnClickListener(this);
         //“Chat”按钮
-        v.findViewById(R.id.userinfo_chat).setOnClickListener(this);
+//        v.findViewById(R.id.userinfo_chat).setOnClickListener(this);
         //“+Reference”按钮
-        v.findViewById(R.id.userinfo_add_reference).setOnClickListener(this);
-        userEdit = (TextView) v.findViewById(R.id.userinfo_edit);
-        userEdit.setOnClickListener(this);
-        if (!requestingOthersData) {
-            userEdit.setVisibility(View.INVISIBLE);
-        }
+//        v.findViewById(R.id.userinfo_add_reference).setOnClickListener(this);
+//        userEdit = (TextView) v.findViewById(R.id.userinfo_edit);
+//        userEdit.setOnClickListener(this);
+//        if (!requestingOthersData) {
+//            userEdit.setVisibility(View.INVISIBLE);
+//        }
         userSpeak = (TextView) v.findViewById(R.id.userinfo_speak_info);
         userAge = (TextView) v.findViewById(R.id.userinfo_age_info);
         userSex = (TextView) v.findViewById(R.id.userinfo_gender_info);
         userInsterest = (TextView) v.findViewById(R.id.userinfo_interest_info);
-        userLocal = (TextView) v.findViewById(R.id.userinfo_tag2);
-        userMeal = (TextView) v.findViewById(R.id.userinfo_tag1);
-        userStay = (TextView) v.findViewById(R.id.userinfo_tag3);
+//        userLocal = (TextView) v.findViewById(R.id.userinfo_tag2);
+//        userMeal = (TextView) v.findViewById(R.id.userinfo_tag1);
+//        userStay = (TextView) v.findViewById(R.id.userinfo_tag3);
         userInfoPlaces = (TextView) v.findViewById(R.id.userinfo_places_info);
         userInfoProfessional = (TextView) v.findViewById(R.id.userinfo_professional_info);
         //local--->本地人
@@ -226,23 +226,23 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         //stay--->家庭住宿
         v.findViewById(R.id.layout_available_stay).setOnClickListener(this);
 
-        editOrChat = (LinearLayout) v.findViewById(R.id.userinfo_edit_chat);
+//        editOrChat = (LinearLayout) v.findViewById(R.id.userinfo_edit_chat);
         layoutSelf = (LinearLayout) v.findViewById(R.id.layout_self);
         layoutSpeak = (LinearLayout) v.findViewById(R.id.layout_speak);
         layoutAge = (LinearLayout) v.findViewById(R.id.layout_age);
         layoutSex = (LinearLayout) v.findViewById(R.id.layout_gender);
 
-        RelativeLayout layoutAvatar = (RelativeLayout) v.findViewById(R.id.asdfasdf);
+//        RelativeLayout layoutAvatar = (RelativeLayout) v.findViewById(R.id.asdfasdf);
         travelContent = (LinearLayout) v.findViewById(R.id.travel_content);
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;//屏幕的宽度
-        LayoutParams params1 = layoutAvatar.getLayoutParams();
-        params1.height = width;
-        layoutAvatar.setLayoutParams(params1);
-        LayoutParams params2 = userAvatar.getLayoutParams();
-        params2.height = width;
-        userAvatar.setLayoutParams(params2);
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        int width = dm.widthPixels;//屏幕的宽度
+//        LayoutParams params1 = layoutAvatar.getLayoutParams();
+//        params1.height = width;
+//        layoutAvatar.setLayoutParams(params1);
+//        LayoutParams params2 = userAvatar.getLayoutParams();
+//        params2.height = width;
+//        userAvatar.setLayoutParams(params2);
 
         layout_photo = (RelativeLayout) v.findViewById(R.id.userinfo_photo);
         layout_travel = (RelativeLayout) v.findViewById(R.id.userinfo_travel);
@@ -275,11 +275,11 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
      */
     private void initData() {
         if (requestingOthersData) {
-            editOrChat.setVisibility(View.INVISIBLE);
-            userEdit.setVisibility(View.VISIBLE);
+//            editOrChat.setVisibility(View.INVISIBLE);
+//            userEdit.setVisibility(View.VISIBLE);
             about.setText(String.format(getString(R.string.user_about), "Me"));
         } else {
-            userSexAndAge.setVisibility(View.INVISIBLE);
+//            userSexAndAge.setVisibility(View.INVISIBLE);
             photoAdd.setVisibility(View.INVISIBLE);
             travelAdd.setVisibility(View.INVISIBLE);
             aboutEdit.setVisibility(View.INVISIBLE);
@@ -295,18 +295,18 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         meal = user.getHomeMeal();
         stay = user.getHomeStay();
         // Non-Null Values
-        userName.setText(user.getNickname());
+//        userName.setText(user.getNickname());
 
         //设置登录和注册时间
-        if (user.getLoginTime().isEmpty()) {
-            time.setText(new StringBuilder().append("Member Since ").append(
-                    TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")));
-        } else {
-            time.setText(new StringBuilder().append("Member Since ")
-                    .append(TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo"))
-                    .append(" Active:")
-                    .append(TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)));
-        }
+//        if (user.getLoginTime().isEmpty()) {
+//            time.setText(new StringBuilder().append("Member Since ").append(
+//                    TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo")));
+//        } else {
+//            time.setText(new StringBuilder().append("Member Since ")
+//                    .append(TimeHelper.getInstance().parseTimestampToDate(user.getCreatedAt(), "UserInfo"))
+//                    .append(" Active:")
+//                    .append(TimeHelper.getInstance().parseTimestampToTime(Long.valueOf(user.getLoginTime()) * 1000L)));
+//        }
         // TODO completely hide the view for each attribute if its not set
         // Possibly Null Values
         if (user.hasProperlyFormedBirthDate()) {
@@ -314,17 +314,17 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
-                            userSexAndAge.setText(
-                                    new StringBuilder().append(getString(R.string.userinfo_male)).append(", ").append(
-                                            user.getUserAge()));
+//                            userSexAndAge.setText(
+//                                    new StringBuilder().append(getString(R.string.userinfo_male)).append(", ").append(
+//                                            user.getUserAge()));
                             break;
                         case "Female":
-                            userSexAndAge.setText(new StringBuilder().append(getString(R.string.userinfo_female)).append(", ").append(
-                                    user.getUserAge()));
+//                            userSexAndAge.setText(new StringBuilder().append(getString(R.string.userinfo_female)).append(", ").append(
+//                                    user.getUserAge()));
                             break;
                     }
                 } else {
-                    userSexAndAge.setVisibility(View.INVISIBLE);
+//                    userSexAndAge.setVisibility(View.INVISIBLE);
                     layoutAge.setVisibility(View.VISIBLE);
                     layoutSex.setVisibility(View.VISIBLE);
                     userAge.setText(String.valueOf(user.getUserAge()));
@@ -336,14 +336,14 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (requestingOthersData) {
                     switch (user.getGender()) {
                         case "Male":
-                            userSexAndAge.setText(getString(R.string.userinfo_male));
+//                            userSexAndAge.setText(getString(R.string.userinfo_male));
                             break;
                         case "Female":
-                            userSexAndAge.setText(getString(R.string.userinfo_female));
+//                            userSexAndAge.setText(getString(R.string.userinfo_female));
                             break;
                     }
                 } else {
-                    userSexAndAge.setVisibility(View.INVISIBLE);
+//                    userSexAndAge.setVisibility(View.INVISIBLE);
                     layoutAge.setVisibility(View.VISIBLE);
                     layoutSex.setVisibility(View.VISIBLE);
                     userAge.setText(String.valueOf(user.getUserAge()));
@@ -423,39 +423,39 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             userInfoPlaces.setHint("");
             userInfoPlaces.setEnabled(false);
         }
-        userIdAndPlace.setText(new StringBuilder().append("ID:").append(user.getUsername()));
-        if (!user.getLocation().isEmpty()) {
-            userIdAndPlace.setText(new StringBuilder().
-                    append(userIdAndPlace.getText()).append(", ").append(user.getLocation()));
-        }
+//        userIdAndPlace.setText(new StringBuilder().append("ID:").append(user.getUsername()));
+//        if (!user.getLocation().isEmpty()) {
+//            userIdAndPlace.setText(new StringBuilder().
+//                    append(userIdAndPlace.getText()).append(", ").append(user.getLocation()));
+//        }
         if (user.getHomeMeal()) {
-            userMeal.setVisibility(View.VISIBLE);
+//            userMeal.setVisibility(View.VISIBLE);
             meal = true;
             availableMeal.setTextColor(Color.rgb(25, 143, 153));
             availableMeal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
         }
         if (user.getHomeStay()) {
-            userStay.setVisibility(View.VISIBLE);
+//            userStay.setVisibility(View.VISIBLE);
             stay = true;
             availableStay.setTextColor(Color.rgb(25, 143, 153));
             availableStay.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
         }
         if (user.getLocalGuidey()) {
-            userLocal.setVisibility(View.VISIBLE);
+//            userLocal.setVisibility(View.VISIBLE);
             local = true;
             availableLocal.setTextColor(Color.rgb(25, 143, 153));
             availableLocal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
         }
-        if (user.getRelation() == 1) {
-            userAddFollow.setTextColor(Color.rgb(255, 224, 130));
-            userAddFollow.setText(getString(R.string.user_unfollow));
-        } else {
-            userAddFollow.setText(getString(R.string.user_follow));
-        }
+//        if (user.getRelation() == 1) {
+//            userAddFollow.setTextColor(Color.rgb(255, 224, 130));
+//            userAddFollow.setText(getString(R.string.user_unfollow));
+//        } else {
+//            userAddFollow.setText(getString(R.string.user_follow));
+//        }
 
-        String countryCode = JsonHelper.getInstance().getCodeFromCountry(user.getCountry());
-        uiHelper.imageViewSetPossiblyEmptyUrl(getActivity(), userAvatar, user.getAvatar(), "original");
-        ImageHelper.getInstance().loadFlag(flag, countryCode, 1);
+//        String countryCode = JsonHelper.getInstance().getCodeFromCountry(user.getCountry());
+//        uiHelper.imageViewSetPossiblyEmptyUrl(getActivity(), userAvatar, user.getAvatar(), "original");
+//        ImageHelper.getInstance().loadFlag(flag, countryCode, 1);
         if (!user.getSignature().isEmpty()) {
             layout_tag.setVisibility(View.GONE);
             tagsView.setText(user.getSignature());
@@ -483,8 +483,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                         Log.e(LOG_TAG, "Inner Exception caught: " + e2.toString());
                     }
                 }
-                userReference.setText(String.valueOf(referenceList.size()));
-                reference.setClickable(true);
+//                userReference.setText(String.valueOf(referenceList.size()));
+//                reference.setClickable(true);
             }
 
             @Override
@@ -535,63 +535,63 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             case R.id.userinfo_speak_info:
                 SelectSpeakDialog.newInstance(getActivity(), user, userSpeak, handler1).show(getFragmentManager(), "speak");
                 break;
-            case R.id.layout_follow:
-                MobclickAgent.onEvent(getActivity(), "members_follower");
-                mIntent = new Intent(getActivity(), UserListActivity.class);
-                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowingList);
-                mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_following));
-                startActivity(mIntent);
-                break;
-            case R.id.layout_following:
-                MobclickAgent.onEvent(getActivity(), "members_following");
-                mIntent = new Intent(getActivity(), UserListActivity.class);
-                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowList);
-                mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_followers));
-                startActivity(mIntent);
-                break;
-            case R.id.userinfo_add_reference:
-                MobclickAgent.onEvent(getActivity(), "members_add_reference");
-                mIntent = new Intent(getActivity(), ReferenceActivity.class);
-                mIntent.putExtra(TARGET_USER_ID, user.getId());
-                mIntent.putExtra(TARGET_USER_NAME, user.getNickname());
-                mIntent.putParcelableArrayListExtra(REFERENCES, referenceList);
-                mIntent.putExtra("addReference", 1);
-                startActivityForResult(mIntent, EDIT_REFERENCES);
-                break;
-            case R.id.layout_reference:
-                MobclickAgent.onEvent(getActivity(), "members_reference");
-                mIntent = new Intent(getActivity(), ReferenceActivity.class);
-                mIntent.putExtra(TARGET_USER_ID, user.getId());
-                mIntent.putExtra(TARGET_USER_NAME, user.getNickname());
-                mIntent.putParcelableArrayListExtra(REFERENCES, referenceList);
-                startActivityForResult(mIntent, EDIT_REFERENCES);
-                break;
-            case R.id.userinfo_add_follow:
-                new ChangeRelation().execute();
-                break;
-            case R.id.userinfo_chat:
-                MobclickAgent.onEvent(getActivity(), "members_chat");
-                Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-                chatIntent.putExtra("username", user.getUsername());
-                chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
-                chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
-                startActivity(chatIntent);
-                break;
-            case R.id.userinfo_edit:
-                Intent editIntent = new Intent(getActivity(), EditInfoActivity.class);
-                startActivityForResult(editIntent, EDIT_USER);
-                break;
+//            case R.id.layout_follow:
+//                MobclickAgent.onEvent(getActivity(), "members_follower");
+//                mIntent = new Intent(getActivity(), UserListActivity.class);
+//                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowingList);
+//                mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_following));
+//                startActivity(mIntent);
+//                break;
+//            case R.id.layout_following:
+//                MobclickAgent.onEvent(getActivity(), "members_following");
+//                mIntent = new Intent(getActivity(), UserListActivity.class);
+//                mIntent.putParcelableArrayListExtra(UserListActivity.USER_LIST, userFollowList);
+//                mIntent.putExtra(UserListActivity.PAGE_TITLE, getString(R.string.user_followers));
+//                startActivity(mIntent);
+//                break;
+//            case R.id.userinfo_add_reference:
+//                MobclickAgent.onEvent(getActivity(), "members_add_reference");
+//                mIntent = new Intent(getActivity(), ReferenceActivity.class);
+//                mIntent.putExtra(TARGET_USER_ID, user.getId());
+//                mIntent.putExtra(TARGET_USER_NAME, user.getNickname());
+//                mIntent.putParcelableArrayListExtra(REFERENCES, referenceList);
+//                mIntent.putExtra("addReference", 1);
+//                startActivityForResult(mIntent, EDIT_REFERENCES);
+//                break;
+//            case R.id.layout_reference:
+//                MobclickAgent.onEvent(getActivity(), "members_reference");
+//                mIntent = new Intent(getActivity(), ReferenceActivity.class);
+//                mIntent.putExtra(TARGET_USER_ID, user.getId());
+//                mIntent.putExtra(TARGET_USER_NAME, user.getNickname());
+//                mIntent.putParcelableArrayListExtra(REFERENCES, referenceList);
+//                startActivityForResult(mIntent, EDIT_REFERENCES);
+//                break;
+//            case R.id.userinfo_add_follow:
+//                new ChangeRelation().execute();
+//                break;
+//            case R.id.userinfo_chat:
+//                MobclickAgent.onEvent(getActivity(), "members_chat");
+//                Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+//                chatIntent.putExtra("username", user.getUsername());
+//                chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
+//                chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
+//                startActivity(chatIntent);
+//                break;
+//            case R.id.userinfo_edit:
+//                Intent editIntent = new Intent(getActivity(), EditInfoActivity.class);
+//                startActivityForResult(editIntent, EDIT_USER);
+//                break;
             case R.id.layout_available_local:
                 if (!local) {
                     user.setLocalGuide(false);
                     local = true;
-                    userLocal.setVisibility(View.VISIBLE);
+//                    userLocal.setVisibility(View.VISIBLE);
                     availableLocal.setTextColor(Color.rgb(25, 143, 153));
                     availableLocal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
                     user.setLocalGuide(true);
                     local = false;
-                    userLocal.setVisibility(View.INVISIBLE);
+//                    userLocal.setVisibility(View.INVISIBLE);
                     availableLocal.setTextColor(Color.rgb(171, 171, 171));
                     availableLocal.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 }
@@ -601,13 +601,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (!meal) {
                     user.setHomeMeal(false);
                     meal = true;
-                    userMeal.setVisibility(View.VISIBLE);
+//                    userMeal.setVisibility(View.VISIBLE);
                     availableMeal.setTextColor(Color.rgb(25, 143, 153));
                     availableMeal.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
                     user.setHomeMeal(true);
                     meal = false;
-                    userMeal.setVisibility(View.INVISIBLE);
+//                    userMeal.setVisibility(View.INVISIBLE);
                     availableMeal.setTextColor(Color.rgb(171, 171, 171));
                     availableMeal.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 }
@@ -617,13 +617,13 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (!stay) {
                     user.setHomeStay(false);
                     stay = true;
-                    userStay.setVisibility(View.VISIBLE);
+//                    userStay.setVisibility(View.VISIBLE);
                     availableStay.setTextColor(Color.rgb(25, 143, 153));
                     availableStay.setCompoundDrawablesWithIntrinsicBounds(null, null, getActivity().getResources().getDrawable(R.drawable.personal_done_48dp), null);
                 } else {
                     user.setHomeStay(true);
                     stay = false;
-                    userStay.setVisibility(View.INVISIBLE);
+//                    userStay.setVisibility(View.INVISIBLE);
                     availableStay.setTextColor(Color.rgb(171, 171, 171));
                     availableStay.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 }
@@ -648,7 +648,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                 if (resultCode == ReferenceActivity.RESULT_OK) {
                     referenceList.clear();
                     referenceList.addAll(data.<Reference>getParcelableArrayListExtra(ReferenceActivity.INTENT_USER_REFERENCE));
-                    userReference.setText(String.valueOf(referenceList.size()));
+//                    userReference.setText(String.valueOf(referenceList.size()));
                 }
                 break;
             case ADD_PHOTOS:
@@ -910,7 +910,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            userAddFollow.setClickable(false);
+//            userAddFollow.setClickable(false);
         }
 
         @Override
@@ -957,12 +957,12 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                                 publishProgress(null, getString(R.string.follow) + " " + user.getNickname() + "!");
                             }
                         }.start();
-                        userAddFollow.setTextColor(Color.rgb(255, 224, 130));
-                        userAddFollow.setText(getString(R.string.user_unfollow));
+//                        userAddFollow.setTextColor(Color.rgb(255, 224, 130));
+//                        userAddFollow.setText(getString(R.string.user_unfollow));
                     } else {
                         MobclickAgent.onEvent(getActivity(), "members_follow", new HashMap<String, String>().put("follow", "follow"));
-                        userAddFollow.setTextColor(Color.rgb(255, 255, 255));
-                        userAddFollow.setText(getString(R.string.user_follow));
+//                        userAddFollow.setTextColor(Color.rgb(255, 255, 255));
+//                        userAddFollow.setText(getString(R.string.user_follow));
                         CacheHelper.getInstance().removeContact(user);
                         new Thread() {
                             @Override
@@ -979,7 +979,7 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
                     e.printStackTrace();
                 }
             }
-            userAddFollow.setClickable(true);
+//            userAddFollow.setClickable(true);
         }
     }
 
@@ -1053,8 +1053,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPostExecute(success);
             if (isAdded()) {
                 if (success) {
-                    userFollowing.setText(String.valueOf(userFollowingList.size()));
-                    following.setClickable(true);
+//                    userFollowing.setText(String.valueOf(userFollowingList.size()));
+//                    following.setClickable(true);
                 } else {
                     Toast.makeText(getActivity(), "Failed to get User's Contacts", Toast.LENGTH_LONG).show();
                 }
@@ -1086,8 +1086,8 @@ public class UserInfoFragment extends Fragment implements OnClickListener {
             super.onPostExecute(success);
             if (isAdded()) {
                 if (success) {
-                    userFollow.setText(String.valueOf(userFollowList.size()));
-                    follow.setClickable(true);
+//                    userFollow.setText(String.valueOf(userFollowList.size()));
+//                    follow.setClickable(true);
                 } else {
                     Toast.makeText(getActivity(), "Failed to get User's Followers", Toast.LENGTH_LONG).show();
                 }

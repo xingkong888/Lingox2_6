@@ -661,7 +661,6 @@ public class LocalViewActivity extends Activity implements View.OnClickListener,
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Log.d("星期", "back");
             finishedViewing();
         }
         return super.onKeyDown(keyCode, event);
@@ -678,6 +677,7 @@ public class LocalViewActivity extends Activity implements View.OnClickListener,
         if (!replyEveryOne) {
             //若正在回复某人，则清空回复框
             replyEveryOne = true;
+            commentEditText.clearFocus();
             commentEditText.setHint("");
         } else {
             //返回上一页

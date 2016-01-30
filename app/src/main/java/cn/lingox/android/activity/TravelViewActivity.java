@@ -572,17 +572,6 @@ public class TravelViewActivity extends Activity implements OnClickListener, Scr
             case R.id.travel_view_back://返回
                 finishedViewing();
                 break;
-            case R.id.chat_travel://聊天
-                if (!LingoXApplication.getInstance().getSkip()) {
-                    Intent chatIntent = new Intent(TravelViewActivity.this, ChatActivity.class);
-                    chatIntent.putExtra("username", user.getUsername());
-                    chatIntent.putExtra(StringConstant.nicknameStr, user.getNickname());
-                    chatIntent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
-                    startActivity(chatIntent);
-                } else {
-                    SkipDialog.getDialog(this).show();
-                }
-                break;
             case R.id.travel_menu://菜单
                 mPopupWindow.showAsDropDown(menu, -100, 0);
                 break;

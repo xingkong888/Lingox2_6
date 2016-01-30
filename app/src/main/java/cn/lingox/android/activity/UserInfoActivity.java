@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -88,23 +88,27 @@ public class UserInfoActivity extends ActionBarActivity {
     }
 
     private void afterUserLoaded() {
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
         infoFragment = new UserInfoFragment();
-        pathFragment = new UserInfoPathFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(USER, user);
         infoFragment.setArguments(bundle);
-        pathFragment.setArguments(bundle);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.add(R.id.info_reply, infoFragment);
+        ft.commit();
+//        pathFragment = new UserInfoPathFragment();
+//        pathFragment.setArguments(bundle);
 
-        UserInfoActivityFragmentAdapter tabAdapter = new UserInfoActivityFragmentAdapter(getSupportFragmentManager());
-        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_container_1);
-        viewPager.setAdapter(tabAdapter);
-        // (Number of fragments - 1) This prevents the edge tabs being recreated
-        viewPager.setOffscreenPageLimit(2);
-        if (getIntent().hasExtra(LocalEditActivity.ADDED_PATH)) {
-            viewPager.setCurrentItem(1);
-        }
-        name.setText(user.getNickname());
+//        UserInfoActivityFragmentAdapter tabAdapter = new UserInfoActivityFragmentAdapter(getSupportFragmentManager());
+//        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_container_1);
+//        viewPager.setAdapter(tabAdapter);
+//  //       (Number of fragments - 1) This prevents the edge tabs being recreated
+//        viewPager.setOffscreenPageLimit(2);
+//        if (getIntent().hasExtra(LocalEditActivity.ADDED_PATH)) {
+//            viewPager.setCurrentItem(1);
+//        }
+//        name.setText(user.getNickname());
     }
 
     @Override

@@ -1,161 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/userinfo_view"
+    android:id="@+id/user_info_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/three_fa">
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="center"
+        android:src="@drawable/travel_top" />
 
     <RelativeLayout
-        android:id="@+id/asdfasdf"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:contentDescription="填写注册时间和上次登录时间"
+            android:gravity="center"
+            android:text="ddddddddddddd"
+            android:textColor="#d8d8d8"
+            android:textSize="13sp" />
+
+        <cn.lingox.android.utils.CircularImageView
+            android:id="@+id/info_avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/default_avatar" />
 
         <ImageView
-            android:id="@+id/userinfo_avatar"
-            style="@style/match_wrap"
-            android:scaleType="fitXY"
-            android:src="@drawable/share_pic1_62dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/time"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/info_avatar"
+            android:src="@drawable/travel_chat" />
 
-        <RelativeLayout
-            android:id="@+id/lalalalalala"
-            style="@style/match_wrap"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/nearby_colorgradient_360dp95dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_above="@+id/userinfo_id">
-
-                <ImageView
-                    android:id="@+id/userinfo_countryImg"
-                    android:layout_width="30dp"
-                    android:layout_height="22dp"
-                    android:layout_alignParentTop="true" />
-
-                <TextView
-                    android:id="@+id/userinfo_name"
-                    style="@style/shadow_style"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="12dp"
-                    android:text="Diana"
-                    android:textColor="@color/white"
-                    android:textSize="23sp" />
-
-                <TextView
-                    android:id="@+id/userinfo_sex"
-                    style="@style/wrap_wrap"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@+id/userinfo_name"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/userinfo_id"
-                style="@style/wrap_wrap"
-                android:layout_above="@+id/userinfo_time"
-                android:layout_marginLeft="12dp"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/userinfo_time"
-                style="@style/wrap_wrap"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="12dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/white"
-                android:textSize="11sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/info_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_avatar"
+            android:layout_marginTop="20dp"
+            android:contentDescription="名字"
+            android:gravity="center"
+            android:text="name"
+            android:textColor="#202020"
+            android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="95dp"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:id="@+id/info_name_age_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_name"
+            android:layout_marginTop="15dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_location_on_black_18dp" />
 
             <TextView
-                android:id="@+id/userinfo_tag2"
-                style="@style/row_user_info_include_tag"
-                android:layout_marginBottom="2dp"
-                android:text="@string/local_guide" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="用户的地址、年龄及性别。“M”表示男性，“F”表示女性"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:text="dddddd 25M"
+                android:textColor="#3c3c3c"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/userinfo_tag1"
-                style="@style/row_user_info_include_tag"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
-                android:text="@string/home_meal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/info_name_age_sex">
+            <!-- 评论-->
+            <LinearLayout
+                android:id="@+id/info_references"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/userinfo_tag3"
-                style="@style/row_user_info_include_tag"
-                android:layout_marginTop="2dp"
-                android:text="@string/home_stay" />
+                <TextView
+                    android:id="@+id/info_references_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="用户的评论数"
+                    android:text="999"
+                    android:textColor="#616161"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="references"
+                    android:textAllCaps="true"
+                    android:textColor="#616161"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <!-- 创建的活动-->
+            <LinearLayout
+                android:id="@+id/info_hosted"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/info_hosted_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="用户创建过的活动数"
+                    android:text="999"
+                    android:textColor="#616161"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hosted"
+                    android:textAllCaps="true"
+                    android:textColor="#616161"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <!-- 加入的活动-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/userinfo_include"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_below="@+id/asdfasdf"
-        android:background="@color/three_fa"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+</RelativeLayout><!--原布局--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/user_info_view"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:background="@color/three_fa">-->
 
-        <LinearLayout
-            android:id="@+id/layout_follow"
-            style="@style/row_user_info_include_linear">
+    <!--<RelativeLayout--><!--android:id="@+id/asdfasdf"--><!--android:layout_width="match_parent"--><!--android:layout_height="100dp"--><!--android:gravity="center_vertical">-->
 
-            <TextView
-                android:id="@+id/userinfo_follow"
-                style="@style/row_user_info_include_num" />
+    <!--<ImageView--><!--android:id="@+id/userinfo_avatar"--><!--style="@style/match_wrap"--><!--android:scaleType="fitXY"--><!--android:src="@drawable/share_pic1_62dp" />-->
 
-            <TextView
-                android:id="@+id/userinfo_follow_"
-                style="@style/row_user_info_include_"
-                android:text="@string/userinfo_follow" />
-        </LinearLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/lalalalalala"--><!--style="@style/match_wrap"--><!--android:layout_alignParentBottom="true"--><!--android:background="@drawable/nearby_colorgradient_360dp95dp"--><!--android:orientation="vertical">-->
 
-        <LinearLayout
-            android:id="@+id/layout_following"
-            style="@style/row_user_info_include_linear">
+    <!--<RelativeLayout--><!--android:layout_width="wrap_content"--><!--android:layout_height="33dp"--><!--android:layout_above="@+id/userinfo_id">-->
 
-            <TextView
-                android:id="@+id/userinfo_following"
-                style="@style/row_user_info_include_num" />
+    <!--<ImageView--><!--android:id="@+id/userinfo_countryImg"--><!--android:layout_width="30dp"--><!--android:layout_height="22dp"--><!--android:layout_alignParentTop="true" />-->
 
-            <TextView
-                android:id="@+id/userinfo_following_"
-                style="@style/row_user_info_include_"
-                android:text="@string/userinfo_following" />
-        </LinearLayout>
+    <!--<TextView--><!--android:id="@+id/userinfo_name"--><!--style="@style/shadow_style"--><!--android:layout_alignParentBottom="true"--><!--android:layout_marginLeft="12dp"--><!--android:text="Diana"--><!--android:textColor="@color/white"--><!--android:textSize="23sp" />-->
 
-        <LinearLayout
-            android:id="@+id/layout_reference"
-            style="@style/row_user_info_include_linear">
+    <!--<TextView--><!--android:id="@+id/userinfo_sex"--><!--style="@style/wrap_wrap"--><!--android:layout_alignParentBottom="true"--><!--android:layout_marginLeft="12dp"--><!--android:layout_toRightOf="@+id/userinfo_name"--><!--android:textColor="@color/white"--><!--android:textSize="14sp" />--><!--</RelativeLayout>-->
 
-            <TextView
-                android:id="@+id/userinfo_reference"
-                style="@style/row_user_info_include_num" />
+    <!--<TextView--><!--android:id="@+id/userinfo_id"--><!--style="@style/wrap_wrap"--><!--android:layout_above="@+id/userinfo_time"--><!--android:layout_marginLeft="12dp"--><!--android:textColor="@color/white"--><!--android:textSize="14sp" />-->
 
-            <TextView
-                android:id="@+id/userinfo_reference_"
-                style="@style/row_user_info_include_"
-                android:text="@string/userinfo_reference" />
-        </LinearLayout>
-    </LinearLayout>
+    <!--<TextView--><!--android:id="@+id/userinfo_time"--><!--style="@style/wrap_wrap"--><!--android:layout_alignParentBottom="true"--><!--android:layout_marginLeft="12dp"--><!--android:paddingBottom="8dp"--><!--android:textColor="@color/white"--><!--android:textSize="11sp" />--><!--</RelativeLayout>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/userinfo_include"
-        android:background="@drawable/shade" />
-</RelativeLayout>
+    <!--<LinearLayout--><!--android:layout_width="95dp"--><!--android:layout_height="80dp"--><!--android:layout_alignParentBottom="true"--><!--android:layout_alignParentRight="true"--><!--android:gravity="center_vertical"--><!--android:orientation="vertical">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_tag2"--><!--style="@style/row_user_info_include_tag"--><!--android:layout_marginBottom="2dp"--><!--android:text="@string/local_guide" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_tag1"--><!--style="@style/row_user_info_include_tag"--><!--android:layout_marginBottom="2dp"--><!--android:layout_marginTop="2dp"--><!--android:text="@string/home_meal" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_tag3"--><!--style="@style/row_user_info_include_tag"--><!--android:layout_marginTop="2dp"--><!--android:text="@string/home_stay" />--><!--</LinearLayout>--><!--</RelativeLayout>-->
+
+    <!--<LinearLayout--><!--android:id="@+id/user_info_include"--><!--android:layout_width="match_parent"--><!--android:layout_height="53dp"--><!--android:layout_below="@+id/asdfasdf"--><!--android:background="@color/three_fa"--><!--android:baselineAligned="false"--><!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout--><!--android:id="@+id/layout_follow"--><!--style="@style/row_user_info_include_linear">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_follow"--><!--style="@style/row_user_info_include_num" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_follow_"--><!--style="@style/row_user_info_include_"--><!--android:text="@string/userinfo_follow" />--><!--</LinearLayout>-->
+
+    <!--<LinearLayout--><!--android:id="@+id/layout_following"--><!--style="@style/row_user_info_include_linear">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_following"--><!--style="@style/row_user_info_include_num" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_following_"--><!--style="@style/row_user_info_include_"--><!--android:text="@string/userinfo_following" />--><!--</LinearLayout>-->
+
+    <!--<LinearLayout--><!--android:id="@+id/layout_reference"--><!--style="@style/row_user_info_include_linear">-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_reference"--><!--style="@style/row_user_info_include_num" />-->
+
+    <!--<TextView--><!--android:id="@+id/userinfo_reference_"--><!--style="@style/row_user_info_include_"--><!--android:text="@string/userinfo_reference" />--><!--</LinearLayout>--><!--</LinearLayout>-->
+
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="2dp"--><!--android:layout_below="@+id/user_info_include"--><!--android:background="@drawable/shade" />--><!--</RelativeLayout>-->
